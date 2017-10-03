@@ -41,422 +41,346 @@ import org.jboss.seam.jsf.SeamStateManager;
 import org.jboss.seam.jsf.SeamViewHandler;
 import org.jboss.seam.util.Reflections;
 
+public class MockApplication extends Application {
 
-public class MockApplication extends Application
-{
-   
-   @Override
-   public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass, Object source)
-   {
-      // empty publish method      
-   }
+	@Override
+	public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass, Object source) {
+		// empty publish method
+	}
 
-   @Override
-   public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass, Class<?> sourceBaseType, Object source)
-   {
-      // empty publish method
-   }
+	@Override
+	public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass,
+			Class<?> sourceBaseType, Object source) {
+		// empty publish method
+	}
 
-   private javax.el.CompositeELResolver elResolver;
-   private javax.el.CompositeELResolver additionalResolvers;
-   private Collection<Locale> locales;
-   
-   public MockApplication()
-   {
-     elResolver = new CompositeELResolver();
-     additionalResolvers = new CompositeELResolver();
-     elResolver.add(additionalResolvers);
-     elResolver.add(EL.EL_RESOLVER); 
-   }
-   
-   @SuppressWarnings("unchecked")
-   @Override
-   public <T> T evaluateExpressionGet(FacesContext context, String expression, Class<? extends T> type) throws javax.el.ELException 
-   {
-       return (T) getExpressionFactory().createValueExpression(context.getELContext(), expression, type).getValue(context.getELContext());
-   }
-   
-   @Override
-   public void addELContextListener(javax.el.ELContextListener elcl) 
-   {
-      throw new UnsupportedOperationException();
-   }
-   
-   @Override
-   public void addELResolver(javax.el.ELResolver r) 
-   {
-      additionalResolvers.add(r);
-   }
-   
-   @Override
-   public UIComponent createComponent(javax.el.ValueExpression ve, FacesContext context, String id) throws FacesException 
-   {
-      throw new UnsupportedOperationException();
-   }
-   
-   @Override
-   public javax.el.ELContextListener[] getELContextListeners() 
-   {
-      throw new UnsupportedOperationException();
-   }
-   
-   
-   
-   @Override
-   public javax.el.ELResolver getELResolver() 
-   {
-      return elResolver;
-   }
-   
-   @Override
-   public java.util.ResourceBundle getResourceBundle(FacesContext context, String string) 
-   {
-      throw new UnsupportedOperationException();
-   }
-   
-   @Override
-   public void removeELContextListener(javax.el.ELContextListener elcl) 
-   {
-      throw new UnsupportedOperationException();
-   }
-   
-   @Override
-   public ActionListener getActionListener()
-   {
-      throw new UnsupportedOperationException();
-   }
+	private javax.el.CompositeELResolver elResolver;
+	private javax.el.CompositeELResolver additionalResolvers;
+	private Collection<Locale> locales;
 
-   @Override
-   public void setActionListener(ActionListener listener)
-   {
-      throw new UnsupportedOperationException();
-   }
+	public MockApplication() {
+		elResolver = new CompositeELResolver();
+		additionalResolvers = new CompositeELResolver();
+		elResolver.add(additionalResolvers);
+		elResolver.add(EL.EL_RESOLVER);
+	}
 
-   private Locale defaultLocale = Locale.ENGLISH;
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T evaluateExpressionGet(FacesContext context, String expression, Class<? extends T> type)
+			throws javax.el.ELException {
+		return (T) getExpressionFactory().createValueExpression(context.getELContext(), expression, type)
+				.getValue(context.getELContext());
+	}
 
-   @Override
-   public Locale getDefaultLocale()
-   {
-      return defaultLocale;
-   }
+	@Override
+	public void addELContextListener(javax.el.ELContextListener elcl) {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public void setDefaultLocale(Locale locale)
-   {
-      defaultLocale = locale;
-   }
+	@Override
+	public void addELResolver(javax.el.ELResolver r) {
+		additionalResolvers.add(r);
+	}
 
-   @Override
-   public String getDefaultRenderKitId()
-   {
-      throw new UnsupportedOperationException();
-   }
+	@Override
+	public UIComponent createComponent(javax.el.ValueExpression ve, FacesContext context, String id)
+			throws FacesException {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public void setDefaultRenderKitId(String rk)
-   {
-      throw new UnsupportedOperationException();
-   }
+	@Override
+	public javax.el.ELContextListener[] getELContextListeners() {
+		throw new UnsupportedOperationException();
+	}
 
-   private String msgBundleName;
+	@Override
+	public javax.el.ELResolver getELResolver() {
+		return elResolver;
+	}
 
-   @Override
-   public String getMessageBundle()
-   {
-      return msgBundleName;
-   }
+	@Override
+	public java.util.ResourceBundle getResourceBundle(FacesContext context, String string) {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public void setMessageBundle(String bundleName)
-   {
-      this.msgBundleName = bundleName;
-   }
+	@Override
+	public void removeELContextListener(javax.el.ELContextListener elcl) {
+		throw new UnsupportedOperationException();
+	}
 
-   private NavigationHandler navigationHandler = new SeamNavigationHandler( new MockNavigationHandler() );
+	@Override
+	public ActionListener getActionListener() {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public NavigationHandler getNavigationHandler()
-   {
-      return navigationHandler;
-   }
+	@Override
+	public void setActionListener(ActionListener listener) {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public void setNavigationHandler(NavigationHandler navigationHandler)
-   {
-      this.navigationHandler = navigationHandler;
-   }
+	private Locale defaultLocale = Locale.ENGLISH;
 
- 
+	@Override
+	public Locale getDefaultLocale() {
+		return defaultLocale;
+	}
 
-   private ViewHandler viewHandler = new SeamViewHandler( new MockViewHandler() );
+	@Override
+	public void setDefaultLocale(Locale locale) {
+		defaultLocale = locale;
+	}
 
-   @Override
-   public ViewHandler getViewHandler()
-   {
-      return viewHandler;
-   }
+	@Override
+	public String getDefaultRenderKitId() {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public void setViewHandler(ViewHandler viewHandler)
-   {
-      this.viewHandler = viewHandler;
-   }
+	@Override
+	public void setDefaultRenderKitId(String rk) {
+		throw new UnsupportedOperationException();
+	}
 
-   private StateManager stateManager = new SeamStateManager( new MockStateManager() );
+	private String msgBundleName;
 
-   @Override
-   public StateManager getStateManager()
-   {
-      return stateManager;
-   }
+	@Override
+	public String getMessageBundle() {
+		return msgBundleName;
+	}
 
-   @Override
-   public void setStateManager(StateManager stateManager)
-   {
-      this.stateManager = stateManager;
-   }
+	@Override
+	public void setMessageBundle(String bundleName) {
+		this.msgBundleName = bundleName;
+	}
 
-   @Override
-   public void addComponent(String name, String x)
-   {
-      throw new UnsupportedOperationException();
-   }
+	private NavigationHandler navigationHandler = new SeamNavigationHandler(new MockNavigationHandler());
 
-   @Override
-   public UIComponent createComponent(String name) throws FacesException
-   {
-      // Best guess component creation with a dummy component if it can't be found
-      if (name.startsWith("org.jboss.seam.mail.ui") || name.startsWith("org.jboss.seam.excel.ui"))
-      {
-        try
-        {
-           return (UIComponent) Thread.currentThread().getContextClassLoader().loadClass(name).newInstance();
-        } 
-        catch (Exception e)
-        {           
-           throw new UnsupportedOperationException("Unable to create component " + name, e);
-        }
-      }
-      else
-      {
-         // Oh well, can't simply create the component so put a dummy one in its place
-         return new UIOutput();
-      }
-   }
-   
-   @Override
-   public UIComponent createComponent(FacesContext context, String componentType, String rendererType)
-   {
-      return createComponent(componentType);
-   }
+	@Override
+	public NavigationHandler getNavigationHandler() {
+		return navigationHandler;
+	}
 
+	@Override
+	public void setNavigationHandler(NavigationHandler navigationHandler) {
+		this.navigationHandler = navigationHandler;
+	}
 
+	private ViewHandler viewHandler = new SeamViewHandler(new MockViewHandler());
 
-   @Override
-   public Iterator<String> getComponentTypes()
-   {
-      throw new UnsupportedOperationException();
-   }
+	@Override
+	public ViewHandler getViewHandler() {
+		return viewHandler;
+	}
 
-   private final Map<Class<?>, Converter> converters = new HashMap<Class<?>, Converter>();
-   {
-      converters.put(Integer.class, new IntegerConverter());
-      converters.put(Long.class, new LongConverter());
-      converters.put(Float.class, new FloatConverter());
-      converters.put(Double.class, new DoubleConverter());
-      converters.put(Boolean.class, new BooleanConverter());
-      converters.put(Short.class, new ShortConverter());
-      converters.put(Byte.class, new ByteConverter());
-      converters.put(Character.class, new CharacterConverter());
-      converters.put(BigDecimal.class, new BigDecimalConverter());
-      converters.put(BigInteger.class, new BigIntegerConverter());
-   }
+	@Override
+	public void setViewHandler(ViewHandler viewHandler) {
+		this.viewHandler = viewHandler;
+	}
 
-   private final Map<String, Converter> convertersById = new HashMap<String, Converter>();
-   {
-      convertersById.put(IntegerConverter.CONVERTER_ID, new IntegerConverter());
-      convertersById.put(LongConverter.CONVERTER_ID, new LongConverter());
-      convertersById.put(FloatConverter.CONVERTER_ID, new FloatConverter());
-      convertersById.put(DoubleConverter.CONVERTER_ID, new DoubleConverter());
-      convertersById.put(BooleanConverter.CONVERTER_ID, new BooleanConverter());
-      convertersById.put(ShortConverter.CONVERTER_ID, new ShortConverter());
-      convertersById.put(ByteConverter.CONVERTER_ID, new ByteConverter());
-      convertersById.put(CharacterConverter.CONVERTER_ID, new CharacterConverter());
-      convertersById.put(BigDecimalConverter.CONVERTER_ID, new BigDecimalConverter());
-      convertersById.put(BigIntegerConverter.CONVERTER_ID, new BigIntegerConverter());
-   }
+	private StateManager stateManager = new SeamStateManager(new MockStateManager());
 
-   @Override
-   public void addConverter(String id, String converterClass)
-   {
-      convertersById.put(id, instantiateConverter(converterClass));
-   }
+	@Override
+	public StateManager getStateManager() {
+		return stateManager;
+	}
 
-   @Override
-   public void addConverter(Class<?> type, String converterClass)
-   {
-      converters.put(type, instantiateConverter(converterClass));
-   }
+	@Override
+	public void setStateManager(StateManager stateManager) {
+		this.stateManager = stateManager;
+	}
 
-   private Converter instantiateConverter(String converterClass)
-   {
-      try
-      {
-         return (Converter) Reflections.classForName(converterClass).newInstance();
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException(e);
-      }
-   }
+	@Override
+	public void addComponent(String name, String x) {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public Converter createConverter(String id)
-   {
-      return convertersById.get(id);
-   }
+	@Override
+	public UIComponent createComponent(String name) throws FacesException {
+		// Best guess component creation with a dummy component if it can't be found
+		if (name.startsWith("org.jboss.seam.mail.ui") || name.startsWith("org.jboss.seam.excel.ui")) {
+			try {
+				return (UIComponent) Thread.currentThread().getContextClassLoader().loadClass(name).newInstance();
+			} catch (Exception e) {
+				throw new UnsupportedOperationException("Unable to create component " + name, e);
+			}
+		} else {
+			// Oh well, can't simply create the component so put a dummy one in its place
+			return new UIOutput();
+		}
+	}
 
-   @Override
-   public Converter createConverter(Class<?> clazz)
-   {
-      return converters.get(clazz);
-   }
+	@Override
+	public UIComponent createComponent(FacesContext context, String componentType, String rendererType) {
+		return createComponent(componentType);
+	}
 
-   @Override
-   public Iterator<String> getConverterIds()
-   {
-      return convertersById.keySet().iterator();
-   }
+	@Override
+	public Iterator<String> getComponentTypes() {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public Iterator<Class<?>> getConverterTypes()
-   {
-      return converters.keySet().iterator();
-   }
-   
-   @Override
-   public Iterator<Locale> getSupportedLocales()
-   {
-      if (locales == null)
-      {
-         return  Collections.singleton(defaultLocale).iterator();
-      }
-      else
-      {
-         return locales.iterator();
-      }
-   }
+	private final Map<Class<?>, Converter> converters = new HashMap<Class<?>, Converter>();
+	{
+		converters.put(Integer.class, new IntegerConverter());
+		converters.put(Long.class, new LongConverter());
+		converters.put(Float.class, new FloatConverter());
+		converters.put(Double.class, new DoubleConverter());
+		converters.put(Boolean.class, new BooleanConverter());
+		converters.put(Short.class, new ShortConverter());
+		converters.put(Byte.class, new ByteConverter());
+		converters.put(Character.class, new CharacterConverter());
+		converters.put(BigDecimal.class, new BigDecimalConverter());
+		converters.put(BigInteger.class, new BigIntegerConverter());
+	}
 
-   @Override
-   public void setSupportedLocales(Collection<Locale> locales)
-   {
-      this.locales = locales;
-   }
+	private final Map<String, Converter> convertersById = new HashMap<String, Converter>();
+	{
+		convertersById.put(IntegerConverter.CONVERTER_ID, new IntegerConverter());
+		convertersById.put(LongConverter.CONVERTER_ID, new LongConverter());
+		convertersById.put(FloatConverter.CONVERTER_ID, new FloatConverter());
+		convertersById.put(DoubleConverter.CONVERTER_ID, new DoubleConverter());
+		convertersById.put(BooleanConverter.CONVERTER_ID, new BooleanConverter());
+		convertersById.put(ShortConverter.CONVERTER_ID, new ShortConverter());
+		convertersById.put(ByteConverter.CONVERTER_ID, new ByteConverter());
+		convertersById.put(CharacterConverter.CONVERTER_ID, new CharacterConverter());
+		convertersById.put(BigDecimalConverter.CONVERTER_ID, new BigDecimalConverter());
+		convertersById.put(BigIntegerConverter.CONVERTER_ID, new BigIntegerConverter());
+	}
 
-   private final Map<String, Validator> validatorsById = new HashMap<String, Validator>();
-   
-   @Override
-   public void addValidator(String id, String validatorClass)
-   {
-      validatorsById.put(id, instantiateValidator(validatorClass));
-   }
+	@Override
+	public void addConverter(String id, String converterClass) {
+		convertersById.put(id, instantiateConverter(converterClass));
+	}
 
-   private Validator instantiateValidator(String validatorClass)
-   {
-      try
-      {
-         return (Validator) Reflections.classForName(validatorClass).newInstance();
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException(e);
-      }
-   }
-   
-   @Override
-   public Validator createValidator(String id) throws FacesException
-   {
-      return validatorsById.get(id);
-   }
+	@Override
+	public void addConverter(Class<?> type, String converterClass) {
+		converters.put(type, instantiateConverter(converterClass));
+	}
 
-   @Override
-   public Iterator<String> getValidatorIds()
-   {
-      return validatorsById.keySet().iterator();
-   }
+	private Converter instantiateConverter(String converterClass) {
+		try {
+			return (Converter) Reflections.classForName(converterClass).newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-   @Override
-   public ExpressionFactory getExpressionFactory()
-   {
-      return SeamExpressionFactory.INSTANCE;
-   }
-   
-   
-   
-   
-   
-   @Override
-   @Deprecated
-   public UIComponent createComponent(javax.faces.el.ValueBinding vb, FacesContext fc, String x)
-            throws FacesException
-   {
-      throw new UnsupportedOperationException();
-   }
-   
-   @Override
-   @Deprecated
-   public javax.faces.el.MethodBinding createMethodBinding(String expression, Class<?>[] params)
-         throws javax.faces.el.ReferenceSyntaxException
-   {
-      return new org.jboss.seam.jsf.UnifiedELMethodBinding(expression, params);
+	@Override
+	public Converter createConverter(String id) {
+		return convertersById.get(id);
+	}
 
-   }
+	@Override
+	public Converter createConverter(Class<?> clazz) {
+		return converters.get(clazz);
+	}
 
-   @Override
-   @Deprecated
-   public javax.faces.el.ValueBinding createValueBinding(String expression)
-         throws javax.faces.el.ReferenceSyntaxException
-   {
-      return new org.jboss.seam.jsf.UnifiedELValueBinding(expression);
-   }
+	@Override
+	public Iterator<String> getConverterIds() {
+		return convertersById.keySet().iterator();
+	}
 
-   
-   
-   @Override
-   @Deprecated
-   public javax.faces.el.PropertyResolver getPropertyResolver()
-   {
-      throw new UnsupportedOperationException();
-   }
+	@Override
+	public Iterator<Class<?>> getConverterTypes() {
+		return converters.keySet().iterator();
+	}
 
-   @Override
-   @Deprecated
-   public void setPropertyResolver(javax.faces.el.PropertyResolver pr)
-   {
-      throw new UnsupportedOperationException();
-   }
+	@Override
+	public Iterator<Locale> getSupportedLocales() {
+		if (locales == null) {
+			return Collections.singleton(defaultLocale).iterator();
+		} else {
+			return locales.iterator();
+		}
+	}
 
-   @Deprecated
-   private javax.faces.el.VariableResolver variableResolver = new javax.faces.el.VariableResolver() { 
-      @Override
-      public Object resolveVariable(FacesContext ctx, String name) throws javax.faces.el.EvaluationException
-      {
-         return null;
-      }
-   };
+	@Override
+	public void setSupportedLocales(Collection<Locale> locales) {
+		this.locales = locales;
+	}
 
-   @Override
-   @Deprecated
-   public javax.faces.el.VariableResolver getVariableResolver()
-   {
-      return variableResolver;
-   }
+	private final Map<String, Validator> validatorsById = new HashMap<String, Validator>();
 
-   @Override
-   @Deprecated
-   public void setVariableResolver(javax.faces.el.VariableResolver variableResolver)
-   {
-      this.variableResolver = variableResolver;
-   }
-   
+	@Override
+	public void addValidator(String id, String validatorClass) {
+		validatorsById.put(id, instantiateValidator(validatorClass));
+	}
+
+	private Validator instantiateValidator(String validatorClass) {
+		try {
+			return (Validator) Reflections.classForName(validatorClass).newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public Validator createValidator(String id) throws FacesException {
+		return validatorsById.get(id);
+	}
+
+	@Override
+	public Iterator<String> getValidatorIds() {
+		return validatorsById.keySet().iterator();
+	}
+
+	@Override
+	public ExpressionFactory getExpressionFactory() {
+		return SeamExpressionFactory.INSTANCE;
+	}
+
+	@Override
+	@Deprecated
+	public UIComponent createComponent(javax.faces.el.ValueBinding vb, FacesContext fc, String x)
+			throws FacesException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	@Deprecated
+	public javax.faces.el.MethodBinding createMethodBinding(String expression, Class<?>[] params)
+			throws javax.faces.el.ReferenceSyntaxException {
+		return new org.jboss.seam.jsf.UnifiedELMethodBinding(expression, params);
+
+	}
+
+	@Override
+	@Deprecated
+	public javax.faces.el.ValueBinding createValueBinding(String expression)
+			throws javax.faces.el.ReferenceSyntaxException {
+		return new org.jboss.seam.jsf.UnifiedELValueBinding(expression);
+	}
+
+	@Override
+	@Deprecated
+	public javax.faces.el.PropertyResolver getPropertyResolver() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	@Deprecated
+	public void setPropertyResolver(javax.faces.el.PropertyResolver pr) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Deprecated
+	private javax.faces.el.VariableResolver variableResolver = new javax.faces.el.VariableResolver() {
+		@Override
+		public Object resolveVariable(FacesContext ctx, String name) throws javax.faces.el.EvaluationException {
+			return null;
+		}
+	};
+
+	@Override
+	@Deprecated
+	public javax.faces.el.VariableResolver getVariableResolver() {
+		return variableResolver;
+	}
+
+	@Override
+	@Deprecated
+	public void setVariableResolver(javax.faces.el.VariableResolver variableResolver) {
+		this.variableResolver = variableResolver;
+	}
+
 }

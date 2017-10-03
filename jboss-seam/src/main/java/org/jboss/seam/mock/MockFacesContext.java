@@ -32,222 +32,186 @@ import org.jboss.seam.el.EL;
  * @author Gavin King
  * @author <a href="mailto:theute@jboss.org">Thomas Heute</a>
  */
-public class MockFacesContext extends FacesContext
-{
+public class MockFacesContext extends FacesContext {
 
-   private UIViewRoot viewRoot;// = new UIViewRoot();
+	private UIViewRoot viewRoot;// = new UIViewRoot();
 
-   private final Map<FacesMessage, String> messages = new LinkedHashMap<FacesMessage, String>();
+	private final Map<FacesMessage, String> messages = new LinkedHashMap<FacesMessage, String>();
 
-   private ExternalContext externalContext;
+	private ExternalContext externalContext;
 
-   private ResponseWriter responseWriter;
+	private ResponseWriter responseWriter;
 
-   private RenderKitFactory renderKitFactory;
-   
-   private ELContext elContext;
+	private RenderKitFactory renderKitFactory;
 
-   public MockFacesContext(ExternalContext externalContext, Application application)
-   {
-      this.externalContext = externalContext;
-      this.application = application;
-   }
+	private ELContext elContext;
 
-   // Create a MockFacesContext using a ApplicationFactory to get the
-   // Application
-   public MockFacesContext(ExternalContext externalContext)
-   {
-      application = ((ApplicationFactory) FactoryFinder
-               .getFactory(FactoryFinder.APPLICATION_FACTORY)).getApplication();
-      renderKitFactory = (RenderKitFactory) FactoryFinder
-               .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-      this.externalContext = externalContext;
-   }
+	public MockFacesContext(ExternalContext externalContext, Application application) {
+		this.externalContext = externalContext;
+		this.application = application;
+	}
 
-   private Application application;
+	// Create a MockFacesContext using a ApplicationFactory to get the
+	// Application
+	public MockFacesContext(ExternalContext externalContext) {
+		application = ((ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY))
+				.getApplication();
+		renderKitFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+		this.externalContext = externalContext;
+	}
 
-   @Override
-   public Application getApplication()
-   {
-      return application;
-   }
+	private Application application;
 
-   @Override
-   public Iterator<String> getClientIdsWithMessages()
-   {
-      return messages.values().iterator();
-   }
+	@Override
+	public Application getApplication() {
+		return application;
+	}
 
-   @Override
-   public ExternalContext getExternalContext()
-   {
-      return externalContext;
-   }
+	@Override
+	public Iterator<String> getClientIdsWithMessages() {
+		return messages.values().iterator();
+	}
 
-   @Override
-   public Severity getMaximumSeverity()
-   {
-      Severity max = null;
-      for (FacesMessage msg : messages.keySet())
-      {
-         if (max == null || msg.getSeverity().compareTo(max) > 0)
-         {
-            max = msg.getSeverity();
-         }
-      }
-      return max;
-   }
+	@Override
+	public ExternalContext getExternalContext() {
+		return externalContext;
+	}
 
-   @Override
-   public Iterator<FacesMessage> getMessages()
-   {
-      return messages.keySet().iterator();
-   }
+	@Override
+	public Severity getMaximumSeverity() {
+		Severity max = null;
+		for (FacesMessage msg : messages.keySet()) {
+			if (max == null || msg.getSeverity().compareTo(max) > 0) {
+				max = msg.getSeverity();
+			}
+		}
+		return max;
+	}
 
-   @Override
-   public Iterator<FacesMessage> getMessages(String clientId)
-   {
-      List<FacesMessage> list = new ArrayList<FacesMessage>();
-      for (Map.Entry<FacesMessage, String> entry : messages.entrySet())
-      {
-         String messageId = entry.getValue();
-         if ( idsAreEqual(clientId, messageId) )
-         {
-            list.add(entry.getKey());
-         }
-      }
-      return list.iterator();
-   }
+	@Override
+	public Iterator<FacesMessage> getMessages() {
+		return messages.keySet().iterator();
+	}
 
-   private boolean idsAreEqual(String clientId, String messageId)
-   {
-      return (clientId==null && messageId==null) || 
-            (clientId!=null && clientId.equals(messageId));
-   }
+	@Override
+	public Iterator<FacesMessage> getMessages(String clientId) {
+		List<FacesMessage> list = new ArrayList<FacesMessage>();
+		for (Map.Entry<FacesMessage, String> entry : messages.entrySet()) {
+			String messageId = entry.getValue();
+			if (idsAreEqual(clientId, messageId)) {
+				list.add(entry.getKey());
+			}
+		}
+		return list.iterator();
+	}
 
-   @Override
-   public RenderKit getRenderKit()
-   {  
-      if (getViewRoot() == null || getViewRoot().getRenderKitId() == null || renderKitFactory == null)
-      {
-         return MockRenderKit.INSTANCE;
-      }
-      else
-      {
-         return renderKitFactory.getRenderKit(this, getViewRoot().getRenderKitId());
-      }
-   }
+	private boolean idsAreEqual(String clientId, String messageId) {
+		return (clientId == null && messageId == null) || (clientId != null && clientId.equals(messageId));
+	}
 
-   private boolean renderResponse;
+	@Override
+	public RenderKit getRenderKit() {
+		if (getViewRoot() == null || getViewRoot().getRenderKitId() == null || renderKitFactory == null) {
+			return MockRenderKit.INSTANCE;
+		} else {
+			return renderKitFactory.getRenderKit(this, getViewRoot().getRenderKitId());
+		}
+	}
 
-   @Override
-   public boolean getRenderResponse()
-   {
-      return renderResponse;
-   }
+	private boolean renderResponse;
 
-   private boolean responseComplete;
+	@Override
+	public boolean getRenderResponse() {
+		return renderResponse;
+	}
 
-   @Override
-   public boolean getResponseComplete()
-   {
-      return responseComplete;
-   }
+	private boolean responseComplete;
 
-   @Override
-   public ResponseStream getResponseStream()
-   {
-      throw new UnsupportedOperationException();
-   }
+	@Override
+	public boolean getResponseComplete() {
+		return responseComplete;
+	}
 
-   @Override
-   public void setResponseStream(ResponseStream stream)
-   {
-      throw new UnsupportedOperationException();
-   }
+	@Override
+	public ResponseStream getResponseStream() {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public ResponseWriter getResponseWriter()
-   {
-      return responseWriter;
-   }
+	@Override
+	public void setResponseStream(ResponseStream stream) {
+		throw new UnsupportedOperationException();
+	}
 
-   @Override
-   public void setResponseWriter(ResponseWriter writer)
-   {
-      responseWriter = writer;
-   }
+	@Override
+	public ResponseWriter getResponseWriter() {
+		return responseWriter;
+	}
 
-   @Override
-   public UIViewRoot getViewRoot()
-   {
-      return viewRoot;
-   }
+	@Override
+	public void setResponseWriter(ResponseWriter writer) {
+		responseWriter = writer;
+	}
 
-   @Override
-   public void setViewRoot(UIViewRoot vr)
-   {
-      viewRoot = vr;
-   }
+	@Override
+	public UIViewRoot getViewRoot() {
+		return viewRoot;
+	}
 
-   @Override
-   public void addMessage(String clientId, FacesMessage msg)
-   {
-      messages.put(msg, clientId);
-   }
+	@Override
+	public void setViewRoot(UIViewRoot vr) {
+		viewRoot = vr;
+	}
 
-   @Override
-   public void release()
-   {
-      setCurrentInstance(null);
-      MockFacesContextFactory.setFacesContext(null);
-   }
+	@Override
+	public void addMessage(String clientId, FacesMessage msg) {
+		messages.put(msg, clientId);
+	}
 
-   @Override
-   public void renderResponse()
-   {
-      renderResponse = true;
-   }
+	@Override
+	public void release() {
+		setCurrentInstance(null);
+		MockFacesContextFactory.setFacesContext(null);
+	}
 
-   @Override
-   public void responseComplete()
-   {
-      responseComplete = true;
-   }
+	@Override
+	public void renderResponse() {
+		renderResponse = true;
+	}
 
-   public MockFacesContext setCurrent()
-   {
-      setCurrentInstance(this);
-      
-      MockFacesContextFactory.setFacesContext(this);
-      return this;
-   }
+	@Override
+	public void responseComplete() {
+		responseComplete = true;
+	}
 
-   public MockFacesContext createViewRoot()
-   {
-      viewRoot = new UIViewRoot();
-      viewRoot.setRenderKitId(getApplication().getViewHandler().calculateRenderKitId(this));
-      return this;
-   }
+	public MockFacesContext setCurrent() {
+		setCurrentInstance(this);
 
-   @Override
-   public ELContext getELContext()
-   {
-      if (elContext == null)
-      {
-         elContext = EL.createELContext(EL.createELContext(), getApplication().getELResolver());
-         elContext.putContext(FacesContext.class, this);
-      }
-      return elContext;
-   }
-   
-   @Override
-   public boolean isPostback() {
-      return false;
-   }
+		MockFacesContextFactory.setFacesContext(this);
+		return this;
+	}
 
-   @Override
-   public MockPartialViewContext getPartialViewContext() {
-	   return new MockPartialViewContext();
-   }
+	public MockFacesContext createViewRoot() {
+		viewRoot = new UIViewRoot();
+		viewRoot.setRenderKitId(getApplication().getViewHandler().calculateRenderKitId(this));
+		return this;
+	}
+
+	@Override
+	public ELContext getELContext() {
+		if (elContext == null) {
+			elContext = EL.createELContext(EL.createELContext(), getApplication().getELResolver());
+			elContext.putContext(FacesContext.class, this);
+		}
+		return elContext;
+	}
+
+	@Override
+	public boolean isPostback() {
+		return false;
+	}
+
+	@Override
+	public MockPartialViewContext getPartialViewContext() {
+		return new MockPartialViewContext();
+	}
 }

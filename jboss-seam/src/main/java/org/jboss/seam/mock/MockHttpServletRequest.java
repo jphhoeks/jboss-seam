@@ -82,11 +82,9 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	private String localAddr;
 	private int localPort;
 
-
 	public MockHttpServletRequest(HttpSession session) {
 		this(session, null, new HashSet<String>());
 	}
-   
 
 	public MockHttpServletRequest(HttpSession session, ExternalContext externalContext) {
 		this(session, null, new HashSet<String>());
@@ -126,7 +124,6 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		this(session, principalName, principalRoles, new Cookie[] {}, null);
 	}
 
-
 	public MockHttpServletRequest(HttpSession session, String principalName, Set<String> principalRoles,
 			Cookie[] cookies, String method) {
 		this.session = session;
@@ -164,7 +161,6 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		String[] values = headers.get(header);
 		return values == null || values.length == 0 ? null : values[0];
 	}
-
 
 	public Enumeration<String> getHeaders(String header) {
 		return new IteratorEnumeration<String>(Arrays.asList(headers.get(header)).iterator());

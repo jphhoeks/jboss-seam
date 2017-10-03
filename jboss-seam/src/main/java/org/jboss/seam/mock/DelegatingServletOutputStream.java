@@ -22,69 +22,60 @@ import javax.servlet.WriteListener;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
 /**
  * Delegating implementation of {@link javax.servlet.ServletOutputStream}.
  * <p/>
- * <p>Used by {@link MockHttpServletResponse}; typically not directly
- * used for testing application controllers.
+ * <p>
+ * Used by {@link MockHttpServletResponse}; typically not directly used for
+ * testing application controllers.
  *
  * @author Juergen Hoeller
  * @see MockHttpServletResponse
  * @since 1.0.2
  */
-public class DelegatingServletOutputStream extends ServletOutputStream
-{
+public class DelegatingServletOutputStream extends ServletOutputStream {
 
-   private final OutputStream targetStream;
+	private final OutputStream targetStream;
 
+	/**
+	 * Create a DelegatingServletOutputStream for the given target stream.
+	 *
+	 * @param targetStream
+	 *            the target stream (never <code>null</code>)
+	 */
+	public DelegatingServletOutputStream(OutputStream targetStream) {
+		this.targetStream = targetStream;
+	}
 
-   /**
-    * Create a DelegatingServletOutputStream for the given target stream.
-    *
-    * @param targetStream the target stream (never <code>null</code>)
-    */
-   public DelegatingServletOutputStream(OutputStream targetStream)
-   {
-      this.targetStream = targetStream;
-   }
+	/**
+	 * Return the underlying target stream (never <code>null</code>).
+	 */
+	public final OutputStream getTargetStream() {
+		return this.targetStream;
+	}
 
-   /**
-    * Return the underlying target stream (never <code>null</code>).
-    */
-   public final OutputStream getTargetStream()
-   {
-      return this.targetStream;
-   }
+	public void write(int b) throws IOException {
+		this.targetStream.write(b);
+	}
 
+	public void flush() throws IOException {
+		super.flush();
+		this.targetStream.flush();
+	}
 
-   public void write(int b) throws IOException
-   {
-      this.targetStream.write(b);
-   }
+	public void close() throws IOException {
+		super.close();
+		this.targetStream.close();
+	}
 
-   public void flush() throws IOException
-   {
-      super.flush();
-      this.targetStream.flush();
-   }
+	@Override
+	public boolean isReady() {
+		return true;
+	}
 
-   public void close() throws IOException
-   {
-      super.close();
-      this.targetStream.close();
-   }
-
-    @Override
-    public boolean isReady()
-    {
-        return true;
-    }
-
-    @Override
-    public void setWriteListener( WriteListener writeListener )
-    {
-        throw new RuntimeException("writeListener not supported");
-    }
+	@Override
+	public void setWriteListener(WriteListener writeListener) {
+		throw new RuntimeException("writeListener not supported");
+	}
 
 }

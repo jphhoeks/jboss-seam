@@ -19,23 +19,20 @@ import org.jboss.seam.jsf.SeamApplication;
  * 
  * @author Dan Allen
  */
-public class MockApplicationFactory extends ApplicationFactory
-{
-   private Application application;
-   
-   @Override
-   public Application getApplication()
-   {
-      if (application == null) {
-         application = new SeamApplication(new MockApplication());
-      }
-      return application;
-   }
+public class MockApplicationFactory extends ApplicationFactory {
+	private Application application;
 
-   @Override
-   public void setApplication(Application application)
-   {
-      this.application = application;
-   }
+	@Override
+	public Application getApplication() {
+		if (application == null) {
+			application = new SeamApplication(new MockApplication());
+		}
+		return application;
+	}
+
+	@Override
+	public void setApplication(Application application) {
+		this.application = application;
+	}
 
 }

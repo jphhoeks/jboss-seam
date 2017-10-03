@@ -12,29 +12,24 @@ import org.jboss.seam.util.IteratorEnumeration;
 /**
  * @author Gavin King
  */
-public class MockFilterConfig implements FilterConfig
-{
-   private ServletContext servletContext;
-   
-   public MockFilterConfig(ServletContext servletContext)
-   {
-      this.servletContext = servletContext;
-   }
-   
-   public String getFilterName()
-   {
-      return "Seam Filter";
-   }
+public class MockFilterConfig implements FilterConfig {
+	private ServletContext servletContext;
 
-   public ServletContext getServletContext()
-   {
-      return servletContext;
-   }
+	public MockFilterConfig(ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
 
-   public String getInitParameter(String name)
-   {
-      return null;
-   }
+	public String getFilterName() {
+		return "Seam Filter";
+	}
+
+	public ServletContext getServletContext() {
+		return servletContext;
+	}
+
+	public String getInitParameter(String name) {
+		return null;
+	}
 
 	public Enumeration<String> getInitParameterNames() {
 		List<String> list = Collections.emptyList();

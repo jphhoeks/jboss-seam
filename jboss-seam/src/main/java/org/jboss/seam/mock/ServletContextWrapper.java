@@ -37,258 +37,232 @@ import org.jboss.seam.util.IteratorEnumeration;
  */
 public class ServletContextWrapper implements ServletContext {
 
-   private ServletContext delegate;
+	private ServletContext delegate;
 
-   private Map<String, Object> attributes = new HashMap<String, Object>();
+	private Map<String, Object> attributes = new HashMap<String, Object>();
 
-   public ServletContextWrapper(ServletContext delegate) {
-      this.delegate = delegate;
-   }
+	public ServletContextWrapper(ServletContext delegate) {
+		this.delegate = delegate;
+	}
 
-   public Object getAttribute(String arg0) {
-      return attributes.get(arg0);
-   }
+	public Object getAttribute(String arg0) {
+		return attributes.get(arg0);
+	}
 
-   public Enumeration<String> getAttributeNames() {
-      return new IteratorEnumeration<String>(attributes.keySet().iterator());
-   }
+	public Enumeration<String> getAttributeNames() {
+		return new IteratorEnumeration<String>(attributes.keySet().iterator());
+	}
 
-   public ServletContext getContext(String arg0) {
-      return delegate.getContext(arg0);
-   }
+	public ServletContext getContext(String arg0) {
+		return delegate.getContext(arg0);
+	}
 
-   public String getContextPath() {
-      return delegate.getContextPath();
-   }
+	public String getContextPath() {
+		return delegate.getContextPath();
+	}
 
-   public String getInitParameter(String arg0) {
-      return delegate.getInitParameter(arg0);
-   }
+	public String getInitParameter(String arg0) {
+		return delegate.getInitParameter(arg0);
+	}
 
-   public Enumeration<String> getInitParameterNames() {
-      return delegate.getInitParameterNames();
-   }
+	public Enumeration<String> getInitParameterNames() {
+		return delegate.getInitParameterNames();
+	}
 
-   public int getMajorVersion() {
-      return delegate.getMajorVersion();
-   }
+	public int getMajorVersion() {
+		return delegate.getMajorVersion();
+	}
 
-   public String getMimeType(String arg0) {
-      return delegate.getMimeType(arg0);
-   }
+	public String getMimeType(String arg0) {
+		return delegate.getMimeType(arg0);
+	}
 
-   public int getMinorVersion() {
-      return delegate.getMinorVersion();
-   }
+	public int getMinorVersion() {
+		return delegate.getMinorVersion();
+	}
 
-   public RequestDispatcher getNamedDispatcher(String arg0) {
-      return delegate.getNamedDispatcher(arg0);
-   }
+	public RequestDispatcher getNamedDispatcher(String arg0) {
+		return delegate.getNamedDispatcher(arg0);
+	}
 
-   public String getRealPath(String arg0) {
-      return delegate.getRealPath(arg0);
-   }
+	public String getRealPath(String arg0) {
+		return delegate.getRealPath(arg0);
+	}
 
-   public RequestDispatcher getRequestDispatcher(String arg0) {
-      return delegate.getRequestDispatcher(arg0);
-   }
+	public RequestDispatcher getRequestDispatcher(String arg0) {
+		return delegate.getRequestDispatcher(arg0);
+	}
 
-   public URL getResource(String arg0) throws MalformedURLException {
-      return delegate.getResource(arg0);
-   }
+	public URL getResource(String arg0) throws MalformedURLException {
+		return delegate.getResource(arg0);
+	}
 
-   public InputStream getResourceAsStream(String arg0) {
-      InputStream ret = delegate.getResourceAsStream(arg0);
-      return ret;
-   }
+	public InputStream getResourceAsStream(String arg0) {
+		InputStream ret = delegate.getResourceAsStream(arg0);
+		return ret;
+	}
 
-   public Set<String> getResourcePaths(String arg0) {
-      return delegate.getResourcePaths(arg0);
-   }
+	public Set<String> getResourcePaths(String arg0) {
+		return delegate.getResourcePaths(arg0);
+	}
 
-   public String getServerInfo() {
-      return delegate.getServerInfo();
-   }
-   @Deprecated
-   public Servlet getServlet(String arg0) throws ServletException {
-      return delegate.getServlet(arg0);
-   }
+	public String getServerInfo() {
+		return delegate.getServerInfo();
+	}
 
-   public String getServletContextName() {
-      return "Wrap";
-   }
-   @Deprecated
-   public Enumeration<String> getServletNames() {
-      return delegate.getServletNames();
-   }
-   @Deprecated
-   public Enumeration<Servlet> getServlets() {
-      return delegate.getServlets();
-   }
+	@Deprecated
+	public Servlet getServlet(String arg0) throws ServletException {
+		return delegate.getServlet(arg0);
+	}
 
-   public void log(String arg0) {
-      delegate.log(arg0);
-   }
-   @Deprecated
-   public void log(Exception arg0, String arg1) {
-      delegate.log(arg0, arg1);
-   }
+	public String getServletContextName() {
+		return "Wrap";
+	}
 
-   public void log(String arg0, Throwable arg1) {
-      delegate.log(arg0, arg1);
-   }
+	@Deprecated
+	public Enumeration<String> getServletNames() {
+		return delegate.getServletNames();
+	}
 
-   public void removeAttribute(String arg0) {
-      attributes.remove(arg0);
-   }
+	@Deprecated
+	public Enumeration<Servlet> getServlets() {
+		return delegate.getServlets();
+	}
 
-   public void setAttribute(String key, Object value) {
-      if (value == null)
-      {
-         attributes.remove(key);
-      }
-      else
-      {
-         attributes.put(key, value);
-      }
-   }
+	public void log(String arg0) {
+		delegate.log(arg0);
+	}
 
-   public int getEffectiveMajorVersion()
-   {
-      return delegate.getEffectiveMajorVersion();
-   }
+	@Deprecated
+	public void log(Exception arg0, String arg1) {
+		delegate.log(arg0, arg1);
+	}
 
-   public int getEffectiveMinorVersion()
-   {
-      return delegate.getEffectiveMinorVersion();
-   }
+	public void log(String arg0, Throwable arg1) {
+		delegate.log(arg0, arg1);
+	}
 
-   public boolean setInitParameter(String name, String value)
-   {
-      return delegate.setInitParameter(name, value);
-   }
+	public void removeAttribute(String arg0) {
+		attributes.remove(arg0);
+	}
 
-   public Dynamic addServlet(String servletName, String className)
-   {
-      return delegate.addServlet(servletName, className);
-   }
+	public void setAttribute(String key, Object value) {
+		if (value == null) {
+			attributes.remove(key);
+		} else {
+			attributes.put(key, value);
+		}
+	}
 
-   public Dynamic addServlet(String servletName, Servlet servlet)
-   {
-      return delegate.addServlet(servletName, servlet);
-   }
+	public int getEffectiveMajorVersion() {
+		return delegate.getEffectiveMajorVersion();
+	}
 
-   public Dynamic addServlet(String servletName, Class<? extends Servlet> servletClass)
-   {
-      return delegate.addServlet(servletName, servletClass);
-   }
+	public int getEffectiveMinorVersion() {
+		return delegate.getEffectiveMinorVersion();
+	}
 
-   public <T extends Servlet> T createServlet(Class<T> clazz) throws ServletException
-   {
-      return delegate.createServlet(clazz);
-   }
+	public boolean setInitParameter(String name, String value) {
+		return delegate.setInitParameter(name, value);
+	}
 
-   public ServletRegistration getServletRegistration(String servletName)
-   {
-      return delegate.getServletRegistration(servletName);
-   }
+	public Dynamic addServlet(String servletName, String className) {
+		return delegate.addServlet(servletName, className);
+	}
 
-   public Map<String, ? extends ServletRegistration> getServletRegistrations()
-   {
-      return delegate.getServletRegistrations();
-   }
+	public Dynamic addServlet(String servletName, Servlet servlet) {
+		return delegate.addServlet(servletName, servlet);
+	}
 
-   public javax.servlet.FilterRegistration.Dynamic addFilter(String filterName, String className)
-   {
-      return delegate.addFilter(filterName, className);
-   }
+	public Dynamic addServlet(String servletName, Class<? extends Servlet> servletClass) {
+		return delegate.addServlet(servletName, servletClass);
+	}
 
-   public javax.servlet.FilterRegistration.Dynamic addFilter(String filterName, Filter filter)
-   {
-      return delegate.addFilter(filterName, filter);
-   }
+	public <T extends Servlet> T createServlet(Class<T> clazz) throws ServletException {
+		return delegate.createServlet(clazz);
+	}
 
-   public javax.servlet.FilterRegistration.Dynamic addFilter(String filterName, Class<? extends Filter> filterClass)
-   {
-      return delegate.addFilter(filterName, filterClass);
-   }
+	public ServletRegistration getServletRegistration(String servletName) {
+		return delegate.getServletRegistration(servletName);
+	}
 
-   public <T extends Filter> T createFilter(Class<T> clazz) throws ServletException
-   {
-      return delegate.createFilter(clazz);
-   }
+	public Map<String, ? extends ServletRegistration> getServletRegistrations() {
+		return delegate.getServletRegistrations();
+	}
 
-   public FilterRegistration getFilterRegistration(String filterName)
-   {
-      return delegate.getFilterRegistration(filterName);
-   }
+	public javax.servlet.FilterRegistration.Dynamic addFilter(String filterName, String className) {
+		return delegate.addFilter(filterName, className);
+	}
 
-   public Map<String, ? extends FilterRegistration> getFilterRegistrations()
-   {
-      return delegate.getFilterRegistrations();
-   }
+	public javax.servlet.FilterRegistration.Dynamic addFilter(String filterName, Filter filter) {
+		return delegate.addFilter(filterName, filter);
+	}
 
-   public SessionCookieConfig getSessionCookieConfig()
-   {
-      return delegate.getSessionCookieConfig();
-   }
+	public javax.servlet.FilterRegistration.Dynamic addFilter(String filterName, Class<? extends Filter> filterClass) {
+		return delegate.addFilter(filterName, filterClass);
+	}
 
-   public void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes)
-   {
-      delegate.setSessionTrackingModes(sessionTrackingModes);
-   }
+	public <T extends Filter> T createFilter(Class<T> clazz) throws ServletException {
+		return delegate.createFilter(clazz);
+	}
 
-   public Set<SessionTrackingMode> getDefaultSessionTrackingModes()
-   {
-      return delegate.getDefaultSessionTrackingModes();
-   }
+	public FilterRegistration getFilterRegistration(String filterName) {
+		return delegate.getFilterRegistration(filterName);
+	}
 
-   public Set<SessionTrackingMode> getEffectiveSessionTrackingModes()
-   {
-      return delegate.getEffectiveSessionTrackingModes();
-   }
+	public Map<String, ? extends FilterRegistration> getFilterRegistrations() {
+		return delegate.getFilterRegistrations();
+	}
 
-   public void addListener(String className)
-   {
-      delegate.addListener(className);
-   }
+	public SessionCookieConfig getSessionCookieConfig() {
+		return delegate.getSessionCookieConfig();
+	}
 
-   public <T extends EventListener> void addListener(T t)
-   {
-      delegate.addListener(t);
-   }
+	public void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes) {
+		delegate.setSessionTrackingModes(sessionTrackingModes);
+	}
 
-   public void addListener(Class<? extends EventListener> listenerClass)
-   {
-      delegate.addListener(listenerClass);
-   }
+	public Set<SessionTrackingMode> getDefaultSessionTrackingModes() {
+		return delegate.getDefaultSessionTrackingModes();
+	}
 
-   public <T extends EventListener> T createListener(Class<T> clazz) throws ServletException
-   {
-      return delegate.createListener(clazz);
-   }
+	public Set<SessionTrackingMode> getEffectiveSessionTrackingModes() {
+		return delegate.getEffectiveSessionTrackingModes();
+	}
 
-   public JspConfigDescriptor getJspConfigDescriptor()
-   {
-      return delegate.getJspConfigDescriptor();
-   }
+	public void addListener(String className) {
+		delegate.addListener(className);
+	}
 
-   public ClassLoader getClassLoader()
-   {
-      return delegate.getClassLoader();
-   }
+	public <T extends EventListener> void addListener(T t) {
+		delegate.addListener(t);
+	}
 
-   public void declareRoles(String... roleNames)
-   {
-      delegate.declareRoles(roleNames);
-   }
+	public void addListener(Class<? extends EventListener> listenerClass) {
+		delegate.addListener(listenerClass);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getVirtualServerName()
-    {
-        return delegate.getVirtualServerName();
-    }
+	public <T extends EventListener> T createListener(Class<T> clazz) throws ServletException {
+		return delegate.createListener(clazz);
+	}
+
+	public JspConfigDescriptor getJspConfigDescriptor() {
+		return delegate.getJspConfigDescriptor();
+	}
+
+	public ClassLoader getClassLoader() {
+		return delegate.getClassLoader();
+	}
+
+	public void declareRoles(String... roleNames) {
+		delegate.declareRoles(roleNames);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getVirtualServerName() {
+		return delegate.getVirtualServerName();
+	}
 }

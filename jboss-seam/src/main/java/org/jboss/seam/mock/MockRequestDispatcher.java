@@ -27,69 +27,60 @@ import org.jboss.seam.log.Logging;
 /**
  * Mock implementation of the {@link javax.servlet.RequestDispatcher} interface.
  * <p/>
- * <p>Used for testing the web framework; typically not necessary for
- * testing application controllers.
+ * <p>
+ * Used for testing the web framework; typically not necessary for testing
+ * application controllers.
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.0.2
  */
-public class MockRequestDispatcher implements RequestDispatcher
-{
+public class MockRequestDispatcher implements RequestDispatcher {
 
-   private static final LogProvider logger = Logging.getLogProvider(MockRequestDispatcher.class);
-   
-   private final String url;
+	private static final LogProvider logger = Logging.getLogProvider(MockRequestDispatcher.class);
 
+	private final String url;
 
-   /**
-    * Create a new MockRequestDispatcher for the given URL.
-    *
-    * @param url the URL to dispatch to.
-    */
-   public MockRequestDispatcher(String url)
-   {
-      this.url = url;
-   }
+	/**
+	 * Create a new MockRequestDispatcher for the given URL.
+	 *
+	 * @param url
+	 *            the URL to dispatch to.
+	 */
+	public MockRequestDispatcher(String url) {
+		this.url = url;
+	}
 
+	public void forward(ServletRequest request, ServletResponse response) {
+		if (response.isCommitted()) {
+			throw new IllegalStateException("Cannot perform forward - response is already committed");
+		}
+		getMockHttpServletResponse(response).setForwardedUrl(this.url);
+		if (logger.isDebugEnabled()) {
+			logger.debug("MockRequestDispatcher: forwarding to URL [" + this.url + "]");
+		}
+	}
 
-   public void forward(ServletRequest request, ServletResponse response)
-   {
-      if (response.isCommitted())
-      {
-         throw new IllegalStateException("Cannot perform forward - response is already committed");
-      }
-      getMockHttpServletResponse(response).setForwardedUrl(this.url);
-      if (logger.isDebugEnabled())
-      {
-         logger.debug("MockRequestDispatcher: forwarding to URL [" + this.url + "]");
-      }
-   }
+	public void include(ServletRequest request, ServletResponse response) {
+		getMockHttpServletResponse(response).setIncludedUrl(this.url);
+		if (logger.isDebugEnabled()) {
+			logger.debug("MockRequestDispatcher: including URL [" + this.url + "]");
+		}
+	}
 
-   public void include(ServletRequest request, ServletResponse response)
-   {
-      getMockHttpServletResponse(response).setIncludedUrl(this.url);
-      if (logger.isDebugEnabled())
-      {
-         logger.debug("MockRequestDispatcher: including URL [" + this.url + "]");
-      }
-   }
-
-   /**
-    * Obtain the underlying EnhancedMockHttpServletResponse,
-    * unwrapping {@link javax.servlet.http.HttpServletResponseWrapper} decorators if necessary.
-    */
-   protected EnhancedMockHttpServletResponse getMockHttpServletResponse(ServletResponse response)
-   {
-      if (response instanceof EnhancedMockHttpServletResponse)
-      {
-         return (EnhancedMockHttpServletResponse) response;
-      }
-      if (response instanceof HttpServletResponseWrapper)
-      {
-         return getMockHttpServletResponse(((HttpServletResponseWrapper) response).getResponse());
-      }
-      throw new IllegalArgumentException("MockRequestDispatcher requires MockHttpServletResponse");
+	/**
+	 * Obtain the underlying EnhancedMockHttpServletResponse, unwrapping
+	 * {@link javax.servlet.http.HttpServletResponseWrapper} decorators if
+	 * necessary.
+	 */
+	protected EnhancedMockHttpServletResponse getMockHttpServletResponse(ServletResponse response) {
+		if (response instanceof EnhancedMockHttpServletResponse) {
+			return (EnhancedMockHttpServletResponse) response;
+		}
+		if (response instanceof HttpServletResponseWrapper) {
+			return getMockHttpServletResponse(((HttpServletResponseWrapper) response).getResponse());
+		}
+		throw new IllegalArgumentException("MockRequestDispatcher requires MockHttpServletResponse");
 	}
 
 }

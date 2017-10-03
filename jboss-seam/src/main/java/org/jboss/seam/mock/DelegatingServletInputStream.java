@@ -25,88 +25,76 @@ import javax.servlet.ServletInputStream;
 /**
  * Delegating implementation of {@link javax.servlet.ServletInputStream}.
  * <p/>
- * <p>Used by {@link MockHttpServletRequest}; typically not directly
- * used for testing application controllers.
+ * <p>
+ * Used by {@link MockHttpServletRequest}; typically not directly used for
+ * testing application controllers.
  *
  * @author Juergen Hoeller
  * @see MockHttpServletRequest
  * @since 1.0.2
  */
-public class DelegatingServletInputStream extends ServletInputStream
-{
+public class DelegatingServletInputStream extends ServletInputStream {
 
-   private final InputStream sourceStream;
+	private final InputStream sourceStream;
 
+	/**
+	 * Create a DelegatingServletInputStream for the given source stream.
+	 *
+	 * @param sourceStream
+	 *            the source stream (never <code>null</code>)
+	 */
+	public DelegatingServletInputStream(InputStream sourceStream) {
+		this.sourceStream = sourceStream;
+	}
 
-   /**
-    * Create a DelegatingServletInputStream for the given source stream.
-    *
-    * @param sourceStream the source stream (never <code>null</code>)
-    */
-   public DelegatingServletInputStream(InputStream sourceStream)
-   {
-      this.sourceStream = sourceStream;
-   }
+	/**
+	 * Return the underlying source stream (never <code>null</code>).
+	 */
+	public final InputStream getSourceStream() {
+		return this.sourceStream;
+	}
 
-   /**
-    * Return the underlying source stream (never <code>null</code>).
-    */
-   public final InputStream getSourceStream()
-   {
-      return this.sourceStream;
-   }
+	@Override
+	public int read() throws IOException {
+		return this.sourceStream.read();
+	}
 
+	@Override
+	public void close() throws IOException {
+		super.close();
+		this.sourceStream.close();
+	}
 
-   @Override
-   public int read() throws IOException
-   {
-      return this.sourceStream.read();
-   }
+	private int bytesAvailable() {
+		try {
+			return this.sourceStream.available();
+		} catch (IOException e) {
+			return 0;
+		}
+	}
 
-   @Override
-   public void close() throws IOException
-   {
-      super.close();
-      this.sourceStream.close();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isFinished() {
+		return bytesAvailable() == 0;
+	}
 
-    private int bytesAvailable()
-    {
-        try
-        {
-            return this.sourceStream.available();
-        }
-        catch ( IOException e )
-        {
-            return 0;
-        }
-   }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isReady() {
+		return true;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isFinished()
-    {
-        return bytesAvailable() == 0;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void setReadListener(ReadListener readListener) {
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isReady()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setReadListener( ReadListener readListener )
-    {
-
-    }
+	}
 
 }

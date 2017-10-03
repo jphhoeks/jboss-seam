@@ -1,240 +1,255 @@
 package org.jboss.seam.mock;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-public class MockHttpServletResponse implements HttpServletResponse
-{
+public class MockHttpServletResponse implements HttpServletResponse {
 
-   public void addCookie(Cookie arg0)
-   {
-      // TODO Auto-generated method stub
+	private List<Cookie> cookies = new ArrayList<>();
+	private Map<String, Collection<String>> headers = new HashMap<>();
+	private int status = HttpServletResponse.SC_OK;
+	private ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	private Charset charset = Charset.defaultCharset();
+	private Locale locale = Locale.getDefault();
+	private String contentType = "text/html";
 
-   }
+	public MockHttpServletResponse() {
+		super();
+	}
 
-   public void addDateHeader(String arg0, long arg1)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public void addCookie(Cookie arg0) {
+		cookies.add(arg0);
+	}
 
-   }
+	@Override
+	public void addDateHeader(String arg0, long arg1) {
+		addHeader(arg0, getDate(arg1));
+	}
 
-   public void addHeader(String arg0, String arg1)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public void addHeader(String key, String value) {
+		if (!headers.containsKey(key)) {
+			headers.put(key, new ArrayList<String>());
+		}
+		headers.get(key).add(value);
+	}
 
-   }
+	@Override
+	public void addIntHeader(String key, int value) {
+		addHeader(key, Integer.toString(value));
+	}
 
-   public void addIntHeader(String arg0, int arg1)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public boolean containsHeader(String arg0) {
+		return headers.containsKey(arg0);
+	}
 
-   }
+	@Override
+	public String encodeRedirectURL(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-   public boolean containsHeader(String arg0)
-   {
-      // TODO Auto-generated method stub
-      return false;
-   }
+	@Override
+	public String encodeURL(String arg0) {
+		return arg0;
+	}
 
-   public String encodeRedirectURL(String arg0)
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
-   @Deprecated
-   public String encodeRedirectUrl(String arg0)
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	@Deprecated
+	public String encodeUrl(String arg0) {
+		return encodeURL(arg0);
+	}
 
-   public String encodeURL(String arg0)
-   {
-      return arg0;
-   }
+	@Override
+	public void sendError(int arg0) throws IOException {
+		this.status = arg0;
 
-   @Deprecated
-   public String encodeUrl(String arg0)
-   {
-      return encodeURL(arg0);
-   }
+	}
 
-   public void sendError(int arg0) throws IOException
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public void sendError(int arg0, String arg1) throws IOException {
+		this.status = arg0;
+	}
 
-   }
+	@Override
+	public void sendRedirect(String arg0) throws IOException {
+		setHeader("Location", arg0);
+		setStatus(SC_FOUND);
+	}
 
-   public void sendError(int arg0, String arg1) throws IOException
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public void setDateHeader(String arg0, long arg1) {
+		setHeader(arg0, getDate(arg1));
+	}
 
-   }
+	@Override
+	public void setHeader(String key, String value) {
+		headers.put(key, Arrays.asList(value));
 
-   public void sendRedirect(String arg0) throws IOException
-   {
-      // TODO Auto-generated method stub
+	}
 
-   }
+	@Override
+	public void setIntHeader(String key, int value) {
+		setHeader(key, Integer.toString(value));
 
-   public void setDateHeader(String arg0, long arg1)
-   {
-      // TODO Auto-generated method stub
+	}
 
-   }
+	@Override
+	public void setStatus(int arg0) {
+		this.status = arg0;
+	}
 
-   public void setHeader(String arg0, String arg1)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public void flushBuffer() throws IOException {
+		baos.flush();
+	}
 
-   }
+	@Override
+	public int getBufferSize() {
+		return 0;
+	}
 
-   public void setIntHeader(String arg0, int arg1)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public String getCharacterEncoding() {
+		return this.charset.displayName();
+	}
 
-   }
+	@Override
+	public String getContentType() {
+		return this.contentType;
+	}
 
-   public void setStatus(int arg0)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public Locale getLocale() {
+		return this.locale;
+	}
 
-   }
-   @Deprecated
-   public void setStatus(int arg0, String arg1)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public ServletOutputStream getOutputStream() throws IOException {
+		return new DelegatingServletOutputStream(baos);
+	}
 
-   }
+	@Override
+	public PrintWriter getWriter() throws IOException {
+		return new PrintWriter(new OutputStreamWriter(baos, this.getCharacterEncoding()), true);
+	}
 
-   public void flushBuffer() throws IOException
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public boolean isCommitted() {
+		return false;
+	}
 
-   }
+	@Override
+	public void reset() {
+		baos.reset();
 
-   public int getBufferSize()
-   {
-      // TODO Auto-generated method stub
-      return 0;
-   }
+	}
 
-   public String getCharacterEncoding()
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	@Override
+	public void resetBuffer() {
+		reset();
 
-   public String getContentType()
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	}
 
-   public Locale getLocale()
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	@Override
+	public void setBufferSize(int arg0) {
+		// TODO Auto-generated method stub
 
-   public ServletOutputStream getOutputStream() throws IOException
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	}
 
-   public PrintWriter getWriter() throws IOException
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	@Override
+	public void setCharacterEncoding(String arg0) {
+		this.charset = Charset.forName(arg0);
 
-   public boolean isCommitted()
-   {
-      // TODO Auto-generated method stub
-      return false;
-   }
+	}
 
-   public void reset()
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public void setContentLength(int arg0) {
+		// TODO Auto-generated method stub
+	}
 
-   }
+	@Override
+	public void setContentType(String arg0) {
+		this.contentType = arg0;
+	}
 
-   public void resetBuffer()
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public void setLocale(Locale arg0) {
+		this.locale = arg0;
+	}
 
-   }
+	@Override
+	public int getStatus() {
+		return this.status;
+	}
 
-   public void setBufferSize(int arg0)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public String getHeader(String name) {
+		Collection<String> col = headers.get(name);
+		if (col != null && !col.isEmpty()) {
+			return col.iterator().next();
+		}
+		return null;
+	}
 
-   }
+	@Override
+	public Collection<String> getHeaders(String name) {
+		Collection<String> retVal = new ArrayList<>();
+		Collection<String> data = headers.get(name);
+		if (data != null) {
+			retVal.addAll(data);
+		}
+		return retVal;
+	}
 
-   public void setCharacterEncoding(String arg0)
-   {
-      // TODO Auto-generated method stub
+	@Override
+	public Collection<String> getHeaderNames() {
+		Collection<String> retVal = new ArrayList<>();
+		retVal.addAll(headers.keySet());
+		return retVal;
+	}
 
-   }
+	@Override
+	public void setContentLengthLong(long len) {
+		// TODO Auto-generated method stub
 
-   public void setContentLength(int arg0)
-   {
-      // TODO Auto-generated method stub
+	}
 
-   }
+	@Override
+	@Deprecated
+	public void setStatus(int arg0, String arg1) {
+		setStatus(arg0);
 
-   public void setContentType(String arg0)
-   {
-      // TODO Auto-generated method stub
+	}
 
-   }
+	@Override
+	@Deprecated
+	public String encodeRedirectUrl(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-   public void setLocale(Locale arg0)
-   {
-      // TODO Auto-generated method stub
-
-   }
-
-   public int getStatus()
-   {
-      // TODO Auto-generated method stub
-      return 0;
-   }
-
-   public String getHeader(String name)
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public Collection<String> getHeaders(String name)
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   public Collection<String> getHeaderNames()
-   {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setContentLengthLong( long len )
-    {
-        // TODO Auto-generated method stub
-
-    }
+	private String getDate(long time) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.US);
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		return dateFormat.format(time);
+	}
 
 }

@@ -9,39 +9,33 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 
-public class MockRenderKit extends RenderKit 
-{
-   
-   public static final MockRenderKit INSTANCE = new MockRenderKit();
+public class MockRenderKit extends RenderKit {
 
-   @Override
-   public void addRenderer(String x, String y, Renderer renderer) 
-   {
-       // Do nothing
-   }
+	public static final MockRenderKit INSTANCE = new MockRenderKit();
 
-   @Override
-   public Renderer getRenderer(String x, String y) 
-   {
-      return null;
-   }
+	@Override
+	public void addRenderer(String x, String y, Renderer renderer) {
+		// Do nothing
+	}
 
-   @Override
-   public ResponseStateManager getResponseStateManager() 
-   {
-      return new MockResponseStateManager();
-   }
+	@Override
+	public Renderer getRenderer(String x, String y) {
+		return null;
+	}
 
-   @Override
-   public ResponseWriter createResponseWriter(Writer writer, String x, String y) 
-   {
-      return new MockResponseWriter();
-   }
-   
-   @Override
-   public ResponseStream createResponseStream(OutputStream stream) 
-   {
-      throw new UnsupportedOperationException();
-   }
-   
+	@Override
+	public ResponseStateManager getResponseStateManager() {
+		return new MockResponseStateManager();
+	}
+
+	@Override
+	public ResponseWriter createResponseWriter(Writer writer, String x, String y) {
+		return new MockResponseWriter();
+	}
+
+	@Override
+	public ResponseStream createResponseStream(OutputStream stream) {
+		throw new UnsupportedOperationException();
+	}
+
 }

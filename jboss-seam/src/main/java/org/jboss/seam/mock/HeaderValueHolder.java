@@ -32,92 +32,76 @@ import java.util.Map;
  * @author Rick Evans
  * @since 2.0.1
  */
-class HeaderValueHolder
-{
+class HeaderValueHolder {
 
-   private final List values = new LinkedList();
+	private final List values = new LinkedList();
 
+	public void setValue(Object value) {
+		this.values.clear();
+		this.values.add(value);
+	}
 
-   public void setValue(Object value)
-   {
-      this.values.clear();
-      this.values.add(value);
-   }
+	public void addValue(Object value) {
+		this.values.add(value);
+	}
 
-   public void addValue(Object value)
-   {
-      this.values.add(value);
-   }
+	public void addValues(Collection values) {
+		this.values.addAll(values);
+	}
 
-   public void addValues(Collection values)
-   {
-      this.values.addAll(values);
-   }
+	public void addValueArray(Object values) {
+		Object[] arr = toObjectArray(values);
+		this.values.addAll(Arrays.asList(arr));
+	}
 
-   public void addValueArray(Object values)
-   {
-      Object[] arr = toObjectArray(values);
-      this.values.addAll(Arrays.asList(arr));
-   }
+	public List getValues() {
+		return Collections.unmodifiableList(this.values);
+	}
 
-   public List getValues()
-   {
-      return Collections.unmodifiableList(this.values);
-   }
+	public Object getValue() {
+		return (!this.values.isEmpty() ? this.values.get(0) : null);
+	}
 
-   public Object getValue()
-   {
-      return (!this.values.isEmpty() ? this.values.get(0) : null);
-   }
+	/**
+	 * Find a HeaderValueHolder by name, ignoring casing.
+	 *
+	 * @param headers
+	 *            the Map of header names to HeaderValueHolders
+	 * @param name
+	 *            the name of the desired header
+	 * @return the corresponding HeaderValueHolder, or <code>null</code> if none
+	 *         found
+	 */
+	public static HeaderValueHolder getByName(Map headers, String name) {
+		for (Iterator it = headers.keySet().iterator(); it.hasNext();) {
+			String headerName = (String) it.next();
+			if (headerName.equalsIgnoreCase(name)) {
+				return (HeaderValueHolder) headers.get(headerName);
+			}
+		}
+		return null;
+	}
 
-
-   /**
-    * Find a HeaderValueHolder by name, ignoring casing.
-    *
-    * @param headers the Map of header names to HeaderValueHolders
-    * @param name    the name of the desired header
-    * @return the corresponding HeaderValueHolder,
-    *         or <code>null</code> if none found
-    */
-   public static HeaderValueHolder getByName(Map headers, String name)
-   {
-      for (Iterator it = headers.keySet().iterator(); it.hasNext();)
-      {
-         String headerName = (String) it.next();
-         if (headerName.equalsIgnoreCase(name))
-         {
-            return (HeaderValueHolder) headers.get(headerName);
-         }
-      }
-      return null;
-   }
-
-   public static Object[] toObjectArray(Object source)
-   {
-      if (source instanceof Object[])
-      {
-         return (Object[]) source;
-      }
-      if (source == null)
-      {
-         return new Object[0];
-      }
-      if (!source.getClass().isArray())
-      {
-         throw new IllegalArgumentException("Source is not an array: " + source);
-      }
-      int length = Array.getLength(source);
-      if (length == 0)
-      {
-         return new Object[0];
-      }
-      Class<?> wrapperType = Array.get(source, 0).getClass();
-      Object[] newArray = (Object[]) Array.newInstance(wrapperType, length);
-      for (int i = 0; i < length; i++)
-      {
-         newArray[i] = Array.get(source, i);
-      }
-      return newArray;
+	public static Object[] toObjectArray(Object source) {
+		if (source instanceof Object[]) {
+			return (Object[]) source;
+		}
+		if (source == null) {
+			return new Object[0];
+		}
+		if (!source.getClass().isArray()) {
+			throw new IllegalArgumentException("Source is not an array: " + source);
+		}
+		int length = Array.getLength(source);
+		if (length == 0) {
+			return new Object[0];
+		}
+		Class<?> wrapperType = Array.get(source, 0).getClass();
+		Object[] newArray = (Object[]) Array.newInstance(wrapperType, length);
+		for (int i = 0; i < length; i++) {
+			newArray[i] = Array.get(source, i);
+		}
+		return newArray;
 	}
 
 }

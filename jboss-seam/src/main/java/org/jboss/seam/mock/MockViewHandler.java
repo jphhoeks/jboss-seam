@@ -15,7 +15,11 @@ import org.jboss.seam.util.Strings;
 public class MockViewHandler extends ViewHandler {
 
 	private static final LogProvider logger = Logging.getLogProvider(MockViewHandler.class);
-	
+
+	public MockViewHandler() {
+		super();
+	}
+
 	@Override
 	public Locale calculateLocale(FacesContext ctx) {
 		return Locale.getDefault();
@@ -29,72 +33,62 @@ public class MockViewHandler extends ViewHandler {
 	@Override
 	public UIViewRoot createView(FacesContext ctx, String viewId) {
 		UIViewRoot viewRoot = new UIViewRoot();
-      viewRoot.setViewId(viewId);
-      //TODO: set locale?
-      return viewRoot;
+		viewRoot.setViewId(viewId);
+		// TODO: set locale?
+		return viewRoot;
 	}
 
 	@Override
-	public String getActionURL(FacesContext ctx, String viewId)
-   {
-      String contextPath = ctx.getExternalContext().getRequestContextPath();
-      String pathInfo = ctx.getExternalContext().getRequestPathInfo();
-      String servletPath = ctx.getExternalContext().getRequestServletPath(); 
-      
-      
+	public String getActionURL(FacesContext ctx, String viewId) {
+		String contextPath = ctx.getExternalContext().getRequestContextPath();
+		String pathInfo = ctx.getExternalContext().getRequestPathInfo();
+		String servletPath = ctx.getExternalContext().getRequestServletPath();
 
-      
-      if (Strings.isEmpty(pathInfo))
-      {
-         int sploc = servletPath.lastIndexOf('.');
-         if (sploc < 0)
-         {
-        	logger.warn("You should catch the exception before Seam", new IllegalArgumentException("no file extension in servlet path: " + servletPath));
-        	// in case of Servlet exception which is not mapped and handled by Seam
-        	return contextPath + viewId;            
-         }
-         return contextPath + getViewIdSansSuffix(viewId) + servletPath.substring(sploc);
+		if (Strings.isEmpty(pathInfo)) {
+			int sploc = servletPath.lastIndexOf('.');
+			if (sploc < 0) {
+				logger.warn("You should catch the exception before Seam",
+						new IllegalArgumentException("no file extension in servlet path: " + servletPath));
+				// in case of Servlet exception which is not mapped and handled by Seam
+				return contextPath + viewId;
+			}
+			return contextPath + getViewIdSansSuffix(viewId) + servletPath.substring(sploc);
 
-      }
-      else
-      {
-    	  // we can not seek for extension.
-    	  
-    	  // debug and error are always at contextPath level
-          if ("/error.xhtml".equals(viewId) || "/debug.xhtml".equals(viewId)) {
-        	  return contextPath + viewId;
-          }
-         return contextPath + (servletPath!=null?servletPath : "") + viewId;
-      }
-   }
+		} else {
+			// we can not seek for extension.
 
-	private static String getViewIdSansSuffix(String viewId)
-	{
-	   int loc = viewId.lastIndexOf('.');
-      if (loc < 0)
-      {
-         throw new IllegalArgumentException("no file extension in view id: " + viewId);
-      }
-      return viewId.substring(0, loc);
+			// debug and error are always at contextPath level
+			if ("/error.xhtml".equals(viewId) || "/debug.xhtml".equals(viewId)) {
+				return contextPath + viewId;
+			}
+			return contextPath + (servletPath != null ? servletPath : "") + viewId;
+		}
+	}
+
+	private static String getViewIdSansSuffix(String viewId) {
+		int loc = viewId.lastIndexOf('.');
+		if (loc < 0) {
+			throw new IllegalArgumentException("no file extension in view id: " + viewId);
+		}
+		return viewId.substring(0, loc);
 	}
 
 	@Override
-	public String getResourceURL(FacesContext ctx, String url) 
-   {
+	public String getResourceURL(FacesContext ctx, String url) {
 		return url;
 	}
 
 	@Override
-	public void renderView(FacesContext ctx, UIViewRoot viewRoot)
-			throws IOException, FacesException {}
+	public void renderView(FacesContext ctx, UIViewRoot viewRoot) throws IOException, FacesException {
+	}
 
 	@Override
-	public UIViewRoot restoreView(FacesContext ctx, String id) 
-   {
+	public UIViewRoot restoreView(FacesContext ctx, String id) {
 		return null;
 	}
 
 	@Override
-	public void writeState(FacesContext ctx) throws IOException {}
+	public void writeState(FacesContext ctx) throws IOException {
+	}
 
 }
