@@ -13,6 +13,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 import org.jboss.seam.Component;
+import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.international.StatusMessage.Severity;
 
 /**
@@ -371,6 +372,10 @@ public abstract class StatusMessages implements Serializable
    
    protected static void runTasks()
    {
+	   if (!Contexts.isApplicationContextActive()) {
+		   // Prevent fail to get component if not application context is active
+		   return;
+	   }
       Component component = Component.forName(StatusMessages.COMPONENT_NAME);
       if( component != null && !component.getScope().isContextActive() )
       {
