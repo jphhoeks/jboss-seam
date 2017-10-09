@@ -152,33 +152,30 @@ public class Pages
       }
    }
    
-   private void parsePages(Set<FileDescriptor> files)
-   {
-      for (FileDescriptor file : files)  
-      {
-         String fileName = file.getName();
-         String viewId = "/" + fileName.substring(0,fileName.length()-".page.xml".length()) + ".xhtml"; // needs more here
-         
-         InputStream stream = null;
-         try
-         {
-            stream = file.getUrl().openStream();
-         }
-         catch (IOException exception)
-         {
-            // No-op
-         }
-         if (stream != null) 
-         {
-            log.debug("reading pages.xml file: " + fileName);
-            try {
-                parse(stream,viewId);
-            } finally {
-                Resources.closeStream(stream);
-            }
-         } 
-     }
-   }
+	private void parsePages(Set<FileDescriptor> files) {
+		for (FileDescriptor file : files) {
+			String fileName = file.getName();
+			// needs more here
+			String viewId = "/" + fileName.substring(0, fileName.length() - ".page.xml".length()) + ".xhtml";
+
+			InputStream stream = null;
+			try {
+				stream = file.getUrl().openStream();
+			} catch (IOException exception) {
+				// No-op
+			}
+			if (stream != null) {
+				log.debug("reading pages.xml file: " + fileName);
+				try {
+					parse(stream, viewId);
+				} catch (RuntimeException e) {
+					throw new RuntimeException("Error parsing page.xml file: " + fileName + ": " + e.getMessage(), e);
+				} finally {
+					Resources.closeStream(stream);
+				}
+			}
+		}
+	}
    
    /**
     * Run any navigation rule defined in pages.xml
