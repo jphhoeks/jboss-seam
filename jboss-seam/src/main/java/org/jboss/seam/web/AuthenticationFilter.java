@@ -143,6 +143,7 @@ public class AuthenticationFilter extends AbstractFilter
       Credentials credentials = identity.getCredentials();
       
       boolean requireAuth = false;
+      boolean removeWWW = false;
       
       String header = request.getHeader("Authorization");
       if (header != null && header.startsWith("Basic "))
@@ -172,6 +173,7 @@ public class AuthenticationFilter extends AbstractFilter
             {
             	log.warn("Error authenticating: #0", ex.getMessage());
                requireAuth = true;
+               removeWWW=true;
             }  
          }
       }
@@ -196,7 +198,9 @@ public class AuthenticationFilter extends AbstractFilter
       
       if ((requireAuth && !identity.isLoggedIn()))
       {
-         response.addHeader("WWW-Authenticate", "Basic realm=\"" + realm + "\"");
+    	  if(!removeWWW) {
+    		  response.addHeader("WWW-Authenticate", "Basic realm=\"" + realm + "\"");
+    	  }
          response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Not authorized");         
       }               
    }
