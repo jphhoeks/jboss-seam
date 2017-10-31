@@ -10,6 +10,7 @@ import org.drools.compiler.DroolsError;
 import org.drools.compiler.PackageBuilder;
 import org.drools.compiler.PackageBuilderConfiguration;
 import org.drools.compiler.RuleBuildError;
+import org.drools.conf.ConsequenceExceptionHandlerOption;
 import org.drools.spi.ConsequenceExceptionHandler;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
@@ -20,6 +21,8 @@ import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.core.ResourceLoader;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+
+import javassist.util.proxy.ProxyFactory;
 
 /**
  * Manager component for a Drools RuleBase
@@ -108,8 +111,13 @@ public class RuleBase
       if(consequenceExceptionHandler != null) 
       {
          log.debug("adding consequence exception handler: " + consequenceExceptionHandler.getExpressionString());
+         Class handlerClz = consequenceExceptionHandler.getValue().getClass();
+         if (ProxyFactory.isProxyClass(consequenceExceptionHandler.getValue().getClass())) {
+        	 handlerClz = consequenceExceptionHandler.getValue().getClass().getSuperclass();
+         }
          RuleBaseConfiguration rbconf = new RuleBaseConfiguration();
-         rbconf.setConsequenceExceptionHandler(consequenceExceptionHandler.getValue().toString());
+         ConsequenceExceptionHandlerOption cehOption = ConsequenceExceptionHandlerOption.get(handlerClz);
+         rbconf.setOption(cehOption);
          ruleBase = RuleBaseFactory.newRuleBase( rbconf );
       }
       else 
