@@ -174,39 +174,38 @@ public class TokenRendererBase extends RendererBase
    private String generateViewSignature(FacesContext context, UIForm form, boolean useRenderStamp, boolean useSessionId, String saltPhrase)
    {
       String rawViewSignature = context.getExternalContext().getRequestContextPath() + "," + context.getViewRoot().getViewId() + "," + form.getClientId(context);
-      if (useRenderStamp)
-      {
-         String renderStamp = form.getAttributes().get(RENDER_STAMP_ATTR).toString();
-         RenderStampStore store = RenderStampStore.instance();
-         if (store != null)
-         {
-            // if we are using the RenderStampStore the key to access the render
-            // stamp
-            // is stored in the view root instead of the actual render stamp
-            renderStamp = store.getStamp(renderStamp);
-         }
-         rawViewSignature += "," + renderStamp;
-      }
-      if (useSessionId)
-      {
-         rawViewSignature += "," + ((HttpSession) context.getExternalContext().getSession(true)).getId();
-      }
-      try
-      {
-         MessageDigest digest = MessageDigest.getInstance("SHA-1");
-         digest.update(saltPhrase.getBytes());
-         byte[] salt = digest.digest();
-         digest.reset();
-         digest.update(rawViewSignature.getBytes());
-         digest.update(salt);
-         byte[] raw = digest.digest();
-         return Base64.encodeBytes(raw);
-      }
-      catch (NoSuchAlgorithmException ex)
-      {
-         ex.printStackTrace();
-         return null;
-      }
-   }
+		if (useRenderStamp) {
+			Object stampAttr = form.getAttributes().get(RENDER_STAMP_ATTR);
+			if (stampAttr == null) {
+				String viewId = context.getViewRoot().getViewId();
+				throw new UnauthorizedCommandException(viewId, "RENDER_STAMP_ATTR can not be null");
+			}
+			String renderStamp = stampAttr.toString();
+			RenderStampStore store = RenderStampStore.instance();
+			if (store != null) {
+				// if we are using the RenderStampStore the key to access the render
+				// stamp
+				// is stored in the view root instead of the actual render stamp
+				renderStamp = store.getStamp(renderStamp);
+			}
+			rawViewSignature += "," + renderStamp;
+		}
+		if (useSessionId) {
+			rawViewSignature += "," + ((HttpSession) context.getExternalContext().getSession(true)).getId();
+		}
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-1");
+			digest.update(saltPhrase.getBytes());
+			byte[] salt = digest.digest();
+			digest.reset();
+			digest.update(rawViewSignature.getBytes());
+			digest.update(salt);
+			byte[] raw = digest.digest();
+			return Base64.encodeBytes(raw);
+		} catch (NoSuchAlgorithmException ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
 
 }
