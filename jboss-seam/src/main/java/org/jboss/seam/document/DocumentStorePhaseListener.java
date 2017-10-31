@@ -1,11 +1,13 @@
 package org.jboss.seam.document;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -59,8 +61,13 @@ public class DocumentStorePhaseListener implements PhaseListener
             HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
             response.setContentType(documentData.getDocumentType().getMimeType());
+            if (isInternetExplorer(request)) {
+            	response.setHeader("Content-Disposition",documentData.getDisposition() + "; filename=\"" + URLEncoder.encode(documentData.getFileName(), "utf-8") + "\"");
+            }
+            else {
+            	 response.setHeader("Content-Disposition",documentData.getDisposition() + "; filename=\""  + MimeUtility.encodeWord(documentData.getFileName(), "UTF-8", "Q") + "\"");
+            }
 
-            response.setHeader("Content-Disposition", documentData.getDisposition() + "; filename=\"" + documentData.getFileName() + "\"");
             setHeadersForInternetExplorer(request, response);
             documentData.writeDataToStream(response.getOutputStream());
             context.responseComplete();
@@ -75,14 +82,16 @@ public class DocumentStorePhaseListener implements PhaseListener
        if (request == null) {
            return;
        }
-       if (request.isSecure() && isIE(request)){
+       if (request.isSecure() && isInternetExplorer(request)){
            response.setHeader("Pragma", "a");
            response.setHeader("Cache-Control", "max-age=0");
            response.addHeader("Cache-Control", "must-revalidate");
        }
    }
-   private static boolean isIE (HttpServletRequest request) {        
-       assert request != null;
+   protected static boolean isInternetExplorer (HttpServletRequest request) {        
+       if (request == null) {
+    	   return false;
+       }
        String useragent = request.getHeader("User-Agent");
        boolean isIE = useragent != null && useragent.contains("MSIE");
        return isIE;

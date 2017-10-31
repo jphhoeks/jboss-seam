@@ -1,7 +1,9 @@
 package org.jboss.seam.document;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
+import javax.mail.internet.MimeUtility;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +41,13 @@ public class DocumentStoreServlet extends HttpServlet
          DocumentData documentData = store.getDocumentData(contentId);
 
          response.setContentType(documentData.getDocumentType().getMimeType());
-         response.setHeader("Content-Disposition", documentData.getDisposition() + "; filename=\"" + documentData.getFileName() + "\"");
+         response.setContentType(documentData.getDocumentType().getMimeType());
+         if (DocumentStorePhaseListener.isInternetExplorer(request)) {
+         	response.setHeader("Content-Disposition",documentData.getDisposition() + "; filename=\"" + URLEncoder.encode(documentData.getFileName(), "utf-8") + "\"");
+         }
+         else {
+         	 response.setHeader("Content-Disposition",documentData.getDisposition() + "; filename=\""  + MimeUtility.encodeWord(documentData.getFileName(), "UTF-8", "Q") + "\"");
+         }
          DocumentStorePhaseListener.setHeadersForInternetExplorer(request, response);
          documentData.writeDataToStream(response.getOutputStream());
       }
