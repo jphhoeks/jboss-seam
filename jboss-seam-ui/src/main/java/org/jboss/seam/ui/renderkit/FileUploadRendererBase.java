@@ -42,24 +42,7 @@ public class FileUploadRendererBase extends RendererBase
       writer.writeAttribute(HTML.ID_ATTR, clientId, null);
       writer.writeAttribute(HTML.NAME_ATTR, clientId, null);
 
-
-      /*if (fileUpload.getAccept() != null)
-      {
-         writer.writeAttribute(HTML.ACCEPT_ATTR, fileUpload.getAccept(), "accept");
-      }
-
-      if (fileUpload.getStyleClass() != null)
-      {
-         writer.writeAttribute(HTML.CLASS_ATTR, fileUpload.getStyleClass(), JSF.STYLE_CLASS_ATTR);
-      }
-
-      if (fileUpload.getStyle() != null)
-      {
-         writer.writeAttribute(HTML.STYLE_ATTR, fileUpload.getStyle(),  "style");
-      }*/
-
       HTML.renderHTMLAttributes(writer, component, HTML.INPUT_FILE_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED);
-
 
       writer.endElement(HTML.INPUT_ELEM);
    }
