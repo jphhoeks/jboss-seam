@@ -2,7 +2,8 @@ JBoss Seam Changelog
 ====================
 
 Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
-
+	* [ ] Better JBPM Subprocess resolve
+	* [ ] Encode filename header value in file download
 
 Release Notes - Seam 2 - Version 2.3.11.ayg
 	
