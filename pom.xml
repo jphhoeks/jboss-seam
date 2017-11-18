@@ -79,7 +79,11 @@
 			that versions are only specified here, not in sub project poms. All dependencies 
 			for all modules should be listed out here -->
 		<dependencies>
-
+			<dependency>
+			    <groupId>commons-collections</groupId>
+			    <artifactId>commons-collections</artifactId>
+			    <version>3.2.2</version>
+			</dependency>
 			<dependency>
 				<groupId>org.jboss.seam</groupId>
 				<artifactId>bom</artifactId>

@@ -5,6 +5,7 @@ Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
 	* [ ] Better JBPM Subprocess resolve
 	* [ ] Encode filename header value in file download
 	* [ ] Upgrade hibernate-tools to 5.0.6.Final
+	* [ ] Upgrade commons-collections to 3.2.2
 
 Release Notes - Seam 2 - Version 2.3.11.ayg
 	
