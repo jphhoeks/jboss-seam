@@ -4,6 +4,7 @@ JBoss Seam Changelog
 Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
 	* [ ] Better JBPM Subprocess resolve
 	* [ ] Encode filename header value in file download
+	* [ ] Upgrade hibernate-tools to 5.0.6.Final
 
 Release Notes - Seam 2 - Version 2.3.11.ayg
 	
