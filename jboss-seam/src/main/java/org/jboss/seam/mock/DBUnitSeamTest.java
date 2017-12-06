@@ -223,7 +223,7 @@ public abstract class DBUnitSeamTest extends SeamTest
             }
             catch (Exception ex)
             {
-               ex.printStackTrace(System.err);
+               log.error("error closing connection", ex);
             }
          }
       }

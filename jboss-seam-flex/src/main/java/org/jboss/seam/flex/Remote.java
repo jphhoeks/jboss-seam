@@ -35,7 +35,7 @@ public class Remote
    
    @Create
    public void init() {
-      //System.out.println("** remoting destination " + destinationName + " for " + componentName);
+	   //
    }
 
 }

@@ -13,10 +13,8 @@ public class FooBar
    
    public Foo delayedGetFoo(InvocationControl invocationControl)
    {
-      //System.out.println("enter: " + invocationControl.getName() + " " + foo);
       invocationControl.init();
       invocationControl.markStarted();
-      //System.out.println("exit: " + invocationControl.getName() + " " + foo);
       return foo;
    }
 }

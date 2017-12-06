@@ -211,7 +211,7 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest
             }
             catch (Exception ex)
             {
-               ex.printStackTrace(System.err);
+               log.error("Error closing", ex);
             }
          }
       }

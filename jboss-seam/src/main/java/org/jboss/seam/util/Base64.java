@@ -5,6 +5,9 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import org.jboss.seam.log.LogProvider;
+import org.jboss.seam.log.Logging;
+
 /**
  * <p>Encodes and decodes to and from Base64 notation.</p>
  * <p>Homepage: <a href="http://iharder.net/base64">http://iharder.net/base64</a>.</p>
@@ -71,9 +74,9 @@ import java.nio.file.Paths;
  * @author rob@iharder.net
  * @version 2.2.1
  */
-public class Base64
-{
+public class Base64 {
     
+	private static final LogProvider log = Logging.getLogProvider(Base64.class);
 /* ********  P U B L I C   F I E L D S  ******** */   
     
     
@@ -861,10 +864,6 @@ public class Base64
 
             return 3;
             }catch( Exception e){
-//                System.out.println(""+source[srcOffset]+ ": " + ( DECODABET[ source[ srcOffset     ] ]  ) );
-//                System.out.println(""+source[srcOffset+1]+  ": " + ( DECODABET[ source[ srcOffset + 1 ] ]  ) );
-//                System.out.println(""+source[srcOffset+2]+  ": " + ( DECODABET[ source[ srcOffset + 2 ] ]  ) );
-//                System.out.println(""+source[srcOffset+3]+  ": " + ( DECODABET[ source[ srcOffset + 3 ] ]  ) );
                 return -1;
             }   // end catch
         }
@@ -922,7 +921,7 @@ public class Base64
             }   // end if: white space, equals sign or better
             else
             {
-                System.err.println( "Bad Base64 input character at " + i + ": " + source[i] + "(decimal)" );
+                log.warn( "Bad Base64 input character at " + i + ": " + source[i] + "(decimal)" );
                 return null;
             }   // end else: 
         }   // each input character
@@ -1187,7 +1186,7 @@ public class Base64
         }   // end catch: IOException
         finally
         {
-            try{ bis.close(); } catch( Exception e) {}
+            Resources.close(bis);
         }   // end finally
         
         return decodedData;
@@ -1235,7 +1234,7 @@ public class Base64
         }   // end catch: IOException
         finally
         {
-            try{ bis.close(); } catch( Exception e) {}
+            Resources.close(bis);
         }   // end finally
         
         return encodedData;

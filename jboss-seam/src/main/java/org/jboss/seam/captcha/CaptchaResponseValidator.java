@@ -4,6 +4,8 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.jboss.seam.core.Interpolator;
+import org.jboss.seam.log.LogProvider;
+import org.jboss.seam.log.Logging;
 
 /**
  * Validates that the input entered by the user matches
@@ -16,6 +18,7 @@ import org.jboss.seam.core.Interpolator;
 public class CaptchaResponseValidator implements ConstraintValidator<CaptchaResponse,String>
 {
 
+	private static final LogProvider log = Logging.getLogProvider(CaptchaResponseValidator.class);
 	private CaptchaResponse annotation = null;
 	
 	public CaptchaResponseValidator() {
@@ -33,7 +36,7 @@ public class CaptchaResponseValidator implements ConstraintValidator<CaptchaResp
       {
     	  
          context.disableDefaultConstraintViolation();
-         System.out.println("annotation.message=" + annotation.message());
+         log.debug("annotation.message=" + annotation.message());
          String template = Interpolator.instance().interpolate(annotation.message());
          context.buildConstraintViolationWithTemplate(template).addConstraintViolation();
       }
