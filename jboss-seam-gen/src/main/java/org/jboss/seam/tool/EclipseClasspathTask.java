@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -66,8 +68,8 @@ public class EclipseClasspathTask extends Task
       }
       try
       {
-         BufferedReader reader = Files.newBufferedReader(new File(file).toPath());
-         BufferedWriter writer = Files.newBufferedWriter(new File(toFile).toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+         BufferedReader reader = Files.newBufferedReader(new File(file).toPath(), StandardCharsets.UTF_8);
+         BufferedWriter writer = Files.newBufferedWriter(new File(toFile).toPath(), StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
          while (reader.ready())
          {
             String line = reader.readLine();

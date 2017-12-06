@@ -2,6 +2,7 @@ package org.jboss.seam.tool;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 import org.apache.tools.ant.BuildException;
@@ -21,7 +22,7 @@ public class PrintTask extends Task
    {
       try
       {
-         BufferedReader reader = Files.newBufferedReader(new File(file).toPath());
+         BufferedReader reader = Files.newBufferedReader(new File(file).toPath(), StandardCharsets.UTF_8);
          while ( reader.ready() )
          {
             System.out.println( reader.readLine() );
