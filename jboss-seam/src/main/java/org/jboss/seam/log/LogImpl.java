@@ -165,12 +165,5 @@ class LogImpl implements Log, Externalizable
    public void writeExternal(ObjectOutput out) throws IOException
    {
       out.writeObject(category);
-   }
-   
-   /*void readObject(ObjectInputStream ois) 
-         throws ClassNotFoundException, IOException
-   {
-      ois.defaultReadObject();
-      log = LogFactory.getLog(category);
-   }*/     
+   }      
 }
