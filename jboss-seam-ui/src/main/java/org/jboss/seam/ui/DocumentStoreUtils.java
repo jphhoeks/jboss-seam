@@ -1,7 +1,7 @@
 package org.jboss.seam.ui;
 
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -9,13 +9,14 @@ import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.file.Files;
 
 import javax.faces.context.FacesContext;
 
 import org.jboss.seam.core.Manager;
 import org.jboss.seam.document.DocumentData;
-import org.jboss.seam.document.DocumentStore;
 import org.jboss.seam.document.DocumentData.DocumentType;
+import org.jboss.seam.document.DocumentStore;
 import org.jboss.seam.navigation.Pages;
 import org.jboss.seam.ui.component.UIResource;
 
@@ -65,7 +66,7 @@ public class DocumentStoreUtils
             if (data instanceof byte[]) {
                 os.write((byte[]) data);
             } else if (data instanceof File) {
-                writeStream(os, new FileInputStream((File) data));
+                writeStream(os, new BufferedInputStream(Files.newInputStream(((File) data).toPath())));
             } else if (data instanceof InputStream) {
                 writeStream(os, (InputStream) data);
             }

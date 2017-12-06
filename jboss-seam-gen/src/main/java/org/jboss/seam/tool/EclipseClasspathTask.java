@@ -3,9 +3,9 @@ package org.jboss.seam.tool;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,10 +66,8 @@ public class EclipseClasspathTask extends Task
       }
       try
       {
-         BufferedReader reader = new BufferedReader(new FileReader(new File(
-               file)));
-         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(
-               toFile)));
+         BufferedReader reader = Files.newBufferedReader(new File(file).toPath());
+         BufferedWriter writer = Files.newBufferedWriter(new File(toFile).toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
          while (reader.ready())
          {
             String line = reader.readLine();
@@ -81,8 +79,8 @@ public class EclipseClasspathTask extends Task
          }
          writer.flush();
          writer.close();
-      } catch (IOException e)
-      {
+         reader.close();
+      } catch (IOException e) {
          throw new BuildException(e);
       }
    }

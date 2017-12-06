@@ -4,10 +4,9 @@ import static org.jboss.seam.mock.DBUnitSeamTest.Database.HSQL;
 import static org.jboss.seam.mock.DBUnitSeamTest.Database.MYSQL;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -27,11 +26,11 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.operation.DatabaseOperation;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Optional;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 /**
  * Utility for integration testing with Seam and DBUnit datasets.
@@ -532,7 +531,7 @@ public abstract class DBUnitSeamTest extends SeamTest
          throw new RuntimeException("Please set binaryDir TestNG property to location of binary test files");
       }
       File file = new File(getResourceURL(getBinaryDir() + "/" + filename).toURI());
-      InputStream is = new FileInputStream(file);
+      
 
       // Get the size of the file
       long length = file.length();
@@ -541,28 +540,7 @@ public abstract class DBUnitSeamTest extends SeamTest
       {
          // File is too large
       }
-
-      // Create the byte array to hold the data
-      byte[] bytes = new byte[(int) length];
-
-      // Read in the bytes
-      int offset = 0;
-      int numRead;
-      while (offset < bytes.length
-            && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0)
-      {
-         offset += numRead;
-      }
-
-      // Ensure all the bytes have been read in
-      if (offset < bytes.length)
-      {
-         throw new IOException("Could not completely read file " + file.getName());
-      }
-
-      // Close the input stream and return bytes
-      is.close();
-      return bytes;
+      return Files.readAllBytes(file.toPath());
    }
 
    /**

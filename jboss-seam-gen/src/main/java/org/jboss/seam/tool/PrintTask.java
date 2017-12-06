@@ -2,7 +2,7 @@ package org.jboss.seam.tool;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.nio.file.Files;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -21,11 +21,12 @@ public class PrintTask extends Task
    {
       try
       {
-         BufferedReader reader = new BufferedReader( new FileReader( new File(file) ) );
+         BufferedReader reader = Files.newBufferedReader(new File(file).toPath());
          while ( reader.ready() )
          {
             System.out.println( reader.readLine() );
          }
+         reader.close();
       }
       catch (Exception e)
       {

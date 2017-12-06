@@ -1,10 +1,9 @@
 package org.jboss.seam.document;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.UUID;
 
 import javax.faces.context.FacesContext;
@@ -36,25 +35,14 @@ public final class DocumentDataFactory {
 		File tempDir = getTempDir();
 		if (tempDir != null) {
 			File tempFile = new File(tempDir, "seam-docstore-" + UUID.randomUUID().toString());
-			OutputStream os = null;
+			
 			try {
-				os = new BufferedOutputStream(new FileOutputStream(tempFile));
-				os.write(data);
+				Files.write(tempFile.toPath(), data, StandardOpenOption.CREATE_NEW);
 			}
 			catch (IOException ioe) {
 				log.warn("Error creating temp file", ioe);
 				tempFile = null;
-			}
-			finally {
-				if (os != null) {
-					try {
-						os.close();
-					}
-					catch (IOException ioe) {
-						// nop
-					}
-				}
-			}
+			}			
 			return tempFile;
 		}
 		return null;

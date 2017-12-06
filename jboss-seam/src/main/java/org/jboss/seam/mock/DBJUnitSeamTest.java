@@ -4,10 +4,9 @@ import static org.jboss.seam.mock.DBJUnitSeamTest.Database.HSQL;
 import static org.jboss.seam.mock.DBJUnitSeamTest.Database.MYSQL;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -520,7 +519,7 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest
          throw new RuntimeException("Please set binaryDir TestNG property to location of binary test files");
       }
       File file = new File(getResourceURL(getBinaryDir() + "/" + filename).toURI());
-      InputStream is = new FileInputStream(file);
+      
 
       // Get the size of the file
       long length = file.length();
@@ -529,28 +528,8 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest
       {
          // File is too large
       }
-
-      // Create the byte array to hold the data
-      byte[] bytes = new byte[(int) length];
-
-      // Read in the bytes
-      int offset = 0;
-      int numRead;
-      while (offset < bytes.length
-            && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0)
-      {
-         offset += numRead;
-      }
-
-      // Ensure all the bytes have been read in
-      if (offset < bytes.length)
-      {
-         throw new IOException("Could not completely read file " + file.getName());
-      }
-
-      // Close the input stream and return bytes
-      is.close();
-      return bytes;
+      
+      return Files.readAllBytes(file.toPath());      
    }
 
    /**

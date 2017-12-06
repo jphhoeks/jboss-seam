@@ -2,10 +2,11 @@ JBoss Seam Changelog
 ====================
 
 Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
-	* [ ] Better JBPM Subprocess resolve
-	* [ ] Encode filename header value in file download
-	* [ ] Upgrade hibernate-tools to 5.0.6.Final
-	* [ ] Upgrade commons-collections to 3.2.2
+    * [#09] Avoid to calls FileInputStream and others to prevent GC overhead
+	* [   ] Better JBPM Subprocess resolve
+	* [   ] Encode filename header value in file download
+	* [   ] Upgrade hibernate-tools to 5.0.6.Final
+	* [   ] Upgrade commons-collections to 3.2.2
 
 Release Notes - Seam 2 - Version 2.3.11.ayg
 	
@@ -115,7 +116,7 @@ Release Notes - Seam 2 - Version 2.3.2.ayg
     * [ ] Better message when decorate template is not found
 
 ** Enhancement
-    * [JBSEAM-4853] - Change DocumentStorePhaseListener to allow downloads of IE over SSL
+    * [JBSEAM-4853] - Change DocumentStorePhaseListener to allow downloads with Internet Explorer over SSL
 
 ** Patch
     * [JBSEAM-1792] - Configure PersistenceContextName in EntityHome/EntityQuery using annotation

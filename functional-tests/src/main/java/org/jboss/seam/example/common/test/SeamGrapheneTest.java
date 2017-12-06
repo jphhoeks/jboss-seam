@@ -27,12 +27,12 @@ import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.MessageFormat;
 import java.util.Properties;
 
@@ -76,11 +76,13 @@ public abstract class SeamGrapheneTest {
                 //WebDriver augmentedDriver = new Augmenter().augment(browser);
                 byte[] screenshot = ((TakesScreenshot) browser).getScreenshotAs(OutputType.BYTES);
                 //byte[] screenshot = ((TakesScreenshot) browser).getScreenshotAs(OutputType.BYTES);
-                bos = new BufferedOutputStream(new FileOutputStream(testOutput.getAbsolutePath() + "/" + description.getMethodName() + ".png"));
+                Path output1 = new File(testOutput, description.getMethodName() + ".png").toPath();
+                bos = new BufferedOutputStream(Files.newOutputStream(output1));
                 bos.write(screenshot);
                 bos.close();
 
-                bw = new BufferedWriter(new FileWriter(testOutput.getAbsolutePath() + "/" + description.getMethodName() + ".html"));
+                Path output2 = new File(testOutput, description.getMethodName() + ".html").toPath();
+                bw = new BufferedWriter(Files.newBufferedWriter(output2));
                 bw.write(browser.getPageSource());
                 bw.close();
             } catch (Exception ex) {

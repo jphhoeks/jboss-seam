@@ -1,5 +1,10 @@
 package org.jboss.seam.util;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * <p>Encodes and decodes to and from Base64 notation.</p>
  * <p>Homepage: <a href="http://iharder.net/base64">http://iharder.net/base64</a>.</p>
@@ -1080,7 +1085,7 @@ public class Base64
         try
         {
             bos = new Base64.OutputStream( 
-                      new java.io.FileOutputStream( filename ), Base64.ENCODE );
+                      new BufferedOutputStream(Files.newOutputStream( new File(filename).toPath() )), Base64.ENCODE );
             bos.write( dataToEncode );
             success = true;
         }   // end try
@@ -1114,7 +1119,7 @@ public class Base64
         try
         {
                 bos = new Base64.OutputStream( 
-                          new java.io.FileOutputStream( filename ), Base64.DECODE );
+                		new BufferedOutputStream(Files.newOutputStream( Paths.get(filename) )), Base64.DECODE );
                 bos.write( dataToDecode.getBytes( PREFERRED_ENCODING ) );
                 success = true;
         }   // end try
@@ -1165,7 +1170,7 @@ public class Base64
             // Open a stream
             bis = new Base64.InputStream( 
                       new java.io.BufferedInputStream( 
-                      new java.io.FileInputStream( file ) ), Base64.DECODE );
+                      java.nio.file.Files.newInputStream( file.toPath() ) ), Base64.DECODE );
             
             // Read until done
             while( ( numBytes = bis.read( buffer, length, 4096 ) ) >= 0 )
@@ -1214,7 +1219,7 @@ public class Base64
             // Open a stream
             bis = new Base64.InputStream( 
                       new java.io.BufferedInputStream( 
-                      new java.io.FileInputStream( file ) ), Base64.ENCODE );
+                      java.nio.file.Files.newInputStream( file.toPath() ) ), Base64.ENCODE );
             
             // Read until done
             while( ( numBytes = bis.read( buffer, length, 4096 ) ) >= 0 )
@@ -1249,7 +1254,7 @@ public class Base64
         java.io.OutputStream out = null;
         try{
             out = new java.io.BufferedOutputStream(
-                  new java.io.FileOutputStream( outfile ) );
+                  Files.newOutputStream( new File(outfile).toPath()) );
             out.write( encoded.getBytes("US-ASCII") ); // Strict, 7-bit output.
         }   // end try
         catch( java.io.IOException ex ) {
@@ -1275,7 +1280,7 @@ public class Base64
         java.io.OutputStream out = null;
         try{
             out = new java.io.BufferedOutputStream(
-                  new java.io.FileOutputStream( outfile ) );
+                  Files.newOutputStream( new File(outfile).toPath() ) );
             out.write( decoded );
         }   // end try
         catch( java.io.IOException ex ) {

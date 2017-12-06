@@ -1,7 +1,6 @@
 package org.jboss.seam.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -127,29 +126,29 @@ public class Resources
        return url;
    }
 
-   public static void closeStream(InputStream inputStream) {
-       if (inputStream == null) {
-           return;
-       }
-       
-       try {
-           inputStream.close();
-       } catch (IOException e) {
-          // 
-       }       
-   }
+	public static void close(AutoCloseable... closeables) {
+		for (AutoCloseable c : closeables) {
+			close(c);
+		}
+	}
+
+	public static void close(AutoCloseable closeable) {
+		try {
+			if (closeable != null) {
+				closeable.close();
+			}
+		} catch (Exception e) {
+			//
+		}
+	}
    
-   public static void closeReader(java.io.Reader reader) {
-      if (reader == null) {
-          return;
-      }
-      
-      try {
-          reader.close();
-      } catch (IOException e) {
-         // 
-      }       
-  }
+	public static void closeStream(InputStream inputStream) {
+		close(inputStream);
+	}
+
+	public static void closeReader(java.io.Reader reader) {
+		close(reader);
+	}
    
    public static File getRealFile(ServletContext servletContext, String path)
    {

@@ -1,14 +1,16 @@
 package org.jboss.seam.web;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.jboss.seam.web.fileupload.ParameterParser;
+
 
 /**
  * Request wrapper for supporting multipart requests, used for file uploading.
@@ -120,7 +123,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
       private int fileSize;
            
       private ByteArrayOutputStream bOut = null;
-      private FileOutputStream fOut = null;
+      private OutputStream fOut = null;
       private File tempFile = null;
       
       public FileParam(String name)
@@ -159,7 +162,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
          {
             tempFile = File.createTempFile(new UID().toString().replace(":", "-"), ".upload");
             tempFile.deleteOnExit();
-            fOut = new FileOutputStream(tempFile);            
+            fOut = new BufferedOutputStream(Files.newOutputStream(tempFile.toPath()));            
          }
          catch (IOException ex)
          {
@@ -178,7 +181,9 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
          }
          else
          {
-            if (bOut == null) bOut = new ByteArrayOutputStream();
+            if (bOut == null) {
+            	bOut = new ByteArrayOutputStream();
+            }
             bOut.write(data, start, length);
          }
          
@@ -201,29 +206,18 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
          {
             return bOut.toByteArray();
          }
-         else if (tempFile != null)
+         else if (tempFile != null && tempFile.exists())
          {
-            if (tempFile.exists())
-            {
-               try
-               {
-                  FileInputStream fIn = new FileInputStream(tempFile);
-                  ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-                  byte[] buf = new byte[512];
-                  int read = fIn.read(buf);
-                  while (read != -1)
-                  {
-                     bOut.write(buf, 0, read);
-                     read = fIn.read(buf);
-                  }
-                  bOut.flush();
-
-                  fIn.close();
-                  tempFile.delete();
-                  return bOut.toByteArray();
-               }
-               catch (IOException ex) { /* too bad? */}
-            }
+            
+           
+				try {
+					byte[] data = Files.readAllBytes(tempFile.toPath());
+					tempFile.delete();
+					return data;
+				} catch (IOException ex) {
+					/* too bad? */
+				}
+            
          }
         
         return null;
@@ -249,6 +243,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
          {
             try
             {
+            	// FIXME try to not rely on FileInputStream
                return new FileInputStream(tempFile) {
                   @Override
                   public void close() throws IOException

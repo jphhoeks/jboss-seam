@@ -1,10 +1,11 @@
 package org.jboss.seam.maven.helper;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.Files;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -124,8 +125,7 @@ public class XMLGenerator
    private void writeFileContent(File outXML, String content) throws IOException
    {
       log.info("Updating " + outXML);
-      FileOutputStream fos = new FileOutputStream(outXML);
-      fos.write(content.getBytes());
+      java.nio.file.Files.write(outXML.toPath(), content.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)
 
    }
 
