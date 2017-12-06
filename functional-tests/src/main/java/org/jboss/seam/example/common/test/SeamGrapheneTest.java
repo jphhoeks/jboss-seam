@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.MessageFormat;
@@ -82,7 +83,7 @@ public abstract class SeamGrapheneTest {
                 bos.close();
 
                 Path output2 = new File(testOutput, description.getMethodName() + ".html").toPath();
-                bw = new BufferedWriter(Files.newBufferedWriter(output2));
+                bw = new BufferedWriter(Files.newBufferedWriter(output2, StandardCharsets.UTF_8));
                 bw.write(browser.getPageSource());
                 bw.close();
             } catch (Exception ex) {
