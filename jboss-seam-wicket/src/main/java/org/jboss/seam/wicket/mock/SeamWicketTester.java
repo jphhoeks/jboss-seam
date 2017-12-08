@@ -11,7 +11,6 @@ import org.apache.wicket.protocol.http.HttpSessionStore;
 import org.apache.wicket.protocol.http.WebRequestCycle;
 import org.apache.wicket.protocol.http.WebResponse;
 import org.apache.wicket.session.ISessionStore;
-import org.apache.wicket.util.tester.BaseWicketTester;
 import org.apache.wicket.util.tester.DummyHomePage;
 import org.apache.wicket.util.tester.WicketTester;
 import org.jboss.seam.Seam;
@@ -136,54 +135,16 @@ public class SeamWicketTester extends WicketTester
          }
       }
       ServletContext context = super.newServletContext(path);
-      //startJbossEmbeddedIfNecessary();
       ServletLifecycle.beginApplication(context);
       new Initialization(context).create().init();
       ((Init) context.getAttribute(Seam.getComponentName(Init.class))).setDebug(false);
       return context;
    }
 
-   @Override
-   public WebRequestCycle setupRequestAndResponse(boolean isAjax) { 
-      WebRequestCycle cycle = super.setupRequestAndResponse(isAjax);
-      /**
-       * FormTester wants to walk the form tree and call getValue() on components
-       * without having started the request cycle.  This fails when wicket components have
-       * seam injections.  So force a call here 
-       */
-      BaseWicketTester.callOnBeginRequest(cycle);
-      return cycle;
-   }
-   
-   private static boolean started;
-
-//   protected void startJbossEmbeddedIfNecessary() 
-//   {
-//      try 
-//      {
-//         if (!started && embeddedJBossAvailable())
-//         {
-//            new EmbeddedBootstrap().startAndDeployResources();
-//         }
-//         started = true;
-//      }
-//      catch (Exception exception)
-//      {
-//         throw new RuntimeException("Failure starting up Embedded Jboss",exception);
-//      }
-//   }
-//
-//   private boolean embeddedJBossAvailable()
-//   {
-//      try
-//      {
-//         Class.forName("org.jboss.embedded.Bootstrap");
-//         return true;
-//      }
-//      catch (ClassNotFoundException e)
-//      {
-//         return false;
-//      }
-//   }
+	@Override
+	public WebRequestCycle setupRequestAndResponse(boolean isAjax) {
+		WebRequestCycle cycle = super.setupRequestAndResponse(isAjax);
+		return cycle;
+	}
 
 }
