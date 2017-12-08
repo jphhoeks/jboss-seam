@@ -12,7 +12,6 @@ import org.hibernate.boot.model.naming.ImplicitNamingStrategy;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
-import org.hibernate.internal.util.ReflectHelper;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.Destroy;
@@ -22,6 +21,7 @@ import org.jboss.seam.annotations.Unwrap;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.security.HibernateSecurityInterceptor;
 import org.jboss.seam.util.Naming;
+import org.jboss.seam.util.Reflections;
 
 /**
  * A Seam component that bootstraps a Hibernate SessionFactory
@@ -111,6 +111,7 @@ public class HibernateSessionFactory
          props.putAll(cfgProperties);
          configuration.setProperties(props);
       }
+      @SuppressWarnings("unchecked")
       Hashtable<String, String> jndiProperties = Naming.getInitialContextProperties();
       if ( jndiProperties!=null )
       {
@@ -133,8 +134,8 @@ public class HibernateSessionFactory
       if (mappingClasses!=null)
       {
          for (String className: mappingClasses)
-         {
-            configuration.addAnnotatedClass(ReflectHelper.classForName(className));
+         {        	 
+            configuration.addAnnotatedClass(Reflections.classForName(className));
          }
       }
       if (mappingFiles!=null)
@@ -248,5 +249,6 @@ public class HibernateSessionFactory
    {
       this.mappingResources = mappingResources;
    }
+   
 
 }
