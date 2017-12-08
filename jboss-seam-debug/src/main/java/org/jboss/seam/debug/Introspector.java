@@ -49,7 +49,7 @@ public class Introspector {
    {
       Attribute[] attributes = new Attribute[map.size()];
       int i=0;
-      for( Map.Entry me: map.entrySet() )
+      for( Map.Entry<Object, Object> me: map.entrySet() )
       {
          attributes[i++] = new Attribute( me.getKey().toString(), me.getValue() );
       }
