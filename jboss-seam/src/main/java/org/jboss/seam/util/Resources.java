@@ -164,7 +164,7 @@ public class Resources
             }
             else
             {
-               log.warn("Unable to determine real path from servlet context for \"" + path + "\" path does not exist.");
+               log.info("Unable to determine real path from servlet context for \"" + path + "\" path does not exist.");
             }
          }
          catch (MalformedURLException e) 
