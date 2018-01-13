@@ -116,23 +116,9 @@ public class Init
          throw new IllegalStateException("No active application scope");
       }
       Init init = (Init) Contexts.getApplicationContext().get(Init.class);
-      //commented out because of some test cases:
-      /*if (init==null)
-      {
-         throw new IllegalStateException("No Init exists");
-      }*/
       return init;
    }
    
-   /*public boolean isClientSideConversations()
-   {
-      return isClientSideConversations;
-   }
-
-   public void setClientSideConversations(boolean isClientSideConversations)
-   {
-      this.isClientSideConversations = isClientSideConversations;
-   }*/
    
    public static class FactoryMethod {
        private Method method;
