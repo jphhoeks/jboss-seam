@@ -10,6 +10,7 @@ Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
 	* [JBSEAM-4758] Seam is allowing concurrent thread access to conversation components during conversation timeout, resulting in @Destroy being called multiple times
 	* [JBSEAM-2577] pageflow.hasTransition(...) throws NPE if not in process
 	* [JBSEAM-1793] optimize s:transformImageSize - no transform if image already at desired size
+	* [JBSEAM-1690] Errors wrapped by ServletExceptions are not logged by ExceptionFilter
 
 
 Release Notes - Seam 2 - Version 2.3.11.ayg

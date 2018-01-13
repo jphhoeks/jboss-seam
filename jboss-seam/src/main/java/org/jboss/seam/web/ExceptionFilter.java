@@ -65,8 +65,8 @@ public class ExceptionFilter extends AbstractFilter
       }
       catch (Exception e)
       {
-         log.debug( "handling uncaught exception", e );
-         log.debug( "exception root cause", org.jboss.seam.util.Exceptions.getCause(e) );
+         log.warn( "handling uncaught exception", e );
+         log.warn( "exception root cause", org.jboss.seam.util.Exceptions.getCauseThrowable(e) );
          endWebRequestAfterException( (HttpServletRequest) request, (HttpServletResponse) response, e);
       }
    }
