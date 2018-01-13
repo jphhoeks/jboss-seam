@@ -263,7 +263,7 @@ public class Component extends Model
       {
          if ( !Character.isJavaIdentifierPart(c) && c!='.' )
          {
-            throw new IllegalStateException("not a valid Seam component name: " + name);
+            throw new IllegalStateException("not a valid Seam component name: " + name  + "/" + getBeanClass().getCanonicalName());
          }
       }
    }
@@ -272,11 +272,11 @@ public class Component extends Model
    {
       if ( getBeanClass().isInterface() )
       {
-         throw new IllegalArgumentException("component class is an interface: " + name);
+         throw new IllegalArgumentException("component class is an interface: " + name  + "/" + getBeanClass().getCanonicalName());
       }
       if ( Modifier.isAbstract( getBeanClass().getModifiers() ) )
       {
-         throw new IllegalArgumentException("component class is abstract: " + name);
+         throw new IllegalArgumentException("component class is abstract: " + name  + "/" + getBeanClass().getCanonicalName());
       }
    }
 
@@ -286,7 +286,7 @@ public class Component extends Model
       {
          if (scope!=SESSION && scope!=APPLICATION)
          {
-            throw new IllegalArgumentException("@Startup only supported for SESSION or APPLICATION scoped components: " + name);
+            throw new IllegalArgumentException("@Startup only supported for SESSION or APPLICATION scoped components: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          Startup annotation = getBeanClass().getAnnotation(Startup.class);
          if (dependencies.length == 0 && annotation != null)
@@ -312,12 +312,12 @@ public class Component extends Model
       
       if (hasAnnotation && !interceptionEnabled)
       {
-         log.warn("Interceptors are disabled for @Synchronized component - synchronization will be disabled for: " + name);
+         log.warn("Interceptors are disabled for @Synchronized component - synchronization will be disabled for: " + name  + "/" + getBeanClass().getCanonicalName());
       }
       
       if (hasAnnotation && type == ComponentType.STATEFUL_SESSION_BEAN)
       {
-         log.warn("Seam synchronization interceptor is disabled for @Synchronized @Stateful component - Seam synchronization will be disabled for: " + name);
+         log.warn("Seam synchronization interceptor is disabled for @Synchronized @Stateful component - Seam synchronization will be disabled for: " + name  + "/" + getBeanClass().getCanonicalName());
       }
    }
    
@@ -398,23 +398,23 @@ public class Component extends Model
    {
       if ( scope==STATELESS && (type==STATEFUL_SESSION_BEAN || type==ENTITY_BEAN) )
       {
-         throw new IllegalArgumentException("Only stateless session beans and Java beans may be bound to the STATELESS context: " + name);
+         throw new IllegalArgumentException("Only stateless session beans and Java beans may be bound to the STATELESS context: " + name  + "/" + getBeanClass().getCanonicalName());
       }
       if ( scope==PAGE && type==STATEFUL_SESSION_BEAN )
       {
-         throw new IllegalArgumentException("Stateful session beans may not be bound to the PAGE context: " + name);
+         throw new IllegalArgumentException("Stateful session beans may not be bound to the PAGE context: " + name  + "/" + getBeanClass().getCanonicalName());
       }
       if ( scope==APPLICATION && type==STATEFUL_SESSION_BEAN )
       {
-         log.warn("Stateful session beans was bound to the APPLICATION context - note that it is not safe to make concurrent calls to the bean: " + name);
+         log.warn("Stateful session beans was bound to the APPLICATION context - note that it is not safe to make concurrent calls to the bean: " + name  + "/" + getBeanClass().getCanonicalName());
       }
       if ( scope!=STATELESS && type==MESSAGE_DRIVEN_BEAN )
       {
-         throw new IllegalArgumentException("Message-driven beans must be bound to STATELESS context: " + name);
+         throw new IllegalArgumentException("Message-driven beans must be bound to STATELESS context: " + name  + "/" + getBeanClass().getCanonicalName());
       }      
       if ( scope!=STATELESS && type==ComponentType.STATELESS_SESSION_BEAN )
       {
-          log.warn("Stateless session beans should only be bound to the STATELESS context:" + name);
+          log.warn("Stateless session beans should only be bound to the STATELESS context:" + name  + "/" + getBeanClass().getCanonicalName());
       }      
    }
    
@@ -422,7 +422,7 @@ public class Component extends Model
    {
       if (scope==STATELESS && synchronize)
       {
-         throw new IllegalArgumentException("@Synchronized not meaningful for stateless components: " + name);
+         throw new IllegalArgumentException("@Synchronized not meaningful for stateless components: " + name + "/" + getBeanClass().getCanonicalName());
       }
    }
    
@@ -432,7 +432,7 @@ public class Component extends Model
       boolean serializableType = type==JAVA_BEAN || type==ENTITY_BEAN;
       if ( serializableType && serializableScope && !Serializable.class.isAssignableFrom( getBeanClass() ) )
       {
-         log.warn("Component class should be serializable: " + name);
+         log.warn("Component class should be serializable: " + name + "/" + getBeanClass().getCanonicalName());
       }
    }
 
@@ -453,7 +453,7 @@ public class Component extends Model
                String jndiPattern = Init.instance().getJndiPattern();
                if (jndiPattern==null)
                {
-                  throw new IllegalArgumentException("You must specify org.jboss.seam.core.init.jndiPattern or use @JndiName: " + name);
+                  throw new IllegalArgumentException("You must specify org.jboss.seam.core.init.jndiPattern or use @JndiName: " + name  + "/" + getBeanClass().getCanonicalName());
                }
                return jndiPattern.replace( "#{ejbName}", Seam.getEjbName(getBeanClass()) );
          }
@@ -613,7 +613,7 @@ public class Component extends Model
             //check that we have a default remove method
             if ( defaultRemoveMethod==null )
             {
-               throw new IllegalArgumentException("Stateful session bean component must have a method with no parameters marked @Remove: " + name);
+               throw new IllegalArgumentException("Stateful session bean component must have a method with no parameters marked @Remove: " + name  + "/" + getBeanClass().getCanonicalName());
             }
             
             //check that it is unique
@@ -624,7 +624,7 @@ public class Component extends Model
                {
                   if (found)
                   {
-                     throw new IllegalStateException("Duplicate default @Remove method for component:" + name);
+                     throw new IllegalStateException("Duplicate default @Remove method for component:" + name  + "/" + getBeanClass().getCanonicalName());
                   }
                   found = true;
                }
@@ -643,11 +643,11 @@ public class Component extends Model
          }*/
          if (type!=JAVA_BEAN && type!=STATEFUL_SESSION_BEAN)
          {
-            throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Destroy methods: " + name);
+            throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Destroy methods: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          if ( destroyMethod!=null && !destroyMethod.getName().equals( method.getName() ) )
          {
-            throw new IllegalStateException("component has two @Destroy methods: " + name);
+            throw new IllegalStateException("component has two @Destroy methods: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          
          if ( destroyMethod==null ) //ie. ignore the one on the superclass
@@ -675,11 +675,11 @@ public class Component extends Model
          }*/
          if (type!=JAVA_BEAN && type!=STATEFUL_SESSION_BEAN)
          {
-            throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Create methods: " + name);
+            throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Create methods: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          if ( createMethod!=null && !createMethod.getName().equals( method.getName() ) )
          {
-            throw new IllegalStateException("component has two @Create methods: " + name);
+            throw new IllegalStateException("component has two @Create methods: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          if (createMethod==null)
          {
@@ -710,7 +710,7 @@ public class Component extends Model
       {
          if ( unwrapMethod!=null && !unwrapMethod.getName().equals( method.getName() )  )
          {
-            throw new IllegalStateException("component has two @Unwrap methods: " + name);
+            throw new IllegalStateException("component has two @Unwrap methods: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          if (unwrapMethod==null )
          {
@@ -903,7 +903,7 @@ public class Component extends Model
    {
       if ( !type.isSessionBean() && type!=MESSAGE_DRIVEN_BEAN )
       {
-         throw new IllegalArgumentException("@PersistenceContext may only be used on session bean or message driven bean components: " + name);
+         throw new IllegalArgumentException("@PersistenceContext may only be used on session bean or message driven bean components: " + name  + "/" + getBeanClass().getCanonicalName());
       }
    }
 
@@ -918,7 +918,7 @@ public class Component extends Model
          }
          if ( defaultDataModelName==null )
          {
-            throw new IllegalStateException("No @DataModel for @DataModelSelection: " + name);
+            throw new IllegalStateException("No @DataModel for @DataModelSelection: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          return defaultDataModelName;
       }
@@ -926,7 +926,7 @@ public class Component extends Model
       {
          if ( !dataModelNames.contains(name) )
          {
-            throw new IllegalStateException("No @DataModel for @DataModelSelection: " + name);
+            throw new IllegalStateException("No @DataModel for @DataModelSelection: " + name  + "/" + getBeanClass().getCanonicalName());
          }
          return name;
       }
@@ -936,7 +936,7 @@ public class Component extends Model
       ScopeType dataModelScope = dataModel.scope();
       if ( dataModelScope!=PAGE && dataModelScope!=UNSPECIFIED )
       {
-         throw new IllegalArgumentException("@DataModel scope must be ScopeType.UNSPECIFIED or ScopeType.PAGE: " + name);
+         throw new IllegalArgumentException("@DataModel scope must be ScopeType.UNSPECIFIED or ScopeType.PAGE: " + name  + "/" + getBeanClass().getCanonicalName());
       }
    }
 
@@ -1369,7 +1369,7 @@ public class Component extends Model
            case SINGLETON_SESSION_BEAN:
               return instantiateSessionBean();
            case MESSAGE_DRIVEN_BEAN:
-              throw new UnsupportedOperationException("Message-driven beans may not be called: " + name);
+              throw new UnsupportedOperationException("Message-driven beans may not be called: " + name  + "/" + getBeanClass().getCanonicalName());
            default:
               throw new IllegalStateException();
         }
@@ -1390,7 +1390,7 @@ public class Component extends Model
               postConstructSessionBean(bean);
               break;
            case MESSAGE_DRIVEN_BEAN:
-              throw new UnsupportedOperationException("Message-driven beans may not be called: " + name);
+              throw new UnsupportedOperationException("Message-driven beans may not be called: " + name  + "/" + getBeanClass().getCanonicalName());
            default:
               throw new IllegalStateException();
         }
@@ -1477,7 +1477,7 @@ public class Component extends Model
       }
       catch (Exception e)
       {
-         log.warn("Exception calling component @Destroy method: " + name, e);
+         log.warn("Exception calling component @Destroy method: " + name  + "/" + getBeanClass().getCanonicalName(), e);
       }
       if ( getType()==STATEFUL_SESSION_BEAN )
       {
@@ -1487,7 +1487,7 @@ public class Component extends Model
          }
          catch (Exception e)
          {
-            log.warn("Exception calling stateful session bean default @Remove method: " + name, e);
+            log.warn("Exception calling stateful session bean default @Remove method: " + name  + "/" + getBeanClass().getCanonicalName(), e);
          }
       }
       else if ( getType()==JAVA_BEAN )
@@ -1498,7 +1498,7 @@ public class Component extends Model
          }
          catch (Exception e)
          {
-            log.warn("Exception calling JavaBean @PreDestroy method: " + name, e);
+            log.warn("Exception calling JavaBean @PreDestroy method: " + name  + "/" + getBeanClass().getCanonicalName(), e);
          }
       }
    }
@@ -1524,7 +1524,7 @@ public class Component extends Model
 
    public void initialize(Object bean) throws Exception
    {
-      if ( log.isTraceEnabled() ) log.trace("initializing new instance of: " + name);
+      if ( log.isTraceEnabled() ) log.trace("initializing new instance of: " + name  + "/" + getBeanClass().getCanonicalName());
 
       injectLog(bean);
 
@@ -1541,7 +1541,9 @@ public class Component extends Model
          setFieldValue(bean, field, field.getName(), initialValue );
       }
 
-      if ( log.isTraceEnabled() ) log.trace("done initializing: " + name);
+      if ( log.isTraceEnabled() ) {
+    	  log.trace("done initializing: " + name  + "/" + getBeanClass().getCanonicalName());
+      }
    }
 
    /**
