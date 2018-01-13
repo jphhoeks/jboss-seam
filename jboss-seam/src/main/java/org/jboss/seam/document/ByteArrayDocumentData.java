@@ -6,7 +6,8 @@ import java.io.OutputStream;
 public class ByteArrayDocumentData extends DocumentData
 {
 
-   private byte[] data;
+   private static final long serialVersionUID = -471561347477979673L;
+private byte[] data;
 
    public ByteArrayDocumentData(String baseName, DocumentType documentType, byte[] data)
    {

@@ -38,9 +38,13 @@ import org.jboss.seam.util.Base64;
 @BypassInterceptors
 public class RememberMe implements Serializable
 {
-   class UsernameSelector extends Selector
+   private static final long serialVersionUID = 1L;
+
+class UsernameSelector extends Selector
    {
-      @Override
+      private static final long serialVersionUID = -7699533920709160899L;
+
+	@Override
       public String getCookieName()
       {
          return "org.jboss.seam.security.username";
@@ -73,7 +77,9 @@ public class RememberMe implements Serializable
    
    class TokenSelector extends UsernameSelector
    {
-      @Override
+      private static final long serialVersionUID = -53960797022227292L;
+
+	@Override
       public String getCookieName()
       {
          return "org.jboss.seam.security.authtoken";

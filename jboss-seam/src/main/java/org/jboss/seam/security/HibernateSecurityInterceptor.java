@@ -20,7 +20,8 @@ import org.jboss.seam.Entity.NotEntityException;
  */
 public class HibernateSecurityInterceptor extends EmptyInterceptor
 {
-   private Interceptor wrappedInterceptor;
+   private static final long serialVersionUID = 1L;
+private Interceptor wrappedInterceptor;
    
    public HibernateSecurityInterceptor(Interceptor wrappedInterceptor)
    {

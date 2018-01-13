@@ -71,7 +71,9 @@ public abstract class SeamWebApplication extends WebApplication
    /**
     * This is the key we will use to to store the conversation metadata in the wicket page.
     */
-   private static MetaDataKey CID = new MetaDataKey<String>() { };
+   private static MetaDataKey CID = new MetaDataKey<String>() {
+
+	private static final long serialVersionUID = 1L; };
 
    
    /**

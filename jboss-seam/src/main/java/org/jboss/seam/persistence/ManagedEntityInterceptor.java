@@ -24,7 +24,9 @@ import org.jboss.seam.transaction.Transaction;
 public class ManagedEntityInterceptor extends AbstractInterceptor
 {
 
-   private static LogProvider log = Logging.getLogProvider(ManagedEntityInterceptor.class);
+   private static final long serialVersionUID = 1L;
+
+private static LogProvider log = Logging.getLogProvider(ManagedEntityInterceptor.class);
    
    private static ManagedEntityWrapper managedEntityWrapper = new ManagedEntityWrapper();
 

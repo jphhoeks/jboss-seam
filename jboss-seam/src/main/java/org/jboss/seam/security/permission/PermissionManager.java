@@ -28,7 +28,9 @@ import org.jboss.seam.security.Identity;
 @Install(precedence = BUILT_IN)
 public class PermissionManager implements Serializable
 {
-   public static final String PERMISSION_STORE_COMPONENT_NAME = "org.jboss.seam.security.jpaPermissionStore";
+   private static final long serialVersionUID = 1L;
+
+public static final String PERMISSION_STORE_COMPONENT_NAME = "org.jboss.seam.security.jpaPermissionStore";
    
    public static final String PERMISSION_PERMISSION_NAME = "seam.permission";
    

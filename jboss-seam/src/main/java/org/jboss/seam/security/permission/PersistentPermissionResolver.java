@@ -35,7 +35,9 @@ import org.jboss.seam.security.SimplePrincipal;
 @Startup
 public class PersistentPermissionResolver implements PermissionResolver, Serializable
 {      
-   private PermissionStore permissionStore;
+   private static final long serialVersionUID = 1L;
+
+private PermissionStore permissionStore;
    
    private static final LogProvider log = Logging.getLogProvider(PersistentPermissionResolver.class);   
    

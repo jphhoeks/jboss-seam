@@ -23,7 +23,8 @@ import org.jboss.seam.transaction.Transaction;
 public class EntityQuery<E> extends Query<EntityManager, E>
 {
 
-   private List<E> resultList;
+   private static final long serialVersionUID = 1L;
+private List<E> resultList;
    private E singleResult;
    private Long resultCount;
    private Map<String, Object> hints;

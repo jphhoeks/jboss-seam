@@ -26,7 +26,8 @@ import org.jboss.seam.log.Logging;
 @BypassInterceptors
 public class Credentials implements Serializable
 {
-   public static final String EVENT_INIT_CREDENTIALS = "org.jboss.seam.security.initCredentials";
+   private static final long serialVersionUID = 1L;
+public static final String EVENT_INIT_CREDENTIALS = "org.jboss.seam.security.initCredentials";
    public static final String EVENT_CREDENTIALS_UPDATED = "org.jboss.seam.security.credentialsUpdated";
    
    private static final LogProvider log = Logging.getLogProvider(Credentials.class);

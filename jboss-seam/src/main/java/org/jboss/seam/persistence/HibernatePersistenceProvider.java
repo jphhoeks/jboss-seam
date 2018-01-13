@@ -430,7 +430,9 @@ public class HibernatePersistenceProvider extends PersistenceProvider
     * @author Gavin King
     *
     */
-   static class NotHibernateException extends IllegalArgumentException {}
+   static class NotHibernateException extends IllegalArgumentException {
+
+	private static final long serialVersionUID = 1L;}
    
    public static HibernatePersistenceProvider instance()
    {

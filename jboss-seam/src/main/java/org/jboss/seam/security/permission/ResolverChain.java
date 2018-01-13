@@ -19,7 +19,8 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @BypassInterceptors
 public class ResolverChain implements Serializable
 {
-   private List<PermissionResolver> resolvers = new ArrayList<PermissionResolver>();
+   private static final long serialVersionUID = 1L;
+private List<PermissionResolver> resolvers = new ArrayList<PermissionResolver>();
    
    public List<PermissionResolver> getResolvers()
    {

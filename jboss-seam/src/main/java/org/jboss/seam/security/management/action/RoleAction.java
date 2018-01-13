@@ -20,7 +20,8 @@ import org.jboss.seam.security.management.IdentityManager;
 @Install(precedence = BUILT_IN)
 public class RoleAction implements Serializable
 {
-   private String originalRole;
+   private static final long serialVersionUID = 1L;
+private String originalRole;
    private String role;
    private List<String> groups;
    

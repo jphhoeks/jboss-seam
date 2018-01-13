@@ -14,7 +14,8 @@ import org.jboss.seam.annotations.Scope;
 @Scope(ScopeType.CONVERSATION)
 public class NumberGuess implements Serializable {
    
-   private int randomNumber;
+   private static final long serialVersionUID = 1L;
+private int randomNumber;
    private Integer currentGuess;
    private int biggest;
    private int smallest;

@@ -7,4 +7,6 @@ package org.jboss.seam.servlet;
 public class ResourceServlet extends SeamResourceServlet
 {
 
+	private static final long serialVersionUID = 1L;
+
 }

@@ -2,7 +2,8 @@ package org.jboss.seam.contexts;
 
 abstract class AbstractEntityBeanCollection implements Wrapper
 {
-   private transient boolean initialized;
+   private static final long serialVersionUID = 2444719779343302000L;
+private transient boolean initialized;
    
    protected AbstractEntityBeanCollection()
    {

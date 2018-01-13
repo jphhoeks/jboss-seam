@@ -22,7 +22,8 @@ import javax.validation.ConstraintViolation;
 public class ModelValidator implements IValidator
 {
 
-   private Class<?> clazz;
+   private static final long serialVersionUID = 1L;
+private Class<?> clazz;
    private String property;
 
    /**

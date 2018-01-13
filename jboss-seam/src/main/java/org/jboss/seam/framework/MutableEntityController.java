@@ -16,7 +16,9 @@ import javax.persistence.Query;
 public class MutableEntityController extends MutableController<EntityManager>
 {
    
-   public EntityManager getEntityManager()
+   private static final long serialVersionUID = 1L;
+
+public EntityManager getEntityManager()
    {
       return getPersistenceContext();
    }

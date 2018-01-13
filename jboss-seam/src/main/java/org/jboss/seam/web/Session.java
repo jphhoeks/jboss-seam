@@ -29,7 +29,8 @@ import org.jboss.seam.core.AbstractMutable;
 @Startup
 public class Session extends AbstractMutable
 {
-   private boolean isInvalid;
+   private static final long serialVersionUID = 1L;
+private boolean isInvalid;
    private boolean invalidateOnSchemeChange;
    private String currentScheme;
 

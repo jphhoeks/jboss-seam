@@ -33,7 +33,9 @@ import org.jboss.seam.util.Naming;
 @BypassInterceptors
 public class MailSession extends AbstractMutable implements Serializable
 {
-    private static final LogProvider log = Logging
+    private static final long serialVersionUID = 1L;
+
+	private static final LogProvider log = Logging
             .getLogProvider(MailSession.class);
 
     private Session session;

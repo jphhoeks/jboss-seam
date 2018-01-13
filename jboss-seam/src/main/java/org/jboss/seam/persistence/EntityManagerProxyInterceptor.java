@@ -23,7 +23,9 @@ import org.jboss.seam.intercept.InvocationContext;
 public class EntityManagerProxyInterceptor extends AbstractInterceptor
 {
 
-   @AroundInvoke
+   private static final long serialVersionUID = 1L;
+
+@AroundInvoke
    public Object aroundInvoke(InvocationContext ic) throws Exception
    {
       return ic.proceed();

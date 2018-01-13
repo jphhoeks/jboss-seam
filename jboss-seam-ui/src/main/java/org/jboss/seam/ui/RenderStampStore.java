@@ -33,7 +33,9 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @BypassInterceptors
 public class RenderStampStore implements Serializable {
 
-    class RenderStamp {
+    private static final long serialVersionUID = 1L;
+
+	class RenderStamp {
         String stamp;
         Date timeStamp;
     }

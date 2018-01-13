@@ -31,7 +31,9 @@ import org.jboss.seam.persistence.PersistenceContexts;
 public class ConversationInterceptor<T> implements StatelessInterceptor<T>
 {
    
-   public void beforeInvoke(InvocationContext<T> invocationContext)
+   private static final long serialVersionUID = 1L;
+
+public void beforeInvoke(InvocationContext<T> invocationContext)
    {
       if (invocationContext.getComponent().isConversationManagementMethod(invocationContext.getAccessibleObject()))
       {

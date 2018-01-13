@@ -7,7 +7,9 @@ package org.jboss.seam.web;
  */
 public class FileUploadException extends RuntimeException
 {   
-   public FileUploadException()
+   private static final long serialVersionUID = 1L;
+
+public FileUploadException()
    {
       this(null, null);
    }

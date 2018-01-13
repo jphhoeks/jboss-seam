@@ -102,7 +102,9 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean
    public static class SeamManagedSessionFactoryHandler implements InvocationHandler, Serializable
    {
 
-      private SessionFactory rawSessionFactory;
+      private static final long serialVersionUID = 1L;
+
+	private SessionFactory rawSessionFactory;
 
       private String sessionName;
 
@@ -234,7 +236,9 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean
     */
    public static class SeamManagedSessionHandler implements InvocationHandler, Serializable
    {
-      private static final LogProvider log = Logging
+      private static final long serialVersionUID = 1L;
+
+	private static final LogProvider log = Logging
                .getLogProvider(SeamManagedSessionHandler.class);
 
       private Session delegate;

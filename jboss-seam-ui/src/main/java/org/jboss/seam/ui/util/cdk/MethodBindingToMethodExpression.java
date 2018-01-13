@@ -36,7 +36,9 @@ import javax.faces.context.FacesContext;
 @SuppressWarnings("deprecation")
 public class MethodBindingToMethodExpression extends MethodExpression implements StateHolder
 {
-    private static final Class[] EXPECTED_TYPES = new Class[] { javax.faces.el.MethodBinding.class, StateHolder.class };
+    private static final long serialVersionUID = 1L;
+
+	private static final Class[] EXPECTED_TYPES = new Class[] { javax.faces.el.MethodBinding.class, StateHolder.class };
 
     private javax.faces.el.MethodBinding methodBinding;
 

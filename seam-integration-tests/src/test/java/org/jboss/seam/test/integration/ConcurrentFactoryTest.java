@@ -78,7 +78,8 @@ public class ConcurrentFactoryTest
     @Name("concurrentFactoryTest.LockHoldingComponent")
     @Scope(APPLICATION)
     static public class LockHoldingComponent implements Serializable {
-       @In(value = "concurrentFactoryTest.slowlyCreatedComponent", create = true) SlowlyCreatedComponent slowlyCreatedComponent;
+       private static final long serialVersionUID = 1L;
+	@In(value = "concurrentFactoryTest.slowlyCreatedComponent", create = true) SlowlyCreatedComponent slowlyCreatedComponent;
        
        public String getString() {
           return (String) Expressions.instance().createValueExpression("#{concurrentFactoryTest.plainFactoryGeneratedString}").getValue();

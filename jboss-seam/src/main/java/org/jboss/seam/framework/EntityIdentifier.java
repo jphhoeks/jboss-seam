@@ -8,7 +8,9 @@ import org.jboss.seam.transaction.Transaction;
 
 public class EntityIdentifier extends Identifier<EntityManager>
 {
-   public EntityIdentifier(Object entity, EntityManager entityManager)
+   private static final long serialVersionUID = 1L;
+
+public EntityIdentifier(Object entity, EntityManager entityManager)
    {
       super(PersistenceProvider.instance().getBeanClass(entity), PersistenceProvider.instance().getId(entity, entityManager));
       

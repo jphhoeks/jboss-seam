@@ -45,7 +45,9 @@ public class SecurityTest extends JUnitSeamTest
          public Map<String, Object> getDefaultHeaders()
          {
             return new HashMap<String, Object>()
-            {{
+            {private static final long serialVersionUID = 1L;
+
+			{
                   put("Accept", "text/plain");
                }};
          }

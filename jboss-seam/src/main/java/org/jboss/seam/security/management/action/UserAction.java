@@ -26,7 +26,8 @@ import org.jboss.seam.security.management.IdentityManager;
 @Install(precedence = BUILT_IN)
 public class UserAction implements Serializable
 {
-   private String firstname;
+   private static final long serialVersionUID = -7359393884255005928L;
+private String firstname;
    private String lastname;
    private String username;
    private String password;

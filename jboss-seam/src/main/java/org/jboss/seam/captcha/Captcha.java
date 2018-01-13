@@ -28,7 +28,9 @@ import org.jboss.seam.contexts.Contexts;
 @BypassInterceptors
 public class Captcha implements Serializable
 {
-   private static Random random = new Random( System.currentTimeMillis() );
+   private static final long serialVersionUID = -1253127365324079051L;
+
+private static Random random = new Random( System.currentTimeMillis() );
    
    private String correctResponse;
    private String challenge;

@@ -42,7 +42,8 @@ import org.jboss.seam.log.Logging;
 @BypassInterceptors
 public class LdapIdentityStore implements IdentityStore, Serializable
 {
-   // constants for LDAP syntax 1.3.6.1.4.1.1466.115.121.1.7 (boolean)
+   private static final long serialVersionUID = 1L;
+// constants for LDAP syntax 1.3.6.1.4.1.1466.115.121.1.7 (boolean)
    private static final String LDAP_BOOLEAN_TRUE = "TRUE";
    private static final String LDAP_BOOLEAN_FALSE = "FALSE";
    

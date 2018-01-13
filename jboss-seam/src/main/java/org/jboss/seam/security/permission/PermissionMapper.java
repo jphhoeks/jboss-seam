@@ -33,7 +33,9 @@ import org.jboss.seam.core.Init;
 @Startup
 public class PermissionMapper implements Serializable
 {
-   public static final String DEFAULT_RESOLVER_CHAIN_CREATED = "org.jboss.seam.security.defaultResolverChainCreated";
+   private static final long serialVersionUID = 1L;
+
+public static final String DEFAULT_RESOLVER_CHAIN_CREATED = "org.jboss.seam.security.defaultResolverChainCreated";
    
    private Map<Class,Map<String,String>> resolverChains = new HashMap<Class,Map<String,String>>();
    

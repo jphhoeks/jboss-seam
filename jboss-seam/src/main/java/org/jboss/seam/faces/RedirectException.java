@@ -5,7 +5,9 @@ import java.io.IOException;
 public class RedirectException extends RuntimeException
 {
 
-   public RedirectException(IOException ioe)
+   private static final long serialVersionUID = 1L;
+
+public RedirectException(IOException ioe)
    {
       super(ioe);
    }

@@ -29,7 +29,9 @@ import org.jbpm.jpdl.JpdlException;
 public class SeamExpressionSubProcessResolver implements SubProcessResolver
 {
 
-    @Override
+    private static final long serialVersionUID = 1L;
+
+	@Override
     public ProcessDefinition findSubProcess(Element subProcessElement)
     {
         ProcessDefinition subProcessDefinition = null;

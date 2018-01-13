@@ -75,7 +75,9 @@ public class QueryTest
 
    class UnitQuery extends EntityQuery {
 
-      @Override
+      private static final long serialVersionUID = 1942548245762708808L;
+
+	@Override
       protected void parseEjbql()
       {
          super.parseEjbql();

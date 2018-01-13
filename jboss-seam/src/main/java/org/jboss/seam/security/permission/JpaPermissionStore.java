@@ -49,7 +49,9 @@ import org.jboss.seam.util.AnnotatedBeanProperty;
 @BypassInterceptors
 public class JpaPermissionStore implements PermissionStore, Serializable
 {
-   private static final LogProvider log = Logging.getLogProvider(JpaPermissionStore.class);
+   private static final long serialVersionUID = 1L;
+
+private static final LogProvider log = Logging.getLogProvider(JpaPermissionStore.class);
    
    private enum Discrimination { user, role, either }
    

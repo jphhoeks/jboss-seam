@@ -10,7 +10,9 @@ import javax.ejb.ApplicationException;
 @ApplicationException(rollback=true)
 public class AuthorizationException extends RuntimeException
 { 
-   public AuthorizationException(String message)
+   private static final long serialVersionUID = -981091398588455903L;
+
+public AuthorizationException(String message)
    {
       super(message);
    }

@@ -16,7 +16,9 @@ import org.jboss.seam.framework.PersistenceController;
 public abstract class AbstractEntityLoader<T> extends PersistenceController<T>
 {
    
-   /**
+   private static final long serialVersionUID = -3972482802298571753L;
+
+/**
     * Load and return the entity stored
     * @param key
     * @return The entity or null if no entity is available at that key

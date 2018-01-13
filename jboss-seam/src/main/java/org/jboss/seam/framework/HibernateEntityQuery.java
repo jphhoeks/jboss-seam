@@ -16,7 +16,8 @@ import org.jboss.seam.persistence.QueryParser;
 public class HibernateEntityQuery<E> extends Query<Session, E>
 {
 
-   private List<E> resultList;
+   private static final long serialVersionUID = 1L;
+private List<E> resultList;
    private E singleResult;
    private Long resultCount;
    

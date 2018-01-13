@@ -20,7 +20,8 @@ import org.jboss.seam.security.permission.PermissionManager;
 public class EntityManagerInvocationHandler implements InvocationHandler, Serializable
 {
    
-   private EntityManager delegate;
+   private static final long serialVersionUID = 1L;
+private EntityManager delegate;
    
    public EntityManagerInvocationHandler(EntityManager delegate)
    {

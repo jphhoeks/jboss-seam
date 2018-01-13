@@ -36,7 +36,9 @@ import org.jboss.seam.framework.EntityHome;
 public class CategoryHome extends EntityHome<Category>
 {
 
-   public Category findByUsernameAndCategory(String username, String category)
+   private static final long serialVersionUID = -6849457023225286250L;
+
+public Category findByUsernameAndCategory(String username, String category)
    {
       setInstance((Category) getEntityManager().createNamedQuery("categoryByNameAndUser").setParameter("username", username).setParameter("category", category).getSingleResult());
       return getInstance();

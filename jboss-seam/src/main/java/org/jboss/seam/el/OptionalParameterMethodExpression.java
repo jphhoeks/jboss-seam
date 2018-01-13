@@ -16,7 +16,8 @@ import javax.el.MethodNotFoundException;
 class OptionalParameterMethodExpression extends MethodExpression
 {
     
-    private MethodExpression withParam;
+    private static final long serialVersionUID = 1L;
+	private MethodExpression withParam;
     private MethodExpression withNoParam;
     
    public OptionalParameterMethodExpression(MethodExpression withParam, MethodExpression withNoParam)

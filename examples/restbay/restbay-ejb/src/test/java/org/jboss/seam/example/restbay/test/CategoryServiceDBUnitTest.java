@@ -66,7 +66,9 @@ public class CategoryServiceDBUnitTest extends DBJUnitSeamTest
          public Map<String, Object> getDefaultHeaders()
          {
             return new HashMap<String, Object>()
-            {{
+            {private static final long serialVersionUID = 1L;
+
+			{
                   put("Accept", "text/plain");
                }};
          }

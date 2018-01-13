@@ -26,7 +26,9 @@ import org.jboss.seam.core.Expressions;
 public class FacesExpressions extends Expressions
 {
    
-   /**
+   private static final long serialVersionUID = 1L;
+
+/**
     * Get an appropriate ELContext. If there is an active JSF request,
     * use JSF's ELContext. Otherwise, use one that we created.
     */

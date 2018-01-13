@@ -21,12 +21,15 @@ import org.jboss.seam.log.Logging;
 @BypassInterceptors
 public class GraphicImageStore extends AbstractMutable implements Serializable
 {
-   private Log log = Logging.getLog(GraphicImageStore.class);
+   private static final long serialVersionUID = 1L;
+private Log log = Logging.getLog(GraphicImageStore.class);
 
    public static class ImageWrapper implements Serializable
    {
       
-      private byte[] image;
+      private static final long serialVersionUID = 1L;
+
+	private byte[] image;
 
       private Image.Type contentType;
 

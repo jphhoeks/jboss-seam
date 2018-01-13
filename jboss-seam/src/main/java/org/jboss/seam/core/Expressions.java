@@ -40,7 +40,8 @@ import org.jboss.seam.log.Logging;
 @Name("org.jboss.seam.core.expressions")
 public class Expressions implements Serializable
 {
-   private static final LogProvider log = Logging.getLogProvider(Expressions.class);
+   private static final long serialVersionUID = 1L;
+private static final LogProvider log = Logging.getLogProvider(Expressions.class);
    private static List<String> blacklist = new ArrayList<String>();
    
    // loading blacklisted patterns of non-valid EL expressions
@@ -124,7 +125,8 @@ public class Expressions implements Serializable
       
       return new ValueExpression<T>()
       {
-         private javax.el.ValueExpression facesValueExpression;
+         private static final long serialVersionUID = 1L;
+		private javax.el.ValueExpression facesValueExpression;
          private javax.el.ValueExpression seamValueExpression;
          
          public javax.el.ValueExpression toUnifiedValueExpression()
@@ -191,7 +193,8 @@ public class Expressions implements Serializable
       
       return new MethodExpression<T>()
       {
-         private javax.el.MethodExpression facesMethodExpression;
+         private static final long serialVersionUID = 1L;
+		private javax.el.MethodExpression facesMethodExpression;
          private javax.el.MethodExpression seamMethodExpression;
          
          public javax.el.MethodExpression toUnifiedMethodExpression()

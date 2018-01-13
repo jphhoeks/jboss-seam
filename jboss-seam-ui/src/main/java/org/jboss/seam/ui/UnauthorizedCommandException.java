@@ -10,7 +10,8 @@ import javax.faces.FacesException;
  */
 public class UnauthorizedCommandException extends FacesException
 {
-   private String viewId;
+   private static final long serialVersionUID = -2944175773351515562L;
+private String viewId;
    
    /**
     * <p>Construct a new exception with no detail message or root cause.</p>

@@ -32,7 +32,8 @@ import org.jboss.seam.util.Strings;
 @BypassInterceptors
 public class IdentityManager implements Serializable
 {
-   public static final String USER_PERMISSION_NAME = "seam.user";
+   private static final long serialVersionUID = 1L;
+public static final String USER_PERMISSION_NAME = "seam.user";
    public static final String ROLE_PERMISSION_NAME = "seam.role";
    
    public static final String PERMISSION_CREATE = "create";

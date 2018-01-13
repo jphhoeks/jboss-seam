@@ -10,7 +10,8 @@ import org.jboss.seam.annotations.Name;
 @Name("chatroomEvent")
 public class ChatroomEvent implements Serializable
 {
-   private String action;
+   private static final long serialVersionUID = 5964429129406810083L;
+private String action;
    private String user;
    private String data;
 

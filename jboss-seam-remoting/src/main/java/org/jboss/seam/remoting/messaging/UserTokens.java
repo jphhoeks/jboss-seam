@@ -14,7 +14,8 @@ import org.jboss.seam.annotations.Scope;
 @Scope(ScopeType.SESSION)
 public class UserTokens implements Serializable
 {
-   Set<String> tokens = Collections.synchronizedSet(new HashSet<String>());
+   private static final long serialVersionUID = 7622628505968486686L;
+Set<String> tokens = Collections.synchronizedSet(new HashSet<String>());
    
    public void add(String token) {
       tokens.add(token);

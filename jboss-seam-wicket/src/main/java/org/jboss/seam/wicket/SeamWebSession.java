@@ -11,7 +11,9 @@ import org.apache.wicket.protocol.http.WebSession;
  */
 public class SeamWebSession extends WebSession
 {
-   public
+   private static final long serialVersionUID = 1L;
+
+public
    SeamWebSession(Request request)
    {
       super(request);

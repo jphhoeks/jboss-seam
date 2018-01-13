@@ -7,7 +7,9 @@ import org.jboss.seam.test.unit.entity.SimpleEntity;
 @Name("myEntityHome")
 public class MyEntityHome extends EntityHome<SimpleEntity>
 {
-   @Override
+   private static final long serialVersionUID = 1L;
+
+@Override
    public void create()
    {
       if ( getEntityClass()==null )

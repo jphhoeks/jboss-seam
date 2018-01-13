@@ -11,7 +11,8 @@ import java.io.Serializable;
 public abstract class Identifier<T> implements Serializable
 {
 	   
-	   private Class<?> clazz;
+	   private static final long serialVersionUID = 1L;
+	private Class<?> clazz;
 	   private Object id;
    public Identifier(Class<?> clazz, Object id)
    {

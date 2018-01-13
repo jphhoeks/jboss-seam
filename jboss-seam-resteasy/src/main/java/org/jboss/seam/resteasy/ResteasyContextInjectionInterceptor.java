@@ -39,7 +39,8 @@ import org.jboss.seam.intercept.InvocationContext;
 public class ResteasyContextInjectionInterceptor extends AbstractInterceptor
 {
 
-   public static final String RE_HTTP_REQUEST_VAR = "org.jboss.resteasy.spi.HttpRequest";
+   private static final long serialVersionUID = 1L;
+public static final String RE_HTTP_REQUEST_VAR = "org.jboss.resteasy.spi.HttpRequest";
    public static final String RE_HTTP_RESPONSE_VAR = "org.jboss.resteasy.spi.HttpResponse";
 
    private final PropertyInjector propertyInjector;

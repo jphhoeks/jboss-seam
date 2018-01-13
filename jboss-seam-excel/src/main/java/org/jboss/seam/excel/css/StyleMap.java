@@ -9,4 +9,6 @@ import java.util.HashMap;
  */
 public class StyleMap extends HashMap<String, Object>
 {
+
+	private static final long serialVersionUID = 6454043046239203383L;
 }

@@ -26,7 +26,9 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 public class MessageManagerBean implements Serializable, MessageManager
 {
 
-   @DataModel
+   private static final long serialVersionUID = 1L;
+
+@DataModel
    private List<Message> messageList;
    
    @DataModelSelection

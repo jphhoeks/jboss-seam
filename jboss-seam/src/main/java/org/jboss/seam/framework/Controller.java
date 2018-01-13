@@ -42,7 +42,8 @@ import org.jboss.seam.web.Session;
 public abstract class Controller implements Serializable
 {
 
-   @Logger Log log;
+   private static final long serialVersionUID = 839840486566115237L;
+@Logger Log log;
 
    protected Context getApplicationContext()
    {

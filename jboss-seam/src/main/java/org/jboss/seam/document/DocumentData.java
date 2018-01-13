@@ -6,7 +6,8 @@ import java.io.Serializable;
 
 public abstract class DocumentData implements Serializable
 {
-   DocumentType documentType;
+   private static final long serialVersionUID = 1L;
+DocumentType documentType;
    String baseName;
 
    String disposition = "inline";
@@ -63,7 +64,8 @@ public abstract class DocumentData implements Serializable
 
    static public class DocumentType implements Serializable
    {
-      private String mimeType;
+      private static final long serialVersionUID = 1L;
+	private String mimeType;
       private String extension;
 
       public DocumentType(String extension, String mimeType)

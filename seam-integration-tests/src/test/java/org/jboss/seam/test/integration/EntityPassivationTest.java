@@ -184,7 +184,9 @@ public class EntityPassivationTest extends JUnitSeamTest
    @AutoCreate
    public static class SomeComponent implements Serializable
    {
-      @In
+      private static final long serialVersionUID = 1L;
+
+	@In
       EntityManager entityManager;
 
       Set<UnversionedThing> thingSet;
@@ -249,7 +251,8 @@ public class EntityPassivationTest extends JUnitSeamTest
    @AutoCreate
    public static class NestedComponent implements Serializable
    {
-      @In
+      private static final long serialVersionUID = 1L;
+	@In
       EntityManager entityManager;
 
       @Begin(nested = true)

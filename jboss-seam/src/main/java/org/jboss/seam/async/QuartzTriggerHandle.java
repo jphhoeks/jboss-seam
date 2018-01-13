@@ -14,7 +14,9 @@ import org.quartz.Trigger;
  */
 public class QuartzTriggerHandle implements Serializable
 {
-   private final String triggerName;
+   private static final long serialVersionUID = 1L;
+
+private final String triggerName;
    
    // Hold a transient reference to the scheduler to allow control of the
    // scheduler outside of Seam contexts (useful in a testing context)

@@ -8,7 +8,8 @@ package org.jboss.seam.core;
  */
 public abstract class AbstractMutable implements Mutable
 {
-   private transient boolean dirty;
+   private static final long serialVersionUID = 4978458147189809027L;
+private transient boolean dirty;
 
    public boolean clearDirty()
    {

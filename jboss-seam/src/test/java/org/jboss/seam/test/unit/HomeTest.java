@@ -73,7 +73,9 @@ public class HomeTest
       assert new Home<EntityManager, SimpleEntity>()
       {
 
-         @Override
+         private static final long serialVersionUID = 1L;
+
+		@Override
          protected String getEntityName()
          {
             return "SimpleEntity";
@@ -116,17 +118,26 @@ public class HomeTest
       assert entity.getClass().equals(SimpleEntity.class) : "Expecting entity class to be " + SimpleEntity.class + " but got " + entity.getClass();
    }
    
-   public class SimpleEntityHomeSansType extends EntityHome {}
+   public class SimpleEntityHomeSansType extends EntityHome {
+
+	private static final long serialVersionUID = 1L;}
    
-   public class SimpleEntityHomeWithType extends EntityHome<SimpleEntity> {}
+   public class SimpleEntityHomeWithType extends EntityHome<SimpleEntity> {
+
+	private static final long serialVersionUID = 1L;}
    
-   public class SimpleHibernateEntityHomeSansType extends HibernateEntityHome {}
+   public class SimpleHibernateEntityHomeSansType extends HibernateEntityHome {
+
+	private static final long serialVersionUID = 1L;}
    
-   public class SimpleHibernateEntityHomeWithType extends HibernateEntityHome<SimpleEntity> {}
+   public class SimpleHibernateEntityHomeWithType extends HibernateEntityHome<SimpleEntity> {
+
+	private static final long serialVersionUID = 1L;}
    
    public class SimpleEntityHomeWithMessageStubs extends Home<EntityManager, SimpleEntity> {
 
-      private StatusMessages statusMessages;
+      private static final long serialVersionUID = 1L;
+	private StatusMessages statusMessages;
 
       public SimpleEntityHomeWithMessageStubs() {
          statusMessages = new FacesMessages();

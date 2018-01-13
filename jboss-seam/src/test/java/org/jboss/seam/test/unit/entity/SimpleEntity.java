@@ -12,7 +12,9 @@ import javax.persistence.Id;
 @Entity
 public class SimpleEntity implements Serializable
 {
-   private Long id;
+   private static final long serialVersionUID = 1L;
+
+private Long id;
 
    private String name;
 

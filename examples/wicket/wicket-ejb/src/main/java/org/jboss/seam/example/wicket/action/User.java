@@ -21,7 +21,8 @@ import org.jboss.seam.annotations.Scope;
 @Table(name="Customer")
 public class User implements Serializable
 {
-   private String username;
+   private static final long serialVersionUID = -4803346640521192537L;
+private String username;
    private String password;
    private String name;
    

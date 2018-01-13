@@ -5,7 +5,9 @@ package org.jboss.seam.wicket.ioc;
 public class BijectionInterceptor<T> implements StatelessInterceptor<T>
 {
 
-   public Object afterInvoke(InvocationContext<T> invocationContext, Object result)
+   private static final long serialVersionUID = -7256203542198126515L;
+
+public Object afterInvoke(InvocationContext<T> invocationContext, Object result)
    {
       invocationContext.getComponent().outject(invocationContext.getBean());
       invocationContext.getComponent().disinject(invocationContext.getBean());

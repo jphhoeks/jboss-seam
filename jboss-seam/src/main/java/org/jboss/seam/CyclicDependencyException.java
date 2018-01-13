@@ -18,7 +18,8 @@ import org.jboss.seam.core.BijectionInterceptor;
 public class CyclicDependencyException extends IllegalStateException
 {
 
-   /**
+   private static final long serialVersionUID = 1L;
+/**
     * stores the invocations in reverse call order
     */
    private final List<String> invocations = new ArrayList<String>();

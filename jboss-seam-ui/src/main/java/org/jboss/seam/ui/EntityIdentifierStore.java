@@ -31,7 +31,8 @@ import org.jboss.seam.framework.Identifier;
 public class EntityIdentifierStore extends AbstractMutable
 {
    
-   private List<Identifier> store;
+   private static final long serialVersionUID = 1L;
+private List<Identifier> store;
    
    @Create
    public void create()

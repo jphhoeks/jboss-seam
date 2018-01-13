@@ -314,7 +314,9 @@ public class Entity extends Model
    public static class NotEntityException extends IllegalArgumentException 
    {
       
-      public NotEntityException(String string)
+      private static final long serialVersionUID = 1L;
+
+	public NotEntityException(String string)
       {
          super(string);
       }

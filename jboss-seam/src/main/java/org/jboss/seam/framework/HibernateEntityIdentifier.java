@@ -8,7 +8,9 @@ import org.jboss.seam.persistence.HibernatePersistenceProvider;
 public class HibernateEntityIdentifier extends Identifier<Session>
 {
 
-   public HibernateEntityIdentifier(Object entity, Session session)
+   private static final long serialVersionUID = 1L;
+
+public HibernateEntityIdentifier(Object entity, Session session)
    {
       super(HibernatePersistenceProvider.instance().getBeanClass(entity), session.getIdentifier(entity));
    }

@@ -14,7 +14,8 @@ import java.util.Date;
  */
 public class Schedule implements Serializable
 {
-   private Long duration;
+   private static final long serialVersionUID = 1L;
+private Long duration;
    private Date expiration;
    private Date finalExpiration;
    

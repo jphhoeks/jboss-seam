@@ -10,7 +10,9 @@ import org.jboss.seam.annotations.Name;
 public class Person implements Serializable
 {
    
-   public Person(String name)
+   private static final long serialVersionUID = 1L;
+
+public Person(String name)
    {
       this.name = name;
    }

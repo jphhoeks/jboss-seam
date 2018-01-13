@@ -23,7 +23,8 @@ import org.jboss.seam.annotations.Name;
 @Name("booking")
 public class Booking implements Serializable
 {
-   private Long id;
+   private static final long serialVersionUID = -5041937707048024242L;
+private Long id;
    private User user;
    private Hotel hotel;
    private Date checkinDate;

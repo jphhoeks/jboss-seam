@@ -7,7 +7,9 @@ package org.jboss.seam.security.management;
  */
 public class IdentityManagementException extends RuntimeException
 {
-   public IdentityManagementException(String message)
+   private static final long serialVersionUID = 1L;
+
+public IdentityManagementException(String message)
    {
       super(message);
    }

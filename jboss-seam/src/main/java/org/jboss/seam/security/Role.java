@@ -8,7 +8,8 @@ package org.jboss.seam.security;
  */
 public class Role extends SimplePrincipal
 {   
-   private boolean conditional;
+   private static final long serialVersionUID = 1L;
+private boolean conditional;
    
    public Role(String name)
    {

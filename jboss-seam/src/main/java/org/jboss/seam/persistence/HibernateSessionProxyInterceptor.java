@@ -24,7 +24,9 @@ import org.jboss.seam.util.Reflections;
 public class HibernateSessionProxyInterceptor extends AbstractInterceptor
 {
 
-   @AroundInvoke
+   private static final long serialVersionUID = 1L;
+
+@AroundInvoke
    public Object aroundInvoke(InvocationContext ic) throws Exception
    {
       return ic.proceed();

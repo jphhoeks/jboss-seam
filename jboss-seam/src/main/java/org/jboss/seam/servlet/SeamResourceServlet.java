@@ -28,7 +28,9 @@ import org.jboss.seam.web.AbstractResource;
  */
 public class SeamResourceServlet extends HttpServlet
 {  
-   private ServletContext context;
+   private static final long serialVersionUID = 1L;
+
+private ServletContext context;
 
    private Map<String, AbstractResource> providers = new HashMap<String, AbstractResource>();
 

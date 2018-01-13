@@ -17,7 +17,9 @@ import javax.faces.context.FacesContext;
 @Deprecated
 public class UnifiedELValueBinding extends javax.faces.el.ValueBinding implements Serializable
 {
-   private transient ValueExpression valueExpression;
+   private static final long serialVersionUID = -7555716855004738587L;
+
+private transient ValueExpression valueExpression;
    
    private String expressionString;
 

@@ -52,7 +52,9 @@ public class IdentityRequestWrapperTest
       HttpSession session = new MockHttpSession();
       Identity identity = new Identity() {
 
-         @Override
+         private static final long serialVersionUID = 1L;
+
+		@Override
          public Principal getPrincipal()
          {
             return new SimplePrincipal(SEAM_USER);

@@ -148,7 +148,8 @@ public class PageScopedUIIncludeTest
    @Name("viewController")
    public static class ViewController implements Serializable
    {
-      private String viewId = "/component1.xhtml";
+      private static final long serialVersionUID = -3740527568531719210L;
+	private String viewId = "/component1.xhtml";
       
       public void setViewId(String viewId)
       {

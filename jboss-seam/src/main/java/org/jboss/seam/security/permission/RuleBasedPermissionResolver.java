@@ -46,7 +46,9 @@ import org.jboss.seam.security.management.JpaIdentityStore;
 @Startup
 public class RuleBasedPermissionResolver implements PermissionResolver, Serializable
 {      
-   public static final String RULES_COMPONENT_NAME = "securityRules";   
+   private static final long serialVersionUID = 1L;
+
+public static final String RULES_COMPONENT_NAME = "securityRules";   
    
    private static final LogProvider log = Logging.getLogProvider(RuleBasedPermissionResolver.class);
    

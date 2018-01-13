@@ -26,7 +26,9 @@ import org.jboss.seam.security.permission.PermissionManager;
 @Install(precedence = BUILT_IN)
 public class PermissionSearch implements Serializable
 {
-   private Map<Principal,List<Permission>> groupedPermissions = new HashMap<Principal,List<Permission>>();
+   private static final long serialVersionUID = 1L;
+
+private Map<Principal,List<Permission>> groupedPermissions = new HashMap<Principal,List<Permission>>();
    
    @DataModel
    List<Principal> recipients;

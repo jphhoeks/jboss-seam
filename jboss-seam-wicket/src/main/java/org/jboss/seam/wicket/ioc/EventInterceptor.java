@@ -6,7 +6,9 @@ import org.jboss.seam.core.Events;
 public class EventInterceptor<T> implements StatelessInterceptor<T>
 {
 
-   public Object afterInvoke(InvocationContext<T> invocationContext, Object result)
+   private static final long serialVersionUID = 1L;
+
+public Object afterInvoke(InvocationContext<T> invocationContext, Object result)
    {
       if ( result!=null || invocationContext.getConstructor() != null || (invocationContext.getMethod() != null && invocationContext.getMethod().getReturnType().equals(void.class)) )
       {

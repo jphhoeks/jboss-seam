@@ -11,7 +11,8 @@ package org.jboss.seam.framework;
  */
 public abstract class PersistenceController<T> extends Controller
 {
-   private transient T persistenceContext;
+   private static final long serialVersionUID = 1L;
+private transient T persistenceContext;
    
    @SuppressWarnings("unchecked")
    public T getPersistenceContext()

@@ -19,7 +19,9 @@ import org.jboss.seam.security.management.IdentityManager;
 @Install(precedence = BUILT_IN)
 public class RoleSearch implements Serializable
 {
-   @DataModel
+   private static final long serialVersionUID = 1L;
+
+@DataModel
    List<String> roles;
    
    @DataModelSelection

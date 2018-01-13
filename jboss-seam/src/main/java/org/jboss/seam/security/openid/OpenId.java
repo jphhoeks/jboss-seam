@@ -36,7 +36,9 @@ import org.openid4java.message.ax.FetchRequest;
 public class OpenId 
     implements Serializable
 {
-    private transient LogProvider log = Logging.getLogProvider(OpenId.class);
+    private static final long serialVersionUID = 1L;
+
+	private transient LogProvider log = Logging.getLogProvider(OpenId.class);
 
     String id;
     String validatedId;

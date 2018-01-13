@@ -29,7 +29,9 @@ package org.jboss.seam.example.tasks;
 public class ResourceNotFoundException extends RuntimeException
 {
 
-   public ResourceNotFoundException()
+   private static final long serialVersionUID = 1L;
+
+public ResourceNotFoundException()
    {
    }
 

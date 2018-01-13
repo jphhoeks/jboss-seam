@@ -24,7 +24,8 @@ import org.jboss.seam.mock.MockHttpSession;
 public class HttpSessionManager implements Serializable
 {
    
-   private transient HttpSession session;
+   private static final long serialVersionUID = 1L;
+private transient HttpSession session;
    
    @Unwrap
    public HttpSession getSession()

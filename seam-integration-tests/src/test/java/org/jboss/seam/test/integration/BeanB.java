@@ -14,7 +14,8 @@ import org.jboss.seam.annotations.Scope;
 @AutoCreate
 public class BeanB implements Serializable {
 
-    private String myValue;
+    private static final long serialVersionUID = 7065407631149787338L;
+	private String myValue;
 
     public String getMyValue() {
         return myValue;

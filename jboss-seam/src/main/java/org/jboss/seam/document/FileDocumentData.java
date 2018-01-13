@@ -14,6 +14,7 @@ import org.jboss.seam.util.Resources;
  */
 public class FileDocumentData extends DocumentData {
 
+	private static final long serialVersionUID = 1L;
 	private File data;
 
 	public FileDocumentData(String baseName, DocumentType documentType, File data) {

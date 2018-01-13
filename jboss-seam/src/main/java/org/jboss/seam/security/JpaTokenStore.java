@@ -32,7 +32,9 @@ import org.jboss.seam.util.AnnotatedBeanProperty;
 @BypassInterceptors
 public class JpaTokenStore implements TokenStore, Serializable
 {
-   private Class tokenClass;
+   private static final long serialVersionUID = 1L;
+
+private Class tokenClass;
    
    private ValueExpression<EntityManager> entityManager;    
    

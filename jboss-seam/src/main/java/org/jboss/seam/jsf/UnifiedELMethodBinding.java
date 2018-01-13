@@ -16,7 +16,9 @@ import javax.faces.context.FacesContext;
 @Deprecated
 public class UnifiedELMethodBinding extends javax.faces.el.MethodBinding implements Serializable
 {
-   private transient MethodExpression methodExpression;
+   private static final long serialVersionUID = 5465825403188403025L;
+
+private transient MethodExpression methodExpression;
    
    private String expressionString;
    private Class[] argTypes;

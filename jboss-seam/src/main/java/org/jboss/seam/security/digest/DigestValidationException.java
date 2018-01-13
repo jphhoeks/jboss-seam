@@ -7,7 +7,8 @@ package org.jboss.seam.security.digest;
  */
 public class DigestValidationException extends Exception
 {
-   private boolean nonceExpired = false;
+   private static final long serialVersionUID = 1L;
+private boolean nonceExpired = false;
    
    public DigestValidationException(String message)
    {

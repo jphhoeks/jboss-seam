@@ -5,7 +5,9 @@ import org.jboss.seam.security.SimplePrincipal;
 public class OpenIdPrincipal 
     extends SimplePrincipal
 {
-    public OpenIdPrincipal(String name) {
+    private static final long serialVersionUID = 1L;
+
+	public OpenIdPrincipal(String name) {
         super(name);
     }
 }

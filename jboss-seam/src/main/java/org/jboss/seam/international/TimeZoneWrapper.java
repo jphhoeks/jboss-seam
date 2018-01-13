@@ -12,7 +12,9 @@ import java.util.TimeZone;
  */
 public class TimeZoneWrapper extends TimeZone
 {
-   private static final int MILLISECONDS_PER_HOUR = 1000 * 60 * 60;
+   private static final long serialVersionUID = -2216226937945920781L;
+
+private static final int MILLISECONDS_PER_HOUR = 1000 * 60 * 60;
 
    private TimeZone timeZone;
 

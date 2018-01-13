@@ -13,7 +13,8 @@ import java.util.Date;
  */
 public class TimerSchedule extends Schedule
 {
-   private Long intervalDuration;
+   private static final long serialVersionUID = 2692435281183854378L;
+private Long intervalDuration;
    
    public Long getIntervalDuration()
    {

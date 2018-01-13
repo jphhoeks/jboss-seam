@@ -18,7 +18,9 @@ import org.jboss.seam.util.Strings;
 public class StatusMessage implements Serializable
 {
    
-   /**
+   private static final long serialVersionUID = 1L;
+
+/**
     * The severity of the status message
     *
     */

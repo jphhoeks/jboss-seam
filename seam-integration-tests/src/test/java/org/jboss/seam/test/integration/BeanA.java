@@ -14,7 +14,8 @@ import org.jboss.seam.core.Events;
 @AutoCreate
 public class BeanA implements Serializable {
 
-    private String myValue;
+    private static final long serialVersionUID = 7900410160133122428L;
+	private String myValue;
 
     public String getMyValue() {
         return myValue;

@@ -383,7 +383,9 @@ public class Jbpm
    private static final DbSubProcessResolver DB_SUB_PROCESS_RESOLVER = new DbSubProcessResolver();
    class SeamSubProcessResolver implements SubProcessResolver
    {
-      public ProcessDefinition findSubProcess(Element element)
+      private static final long serialVersionUID = 1L;
+
+	public ProcessDefinition findSubProcess(Element element)
       {
          String subProcessName = element.attributeValue("name");
          ProcessDefinition pageflow = pageflowProcessDefinitions.get(subProcessName);

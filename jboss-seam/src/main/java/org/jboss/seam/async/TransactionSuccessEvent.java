@@ -12,7 +12,9 @@ import javax.transaction.Synchronization;
  */
 public class TransactionSuccessEvent extends AsynchronousEvent implements Synchronization
 {
-   public TransactionSuccessEvent(String type, Object... params)
+   private static final long serialVersionUID = -3645374421053857104L;
+
+public TransactionSuccessEvent(String type, Object... params)
    {
       super(type, params);
    }

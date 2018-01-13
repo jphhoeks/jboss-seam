@@ -23,7 +23,9 @@ import org.jboss.seam.framework.Identifier;
 public class JpaEntityLoader extends AbstractEntityLoader<EntityManager>
 {
 
-   @Override
+   private static final long serialVersionUID = 1L;
+
+@Override
    protected Identifier createIdentifier(Object entity)
    {
       return new EntityIdentifier(entity, getPersistenceContext());

@@ -32,7 +32,9 @@ public class Actor extends AbstractMutable implements Serializable
    private String id;
    private Set<String> groupActorIds = new HashSet<String>()
    {
-      @Override
+      private static final long serialVersionUID = 1L;
+
+	@Override
       public boolean add(String o)
       {
          boolean dirty = super.add(o);

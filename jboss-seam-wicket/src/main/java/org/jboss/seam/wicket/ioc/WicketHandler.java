@@ -12,7 +12,9 @@ import org.jboss.seam.wicket.WicketComponent;
 public class WicketHandler implements Serializable
 {
    
-   public static WicketHandler create(Object bean)
+   private static final long serialVersionUID = -3135412003891086932L;
+
+public static WicketHandler create(Object bean)
    {
       WicketHandler handler = new WicketHandler(bean.getClass());
       return handler;

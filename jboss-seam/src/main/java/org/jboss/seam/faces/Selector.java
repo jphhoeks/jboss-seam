@@ -15,7 +15,8 @@ import org.jboss.seam.core.AbstractMutable;
  */
 public abstract class Selector extends AbstractMutable implements Serializable
 {
-   public static final int DEFAULT_MAX_AGE = 31536000; // 1 year in seconds
+   private static final long serialVersionUID = 1L;
+public static final int DEFAULT_MAX_AGE = 31536000; // 1 year in seconds
    private boolean cookieEnabled;
    private int cookieMaxAge = DEFAULT_MAX_AGE;
    private String cookiePath= "/";

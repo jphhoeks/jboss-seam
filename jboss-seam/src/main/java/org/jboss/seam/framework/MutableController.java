@@ -17,7 +17,8 @@ public abstract class MutableController<T>
 {
    //copy/paste from AbstractMutable
    
-   private transient boolean dirty;
+   private static final long serialVersionUID = 1L;
+private transient boolean dirty;
 
    public boolean clearDirty()
    {

@@ -52,7 +52,8 @@ public class DocumentStoreUtils
     static class DownloadableDocumentData 
         extends DocumentData 
     {
-        private Object data;
+        private static final long serialVersionUID = 1L;
+		private Object data;
 
         public DownloadableDocumentData(String baseName, DocumentType type, Object data) {
             super(baseName, type);

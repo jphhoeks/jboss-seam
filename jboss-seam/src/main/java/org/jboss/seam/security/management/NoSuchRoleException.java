@@ -7,7 +7,9 @@ package org.jboss.seam.security.management;
  */
 public class NoSuchRoleException extends RuntimeException
 {
-   public NoSuchRoleException(String message)
+   private static final long serialVersionUID = 1L;
+
+public NoSuchRoleException(String message)
    {
       super(message);
    }

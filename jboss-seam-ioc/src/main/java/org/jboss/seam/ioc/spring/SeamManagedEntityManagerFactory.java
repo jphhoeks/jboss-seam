@@ -30,7 +30,9 @@ import org.springframework.util.ClassUtils;
  */
 public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Serializable
 {
-   private static final LogProvider log = Logging
+   private static final long serialVersionUID = 1L;
+
+private static final LogProvider log = Logging
             .getLogProvider(SeamManagedEntityManagerFactory.class);
 
    private String persistenceContextName;
@@ -92,7 +94,9 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
     */
    public static class SeamManagedPersistenceContextHandler implements InvocationHandler, Serializable
    {
-      private static final LogProvider log = Logging
+      private static final long serialVersionUID = 1L;
+
+	private static final LogProvider log = Logging
                .getLogProvider(SeamManagedPersistenceContextHandler.class);
 
       private EntityManager delegate;

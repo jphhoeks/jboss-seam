@@ -6,7 +6,8 @@ import org.apache.wicket.model.PropertyModel;
 public abstract class SeamPropertyModel implements IModel
 {
    
-   private String expression;
+   private static final long serialVersionUID = 1L;
+private String expression;
    private PropertyModel model;
    
    public SeamPropertyModel(String expression)

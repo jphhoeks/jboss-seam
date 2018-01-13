@@ -10,7 +10,8 @@ import java.security.Principal;
  */
 public class Permission implements Serializable
 {
-   private Object target;
+   private static final long serialVersionUID = 1L;
+private Object target;
    private String action;
    private Principal recipient;
    

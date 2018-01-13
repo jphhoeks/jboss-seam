@@ -63,7 +63,9 @@ public class SecurityTest extends JUnitSeamTest
    
    public class MockIdentity extends Identity
    {
-      @Override
+      private static final long serialVersionUID = 1L;
+
+	@Override
       protected LoginContext getLoginContext() throws LoginException
       {
          return new LoginContext("default", getSubject(), getCredentials().createCallbackHandler(), 

@@ -17,7 +17,8 @@ import org.jboss.seam.annotations.Name;
 @Name("hotel")
 public class Hotel implements Serializable
 {
-   private Long id;
+   private static final long serialVersionUID = 1L;
+private Long id;
    private String name;
    private String address;
    private String city;

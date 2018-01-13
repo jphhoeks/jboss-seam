@@ -11,7 +11,8 @@ import java.util.Date;
  */
 public class CronSchedule extends Schedule
 {
-   private String cron;
+   private static final long serialVersionUID = 1L;
+private String cron;
    
    String getCron()
    {

@@ -22,7 +22,9 @@ import org.jboss.seam.framework.Identifier;
 public class HibernateEntityLoader extends AbstractEntityLoader<Session>
 {
 
-   @Override
+   private static final long serialVersionUID = 1L;
+
+@Override
    protected Identifier createIdentifier(Object entity)
    {
       return new HibernateEntityIdentifier(entity, getPersistenceContext());
