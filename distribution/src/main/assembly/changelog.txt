@@ -7,6 +7,7 @@ Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
 	* [   ] Encode filename header value in file download
 	* [   ] Upgrade hibernate-tools to 5.0.6.Final
 	* [   ] Upgrade commons-collections to 3.2.2
+	* [JBSEAM-2577] pageflow.hasTransition(...) throws NPE if not in process
 
 Release Notes - Seam 2 - Version 2.3.11.ayg
 	

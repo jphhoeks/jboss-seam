@@ -297,8 +297,10 @@ public class Pageflow extends AbstractMutable implements Serializable
    /**
     * Does the current node have a default transition?
     */
-   public boolean hasDefaultTransition()
-   {
+   public boolean hasDefaultTransition() {
+	   if (processInstance == null) {
+		   return false;
+	   }
       //we don't use jBPM's default transition,
       //instead we use the "anonymous" transition
       return getNode().getLeavingTransition(null)!=null;
@@ -309,11 +311,14 @@ public class Pageflow extends AbstractMutable implements Serializable
       return outcome==null || "".equals(outcome);
    }
 
-   public boolean hasTransition(String outcome)
-   {
-      return isNullOutcome(outcome) ? 
-            hasDefaultTransition() : 
-            getNode().getLeavingTransition(outcome)!=null;
+   public boolean hasTransition(String outcome) {
+	   if (isNullOutcome(outcome)) {
+		   return hasDefaultTransition();
+	   }
+	   if (this.processInstance == null) {
+		   return false;
+	   }
+	   return getNode().getLeavingTransition(outcome)!=null;             
    }
 
    /**
