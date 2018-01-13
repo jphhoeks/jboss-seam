@@ -113,8 +113,7 @@ public class FlexFilter
          return result;
       }
       
-      @SuppressWarnings("unchecked")        
-      public Enumeration getInitParameterNames() {
+      public Enumeration<String> getInitParameterNames() {
          return Collections.enumeration(params.keySet());
       }
       

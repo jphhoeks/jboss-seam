@@ -23,7 +23,6 @@ import org.jboss.seam.annotations.Scope;
  */
 @Name("foo")
 @Scope(ScopeType.SESSION)
-@SuppressWarnings("deprecation")
 public class Foo implements Serializable
 {
    private static final long serialVersionUID = -5448030633067107049L;

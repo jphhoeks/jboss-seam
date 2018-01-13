@@ -14,7 +14,6 @@ import org.jboss.seam.annotations.Unwrap;
 @Scope(ScopeType.STATELESS)
 public class ChatroomUsers
 {
-   @SuppressWarnings("unchecked")
    @In CacheProvider cacheProvider;
    
    @SuppressWarnings("unchecked")

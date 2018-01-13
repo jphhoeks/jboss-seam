@@ -187,7 +187,7 @@ public class ExcelExporter
     * @param var The binding var
     * @param col
     */
-   @SuppressWarnings("unchecked")
+
    private void processColumn(javax.faces.component.UIColumn column, Iterator iterator, String var, int columnIndex)
    {
       // Process header facet
