@@ -546,7 +546,6 @@ public class UIWorksheet extends ExcelComponent
       }
    }
 
-   @SuppressWarnings("unchecked")
    public static Iterator unwrapIterator(Object value)
    {
       if (value instanceof Iterable)
@@ -579,7 +578,6 @@ public class UIWorksheet extends ExcelComponent
     * 
     * @return Iterator for values passed to the sheet
     */
-   @SuppressWarnings("unchecked")
    public Iterator getDataIterator()
    {
       return unwrapIterator(getValue());

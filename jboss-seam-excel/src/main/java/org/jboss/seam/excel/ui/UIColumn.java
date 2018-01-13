@@ -25,7 +25,6 @@ public class UIColumn extends ExcelComponent
       return COMPONENT_TYPE;
    }
 
-   @SuppressWarnings("unchecked")
    @Override
    public void encodeBegin(FacesContext facesContext) throws IOException
    {

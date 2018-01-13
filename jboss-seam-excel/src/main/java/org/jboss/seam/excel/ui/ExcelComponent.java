@@ -156,7 +156,6 @@ public abstract class ExcelComponent extends UIComponentBase
     * @param searchClass The class to search for
     * @return The parent, if found.
     */
-   @SuppressWarnings("unchecked")
    protected UIComponent getParentByClass(UIComponent root, Class searchClass)
    {
       if (root == null)
