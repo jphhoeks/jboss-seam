@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +29,7 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.core.ResourceLoader;
+import org.jboss.seam.util.Resources;
 
 
 /**
@@ -41,7 +44,10 @@ import org.jboss.seam.core.ResourceLoader;
 public class Image implements Serializable
 {
 
-   public enum Type
+
+	private static final long serialVersionUID = -5605811523752194913L;
+
+	public enum Type
    {
       IMAGE_PNG("image/png", ".png", "PNG"), IMAGE_JPEG("image/jpeg", ".jpg", "JPEG", "image/jpg"), IMAGE_GIF(
                "image/gif", ".gif", "GIF"), IMAGE_BMP("image/bmp", ".bmp", "BMP");
@@ -123,9 +129,9 @@ public class Image implements Serializable
    private Type contentType = DEFAULT_CONTENT_TYPE;
 
    private transient BufferedImage bufferedImage;
-
-   public Image()
-   {
+   
+   public Image() {
+	   super();
    }
 
    /**
@@ -135,8 +141,7 @@ public class Image implements Serializable
     * @param value
     * @throws IOException
     */
-   public Image setInput(Object value) throws IOException
-   {
+   public Image setInput(Object value) throws IOException {
       this.input = value;
       readImage();
       return this;
@@ -153,6 +158,7 @@ public class Image implements Serializable
          ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
          ImageIO.write(bufferedImage, getContentType().getImageFormatName(), outputStream);
          output = outputStream.toByteArray();
+         dirty = false;
       }
       return output;
    }
@@ -168,6 +174,7 @@ public class Image implements Serializable
    public void setContentType(Type contentType)
    {
       this.contentType = contentType;
+      this.dirty = true;
    }
    
    public BufferedImage getBufferedImage()
@@ -256,7 +263,7 @@ public class Image implements Serializable
                      (int) (getHeight() + stripHeight * 2), getImageType());
             Graphics2D graphics2D = createGraphics(newImage);
             graphics2D.drawImage(bufferedImage, 0, (int) stripHeight, null);
-            bufferedImage = newImage;
+            setBufferedImage(newImage);
          }
          else if (getRatio() < desiredRatio)
          {
@@ -268,9 +275,8 @@ public class Image implements Serializable
                      getHeight(), getImageType());
             Graphics2D graphics2D = createGraphics(newImage);
             graphics2D.drawImage(bufferedImage, (int) stripWidth, 0, null);
-            bufferedImage = newImage;
+            setBufferedImage(newImage);
          }
-         dirty = true;
       }
       return this;
    }
@@ -297,8 +303,7 @@ public class Image implements Serializable
       ConvolveOp simpleBlur = new ConvolveOp(kernel);
 
       simpleBlur.filter(bufferedImage, newImage);
-      bufferedImage = newImage;
-      dirty = true;
+      setBufferedImage(newImage);
       return this;
    }
 
@@ -314,17 +319,22 @@ public class Image implements Serializable
       // Always scale, never stretch. We don't care if the requested scaled
       // ratio is different from the current
       int height = width * getHeight() / getWidth();
-      BufferedImage newImage = new BufferedImage(width, height, getImageType());
-      Graphics2D graphics2D = createGraphics(newImage);
-      graphics2D.drawImage(bufferedImage, 0, 0, width, height, null);
-      bufferedImage = newImage;
-      dirty = true;
+      if (!isImageAlreadyAtSize(width, height)) {
+	      BufferedImage newImage = new BufferedImage(width, height, getImageType());
+	      Graphics2D graphics2D = createGraphics(newImage);
+	      graphics2D.drawImage(bufferedImage, 0, 0, width, height, null);
+	      setBufferedImage(newImage);	      
+      }
       return this;
    }
+   
 
    public Image scaleToFit(int height, int width) 
        throws IOException
    {
+	   if (isImageAlreadyAtSize(width, height)) {
+		   return this;
+	   }
        float hratio = (float) height/getHeight();
        float wratio = (float) width/getWidth();
 
@@ -347,11 +357,12 @@ public class Image implements Serializable
       // Always scale, never stretch. We don't care if the requested scaled
       // ratio is different from the current
       int width = height * getWidth() / getHeight();
-      BufferedImage newImage = new BufferedImage(width, height, getImageType());
-      Graphics2D graphics2D = createGraphics(newImage);
-      graphics2D.drawImage(bufferedImage, 0, 0, width, height, null);
-      bufferedImage = newImage;
-      dirty = true;
+      if (!isImageAlreadyAtSize(width, height)) {
+	      BufferedImage newImage = new BufferedImage(width, height, getImageType());
+	      Graphics2D graphics2D = createGraphics(newImage);
+	      graphics2D.drawImage(bufferedImage, 0, 0, width, height, null);
+	      setBufferedImage(newImage);
+      }
       return this;
    }
    
@@ -364,13 +375,15 @@ public class Image implements Serializable
       {
          return this;
       }
+      if (factor == 1.0) {
+    	  return this;
+      }
       int width = (int) (getWidth() * factor);
       int height = (int) (getHeight() * factor);
       BufferedImage newImage = new BufferedImage(width, height, getImageType());
       Graphics2D graphics2D = createGraphics(newImage);
       graphics2D.drawImage(bufferedImage, 0, 0, width, height, null);
-      bufferedImage = newImage;
-      dirty = true;
+      setBufferedImage(newImage);
       return this;
    }
    
@@ -384,11 +397,12 @@ public class Image implements Serializable
       {
          return this;
       }
-      BufferedImage newImage = new BufferedImage(width, height, getImageType());
-      Graphics2D graphics2D = createGraphics(newImage);
-      graphics2D.drawImage(bufferedImage, 0, 0, width, height, null);
-      bufferedImage = newImage;
-      dirty = true;
+      if (!isImageAlreadyAtSize(width, height)) {
+	      BufferedImage newImage = new BufferedImage(width, height, getImageType());
+	      Graphics2D graphics2D = createGraphics(newImage);
+	      graphics2D.drawImage(bufferedImage, 0, 0, width, height, null);
+	      setBufferedImage(newImage);
+      }      
       return this;
    }
 
@@ -400,7 +414,7 @@ public class Image implements Serializable
       }
       else if (input instanceof File)
       {
-         readImage(((File) input).toURL().openStream());
+         readImage(Files.newInputStream(((File) input).toPath()));
       }
       else if (input instanceof String)
       {
@@ -454,28 +468,36 @@ public class Image implements Serializable
       {
          throw new IllegalArgumentException("Image pointed to must exist (input stream must not be null)");
       }
-      ImageInputStream stream = ImageIO.createImageInputStream(inputStream);
-      if (stream == null)
+      BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+      ImageInputStream imageInputStream = ImageIO.createImageInputStream(bufferedInputStream);
+      if (imageInputStream == null)
       {
          throw new IllegalArgumentException("Error creating image input stream from image");
       }
 
-      Iterator iter = ImageIO.getImageReaders(stream);
+      Iterator<ImageReader> iter = ImageIO.getImageReaders(imageInputStream);
       if (!iter.hasNext())
       {
          return;
       }
 
-      ImageReader reader = (ImageReader) iter.next();
-      ImageReadParam param = reader.getDefaultReadParam();
-      reader.setInput(stream, true, true);
-      String type = reader.getFormatName();
-      setContentType(Type.getTypeByFormatName(type));
-      bufferedImage = reader.read(0, param);
-      stream.close();
-      reader.dispose();
-      dirty = true;
-      inputStream.close();
+      ImageReader reader = null;
+      try {
+    	  reader = (ImageReader) iter.next();
+    	  ImageReadParam param = reader.getDefaultReadParam();
+    	  reader.setInput(imageInputStream, true, true);
+    	  String type = reader.getFormatName();
+    	  setContentType(Type.getTypeByFormatName(type));
+    	  setBufferedImage(reader.read(0, param));
+      }
+      finally {
+    	  
+    	  Resources.close(imageInputStream);
+    	  reader.dispose();
+    	  Resources.close(bufferedInputStream);
+    	  Resources.close(inputStream);
+      }
+
    }
    
    private int getImageType() {
@@ -487,5 +509,17 @@ public class Image implements Serializable
       {
          return DEFAULT_IMAGE_TYPE;
       }
+   }
+   
+   private boolean isImageAlreadyAtSize(int width, int height)  {
+	   if (bufferedImage == null) {
+		   return false;
+	   }
+	   try {
+		   return height == getHeight().intValue() && width == getWidth().intValue();
+	   }
+	   catch (IOException e) {
+		   return false;
+	   }
    }
 }

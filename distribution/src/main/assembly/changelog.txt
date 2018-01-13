@@ -8,6 +8,8 @@ Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
 	* [   ] Upgrade hibernate-tools to 5.0.6.Final
 	* [   ] Upgrade commons-collections to 3.2.2
 	* [JBSEAM-2577] pageflow.hasTransition(...) throws NPE if not in process
+	* [JBSEAM-1793] optimize s:transformImageSize - no transform if image already at desired size
+
 
 Release Notes - Seam 2 - Version 2.3.11.ayg
 	
