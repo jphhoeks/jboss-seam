@@ -62,8 +62,8 @@ public class BookingTest
       manager.initializeTemporaryConversation();
       Contexts.getSessionContext().set("user", new User("Gavin King", "foobar", "gavin"));
 
-      identity.setUsername("gavin");
-      identity.setPassword("foobar");
+      identity.getCredentials().setUsername("gavin");
+      identity.getCredentials().setPassword("foobar");
       identity.login();
 
       hotelSearch.setSearchString("Union Square");

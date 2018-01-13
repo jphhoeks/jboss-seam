@@ -45,8 +45,8 @@ public class LoginTest
       Identity identity = Identity.instance();
 
       assertFalse(identity.isLoggedIn());
-      identity.setUsername("gavin");
-      identity.setPassword("foobar");
+      identity.getCredentials().setUsername("gavin");
+      identity.getCredentials().setPassword("foobar");
       identity.login();
 
       User user = (User)Component.getInstance("user");
@@ -56,8 +56,8 @@ public class LoginTest
       assertTrue(identity.isLoggedIn());
       identity.logout();
       assertFalse(identity.isLoggedIn());
-      identity.setUsername("gavin");
-      identity.setPassword("tiger");
+      identity.getCredentials().setUsername("gavin");
+      identity.getCredentials().setPassword("tiger");
       identity.login();
       assertFalse(identity.isLoggedIn());
    }
@@ -69,8 +69,8 @@ public class LoginTest
 
       assertFalse(identity.isLoggedIn());
 
-      identity.setUsername("gavin");
-      identity.setPassword("foobar");
+      identity.getCredentials().setUsername("gavin");
+      identity.getCredentials().setPassword("foobar");
       identity.login();
 
       User user = (User)Component.getInstance("user");

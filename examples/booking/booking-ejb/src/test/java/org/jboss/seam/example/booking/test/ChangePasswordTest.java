@@ -46,8 +46,8 @@ public class ChangePasswordTest
       Identity identity = Identity.instance();
 
       Contexts.getSessionContext().set("user", new User("Gavin King", "foobar", "gavin"));
-      identity.setUsername("gavin");
-      identity.setPassword("foobar");
+      identity.getCredentials().setUsername("gavin");
+      identity.getCredentials().setPassword("foobar");
       identity.login();
 
       User user = (User)Component.getInstance("user");
