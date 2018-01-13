@@ -532,6 +532,9 @@ public class Manager
 
       switch (propagation.getPropagationType())
       {
+      	case NONE: 
+    	  // nop
+    	  break;
          case BEGIN:
             if ( isLongRunningConversation )
             {
@@ -576,6 +579,9 @@ public class Manager
          case ENDROOT:
             endRootConversation(false);
             break;
+         case DEFAULT:
+        	 break;
+        	 
       }
    }
    

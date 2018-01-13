@@ -112,7 +112,7 @@ public class WicketClassLoader extends Loader
       {
          try
          {
-            return file.toURL();
+            return file.toURI().toURL();
          }
          catch (MalformedURLException e)
          {

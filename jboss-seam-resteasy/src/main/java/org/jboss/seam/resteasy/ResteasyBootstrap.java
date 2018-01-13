@@ -349,6 +349,11 @@ public class ResteasyBootstrap
          // How we register it depends on the component type
          switch (seamComponent.getType())
          {
+         	case ENTITY_BEAN:
+         	case MESSAGE_DRIVEN_BEAN:
+         	case SINGLETON_SESSION_BEAN:
+        	 // nop
+        	 break;
             case STATELESS_SESSION_BEAN:
                // EJB seam component resources must be @Path annotated on one of their business interfaces
                if (resourceInterface != null)
