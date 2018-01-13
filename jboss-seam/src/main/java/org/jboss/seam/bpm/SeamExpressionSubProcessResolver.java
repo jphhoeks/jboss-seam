@@ -1,11 +1,6 @@
 package org.jboss.seam.bpm;
 import static org.jboss.seam.annotations.Install.BUILT_IN;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import org.dom4j.Element;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -15,7 +10,6 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Startup;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.contexts.Contexts;
-import org.jboss.seam.core.AbstractMutable;
 import org.jbpm.JbpmContext;
 import org.jbpm.db.GraphSession;
 import org.jbpm.graph.def.ProcessDefinition;

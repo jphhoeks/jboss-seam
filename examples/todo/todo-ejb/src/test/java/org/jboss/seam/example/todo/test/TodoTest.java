@@ -4,17 +4,15 @@ package org.jboss.seam.example.todo.test;
 import java.io.File;
 import java.util.List;
 
-import org.jboss.seam.example.todo.Login;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OverProtocol;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.bpm.Actor;
 import org.jboss.seam.bpm.TaskInstanceList;
+import org.jboss.seam.example.todo.Login;
 import org.jboss.seam.mock.JUnitSeamTest;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.jbpm.taskmgmt.exe.TaskInstance;

@@ -21,9 +21,9 @@
  */ 
 package org.jboss.seam.example.dvd.test.graphene;
 
+import static org.jboss.arquillian.graphene.Graphene.waitGui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.jboss.arquillian.graphene.Graphene.waitGui;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -33,7 +33,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 
 
 /**

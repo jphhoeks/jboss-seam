@@ -5,7 +5,6 @@ import java.util.Map;
 import org.jboss.seam.core.ConversationIdGenerator;
 import org.jboss.seam.core.ConversationPropagation;
 import org.jboss.seam.core.Manager;
-import org.jboss.seam.util.Id;
 
 /**
  * 

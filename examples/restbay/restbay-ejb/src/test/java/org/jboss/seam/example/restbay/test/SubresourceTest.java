@@ -1,5 +1,7 @@
 package org.jboss.seam.example.restbay.test;
 
+import static org.junit.Assert.assertEquals;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OverProtocol;
 import org.jboss.arquillian.junit.Arquillian;
@@ -10,10 +12,7 @@ import org.jboss.seam.mock.ResourceRequestEnvironment;
 import org.jboss.seam.mock.ResourceRequestEnvironment.Method;
 import org.jboss.seam.mock.ResourceRequestEnvironment.ResourceRequest;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.spec.EnterpriseArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)

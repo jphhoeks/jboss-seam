@@ -1,12 +1,12 @@
 package org.jboss.seam.ui.renderkit;
 
-import java.io.IOException;
-
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.*;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.event.ComponentSystemEventListener;
+import javax.faces.event.ListenerFor;
+import javax.faces.event.PostAddToViewEvent;
 import javax.faces.validator.Validator;
 
 import org.jboss.seam.ui.component.UIEqualityValidator;

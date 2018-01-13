@@ -21,7 +21,6 @@ import org.jboss.seam.mock.MockServletContext;
 import org.jboss.seam.util.Resources;
 import org.jboss.seam.web.MultipartFilter;
 import org.jboss.seam.web.MultipartRequest;
-import org.testng.annotations.Test;
 
 /**
  * @author Pete Muir

@@ -21,12 +21,13 @@
  */
 package org.jboss.seam.example.common.test.booking.graphene;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.JavascriptExecutor;
 
 /**
  * This class tests booking functionality of the example.

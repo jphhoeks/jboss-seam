@@ -1,25 +1,31 @@
 package org.jboss.seam.flex;
 
-import java.io.*;
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-
-import flex.messaging.*;
-import flex.messaging.config.*;
-import flex.messaging.endpoints.Endpoint;
-import flex.messaging.log.ServletLogTarget;
-import flex.messaging.services.RemotingService;
-import flex.messaging.services.remoting.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.util.Reflections;
-import org.jboss.seam.util.Resources;
+
+import flex.messaging.Destination;
+import flex.messaging.FlexContext;
+import flex.messaging.HttpFlexSession;
+import flex.messaging.MessageException;
+import flex.messaging.config.FlexConfigurationManager;
+import flex.messaging.config.MessagingConfiguration;
+import flex.messaging.endpoints.Endpoint;
+import flex.messaging.log.ServletLogTarget;
+import flex.messaging.services.RemotingService;
+import flex.messaging.services.remoting.RemotingDestination;
 
 
 public class MessageBrokerManager

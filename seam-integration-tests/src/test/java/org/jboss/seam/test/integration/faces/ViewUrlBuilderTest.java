@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 
-import javax.validation.constraints.AssertTrue;
-
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OverProtocol;
 import org.jboss.arquillian.container.test.api.RunAsClient;

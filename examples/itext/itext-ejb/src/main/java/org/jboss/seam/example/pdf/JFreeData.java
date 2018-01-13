@@ -1,18 +1,13 @@
 package org.jboss.seam.example.pdf;
 
-import org.jboss.seam.annotations.*;
-
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Paint;
 import java.awt.geom.Rectangle2D;
 
-import javax.swing.JPanel;
-
+import org.jboss.seam.annotations.Name;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.LegendItem;
 import org.jfree.chart.LegendItemCollection;
@@ -24,11 +19,9 @@ import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.RefineryUtilities;
 
 @Name("jfree")
 public class JFreeData {

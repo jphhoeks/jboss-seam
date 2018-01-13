@@ -21,17 +21,17 @@
  */
 package org.jboss.seam.example.remoting.chatroom.test.graphene;
 
-import com.google.common.base.Predicate;
+import static org.junit.Assert.assertEquals;
+
 import java.net.MalformedURLException;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.example.common.test.DeploymentResolver;
 import org.jboss.seam.example.common.test.SeamGrapheneTest;
-import static org.jboss.seam.example.common.test.SeamGrapheneTest.getProperty;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +40,8 @@ import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.google.common.base.Predicate;
 
 /**
  * This class tests functionality of remoting/chatroom example. The test opens

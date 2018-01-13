@@ -17,7 +17,6 @@ import javax.persistence.SynchronizationType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.metamodel.Metamodel;
 
-import org.hibernate.id.SequenceIdentityGenerator.Delegate;
 import org.jboss.seam.Component;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;

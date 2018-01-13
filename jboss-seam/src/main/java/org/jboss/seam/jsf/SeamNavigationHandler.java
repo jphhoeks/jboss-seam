@@ -8,9 +8,7 @@ import javax.faces.application.NavigationCase;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
-import javax.servlet.ServletContext;
 
-import org.jboss.seam.Seam;
 import org.jboss.seam.core.Init;
 import org.jboss.seam.faces.FacesManager;
 import org.jboss.seam.navigation.Pages;

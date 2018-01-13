@@ -9,10 +9,9 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 
 import org.jboss.seam.core.Manager;
-import org.jboss.seam.document.ByteArrayDocumentData;
 import org.jboss.seam.document.DocumentData;
-import org.jboss.seam.document.DocumentDataFactory;
 import org.jboss.seam.document.DocumentData.DocumentType;
+import org.jboss.seam.document.DocumentDataFactory;
 import org.jboss.seam.document.DocumentStore;
 import org.jboss.seam.navigation.Pages;
 import org.jboss.seam.pdf.ITextUtils;
