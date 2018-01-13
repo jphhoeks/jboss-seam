@@ -38,6 +38,8 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
    
    private ReentrantLock lock;
    
+   private boolean destroyed = false;
+   
    public ConversationEntry(String id, List<String> stack, ConversationEntries entries)
    {
       this.id = id;
@@ -285,6 +287,19 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
       }
       
       return location;
+   }
+   
+   /**
+    * Should be called before destroying conversation.
+    * Only one thread gets to destroy conversation
+    * @return true if is the first time called and this thread can/should destroy conversation
+    */
+   synchronized boolean lockDestroy() {
+	   if (destroyed) {
+		   return false;
+	   }
+	   destroyed = true;
+	   return true;
    }
    
    @Override

@@ -139,7 +139,7 @@ public class Manager
                   {
                      events.raiseEvent(EVENT_CONVERSATION_DESTROYED, conversationEntry);
                   }
-                  destroyConversation(conversationEntry.getId(), getSessionMap());
+                  destroyConversation(conversationEntry, getSessionMap());
                } 
                finally
                {
@@ -417,7 +417,7 @@ public class Manager
                   {
                      Events.instance().raiseEvent(EVENT_CONVERSATION_TIMEOUT, conversationEntry.getId());
                   }
-                  destroyConversation( conversationEntry.getId(), session );
+                  destroyConversation(conversationEntry, session );
                }
             }
             finally
@@ -428,13 +428,16 @@ public class Manager
       }
    }
 
+   
    /**
     * Clean up all state associated with a conversation
     */
-   private void destroyConversation(String conversationId, Map<String, Object> session)
-   {
-      Lifecycle.destroyConversationContext(session, conversationId);
-      ConversationEntries.instance().removeConversationEntry(conversationId);
+   private void destroyConversation(ConversationEntry conversation, Map<String, Object> session) {
+	   String conversationId = conversation.getId();
+	   if (conversation.lockDestroy()) {
+	      Lifecycle.destroyConversationContext(session, conversationId);
+	      ConversationEntries.instance().removeConversationEntry(conversationId);
+	   }
    }
 
    /**
@@ -506,7 +509,7 @@ public class Manager
          {
             String entryConversationId = ce.getId();
             log.debug("destroying nested conversation: " + entryConversationId);
-            destroyConversation(entryConversationId, session);
+            destroyConversation(ce, session);
          }
       }
    }
