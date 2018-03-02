@@ -389,7 +389,7 @@
 <!--     <artifactId>jboss-el-api_3.0_spec</artifactId> -->
 <!-- </dependency> -->
         <dependency>
-            <groupId>org.jboss.el</groupId>
+            <groupId>com.github.albfernandez</groupId>
             <artifactId>jboss-el</artifactId>
         </dependency>
 

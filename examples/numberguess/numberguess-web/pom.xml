@@ -37,7 +37,7 @@
             <artifactId>jboss-seam-ui</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.el</groupId>
+            <groupId>com.github.albfernandez</groupId>
             <artifactId>jboss-el</artifactId>
         </dependency>
         <dependency>

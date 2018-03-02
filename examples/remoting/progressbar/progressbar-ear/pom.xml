@@ -31,7 +31,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-        	<groupId>org.jboss.el</groupId>
+        	<groupId>com.github.albfernandez</groupId>
         	<artifactId>jboss-el</artifactId>
         </dependency>
     </dependencies>

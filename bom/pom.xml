@@ -49,7 +49,7 @@
         <version.org.hibernate.javax.persistence>1.0.1.Final</version.org.hibernate.javax.persistence>
         <version.org.hibernate-jpamodelgen>1.2.0.Final</version.org.hibernate-jpamodelgen>
         
-        <version.jboss-el>1.0_02.CR6</version.jboss-el>
+        <version.jboss-el>1.1.0</version.jboss-el>
         
         <!-- ??? -->
         <version.wildfly>10.1.0.Final</version.wildfly>
@@ -841,7 +841,7 @@
                 <version>${version.janino}</version>
             </dependency>
 			<dependency>
-				<groupId>org.jboss.el</groupId>
+				<groupId>com.github.albfernandez</groupId>
 				<artifactId>jboss-el</artifactId>
 				<version>${version.jboss-el}</version>
 			</dependency>
