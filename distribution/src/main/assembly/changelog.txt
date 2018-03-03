@@ -2,7 +2,8 @@ JBoss Seam Changelog
 ====================
 
 Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
-    * [#09] Avoid to call FileInputStream and others to prevent GC overhead
+	* [   ] Use PdfSmartCopy to reduce the size of generated PDF files
+	* [#09] Avoid to call FileInputStream and others to prevent GC overhead
 	* [   ] Better JBPM Subprocess resolve
 	* [   ] Encode filename header value in file download
 	* [   ] Upgrade hibernate-tools to 5.0.6.Final
