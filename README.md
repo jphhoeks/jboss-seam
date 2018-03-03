@@ -3,6 +3,7 @@
 ## Important
 
 Seam 2 is not maintained anymore, you should have migrated to CDI (Standard Java EE technology) long ago ;). 
+
 See https://github.com/seam/migration or more details here https://developer.jboss.org/en/seam/seam2/blog/2015/07/20/migration-from-seam-2-to-cdideltaspike
 
 
@@ -18,9 +19,15 @@ This is a modified fork of https://github.com/seam2/jboss-seam.
 Seam 2.3 targets Java EE 7 capabilities such as JSF2 and JPA2 on the JBoss Enterprise Application Platform 6 (JBoss AS 7) 
 Seam 2.3 also supports RichFaces 4.5
 
-Seam 2 is a powerful open source development platform for building rich Internet applications in Java. Seam integrates technologies such as Asynchronous JavaScript and XML (AJAX), JavaServer Faces (JSF), Java Persistence (JPA), Enterprise Java Beans (EJB 3.1) and Business Process Management (BPM) into a unified full-stack solution, complete with sophisticated tooling.
+Seam 2 is a powerful open source development platform for building rich Internet applications in Java. 
+Seam integrates technologies such as Asynchronous JavaScript and XML (AJAX), JavaServer Faces (JSF), Java Persistence (JPA),
+ Enterprise Java Beans (EJB 3.1) and Business Process Management (BPM) into a unified full-stack solution, complete with sophisticated tooling.
 
-Seam has been designed from the ground up to eliminate complexity at both architecture and API levels. It enables developers to assemble complex web applications using simple annotated Java classes, a rich set of UI components, and very little XML. Seam's unique support for conversations and declarative state management can introduce a more sophisticated user experience while at the same time eliminating common bugs found in traditional web applications. 
+Seam has been designed from the ground up to eliminate complexity at both architecture and API levels. 
+It enables developers to assemble complex web applications using simple annotated Java classes, a rich set of UI components, a
+nd very little XML. 
+Seam's unique support for conversations and declarative state management can introduce a more sophisticated user 
+experience while at the same time eliminating common bugs found in traditional web applications. 
 
 ## Get Up And Running Quick
 
@@ -34,7 +41,7 @@ Seam has been designed from the ground up to eliminate complexity at both archit
 
 ## Learn more
 
-* Read the documentation in http://seamframework.org/Seam2/Documentation.html
+* Read the documentation in https://albfernandez.github.io/jboss-seam/
 
 
 ## Compiling from sources
@@ -62,8 +69,8 @@ Resulting jar files will be in each sub-project target directory.
 
 ### Advanced
 
-To build from github with custom  richfaces and jboss-el (from https://github.com/albfernandez)
-You first must download and install richfaces and jboss-el
+To build from github with custom richfaces 
+You first must download and install richfaces 
 
 ```bash
 
@@ -72,14 +79,9 @@ You first must download and install richfaces and jboss-el
 	git checkout tags/4.5.20.ayg
 	mvn clean package install
 	cd ..
-	git clone https://github.com/albfernandez/jboss-el.git
-	cd jboss-el
-	git checkout tags/1.0_02.CR9.ayg
-	mvn clean package install
-	cd ..
 	git clone https://github.com/albfernandez/jboss-seam.git
 	cd jboss-seam
-	mvn -Pdistribution -Dversion.jboss-el=1.0_02.CR9.ayg -Dversion.richfaces=4.5.20.ayg clean package
+	mvn -Pdistribution -Dversion.richfaces=4.5.20.ayg clean package
 	
 ``` 
 
