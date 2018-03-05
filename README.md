@@ -67,21 +67,4 @@ If you are making changes to source code and want to test quickly without making
 
 Resulting jar files will be in each sub-project target directory.
 
-### Advanced
-
-To build from github with custom richfaces 
-You first must download and install richfaces 
-
-```bash
-
-	git clone https://github.com/albfernandez/richfaces.git
-	cd richfaces
-	git checkout tags/4.5.20.ayg
-	mvn clean package install
-	cd ..
-	git clone https://github.com/albfernandez/jboss-seam.git
-	cd jboss-seam
-	mvn -Pdistribution -Dversion.richfaces=4.5.20.ayg clean package
-	
-``` 
 

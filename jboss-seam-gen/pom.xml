@@ -100,17 +100,17 @@
       </dependency>
       
              <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-core</artifactId>
                 <scope>runtime</scope>   
             </dependency>
 			<dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-a4j</artifactId>
                 <scope>runtime</scope>                
             </dependency>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
                 <scope>runtime</scope>                
             </dependency>

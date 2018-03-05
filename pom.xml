@@ -52,7 +52,7 @@
 		<version.emma>2.0.5312</version.emma>
 		<version.jsf.impl>2.2.13</version.jsf.impl>
 		<version.richfaces.cdk>4.5.0.Final</version.richfaces.cdk>
-		<version.richfaces>4.5.17.Final</version.richfaces>
+		<version.richfaces>4.6.2.ayg</version.richfaces>
 		
 		<!-- Versions of Arquillian and Shrinkwrap -->
         <version.org.jboss.arquillian>1.1.11.Final</version.org.jboss.arquillian>
@@ -284,17 +284,17 @@
             </dependency>
 
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-core</artifactId>
                 <version>${version.richfaces}</version>                
             </dependency>
 			<dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-a4j</artifactId>
                 <version>${version.richfaces}</version>                
             </dependency>
             <dependency>
-                <groupId>org.richfaces</groupId>
+               <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
                 <version>${version.richfaces}</version>                
             </dependency>

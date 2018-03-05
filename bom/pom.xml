@@ -39,7 +39,7 @@
 		<version.janino>2.5.15</version.janino> <!--  Needed for drools 5.3.3 which is needed for seam2 -->
 		<version.resteasy>3.0.19.Final</version.resteasy>
 		<version.spring>3.1.4.RELEASE</version.spring>
-        <version.richfaces>4.5.17.Final</version.richfaces>
+        <version.richfaces>4.6.2.ayg</version.richfaces>
 		<version.org.jboss.spec.javax.faces>2.2.13</version.org.jboss.spec.javax.faces>
 
         <!-- Version of Hibernate projects -->
@@ -286,17 +286,17 @@
 
           
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-core</artifactId>
                 <version>${version.richfaces}</version>                
             </dependency>
 			<dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-a4j</artifactId>
                 <version>${version.richfaces}</version>                
             </dependency>
             <dependency>
-                <groupId>org.richfaces</groupId>
+                <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces</artifactId>
                 <version>${version.richfaces}</version>                
             </dependency>

@@ -139,9 +139,9 @@
       <dependencySet>
          <outputDirectory>lib</outputDirectory>
          <includes>
-            <include>org.richfaces:richfaces-core</include>
-            <include>org.richfaces:richfaces-a4j</include>
-            <include>org.richfaces:richfaces</include>
+            <include>com.github.albfernandez.richfaces:richfaces-core</include>
+            <include>com.github.albfernandez.richfaces:richfaces-a4j</include>
+            <include>com.github.albfernandez.richfaces:richfaces</include>
             <include>org.primefaces:primefaces</include>
             <include>org.primefaces.themes:bootstrap</include>
             <include>net.bootsfaces:bootsfaces</include>
