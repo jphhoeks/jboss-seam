@@ -23,8 +23,6 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.html.HtmlWriter;
 import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfReader;
-import com.lowagie.text.pdf.PdfSmartCopy;
 import com.lowagie.text.pdf.PdfStream;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
@@ -304,12 +302,10 @@ public class UIDocument extends ITextComponent
       document.close();
 
       byte[] bytes = stream.toByteArray();
-      if (documentType == PDF) {
-	      bytes = compressPDF(bytes);
-	      if (signatureField != null)
-	      {
-	         bytes = signatureField.sign(bytes);
-	      }
+
+      if (this.documentType == PDF && signatureField != null)
+      {
+         bytes = signatureField.sign(bytes);
       }
 
       String viewId = Pages.getViewId(context);
@@ -354,30 +350,7 @@ public class UIDocument extends ITextComponent
       }
    }
 
-	private byte[] compressPDF(byte[] bytes) {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		Document document = new Document();
-		try {
-			PdfSmartCopy writer = new PdfSmartCopy(document, baos);
-			writer.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
-			writer.setCompressionLevel(PdfStream.BEST_COMPRESSION);
-			writer.setFullCompression();
-			document.open();
-			PdfReader reader = new PdfReader(bytes);
-			for (int i = 1; i <= reader.getNumberOfPages(); i++) {
-				writer.addPage(writer.getImportedPage(reader, i));
-			}
-			writer.freeReader(reader);
-			reader.close();
-			writer.close();
-			document.close();
-			return baos.toByteArray();
-		} catch (Exception e) {
-			return bytes;
-		}
-	}
-
-public DocWriter getWriter()
+   public DocWriter getWriter()
    {
       return writer;
    }
