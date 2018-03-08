@@ -134,6 +134,11 @@
 		<artifactId>bluesky</artifactId>
 		<version>1.0.10</version>
 	</dependency>
+	<dependency>
+		<groupId>org.primefaces.themes</groupId>
+		<artifactId>south-street</artifactId>
+		<version>1.0.10</version>
+	</dependency>
 
       
       <dependency>

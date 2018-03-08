@@ -143,8 +143,9 @@
             <include>com.github.albfernandez.richfaces:richfaces-a4j</include>
             <include>com.github.albfernandez.richfaces:richfaces</include>
             <include>org.primefaces:primefaces</include>
-            <include>org.primefaces.themes:bootstrap</include>
             <include>org.primefaces.themes:bluesky</include>
+            <include>org.primefaces.themes:bootstrap</include>
+            <include>org.primefaces.themes:south-street</include>
             <include>net.bootsfaces:bootsfaces</include>
             <include>net.sourceforge.cssparser:cssparser</include>
             <include>org.w3c.css:sac</include>
