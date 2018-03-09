@@ -359,7 +359,7 @@ public class UIDocument extends ITextComponent
 		Document document = new Document();
 		try {
 			PdfSmartCopy writer = new PdfSmartCopy(document, baos);
-			writer.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
+			writer.setPdfVersion(PdfWriter.PDF_VERSION_1_5);
 			writer.setCompressionLevel(PdfStream.BEST_COMPRESSION);
 			writer.setFullCompression();
 			document.open();
