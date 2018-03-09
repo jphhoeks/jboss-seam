@@ -142,6 +142,7 @@
             <include>com.github.albfernandez.richfaces:richfaces-core</include>
             <include>com.github.albfernandez.richfaces:richfaces-a4j</include>
             <include>com.github.albfernandez.richfaces:richfaces</include>
+            <include>com.github.albfernandez:itext2</include>
             <include>org.primefaces:primefaces</include>
             <include>org.primefaces.themes:bluesky</include>
             <include>org.primefaces.themes:bootstrap</include>

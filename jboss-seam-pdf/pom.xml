@@ -12,12 +12,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext-rtf</artifactId>
+            <groupId>com.github.albfernandez</groupId>
+            <artifactId>itext2</artifactId>
         </dependency>
 
         <dependency>
