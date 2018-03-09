@@ -365,7 +365,7 @@
 							<manifestEntries>
 								<Seam-Version>${project.version}</Seam-Version>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<Automatic-Module-Name>org.jboss.seam.${artifactId}</Automatic-Module-Name>
+								<Automatic-Module-Name>org.jboss.seam.${project.artifactId}</Automatic-Module-Name>
 							</manifestEntries>
 						</archive>
 					</configuration>
@@ -417,7 +417,7 @@
                        <manifestEntries>
                          <Seam-Version>${project.version}</Seam-Version>
                          <Build-Time>${maven.build.timestamp}</Build-Time>
-                         <Automatic-Module-Name>org.jboss.seam.${artifactId}</Automatic-Module-Name>
+                         <Automatic-Module-Name>org.jboss.seam.${project.artifactId}</Automatic-Module-Name>
                        </manifestEntries>
                    </archive>
                </configuration>
