@@ -34,6 +34,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.text.MessageFormat;
 import java.util.Properties;
 
@@ -74,16 +75,14 @@ public abstract class SeamGrapheneTest {
             }
             try {// HTMLUnit can't maximize a window or take a screenshot
                 browser.manage().window().maximize();
-                //WebDriver augmentedDriver = new Augmenter().augment(browser);
                 byte[] screenshot = ((TakesScreenshot) browser).getScreenshotAs(OutputType.BYTES);
-                //byte[] screenshot = ((TakesScreenshot) browser).getScreenshotAs(OutputType.BYTES);
                 Path output1 = new File(testOutput, description.getMethodName() + ".png").toPath();
-                bos = new BufferedOutputStream(Files.newOutputStream(output1));
+                bos = new BufferedOutputStream(Files.newOutputStream(output1, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
                 bos.write(screenshot);
                 bos.close();
 
                 Path output2 = new File(testOutput, description.getMethodName() + ".html").toPath();
-                bw = new BufferedWriter(Files.newBufferedWriter(output2, StandardCharsets.UTF_8));
+                bw = Files.newBufferedWriter(output2, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
                 bw.write(browser.getPageSource());
                 bw.close();
             } catch (Exception ex) {

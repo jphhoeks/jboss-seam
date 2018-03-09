@@ -24,18 +24,7 @@ public class FileDocumentData extends DocumentData {
 
 	@Override
 	public void writeDataToStream(OutputStream stream) throws IOException {
-		InputStream is = null;
-		try {
-			
-			is = new BufferedInputStream(Files.newInputStream(data.toPath()));
-			byte[] buffer = new byte[4096];
-			int read = 0;
-			while ((read = is.read(buffer)) > 0) {
-				stream.write(buffer, 0, read);
-			}
-		} finally {
-			Resources.close(is);
-		}
+		Files.copy(data.toPath(), stream);
 	}
 
 	public File getData() {

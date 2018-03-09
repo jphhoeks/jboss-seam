@@ -37,7 +37,7 @@ public final class DocumentDataFactory {
 			File tempFile = new File(tempDir, "seam-docstore-" + UUID.randomUUID().toString());
 			
 			try {
-				Files.write(tempFile.toPath(), data, StandardOpenOption.CREATE_NEW);
+				Files.write(tempFile.toPath(), data, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 			}
 			catch (IOException ioe) {
 				log.warn("Error creating temp file", ioe);

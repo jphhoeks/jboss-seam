@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +23,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+import org.jboss.seam.util.Resources;
 import org.jboss.seam.web.fileupload.ParameterParser;
 
 
@@ -162,7 +164,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
          {
             tempFile = File.createTempFile(new UID().toString().replace(":", "-"), ".upload");
             tempFile.deleteOnExit();
-            fOut = new BufferedOutputStream(Files.newOutputStream(tempFile.toPath()));            
+            fOut = new BufferedOutputStream(Files.newOutputStream(tempFile.toPath(), StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING));            
          }
          catch (IOException ex)
          {
@@ -194,11 +196,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
       {
          if (fOut != null)
          {
-            try
-            {
-               fOut.close();
-            }
-            catch (IOException ex) {}
+            Resources.close(fOut);
             fOut = null;
          }
          
@@ -227,11 +225,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
       {
          if (fOut != null)
          {
-            try
-            {
-               fOut.close();
-            }
-            catch (IOException ex) {}
+        	Resources.close(fOut);
             fOut = null;
          }
          

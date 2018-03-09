@@ -1,6 +1,5 @@
 package org.jboss.seam.ui;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +18,7 @@ import org.jboss.seam.document.DocumentData.DocumentType;
 import org.jboss.seam.document.DocumentStore;
 import org.jboss.seam.navigation.Pages;
 import org.jboss.seam.ui.component.UIResource;
+import org.jboss.seam.util.Resources;
 
 /**
  * Helper class for DocumentStore 
@@ -67,7 +67,7 @@ public class DocumentStoreUtils
             if (data instanceof byte[]) {
                 os.write((byte[]) data);
             } else if (data instanceof File) {
-                writeStream(os, new BufferedInputStream(Files.newInputStream(((File) data).toPath())));
+            	Files.copy(((File) data).toPath(), os);
             } else if (data instanceof InputStream) {
                 writeStream(os, (InputStream) data);
             }
@@ -77,23 +77,15 @@ public class DocumentStoreUtils
             throws IOException 
                        
         {   
-            ReadableByteChannel in = Channels.newChannel(is);
-            WritableByteChannel out = Channels.newChannel(os);
+            ReadableByteChannel in =  null;
+            WritableByteChannel out = null;
             
             try {
+            	in = Channels.newChannel(is);
+            	out = Channels.newChannel(os);
                 copyChannel(in, out);
             } finally {
-                try {
-                    in.close();
-                } catch (IOException e) { 
-                    // eat it
-                }
-                
-                try {
-                    out.close();                    
-                } catch (IOException e) {
-                    // eat it
-                }
+            	Resources.close(in, out);
             }
         }
         

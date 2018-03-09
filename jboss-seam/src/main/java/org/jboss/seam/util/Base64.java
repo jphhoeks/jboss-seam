@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
@@ -585,10 +586,7 @@ public class Base64 {
         }   // end catch
         finally
         {
-            try{ oos.close();   } catch( Exception e ){}
-            try{ gzos.close();  } catch( Exception e ){}
-            try{ b64os.close(); } catch( Exception e ){}
-            try{ baos.close();  } catch( Exception e ){}
+        	Resources.close(oos, gzos, b64os, baos);
         }   // end finally
         
         // Return value according to relevant encoding.
@@ -705,7 +703,6 @@ public class Base64 {
                 gzos  = new java.util.zip.GZIPOutputStream( b64os ); 
             
                 gzos.write( source, off, len );
-                gzos.close();
             }   // end try
             catch( java.io.IOException e )
             {
@@ -714,9 +711,7 @@ public class Base64 {
             }   // end catch
             finally
             {
-                try{ gzos.close();  } catch( Exception e ){}
-                try{ b64os.close(); } catch( Exception e ){}
-                try{ baos.close();  } catch( Exception e ){}
+            	Resources.close(gzos, b64os, baos);
             }   // end finally
 
             // Return value according to relevant encoding.
@@ -1009,10 +1004,8 @@ public class Base64 {
                 }   // end catch
                 finally
                 {
-                    try{ baos.close(); } catch( Exception e ){}
-                    try{ gzis.close(); } catch( Exception e ){}
-                    try{ bais.close(); } catch( Exception e ){}
-                }   // end finally
+                	Resources.close(baos, gzis, bais);                    
+                }   
 
             }   // end if: gzipped
         }   // end if: bytes.length >= 2
@@ -1059,8 +1052,7 @@ public class Base64 {
         }   // end catch
         finally
         {
-            try{ bais.close(); } catch( Exception e ){}
-            try{ ois.close();  } catch( Exception e ){}
+        	Resources.close(bais, ois);
         }   // end finally
         
         return obj;
@@ -1083,8 +1075,8 @@ public class Base64 {
         Base64.OutputStream bos = null;
         try
         {
-            bos = new Base64.OutputStream( 
-                      new BufferedOutputStream(Files.newOutputStream( new File(filename).toPath() )), Base64.ENCODE );
+        	java.io.OutputStream os = new BufferedOutputStream(Files.newOutputStream( new File(filename).toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING ));
+            bos = new Base64.OutputStream( os , Base64.ENCODE );
             bos.write( dataToEncode );
             success = true;
         }   // end try
@@ -1095,7 +1087,7 @@ public class Base64 {
         }   // end catch: IOException
         finally
         {
-            try{ bos.close(); } catch( Exception e ){}
+         	Resources.close(bos);
         }   // end finally
         
         return success;
@@ -1128,7 +1120,7 @@ public class Base64 {
         }   // end catch: IOException
         finally
         {
-                try{ bos.close(); } catch( Exception e ){}
+        	Resources.close(bos);
         }   // end finally
         
         return success;
@@ -1260,8 +1252,7 @@ public class Base64 {
             ex.printStackTrace();
         }   // end catch
         finally {
-            try { out.close(); }
-            catch( Exception ex ){}
+            Resources.close(out);
         }   // end finally    
     }   // end encodeFileToFile
 
@@ -1279,15 +1270,14 @@ public class Base64 {
         java.io.OutputStream out = null;
         try{
             out = new java.io.BufferedOutputStream(
-                  Files.newOutputStream( new File(outfile).toPath() ) );
+                  Files.newOutputStream( new File(outfile).toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING ) );
             out.write( decoded );
         }   // end try
         catch( java.io.IOException ex ) {
             ex.printStackTrace();
         }   // end catch
         finally {
-            try { out.close(); }
-            catch( Exception ex ){}
+            Resources.close(out);
         }   // end finally    
     }   // end decodeFileToFile
     
