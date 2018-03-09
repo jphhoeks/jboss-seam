@@ -418,7 +418,7 @@ public DocWriter getWriter()
       if (documentType == PDF)
       {
          PdfWriter writer = PdfWriter.getInstance(document, stream);
-         writer.setPdfVersion(PdfWriter.PDF_VERSION_1_7);
+         writer.setPdfVersion(PdfWriter.PDF_VERSION_1_5);
          writer.setCompressionLevel(PdfStream.BEST_COMPRESSION);
          writer.setFullCompression();
          return writer;
