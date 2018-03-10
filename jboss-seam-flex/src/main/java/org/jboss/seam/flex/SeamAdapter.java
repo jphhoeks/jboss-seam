@@ -66,7 +66,7 @@ public class SeamAdapter
       ServletLifecycle.beginRequest(request);
       ServletContexts.instance().setRequest(request);
       
-      Map conversationParameters = conversationMap(message);
+      Map<String, String> conversationParameters = conversationMap(message);
       ConversationPropagation.instance().restoreConversationId(conversationParameters);     
       Manager.instance().restoreConversation();
       ServletLifecycle.resumeConversation(request);
@@ -85,8 +85,8 @@ public class SeamAdapter
       ServletLifecycle.endRequest(request);
    }
    
-   protected Map conversationMap(Message message) {
-      Map result = new HashMap();
+   protected Map<String, String> conversationMap(Message message) {
+      Map<String, String> result = new HashMap<String, String>();
       
       result.put(Manager.instance().getConversationIdParameter(), conversationId(message));
       return result;

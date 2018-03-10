@@ -108,6 +108,7 @@ public class WicketComponent<T>
       return type;
    }
    
+   @SuppressWarnings("unchecked")
    public static <T> WicketComponent<T> getInstance(Class<? extends T> type)
    {
       String name = getContextVariableName(type);

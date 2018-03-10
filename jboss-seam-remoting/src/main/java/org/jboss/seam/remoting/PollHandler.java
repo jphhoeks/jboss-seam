@@ -87,6 +87,7 @@ public class PollHandler extends BaseRequestHandler implements RequestHandler
     {
       List<PollRequest> requests = new ArrayList<PollRequest>();
 
+      @SuppressWarnings("unchecked")
       List<Element> requestElements = env.element("body").elements("poll");
       for (Element e : requestElements)
       {

@@ -21,15 +21,19 @@
  */
 package org.jboss.seam.example.common.test.booking.graphene;
 
-import com.google.common.base.Predicate;
+import static org.jboss.arquillian.graphene.Graphene.waitModel;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import static org.jboss.arquillian.graphene.Graphene.*;
 import org.jboss.seam.example.common.test.DeploymentResolver;
 import org.jboss.seam.example.common.test.SeamGrapheneTest;
 import org.jboss.shrinkwrap.api.Archive;
 import org.junit.After;
-import static org.junit.Assert.*;
 import org.junit.Before;
+import org.openqa.selenium.WebDriver;
+
+import com.google.common.base.Predicate;
 
 /**
  *
@@ -109,8 +113,8 @@ public class BookingFunctionalTestBase extends SeamGrapheneTest {
             clickAndWaitAjax(getBy("SEARCH_SUBMIT"));
         }
         waitModel(browser).until().element(getBy("SPINNER")).is().not().visible();// ugly
-        waitModel(browser).until(new Predicate() {
-            public boolean apply(Object input) {
+        waitModel(browser).until(new Predicate<WebDriver>() {
+            public boolean apply(WebDriver input) {
                 return isElementPresent(getBy("SEARCH_RESULT_TABLE")) || isElementPresent(getBy("NO_HOTELS_FOUND"));
             }
         });

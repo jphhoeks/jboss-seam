@@ -29,7 +29,7 @@ public class ExcelFactory
 
    private static Map<String, Class<? extends ExcelWorkbook>> defaultImplementations;
 
-   private Map<String, Class> implementations;
+   private Map<String, Class<? extends ExcelWorkbook>> implementations;
 
    static
    {
@@ -82,12 +82,12 @@ public class ExcelFactory
 
    }
 
-   public Map<String, Class> getImplementations()
+   public Map<String, Class<? extends ExcelWorkbook>> getImplementations()
    {
       return implementations;
    }
 
-   public void setImplementations(Map<String, Class> implementations)
+   public void setImplementations(Map<String, Class<? extends ExcelWorkbook>> implementations)
    {
       this.implementations = implementations;
    }
