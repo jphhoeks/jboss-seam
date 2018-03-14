@@ -144,6 +144,8 @@
             <include>com.github.albfernandez.richfaces:richfaces</include>
             <include>com.github.albfernandez:itext2</include>
             <include>org.primefaces:primefaces</include>
+            <include>org.primefaces.extensions:primefaces-extensions</include>
+            <include>org.primefaces.extensions:resources-ckeditor</include>
             <include>org.primefaces.themes:bluesky</include>
             <include>org.primefaces.themes:bootstrap</include>
             <include>org.primefaces.themes:south-street</include>

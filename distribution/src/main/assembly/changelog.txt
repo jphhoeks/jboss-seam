@@ -2,6 +2,7 @@ JBoss Seam Changelog
 ====================
 
 Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
+    * [   ] Package PrimeFaces Extensions http://primefaces-extensions.github.io/
 	* [   ] Use PdfSmartCopy to reduce the size of generated PDF files
 	* [#09] Avoid to call FileInputStream and others to prevent GC overhead
 	* [   ] Better JBPM Subprocess resolve
