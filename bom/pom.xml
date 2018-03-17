@@ -1024,6 +1024,11 @@
                         <groupId>ant</groupId>
                         <artifactId>ant</artifactId>
                     </exclusion>
+                    <!-- exclude bad servlet-api version 2.3 -->
+                    <exclusion>
+                    	<groupId>javax.servlet</groupId>
+                    	 <artifactId>servlet-api</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
 

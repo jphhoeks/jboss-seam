@@ -2,7 +2,8 @@ JBoss Seam Changelog
 ====================
 
 Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
-    * [   ] Package PrimeFaces Extensions http://primefaces-extensions.github.io/
+    * [   ] PrimeFaces upgraded to 6.2
+    * [#15] Package PrimeFaces Extensions http://primefaces-extensions.github.io/
 	* [   ] Use PdfSmartCopy to reduce the size of generated PDF files
 	* [#09] Avoid to call FileInputStream and others to prevent GC overhead
 	* [   ] Better JBPM Subprocess resolve
@@ -27,7 +28,7 @@ Release Notes - Seam 2 - Version 2.3.11.ayg
 	* [ ] Upgrade hibernate to 5.0.14.Final-redhat-1
 	* [ ] As per RF-13865 - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
 
-Release Notes - Seam 2 - Version 2.3.10.ayg
+Release Notes - Seam 2 - Version 2.3.10.ayg (pre-release)
 
 	* [ ] Includes full Richfaces distribution (main jar)
 	* [ ] Upgrade JExcelapi to 2.6.12
@@ -35,7 +36,7 @@ Release Notes - Seam 2 - Version 2.3.10.ayg
 	* [ ] Parametrize logging output (Fixes CVE-2014-0248)
 
 
-Release Notes - Seam 2 - Version 2.3.9.ayg
+Release Notes - Seam 2 - Version 2.3.9.ayg (pre-release)
 
 	* [ ] Preliminary (incomplete) support for JEE7
 	* [ ] Set compiler version to java 7
