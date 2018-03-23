@@ -86,7 +86,7 @@ public class EntityManagerFactory
 			retVal = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
 		}
 		long finishTime = System.currentTimeMillis();
-		log.info("EntityManagerFactory created in " + (finishTime - startTime) + " ms");
+		log.info("EntityManagerFactory " + persistenceUnitName + " created in " + (finishTime - startTime) + " ms");
 
 		return retVal;
 	}
