@@ -1,7 +1,10 @@
 JBoss Seam Changelog
 ====================
 
-Release Notes - Seam 2 - Version 2.3.12-SNAPSHOT
+## [Unreleased]
+
+
+Release Notes - Seam 2 - Version 2.3.12.ayg 2018-05-06
     * [   ] PrimeFaces upgraded to 6.2
     * [#15] Package PrimeFaces Extensions http://primefaces-extensions.github.io/
 	* [   ] Use PdfSmartCopy to reduce the size of generated PDF files
