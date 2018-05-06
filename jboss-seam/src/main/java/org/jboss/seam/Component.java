@@ -2203,11 +2203,15 @@ public class Component extends Model
          }
          
       } catch (Exception e) {
+    	  try {
               if (getScope()!=STATELESS) {
                       getScope().getContext().remove(name); 
               }
-
-              throw new InstantiationException("Could not instantiate Seam component: " + name, e);
+    	  }
+    	  catch (Exception ignore) {
+    		  // Ignore
+    	  }
+          throw new InstantiationException("Could not instantiate Seam component: " + name, e);
       }
 
       return instance;
