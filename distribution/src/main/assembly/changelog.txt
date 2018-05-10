@@ -19,7 +19,7 @@ Release Notes - Seam 2 - Version 2.3.12.ayg 2018-05-06
 	* [JBSEAM-1690] Errors wrapped by ServletExceptions are not logged by ExceptionFilter
 
 
-Release Notes - Seam 2 - Version 2.3.11.ayg
+Release Notes - Seam 2 - Version 2.3.11.ayg 2017-08-22
 	
 	* [ ] Sanity checks for not null on BasicContext Constructor
 	* [ ] Fix support for hibernate search 5
@@ -31,7 +31,7 @@ Release Notes - Seam 2 - Version 2.3.11.ayg
 	* [ ] Upgrade hibernate to 5.0.14.Final-redhat-1
 	* [ ] As per RF-13865 - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
 
-Release Notes - Seam 2 - Version 2.3.10.ayg (pre-release)
+Release Notes - Seam 2 - Version 2.3.10.ayg (pre-release) 2017-06-05
 
 	* [ ] Includes full Richfaces distribution (main jar)
 	* [ ] Upgrade JExcelapi to 2.6.12
@@ -39,7 +39,7 @@ Release Notes - Seam 2 - Version 2.3.10.ayg (pre-release)
 	* [ ] Parametrize logging output (Fixes CVE-2014-0248)
 
 
-Release Notes - Seam 2 - Version 2.3.9.ayg (pre-release)
+Release Notes - Seam 2 - Version 2.3.9.ayg (pre-release) 2017-04-05
 
 	* [ ] Preliminary (incomplete) support for JEE7
 	* [ ] Set compiler version to java 7
@@ -47,7 +47,7 @@ Release Notes - Seam 2 - Version 2.3.9.ayg (pre-release)
 	* [ ] Package Primefaces 6.0
 
 
-Release Notes - Seam 2 - Version 2.3.8.ayg
+Release Notes - Seam 2 - Version 2.3.8.ayg 2016-05-30
 
 	* [ ] Only depends on EHCache 2 (removes dependency with EHCache 1)
 	* [ ] Update jboss-cache to 1.4.1.SP14
@@ -55,7 +55,7 @@ Release Notes - Seam 2 - Version 2.3.8.ayg
 	
 Release Notes - Seam 2 - Version 2.3.7.ayg (not released)
 
-Release Notes - Seam 2 - Version 2.3.6.ayg
+Release Notes - Seam 2 - Version 2.3.6.ayg 2016-05-26
 
 	* [JBSEAM-4678] Stop the PhaseListener doing work on non-seam applications
 	* [JBSEAM-2703] Avoid exceptions for invalid system request parameters
@@ -63,7 +63,7 @@ Release Notes - Seam 2 - Version 2.3.6.ayg
 	* [ ] RendererRequest with utf-8 character encoding
 
 
-Release Notes - Seam 2 - Version 2.3.5.ayg
+Release Notes - Seam 2 - Version 2.3.5.ayg 2016-05-03
 
 	* [JBSEAM-4853] Complete the fix for JBSEAM-4853 (SSL downloads in IE)
 	* [JBSEAM-5145] Captcha validation prints message key instead of message	
@@ -98,7 +98,7 @@ Release Notes - Seam 2 - Version 2.3.5.ayg
 	* [ ] Cache scan results for improved startup time on shared classpath (via org.jboss.seam.deployment.CACHE_SCAN_RESULTS initial parameter)
 	
 
-Release Notes - Seam 2 - Version 2.3.4.ayg
+Release Notes - Seam 2 - Version 2.3.4.ayg 2016-03-23
 	 
 	 * [ ] Allow to exclude packages from scanning (initial parameter org.jboss.seam.deployment.OMIT_PACKAGES)
 	 * [ ] Don't scan for annotations if we have no annotations to search for
@@ -108,11 +108,11 @@ Release Notes - Seam 2 - Version 2.3.4.ayg
 	 * [ ] Seam pdf now generates full compressed PDF version 1.7 
 
 
-Release Notes - Seam 2 - Version 2.3.3-ayg
+Release Notes - Seam 2 - Version 2.3.3-ayg 2016-03-10
 
     * [JBSEAM-4842] - Support for Enums in EL (disabled by default, can be enabled via initial parameter org.jboss.seam.deployment.EnumDeploymentHandler)
 
-Release Notes - Seam 2 - Version 2.3.2.ayg
+Release Notes - Seam 2 - Version 2.3.2.ayg 2016-03-08
 
 ** Bug
     * [JBSEAM-1898] - EntityQuery hints map is defined as <String, String> instead of <String, Object>
