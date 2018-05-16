@@ -56,7 +56,7 @@ private PermissionStore permissionStore;
       
       if (permissionStore == null)
       {
-         log.warn("no permission store available - please install a PermissionStore with the name '" +
+         log.debug("no permission store available - please install a PermissionStore with the name '" +
                Seam.getComponentName(JpaPermissionStore.class) + "' if persistent permissions are required.");
       }
    }     

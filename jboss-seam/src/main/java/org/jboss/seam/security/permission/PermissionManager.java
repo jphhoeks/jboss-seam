@@ -52,7 +52,7 @@ public static final String PERMISSION_STORE_COMPONENT_NAME = "org.jboss.seam.sec
       
       if (permissionStore == null)
       {
-         log.warn("no permission store available - please install a PermissionStore with the name '" +
+         log.debug("no permission store available - please install a PermissionStore with the name '" +
                PERMISSION_STORE_COMPONENT_NAME + "' if permission management is required.");
       }
    } 
