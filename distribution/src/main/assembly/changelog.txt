@@ -180,7 +180,7 @@ Release Notes - Seam 2 - Version 2.3.2.CR1 (not released)
 
 
 
-Release Notes - Seam 2 - Version 2.3.1.Final
+Release Notes - Seam 2 - Version 2.3.1.Final - 2013-07-24
 
 ** Bug
     * [JBSEAM-5101] - Seam Reference Documentation - invalid code samples
@@ -190,7 +190,7 @@ Release Notes - Seam 2 - Version 2.3.1.Final
     * [JBSEAM-5110] - Seam documentation: replace all references to current Seam version with version property
 
 
-Release Notes - Seam 2 - Version 2.3.1.CR1
+Release Notes - Seam 2 - Version 2.3.1.CR1 - 2013-05-30
 
 ** Bug
     * [JBSEAM-4529] - org.jboss.seam.framework.Query --- count query generation fails if the query contains a JOIN FETCH operation written in uppercase 
@@ -262,7 +262,7 @@ Release Notes - Seam 2 - Version 2.3.1.CR1
     * [JBSEAM-5051] - messageList on place off messageManager - seam-reference-2.3.0.Final
 
 
-Release Notes - Seam 2 - Version 2.3.0.Final
+Release Notes - Seam 2 - Version 2.3.0.Final - 2012-09-21
 
 ** Bug
     * [JBSEAM-4503] - <s:token> - cookie identifying the browser (javax.faces.ClientToken) might contain illegal characters
@@ -303,7 +303,7 @@ Release Notes - Seam 2 - Version 2.3.0.Final
     * [JBSEAM-4886] - Non Java EE 6 / JBoss AS 7 critical issues
 
 
-Release Notes - Seam2 - Version 2.3.0.CR1 
+Release Notes - Seam2 - Version 2.3.0.CR1 - 2012-09-02
 
 ** Feature Request
    * [ JBSEAM-4703 ] Migrate Seam DVDStore to the new Hibernate Search 3.2 APIs 			
@@ -383,7 +383,7 @@ Release Notes - Seam2 - Version 2.3.0.CR1
    * [ JBSEAM-4861 ] Component.java uses application wide factoryLock too often  			
 
 
-Release Notes - Seam2 - Version 2.3.0.BETA2 
+Release Notes - Seam2 - Version 2.3.0.BETA2 - 2012-05-21
 
 ** Sub-task
    * [ JBSEAM-4875 ] Use RichFaces 4            
@@ -425,7 +425,7 @@ Release Notes - Seam2 - Version 2.3.0.BETA2
    * [ JBSEAM-4950 ] Add ant task for getting Arquillian JBoss AS7 container jars into distribution for seam-gen    
 
 
-Release Notes - Seam2 - Version 2.3.0.BETA1
+Release Notes - Seam2 - Version 2.3.0.BETA1 - 2012-03-29
 
 ** Feature Request
    * [ JBSEAM-4722 ] Add JSF2, bean validation and EJB 3.1 support          
@@ -465,7 +465,7 @@ Release Notes - Seam2 - Version 2.3.0.BETA1
    * [ JBSEAM-4850 ] Disable JBoss Deprecated Maven repository and replace all dependencies from it to non-deprecated dependencies
 
 
-Release Notes - Seam2 - Version 2.3.0.ALPHA
+Release Notes - Seam2 - Version 2.3.0.ALPHA - 2011-10-08
 
 ** Feature Request
    * [ JBSEAM-3738 ] Maven example for Seam             
@@ -501,7 +501,7 @@ Release Notes - Seam2 - Version 2.3.0.ALPHA
    * [ JBSEAM-4664 ] [excel] Need ability to choose between Content-Disposition: inline and Content-Disposition: attachment for downloads   
 
 
-Release Notes - Seam 2 - Version 2.2.2.Final
+Release Notes - Seam 2 - Version 2.2.2.Final - 2011-04-22
 
 ** Bug
     * [JBSEAM-4774] - Usage of propagation="nested" with <s:link> doesn't create nested conversation
@@ -510,7 +510,7 @@ Release Notes - Seam 2 - Version 2.2.2.Final
     * [JBSEAM-4804] - JBoss Seam2 privilege escalation caused by EL interpolation in FacesMessages (Fixes CVE-2011-1484)
     
     
-Release Notes - Seam - Version 2.2.1.Final 
+Release Notes - Seam - Version 2.2.1.Final 2011-01-27
 
 ** Feature Request
    * [ JBSEAM-3347 ] change column width in tables of pdf doc in security chapter 			
@@ -541,7 +541,7 @@ Release Notes - Seam - Version 2.2.1.Final
 ** Enhancement
    * [ JBSEAM-4759 ] Update Hibernate Search examples to use new features    
    
-Release Notes - Seam - Version 2.2.1.CR3
+Release Notes - Seam - Version 2.2.1.CR3 - 2010-12-16
 
 ** Bug
     * [JBSEAM-3251] - ValidateAllRendererBase not robust enough for dynamic components
@@ -596,7 +596,7 @@ Release Notes - Seam - Version 2.2.1.CR3
 
 
 
-Release Notes - Seam - Version 2.2.1.CR2
+Release Notes - Seam - Version 2.2.1.CR2 - 2010-07-28
 
 ** Bug
     * [JBSEAM-2419] - IAE: factory method with defined scope outjected a value: guestRole
@@ -642,7 +642,7 @@ Release Notes - Seam - Version 2.2.1.CR2
     * [JBSEAM-4638] - In Seam mail do not recommend replacing the mail-ra.rar in JBoss 5.x
     * [JBSEAM-4645] - Implement functional tests for nestedbooking example
 
-Release Notes - Seam - Version 2.2.1.CR1
+Release Notes - Seam - Version 2.2.1.CR1 - 2010-02-24
 
 ** Bug
     * [JBSEAM-2082] - JMS Topic subscriptions never released
@@ -768,7 +768,7 @@ Release Notes - Seam - Version 2.2.1.CR1
     * [JBSEAM-4541] - Remote webservices invocation in Seambay should inform about of state of request by a JavaScript flag
 
 
-Release Notes - Seam - Version 2.2.0.GA
+Release Notes - Seam - Version 2.2.0.GA - 2009-07-08
 
 ** Bug
     * [JBSEAM-2255] - Undeploying multiple wars inside an ear causes IllegalStateException.
@@ -807,7 +807,7 @@ Release Notes - Seam - Version 2.2.0.GA
     * [JBSEAM-4291] - Upgrade TestNG
 
 
-Release Notes - Seam - Version 2.2.0.CR1
+Release Notes - Seam - Version 2.2.0.CR1 - 2009-01-16
 
 ** Bug
     * [JBSEAM-2523] - Identity component should be scoped to the WAR module
@@ -841,7 +841,7 @@ Release Notes - Seam - Version 2.2.0.CR1
     * [JBSEAM-4201] - Upgrade to newest Hibernate libraries (3.3.x series) and Hibernate Search to 3.1.1
 
 
-Release Notes - Seam - Version 2.1.2
+Release Notes - Seam - Version 2.1.2 - 2009-05-28
 
 ** Bug
     * [JBSEAM-2690] - Websphere on Windows JPA reference guide example throws a ClassCastException
@@ -869,7 +869,7 @@ Release Notes - Seam - Version 2.1.2
     * [JBSEAM-4193] - Document attributes "color" of tag "p:font" and "scaleToFit" of  tag "p:image"
 
 
-Release Notes - Seam - Version 2.1.2.CR2
+Release Notes - Seam - Version 2.1.2.CR2 - 2009-05-07
 
 ** Bug
     * [JBSEAM-2523] - Identity component should be scoped to the WAR module
@@ -933,7 +933,7 @@ Release Notes - Seam - Version 2.1.2.CR2
     * [JBSEAM-4157] - document new charting and dataset tags
 
 
-Release Notes - Seam - Version 2.1.2.CR1
+Release Notes - Seam - Version 2.1.2.CR1 - 2009-04-09
 
 ** Bug
     * [JBSEAM-3000] - Conversation leak with UIChart
@@ -1108,7 +1108,7 @@ Release Notes - Seam - Version 2.1.2.CR1
     * [JBSEAM-3878] - Excel e:cell null Values get hardcoded, non-localized "#not a number#" or "#not a date#" 
     * [JBSEAM-3997] - Need to document on-postback flag for page actions
 
-Release Notes - Seam - Version 2.1.1.GA
+Release Notes - Seam - Version 2.1.1.GA - 2008-12-12
 
 ** Bug
     * [JBSEAM-3682] - empty data for date type throws exception in JXLHelper.createCell
@@ -1120,7 +1120,7 @@ Release Notes - Seam - Version 2.1.1.GA
     * [JBSEAM-3834] - ClassCastException in Cell Column With Empty Date
     * [JBSEAM-3843] - Seamspace example - pages.xml uses logLevel attribute
 
-Release Notes - Seam - Version 2.1.1.CR2
+Release Notes - Seam - Version 2.1.1.CR2 - 2008-12-04
 
 ** Bug
     * [JBSEAM-3034] - EJB Session Bean Injection using @In Glassfish server 
@@ -1174,7 +1174,7 @@ Release Notes - Seam - Version 2.1.1.CR2
     * [JBSEAM-3711] - openid docs and example
 
 
-Release Notes - Seam - Version 2.1.1.CR1
+Release Notes - Seam - Version 2.1.1.CR1 - 2008-11-18
 
 ** Bug
     * [JBSEAM-1738] - seam-gen should uppercase Oracle schema names
@@ -1253,7 +1253,7 @@ Release Notes - Seam - Version 2.1.1.CR1
 
 
 
-Release Notes - Seam - Version 2.1.0.GA
+Release Notes - Seam - Version 2.1.0.GA - 2008-10-15
 
 ** Bug
     * [JBSEAM-541] - ConversationEntry reports the wrong description
@@ -1392,7 +1392,7 @@ Release Notes - Seam - Version 2.1.0.GA
     * [JBSEAM-3559] - websphere deployment documentation [minor correction]
 
 
-Release Notes - Seam - Version 2.1.0.CR1
+Release Notes - Seam - Version 2.1.0.CR1 - 2008-09-24
 
 ** Bug
     * [JBSEAM-808] - StatckOverflowError if factory specifies it's component
@@ -1519,7 +1519,7 @@ Release Notes - Seam - Version 2.1.0.CR1
     * [JBSEAM-3456] - Verify Seam JEE example on WLS 10.0MP1
 
 
-Release Notes - Seam - Version 2.1.0.BETA1
+Release Notes - Seam - Version 2.1.0.BETA1 - 2008-08-26
 
 ** Bug
     * [JBSEAM-1371] - Unable to use TestNG groups with SeamTest
@@ -1807,7 +1807,7 @@ Release Notes - Seam - Version 2.1.0.BETA1
     * [JBSEAM-3253] - Upgrade to RichFaces 3.2.2
     * [JBSEAM-3255] - Align dependencies to JBoss 4.2.3.GA
 
-Release Notes - JBoss Seam - Version 2.1.0.A1
+Release Notes - JBoss Seam - Version 2.1.0.A1 - 2008-02-11
 
 ** Bug
     * [JBSEAM-1021] - Don't log exceptions if they are handled in pages.xml
@@ -1857,7 +1857,7 @@ Release Notes - JBoss Seam - Version 2.1.0.A1
     * [JBSEAM-2542] - Document semantics of s:link with view and action
     * [JBSEAM-2555] - Upgrade to Richfaces 3.1.4
 
-Release Notes - JBoss Seam - Version 2.0.1.CR2
+Release Notes - JBoss Seam - Version 2.0.1.CR2 - 2008-01-29
 
 ** Bug
     * [JBSEAM-1853] - Wiki diff is broken
@@ -1945,7 +1945,7 @@ Release Notes - JBoss Seam - Version 2.0.1.CR2
     * [JBSEAM-2521] - Strip identity management out of seam-gen
 
 
-Release Notes - JBoss Seam - Version 2.0.1.CR1
+Release Notes - JBoss Seam - Version 2.0.1.CR1 - 2007-12-12
 
 ** Bug
     * [JBSEAM-1081] - s:enumItem should support itemLabel and itemValue attributes
@@ -2057,7 +2057,7 @@ Release Notes - JBoss Seam - Version 2.0.1.CR1
     * [JBSEAM-2344] - oc4j runs out of permgen memory when deploying jee5 example
 
 
-Release Notes - JBoss Seam - Version 2.0.0.GA
+Release Notes - JBoss Seam - Version 2.0.0.GA - 2007-11-01
 
 ** Bug
     * [JBSEAM-2140] - Workspace switcher overwrites state in document edit conversation
@@ -2069,7 +2069,7 @@ Release Notes - JBoss Seam - Version 2.0.0.GA
 ** Task
     * [JBSEAM-2196] - Declare FaceletsViewHandler in faces-config.xml in RichFaces projects
 
-Release Notes - JBoss Seam - Version 2.0.0.CR3
+Release Notes - JBoss Seam - Version 2.0.0.CR3 - 2007-10-25
 
 ** Bug
     * [JBSEAM-1748] - Seam remoting stops working with GWT 1.4.10
@@ -2137,7 +2137,7 @@ Release Notes - JBoss Seam - Version 2.0.0.CR3
     * [JBSEAM-2120] - Document that embeddable jboss only works with jdk 1.5.0
     * [JBSEAM-2131] - change Embeddable EJB references to JBoss Embedded in images
 
-Release Notes - JBoss Seam - Version 2.0.0.CR2
+Release Notes - JBoss Seam - Version 2.0.0.CR2 - 2007-10-05
 
 ** Bug
     * [JBSEAM-1726] - seam-gen corrupts image files
@@ -2227,7 +2227,7 @@ Release Notes - JBoss Seam - Version 2.0.0.CR2
     * [JBSEAM-2031] - Update hibernatetools to b10
 
 
-Release Notes - JBoss Seam - Version 2.0.0.CR1
+Release Notes - JBoss Seam - Version 2.0.0.CR1 - 2007-09-18
 
 ** Bug
     * [JBSEAM-783] - Examples should support explode target
@@ -2422,7 +2422,7 @@ Release Notes - JBoss Seam - Version 2.0.0.CR1
     * [JBSEAM-1920] - Upgrade to Richfaces 3.1.0 GA
 
 
-Release Notes - JBoss Seam - Version 2.0.0.BETA1
+Release Notes - JBoss Seam - Version 2.0.0.BETA1 - 2007-06-27
 
 ** Bug
     * [JBSEAM-313] - <s:validateAll> + facelets user tag
@@ -2514,7 +2514,7 @@ Release Notes - JBoss Seam - Version 2.0.0.BETA1
     * [JBSEAM-1558] - seam-gen 1.3 alpha still includes Ajax4JSF filter in web.xml
 
 
-Release Notes - JBoss Seam - Version 1.3.0.ALPHA
+Release Notes - JBoss Seam - Version 1.3.0.ALPHA - 2007-06-13
 
 ** Bug
     * [JBSEAM-308] - DataModel instance changes even though the backing list did not when using PAGE scope
@@ -2705,7 +2705,7 @@ Release Notes - JBoss Seam - Version 1.3.0.ALPHA
     * [JBSEAM-1417] - Document @Converter and @Validator
     * [JBSEAM-1420] - Add a null check in Initialization class
 
-Release Notes - JBoss Seam - Version 1.2.1.GA
+Release Notes - JBoss Seam - Version 1.2.1.GA - 2007-03-28
 
 ** Bug
     * [JBSEAM-781] - Identity.login is reporting a login failure with a SEVERITY_INFO
@@ -2807,7 +2807,7 @@ Release Notes - JBoss Seam - Version 1.2.1.GA
     * [JBSEAM-1105] - Document the "safe" way to add a seam-gen project to Eclipse
     * [JBSEAM-1113] - Update JCaptcha lib to LGPL version
 
-Release Notes - JBoss Seam - Version 1.2.0.PATCH1
+Release Notes - JBoss Seam - Version 1.2.0.PATCH1 - 2007-02-28
 
 ** Bug
     * [JBSEAM-916] - Build fails doing "seam restart" 
@@ -2844,7 +2844,7 @@ Release Notes - JBoss Seam - Version 1.2.0.PATCH1
     * [JBSEAM-929] - consistent component naming / remove unused files from CVS
 
 
-Changes in version 1.1.7.RC1 (February 2007)
+Changes in version 1.1.7.RC1 - 2007-02-27
 -------------------------------------------
 Release Notes - JBoss Seam - Version 1.1.7.RC1
 
@@ -2918,7 +2918,7 @@ Release Notes - JBoss Seam - Version 1.1.7.RC1
 ** Task
     * [JBSEAM-887] - Replicate booking demo fixes to all versions of the demo
 
-Release Notes - JBoss Seam - Version 1.1.6.GA
+Release Notes - JBoss Seam - Version 1.1.6.GA - 2007-02-08
 
 ** Bug
     * [JBSEAM-661] - s:selectDate dynamic for-id in facelets
@@ -2967,7 +2967,7 @@ Release Notes - JBoss Seam - Version 1.1.6.GA
     * [JBSEAM-750] - invalid XML in chapter 5 pages.xml examples 
     * [JBSEAM-758] - Fix for NPE in org.jboss.seam.core.Selector
 
-Changes in version 1.1.5.GA (February 2007)
+Changes in version 1.1.5.GA  - 2007-01-31
 -------------------------------------------
 ** Bug
     * [JBSEAM-663] - jboss cache and redeploy
@@ -3008,7 +3008,7 @@ Changes in version 1.1.5.GA (February 2007)
 ** Task
     * [JBSEAM-704] - Upgrade to jBPM 3.1.4
 
-Changes in version 1.1.1.GA (January 2007)
+Changes in version 1.1.1.GA - 2007-01-19
 ------------------------------------------
 ** Bug
     * [JBSEAM-580] - org.jboss.seam.core.Validation.validate() method does not work for alternative property expression format: #{entity[fieldName]}
