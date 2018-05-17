@@ -4,6 +4,11 @@ JBoss Seam Changelog
 ## [Unreleased]
 
 
+Release Notes - Seam 2 - Version 2.3.13.ayg 2018-05-17
+	* [ ] Prevent exception logging if jbpm is not present at runtime
+	* [ ] Adjusted some log levels
+	 
+
 Release Notes - Seam 2 - Version 2.3.12.ayg 2018-05-06
     * [   ] PrimeFaces upgraded to 6.2
     * [#15] Package PrimeFaces Extensions http://primefaces-extensions.github.io/
