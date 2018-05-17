@@ -392,7 +392,7 @@ public class Jbpm
          if(pageflow != null) {
         	 return pageflow;
          }
-         SeamExpressionSubProcessResolver SEAM_SUB_PROCESS_RESOLVER = SeamExpressionSubProcessResolver.instance();
+         SeamExpressionSubProcessResolver SEAM_SUB_PROCESS_RESOLVER = new SeamExpressionSubProcessResolver();
          if(SEAM_SUB_PROCESS_RESOLVER != null) {
         	 return SEAM_SUB_PROCESS_RESOLVER.findSubProcess(element);
          }

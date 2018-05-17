@@ -1,14 +1,8 @@
 package org.jboss.seam.bpm;
-import static org.jboss.seam.annotations.Install.BUILT_IN;
 
 import org.dom4j.Element;
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
-import org.jboss.seam.annotations.Install;
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.annotations.Startup;
-import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.contexts.Contexts;
 import org.jbpm.JbpmContext;
 import org.jbpm.db.GraphSession;
@@ -16,20 +10,16 @@ import org.jbpm.graph.def.ProcessDefinition;
 import org.jbpm.graph.node.SubProcessResolver;
 import org.jbpm.jpdl.JpdlException;
 
-/**
- * 
- * 
- * @author Omid Pourhadi
- */
-@Name("org.jboss.seam.bpm.seamsubprocessresolver")
-@Scope(ScopeType.APPLICATION)
-@BypassInterceptors
-@Startup
-@Install(dependencies = "org.jboss.seam.bpm.jbpm", precedence = BUILT_IN)
-public class SeamExpressionSubProcessResolver implements SubProcessResolver
-{
 
-    private static final long serialVersionUID = 1L;
+public class SeamExpressionSubProcessResolver implements SubProcessResolver {
+
+
+	
+	private static final long serialVersionUID = -2786637485124868961L;
+	
+	public SeamExpressionSubProcessResolver() {
+		super();
+	}
 
 	@Override
     public ProcessDefinition findSubProcess(Element subProcessElement)
@@ -90,13 +80,5 @@ public class SeamExpressionSubProcessResolver implements SubProcessResolver
         return subProcessDefinition;
     }
     
-    public static SeamExpressionSubProcessResolver instance()
-    {
-       if ( !Contexts.isApplicationContextActive() )
-       {
-          throw new IllegalStateException("no active application context");
-       }
-       return (SeamExpressionSubProcessResolver) Component.getInstance(SeamExpressionSubProcessResolver.class, ScopeType.APPLICATION);
-    }
     
 }
