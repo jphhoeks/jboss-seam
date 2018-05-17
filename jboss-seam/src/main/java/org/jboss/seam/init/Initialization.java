@@ -578,7 +578,7 @@ public class Initialization
             this.componentDescriptors.put(name, set);
         }
         if (!set.isEmpty()) {
-            log.info("two components with same name, higher precedence wins: " + name);
+            log.debug("two components with same name, higher precedence wins: " + name);
         }
         if (!set.add(descriptor)) {
             ComponentDescriptor other = null;

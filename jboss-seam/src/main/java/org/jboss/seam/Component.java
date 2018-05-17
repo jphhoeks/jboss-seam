@@ -232,14 +232,16 @@ public class Component extends Model
 
       jndiName = componentJndiName == null ?
             getJndiName(applicationContext) : componentJndiName;
-
-      log.info(
-            "Component: " + getName() +
-            ", scope: " + getScope() +
-            ", type: " + getType() +
-            ", class: " + getBeanClass().getName() +
-            ( jndiName==null ? "" : ", JNDI: " + jndiName )
-         );
+      
+            if (log.isInfoEnabled()) {
+			      log.info(
+			            "Component: " + getName() +
+			            ", scope: " + getScope() +
+			            ", type: " + getType() +
+			            ", class: " + getBeanClass().getName() +
+			            ( jndiName==null ? "" : ", JNDI: " + jndiName )
+			         );
+            }
 
       initMembers( getBeanClass(), applicationContext );
       checkDefaultRemoveMethod();
@@ -474,7 +476,9 @@ public class Component extends Model
 
          if ( key.startsWith(name) && key.charAt( name.length() )=='.' )
          {
-            if ( log.isDebugEnabled() ) log.debug( key + "=" + propertyValue );
+            if ( log.isDebugEnabled() ) {
+            	log.debug( key + "=" + propertyValue );
+            }
 
             /*if ( type==ENTITY_BEAN )
             {
@@ -961,7 +965,9 @@ public class Component extends Model
       newSort(interceptors);
       newSort(clientSideInterceptors);
       
-      if ( log.isDebugEnabled() ) log.debug("interceptor stack: " + interceptors);
+      if ( log.isDebugEnabled() ) {
+    	  log.debug("interceptor stack: " + interceptors);
+      }
    }
 
    public void addInterceptor(Object interceptorInstance)
@@ -1524,7 +1530,9 @@ public class Component extends Model
 
    public void initialize(Object bean) throws Exception
    {
-      if ( log.isTraceEnabled() ) log.trace("initializing new instance of: " + name  + "/" + getBeanClass().getCanonicalName());
+      if ( log.isTraceEnabled() ) {
+    	  log.trace("initializing new instance of: " + name  + "/" + getBeanClass().getCanonicalName());
+      }
 
       injectLog(bean);
 
@@ -1643,7 +1651,9 @@ public class Component extends Model
       
          Object selectedIndex = wrapper.getSelection(dataModelAnn, dataModel);
       
-         if ( log.isDebugEnabled() ) log.debug( "selected row: " + selectedIndex );
+         if ( log.isDebugEnabled() ) {
+        	 log.debug( "selected row: " + selectedIndex );
+         }
       
          if ( selectedIndex!=null )
          {
@@ -2029,7 +2039,9 @@ public class Component extends Model
            if (component==null)
            {
               //needed when this method is called by JSF
-              if ( log.isTraceEnabled() ) log.trace("Seam component not found: " + name);
+              if ( log.isTraceEnabled() ) {
+            	  log.trace("Seam component not found: " + name);
+              }
            }
            else if ( component.getScope().isContextActive() )
            {
