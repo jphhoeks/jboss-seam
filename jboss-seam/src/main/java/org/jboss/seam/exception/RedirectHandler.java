@@ -61,6 +61,14 @@ public abstract class RedirectHandler extends ExceptionHandler
 				error(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error! Something bad happened :-(");
 				return;
 			}
+			if (is403Page(currentView)) {
+				error(HttpServletResponse.SC_FORBIDDEN, "Forbidden");
+				return;
+			}
+			if (is404Page(currentView)) {
+				error(HttpServletResponse.SC_NOT_FOUND, "Not found");
+				return;
+			}
 			redirect(viewId, null);
 		} catch (RedirectException re) {
 			// do nothing
@@ -68,6 +76,19 @@ public abstract class RedirectHandler extends ExceptionHandler
 		}
 	}
 
+	private boolean is404Page(String viewId) {
+		if (Strings.isEmpty(viewId)) {
+			return false;
+		}
+		return viewId.equals("/404" + Pages.getSuffix()) ;
+	}
+
+	private boolean is403Page(String viewId) {
+		if (Strings.isEmpty(viewId)) {
+			return false;
+		}
+		return viewId.equals("/403" + Pages.getSuffix());
+	}
 	private boolean isErrorOrDebugPage(String viewId) {
 		if (Strings.isEmpty(viewId)) {
 			return false;

@@ -60,7 +60,12 @@ public class RedirectFilter extends AbstractFilter
     	if (Strings.isEmpty(savedUrl)) {
     		return false;
     	}
-    	return savedUrl.contains("/debug.") || savedUrl.contains("/error.") || savedUrl.contains("/login.");
+    	return 
+    			savedUrl.contains("/debug.") || 
+    			savedUrl.contains("/error.") || 
+    			savedUrl.contains("/login.") ||
+    			savedUrl.contains("/404.") ||
+    			savedUrl.contains("/403.");
 	}
 
 	private boolean isErrorOrDebugOrLoginPage(ServletRequest request) {
