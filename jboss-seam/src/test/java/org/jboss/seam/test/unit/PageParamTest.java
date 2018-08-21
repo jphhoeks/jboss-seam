@@ -36,26 +36,6 @@ public class PageParamTest extends AbstractPageTest
       assert param.getConverter() instanceof IntegerConverter : "expecting: " + converterClass + "; got: " + param.getConverter();
    }
    
-   /**
-    * Verify EL expression disability in actionOutcome parameter
-    */
-   @Test(expectedExceptions = IllegalArgumentException.class )
-   public void testGetCallAction()
-   {
-      EnhancedMockHttpServletRequest request = new EnhancedMockHttpServletRequest();
-      request.addParameter("actionOutcome", "#{variable}");
-      FacesContext.getCurrentInstance().getExternalContext().setRequest(request);
-      Pages.instance().preRender(FacesContext.getCurrentInstance());      
-   }
-   
-   @Test(expectedExceptions = IllegalArgumentException.class )
-   public void testGetCallActionEscaped()
-   {
-      EnhancedMockHttpServletRequest request = new EnhancedMockHttpServletRequest();
-      request.addParameter("actionOutcome", "%3d%23%7dvariable%7b");
-      FacesContext.getCurrentInstance().getExternalContext().setRequest(request);
-      Pages.instance().preRender(FacesContext.getCurrentInstance());      
-   }
    
    /**
     * Verify that converter is null when the parameter value is a value expression and
