@@ -122,17 +122,12 @@
 	<dependency>
 		<groupId>org.primefaces.extensions</groupId>
 		<artifactId>primefaces-extensions</artifactId>
-		<version>6.2</version>
-	</dependency>
-	<dependency>
-		<groupId>org.primefaces.extensions</groupId>
-		<artifactId>primefaces-extensions</artifactId>
-		<version>6.2</version>
+		<version>6.2.8</version>
 	</dependency>
 	<dependency>
 		<groupId>org.primefaces.extensions</groupId>
 		<artifactId>resources-ckeditor</artifactId>
-		<version>6.2</version>
+		<version>6.2.8</version>
 	</dependency>
 	
 	<dependency>
