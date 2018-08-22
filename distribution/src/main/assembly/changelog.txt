@@ -1,6 +1,7 @@
 JBoss Seam Changelog
 ====================
 
+## [Unreleased]
 
 Release Notes - Seam 2 - Version 2.3.14.ayg 2018-08-22
 	* [#18] fix actionOutcome EL expresion evaluation from user input.
