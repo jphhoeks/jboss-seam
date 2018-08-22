@@ -1,15 +1,14 @@
 JBoss Seam Changelog
 ====================
 
-## [Unreleased]
 
+Release Notes - Seam 2 - Version 2.3.14.ayg 2018-08-22
+	* [#18] fix actionOutcome EL expresion evaluation from user input.
+	* [   ] Upgrade Richfaces to 4.6.5.ayg, fixes CVE-2018-12532
 
 Release Notes - Seam 2 - Version 2.3.13.ayg 2018-05-17
 	* [   ] Prevent exception logging if jbpm is not present at runtime
-	* [   ] Adjust some log levels
-	* [#18] fix actionOutcome EL expresion evaluation from user input.
-	* [   ] Upgrade Richfaces to 4.6.5.ayg, fixes CVE-2018-12532
-	 
+	* [   ] Adjust some log levels	 
 
 Release Notes - Seam 2 - Version 2.3.12.ayg 2018-05-06
     * [   ] PrimeFaces upgraded to 6.2
