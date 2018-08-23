@@ -1,11 +1,7 @@
 package org.jboss.seam.test.integration;
 
 import javax.el.ELException;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.ValueBinding;
 
-import org.jboss.seam.jsf.UnifiedELMethodBinding;
-import org.jboss.seam.jsf.UnifiedELValueBinding;
 import org.jboss.seam.mock.JUnitSeamTest;
 import org.junit.Test;
 
@@ -26,7 +22,7 @@ public class ELTest extends JUnitSeamTest
          @Override
          protected void invokeApplication() throws Exception
          {
-            MethodBinding methodBinding = new UnifiedELMethodBinding("#{action.go}", new Class[0]);
+        	javax.faces.el.MethodBinding methodBinding = new org.jboss.seam.jsf.UnifiedELMethodBinding("#{action.go}", new Class[0]);
             
             assert "#{action.go}".equals(methodBinding.getExpressionString());
             
@@ -50,7 +46,7 @@ public class ELTest extends JUnitSeamTest
          protected void invokeApplication() throws Exception
          {
 
-            MethodBinding methodBinding = new UnifiedELMethodBinding("#{action.go}", null);
+        	javax.faces.el.MethodBinding methodBinding = new org.jboss.seam.jsf.UnifiedELMethodBinding("#{action.go}", null);
             
             assert String.class.equals(methodBinding.getType(getFacesContext()));
             
@@ -72,7 +68,7 @@ public class ELTest extends JUnitSeamTest
          protected void invokeApplication() throws Exception
          {
 
-            MethodBinding methodBinding = new UnifiedELMethodBinding();
+        	javax.faces.el.MethodBinding methodBinding = new org.jboss.seam.jsf.UnifiedELMethodBinding();
             boolean failed = false;
             try
             {
@@ -95,7 +91,7 @@ public class ELTest extends JUnitSeamTest
          @Override
          protected void invokeApplication() throws Exception
          {
-            ValueBinding valueBinding = new UnifiedELValueBinding("#{person.name}");
+        	 javax.faces.el.ValueBinding valueBinding = new org.jboss.seam.jsf.UnifiedELValueBinding("#{person.name}");
             
             assert "#{person.name}".equals(valueBinding.getExpressionString());
             
@@ -120,7 +116,7 @@ public class ELTest extends JUnitSeamTest
          protected void invokeApplication() throws Exception
          {
 
-            ValueBinding valueBinding = new UnifiedELValueBinding();
+        	javax.faces.el.ValueBinding valueBinding = new org.jboss.seam.jsf.UnifiedELValueBinding();
             boolean failed = false;
             try
             {
