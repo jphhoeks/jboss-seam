@@ -85,6 +85,7 @@
         <dependency>
             <groupId>com.github.albfernandez</groupId>
             <artifactId>jbpm-jpdl</artifactId>
+            <version>3.2.13.ayg</version>
             <exclusions>
             	<exclusion>
             		<artifactId>jackrabbit-core</artifactId>
