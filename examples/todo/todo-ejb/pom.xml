@@ -102,10 +102,10 @@
         	<artifactId>jboss-transaction-api_1.1_spec</artifactId>
         	<scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.beanshell</groupId>
-            <artifactId>bsh</artifactId>
-        </dependency>
+		<dependency>
+		    <groupId>org.apache-extras.beanshell</groupId>
+		    <artifactId>bsh</artifactId>
+		</dependency>
 
         <!-- Test dependencies -->
         <dependency>
