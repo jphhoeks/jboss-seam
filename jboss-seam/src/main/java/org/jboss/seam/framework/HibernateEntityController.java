@@ -76,13 +76,13 @@ public Session getSession()
    {
       return get(clazz, id, new LockOptions(lockMode));
    }
-   @SuppressWarnings("unchecked")
+
    protected <T> T get(Class<T> clazz, Serializable id, LockOptions lockOptions) throws HibernateException
    {
       return (T) getSession().get(clazz, id, lockOptions);
    }
 
-   @SuppressWarnings("unchecked")
+
    protected <T> T get(Class<T> clazz, Serializable id) throws HibernateException
    {
       return (T) getSession().get(clazz, id);
@@ -99,13 +99,13 @@ public Session getSession()
    {
       return get(clazz, id, new LockOptions(lockMode));
    }
-   @SuppressWarnings("unchecked")
+
    protected <T> T load(Class<T> clazz, Serializable id, LockOptions lockOptions) throws HibernateException
    {
       return (T) getSession().load(clazz, id, lockOptions);
    }
 
-   @SuppressWarnings("unchecked")
+
    protected <T> T load(Class<T> clazz, Serializable id) throws HibernateException
    {
       return (T) getSession().load(clazz, id);
