@@ -52,8 +52,7 @@ private List<E> resultList;
    @Transactional
    public boolean isNextExists()
    {
-      return resultList!=null && getMaxResults()!=null &&
-             resultList.size() > getMaxResults();
+	   return getResultCount() > (getFirstResult() != null ? getFirstResult() : 0) + getMaxResults();
    }
 
 
@@ -183,8 +182,12 @@ private List<E> resultList;
       javax.persistence.Query query = getEntityManager().createQuery( getRenderedEjbql() );
       setParameters( query, getQueryParameterValues(), 0 );
       setParameters( query, getRestrictionParameterValues(), getQueryParameterValues().size() );
-      if ( getFirstResult()!=null) query.setFirstResult( getFirstResult() );
-      if ( getMaxResults()!=null) query.setMaxResults( getMaxResults()+1 ); //add one, so we can tell if there is another page
+      if ( getFirstResult()!=null) {
+    	  query.setFirstResult( getFirstResult() );
+      }
+      if ( getMaxResults()!=null) {
+    	  query.setMaxResults( getMaxResults() );
+      }
       if ( getHints()!=null )
       {
          for ( Map.Entry<String, Object> me: getHints().entrySet() )

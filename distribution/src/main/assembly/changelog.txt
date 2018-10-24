@@ -3,6 +3,7 @@ JBoss Seam Changelog
 
 ## [Unreleased]
 	* [   ] Upgrade beanshell to 2.0b6
+	* [JBSEAM-2381] EntityQuery to stop fetching maxResults + 1 rows
 
 Release Notes - Seam 2 - Version 2.3.14.ayg 2018-08-22
 	* [#18] fix actionOutcome EL expresion evaluation from user input.
