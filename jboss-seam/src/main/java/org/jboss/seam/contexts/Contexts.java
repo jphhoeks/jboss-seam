@@ -382,8 +382,8 @@ public class Contexts
             
             //TODO: it would be nice if BP context spanned redirects along with the conversation
             //      this would also require changes to BusinessProcessContext
-            boolean destroyBusinessProcessContext = !Init.instance().isJbpmInstalled() ||
-                  !BusinessProcess.instance().hasActiveProcess();
+            boolean destroyBusinessProcessContext = Init.instance() != null && (!Init.instance().isJbpmInstalled() ||
+                  !BusinessProcess.instance().hasActiveProcess());
             if (destroyBusinessProcessContext)
             {
                //TODO: note that this occurs from Lifecycle.endRequest(), after
