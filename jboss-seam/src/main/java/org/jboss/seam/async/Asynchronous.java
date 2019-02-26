@@ -2,12 +2,16 @@ package org.jboss.seam.async;
 
 import java.io.Serializable;
 
+import javax.servlet.ServletContext;
+
 import org.jboss.seam.bpm.BusinessProcess;
 import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.contexts.Lifecycle;
+import org.jboss.seam.contexts.ServletLifecycle;
 import org.jboss.seam.core.Init;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.servlet.ServletApplicationMap;
 
 /**
  * Something that happens asynchronously, and with a full
@@ -26,6 +30,7 @@ public abstract class Asynchronous implements Serializable
    
    private Long processId;
    private Long taskId;
+   private ServletContext servletContext;
    
    public Asynchronous()
    {
@@ -35,6 +40,7 @@ public abstract class Asynchronous implements Serializable
          processId = businessProcess.getProcessId();
          taskId = BusinessProcess.instance().getTaskId();
       }
+      this.servletContext =  ServletLifecycle.getCurrentServletContext();
    }
    
    protected abstract class ContextualAsynchronousRequest
@@ -42,6 +48,8 @@ public abstract class Asynchronous implements Serializable
       
       private Object timer;
       private boolean createContexts;
+      
+
       
       public ContextualAsynchronousRequest(Object timer)
       {
@@ -51,7 +59,10 @@ public abstract class Asynchronous implements Serializable
       
       private void setup()
       {
-         if (createContexts) Lifecycle.beginCall();
+         if (createContexts) {
+        	 Lifecycle.beginApplication( new ServletApplicationMap(servletContext));
+        	 Lifecycle.beginCall();
+         }
          Contexts.getEventContext().set(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL, true);
          if (taskId!=null)
          {
@@ -88,7 +99,10 @@ public abstract class Asynchronous implements Serializable
       private void cleanup()
       {
          Contexts.getEventContext().remove(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL);
-         if (createContexts) Lifecycle.endCall();
+         if (createContexts) {
+        	 Lifecycle.endCall();
+        	 Lifecycle.beginApplication(null);
+         }
       }
    }   
    
