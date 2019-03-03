@@ -42,7 +42,7 @@ experience while at the same time eliminating common bugs found in traditional w
 ## Learn more
 
 * Read the documentation in https://albfernandez.github.io/jboss-seam/
-
+* Old user forums https://developer.jboss.org/en/seam/seam2
 
 ## Compiling from sources
 
@@ -56,7 +56,6 @@ To build Seam from github, just run
 	git clone https://github.com/albfernandez/jboss-seam.git
 	cd jboss-seam
 	mvn -Pdistribution clean package
-	
 ``` 
 
 When finished you have the complete seam distribution in ``distribution/target/``
@@ -66,5 +65,6 @@ If you are making changes to source code and want to test quickly without making
     mvn clean package
 
 Resulting jar files will be in each sub-project target directory.
+
 
 
