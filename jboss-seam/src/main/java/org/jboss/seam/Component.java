@@ -434,7 +434,7 @@ public class Component extends Model
       boolean serializableType = type==JAVA_BEAN || type==ENTITY_BEAN;
       if ( serializableType && serializableScope && !Serializable.class.isAssignableFrom( getBeanClass() ) )
       {
-         log.warn("Component class should be serializable: " + name + "/" + getBeanClass().getCanonicalName());
+         log.warn("Component class should be serializable: " + name + " / " + getBeanClass().getCanonicalName() + " / SCOPE:" + scope);
       }
    }
 
@@ -1466,6 +1466,7 @@ public class Component extends Model
          initialize(bean);
          callPostConstructMethod(bean);
       } else {
+    	  initialize(bean);
          if (bean instanceof Proxy) {
              Proxy proxy = (Proxy) bean;
              JavaBeanInterceptor interceptor = (JavaBeanInterceptor) proxy.writeReplace();
