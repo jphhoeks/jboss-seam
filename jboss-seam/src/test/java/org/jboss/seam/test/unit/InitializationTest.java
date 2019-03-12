@@ -11,6 +11,7 @@ import org.jboss.seam.init.Initialization;
 import org.jboss.seam.mock.MockServletContext;
 import org.jboss.seam.test.unit.component.ConfigurableComponent;
 import org.jboss.seam.test.unit.component.MyEntityHome;
+import org.jboss.seam.test.unit.component.PostConstructComponent;
 import org.jboss.seam.test.unit.component.PrimaryColor;
 import org.jboss.seam.transaction.NoTransaction;
 import org.jboss.seam.transaction.Transaction;
@@ -71,6 +72,19 @@ public class InitializationTest
       
       ServletLifecycle.endApplication();
    }
+   @Test
+   public void testPostConstructMethod() {
+	   MockServletContext servletContext = new MockServletContext();
+	      ServletLifecycle.beginApplication(servletContext);
+	      new Initialization( servletContext ).create().init();
+	      Lifecycle.beginCall();
+	      Contexts.getEventContext().set(Seam.getComponentName(Transaction.class), new NoTransaction());
+	      PostConstructComponent comp = (PostConstructComponent) Component.getInstance("postConstructComponent");
+	      Assert.assertNotNull(comp);
+	      Assert.assertEquals(comp.getPostConstructCalled(), 1);
+	      Assert.assertEquals(comp.getCountNullElements(), 0);
+   }
+   
    //TODO: write a test for components.xml
 }
 

@@ -641,24 +641,7 @@ public class Component extends Model
    {
       if ( method.isAnnotationPresent(Destroy.class) )
       {
-         /*if ( method.getParameterTypes().length>0 ) and it doesn't take a Component parameter
-         {
-            throw new IllegalStateException("@Destroy methods may not have parameters: " + name);
-         }*/
-         if (type!=JAVA_BEAN && type!=STATEFUL_SESSION_BEAN)
-         {
-            throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Destroy methods: " + name  + "/" + getBeanClass().getCanonicalName());
-         }
-         if ( destroyMethod!=null && !destroyMethod.getName().equals( method.getName() ) )
-         {
-            throw new IllegalStateException("component has two @Destroy methods: " + name  + "/" + getBeanClass().getCanonicalName());
-         }
-         
-         if ( destroyMethod==null ) //ie. ignore the one on the superclass
-         {
-            destroyMethod = method;
-            lifecycleMethods.add(method);
-         }
+         addDestroyMethod(method);
       }
       
       if ( method.isAnnotationPresent(REMOVE) )
@@ -670,27 +653,10 @@ public class Component extends Model
             lifecycleMethods.add(method);
          }
       }
-      
-      if ( method.isAnnotationPresent(Create.class) )
-      {
-         /*if ( method.getParameterTypes().length>0 ) and it doesn't take a Component parameter
-         {
-            throw new IllegalStateException("@Create methods may not have parameters: " + name);
-         }*/
-         if (type!=JAVA_BEAN && type!=STATEFUL_SESSION_BEAN)
-         {
-            throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Create methods: " + name  + "/" + getBeanClass().getCanonicalName());
-         }
-         if ( createMethod!=null && !createMethod.getName().equals( method.getName() ) )
-         {
-            throw new IllegalStateException("component has two @Create methods: " + name  + "/" + getBeanClass().getCanonicalName());
-         }
-         if (createMethod==null)
-         {
-            createMethod = method;
-            lifecycleMethods.add(method);
-         }
-      }
+
+		if (method.isAnnotationPresent(Create.class)) {
+			addCreateMethod(method);
+		}
       
       if ( method.isAnnotationPresent(In.class) )
       {
@@ -780,14 +746,24 @@ public class Component extends Model
       
       if ( method.isAnnotationPresent(POST_CONSTRUCT) )
       {
-         postConstructMethod = method;
-         lifecycleMethods.add(method);
+    	  if (method.getParameterCount() == 0) {
+    		  addCreateMethod(method);
+    	  }
+    	  else {
+	         postConstructMethod = method;
+	         lifecycleMethods.add(method);
+    	  }
       }
       
       if ( method.isAnnotationPresent(PRE_DESTROY) )
       {
-         preDestroyMethod = method;
-         lifecycleMethods.add(method);
+    	  if (method.getParameterCount() == 0) {
+    		  addDestroyMethod(method);
+    	  }
+    	  else {
+	         preDestroyMethod = method;
+	         lifecycleMethods.add(method);
+    	  }
       }
       
       if ( method.isAnnotationPresent(PERSISTENCE_CONTEXT) )
@@ -824,6 +800,46 @@ public class Component extends Model
          method.setAccessible(true);
       }
    }
+
+	private void addDestroyMethod(Method method) {
+	/*if ( method.getParameterTypes().length>0 ) and it doesn't take a Component parameter
+	 {
+	    throw new IllegalStateException("@Destroy methods may not have parameters: " + name);
+	 }*/
+		if (type != JAVA_BEAN && type != STATEFUL_SESSION_BEAN) {
+			throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Destroy methods: "
+					+ name + "/" + getBeanClass().getCanonicalName());
+		}
+		if (destroyMethod != null && !destroyMethod.getName().equals(method.getName())) {
+			throw new IllegalStateException(
+					"component has two @Destroy methods: " + name + "/" + getBeanClass().getCanonicalName());
+		}
+
+		if (destroyMethod == null) {
+			// ie. ignore the one on the superclass
+			destroyMethod = method;
+			lifecycleMethods.add(method);
+		}
+	}
+
+	private void addCreateMethod(Method method) {
+	/*if ( method.getParameterTypes().length>0 ) and it doesn't take a Component parameter
+	 {
+	    throw new IllegalStateException("@Create methods may not have parameters: " + name);
+	 }*/
+		if (type != JAVA_BEAN && type != STATEFUL_SESSION_BEAN) {
+			throw new IllegalArgumentException("Only JavaBeans and stateful session beans support @Create methods: "
+					+ name + "/" + getBeanClass().getCanonicalName());
+		}
+		if (createMethod != null && !createMethod.getName().equals(method.getName())) {
+			throw new IllegalStateException(
+					"component has two @Create methods: " + name + "/" + getBeanClass().getCanonicalName());
+		}
+		if (createMethod == null) {
+			createMethod = method;
+			lifecycleMethods.add(method);
+		}
+	}
 
    private void scanField(Map<Field, Annotation> selectionFields, Set<String> dataModelNames, Field field)
    {
