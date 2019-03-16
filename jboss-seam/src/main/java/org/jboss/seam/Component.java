@@ -746,7 +746,8 @@ public class Component extends Model
       
       if ( method.isAnnotationPresent(POST_CONSTRUCT) )
       {
-    	  if (method.getParameterCount() == 0) {
+    	  
+    	  if (method.getParameterTypes().length == 0) {
     		  addCreateMethod(method);
     	  }
     	  else {
@@ -757,7 +758,7 @@ public class Component extends Model
       
       if ( method.isAnnotationPresent(PRE_DESTROY) )
       {
-    	  if (method.getParameterCount() == 0) {
+    	  if (method.getParameterTypes().length == 0) {
     		  addDestroyMethod(method);
     	  }
     	  else {
