@@ -1,9 +1,15 @@
 JBoss Seam Changelog
 ====================
 
-## [Unreleased]
-	* [   ] Upgrade beanshell to 2.0b6
+Release Notes - Seam 2 - Version 2.3.15.ayg 2019-03-18
 	* [JBSEAM-2381] EntityQuery to stop fetching maxResults + 1 rows
+	* [#21] Fix for JBSEAM-4806 is breaking Asynchronous initialization
+	* [   ] Treat @PostConstruct as @Create when used witouth arguments
+	* [   ] Upgrade PrimeFaces and PrimeFaces Extensions to version 7.0
+	* [   ] Upgrade RichFaces to version 4.6.8.ayg
+	* [   ] Upgrade beanshell to 2.0b6
+	* [   ] Upgrade jbpm-jpdl to 3.2.14.ayg
+	* [   ] Upgrade itext2 to 2.1.16
 
 Release Notes - Seam 2 - Version 2.3.14.ayg 2018-08-22
 	* [#18] fix actionOutcome EL expresion evaluation from user input.
