@@ -505,21 +505,7 @@
 				</exclusions>
 			</dependency>
 
-			<dependency>
-				<groupId>commons-beanutils</groupId>
-				<artifactId>commons-beanutils</artifactId>
-				<version>1.7.0</version>
-				<exclusions>
-					<exclusion>
-						<groupId>commons-logging</groupId>
-						<artifactId>commons-logging</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>junit</groupId>
-						<artifactId>junit</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
+
 
 			<dependency>
 				<groupId>commons-io</groupId>

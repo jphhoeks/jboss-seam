@@ -36,10 +36,6 @@
             <artifactId>jboss-seam-ui</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-                <exclusion>
                 	<artifactId>jboss-seam</artifactId>
                 	<groupId>org.jboss.seam</groupId>
                 </exclusion>

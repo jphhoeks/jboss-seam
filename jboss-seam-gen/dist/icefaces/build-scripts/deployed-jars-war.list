@@ -1,6 +1,5 @@
 antlr-runtime.jar
 backport-util-concurrent.jar
-commons-beanutils.jar
 commons-digester.jar
 commons-fileupload.jar
 core.jar

@@ -1,5 +1,4 @@
 antlr-runtime.jar
-commons-beanutils.jar
 core.jar
 drools-templates.jar
 drools-decisiontables.jar

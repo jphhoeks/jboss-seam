@@ -1,5 +1,4 @@
 antlr-runtime.jar
-commons-beanutils.jar
 commons-digester.jar
 bsh.jar
 drools-templates.jar

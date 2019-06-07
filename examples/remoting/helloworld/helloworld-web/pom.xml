@@ -36,10 +36,6 @@
             <artifactId>jboss-seam-ui</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.spec.javax.faces</groupId>
             <artifactId>jboss-jsf-api_2.1_spec</artifactId>
             <scope>provided</scope>

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,12 +15,12 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.jboss.seam.core.Interpolator;
 import org.jboss.seam.excel.ExcelWorkbookException;
 import org.jboss.seam.excel.ui.UILink;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Reflections;
 
 /**
  * CSS parser for the XLS-CSS
@@ -235,11 +236,15 @@ public class CSSParser
     */
    private static String getStyleProperty(UIComponent component, String field)
    {
+	   if (!STYLE_CLASS_ATTRIBUTE.equals(field) && !STYLE_ATTRIBUTE.equals(field)) {
+		   return null;
+	   }
       try
       {
-         return (String) PropertyUtils.getProperty(component, field);
+    	 Method m = Reflections.getGetterMethod(component.getClass(), field);
+    	 return (String) m.invoke(component, new Object[0]);
       }
-      catch (NoSuchMethodException e)
+      catch (IllegalArgumentException e)
       {
          // No panic, no property
          return null;
@@ -327,32 +332,7 @@ public class CSSParser
       return styleMap;
    }
 
-//   private StyleMap parseStyleString(String styleString)
-//   {
-//      StyleMap styleMap = new StyleMap();
-//
-//      String[] styles = trimArray(styleString.split(STYLES_SEPARATOR));
-//      for (String style : styles)
-//      {
-//         int breakpoint = style.indexOf(STYLE_NAME_VALUE_SEPARATOR);
-//         if (breakpoint < 0) {
-//             log.warn("Style component #0 should be of form <key>#1<value>", style, STYLE_NAME_VALUE_SEPARATOR);
-//             continue;
-//         }
-//         String styleName = style.substring(0, breakpoint).toLowerCase().trim();
-//         if (!propertyBuilders.containsKey(styleName))
-//         {
-//            log.warn("No property builder (unknown style) for property #0", styleName);
-//            continue;
-//         }
-//         PropertyBuilder propertyBuilder = propertyBuilders.get(styleName);
-//         String styleValue = style.substring(breakpoint + 1);
-//         String[] styleValues = trimArray(styleValue.trim().split(STYLE_SHORTHAND_SEPARATOR));
-//         styleMap.putAll(propertyBuilder.parseProperty(styleName, styleValues));
-//      }
-//
-//      return styleMap;
-//   }
+
 
    /**
     * Setter for stylesheets. Loads them also.
