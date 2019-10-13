@@ -184,7 +184,7 @@ public class OpenId implements Serializable {
 
 				return verified.getIdentifier();
 			}
-		} catch (OpenIDException e) {
+		} catch (OpenIDException ignored) {
 			// present error to the user
 		}
 

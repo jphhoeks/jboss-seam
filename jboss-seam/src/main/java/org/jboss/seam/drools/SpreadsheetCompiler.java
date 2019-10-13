@@ -30,7 +30,6 @@ import org.jboss.seam.log.Logging;
 @Scope(APPLICATION)
 @Install(precedence = BUILT_IN, classDependencies = "org.drools.decisiontable.SpreadsheetCompiler")
 public class SpreadsheetCompiler {
-	private static final LogProvider log = Logging.getLogProvider(SpreadsheetCompiler.class);
 
 	public InputStreamReader compile(InputStream stream) {
 		org.drools.decisiontable.SpreadsheetCompiler compiler = new org.drools.decisiontable.SpreadsheetCompiler();
@@ -45,7 +44,7 @@ public class SpreadsheetCompiler {
 		if (!Contexts.isApplicationContextActive()) {
 			return new SpreadsheetCompiler();
 		} else {
-			return (SpreadsheetCompiler) Component.getInstance(SpreadsheetCompiler.class, ScopeType.APPLICATION);
+			return (SpreadsheetCompiler) Component.getInstance(SpreadsheetCompiler.class, APPLICATION);
 		}
 	}
 }

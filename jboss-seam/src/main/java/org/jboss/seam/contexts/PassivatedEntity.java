@@ -1,6 +1,7 @@
 package org.jboss.seam.contexts;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -126,7 +127,9 @@ class PassivatedEntity implements Serializable {
 	public static PassivatedEntity passivateEntity(Object value) {
 		Class<?> entityClass = Seam.getEntityClass(value.getClass());
 		if (entityClass != null) {
-			for (String persistenceContextName : PersistenceContexts.instance().getTouchedContexts()) {
+			Set<String> contexts = PersistenceContexts.instance().getTouchedContexts();
+			if (!contexts.isEmpty()) {
+				String persistenceContextName = contexts.iterator().next();
 				Object persistenceContext = Component.getInstance(persistenceContextName);
 				return createPassivatedEntity(value, entityClass, persistenceContextName, persistenceContext);
 			}

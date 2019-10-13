@@ -64,7 +64,7 @@ public class SeamDeploymentProperties {
 					}
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException ignored) {
 			// No - op, file is optional
 		}
 	}

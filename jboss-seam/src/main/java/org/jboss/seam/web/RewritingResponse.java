@@ -95,7 +95,7 @@ public class RewritingResponse extends HttpServletResponseWrapper {
 					URL newUrl = new URL(url, rewritePath(url.getFile()));
 					return newUrl.toExternalForm();
 				}
-			} catch (MalformedURLException e) {
+			} catch (MalformedURLException ignored) {
 				// ignore - we simply don't care.  we could log this at info/debug level.
 			}
 		}

@@ -95,7 +95,7 @@ public class LocaleConfig {
 	}
 
 	public static LocaleConfig instance() {
-		return (LocaleConfig) Component.getInstance(LocaleConfig.class, ScopeType.APPLICATION);
+		return (LocaleConfig) Component.getInstance(LocaleConfig.class, APPLICATION);
 	}
 
 	private java.util.Locale getLocaleFromString(String localeString) {

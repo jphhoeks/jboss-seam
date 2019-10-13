@@ -1,9 +1,6 @@
 package org.jboss.seam.bpm;
 
 import org.dom4j.Element;
-import org.jboss.seam.Component;
-import org.jboss.seam.ScopeType;
-import org.jboss.seam.contexts.Contexts;
 import org.jbpm.JbpmContext;
 import org.jbpm.db.GraphSession;
 import org.jbpm.graph.def.ProcessDefinition;

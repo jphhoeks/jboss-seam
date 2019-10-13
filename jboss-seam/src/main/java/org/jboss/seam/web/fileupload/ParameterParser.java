@@ -95,11 +95,11 @@ public class ParameterParser {
 	 */
 	private String getToken(boolean quoted) {
 		// Trim leading white spaces
-		while ((i1 < i2) && (Character.isWhitespace(chars[i1]))) {
+		while (i1 < i2 && Character.isWhitespace(chars[i1])) {
 			i1++;
 		}
 		// Trim trailing white spaces
-		while ((i2 > i1) && (Character.isWhitespace(chars[i2 - 1]))) {
+		while (i2 > i1 && Character.isWhitespace(chars[i2 - 1])) {
 			i2--;
 		}
 		// Strip away quotation marks if necessary
@@ -182,7 +182,7 @@ public class ParameterParser {
 			if (!charEscaped && ch == '"') {
 				quoted = !quoted;
 			}
-			charEscaped = (!charEscaped && ch == '\\');
+			charEscaped = !charEscaped && ch == '\\';
 			i2++;
 			pos++;
 
@@ -309,15 +309,15 @@ public class ParameterParser {
 				if (paramValue != null) {
 					try {
 						paramValue = MimeUtility.decodeText(paramValue);
-					} catch (UnsupportedEncodingException e) {
+					} catch (UnsupportedEncodingException ignored) {
 						// let's keep the original value in this case
 					}
 				}
 			}
-			if (hasChar() && (charArray[pos] == separator)) {
+			if (hasChar() && charArray[pos] == separator) {
 				pos++; // skip separator
 			}
-			if ((paramName != null) && (paramName.length() > 0)) {
+			if (paramName != null && paramName.length() > 0) {
 				if (this.lowerCaseNames) {
 					paramName = paramName.toLowerCase(Locale.ENGLISH);
 				}

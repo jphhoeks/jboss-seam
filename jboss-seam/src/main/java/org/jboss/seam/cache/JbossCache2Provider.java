@@ -35,7 +35,7 @@ import org.jboss.seam.util.Reflections;
 @AutoCreate
 public class JbossCache2Provider extends AbstractJBossCacheProvider<Cache> {
 
-	private org.jboss.cache.Cache cache;
+	private Cache cache;
 
 	private static final LogProvider log = Logging.getLogProvider(JbossCache2Provider.class);
 

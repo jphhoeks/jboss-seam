@@ -35,7 +35,7 @@ import org.jboss.seam.util.Reflections;
 @SuppressWarnings("rawtypes")
 public class InfinispanCacheProvider extends AbstractInfinispanCacheProvider<TreeCache<Object, Object>> {
 
-	private org.infinispan.tree.TreeCache cache;
+	private TreeCache cache;
 
 	private static final LogProvider log = Logging.getLogProvider(InfinispanCacheProvider.class);
 

@@ -125,7 +125,7 @@ public class URLScanner extends AbstractScanner {
 			if (zip != null) {
 				try {
 					zip.close();
-				} catch (IOException ioe) {
+				} catch (IOException ignored) {
 					//
 				}
 			}

@@ -844,7 +844,7 @@ public class Initialization {
 		InputStream stream = null;
 		try {
 			stream = fileDescriptor.getUrl().openStream();
-		} catch (IOException e) {
+		} catch (IOException ignored) {
 			// No-op
 		}
 		if (stream != null) {

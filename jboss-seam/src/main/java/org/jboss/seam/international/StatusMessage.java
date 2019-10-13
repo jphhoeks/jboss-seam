@@ -90,8 +90,9 @@ public class StatusMessage implements Serializable {
 					if (bundleMessage != null) {
 						messageTemplate = bundleMessage;
 					}
-				} catch (MissingResourceException mre) {
-				} //swallow
+				} catch (MissingResourceException ignored) {
+					//swallow
+				} 
 			}
 		}
 		return messageTemplate;

@@ -217,8 +217,11 @@ public class SeamELResolver extends ELResolver {
 
 	@Override
 	public boolean isReadOnly(ELContext context, Object base, Object property) {
-		return base != null && (JSF.DATA_MODEL.isInstance(base) || (base instanceof Collection) || (base instanceof Map)
-				|| (base.getClass().isInstance(Enum.class)));
+		if (base == null) {
+			return false;
+		}
+		return JSF.DATA_MODEL.isInstance(base) || base instanceof Collection || base instanceof Map
+				|| base.getClass().isInstance(Enum.class);
 	}
 
 	@Override

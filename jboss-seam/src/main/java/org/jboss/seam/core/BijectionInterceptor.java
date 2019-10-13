@@ -31,10 +31,6 @@ public class BijectionInterceptor extends AbstractInterceptor {
 
 	private ReentrantLock lock = new ReentrantLock();
 
-	@Override
-	public void setComponent(Component component) {
-		super.setComponent(component);
-	}
 
 	@AroundInvoke
 	@AroundTimeout

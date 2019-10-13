@@ -385,12 +385,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Authentication error", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -407,12 +402,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to change password", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -438,12 +428,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to create role", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -486,12 +471,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to create user", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -553,12 +533,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to delete role", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -598,12 +573,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Error getting roles", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -618,12 +588,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to delete user", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -650,12 +615,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to delete user", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -676,12 +636,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to disable user", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -702,12 +657,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to disable user", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -765,12 +715,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Error getting roles", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -793,12 +738,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to grant role", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -836,12 +776,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Failed to grant role", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 
 		return false;
@@ -889,12 +824,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Error getting roles", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -958,12 +888,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Error getting users", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -1010,12 +935,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} catch (NamingException ex) {
 			throw new IdentityManagementException("Error getting users", ex);
 		} finally {
-			if (ctx != null) {
-				try {
-					ctx.close();
-				} catch (NamingException ex) {
-				}
-			}
+			closeContext(ctx);
 		}
 	}
 
@@ -1037,5 +957,16 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 	public boolean removeRoleFromGroup(String role, String group) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private void closeContext(Context ctx) {
+		if (ctx != null) {
+			try {
+				ctx.close();
+			}
+			catch (Exception ignored) {
+				//
+			}
+		}
 	}
 }

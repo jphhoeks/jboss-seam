@@ -1,13 +1,9 @@
 package org.jboss.seam.document;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-
-import org.jboss.seam.util.Resources;
 
 /**
  * Stores DocumentData in a file, delete at end when DocumentStore is destroyed.

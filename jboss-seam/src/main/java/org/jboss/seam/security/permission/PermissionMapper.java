@@ -47,10 +47,11 @@ public class PermissionMapper implements Serializable {
 
 		if (target instanceof Class) {
 			targetClass = (Class) target;
-		} else {
+		} 
+		//else {
 			// TODO target may be a component name, or an object, or a view name (or arbitrary name) -
 			// we need to deal with all of these possibilities
-		}
+		//}
 
 		if (targetClass != null) {
 			Map<String, String> chains = resolverChains.get(target);

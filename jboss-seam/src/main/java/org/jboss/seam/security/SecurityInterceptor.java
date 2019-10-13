@@ -187,14 +187,15 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 							PermissionCheck permissionCheck = annotation.annotationType().getAnnotation(PermissionCheck.class);
 
 							Method valueMethod = null;
-							for (Method m : annotation.annotationType().getDeclaredMethods()) {
-								valueMethod = m;
-								break;
+							Method[] methods = annotation.annotationType().getDeclaredMethods();
+							if (methods != null && methods.length > 0) {
+								valueMethod = methods[0];
 							}
 
 							if (valueMethod != null) {
-								if (restriction == null)
+								if (restriction == null) {
 									restriction = new Restriction();
+								}
 								Object target = valueMethod.invoke(annotation);
 								if (!target.equals(void.class)) {
 									restriction.addMethodRestriction(target, getPermissionAction(permissionCheck, annotation));

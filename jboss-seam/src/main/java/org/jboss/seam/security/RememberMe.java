@@ -46,26 +46,6 @@ public class RememberMe implements Serializable {
 		public String getCookieName() {
 			return "org.jboss.seam.security.username";
 		}
-
-		@Override
-		public void setDirty() {
-			super.setDirty();
-		}
-
-		@Override
-		public String getCookieValue() {
-			return super.getCookieValue();
-		}
-
-		@Override
-		public void clearCookieValue() {
-			super.clearCookieValue();
-		}
-
-		@Override
-		public void setCookieValueIfEnabled(String value) {
-			super.setCookieValueIfEnabled(value);
-		}
 	}
 
 	class TokenSelector extends UsernameSelector {
@@ -87,7 +67,7 @@ public class RememberMe implements Serializable {
 					String decoded = new String(Base64.decode(cookieValue));
 					username = decoded.substring(0, decoded.indexOf(':'));
 					value = decoded.substring(decoded.indexOf(':') + 1);
-				} catch (Exception ex) {
+				} catch (Exception ignored) {
 					// swallow
 				}
 			}

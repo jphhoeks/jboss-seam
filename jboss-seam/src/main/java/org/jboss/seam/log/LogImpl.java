@@ -123,17 +123,15 @@ class LogImpl implements Log, Externalizable {
 		}
 	}
 
-	@SuppressWarnings("finally")
 	private Object interpolate(Object object, Object... params) {
 		if (object instanceof String) {
 			try {
 				object = Interpolator.instance().interpolate((String) object, params);
+				return object;
 			} catch (Exception e) {
 				log.error("exception interpolating string: " + object, e);
-			} finally {
-				return object;
-			}
-
+			} 
+			return object;
 		} else {
 			return object;
 		}

@@ -124,7 +124,7 @@ public class WicketFilter extends AbstractFilter {
 		 * of the delegate component implies the presence of the wicket classes themselves.
 		 */
 		if (delegate == null) {
-			delegate = (javax.servlet.Filter) Component.getInstance("org.jboss.seam.wicket.web.wicketFilterInstantiator",
+			delegate = (Filter) Component.getInstance("org.jboss.seam.wicket.web.wicketFilterInstantiator",
 					ScopeType.STATELESS);
 			savedConfig = filterConfig;
 		}

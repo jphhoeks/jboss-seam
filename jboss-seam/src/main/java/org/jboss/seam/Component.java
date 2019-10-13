@@ -123,7 +123,7 @@ import org.jboss.seam.web.Parameters;
  * @author Gavin King
  * 
  */
-@Scope(ScopeType.APPLICATION)
+@Scope(APPLICATION)
 public class Component extends Model {
    public static final String PROPERTIES = "org.jboss.seam.properties";
 
@@ -290,7 +290,7 @@ public class Component extends Model {
 
 		// Technically, we don't need to synchronize page-scoped components if
 		// StateManager#isSavingStateInClient(FacesContext) is true
-		synchronize = (scope == SESSION || scope == PAGE || hasAnnotation) && type != ComponentType.STATEFUL_SESSION_BEAN;
+		synchronize = (scope == SESSION || scope == PAGE || hasAnnotation) && type != STATEFUL_SESSION_BEAN;
 
 		if (synchronize) {
 			timeout = getBeanClass().isAnnotationPresent(Synchronized.class) ? getBeanClass().getAnnotation(Synchronized.class).timeout()
@@ -302,7 +302,7 @@ public class Component extends Model {
 					+ getBeanClass().getCanonicalName());
 		}
 
-		if (hasAnnotation && type == ComponentType.STATEFUL_SESSION_BEAN) {
+		if (hasAnnotation && type == STATEFUL_SESSION_BEAN) {
 			log.warn(
 					"Seam synchronization interceptor is disabled for @Synchronized @Stateful component - Seam synchronization will be disabled for: "
 							+ name + "/" + getBeanClass().getCanonicalName());
@@ -465,7 +465,7 @@ public class Component extends Model {
 				Method setterMethod = null;
 				try {
 					setterMethod = Reflections.getSetterMethod(getBeanClass(), propertyName);
-				} catch (IllegalArgumentException e) {
+				} catch (IllegalArgumentException ignored) {
 				}
 				if (setterMethod != null) {
 					if (!setterMethod.isAccessible())
@@ -531,10 +531,8 @@ public class Component extends Model {
 
 		final boolean hasMultipleDataModels = dataModelGetters.size() > 1;
 		String defaultDataModelName = null;
-		if (!hasMultipleDataModels) {
-			if (!dataModelGetters.isEmpty()) {
-				defaultDataModelName = dataModelGetters.get(0).getName();
-			}
+		if (!hasMultipleDataModels && !dataModelGetters.isEmpty()) {
+			defaultDataModelName = dataModelGetters.get(0).getName();
 		}
 
 		for (Map.Entry<Method, Annotation> annotatedMethod : selectionSetters.entrySet()) {
@@ -561,20 +559,9 @@ public class Component extends Model {
 
 	private void checkDefaultRemoveMethod() {
 		if (type == STATEFUL_SESSION_BEAN) {
-			if (destroyMethod != null && destroyMethod.isAnnotationPresent(REMOVE)) // TODO:
-																					// @Remove
-																					// is
-																					// not
-																					// declared
-																					// @Inherited,
-																					// but
-																					// does
-																					// the
-																					// EJB
-																					// container
-																					// emulate
-																					// that?
-			{
+			if (destroyMethod != null && destroyMethod.isAnnotationPresent(REMOVE)) {
+				// TODO: @Remove is not declared @Inherited,
+				// but does de EJB container emulate that?
 				// we don't need to worry about default remove methods
 				defaultRemoveMethod = null;
 			} else {
@@ -669,11 +656,11 @@ public class Component extends Model {
 
 			Observer observer = method.getAnnotation(Observer.class);
 			for (String eventType : observer.value()) {
-				if (eventType.length() == 0)
-					eventType = method.getName(); // TODO: new defaulting rule
-													// to map @Observer
-													// onFooEvent() -> event
-													// type "fooEvent"
+				if (eventType.length() == 0) {
+					eventType = method.getName(); 
+					// TODO: new defaulting rule to map @Observer
+					// onFooEvent() -> event type "fooEvent"
+				}
 				init.addObserverMethod(eventType, method, this, observer.create());
 			}
 		}
@@ -814,9 +801,9 @@ public class Component extends Model {
 			String category = field.getAnnotation(org.jboss.seam.annotations.Logger.class).value();
 			org.jboss.seam.log.Log logInstance;
 			if ("".equals(category)) {
-				logInstance = org.jboss.seam.log.Logging.getLog(getBeanClass());
+				logInstance = Logging.getLog(getBeanClass());
 			} else {
-				logInstance = org.jboss.seam.log.Logging.getLog(category);
+				logInstance = Logging.getLog(category);
 			}
 			if (Modifier.isStatic(field.getModifiers())) {
 				Reflections.setAndWrap(field, null, logInstance);

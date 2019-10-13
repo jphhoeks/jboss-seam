@@ -66,7 +66,7 @@ public class EhCacheProvider extends CacheProvider<CacheManager> {
 		}
 	}
 
-	private net.sf.ehcache.Cache getCacheRegion(String regionName) {
+	private Cache getCacheRegion(String regionName) {
 		if (regionName == null) {
 			regionName = getDefaultRegion();
 		}

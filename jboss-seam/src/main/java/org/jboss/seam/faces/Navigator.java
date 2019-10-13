@@ -22,7 +22,7 @@ public abstract class Navigator {
 	protected void error(int code, String message) {
 		if (log.isDebugEnabled())
 			log.debug("sending error: " + code);
-		org.jboss.seam.faces.HttpError httpError = org.jboss.seam.faces.HttpError.instance();
+		HttpError httpError = HttpError.instance();
 		if (message == null) {
 			httpError.send(code);
 		} else {
@@ -45,8 +45,9 @@ public abstract class Navigator {
 		if (Strings.isEmpty(viewId)) {
 			viewId = Pages.getCurrentViewId();
 		}
-		if (log.isDebugEnabled())
+		if (log.isDebugEnabled()) {
 			log.debug("redirecting to: " + viewId);
+		}
 		FacesManager.instance().redirect(viewId, parameters, true, includePageParams);
 	}
 
@@ -76,13 +77,11 @@ public abstract class Navigator {
 
 	@SuppressWarnings("deprecation")
 	protected static void addFacesMessage(String message, Severity severity, String control, Object... params) {
-		if (Contexts.isConversationContextActive()) {
-			if (!Strings.isEmpty(message)) {
-				if (Strings.isEmpty(control)) {
-					FacesMessages.instance().add(severity, message, params);
-				} else {
-					FacesMessages.instance().addToControl(control, severity, message, params);
-				}
+		if (Contexts.isConversationContextActive() && !Strings.isEmpty(message)) {
+			if (Strings.isEmpty(control)) {
+				FacesMessages.instance().add(severity, message, params);
+			} else {
+				FacesMessages.instance().addToControl(control, severity, message, params);
 			}
 		}
 	}

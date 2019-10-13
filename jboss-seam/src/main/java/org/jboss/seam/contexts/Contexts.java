@@ -94,19 +94,17 @@ public class Contexts {
 			try {
 				// lazy initialize the page context during restore view
 				javax.faces.context.FacesContext facesContext = javax.faces.context.FacesContext.getCurrentInstance();
-				if (facesContext != null) {
-					if (FacesLifecycle.getPhaseId() == RESTORE_VIEW) {
-						log.debug("Page Context will be lazilly created");
-						FacesLifecycle.resumePage();
-						Map<String, String> parameters = facesContext.getExternalContext().getRequestParameterMap();
-						ConversationPropagation.instance().restoreConversationId(parameters);
-						boolean conversationFound = Manager.instance().restoreConversation();
-						pageContext.get().set("org.jboss.seam.jsf.SeamPhaseListener.conversationFound", conversationFound);
+				if (facesContext != null && FacesLifecycle.getPhaseId() == RESTORE_VIEW) {
+					log.debug("Page Context will be lazilly created");
+					FacesLifecycle.resumePage();
+					Map<String, String> parameters = facesContext.getExternalContext().getRequestParameterMap();
+					ConversationPropagation.instance().restoreConversationId(parameters);
+					boolean conversationFound = Manager.instance().restoreConversation();
+					pageContext.get().set("org.jboss.seam.jsf.SeamPhaseListener.conversationFound", conversationFound);
 
-						FacesLifecycle.resumeConversation(facesContext.getExternalContext());
-					}
+					FacesLifecycle.resumeConversation(facesContext.getExternalContext());
 				}
-			} catch (LinkageError e) {
+			} catch (LinkageError ignored) {
 				// do nothing as this context is supposed to be active only with JSF view layer
 			}
 
@@ -266,7 +264,7 @@ public class Contexts {
 		Context context = Contexts.getApplicationContext();
 		for (String name : context.getNames()) {
 			Object object = context.get(name);
-			if (object != null && (object instanceof Component)) {
+			if (object instanceof Component) {
 				Component component = (Component) object;
 				if (component.isStartup() && component.getScope() == scopeType) {
 					startup(component);

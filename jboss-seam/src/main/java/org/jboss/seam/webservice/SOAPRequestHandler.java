@@ -169,6 +169,6 @@ public class SOAPRequestHandler implements SOAPHandler {
 
 	@Override
 	public String toString() {
-		return (handlerName != null ? handlerName : super.toString());
+		return handlerName != null ? handlerName : super.toString();
 	}
 }

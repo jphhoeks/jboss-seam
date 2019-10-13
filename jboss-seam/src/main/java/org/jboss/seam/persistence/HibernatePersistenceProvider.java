@@ -313,7 +313,7 @@ public class HibernatePersistenceProvider extends PersistenceProvider {
 		Class clazz = null;
 		try {
 			clazz = Entity.forBean(bean).getBeanClass();
-		} catch (NotEntityException e) {
+		} catch (NotEntityException ignored) {
 			// It's ok, try some other methods
 		}
 

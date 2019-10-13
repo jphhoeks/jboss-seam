@@ -168,7 +168,7 @@ public final class MimeUtility {
 						// and get handled as normal text.
 						continue;
 
-					} catch (ParseException e) {
+					} catch (ParseException ignored) {
 						// just ignore it, skip to next word
 					}
 				}

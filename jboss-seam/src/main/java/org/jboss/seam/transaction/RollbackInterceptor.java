@@ -27,7 +27,7 @@ public class RollbackInterceptor extends AbstractInterceptor {
 			if (isRollbackRequired(e, getComponent().getType() == JAVA_BEAN)) {
 				try {
 					Transaction.instance().setRollbackOnly();
-				} catch (Exception te) {
+				} catch (Exception ignored) {
 				} //swallow
 			}
 			throw e;

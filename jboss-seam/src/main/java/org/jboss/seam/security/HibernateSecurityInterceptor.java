@@ -30,7 +30,7 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 	public boolean onLoad(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
 		try {
 			EntityPermissionChecker.instance().checkEntityPermission(entity, READ);
-		} catch (NotEntityException e) {
+		} catch (NotEntityException ignored) {
 			// Not a JPA entity
 		}
 
@@ -41,12 +41,13 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 	public void onDelete(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
 		try {
 			EntityPermissionChecker.instance().checkEntityPermission(entity, DELETE);
-		} catch (NotEntityException e) {
+		} catch (NotEntityException ignored) {
 			// Not a JPA entity
 		}
 
-		if (wrappedInterceptor != null)
+		if (wrappedInterceptor != null) {
 			wrappedInterceptor.onDelete(entity, id, state, propertyNames, types);
+		}
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 			Type[] types) {
 		try {
 			EntityPermissionChecker.instance().checkEntityPermission(entity, UPDATE);
-		} catch (NotEntityException e) {
+		} catch (NotEntityException ignored) {
 			// Not a JPA entity
 		}
 
@@ -66,7 +67,7 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 	public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
 		try {
 			EntityPermissionChecker.instance().checkEntityPermission(entity, INSERT);
-		} catch (NotEntityException e) {
+		} catch (NotEntityException ignored) {
 			// Not a JPA entity
 		}
 

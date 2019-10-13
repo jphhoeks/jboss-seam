@@ -116,14 +116,14 @@ public class SeamResourceBundle extends java.util.ResourceBundle {
 		for (java.util.ResourceBundle pageBundle : pageBundles) {
 			try {
 				return interpolate(pageBundle.getObject(key));
-			} catch (MissingResourceException mre) {
+			} catch (MissingResourceException ignored) {
 			}
 		}
 
 		for (java.util.ResourceBundle littleBundle : getBundlesForCurrentLocale()) {
 			try {
 				return interpolate(littleBundle.getObject(key));
-			} catch (MissingResourceException mre) {
+			} catch (MissingResourceException ignored) {
 			}
 		}
 

@@ -86,11 +86,11 @@ public class LocaleSelector extends Selector {
 
 	public Locale calculateLocale(Locale jsfLocale) {
 		if (!Strings.isEmpty(variant)) {
-			return new java.util.Locale(language, country, variant);
+			return new Locale(language, country, variant);
 		} else if (!Strings.isEmpty(country)) {
-			return new java.util.Locale(language, country);
+			return new Locale(language, country);
 		} else if (!Strings.isEmpty(language)) {
-			return new java.util.Locale(language);
+			return new Locale(language);
 		} else {
 			return jsfLocale;
 		}

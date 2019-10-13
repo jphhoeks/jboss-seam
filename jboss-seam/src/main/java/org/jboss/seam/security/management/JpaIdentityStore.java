@@ -154,10 +154,10 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 			if (type instanceof ParameterizedType && Collection.class.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
 				Type genType = Object.class;
 
-				for (Type t : ((ParameterizedType) type).getActualTypeArguments()) {
-					genType = t;
-					break;
-				}
+				Type[] types = ((ParameterizedType) type).getActualTypeArguments();
+				if (types != null && types.length > 0) {
+					genType = types[0];
+				}				
 
 				// If the @UserRoles property isn't a collection of <roleClass>, then assume the relationship
 				// is going through a cross-reference table            
