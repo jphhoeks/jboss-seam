@@ -199,7 +199,7 @@ public class MockApplication extends Application {
 		// Best guess component creation with a dummy component if it can't be found
 		if (name.startsWith("org.jboss.seam.mail.ui") || name.startsWith("org.jboss.seam.excel.ui")) {
 			try {
-				return (UIComponent) Thread.currentThread().getContextClassLoader().loadClass(name).newInstance();
+				return (UIComponent) Thread.currentThread().getContextClassLoader().loadClass(name).getDeclaredConstructor().newInstance();
 			} catch (Exception e) {
 				throw new UnsupportedOperationException("Unable to create component " + name, e);
 			}
@@ -259,7 +259,7 @@ public class MockApplication extends Application {
 
 	private Converter instantiateConverter(String converterClass) {
 		try {
-			return (Converter) Reflections.classForName(converterClass).newInstance();
+			return (Converter) Reflections.classForName(converterClass).getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -308,7 +308,7 @@ public class MockApplication extends Application {
 
 	private Validator instantiateValidator(String validatorClass) {
 		try {
-			return (Validator) Reflections.classForName(validatorClass).newInstance();
+			return (Validator) Reflections.classForName(validatorClass).getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

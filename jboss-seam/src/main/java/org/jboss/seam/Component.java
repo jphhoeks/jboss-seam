@@ -33,6 +33,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -1111,7 +1112,7 @@ public class Component extends Model
          try
          {
             Class<?> clazz = Reflections.classForName(interceptorName);
-            interceptorInstance = clazz.newInstance();
+            interceptorInstance = clazz.getDeclaredConstructor().newInstance();
             
          }
          catch (LinkageError e)
@@ -1451,7 +1452,7 @@ public class Component extends Model
       {
          constructor.setAccessible(true);
       }
-      Object bean = getBeanClass().newInstance();
+      Object bean = getBeanClass().getDeclaredConstructor().newInstance();
       constructor.setAccessible(accessible);
       return bean;
    }
@@ -1465,7 +1466,7 @@ public class Component extends Model
 
    protected Object instantiateJavaBean() throws Exception
    {
-      Object bean = getBeanClass().newInstance();
+      Object bean = getBeanClass().getDeclaredConstructor().newInstance();
      
       if (interceptionEnabled) {
          JavaBeanInterceptor interceptor = new JavaBeanInterceptor(bean, this);
@@ -1532,7 +1533,7 @@ public class Component extends Model
     */
    public Object wrap(Object bean, MethodHandler interceptor) throws Exception
    {
-      ProxyObject proxy = getProxyFactory().newInstance();
+      ProxyObject proxy = getProxyFactory().getDeclaredConstructor().newInstance();
       proxy.setHandler(interceptor);
       return proxy;
    }
@@ -1732,7 +1733,7 @@ public class Component extends Model
    {
       try
       {
-         return dataModelAnn.annotationType().getAnnotation(DataBinderClass.class).value().newInstance();
+         return dataModelAnn.annotationType().getAnnotation(DataBinderClass.class).value().getDeclaredConstructor().newInstance();
       }
       catch (Exception e)
       {
@@ -1744,7 +1745,7 @@ public class Component extends Model
    {
       try
       {
-         return dataModelAnn.annotationType().getAnnotation(DataSelectorClass.class).value().newInstance();
+         return dataModelAnn.annotationType().getAnnotation(DataSelectorClass.class).value().getDeclaredConstructor().newInstance();
       }
       catch (Exception e)
       {
@@ -2720,19 +2721,25 @@ public class Component extends Model
           {
              try
              {
-                set = (Set) collectionClass.newInstance();
+                set = (Set) collectionClass.getDeclaredConstructor().newInstance();
              }
              catch (IllegalAccessException e)
              {
-                throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass + "; try specifying type type in components.xml");
+                throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass + "; try specifying type type in components.xml", e);
              }
              catch (ClassCastException e)
              {
-                throw new IllegalArgumentException("Cannot cast " + collectionClass + " to java.util.Set");
+                throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.Set");
              }
              catch (java.lang.InstantiationException e)
              {
-                throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass + "; try specifying type type in components.xml");
+                throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml",e );
+             }
+             catch (InvocationTargetException e) {
+            	 throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml",e );
+             }
+             catch (NoSuchMethodException e) {
+            	 throw new IllegalArgumentException("Class " + collectionClass.getCanonicalName() + " doesn't hava a valid constructor", e);
              }
           }
           for (InitialValue iv: initialValues) 
@@ -2803,19 +2810,25 @@ public class Component extends Model
             {
                try
                {
-                  list = (List) collectionClass.newInstance();
+                  list = (List) collectionClass.getDeclaredConstructor().newInstance();
                }
                catch (IllegalAccessException e)
                {
-                  throw new IllegalArgumentException("Cannot instantiate a list of type " + collectionClass + "; try specifying type type in components.xml");
+                  throw new IllegalArgumentException("Cannot instantiate a list of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml", e );
                }
                catch (ClassCastException e)
                {
-                  throw new IllegalArgumentException("Cannot cast " + collectionClass + " to java.util.List");
+                  throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.List", e);
                }
                catch (java.lang.InstantiationException e)
                {
-                  throw new IllegalArgumentException("Cannot instantiate a list of type " + collectionClass + "; try specifying type type in components.xml");
+                  throw new IllegalArgumentException("Cannot instantiate a list of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml", e);
+               }
+               catch (InvocationTargetException e) {
+              	 throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml",e );
+               }
+               catch (NoSuchMethodException e) {
+              	 throw new IllegalArgumentException("Class " + collectionClass.getCanonicalName() + " doesn't hava a valid constructor", e);
                }
             }
             for (InitialValue iv: initialValues)
@@ -2881,19 +2894,25 @@ public class Component extends Model
          {
             try
             {
-               result = (Map) collectionClass.newInstance();
+               result = (Map) collectionClass.getDeclaredConstructor().newInstance();
             }
             catch (IllegalAccessException e)
             {
-               throw new IllegalArgumentException("Cannot instantiate a map of type " + collectionClass + "; try specifying type type in components.xml");
+               throw new IllegalArgumentException("Cannot instantiate a map of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml",e);
             }
             catch (ClassCastException e)
             {
-               throw new IllegalArgumentException("Cannot cast " + collectionClass + " to java.util.Map");
+               throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.Map");
             }
             catch (java.lang.InstantiationException e)
             {
-               throw new IllegalArgumentException("Cannot instantiate a map of type " + collectionClass + "; try specifying type type in components.xml");
+               throw new IllegalArgumentException("Cannot instantiate a map of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml", e);
+            }
+           catch (InvocationTargetException e) {
+           	 throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName() + "; try specifying type type in components.xml",e );
+            }
+            catch (NoSuchMethodException e) {
+           	 throw new IllegalArgumentException("Class " + collectionClass.getCanonicalName() + " doesn't hava a valid constructor", e);
             }
          }
         

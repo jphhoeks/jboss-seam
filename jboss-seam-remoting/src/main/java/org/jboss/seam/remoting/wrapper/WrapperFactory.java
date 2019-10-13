@@ -75,22 +75,19 @@ public class WrapperFactory
     return factory;
   }
 
-  public Wrapper createWrapper(String type)
-  {
-    Class wrapperClass = wrapperRegistry.get(type);
-
-    if (wrapperClass != null)
-    {
-      try {
-        Wrapper wrapper = (Wrapper) wrapperClass.newInstance();
-        return wrapper;
-      }
-      catch (Exception ex) { }
-    }
-
-    throw new RuntimeException(String.format("Failed to create wrapper for type: %s",
-                               type));
-  }
+	public Wrapper createWrapper(String type) {
+		Class wrapperClass = wrapperRegistry.get(type);
+		if (wrapperClass == null) {
+			throw new IllegalStateException("No wrapperClass registered for:" + type);
+		} else {
+			try {
+				Wrapper wrapper = (Wrapper) wrapperClass.getDeclaredConstructor().newInstance();
+				return wrapper;
+			} catch (Exception ex) {
+				throw new RuntimeException(String.format("Failed to create wrapper for type: %s", type), ex);
+			}
+		}
+	}
 
   public Wrapper getWrapperForObject(Object obj)
   {
@@ -113,11 +110,11 @@ public class WrapperFactory
     {
       try
       {
-        w = (Wrapper) classRegistry.get(obj.getClass()).newInstance();
+        w = (Wrapper) classRegistry.get(obj.getClass()).getDeclaredConstructor().newInstance();
       }
       catch (Exception ex)
       {
-        throw new RuntimeException("Failed to create wrapper instance.");
+        throw new RuntimeException("Failed to create wrapper instance.", ex);
       }
     }
     else

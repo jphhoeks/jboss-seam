@@ -71,7 +71,7 @@ public class ExcelFactory
 
       try
       {
-         excelWorkbook = clazz.newInstance();
+         excelWorkbook = clazz.getDeclaredConstructor().newInstance();
       }
       catch (Exception e)
       {

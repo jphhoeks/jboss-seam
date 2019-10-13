@@ -166,7 +166,7 @@ public class BusinessProcessInterceptor extends AbstractInterceptor
       }
       else if (id instanceof String)
       {
-         return new Long( (String) id );
+         return Long.valueOf( (String) id );
       }
       else
       {

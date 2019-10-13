@@ -184,32 +184,22 @@ public abstract class DeploymentStrategy
       }
    }
    
-   private DeploymentHandler instantiateDeploymentHandler(String className)
-   {
-      try
-      {
-         @SuppressWarnings("unchecked")
-		 Class<DeploymentHandler> clazz = (Class<DeploymentHandler>) getClassLoader().loadClass(className);
-         return clazz.newInstance();
-      }
-      catch (ClassNotFoundException e)
-      {
-         log.trace("Unable to use " + className + " as a deployment handler (class not found)", e);
-      }
-      catch (LinkageError e) 
-      {
-         log.trace("Unable to use " + className + " as a deployment handler (dependency not found)", e);
-      }
-      catch (InstantiationException e)
-      {
-         log.trace("Unable to instantiate deployment handler " + className, e);
-      }
-      catch (IllegalAccessException e)
-      {
-         log.trace("Unable to instantiate deployment handler " + className, e);
-      }
-      return null;
-   }
+	private DeploymentHandler instantiateDeploymentHandler(String className) {
+		try {
+			@SuppressWarnings("unchecked")
+			Class<DeploymentHandler> clazz = (Class<DeploymentHandler>) getClassLoader().loadClass(className);
+			return clazz.getDeclaredConstructor().newInstance();
+		} catch (ClassNotFoundException e) {
+			log.trace("Unable to use " + className + " as a deployment handler (class not found)", e);
+		} catch (LinkageError e) {
+			log.trace("Unable to use " + className + " as a deployment handler (dependency not found)", e);
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | SecurityException
+				| IllegalArgumentException e) {
+			log.trace("Unable to instantiate deployment handler " + className, e);
+		}
+
+		return null;
+	}
 
    public List<File> getFiles()
    {

@@ -223,7 +223,7 @@ protected E createInstance()
       {
          try
          {
-            return getEntityClass().newInstance();
+            return getEntityClass().getDeclaredConstructor().newInstance();
          }
          catch (Exception e)
          {

@@ -216,7 +216,7 @@ public class JavaBeanInterceptor extends RootInterceptor
                   ComponentType.JAVA_BEAN, 
                   beanClass, 
                   Component.getBusinessInterfaces(beanClass)
-               ).newInstance();
+               ).getDeclaredConstructor().newInstance();
             proxy.setHandler(this);
             return proxy;
          }

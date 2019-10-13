@@ -370,11 +370,11 @@ public class EnhancedMockHttpServletResponse implements HttpServletResponse {
 	}
 
 	public void setDateHeader(String name, long value) {
-		setHeaderValue(name, new Long(value));
+		setHeaderValue(name, Long.valueOf(value));
 	}
 
 	public void addDateHeader(String name, long value) {
-		addHeaderValue(name, new Long(value));
+		addHeaderValue(name, Long.valueOf(value));
 	}
 
 	public void setHeader(String name, String value) {
@@ -386,11 +386,11 @@ public class EnhancedMockHttpServletResponse implements HttpServletResponse {
 	}
 
 	public void setIntHeader(String name, int value) {
-		setHeaderValue(name, new Integer(value));
+		setHeaderValue(name, Integer.valueOf(value));
 	}
 
 	public void addIntHeader(String name, int value) {
-		addHeaderValue(name, new Integer(value));
+		addHeaderValue(name, Integer.valueOf(value));
 	}
 
 	private void setHeaderValue(String name, Object value) {

@@ -199,7 +199,7 @@ public class JSF
        {
            return null;
        }
-       return new Integer(value);
+       return Integer.valueOf(value);
    }
    
    public static Double getDoubleValue(FacesContext context, ValueExpression vb)
@@ -209,7 +209,7 @@ public class JSF
        {
            return null;
        }
-       return new Double(value);
+       return Double.valueOf(value);
    }
    
    public static Boolean getBooleanValue(FacesContext context, ValueExpression vb)

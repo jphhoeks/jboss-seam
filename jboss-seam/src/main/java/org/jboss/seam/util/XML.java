@@ -80,7 +80,7 @@ public class XML
    }
    
       /**
-       * Get escaped <, ", ' characters from input
+       * Get escaped &lt;, ", ' characters from input
        * 
        * @param input
        * @return escaped string

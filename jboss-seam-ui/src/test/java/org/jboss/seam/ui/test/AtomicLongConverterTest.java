@@ -52,8 +52,8 @@ public class AtomicLongConverterTest
       assertEquals("-1", converter.getAsString(null, null, new AtomicLong(-1)));
       try
       {
-         converter.getAsString(null, null, new Long(0));
-         fail("should only take atomic ints");
+         converter.getAsString(null, null, Long.valueOf(0));
+         fail("should only take atomic longs");
       }
       catch (ConverterException c) { }
    }

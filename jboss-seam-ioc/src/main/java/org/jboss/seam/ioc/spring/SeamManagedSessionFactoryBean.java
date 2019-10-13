@@ -141,7 +141,7 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean
          if (method.getName().equals("hashCode"))
          {
             // Use hashCode of SessionFactory proxy.
-            return new Integer(hashCode());
+            return Integer.valueOf(hashCode());
          }
          SessionFactory delegate = getRawSessionFactory();
          if (method.getName().equals("isClosed"))
@@ -268,7 +268,7 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean
          else if (method.getName().equals("hashCode"))
          {
             // Use hashCode of Session proxy.
-            return new Integer(hashCode());
+            return Integer.valueOf(hashCode());
          }
          if (method.getName().equals("isOpen"))
          {

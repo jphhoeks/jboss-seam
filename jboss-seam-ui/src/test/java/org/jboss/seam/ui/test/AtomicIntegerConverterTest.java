@@ -52,7 +52,7 @@ public class AtomicIntegerConverterTest
       assertEquals("-1", converter.getAsString(null, null, new AtomicInteger(-1)));
       try
       {
-         converter.getAsString(null, null, new Integer(0));
+         converter.getAsString(null, null, Integer.valueOf(0));
          fail("should only take atomic ints");
       }
       catch (ConverterException c) { }

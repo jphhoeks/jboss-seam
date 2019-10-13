@@ -74,7 +74,7 @@ private Class tokenClass;
       
       try
       {
-         Object token = tokenClass.newInstance();
+         Object token = tokenClass.getDeclaredConstructor().newInstance();
          
          tokenUsernameProperty.setValue(token, username);
          tokenValueProperty.setValue(token, value);

@@ -301,7 +301,7 @@ private static final LogProvider log = Logging.getLogProvider(JpaPermissionStore
                      actionSet.add(action);
                   }
                   
-                  Object instance = rolePermissionClass.newInstance();
+                  Object instance = rolePermissionClass.getDeclaredConstructor().newInstance();
                   roleTargetProperty.setValue(instance, identifierPolicy.getIdentifier(target));
                   roleActionProperty.setValue(instance, actionSet.toString());
                   roleProperty.setValue(instance, resolvePrincipalEntity(recipient));
@@ -378,7 +378,7 @@ private static final LogProvider log = Logging.getLogProvider(JpaPermissionStore
                actionSet.add(action);
             }
             
-            Object instance = userPermissionClass.newInstance();
+            Object instance = userPermissionClass.getDeclaredConstructor().newInstance();
             targetProperty.setValue(instance, identifierPolicy.getIdentifier(target));
             actionProperty.setValue(instance, actionSet.toString());
             

@@ -119,7 +119,7 @@ private static final LogProvider log = Logging
          if (method.getName().equals("hashCode"))
          {
             // Use hashCode of EntityManager proxy.
-            return new Integer(hashCode());
+            return Integer.valueOf(hashCode());
          }
          if (method.getName().equals("isOpen"))
          {

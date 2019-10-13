@@ -189,7 +189,7 @@ public class DigestRequest
       long nonceExpiry = 0;      
       try 
       {
-         nonceExpiry = new Long(nonceTokens[0]).longValue();
+         nonceExpiry = Long.parseLong(nonceTokens[0]);
       } 
       catch (NumberFormatException nfe) 
       {

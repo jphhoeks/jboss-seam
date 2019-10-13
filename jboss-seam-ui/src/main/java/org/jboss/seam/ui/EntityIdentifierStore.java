@@ -44,7 +44,7 @@ private List<Identifier> store;
    {
       try
       {
-         return store.get(new Integer(key));
+         return store.get(Integer.valueOf(key));
       }
       catch (IndexOutOfBoundsException e)
       {

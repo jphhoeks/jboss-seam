@@ -91,7 +91,7 @@ public class ManagedWorkingMemory implements Mutable, Serializable
             try
             {
                Class eventListenerClass = Class.forName(eventListener);
-               Object eventListenerObject = eventListenerClass.newInstance();
+               Object eventListenerObject = eventListenerClass.getDeclaredConstructor().newInstance();
                if(eventListenerObject instanceof WorkingMemoryEventListener) 
                {
                   statefulSession.addEventListener((WorkingMemoryEventListener) eventListenerObject);

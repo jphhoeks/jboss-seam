@@ -100,16 +100,16 @@ public class MapWrapper extends BaseWrapper implements Wrapper
             // Otherwise create an instance of the concrete type
             if (type instanceof Class)
             {
-               value = ((Class) type).newInstance();
+               value = ((Class) type).getDeclaredConstructor().newInstance();
             }
             else if (type instanceof ParameterizedType)
             {
-               value = ((Class) ((ParameterizedType) type).getRawType()).newInstance();
+               value = ((Class) ((ParameterizedType) type).getRawType()).getDeclaredConstructor().newInstance();
             }
          }
          catch (Exception ex)
          {
-            throw new ConversionException(String.format("Could not create value of type [%s]", type));
+            throw new ConversionException(String.format("Could not create value of type [%s]", type), ex);
          }
       }
 

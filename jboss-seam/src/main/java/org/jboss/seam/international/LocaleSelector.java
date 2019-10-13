@@ -82,7 +82,7 @@ public class LocaleSelector extends Selector
 
    /**
     * Set the language and force resource bundle reload, useful for quick action links:
-    * <tt>&lt;h:commandLink value="DE" action="#{localeSelector.selectLanguage('de')}"/>"/></tt>
+    * <tt>&lt;h:commandLink value="DE" action="#{localeSelector.selectLanguage('de')}"/&gt;</tt>
     */
    public void selectLanguage(String language) {
       setLanguage(language);

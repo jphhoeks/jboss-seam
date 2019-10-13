@@ -18,7 +18,7 @@ import org.jboss.seam.log.Logging;
 
 /**
  * Implementation of CacheProvider backed by EhCache. The default cache region
- * issues <i>org.jboss.seam.cache.DefaultCache</> as the default cache region.
+ * issues <i>org.jboss.seam.cache.DefaultCache</i> as the default cache region.
  * 
  * @author Sebastian Hennebrueder
  * @author Pete Muir

@@ -59,7 +59,7 @@ public final class Interceptor extends Reflections
       {
          try
          {
-            Object userInterceptor = userInterceptorClass.newInstance();
+            Object userInterceptor = userInterceptorClass.getDeclaredConstructor().newInstance();
             if (componentInjectorMethod!=null)
             {
                Reflections.invokeAndWrap(componentInjectorMethod, userInterceptor, component);
@@ -112,7 +112,7 @@ public final class Interceptor extends Reflections
       
       try
       {
-         statelessUserInterceptorInstance = userInterceptorClass.newInstance();
+         statelessUserInterceptorInstance = userInterceptorClass.getDeclaredConstructor().newInstance();
       }
       catch (Exception e)
       {

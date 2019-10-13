@@ -46,7 +46,7 @@ public class BeanWrapper extends BaseWrapper implements Wrapper
     else
     {
       try {
-        value = Reflections.classForName(beanType).newInstance();
+        value = Reflections.classForName(beanType).getDeclaredConstructor().newInstance();
       }
       catch (Exception ex) {
         throw new RuntimeException("Could not unmarshal bean element: " + element.getText(), ex);

@@ -107,8 +107,9 @@ public class JMXInvocationHandler
          MBeanOperationInfo[] operations = info.getOperations();
          
          // collect the MBean attribute metadata for standard mbean proxies
-         for (int i = 0; i < attributes.length; ++i)
+         for (int i = 0; i < attributes.length; ++i) {
             attributeMap.put(attributes[i].getName(), attributes[i]);
+         }
          
          // Check whether the target resource exposes the common object methods.
          // Dynamic Proxy will delegate these methods automatically to the
@@ -363,20 +364,22 @@ public class JMXInvocationHandler
          else if (Proxy.isProxyClass(args[0].getClass()))
          {
             Proxy prxy = (Proxy)args[0];
-            return new Boolean(this.equals(Proxy.getInvocationHandler(prxy)));
+            return Boolean.valueOf(this.equals(Proxy.getInvocationHandler(prxy)));
          }
          else
          {
-            return new Boolean(this.equals(args[0]));
+            return Boolean.valueOf(this.equals(args[0]));
          }
       }
       
       else if (method.getName().equals("hashCode"))
       {
-         if (delegateHashCodeToResource)
+         if (delegateHashCodeToResource) {
             return server.invoke(objectName, "hashCode", null, null);
-         else  
-            return new Integer(this.hashCode());
+         }
+         else {  
+            return Integer.valueOf(this.hashCode());
+         }
       }
       
       else throw new Error("Unexpected method invocation!");

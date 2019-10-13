@@ -303,16 +303,16 @@ public class RemotingTest
       NumberWrapper wrapper = new NumberWrapper();
       wrapper.setElement(createElement("number", value));
 
-      assert new Short(value).equals(wrapper.convert(Short.class));
+      assert Short.valueOf(value).equals(wrapper.convert(Short.class));
       assert wrapper.convert(Short.TYPE).equals(Short.parseShort(value));
 
-      assert new Integer(value).equals(wrapper.convert(Integer.class));
+      assert Integer.valueOf(value).equals(wrapper.convert(Integer.class));
       assert wrapper.convert(Integer.TYPE).equals(Integer.parseInt(value));
 
-      assert new Long(value).equals(wrapper.convert(Long.class));
+      assert Long.valueOf(value).equals(wrapper.convert(Long.class));
       assert wrapper.convert(Long.TYPE).equals(Long.parseLong(value));
 
-      assert new Byte(value).equals(wrapper.convert(Byte.class));
+      assert Byte.valueOf(value).equals(wrapper.convert(Byte.class));
       assert wrapper.convert(Byte.TYPE).equals(Byte.parseByte(value));
 
       assert value.equals(wrapper.convert(String.class));
@@ -320,10 +320,10 @@ public class RemotingTest
       value = "123.456";
       wrapper.setElement(createElement("number", value));
 
-      assert new Double(value).equals(wrapper.convert(Double.class));
+      assert Double.valueOf(value).equals(wrapper.convert(Double.class));
       assert Double.valueOf(value).equals(wrapper.convert(Double.TYPE));
 
-      assert new Float(value).equals(wrapper.convert(Float.class));
+      assert Float.valueOf(value).equals(wrapper.convert(Float.class));
       assert Float.valueOf(value).equals(wrapper.convert(Float.TYPE));
 
       value = "";
@@ -701,7 +701,7 @@ public class RemotingTest
       assert WrapperFactory.getInstance().getWrapperForObject(new String[2]) instanceof BagWrapper;
       assert WrapperFactory.getInstance().getWrapperForObject(new ArrayList()) instanceof BagWrapper;
       assert WrapperFactory.getInstance()
-            .getWrapperForObject(new Boolean(true)) instanceof BooleanWrapper;
+            .getWrapperForObject(Boolean.TRUE) instanceof BooleanWrapper;
       assert WrapperFactory.getInstance().getWrapperForObject(true) instanceof BooleanWrapper;
       assert WrapperFactory.getInstance().getWrapperForObject(TestEnum.blue) instanceof StringWrapper;
       assert WrapperFactory.getInstance().getWrapperForObject(new Date()) instanceof DateWrapper;
@@ -714,7 +714,7 @@ public class RemotingTest
       assert WrapperFactory.getInstance().getWrapperForObject(
             new StringBuilder("foo")) instanceof StringWrapper;
       assert WrapperFactory.getInstance().getWrapperForObject(
-            new Character('a')) instanceof StringWrapper;
+            Character.valueOf('a')) instanceof StringWrapper;
 
       // All the number types
       assert WrapperFactory.getInstance().getWrapperForObject(111) instanceof NumberWrapper;

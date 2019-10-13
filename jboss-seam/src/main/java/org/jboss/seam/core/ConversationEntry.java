@@ -168,7 +168,7 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
    
    public int compareTo(ConversationEntry entry) 
    {
-      int result = new Long ( getLastRequestTime() ).compareTo( entry.getLastRequestTime() );
+      int result = Long.valueOf( getLastRequestTime() ).compareTo( entry.getLastRequestTime() );
       return - ( result==0 ? getId().compareTo( entry.getId() ) : result );
    }
    

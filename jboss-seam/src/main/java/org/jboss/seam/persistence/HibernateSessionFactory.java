@@ -38,11 +38,11 @@ import org.jboss.seam.util.Reflections;
  * <tt>hibernate.properties</tt> are always loaded from the classpath.
  * <p>
  * Mapping metadata can be supplied via
- * <li>mappingClasses: equivalent to &lt;mapping class="..."/>
- * <li>mappingFiles: equivalent to &lt;mapping file="..."/>
- * <li>mappingJars: equivalent to &lt;mapping jar="..."/>
- * <li>mappingPackages: equivalent to &lt;mapping package="..."/>
- * <li>mappingResources: equivalent to &lt;mapping resource="..."/>
+ * <li>mappingClasses: equivalent to &lt;mapping class="..."/&gt;</li>
+ * <li>mappingFiles: equivalent to &lt;mapping file="..."/&gt;</li>
+ * <li>mappingJars: equivalent to &lt;mapping jar="..."/&gt;</li>
+ * <li>mappingPackages: equivalent to &lt;mapping package="..."/&gt;</li>
+ * <li>mappingResources: equivalent to &lt;mapping resource="..."/&gt;<li>
  * <p>
  * or via cfg.xml files.
  * <p>

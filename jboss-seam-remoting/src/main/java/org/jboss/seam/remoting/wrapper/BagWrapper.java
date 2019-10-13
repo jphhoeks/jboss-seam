@@ -88,11 +88,11 @@ public class BagWrapper extends BaseWrapper implements Wrapper
     else if (type instanceof Class && Collection.class.isAssignableFrom((Class) type))
     {
       try {
-        value = getConcreteClass( (Class) type).newInstance();
+        value = getConcreteClass( (Class) type).getDeclaredConstructor().newInstance();
       }
       catch (Exception ex) {
         throw new ConversionException(String.format(
-            "Could not create instance of target type [%s].", type));
+            "Could not create instance of target type [%s].", type), ex);
       }
       for (Wrapper w : vals)
         ((Collection) value).add(w.convert(Object.class));
@@ -110,11 +110,11 @@ public class BagWrapper extends BaseWrapper implements Wrapper
       }
 
       try {
-        value = getConcreteClass(rawType).newInstance();
+        value = getConcreteClass(rawType).getDeclaredConstructor().newInstance();
       }
       catch (Exception ex) {
         throw new ConversionException(String.format(
-            "Could not create instance of target type [%s].", rawType));
+            "Could not create instance of target type [%s].", rawType), ex);
       }
 
       for (Wrapper w : vals)

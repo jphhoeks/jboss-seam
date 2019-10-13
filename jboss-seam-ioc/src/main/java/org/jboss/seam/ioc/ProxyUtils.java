@@ -68,7 +68,7 @@ public class ProxyUtils
       // different interfaces at different times in an application. If
       // need is great I can create a Factory and assume the same
       // interfaces all the time.
-      ProxyObject po = Component.createProxyFactory(ComponentType.JAVA_BEAN, beanClass, interfaces).newInstance();
+      ProxyObject po = Component.createProxyFactory(ComponentType.JAVA_BEAN, beanClass, interfaces).getDeclaredConstructor().newInstance();
       po.setHandler(interceptor);
       interceptor.postConstruct();
       return po;

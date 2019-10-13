@@ -47,8 +47,8 @@ public class AtomicBooleanConverterTest
       assertEquals("false", converter.getAsString(null, null, new AtomicBoolean(false)));
       try
       {
-         converter.getAsString(null, null, new Boolean(true));
-         fail();
+         converter.getAsString(null, null, Boolean.TRUE);
+         fail("should only take atomic booleans");
       }
       catch (ConverterException c) {}
 

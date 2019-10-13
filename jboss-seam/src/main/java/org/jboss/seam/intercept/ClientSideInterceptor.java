@@ -103,7 +103,7 @@ public class ClientSideInterceptor extends RootInterceptor
                   ComponentType.STATEFUL_SESSION_BEAN, 
                   beanClass, 
                   Component.getBusinessInterfaces(beanClass)
-               ).newInstance();
+               ).getDeclaredConstructor().newInstance();
             proxy.setHandler(this);
             return proxy;
          }

@@ -65,7 +65,7 @@ public class IdentifierPolicy implements Serializable
             {
                try
                {
-                  strategy = strategyClass.newInstance();
+                  strategy = strategyClass.getDeclaredConstructor().newInstance();
                   strategies.put(target.getClass(), strategy);
                }
                catch (Exception ex)

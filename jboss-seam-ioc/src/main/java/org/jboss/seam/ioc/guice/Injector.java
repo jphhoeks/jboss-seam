@@ -73,7 +73,7 @@ public class Injector implements Serializable
       {
          final Class<?> clazz = Class.forName(className, true, Thread.currentThread().getContextClassLoader());
 
-         return (Module) clazz.newInstance();
+         return (Module) clazz.getDeclaredConstructor().newInstance();
       }
       catch (Exception e)
       {

@@ -45,8 +45,8 @@ import java.io.IOException;
  *    public void prepareSharedEnvironment() throws Exception {
  *        sharedEnvironment = new ResourceRequestEnvironment(this) {
  *             &#064;Override
- *             public Map<String, Object> getDefaultHeaders() {
- *                return new HashMap<String, Object>() {{
+ *             public Map&lt;String, Object&gt; getDefaultHeaders() {
+ *                return new HashMap&lt;String, Object&gt;() {{
  *                    put("Accept", "text/plain");
  *                }};
  *             }

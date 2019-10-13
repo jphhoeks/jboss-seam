@@ -213,7 +213,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable
             throw new IdentityManagementException("Could not create account, already exists");
          }
          
-         Object user = userClass.newInstance();
+         Object user = userClass.getDeclaredConstructor().newInstance();
 
          userPrincipalProperty.setValue(user, username);
 
@@ -381,7 +381,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable
          // Otherwise we need to insert a cross-reference entity instance
          try
          {
-            Object xref = xrefClass.newInstance();            
+            Object xref = xrefClass.getDeclaredConstructor().newInstance();            
             xrefUserProperty.setValue(xref, user);
             xrefRoleProperty.setValue(xref, roleToGrant);
             
@@ -520,7 +520,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable
             throw new IdentityManagementException("Could not create role, already exists");
          }
          
-         Object instance = roleClass.newInstance();         
+         Object instance = roleClass.getDeclaredConstructor().newInstance();         
          roleNameProperty.setValue(instance, role);         
          persistEntity(instance);
          
