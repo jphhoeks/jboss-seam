@@ -4,5 +4,3 @@ install: mvn install -DskipTests=true -Dgpg.skip=true -B -q
 
 jdk:
   - openjdk8
-  - openjdk11
-
