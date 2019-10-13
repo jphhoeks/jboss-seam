@@ -11,44 +11,38 @@ import java.util.regex.Pattern;
  *
  */
 public class ComponentsXmlDeploymentHandler extends AbstractDeploymentHandler implements DeploymentMetadata {
-   
-   private final Pattern INF_PATTERN = Pattern.compile("(WEB-INF/components.xml$)|(META-INF/components.xml$)");
-   
 
-   
-   /**
-    * Name under which this {@link DeploymentHandler} is registered
-    */
-   public static final String NAME = "org.jboss.seam.deployment.ComponentsXmlDeploymentHandler";
-   
-   public String getName()
-   {
-      return NAME;
-   }
-   @Override
+	private final Pattern INF_PATTERN = Pattern.compile("(WEB-INF/components.xml$)|(META-INF/components.xml$)");
+
+	/**
+	* Name under which this {@link DeploymentHandler} is registered
+	*/
+	public static final String NAME = "org.jboss.seam.deployment.ComponentsXmlDeploymentHandler";
+
+	public String getName() {
+		return NAME;
+	}
+
+	@Override
 	public String getFileNameSuffix() {
 		return "components.xml";
 	}
-   
-   public DeploymentMetadata getMetadata()
-   {
-      return this;
-   }
-   
-   @Override
-   public void postProcess(ClassLoader classLoader)
-   {
-      Set<FileDescriptor> resources = new HashSet<FileDescriptor>();
-      for (FileDescriptor fileDescriptor : getResources())
-      {
-         // we want to skip over known meta-directories since Seam will auto-load these without a scan
-         String path = fileDescriptor.getName();
-         if (!this.INF_PATTERN.matcher(path).matches() && !path.contains("/seam-gen/")) 
-         {
-            resources.add(fileDescriptor);
-         }
-      }
-      setResources(resources);
-   }
-   
+
+	public DeploymentMetadata getMetadata() {
+		return this;
+	}
+
+	@Override
+	public void postProcess(ClassLoader classLoader) {
+		Set<FileDescriptor> resources = new HashSet<FileDescriptor>();
+		for (FileDescriptor fileDescriptor : getResources()) {
+			// we want to skip over known meta-directories since Seam will auto-load these without a scan
+			String path = fileDescriptor.getName();
+			if (!this.INF_PATTERN.matcher(path).matches() && !path.contains("/seam-gen/")) {
+				resources.add(fileDescriptor);
+			}
+		}
+		setResources(resources);
+	}
+
 }

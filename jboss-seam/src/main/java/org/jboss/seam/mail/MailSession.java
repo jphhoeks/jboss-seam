@@ -31,291 +31,234 @@ import org.jboss.seam.util.Naming;
 @Install(precedence = BUILT_IN, classDependencies = "javax.mail.Session")
 @Scope(APPLICATION)
 @BypassInterceptors
-public class MailSession extends AbstractMutable implements Serializable
-{
-    private static final long serialVersionUID = 1L;
+public class MailSession extends AbstractMutable implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	private static final LogProvider log = Logging
-            .getLogProvider(MailSession.class);
+	private static final LogProvider log = Logging.getLogProvider(MailSession.class);
 
-    private Session session;
-    private String host = "localhost";
-    private Integer port;
-    private String username;
-    private String password;
-    private boolean debug = false;
-    private String sessionJndiName;
-    private boolean ssl;
-    private boolean tls = true;
-    private String transport;
-    
-    public MailSession() {}
-    
-    // Only used for tests
-    public MailSession(String transport)
-    {
-        this.transport = transport;
-    }
+	private Session session;
+	private String host = "localhost";
+	private Integer port;
+	private String username;
+	private String password;
+	private boolean debug = false;
+	private String sessionJndiName;
+	private boolean ssl;
+	private boolean tls = true;
+	private String transport;
 
-    @Unwrap
-    public Session getSession() throws NamingException
-    {
-        if (session == null)
-        {
-            // This simulates an EVENT scope component
-            return (Session) Naming.getInitialContext().lookup(getSessionJndiName());
-        } 
-        else
-        {
-            return session;
-        }
-    }
+	public MailSession() {
+	}
 
-    /**
-     * Initialise mail session
-     * 
-     * Unless disabled, if a mail Session can be found in JNDI, then just manage
-     * be a simple wrapper; otherwise configure the session as specified in
-     * components.xml
-     */
-    @Create
-    public MailSession create()
-    {
-        if (getSessionJndiName() == null)
-        {
-            createSession();
-        }
-        return this;
-    }
+	// Only used for tests
+	public MailSession(String transport) {
+		this.transport = transport;
+	}
 
-    private void createSession()
-    {
-        if (getPort() != null)
-        {
-           log.debug("Creating JavaMail Session (" + getHost() + ':' + getPort() + ")");
-        }
-        else
-        {
-           log.debug("Creating JavaMail Session (" + getHost() + ")");
-        }
+	@Unwrap
+	public Session getSession() throws NamingException {
+		if (session == null) {
+			// This simulates an EVENT scope component
+			return (Session) Naming.getInitialContext().lookup(getSessionJndiName());
+		} else {
+			return session;
+		}
+	}
 
-        Properties properties = new Properties();
+	/**
+	 * Initialise mail session
+	 * 
+	 * Unless disabled, if a mail Session can be found in JNDI, then just manage
+	 * be a simple wrapper; otherwise configure the session as specified in
+	 * components.xml
+	 */
+	@Create
+	public MailSession create() {
+		if (getSessionJndiName() == null) {
+			createSession();
+		}
+		return this;
+	}
 
-        // Enable debugging if set
-        properties.put("mail.debug", isDebug());
+	private void createSession() {
+		if (getPort() != null) {
+			log.debug("Creating JavaMail Session (" + getHost() + ':' + getPort() + ")");
+		} else {
+			log.debug("Creating JavaMail Session (" + getHost() + ")");
+		}
 
-        if (getUsername() != null && getPassword() == null)
-        {
-            log.warn("username supplied without a password (if an empty password is required supply an empty string)");
-        }
-        if (getUsername() == null && getPassword() != null)
-        {
-            log.warn("password supplied without a username (if no authentication required supply neither)");
-        }
+		Properties properties = new Properties();
 
-        if (getHost() != null)
-        {
-            if (isSsl())
-            {
-                properties.put("mail.smtps.host", getHost());
-            } 
-            else
-            {
-                properties.put("mail.smtp.host", getHost());
-            }
+		// Enable debugging if set
+		properties.put("mail.debug", isDebug());
 
-        }
-        if (getPort() != null)
-        {
-            if (isSsl())
-            {
-                properties.put("mail.smtps.port", getPort().toString());
-            }
-            else
-            {
-                properties.put("mail.smtp.port", getPort().toString());
-            }
-        } else
-        {
-            if (isSsl())
-            {
-                properties.put("mail.smtps.port", "465");
-            } 
-            else
-            {
-                properties.put("mail.smtp.port", "25");
-            }
-        }
+		if (getUsername() != null && getPassword() == null) {
+			log.warn("username supplied without a password (if an empty password is required supply an empty string)");
+		}
+		if (getUsername() == null && getPassword() != null) {
+			log.warn("password supplied without a username (if no authentication required supply neither)");
+		}
 
-        properties.put("mail.transport.protocol", getTransport());
+		if (getHost() != null) {
+			if (isSsl()) {
+				properties.put("mail.smtps.host", getHost());
+			} else {
+				properties.put("mail.smtp.host", getHost());
+			}
 
-        // Authentication if required
-        Authenticator authenticator = null;
-        if (getUsername() != null && getPassword() != null)
-        {
-            if (isSsl())
-            {
-                properties.put("mail.smtps.auth", "true");
-            }
-            else
-            {
+		}
+		if (getPort() != null) {
+			if (isSsl()) {
+				properties.put("mail.smtps.port", getPort().toString());
+			} else {
+				properties.put("mail.smtp.port", getPort().toString());
+			}
+		} else {
+			if (isSsl()) {
+				properties.put("mail.smtps.port", "465");
+			} else {
+				properties.put("mail.smtp.port", "25");
+			}
+		}
 
-                properties.put("mail.smtp.auth", "true");
-            }
-            authenticator = new Authenticator()
-            {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication()
-                {
-                    return new PasswordAuthentication(getUsername(), getPassword());
-                }
-            };
-        }
+		properties.put("mail.transport.protocol", getTransport());
 
-        // Use TLS (if supported)
-        if (isTls())
-        {
-            properties.put("mail.smtp.starttls.enable", "true");
-        }
+		// Authentication if required
+		Authenticator authenticator = null;
+		if (getUsername() != null && getPassword() != null) {
+			if (isSsl()) {
+				properties.put("mail.smtps.auth", "true");
+			} else {
 
-        session = javax.mail.Session.getInstance(properties, authenticator);
-        session.setDebug(isDebug());
+				properties.put("mail.smtp.auth", "true");
+			}
+			authenticator = new Authenticator() {
+				@Override
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(getUsername(), getPassword());
+				}
+			};
+		}
 
-        log.debug("connected to mail server");
-    }
+		// Use TLS (if supported)
+		if (isTls()) {
+			properties.put("mail.smtp.starttls.enable", "true");
+		}
 
-    public String getPassword()
-    {
-        return password;
-    }
+		session = javax.mail.Session.getInstance(properties, authenticator);
+		session.setDebug(isDebug());
 
-    /**
-     * @param password The password to use to authenticate to the sending
-     *            server. If no authentication is required it should be left
-     *            empty. Must be supplied in conjunction with username.
-     */
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
+		log.debug("connected to mail server");
+	}
 
-    public String getUsername()
-    {
-        return username;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    /**
-     * @param username The username to use to authenticate to the server. If not
-     *            set then no authentication is used. Must be set in conjunction
-     *            with password.
-     */
-    public void setUsername(String username)
-    {
-        this.username = username;
-    }
+	/**
+	 * @param password The password to use to authenticate to the sending
+	 *            server. If no authentication is required it should be left
+	 *            empty. Must be supplied in conjunction with username.
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public boolean isDebug()
-    {
-        return debug;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    /**
-     * @param debug Whether to display debug message logging. Warning, very
-     *            verbose.
-     */
-    public void setDebug(boolean debug)
-    {
-        this.debug = debug;
-    }
+	/**
+	 * @param username The username to use to authenticate to the server. If not
+	 *            set then no authentication is used. Must be set in conjunction
+	 *            with password.
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public String getHost()
-    {
-        return host;
-    }
+	public boolean isDebug() {
+		return debug;
+	}
 
-    /**
-     * @param host The host to connect to
-     */
-    public void setHost(String host)
-    {
-        this.host = host;
-    }
+	/**
+	 * @param debug Whether to display debug message logging. Warning, very
+	 *            verbose.
+	 */
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 
-    public void setPort(Integer port)
-    {
-        this.port = port;
-    }
+	public String getHost() {
+		return host;
+	}
 
-    public Integer getPort()
-    {
-        return port;
-    }
+	/**
+	 * @param host The host to connect to
+	 */
+	public void setHost(String host) {
+		this.host = host;
+	}
 
-    public String getSessionJndiName()
-    {
-        return sessionJndiName;
-    }
+	public void setPort(Integer port) {
+		this.port = port;
+	}
 
-    public void setSessionJndiName(String jndiName)
-    {
-        this.sessionJndiName = jndiName;
-    }
+	public Integer getPort() {
+		return port;
+	}
 
-    public boolean isSsl()
-    {
-        return ssl;
-    }
+	public String getSessionJndiName() {
+		return sessionJndiName;
+	}
 
-    public void setSsl(boolean ssl)
-    {
-        this.ssl = ssl;
-    }
+	public void setSessionJndiName(String jndiName) {
+		this.sessionJndiName = jndiName;
+	}
 
-    public boolean isTls()
-    {
-        return tls;
-    }
+	public boolean isSsl() {
+		return ssl;
+	}
 
-    public void setTls(boolean tls)
-    {
-        this.tls = tls;
-    }
-    
-    /**
-     * Get the transport to used. If the not explicitly specified smtp or smtps
-     * is used
-     */
-    public String getTransport()
-    {
-        if (transport != null)
-        {
-            return transport;
-        }
-        if (isSsl())
-        {
-            return "smtps";
-        } 
-        else
-        {
-            return "smtp";
-        }
-    }
-    
-    /**
-     * Explicitly set the transport to use
-     */
-    public void setTransport(String transport)
-    {
-        this.transport = transport;
-    }
+	public void setSsl(boolean ssl) {
+		this.ssl = ssl;
+	}
 
-    public static Session instance()
-    {
-        if (!Contexts.isApplicationContextActive())
-        {
-           throw new IllegalArgumentException("Application scope not active");
-        }
-        return (Session) Component.getInstance(MailSession.class, APPLICATION);
-    }
+	public boolean isTls() {
+		return tls;
+	}
+
+	public void setTls(boolean tls) {
+		this.tls = tls;
+	}
+
+	/**
+	 * Get the transport to used. If the not explicitly specified smtp or smtps
+	 * is used
+	 */
+	public String getTransport() {
+		if (transport != null) {
+			return transport;
+		}
+		if (isSsl()) {
+			return "smtps";
+		} else {
+			return "smtp";
+		}
+	}
+
+	/**
+	 * Explicitly set the transport to use
+	 */
+	public void setTransport(String transport) {
+		this.transport = transport;
+	}
+
+	public static Session instance() {
+		if (!Contexts.isApplicationContextActive()) {
+			throw new IllegalArgumentException("Application scope not active");
+		}
+		return (Session) Component.getInstance(MailSession.class, APPLICATION);
+	}
 
 }

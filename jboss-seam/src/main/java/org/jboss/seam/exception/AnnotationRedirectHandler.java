@@ -13,43 +13,36 @@ import org.jboss.seam.core.Expressions;
  * @author Gavin King
  *
  */
-public class AnnotationRedirectHandler extends RedirectHandler
-{
-   @Override
-   public boolean isHandler(Exception e)
-   {
-      return e.getClass().isAnnotationPresent(Redirect.class);
-   }
-   
-   @Override
-   protected String getMessage(Exception e)
-   {
-      return e.getClass().getAnnotation(Redirect.class).message();
-   }
-   
-   @Override
-   protected Severity getMessageSeverity(Exception e)
-   {
-      return FacesMessage.SEVERITY_INFO;
-   }
-   
-   @Override
-   protected String getViewId(Exception e)
-   {
-      return Expressions.instance().createValueExpression(e.getClass().getAnnotation(Redirect.class).viewId(), String.class).getValue();
-   }
-   
-   @Override
-   @SuppressWarnings("deprecation")
-   protected boolean isEnd(Exception e)
-   {
-      return e.getClass().getAnnotation(Redirect.class).end();
-   }
-   
-   @Override
-   protected boolean isEndBeforeRedirect(Exception e)
-   {
-      return false;
-   }
-   
+public class AnnotationRedirectHandler extends RedirectHandler {
+	@Override
+	public boolean isHandler(Exception e) {
+		return e.getClass().isAnnotationPresent(Redirect.class);
+	}
+
+	@Override
+	protected String getMessage(Exception e) {
+		return e.getClass().getAnnotation(Redirect.class).message();
+	}
+
+	@Override
+	protected Severity getMessageSeverity(Exception e) {
+		return FacesMessage.SEVERITY_INFO;
+	}
+
+	@Override
+	protected String getViewId(Exception e) {
+		return Expressions.instance().createValueExpression(e.getClass().getAnnotation(Redirect.class).viewId(), String.class).getValue();
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	protected boolean isEnd(Exception e) {
+		return e.getClass().getAnnotation(Redirect.class).end();
+	}
+
+	@Override
+	protected boolean isEndBeforeRedirect(Exception e) {
+		return false;
+	}
+
 }

@@ -11,6 +11,5 @@ import org.hibernate.search.FullTextSession;
  * @author Sanne Grinovero
  * @author Mike Youngstrom
  */
-public interface FullTextHibernateSessionProxy extends HibernateSessionProxy, FullTextSession
-{
+public interface FullTextHibernateSessionProxy extends HibernateSessionProxy, FullTextSession {
 }

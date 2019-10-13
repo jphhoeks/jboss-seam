@@ -7,33 +7,28 @@ package org.jboss.seam.excel;
  * @author Daniel Roth (danielc.roth@gmail.com)
  * 
  */
-public class ExcelWorkbookException extends RuntimeException
-{
+public class ExcelWorkbookException extends RuntimeException {
 
-   private static final long serialVersionUID = -2591516870660824325L;
+	private static final long serialVersionUID = -2591516870660824325L;
 
-   public ExcelWorkbookException()
-   {
+	public ExcelWorkbookException() {
 
-      super();
-   }
+		super();
+	}
 
-   public ExcelWorkbookException(String message)
-   {
-      super(message);
+	public ExcelWorkbookException(String message) {
+		super(message);
 
-   }
+	}
 
-   public ExcelWorkbookException(String message, Throwable t)
-   {
-      super(message, t);
+	public ExcelWorkbookException(String message, Throwable t) {
+		super(message, t);
 
-   }
+	}
 
-   public ExcelWorkbookException(Throwable t)
-   {
-      super(t);
+	public ExcelWorkbookException(Throwable t) {
+		super(t);
 
-   }
+	}
 
 }

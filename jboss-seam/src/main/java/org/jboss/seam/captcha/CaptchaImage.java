@@ -27,46 +27,37 @@ import org.jboss.seam.web.AbstractResource;
 @Name("org.jboss.seam.captcha.captchaImage")
 @BypassInterceptors
 @Install(precedence = BUILT_IN)
-public class CaptchaImage extends AbstractResource
-{   
-   public static CaptchaImage instance()
-   {
-      if ( !Contexts.isApplicationContextActive() )
-      {
-         throw new IllegalStateException("No application context active");
-      }
-      return (CaptchaImage) Contexts.getApplicationContext().get(CaptchaImage.class);
-   }
+public class CaptchaImage extends AbstractResource {
+	public static CaptchaImage instance() {
+		if (!Contexts.isApplicationContextActive()) {
+			throw new IllegalStateException("No application context active");
+		}
+		return (CaptchaImage) Contexts.getApplicationContext().get(CaptchaImage.class);
+	}
 
-   @Override
-   public String getResourcePath()
-   {
-      return "/captcha";
-   }
-   
-   @Override
-   public void getResource(HttpServletRequest request, HttpServletResponse response)
-       throws IOException
-   {
-      ByteArrayOutputStream out = new ByteArrayOutputStream();
+	@Override
+	public String getResourcePath() {
+		return "/captcha";
+	}
 
-      ServletLifecycle.beginRequest(request,getServletContext());         
-      try
-      {
-         ImageIO.write( Captcha.instance().renderChallenge(), "jpeg", out );
-      }
-      finally
-      {
-         ServletLifecycle.endRequest(request);
-      }
+	@Override
+	public void getResource(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-      response.setHeader("Cache-Control", "no-cache");
-      response.setHeader("Pragma", "no-cache");
-      response.setHeader("Expires", "0");
-      response.setContentType("image/jpeg");
-      response.getOutputStream().write( out.toByteArray() );
-      response.getOutputStream().flush();
-      response.getOutputStream().close();
-   }
-   
+		ServletLifecycle.beginRequest(request, getServletContext());
+		try {
+			ImageIO.write(Captcha.instance().renderChallenge(), "jpeg", out);
+		} finally {
+			ServletLifecycle.endRequest(request);
+		}
+
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Expires", "0");
+		response.setContentType("image/jpeg");
+		response.getOutputStream().write(out.toByteArray());
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+	}
+
 }

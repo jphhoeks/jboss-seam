@@ -13,24 +13,21 @@ import javax.validation.Validator;
  *
  * @param <T> type for validation
  */
-public class ClassValidator<T> implements Serializable
-{
+public class ClassValidator<T> implements Serializable {
 
-   private static final long serialVersionUID = -726917267535562335L;
+	private static final long serialVersionUID = -726917267535562335L;
 
-   // default validator from context
-   private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+	// default validator from context
+	private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-   private final Class<T> classForValidation;
+	private final Class<T> classForValidation;
 
-   public ClassValidator(Class<T> clazz)
-   {
-      this.classForValidation = clazz;
-   }
+	public ClassValidator(Class<T> clazz) {
+		this.classForValidation = clazz;
+	}
 
-   public Set<ConstraintViolation<T>> getPotentialInvalidValues(String propertyName, Object value)
-   {
-      return validator.validateValue(classForValidation, propertyName, value);
-   }
+	public Set<ConstraintViolation<T>> getPotentialInvalidValues(String propertyName, Object value) {
+		return validator.validateValue(classForValidation, propertyName, value);
+	}
 
 }

@@ -8,47 +8,36 @@ import java.security.Principal;
  * 
  * @author Shane Bryzak
  */
-public class SimplePrincipal implements Principal, Serializable
-{
-   private static final long serialVersionUID = 5609375932836425908L;   
-   
-   private String name;
-   
-   public SimplePrincipal(String name)
-   {
-      this.name = name;
-   }
-   
-   public String getName()
-   {
-      return name;
-   }
+public class SimplePrincipal implements Principal, Serializable {
+	private static final long serialVersionUID = 5609375932836425908L;
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (obj instanceof Principal)
-      {
-         Principal other = (Principal) obj;
-         return name == null ?
-                  other.getName() == null :
-                  name.equals( other.getName() );
-      }
-      else
-      {
-         return false;
-      }
-   }
+	private String name;
 
-   @Override
-   public int hashCode()
-   {
-      return name != null ? name.hashCode() : super.hashCode();
-   }
+	public SimplePrincipal(String name) {
+		this.name = name;
+	}
 
-   @Override
-   public String toString()
-   {
-      return name;
-   }   
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Principal) {
+			Principal other = (Principal) obj;
+			return name == null ? other.getName() == null : name.equals(other.getName());
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return name != null ? name.hashCode() : super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
 }

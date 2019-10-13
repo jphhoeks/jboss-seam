@@ -5,22 +5,18 @@ package org.jboss.seam.core;
  *  
  * @author Shane Bryzak
  */
-public class LockTimeoutException extends Exception
-{
-   private static final long serialVersionUID = 1L;
+public class LockTimeoutException extends Exception {
+	private static final long serialVersionUID = 1L;
 
-public LockTimeoutException()
-   {
-      super();   
-   }
-   
-   public LockTimeoutException(String message)
-   {
-      super(message);
-   }
-   
-   public LockTimeoutException(String message, Throwable cause)
-   {
-      super(message, cause);
-   }
+	public LockTimeoutException() {
+		super();
+	}
+
+	public LockTimeoutException(String message) {
+		super(message);
+	}
+
+	public LockTimeoutException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

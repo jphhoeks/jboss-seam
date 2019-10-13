@@ -27,38 +27,31 @@ import java.io.IOException;
 @Install(value = false, precedence = Install.BUILT_IN)
 @BypassInterceptors
 @Filter(within = "org.jboss.seam.web.exceptionFilter")
-public class CacheControlFilter extends AbstractFilter
-{
+public class CacheControlFilter extends AbstractFilter {
 
-   private static final LogProvider log = Logging.getLogProvider(CacheControlFilter.class);
+	private static final LogProvider log = Logging.getLogProvider(CacheControlFilter.class);
 
-   private String value;
+	private String value;
 
-   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-         throws IOException, ServletException
-   {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-      HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-      if (isMappedToCurrentRequestPath(request))
-      {
-         log.debug("Applying Cache-Control HTTP header for resource '"
-               + httpRequest.getRequestURI() + "': " + getValue());
+		if (isMappedToCurrentRequestPath(request)) {
+			log.debug("Applying Cache-Control HTTP header for resource '" + httpRequest.getRequestURI() + "': " + getValue());
 
-         HttpServletResponse httpResponse = (HttpServletResponse) response;
-         httpResponse.setHeader("Cache-Control", getValue());
-      }
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
+			httpResponse.setHeader("Cache-Control", getValue());
+		}
 
-      chain.doFilter(request, response);
-   }
+		chain.doFilter(request, response);
+	}
 
-   public String getValue()
-   {
-      return value;
-   }
+	public String getValue() {
+		return value;
+	}
 
-   public void setValue(String value)
-   {
-      this.value = value;
-   }
+	public void setValue(String value) {
+		this.value = value;
+	}
 }

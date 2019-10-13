@@ -35,39 +35,34 @@ import org.richfaces.cdk.annotations.Tag;
  * 
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.ConversationPropagation",value="Customize the conversation propagation for a command link or button (or similar JSF control)."),
-family="org.jboss.seam.ui.ConversationPropagation", type="org.jboss.seam.ui.ConversationPropagation",generate="org.jboss.seam.ui.component.html.HtmlConversationPropagation", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="conversationPropagation"), 
-renderer = @JsfRenderer(type="org.jboss.seam.ui.ConversationPropagationRenderer", family="org.jboss.seam.ui.ConversationPropagationRenderer"),
-attributes = {"javax.faces.component.UIParameter.xml" })
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.ConversationPropagation", value = "Customize the conversation propagation for a command link or button (or similar JSF control)."), family = "org.jboss.seam.ui.ConversationPropagation", type = "org.jboss.seam.ui.ConversationPropagation", generate = "org.jboss.seam.ui.component.html.HtmlConversationPropagation", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "conversationPropagation"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.ConversationPropagationRenderer", family = "org.jboss.seam.ui.ConversationPropagationRenderer"), attributes = {
+		"javax.faces.component.UIParameter.xml" })
 public abstract class UIConversationPropagation extends UIParameter {
-	
+
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.ConversationPropagation";
-   
-   @Override
-   public String getName()
-   {
-      return "conversationPropagation";
-   }
 
-   @Override
-   public Object getValue()
-   {
-      return getPageflow()==null ? getType() : getType() + "." + getPageflow();
-   }
+	@Override
+	public String getName() {
+		return "conversationPropagation";
+	}
 
-   @Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
-   public abstract String getPageflow();
+	@Override
+	public Object getValue() {
+		return getPageflow() == null ? getType() : getType() + "." + getPageflow();
+	}
 
-   public abstract void setPageflow(String pageflow);
+	@Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
+	public abstract String getPageflow();
 
-   @Attribute(defaultValue = "none", description = @Description("determines the conversation propagation style: begin, join, nested, none, end or endRoot."))
-   public abstract String getType();
+	public abstract void setPageflow(String pageflow);
 
-   public abstract void setType(String type);
-   
-   public static UIConversationPropagation newInstance() {
-      return (UIConversationPropagation) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
-   }
-   
+	@Attribute(defaultValue = "none", description = @Description("determines the conversation propagation style: begin, join, nested, none, end or endRoot."))
+	public abstract String getType();
+
+	public abstract void setType(String type);
+
+	public static UIConversationPropagation newInstance() {
+		return (UIConversationPropagation) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
+	}
+
 }

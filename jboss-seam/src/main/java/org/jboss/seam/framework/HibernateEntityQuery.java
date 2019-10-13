@@ -13,202 +13,173 @@ import org.jboss.seam.persistence.QueryParser;
  * @author Gavin King
  *
  */
-public class HibernateEntityQuery<E> extends Query<Session, E>
-{
+public class HibernateEntityQuery<E> extends Query<Session, E> {
 
-   private static final long serialVersionUID = 1L;
-private List<E> resultList;
-   private E singleResult;
-   private Long resultCount;
-   
-   private Boolean cacheable;
-   private String cacheRegion;
-   private Integer fetchSize;
-   
-   @Override
-   public void validate()
-   {
-      super.validate();
-      if ( getSession()==null )
-      {
-         throw new IllegalStateException("hibernateSession is null");
-      }
-   }
+	private static final long serialVersionUID = 1L;
+	private List<E> resultList;
+	private E singleResult;
+	private Long resultCount;
 
-   @Transactional
-   @Override
-   public List<E> getResultList()
-   {
-      if ( isAnyParameterDirty() )
-      {
-         refresh();
-      }
-      initResultList();
-      return truncResultList(resultList);
-   }
+	private Boolean cacheable;
+	private String cacheRegion;
+	private Integer fetchSize;
 
-   @SuppressWarnings("unchecked")
-private void initResultList()
-   {
-      if (resultList==null)
-      {
-         org.hibernate.Query query = createQuery();
-         resultList = query==null ? null : query.list();
-      }
-   }
-   
-   @Override
-   @Transactional
-   public boolean isNextExists()
-   {
-      return resultList!=null && getMaxResults()!=null &&
-            resultList.size() > getMaxResults();
-   }
-   
-   @Transactional
-   @Override
-   public E getSingleResult()
-   {
-      if (isAnyParameterDirty())
-      {
-         refresh();
-      }
-      initSingleResult();
-      return singleResult;
-   }
+	@Override
+	public void validate() {
+		super.validate();
+		if (getSession() == null) {
+			throw new IllegalStateException("hibernateSession is null");
+		}
+	}
 
-   @SuppressWarnings("unchecked")
-private void initSingleResult()
-   {
-      if (singleResult==null)
-      {
-         org.hibernate.Query query = createQuery();
-         singleResult = (E) (query==null ? 
-               null : query.uniqueResult());
-      }
-   }
+	@Transactional
+	@Override
+	public List<E> getResultList() {
+		if (isAnyParameterDirty()) {
+			refresh();
+		}
+		initResultList();
+		return truncResultList(resultList);
+	}
 
-   @Transactional
-   @Override
-   public Long getResultCount()
-   {
-      if (isAnyParameterDirty())
-      {
-         refresh();
-      }
-      initResultCount();
-      return resultCount;
-   }
+	@SuppressWarnings("unchecked")
+	private void initResultList() {
+		if (resultList == null) {
+			org.hibernate.Query query = createQuery();
+			resultList = query == null ? null : query.list();
+		}
+	}
 
-   private void initResultCount()
-   {
-      if (resultCount==null)
-      {
-         org.hibernate.Query query = createCountQuery();
-         resultCount = query==null ? 
-               null : (Long) query.uniqueResult();
-      }
-   }
+	@Override
+	@Transactional
+	public boolean isNextExists() {
+		return resultList != null && getMaxResults() != null && resultList.size() > getMaxResults();
+	}
 
-   @Override
-   public void refresh()
-   {
-      super.refresh();
-      resultCount = null;
-      resultList = null;
-      singleResult = null;
-   }
-   
-   public Session getSession()
-   {
-      return getPersistenceContext();
-   }
+	@Transactional
+	@Override
+	public E getSingleResult() {
+		if (isAnyParameterDirty()) {
+			refresh();
+		}
+		initSingleResult();
+		return singleResult;
+	}
 
-   public void setSession(Session session)
-   {
-      setPersistenceContext(session);
-   }
+	@SuppressWarnings("unchecked")
+	private void initSingleResult() {
+		if (singleResult == null) {
+			org.hibernate.Query query = createQuery();
+			singleResult = (E) (query == null ? null : query.uniqueResult());
+		}
+	}
 
-   @Override
-   protected String getPersistenceContextName()
-   {
-      return "hibernateSession";
-   }
-   
-   protected org.hibernate.Query createQuery()
-   {
-      parseEjbql();
-      
-      evaluateAllParameters();
-      
-      org.hibernate.Query query = getSession().createQuery( getRenderedEjbql() );
-      setParameters( query, getQueryParameterValues(), 0 );
-      setParameters( query, getRestrictionParameterValues(), getQueryParameterValues().size() );
-      if ( getFirstResult()!=null) query.setFirstResult( getFirstResult() );
-      if ( getMaxResults()!=null) query.setMaxResults( getMaxResults()+1 ); //add one, so we can tell if there is another page
-      if ( getCacheable()!=null ) query.setCacheable( getCacheable() );
-      if ( getCacheRegion()!=null ) query.setCacheRegion( getCacheRegion() );
-      if ( getFetchSize()!=null ) query.setFetchSize( getFetchSize() );
-      return query;
-   }
-   
-   protected org.hibernate.Query createCountQuery()
-   {
-      parseEjbql();
-      
-      evaluateAllParameters();
-      
-      org.hibernate.Query query = getSession().createQuery( getCountEjbql() );
-      setParameters( query, getQueryParameterValues(), 0 );
-      setParameters( query, getRestrictionParameterValues(), getQueryParameterValues().size() );
-      return query;
-   }
+	@Transactional
+	@Override
+	public Long getResultCount() {
+		if (isAnyParameterDirty()) {
+			refresh();
+		}
+		initResultCount();
+		return resultCount;
+	}
 
-   @SuppressWarnings("rawtypes")
-   private void setParameters(org.hibernate.Query query, List<Object> parameters, int start)
-   {
-      for (int i=0; i<parameters.size(); i++)
-      {
-         Object parameterValue = parameters.get(i);
-         if ( isRestrictionParameterSet(parameterValue) )
-         {
-            if(parameterValue instanceof Collection){
-               query.setParameterList(QueryParser.getParameterName(start + i), (Collection) parameterValue);
-            }else{
-               query.setParameter( QueryParser.getParameterName(start + i), parameterValue );
-            }
-         }
-      }
-   }
+	private void initResultCount() {
+		if (resultCount == null) {
+			org.hibernate.Query query = createCountQuery();
+			resultCount = query == null ? null : (Long) query.uniqueResult();
+		}
+	}
 
-   protected Boolean getCacheable()
-   {
-      return cacheable;
-   }
+	@Override
+	public void refresh() {
+		super.refresh();
+		resultCount = null;
+		resultList = null;
+		singleResult = null;
+	}
 
-   protected void setCacheable(Boolean cacheable)
-   {
-      this.cacheable = cacheable;
-   }
+	public Session getSession() {
+		return getPersistenceContext();
+	}
 
-   protected String getCacheRegion()
-   {
-      return cacheRegion;
-   }
+	public void setSession(Session session) {
+		setPersistenceContext(session);
+	}
 
-   protected void setCacheRegion(String cacheRegion)
-   {
-      this.cacheRegion = cacheRegion;
-   }
+	@Override
+	protected String getPersistenceContextName() {
+		return "hibernateSession";
+	}
 
-   protected Integer getFetchSize()
-   {
-      return fetchSize;
-   }
+	protected org.hibernate.Query createQuery() {
+		parseEjbql();
 
-   protected void setFetchSize(Integer fetchSize)
-   {
-      this.fetchSize = fetchSize;
-   }
+		evaluateAllParameters();
+
+		org.hibernate.Query query = getSession().createQuery(getRenderedEjbql());
+		setParameters(query, getQueryParameterValues(), 0);
+		setParameters(query, getRestrictionParameterValues(), getQueryParameterValues().size());
+		if (getFirstResult() != null)
+			query.setFirstResult(getFirstResult());
+		if (getMaxResults() != null)
+			query.setMaxResults(getMaxResults() + 1); //add one, so we can tell if there is another page
+		if (getCacheable() != null)
+			query.setCacheable(getCacheable());
+		if (getCacheRegion() != null)
+			query.setCacheRegion(getCacheRegion());
+		if (getFetchSize() != null)
+			query.setFetchSize(getFetchSize());
+		return query;
+	}
+
+	protected org.hibernate.Query createCountQuery() {
+		parseEjbql();
+
+		evaluateAllParameters();
+
+		org.hibernate.Query query = getSession().createQuery(getCountEjbql());
+		setParameters(query, getQueryParameterValues(), 0);
+		setParameters(query, getRestrictionParameterValues(), getQueryParameterValues().size());
+		return query;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private void setParameters(org.hibernate.Query query, List<Object> parameters, int start) {
+		for (int i = 0; i < parameters.size(); i++) {
+			Object parameterValue = parameters.get(i);
+			if (isRestrictionParameterSet(parameterValue)) {
+				if (parameterValue instanceof Collection) {
+					query.setParameterList(QueryParser.getParameterName(start + i), (Collection) parameterValue);
+				} else {
+					query.setParameter(QueryParser.getParameterName(start + i), parameterValue);
+				}
+			}
+		}
+	}
+
+	protected Boolean getCacheable() {
+		return cacheable;
+	}
+
+	protected void setCacheable(Boolean cacheable) {
+		this.cacheable = cacheable;
+	}
+
+	protected String getCacheRegion() {
+		return cacheRegion;
+	}
+
+	protected void setCacheRegion(String cacheRegion) {
+		this.cacheRegion = cacheRegion;
+	}
+
+	protected Integer getFetchSize() {
+		return fetchSize;
+	}
+
+	protected void setFetchSize(Integer fetchSize) {
+		this.fetchSize = fetchSize;
+	}
 
 }

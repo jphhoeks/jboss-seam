@@ -23,59 +23,48 @@ import org.jboss.seam.intercept.InvocationContext;
  * 
  * @author Gavin King
  */
-@Interceptor(stateless=true,
-             around={BijectionInterceptor.class, BusinessProcessInterceptor.class})
-public class ConversationalInterceptor extends AbstractInterceptor
-{
-   private static final long serialVersionUID = 1127583515811479385L;
+@Interceptor(stateless = true, around = { BijectionInterceptor.class, BusinessProcessInterceptor.class })
+public class ConversationalInterceptor extends AbstractInterceptor {
+	private static final long serialVersionUID = 1127583515811479385L;
 
-   @AroundInvoke
-   public Object aroundInvoke(InvocationContext invocation) throws Exception
-   {
-      Method method = invocation.getMethod();
+	@AroundInvoke
+	public Object aroundInvoke(InvocationContext invocation) throws Exception {
+		Method method = invocation.getMethod();
 
-      if ( isNoConversationForConversationalBean(method) )
-      {
-         Events.instance().raiseEvent("org.jboss.seam.noConversation");
-         throw new NoConversationException( "no long-running conversation for @Conversational bean: " + getComponent().getName() );         
-      }
+		if (isNoConversationForConversationalBean(method)) {
+			Events.instance().raiseEvent("org.jboss.seam.noConversation");
+			throw new NoConversationException("no long-running conversation for @Conversational bean: " + getComponent().getName());
+		}
 
-      return invocation.proceed();
-   
-   }
-   
-   private boolean isNoConversationForConversationalBean(Method method)
-   {
-      boolean classlevelViolation = componentIsConversational() && 
-            !Manager.instance().isLongRunningOrNestedConversation()  &&
-            !method.isAnnotationPresent(Begin.class) &&
-            !method.isAnnotationPresent(StartTask.class) &&
-            !method.isAnnotationPresent(BeginTask.class) &&
-            !method.isAnnotationPresent(Destroy.class) && 
-            !method.isAnnotationPresent(Create.class); //probably superfluous
-      
-      if (classlevelViolation) return true;
-      
-      boolean methodlevelViolation = methodIsConversational(method) &&
-            !Manager.instance().isLongRunningOrNestedConversation();
-      
-      return methodlevelViolation;
-      
-   }
+		return invocation.proceed();
 
-   private boolean methodIsConversational(Method method) 
-   {
-      return method.isAnnotationPresent(Conversational.class);
-   }
+	}
 
-   private boolean componentIsConversational() 
-   {
-      return getComponent().getBeanClass().isAnnotationPresent(Conversational.class);
-   }
-   
-   public boolean isInterceptorEnabled()
-   {
-      return getComponent().beanClassHasAnnotation(Conversational.class);
-   }
+	private boolean isNoConversationForConversationalBean(Method method) {
+		boolean classlevelViolation = componentIsConversational() && !Manager.instance().isLongRunningOrNestedConversation()
+				&& !method.isAnnotationPresent(Begin.class) && !method.isAnnotationPresent(StartTask.class)
+				&& !method.isAnnotationPresent(BeginTask.class) && !method.isAnnotationPresent(Destroy.class)
+				&& !method.isAnnotationPresent(Create.class); //probably superfluous
+
+		if (classlevelViolation)
+			return true;
+
+		boolean methodlevelViolation = methodIsConversational(method) && !Manager.instance().isLongRunningOrNestedConversation();
+
+		return methodlevelViolation;
+
+	}
+
+	private boolean methodIsConversational(Method method) {
+		return method.isAnnotationPresent(Conversational.class);
+	}
+
+	private boolean componentIsConversational() {
+		return getComponent().getBeanClass().isAnnotationPresent(Conversational.class);
+	}
+
+	public boolean isInterceptorEnabled() {
+		return getComponent().beanClassHasAnnotation(Conversational.class);
+	}
 
 }

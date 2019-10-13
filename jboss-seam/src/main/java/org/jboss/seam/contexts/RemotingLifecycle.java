@@ -7,10 +7,8 @@ import org.jboss.seam.ScopeType;
  * 
  * @author Shane Bryzak
  */
-public class RemotingLifecycle
-{
-   public static void restorePageContext()
-   {
-      Contexts.pageContext.set( new BasicContext(ScopeType.PAGE) );
-   }
+public class RemotingLifecycle {
+	public static void restorePageContext() {
+		Contexts.pageContext.set(new BasicContext(ScopeType.PAGE));
+	}
 }

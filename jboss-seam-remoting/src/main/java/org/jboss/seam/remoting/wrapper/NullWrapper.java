@@ -7,23 +7,18 @@ import java.lang.reflect.Type;
 /**
  * @author Shane Bryzak
  */
-public class NullWrapper extends BaseWrapper implements Wrapper
-{
-  private static final byte[] NULL_WRAPPER_TAG = "<null/>".getBytes();
+public class NullWrapper extends BaseWrapper implements Wrapper {
+	private static final byte[] NULL_WRAPPER_TAG = "<null/>".getBytes();
 
-  public void marshal(OutputStream out) throws IOException
-  {
-    out.write(NULL_WRAPPER_TAG);
-  }
+	public void marshal(OutputStream out) throws IOException {
+		out.write(NULL_WRAPPER_TAG);
+	}
 
-  public Object convert(Type type)
-      throws ConversionException
-  {
-    return null;
-  }
+	public Object convert(Type type) throws ConversionException {
+		return null;
+	}
 
-  public ConversionScore conversionScore(Class cls)
-  {
-    return ConversionScore.compatible;
-  }
+	public ConversionScore conversionScore(Class cls) {
+		return ConversionScore.compatible;
+	}
 }

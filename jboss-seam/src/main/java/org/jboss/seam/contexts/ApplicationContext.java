@@ -18,12 +18,10 @@ import org.jboss.seam.ScopeType;
  * 
  * @author Gavin King
  */
-public class ApplicationContext extends BasicContext 
-{
-   
-   public ApplicationContext(Map<String, Object> map)
-   {
-      super(ScopeType.APPLICATION, map);
-   }
-  
+public class ApplicationContext extends BasicContext {
+
+	public ApplicationContext(Map<String, Object> map) {
+		super(ScopeType.APPLICATION, map);
+	}
+
 }

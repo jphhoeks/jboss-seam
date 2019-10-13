@@ -3,98 +3,81 @@ package org.jboss.seam.pdf.ui;
 import javax.faces.context.*;
 import com.lowagie.text.*;
 
-public class UISection extends ITextComponent
-{
-   public static final String COMPONENT_TYPE = "org.jboss.seam.pdf.ui.UISection";
+public class UISection extends ITextComponent {
+	public static final String COMPONENT_TYPE = "org.jboss.seam.pdf.ui.UISection";
 
-   Section section;
-   Integer numberDepth;
-   String sectionTitle;
-   boolean newPage = false;
+	Section section;
+	Integer numberDepth;
+	String sectionTitle;
+	boolean newPage = false;
 
-   public void setNumberDepth(Integer numberDepth)
-   {
-      this.numberDepth = numberDepth;
-   }
-      
-   public void setSectionTitle(String sectionTitle)
-   {
-      this.sectionTitle = sectionTitle;
-   }
-   
-   public boolean getNewPage()
-   {
-      return (Boolean) valueBinding("newPage", newPage);
-   }
-   
-   public void setNewPage(boolean newPage)
-   {
-      this.newPage = newPage;
-   }
-    
-    
-   public Section getSection()
-   {
-      return section;
-   }
+	public void setNumberDepth(Integer numberDepth) {
+		this.numberDepth = numberDepth;
+	}
 
-   @Override
-   public Object getITextObject()
-   {
-      return null; // don't add to parent - already added.
-   }
+	public void setSectionTitle(String sectionTitle) {
+		this.sectionTitle = sectionTitle;
+	}
 
-   @Override
-   public void removeITextObject()
-   {
-      section = null;
-   }
+	public boolean getNewPage() {
+		return (Boolean) valueBinding("newPage", newPage);
+	}
 
-   @Override
-   public void handleAdd(Object o)
-   {
-      section.add(o);
-   }
+	public void setNewPage(boolean newPage) {
+		this.newPage = newPage;
+	}
 
-   @Override
-   public void createITextObject(FacesContext context)
-   {
-      UISection uiParent = (UISection) findITextParent(getParent(), UISection.class);
+	public Section getSection() {
+		return section;
+	}
 
-      Section sectionParent = uiParent.getSection();
-      if (sectionParent == null)
-      {
-         throw new RuntimeException("section must have a parent chapter/section");
-      }
+	@Override
+	public Object getITextObject() {
+		return null; // don't add to parent - already added.
+	}
 
-      numberDepth = (Integer) valueBinding(context, "numberDepth", numberDepth);
-      if (numberDepth == null)
-      {
-         numberDepth = countSectionParents(this, 0);
-      }
+	@Override
+	public void removeITextObject() {
+		section = null;
+	}
 
-      section = sectionParent.addSection(new Paragraph(""), numberDepth);
-      
-      sectionTitle = (String) valueBinding(context, "sectionTitle", sectionTitle);
-      if (sectionTitle != null)
-      {
-         section.setBookmarkTitle(sectionTitle);         
-      }
-      
-      section.setTriggerNewPage(getNewPage());
-   }
+	@Override
+	public void handleAdd(Object o) {
+		section.add(o);
+	}
 
-   private int countSectionParents(UISection component, int level)
-   {
-      if (component == null)
-      {
-         return level;
-      }
-      return countSectionParents((UISection) findITextParent(component.getParent(), UISection.class), level + 1);
-   }
+	@Override
+	public void createITextObject(FacesContext context) {
+		UISection uiParent = (UISection) findITextParent(getParent(), UISection.class);
 
-   public void setTitle(Paragraph title)
-   {
-      section.setTitle(title);
-   }
+		Section sectionParent = uiParent.getSection();
+		if (sectionParent == null) {
+			throw new RuntimeException("section must have a parent chapter/section");
+		}
+
+		numberDepth = (Integer) valueBinding(context, "numberDepth", numberDepth);
+		if (numberDepth == null) {
+			numberDepth = countSectionParents(this, 0);
+		}
+
+		section = sectionParent.addSection(new Paragraph(""), numberDepth);
+
+		sectionTitle = (String) valueBinding(context, "sectionTitle", sectionTitle);
+		if (sectionTitle != null) {
+			section.setBookmarkTitle(sectionTitle);
+		}
+
+		section.setTriggerNewPage(getNewPage());
+	}
+
+	private int countSectionParents(UISection component, int level) {
+		if (component == null) {
+			return level;
+		}
+		return countSectionParents((UISection) findITextParent(component.getParent(), UISection.class), level + 1);
+	}
+
+	public void setTitle(Paragraph title) {
+		section.setTitle(title);
+	}
 }

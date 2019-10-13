@@ -25,34 +25,29 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Scope(ScopeType.EVENT)
 @BypassInterceptors
 @Name("org.jboss.seam.jms.topicSession")
-@Install(precedence=BUILT_IN, genericDependencies=ManagedTopicPublisher.class, dependencies = "org.jboss.seam.jms.topicConnection")
-public class TopicSession
-{
-   
-   private javax.jms.TopicSession topicSession;
-   
-   @Create
-   public void create() throws JMSException, NamingException
-   {
-      //TODO: i really want a transactional session!
-      topicSession = TopicConnection.instance().createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
-   }
-   
-   @Destroy
-   public void destroy() throws JMSException
-   {
-      topicSession.close();
-   }
-   
-   @Unwrap
-   public javax.jms.TopicSession getTopicSession()
-   {
-      return topicSession;
-   }
-   
-   public static javax.jms.TopicSession instance()
-   {
-      return (javax.jms.TopicSession) Component.getInstance(TopicSession.class);
-   }
-   
+@Install(precedence = BUILT_IN, genericDependencies = ManagedTopicPublisher.class, dependencies = "org.jboss.seam.jms.topicConnection")
+public class TopicSession {
+
+	private javax.jms.TopicSession topicSession;
+
+	@Create
+	public void create() throws JMSException, NamingException {
+		//TODO: i really want a transactional session!
+		topicSession = TopicConnection.instance().createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
+	}
+
+	@Destroy
+	public void destroy() throws JMSException {
+		topicSession.close();
+	}
+
+	@Unwrap
+	public javax.jms.TopicSession getTopicSession() {
+		return topicSession;
+	}
+
+	public static javax.jms.TopicSession instance() {
+		return (javax.jms.TopicSession) Component.getInstance(TopicSession.class);
+	}
+
 }

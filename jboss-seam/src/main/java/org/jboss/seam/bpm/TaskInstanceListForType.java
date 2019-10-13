@@ -24,35 +24,31 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
  */
 @Name("org.jboss.seam.bpm.taskInstanceListForType")
 @Scope(APPLICATION)
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.bpm.jbpm")
-public class TaskInstanceListForType
-{
-   
-   @Unwrap
-   @Transactional
-   public Map<String,List<TaskInstance>> getTaskInstanceList()
-   {
-      return getTaskInstanceList( Actor.instance().getId() );
-   }
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
+public class TaskInstanceListForType {
 
-   private Map<String,List<TaskInstance>> getTaskInstanceList(String actorId)
-   {
-      if ( actorId == null ) return null;
+	@Unwrap
+	@Transactional
+	public Map<String, List<TaskInstance>> getTaskInstanceList() {
+		return getTaskInstanceList(Actor.instance().getId());
+	}
 
-      Map<String, List<TaskInstance>> map = new HashMap<String, List<TaskInstance>>();
-      List<TaskInstance> taskInstances = ManagedJbpmContext.instance().getTaskList(actorId);
-      for ( TaskInstance task: taskInstances )
-      {
-         String name = task.getName();
-         List<TaskInstance> list = map.get(name);
-         if (list==null)
-         {
-            list = new ArrayList<TaskInstance>();
-            map.put(name, list);
-         }
-         list.add(task);
-      }
-      return map;
-   }
-   
+	private Map<String, List<TaskInstance>> getTaskInstanceList(String actorId) {
+		if (actorId == null)
+			return null;
+
+		Map<String, List<TaskInstance>> map = new HashMap<String, List<TaskInstance>>();
+		List<TaskInstance> taskInstances = ManagedJbpmContext.instance().getTaskList(actorId);
+		for (TaskInstance task : taskInstances) {
+			String name = task.getName();
+			List<TaskInstance> list = map.get(name);
+			if (list == null) {
+				list = new ArrayList<TaskInstance>();
+				map.put(name, list);
+			}
+			list.add(task);
+		}
+		return map;
+	}
+
 }

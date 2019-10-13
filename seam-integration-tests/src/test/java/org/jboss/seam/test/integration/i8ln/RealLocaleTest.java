@@ -25,76 +25,71 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-
 @RunWith(Arquillian.class)
 @RunAsClient
 public class RealLocaleTest {
-	   
-	   @Deployment(name="RealLocaleTest")
-	   @OverProtocol("Servlet 3.0") 
-	   public static Archive<?> createDeployment()
-	   {
-	      return Deployments.realSeamDeployment()
-	               .addClass(TestBean.class)
-	               .addAsWebResource("locale.xhtml","locale.xhtml");
-	   }
 
-	   @ArquillianResource
-	   URL url;
-	   
- 	   @Test
-	   public void testDefaultLocale() throws Exception{
-     	
-		  WebClient client = new WebClient();
-	      HtmlPage page = client.getPage(url+"locale.seam");
-	      
-	      String pageBody = page.getBody().asText();
-	      assertTrue("Default locale is not set correctly!",pageBody.contains("Default locale: fr_CA"));
-			   
-	   } 
- 	   
- 	   @Test
-	   public void testSupportedLocale() throws Exception{
-     	
-		  WebClient client = new WebClient();
-	      HtmlPage page = client.getPage(url+"locale.seam");
-	      
-	      String pageBody = page.getBody().asText();
-	      String[] locales = new String [] {"fr_CA", "fr_FR" , "en"};
-	     
-	      for (String locale : locales) {
-	    	  assertTrue("Supported locale is not set correctly!", pageBody.contains("Supported locale: "+locale));
-	      }
-		   
-	   }
-	   
-	   @Name("testBean")
-	   public static class TestBean 
-	   {
-		   Application app = FacesContext.getCurrentInstance().getApplication();
-		   
-		   public String getDefaultLocale(){
-			   
-			   if(app.getDefaultLocale() == null){
-				   return "";
-			   }
-			   return app.getDefaultLocale().toString();
-		   }
-		   
-		   public List<Locale> getSupportedLocale(){
-			   
-			   List<Locale> locales = new ArrayList<Locale>();
-			   
-			   if(app.getSupportedLocales() == null){
-				   return locales;
-			   }
-			   
-			   Iterator<Locale> it = app.getSupportedLocales();
-			   
-			   while(it.hasNext()){
-				   locales.add(it.next());
-			   }
-			   return locales;
-		   }
-	   }
+	@Deployment(name = "RealLocaleTest")
+	@OverProtocol("Servlet 3.0")
+	public static Archive<?> createDeployment() {
+		return Deployments.realSeamDeployment().addClass(TestBean.class).addAsWebResource("locale.xhtml", "locale.xhtml");
+	}
+
+	@ArquillianResource
+	URL url;
+
+	@Test
+	public void testDefaultLocale() throws Exception {
+
+		WebClient client = new WebClient();
+		HtmlPage page = client.getPage(url + "locale.seam");
+
+		String pageBody = page.getBody().asText();
+		assertTrue("Default locale is not set correctly!", pageBody.contains("Default locale: fr_CA"));
+
+	}
+
+	@Test
+	public void testSupportedLocale() throws Exception {
+
+		WebClient client = new WebClient();
+		HtmlPage page = client.getPage(url + "locale.seam");
+
+		String pageBody = page.getBody().asText();
+		String[] locales = new String[] { "fr_CA", "fr_FR", "en" };
+
+		for (String locale : locales) {
+			assertTrue("Supported locale is not set correctly!", pageBody.contains("Supported locale: " + locale));
+		}
+
+	}
+
+	@Name("testBean")
+	public static class TestBean {
+		Application app = FacesContext.getCurrentInstance().getApplication();
+
+		public String getDefaultLocale() {
+
+			if (app.getDefaultLocale() == null) {
+				return "";
+			}
+			return app.getDefaultLocale().toString();
+		}
+
+		public List<Locale> getSupportedLocale() {
+
+			List<Locale> locales = new ArrayList<Locale>();
+
+			if (app.getSupportedLocales() == null) {
+				return locales;
+			}
+
+			Iterator<Locale> it = app.getSupportedLocales();
+
+			while (it.hasNext()) {
+				locales.add(it.next());
+			}
+			return locales;
+		}
+	}
 }

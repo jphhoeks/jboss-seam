@@ -27,215 +27,156 @@ import org.jboss.seam.util.EJB;
  * 
  * @author Gavin King
  */
-public class RootInterceptor implements Serializable
-{
-   private static final long serialVersionUID = 8041533870186694663L;
-   private static final LogProvider log = Logging.getLogProvider(RootInterceptor.class);
-   
-   private final InterceptorType type;
-   private boolean isSeamComponent;
-   private String componentName;
-   private List<Object> userInterceptors;
-   
-   private transient Component component; //a cache of the Component reference for performance
+public class RootInterceptor implements Serializable {
+	private static final long serialVersionUID = 8041533870186694663L;
+	private static final LogProvider log = Logging.getLogProvider(RootInterceptor.class);
 
-   protected RootInterceptor(InterceptorType type)
-   {
-      this.type = type;
-   }
-   
-   protected void init(Component component)
-   {
-      isSeamComponent = true;
-      componentName = component.getName();
-      userInterceptors = component.createUserInterceptors(type);
-      this.component = component;
-   }
-   
-   protected void initNonSeamComponent()
-   {
-      isSeamComponent = false;
-   }
-   
-   protected void postConstruct(Object bean)
-   {
-      // initialize the bean instance
-      if (isSeamComponent)
-      {
-         try
-         {
-            getComponent().initialize(bean);
-         }
-         catch (RuntimeException e)
-         {
-            throw e;
-         }
-         catch (Exception e)
-         {
-            throw new RuntimeException("exception initializing EJB component", e);
-         }
-      }      
-   }
+	private final InterceptorType type;
+	private boolean isSeamComponent;
+	private String componentName;
+	private List<Object> userInterceptors;
 
-   protected void invokeAndHandle(InvocationContext invocation, EventType invocationType)
-   {
-      try
-      {
-         invoke(invocation, invocationType);
-      }
-      catch (RuntimeException e)
-      {
-         throw e;
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException("exception in EJB lifecycle callback", e);
-      }
-   }
-   
-   protected Object invoke(InvocationContext invocation, EventType invocationType) throws Exception
-   {
-      if ( !isSeamComponent || !Lifecycle.isApplicationInitialized())
-      {
-         //not a Seam component
-         return invocation.proceed();
-      }
-      else if ( Contexts.isEventContextActive() || Contexts.isApplicationContextActive() ) //not sure about the second bit (only needed at init time!)
-      {
+	private transient Component component; //a cache of the Component reference for performance
 
-         // a Seam component, and Seam contexts exist
-         return createInvocationContext(invocation, invocationType).proceed();
-      }
-      else
-      {            
-         //if invoked outside of a set of Seam contexts,
-         //set up temporary Seam EVENT and APPLICATION
-         //contexts just for this call
-         
-         Lifecycle.beginCall();         
-         try
-         {
-            return createInvocationContext(invocation, invocationType).proceed();
-         }
-         finally
-         {
-            Lifecycle.endCall();
-         }
-      }
-   }
+	protected RootInterceptor(InterceptorType type) {
+		this.type = type;
+	}
 
-   private InvocationContext createInvocationContext(InvocationContext invocation, EventType eventType) throws Exception
-   {
-      if ( isProcessInterceptors( invocation.getMethod(), invocation.getTarget() ) )
-      {
-         if ( log.isTraceEnabled() ) 
-         {
-            log.trace( "intercepted: " + getInterceptionMessage(invocation, eventType) );
-         }
-         return createSeamInvocationContext(invocation, eventType);
-      }
-      else 
-      {
-         if ( log.isTraceEnabled() ) 
-         {
-            log.trace( "not intercepted: " + getInterceptionMessage(invocation, eventType) );
-         }
-         return invocation;
-      }
-   }
+	protected void init(Component component) {
+		isSeamComponent = true;
+		componentName = component.getName();
+		userInterceptors = component.createUserInterceptors(type);
+		this.component = component;
+	}
 
-   private SeamInvocationContext createSeamInvocationContext(InvocationContext invocation, EventType eventType) throws Exception
-   {
-      return EJB.INVOCATION_CONTEXT_AVAILABLE ?
-            createEE5SeamInvocationContext(invocation, eventType) :
-            createNonEE5SeamInvocationContext(invocation, eventType);
-   }
+	protected void initNonSeamComponent() {
+		isSeamComponent = false;
+	}
 
-   private SeamInvocationContext createNonEE5SeamInvocationContext(InvocationContext invocation, EventType eventType)
-   {
-      return new SeamInvocationContext( invocation, eventType, userInterceptors, getComponent().getInterceptors(type) );
-   }
-   
-   private static final Constructor CONSTRUCTOR;
-   static
-   {
-      if ( EJB.INVOCATION_CONTEXT_AVAILABLE )
-      {
-         try
-         {
-            Class[] paramTypes = {InvocationContext.class, EventType.class, List.class, List.class};
-            CONSTRUCTOR = Class.forName("org.jboss.seam.intercept.EE5SeamInvocationContext").getConstructor(paramTypes);
-         }
-         catch (Exception e)
-         {
-            throw new RuntimeException(e);
-         }
-      }
-      else
-      {
-         CONSTRUCTOR = null;
-      }
-      
-   }
+	protected void postConstruct(Object bean) {
+		// initialize the bean instance
+		if (isSeamComponent) {
+			try {
+				getComponent().initialize(bean);
+			} catch (RuntimeException e) {
+				throw e;
+			} catch (Exception e) {
+				throw new RuntimeException("exception initializing EJB component", e);
+			}
+		}
+	}
 
-   private SeamInvocationContext createEE5SeamInvocationContext(InvocationContext invocation, EventType eventType)
-   {
-      try
-      {
-         return (SeamInvocationContext) CONSTRUCTOR.newInstance( invocation, eventType, userInterceptors, getComponent().getInterceptors(type) );
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException(e);
-      }
-   }
+	protected void invokeAndHandle(InvocationContext invocation, EventType invocationType) {
+		try {
+			invoke(invocation, invocationType);
+		} catch (RuntimeException e) {
+			throw e;
+		} catch (Exception e) {
+			throw new RuntimeException("exception in EJB lifecycle callback", e);
+		}
+	}
 
-   private String getInterceptionMessage(InvocationContext invocation, EventType eventType)
-   {
-      return getComponent().getName() + '.' + 
-            ( eventType==EventType.AROUND_INVOKE ? invocation.getMethod().getName() : eventType );
-   }
+	protected Object invoke(InvocationContext invocation, EventType invocationType) throws Exception {
+		if (!isSeamComponent || !Lifecycle.isApplicationInitialized()) {
+			//not a Seam component
+			return invocation.proceed();
+		} else if (Contexts.isEventContextActive() || Contexts.isApplicationContextActive()) //not sure about the second bit (only needed at init time!)
+		{
 
-   private boolean isProcessInterceptors(Method method, Object bean)
-   {
-      boolean res = isSeamComponent && 
-            getComponent().isInterceptionEnabled() &&
-            !isBypassed(method) &&
-            !isClearDirtyMethod(method, bean);
+			// a Seam component, and Seam contexts exist
+			return createInvocationContext(invocation, invocationType).proceed();
+		} else {
+			//if invoked outside of a set of Seam contexts,
+			//set up temporary Seam EVENT and APPLICATION
+			//contexts just for this call
 
-      return res;
-   }
+			Lifecycle.beginCall();
+			try {
+				return createInvocationContext(invocation, invocationType).proceed();
+			} finally {
+				Lifecycle.endCall();
+			}
+		}
+	}
 
-   private boolean isBypassed(Method method)
-   {
-      return method!=null && method.isAnnotationPresent(BypassInterceptors.class);
-   }
+	private InvocationContext createInvocationContext(InvocationContext invocation, EventType eventType) throws Exception {
+		if (isProcessInterceptors(invocation.getMethod(), invocation.getTarget())) {
+			if (log.isTraceEnabled()) {
+				log.trace("intercepted: " + getInterceptionMessage(invocation, eventType));
+			}
+			return createSeamInvocationContext(invocation, eventType);
+		} else {
+			if (log.isTraceEnabled()) {
+				log.trace("not intercepted: " + getInterceptionMessage(invocation, eventType));
+			}
+			return invocation;
+		}
+	}
 
-   private boolean isClearDirtyMethod(Method method, Object bean)
-   {
-      return bean instanceof Mutable &&
-            method!=null &&
-            method.getName().equals("clearDirty") &&
-            method.getParameterTypes().length==0;
-   }
-   
-   protected Component getComponent()
-   {
-      if (isSeamComponent && component==null) 
-      {
-         component = Seam.componentForName(componentName);
-      }
-      return component;
-   }
-   
-   protected boolean isSeamComponent()
-   {
-      return isSeamComponent;
-   }
+	private SeamInvocationContext createSeamInvocationContext(InvocationContext invocation, EventType eventType) throws Exception {
+		return EJB.INVOCATION_CONTEXT_AVAILABLE ? createEE5SeamInvocationContext(invocation, eventType)
+				: createNonEE5SeamInvocationContext(invocation, eventType);
+	}
 
-   protected String getComponentName()
-   {
-      return componentName;
-   }
-   
+	private SeamInvocationContext createNonEE5SeamInvocationContext(InvocationContext invocation, EventType eventType) {
+		return new SeamInvocationContext(invocation, eventType, userInterceptors, getComponent().getInterceptors(type));
+	}
+
+	private static final Constructor CONSTRUCTOR;
+	static {
+		if (EJB.INVOCATION_CONTEXT_AVAILABLE) {
+			try {
+				Class[] paramTypes = { InvocationContext.class, EventType.class, List.class, List.class };
+				CONSTRUCTOR = Class.forName("org.jboss.seam.intercept.EE5SeamInvocationContext").getConstructor(paramTypes);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		} else {
+			CONSTRUCTOR = null;
+		}
+
+	}
+
+	private SeamInvocationContext createEE5SeamInvocationContext(InvocationContext invocation, EventType eventType) {
+		try {
+			return (SeamInvocationContext) CONSTRUCTOR.newInstance(invocation, eventType, userInterceptors,
+					getComponent().getInterceptors(type));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private String getInterceptionMessage(InvocationContext invocation, EventType eventType) {
+		return getComponent().getName() + '.' + (eventType == EventType.AROUND_INVOKE ? invocation.getMethod().getName() : eventType);
+	}
+
+	private boolean isProcessInterceptors(Method method, Object bean) {
+		boolean res = isSeamComponent && getComponent().isInterceptionEnabled() && !isBypassed(method) && !isClearDirtyMethod(method, bean);
+
+		return res;
+	}
+
+	private boolean isBypassed(Method method) {
+		return method != null && method.isAnnotationPresent(BypassInterceptors.class);
+	}
+
+	private boolean isClearDirtyMethod(Method method, Object bean) {
+		return bean instanceof Mutable && method != null && method.getName().equals("clearDirty") && method.getParameterTypes().length == 0;
+	}
+
+	protected Component getComponent() {
+		if (isSeamComponent && component == null) {
+			component = Seam.componentForName(componentName);
+		}
+		return component;
+	}
+
+	protected boolean isSeamComponent() {
+		return isSeamComponent;
+	}
+
+	protected String getComponentName() {
+		return componentName;
+	}
+
 }

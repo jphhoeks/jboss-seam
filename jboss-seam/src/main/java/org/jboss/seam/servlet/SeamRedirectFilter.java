@@ -8,7 +8,6 @@ import org.jboss.seam.web.RedirectFilter;
  * @deprecated use RedirectFilter
  * @author Gavin King
  */
-public class SeamRedirectFilter extends RedirectFilter 
-{
-   
+public class SeamRedirectFilter extends RedirectFilter {
+
 }

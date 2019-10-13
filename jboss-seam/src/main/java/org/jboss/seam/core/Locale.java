@@ -20,26 +20,20 @@ import org.jboss.seam.contexts.Contexts;
  */
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.core.locale")
-@Install(precedence=BUILT_IN)
+@Install(precedence = BUILT_IN)
 @BypassInterceptors
-public class Locale 
-{
+public class Locale {
 
-   @Unwrap
-   public java.util.Locale getLocale()
-   {
-      return java.util.Locale.getDefault();
-   }
-     
-   public static java.util.Locale instance()
-   {
-       if ( Contexts.isApplicationContextActive() ) 
-       {
-          return (java.util.Locale) Component.getInstance(Locale.class, ScopeType.STATELESS);
-       } 
-       else 
-       {
-          return java.util.Locale.getDefault(); //for unit tests
-       }
-   }
+	@Unwrap
+	public java.util.Locale getLocale() {
+		return java.util.Locale.getDefault();
+	}
+
+	public static java.util.Locale instance() {
+		if (Contexts.isApplicationContextActive()) {
+			return (java.util.Locale) Component.getInstance(Locale.class, ScopeType.STATELESS);
+		} else {
+			return java.util.Locale.getDefault(); //for unit tests
+		}
+	}
 }

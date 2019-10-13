@@ -16,19 +16,18 @@ import java.lang.annotation.Target;
  *
  * @author Shane Bryzak
  */
-@Target({TYPE,METHOD})
+@Target({ TYPE, METHOD })
 @Documented
 @Retention(RUNTIME)
 @Inherited
-public @interface Restrict 
-{
-   /**
-    * Restrictions may be expressed using any EL expression, and usually
-    * include the use of s:hasRole(...) or s:hasPermission(..., /..).
-    * If no EL expression is explicitly specified, Seam security defaults
-    * the permission to be checked.
-    * 
-    * @return An EL expression that defines the restriction to be checked
-    */
-   String value() default "";
+public @interface Restrict {
+	/**
+	* Restrictions may be expressed using any EL expression, and usually
+	* include the use of s:hasRole(...) or s:hasPermission(..., /..).
+	* If no EL expression is explicitly specified, Seam security defaults
+	* the permission to be checked.
+	* 
+	* @return An EL expression that defines the restriction to be checked
+	*/
+	String value() default "";
 }

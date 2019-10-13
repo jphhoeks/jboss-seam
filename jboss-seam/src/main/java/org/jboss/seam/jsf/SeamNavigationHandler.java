@@ -22,80 +22,63 @@ import org.jboss.seam.pageflow.Pageflow;
  * @author Gavin King
  *
  */
-public class SeamNavigationHandler extends ConfigurableNavigationHandler 
-{
-   
-   private final NavigationHandler baseNavigationHandler;
-   
-   public SeamNavigationHandler(NavigationHandler navigationHandler)
-   {
-      this.baseNavigationHandler = navigationHandler;
-   }
+public class SeamNavigationHandler extends ConfigurableNavigationHandler {
 
-   @Override
-   public void handleNavigation(FacesContext context, String fromAction, String outcome) 
-   {
+	private final NavigationHandler baseNavigationHandler;
+
+	public SeamNavigationHandler(NavigationHandler navigationHandler) {
+		this.baseNavigationHandler = navigationHandler;
+	}
+
+	@Override
+	public void handleNavigation(FacesContext context, String fromAction, String outcome) {
 		// Skip non-seam applications
-		
+
 		if (!SeamApplication.isSeamApplication(context)) {
 			return;
 		}
-      if ( !context.getResponseComplete() ) //workaround for a bug in MyFaces
-      {
-    	  String oldView = (context.getViewRoot() != null ? context.getViewRoot().getViewId() : "");
-    	  
-         if ( isOutcomeViewId(outcome) )
-         {
-            FacesManager.instance().interpolateAndRedirect(outcome);
-         }
-         else if ( Init.instance().isJbpmInstalled() && Pageflow.instance().isInProcess() && Pageflow.instance().hasTransition(outcome) )
-         {
-            Pageflow.instance().navigate(context, outcome);
-         }
-         else if ( !Pages.instance().navigate(context, fromAction, outcome) )
-         {
-            baseNavigationHandler.handleNavigation(context, fromAction, outcome);
-         }
-         else {
-        	 if (!oldView.equals(context.getViewRoot().getViewId())) {
-     			PartialViewContext pctx = context.getPartialViewContext();
-     			if (!pctx.isRenderAll()) {
-     				pctx.setRenderAll(true);
-     			}
-     		}
-         }
-      }
-   }
+		if (!context.getResponseComplete()) //workaround for a bug in MyFaces
+		{
+			String oldView = (context.getViewRoot() != null ? context.getViewRoot().getViewId() : "");
 
-   private static boolean isOutcomeViewId(String outcome)
-   {
-      return outcome!=null && outcome.startsWith("/");
-   }
+			if (isOutcomeViewId(outcome)) {
+				FacesManager.instance().interpolateAndRedirect(outcome);
+			} else if (Init.instance().isJbpmInstalled() && Pageflow.instance().isInProcess()
+					&& Pageflow.instance().hasTransition(outcome)) {
+				Pageflow.instance().navigate(context, outcome);
+			} else if (!Pages.instance().navigate(context, fromAction, outcome)) {
+				baseNavigationHandler.handleNavigation(context, fromAction, outcome);
+			} else {
+				if (!oldView.equals(context.getViewRoot().getViewId())) {
+					PartialViewContext pctx = context.getPartialViewContext();
+					if (!pctx.isRenderAll()) {
+						pctx.setRenderAll(true);
+					}
+				}
+			}
+		}
+	}
 
-   @Override
-   public NavigationCase getNavigationCase(FacesContext context, String fromAction, String outcome)
-   {
-      if (baseNavigationHandler instanceof ConfigurableNavigationHandler)
-      {
-         return ((ConfigurableNavigationHandler) baseNavigationHandler).getNavigationCase(context, fromAction, outcome);
-      }
-      else
-      {
-         return null;
-      }
-   }
+	private static boolean isOutcomeViewId(String outcome) {
+		return outcome != null && outcome.startsWith("/");
+	}
 
-   @Override
-   public Map<String, Set<NavigationCase>> getNavigationCases()
-   {
-      if (baseNavigationHandler instanceof ConfigurableNavigationHandler)
-      {
-         return ((ConfigurableNavigationHandler) baseNavigationHandler).getNavigationCases();
-      }
-      else
-      {
-         return null;
-      }
-   }
+	@Override
+	public NavigationCase getNavigationCase(FacesContext context, String fromAction, String outcome) {
+		if (baseNavigationHandler instanceof ConfigurableNavigationHandler) {
+			return ((ConfigurableNavigationHandler) baseNavigationHandler).getNavigationCase(context, fromAction, outcome);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Map<String, Set<NavigationCase>> getNavigationCases() {
+		if (baseNavigationHandler instanceof ConfigurableNavigationHandler) {
+			return ((ConfigurableNavigationHandler) baseNavigationHandler).getNavigationCases();
+		} else {
+			return null;
+		}
+	}
 
 }

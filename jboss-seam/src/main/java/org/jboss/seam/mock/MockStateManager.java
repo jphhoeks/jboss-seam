@@ -12,6 +12,7 @@ public class MockStateManager extends StateManager {
 	public MockStateManager() {
 		super();
 	}
+
 	@Override
 	public Object saveView(FacesContext ctx) {
 		return null;

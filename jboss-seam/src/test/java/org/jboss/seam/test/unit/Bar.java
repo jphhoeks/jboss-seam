@@ -25,46 +25,43 @@ import org.jboss.seam.annotations.Scope;
 @Name("bar")
 @Scope(ScopeType.CONVERSATION)
 @Conversational
-public class Bar implements Serializable
-{
-   private static final long serialVersionUID = -5325217160542604204L;
+public class Bar implements Serializable {
+	private static final long serialVersionUID = -5325217160542604204L;
 
-   @In(required=true)
-   Foo otherFoo;
-   
-   @In(create=true)
-   Foo foo;
-   
-   @Out(required=false)
-   String string;
-   
-   @Out(required=false, scope=ScopeType.EVENT)
-   String otherString;
-   
-   @Begin
-   public String begin()
-   {
-      return "begun";
-   }
-   
-   public String foo()
-   {
-      string = "out";
-      otherString = "outAgain";
-      return "foo";
-   }
-   
-   @End
-   public String end()
-   {
-      return "ended";
-   }
-   
-   @Destroy
-   public void destroy(){}
-   @Create
-   public void create(){}
-   
+	@In(required = true)
+	Foo otherFoo;
+
+	@In(create = true)
+	Foo foo;
+
+	@Out(required = false)
+	String string;
+
+	@Out(required = false, scope = ScopeType.EVENT)
+	String otherString;
+
+	@Begin
+	public String begin() {
+		return "begun";
+	}
+
+	public String foo() {
+		string = "out";
+		otherString = "outAgain";
+		return "foo";
+	}
+
+	@End
+	public String end() {
+		return "ended";
+	}
+
+	@Destroy
+	public void destroy() {
+	}
+
+	@Create
+	public void create() {
+	}
+
 }
-
-

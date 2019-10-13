@@ -36,66 +36,55 @@ import org.jboss.seam.util.JSF;
  *
  * @author Gavin King
  */
-public class SeamExpressionFactory extends ExpressionFactory 
-{
-   public static final ExpressionFactory INSTANCE = new SeamExpressionFactory(EL.EXPRESSION_FACTORY);
-   
-    private static final Class[] NO_CLASSES = {};
-    
-    private final ExpressionFactory expressionFactory;
-    
-    SeamExpressionFactory(ExpressionFactory expressionFactory) 
-    {
-       this.expressionFactory = expressionFactory;
-    }
-    
-    /**
-     * Wrap the base ELContext, adding Seam's FunctionMapper.
-     * 
-     * Thus, any expressions with s:hasRole, s:hasPermission 
-     * must be evaluated either via Facelets/JSP (since they
-     * are declared in the tld/taglib.xml or via the 
-     * Expressions component.
-     * 
-     * @param context the JSF ELContext
-     */
-    private static EvaluationContext decorateELContext(ELContext context)
-    {
-       return new EvaluationContext( context, new SeamFunctionMapper( context.getFunctionMapper() ), context.getVariableMapper() );
-    }
-    
-    @Override
-    public Object coerceToType(Object obj, Class<?> targetType) 
-    {
-        return expressionFactory.coerceToType(obj, targetType);
-    }
+public class SeamExpressionFactory extends ExpressionFactory {
+	public static final ExpressionFactory INSTANCE = new SeamExpressionFactory(EL.EXPRESSION_FACTORY);
 
-    @Override
-    public MethodExpression createMethodExpression(ELContext elContext, String expression, Class returnType, Class[] paramTypes) 
-    {
-        if ( paramTypes.length==1 && JSF.FACES_EVENT.isAssignableFrom( paramTypes[0] ) )
-        {
-         return new OptionalParameterMethodExpression(
-                 expressionFactory.createMethodExpression( decorateELContext(elContext), expression, returnType, paramTypes ),
-                 expressionFactory.createMethodExpression( decorateELContext(elContext), expression, returnType, NO_CLASSES )
-              );
-        }
-        else
-        {
-           return expressionFactory.createMethodExpression( decorateELContext(elContext), expression, returnType, paramTypes );
-        }
-    }
-    
-    @Override
-    public ValueExpression createValueExpression(Object instance, Class expectedType) 
-    {
-        return expressionFactory.createValueExpression(instance, expectedType);
-    }
+	private static final Class[] NO_CLASSES = {};
 
-    @Override
-    public ValueExpression createValueExpression(ELContext elContext, String expression, Class expectedType) 
-    {   
-        return expressionFactory.createValueExpression( decorateELContext(elContext), expression, expectedType );
-    }
-    
+	private final ExpressionFactory expressionFactory;
+
+	SeamExpressionFactory(ExpressionFactory expressionFactory) {
+		this.expressionFactory = expressionFactory;
+	}
+
+	/**
+	 * Wrap the base ELContext, adding Seam's FunctionMapper.
+	 * 
+	 * Thus, any expressions with s:hasRole, s:hasPermission 
+	 * must be evaluated either via Facelets/JSP (since they
+	 * are declared in the tld/taglib.xml or via the 
+	 * Expressions component.
+	 * 
+	 * @param context the JSF ELContext
+	 */
+	private static EvaluationContext decorateELContext(ELContext context) {
+		return new EvaluationContext(context, new SeamFunctionMapper(context.getFunctionMapper()), context.getVariableMapper());
+	}
+
+	@Override
+	public Object coerceToType(Object obj, Class<?> targetType) {
+		return expressionFactory.coerceToType(obj, targetType);
+	}
+
+	@Override
+	public MethodExpression createMethodExpression(ELContext elContext, String expression, Class returnType, Class[] paramTypes) {
+		if (paramTypes.length == 1 && JSF.FACES_EVENT.isAssignableFrom(paramTypes[0])) {
+			return new OptionalParameterMethodExpression(
+					expressionFactory.createMethodExpression(decorateELContext(elContext), expression, returnType, paramTypes),
+					expressionFactory.createMethodExpression(decorateELContext(elContext), expression, returnType, NO_CLASSES));
+		} else {
+			return expressionFactory.createMethodExpression(decorateELContext(elContext), expression, returnType, paramTypes);
+		}
+	}
+
+	@Override
+	public ValueExpression createValueExpression(Object instance, Class expectedType) {
+		return expressionFactory.createValueExpression(instance, expectedType);
+	}
+
+	@Override
+	public ValueExpression createValueExpression(ELContext elContext, String expression, Class expectedType) {
+		return expressionFactory.createValueExpression(decorateELContext(elContext), expression, expectedType);
+	}
+
 }

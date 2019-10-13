@@ -11,31 +11,29 @@ import org.jboss.seam.annotations.Startup;
 @Startup
 @Install(false)
 @Scope(ScopeType.APPLICATION)
-public class Remote 
-{
-   String destinationName;
-   String componentName;
-   
-   public void setDestinationName(String destionationName) {
-      this.destinationName = destionationName;
-   }
-   
-   public String getDestinationName() {
-      return destinationName;
-   }
-   
-   public void setComponentName(String componentName) {
-      this.componentName = componentName;
-   }
-   
-   public String getComponentName() {
-      return componentName;
-   }
-   
-   
-   @Create
-   public void init() {
-	   //
-   }
+public class Remote {
+	String destinationName;
+	String componentName;
+
+	public void setDestinationName(String destionationName) {
+		this.destinationName = destionationName;
+	}
+
+	public String getDestinationName() {
+		return destinationName;
+	}
+
+	public void setComponentName(String componentName) {
+		this.componentName = componentName;
+	}
+
+	public String getComponentName() {
+		return componentName;
+	}
+
+	@Create
+	public void init() {
+		//
+	}
 
 }

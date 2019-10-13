@@ -5,17 +5,14 @@ package org.jboss.seam.security.management;
  * 
  * @author Shane Bryzak
  */
-public class NoSuchUserException extends RuntimeException
-{
-   private static final long serialVersionUID = 1L;
+public class NoSuchUserException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 
-public NoSuchUserException(String message)
-   {
-      super(message);
-   }
-   
-   public NoSuchUserException(String message, Throwable cause)
-   {
-      super(message, cause);
-   }
+	public NoSuchUserException(String message) {
+		super(message);
+	}
+
+	public NoSuchUserException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

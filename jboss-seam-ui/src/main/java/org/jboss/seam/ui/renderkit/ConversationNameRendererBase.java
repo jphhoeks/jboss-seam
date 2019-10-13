@@ -11,29 +11,24 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  * @author Pete Muir
  *
  */
-@JsfRenderer(type="org.jboss.seam.ui.ConversationNameRenderer", family="org.jboss.seam.ui.ConversationNameRenderer")
-public class ConversationNameRendererBase extends CommandButtonParameterRendererBase
-{
-   
-   private static LogProvider log = Logging.getLogProvider(ConversationNameRendererBase.class);
-   
+@JsfRenderer(type = "org.jboss.seam.ui.ConversationNameRenderer", family = "org.jboss.seam.ui.ConversationNameRenderer")
+public class ConversationNameRendererBase extends CommandButtonParameterRendererBase {
 
-   @Override
-   protected LogProvider getLog()
-   {
-      return log;
-   }
+	private static LogProvider log = Logging.getLogProvider(ConversationNameRendererBase.class);
 
-   @Override
-   protected String getParameterName(UIComponent component)
-   {
-      return ((UIConversationName) component).getName();
-   }
+	@Override
+	protected LogProvider getLog() {
+		return log;
+	}
 
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIConversationName.class;
-   }
+	@Override
+	protected String getParameterName(UIComponent component) {
+		return ((UIConversationName) component).getName();
+	}
+
+	@Override
+	protected Class getComponentClass() {
+		return UIConversationName.class;
+	}
 
 }

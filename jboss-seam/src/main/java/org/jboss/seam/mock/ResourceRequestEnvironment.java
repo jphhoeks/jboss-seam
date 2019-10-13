@@ -92,176 +92,142 @@ import java.io.IOException;
  *
  * @author Christian Bauer
  */
-public class ResourceRequestEnvironment
-{
+public class ResourceRequestEnvironment {
 
-   public enum Method
-   {
-      GET, PUT, POST, DELETE, HEAD, OPTIONS
-   }
+	public enum Method {
+		GET, PUT, POST, DELETE, HEAD, OPTIONS
+	}
 
-   final protected AbstractSeamTest seamTest;
-   final protected SeamResourceServlet resourceServlet;
+	final protected AbstractSeamTest seamTest;
+	final protected SeamResourceServlet resourceServlet;
 
-   public ResourceRequestEnvironment(AbstractSeamTest seamTest)
-   {
-      this.seamTest = seamTest;
-      resourceServlet = new SeamResourceServlet();
-      try {
-         resourceServlet.init(
-               new ServletConfig()
-               {
-                  public String getServletName()
-                  {
-                     return "Seam Resource Servlet";
-                  }
+	public ResourceRequestEnvironment(AbstractSeamTest seamTest) {
+		this.seamTest = seamTest;
+		resourceServlet = new SeamResourceServlet();
+		try {
+			resourceServlet.init(new ServletConfig() {
+				public String getServletName() {
+					return "Seam Resource Servlet";
+				}
 
-                  public ServletContext getServletContext()
-                  {
-                     return ResourceRequestEnvironment.this.seamTest.servletContext;
-                  }
+				public ServletContext getServletContext() {
+					return ResourceRequestEnvironment.this.seamTest.servletContext;
+				}
 
-                  public String getInitParameter(String s)
-                  {
-                     return null;
-                  }
+				public String getInitParameter(String s) {
+					return null;
+				}
 
-                  public Enumeration<String> getInitParameterNames()
-                  {
-                     return null;
-                  }
-               }
-         );
-      } catch (Exception ex) {
-         throw new RuntimeException(ex);
-      }
-   }
+				public Enumeration<String> getInitParameterNames() {
+					return null;
+				}
+			});
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 
-   public static class ResourceRequest
-   {
+	public static class ResourceRequest {
 
-      final private ResourceRequestEnvironment environment;
-      private Method httpMethod;
-      private String requestPath;
-      private EnhancedMockHttpServletRequest request;
-      private EnhancedMockHttpServletResponse response;
+		final private ResourceRequestEnvironment environment;
+		private Method httpMethod;
+		private String requestPath;
+		private EnhancedMockHttpServletRequest request;
+		private EnhancedMockHttpServletResponse response;
 
-      public ResourceRequest(ResourceRequestEnvironment environment, Method httpMethod, String requestPath)
-      {
-         this.environment = environment;
-         this.httpMethod = httpMethod;
-         this.requestPath = environment.getServletPath() + (requestPath.startsWith("/") ? requestPath : "/" + requestPath);
-      }
+		public ResourceRequest(ResourceRequestEnvironment environment, Method httpMethod, String requestPath) {
+			this.environment = environment;
+			this.httpMethod = httpMethod;
+			this.requestPath = environment.getServletPath() + (requestPath.startsWith("/") ? requestPath : "/" + requestPath);
+		}
 
-      public void run() throws Exception
-      {
-         init();
-         prepareRequest(request);
-         environment.seamTest.seamFilter.doFilter(request, response, new FilterChain()
-         {
-            public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException
-            {
-               environment.resourceServlet.service(request, response);
-            }
-         });
-         environment.seamTest.seamFilter.destroy();
-         onResponse(getResponse());
-      }
+		public void run() throws Exception {
+			init();
+			prepareRequest(request);
+			environment.seamTest.seamFilter.doFilter(request, response, new FilterChain() {
+				public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+					environment.resourceServlet.service(request, response);
+				}
+			});
+			environment.seamTest.seamFilter.destroy();
+			onResponse(getResponse());
+		}
 
-      protected void init()
-      {
-         request = createRequest();
-         response = createResponse();
+		protected void init() {
+			request = createRequest();
+			response = createResponse();
 
-         request.setMethod(httpMethod.toString());
-         request.setRequestURI(requestPath);
+			request.setMethod(httpMethod.toString());
+			request.setRequestURI(requestPath);
 
-         request.setServletPath(environment.getServletPath());
+			request.setServletPath(environment.getServletPath());
 
-         request.setCookies(getCookies().toArray(new Cookie[getCookies().size()]));
+			request.setCookies(getCookies().toArray(new Cookie[getCookies().size()]));
 
-         for (Map.Entry<String, Object> entry : environment.getDefaultHeaders().entrySet())
-         {
-            request.addHeader(entry.getKey(), entry.getValue());
-         }
+			for (Map.Entry<String, Object> entry : environment.getDefaultHeaders().entrySet()) {
+				request.addHeader(entry.getKey(), entry.getValue());
+			}
 
-         request.setUserPrincipal(
-               new Principal()
-               {
-                  public String getName()
-                  {
-                     return getPrincipalName();
-                  }
-               }
-         );
-         for (String role : getPrincipalRoles())
-         {
-            request.addUserRole(role);
-         }
+			request.setUserPrincipal(new Principal() {
+				public String getName() {
+					return getPrincipalName();
+				}
+			});
+			for (String role : getPrincipalRoles()) {
+				request.addUserRole(role);
+			}
 
-         // Use the (mock) HttpSession that Seam uses, see AbstractSeamTest
-         request.setSession(environment.seamTest.session);
+			// Use the (mock) HttpSession that Seam uses, see AbstractSeamTest
+			request.setSession(environment.seamTest.session);
 
-      }
+		}
 
-      protected EnhancedMockHttpServletRequest createRequest()
-      {
-         return new EnhancedMockHttpServletRequest(environment.seamTest.servletContext);
-      }
+		protected EnhancedMockHttpServletRequest createRequest() {
+			return new EnhancedMockHttpServletRequest(environment.seamTest.servletContext);
+		}
 
-      protected EnhancedMockHttpServletResponse createResponse()
-      {
-         return new EnhancedMockHttpServletResponse();
-      }
+		protected EnhancedMockHttpServletResponse createResponse() {
+			return new EnhancedMockHttpServletResponse();
+		}
 
-      protected Map<String, String> getRequestQueryParameters()
-      {
-         return Collections.emptyMap();
-      }
+		protected Map<String, String> getRequestQueryParameters() {
+			return Collections.emptyMap();
+		}
 
-      protected List<Cookie> getCookies()
-      {
-         return Collections.emptyList();
-      }
+		protected List<Cookie> getCookies() {
+			return Collections.emptyList();
+		}
 
-      protected String getPrincipalName()
-      {
-         return null;
-      }
+		protected String getPrincipalName() {
+			return null;
+		}
 
-      protected Set<String> getPrincipalRoles()
-      {
-         return Collections.emptySet();
-      }
+		protected Set<String> getPrincipalRoles() {
+			return Collections.emptySet();
+		}
 
-      protected void prepareRequest(EnhancedMockHttpServletRequest request)
-      {
-      }
+		protected void prepareRequest(EnhancedMockHttpServletRequest request) {
+		}
 
-      protected void onResponse(EnhancedMockHttpServletResponse response)
-      {
-      }
+		protected void onResponse(EnhancedMockHttpServletResponse response) {
+		}
 
-      public HttpServletRequest getRequest()
-      {
-         return request;
-      }
+		public HttpServletRequest getRequest() {
+			return request;
+		}
 
-      public EnhancedMockHttpServletResponse getResponse()
-      {
-         return response;
-      }
+		public EnhancedMockHttpServletResponse getResponse() {
+			return response;
+		}
 
-   }
+	}
 
-   public String getServletPath()
-   {
-      return "/seam/resource";
-   }
+	public String getServletPath() {
+		return "/seam/resource";
+	}
 
-   public Map<String, Object> getDefaultHeaders()
-   {
-      return Collections.emptyMap();
-   }
+	public Map<String, Object> getDefaultHeaders() {
+		return Collections.emptyMap();
+	}
 
 }

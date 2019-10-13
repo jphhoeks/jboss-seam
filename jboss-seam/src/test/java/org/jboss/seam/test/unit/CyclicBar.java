@@ -8,15 +8,14 @@ import org.jboss.seam.annotations.Factory;
 
 @Name("cyclicBar")
 @Scope(ScopeType.APPLICATION)
-public class CyclicBar
-{
+public class CyclicBar {
 
-   @In CyclicFoo cyclicFoo;
-   
-   @Factory(value = "cyclicFooBar", autoCreate = true)
-   public String provideCyclicFooBar() throws Exception
-   {
-      return cyclicFoo.getName() + "bar";
-   }
+	@In
+	CyclicFoo cyclicFoo;
+
+	@Factory(value = "cyclicFooBar", autoCreate = true)
+	public String provideCyclicFooBar() throws Exception {
+		return cyclicFoo.getName() + "bar";
+	}
 
 }

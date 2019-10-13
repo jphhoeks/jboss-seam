@@ -17,43 +17,37 @@ import org.jboss.seam.framework.Identifier;
  */
 
 @Name("org.jboss.seam.ui.entityLoader")
-@Install(precedence=FRAMEWORK, classDependencies="org.hibernate.Session", value=false)
+@Install(precedence = FRAMEWORK, classDependencies = "org.hibernate.Session", value = false)
 @Scope(STATELESS)
-public class HibernateEntityLoader extends AbstractEntityLoader<Session>
-{
+public class HibernateEntityLoader extends AbstractEntityLoader<Session> {
 
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-@Override
-   protected Identifier createIdentifier(Object entity)
-   {
-      return new HibernateEntityIdentifier(entity, getPersistenceContext());
-   }
+	@Override
+	protected Identifier createIdentifier(Object entity) {
+		return new HibernateEntityIdentifier(entity, getPersistenceContext());
+	}
 
-   @Override
-   protected String getPersistenceContextName()
-   {
-      return "hibernateSession";
-   }
+	@Override
+	protected String getPersistenceContextName() {
+		return "hibernateSession";
+	}
 
-   @Override
-   public void validate()
-   {
-      if (getPersistenceContext() == null)
-      {
-         throw new IllegalStateException("Unable to access a Seam Managed Hibernate Session. You must either have a Seam Managed Hibernate Session called hibernateSession or configure one in components.xml");
-      }
-      
-   }
-   
-   public Session getSession()
-   {
-      return getPersistenceContext();
-   }
-   
-   public void setSession(Session session)
-   {
-      setPersistenceContext(session);
-   }
+	@Override
+	public void validate() {
+		if (getPersistenceContext() == null) {
+			throw new IllegalStateException(
+					"Unable to access a Seam Managed Hibernate Session. You must either have a Seam Managed Hibernate Session called hibernateSession or configure one in components.xml");
+		}
+
+	}
+
+	public Session getSession() {
+		return getPersistenceContext();
+	}
+
+	public void setSession(Session session) {
+		setPersistenceContext(session);
+	}
 
 }

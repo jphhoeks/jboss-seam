@@ -51,110 +51,95 @@ import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 // Empty @Path because it's ignored by second-stage bootstrap if not subclassed or in components.xml
 // but we need it as a marker so we'll find components.xml declarations during first stage of bootstrap.
 @Path("")
-public class ResourceQuery<T> extends AbstractResource<T>
-{
+public class ResourceQuery<T> extends AbstractResource<T> {
 
-   private Query<?, T> entityQuery = null;
+	private Query<?, T> entityQuery = null;
 
-   /**
-    * Called at component instantiation.
-    */
-   @Create
-   public void create()
-   {
-      this.entityQuery = getEntityQuery();
-      if (entityQuery == null)
-      {
-         this.entityQuery = createEntityQuery();
-      }
-   }
+	/**
+	* Called at component instantiation.
+	*/
+	@Create
+	public void create() {
+		this.entityQuery = getEntityQuery();
+		if (entityQuery == null) {
+			this.entityQuery = createEntityQuery();
+		}
+	}
 
-   /**
-    * Called by RESTEasy to respond for an HTTP GET request. Retrieves a list of
-    * entities matching criteria set by query parameters from database and
-    * returns it wrapped in Response instance.
-    *
-    * @param start first entity in the list
-    * @param show  maximum size of the list
-    * @return representation of a list of database entries
-    * @see #getEntityList
-    */
-   @GET
-   @Wrapped
-   public Response getResourceList(@QueryParam("start") @DefaultValue("0") int start, @QueryParam("show") @DefaultValue("25") int show)
-   {
-      MediaType selectedMediaType = selectResponseMediaType();
-      if (selectedMediaType == null)
-      {
-         return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
-      }
+	/**
+	* Called by RESTEasy to respond for an HTTP GET request. Retrieves a list of
+	* entities matching criteria set by query parameters from database and
+	* returns it wrapped in Response instance.
+	*
+	* @param start first entity in the list
+	* @param show  maximum size of the list
+	* @return representation of a list of database entries
+	* @see #getEntityList
+	*/
+	@GET
+	@Wrapped
+	public Response getResourceList(@QueryParam("start") @DefaultValue("0") int start, @QueryParam("show") @DefaultValue("25") int show) {
+		MediaType selectedMediaType = selectResponseMediaType();
+		if (selectedMediaType == null) {
+			return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
+		}
 
-      if ((start < 0) || (show < 0))
-      {
-         return Response.status(BAD_REQUEST).build();
-      }
+		if ((start < 0) || (show < 0)) {
+			return Response.status(BAD_REQUEST).build();
+		}
 
-      final List<T> result = getEntityList(start, show);
-      // create a proper response type
-      Type responseType = new ParameterizedType()
-      {
+		final List<T> result = getEntityList(start, show);
+		// create a proper response type
+		Type responseType = new ParameterizedType() {
 
-         public Type getRawType()
-         {
-            return result.getClass();
-         }
+			public Type getRawType() {
+				return result.getClass();
+			}
 
-         public Type getOwnerType()
-         {
-            return null;
-         }
+			public Type getOwnerType() {
+				return null;
+			}
 
-         public Type[] getActualTypeArguments()
-         {
-            return new Type[]{getEntityClass()};
-         }
-      };
-      return Response.ok(new GenericEntity(result, responseType)
-      {
-      }, selectedMediaType).build();
-   }
+			public Type[] getActualTypeArguments() {
+				return new Type[] { getEntityClass() };
+			}
+		};
+		return Response.ok(new GenericEntity(result, responseType) {
+		}, selectedMediaType).build();
+	}
 
-   /**
-    * Retrieve a list of database entities.
-    *
-    * @param start first entity in the list
-    * @param show  maximum size of the list, 0 for unlimited
-    * @return list of database entries
-    */
-   public List<T> getEntityList(int start, int show)
-   {
-      entityQuery.setFirstResult(start);
-      if (show > 0) // set 0 for unlimited
-      {
-         entityQuery.setMaxResults(show);
-      }
-      return entityQuery.getResultList();
-   }
+	/**
+	* Retrieve a list of database entities.
+	*
+	* @param start first entity in the list
+	* @param show  maximum size of the list, 0 for unlimited
+	* @return list of database entries
+	*/
+	public List<T> getEntityList(int start, int show) {
+		entityQuery.setFirstResult(start);
+		if (show > 0) // set 0 for unlimited
+		{
+			entityQuery.setMaxResults(show);
+		}
+		return entityQuery.getResultList();
+	}
 
-   /**
-    * EntityQuery getter
-    *
-    * @return EntityQuery instance
-    */
-   public Query<?, T> getEntityQuery()
-   {
-      return entityQuery;
-   }
+	/**
+	* EntityQuery getter
+	*
+	* @return EntityQuery instance
+	*/
+	public Query<?, T> getEntityQuery() {
+		return entityQuery;
+	}
 
-   public void setEntityQuery(Query<?, T> query)
-   {
-      this.entityQuery = query;
-   }
+	public void setEntityQuery(Query<?, T> query) {
+		this.entityQuery = query;
+	}
 
-   public Query<?, T> createEntityQuery()
-   {
-      Query<?, T> entityQuery = new EntityQuery<T>();
-      entityQuery.setEjbql("select entity from " + getEntityClass().getName() + " entity");
-      return entityQuery;
-   }
+	public Query<?, T> createEntityQuery() {
+		Query<?, T> entityQuery = new EntityQuery<T>();
+		entityQuery.setEjbql("select entity from " + getEntityClass().getName() + " entity");
+		return entityQuery;
+	}
 }

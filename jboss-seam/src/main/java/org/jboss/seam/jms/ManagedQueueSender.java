@@ -21,52 +21,44 @@ import org.jboss.seam.util.Naming;
  */
 @Scope(ScopeType.EVENT)
 @BypassInterceptors
-public class ManagedQueueSender
-{
-   private String queueJndiName;
-   
-   private QueueSender queueSender;
+public class ManagedQueueSender {
+	private String queueJndiName;
 
-   /**
-    * The JNDI name of the queue
-    */
-   public String getQueueJndiName()
-   {
-      return queueJndiName;
-   }
+	private QueueSender queueSender;
 
-   public void setQueueJndiName(String jndiName)
-   {
-      this.queueJndiName = jndiName;
-   }
-   
-   public Queue getQueue() throws NamingException
-   {
-      return (Queue) Naming.getInitialContext().lookup(queueJndiName);
-   }
-   
-   @Create
-   public void create() throws JMSException, NamingException
-   {
-      queueSender = org.jboss.seam.jms.QueueSession.instance().createSender( getQueue() );
-   }
-   
-   @Destroy
-   public void destroy() throws JMSException
-   {
-      queueSender.close();
-   }
-   
-   @Unwrap
-   public QueueSender getQueueSender()
-   {
-      return queueSender;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return "ManagedQueueSender(" + queueJndiName + ")";
-   }
+	/**
+	* The JNDI name of the queue
+	*/
+	public String getQueueJndiName() {
+		return queueJndiName;
+	}
+
+	public void setQueueJndiName(String jndiName) {
+		this.queueJndiName = jndiName;
+	}
+
+	public Queue getQueue() throws NamingException {
+		return (Queue) Naming.getInitialContext().lookup(queueJndiName);
+	}
+
+	@Create
+	public void create() throws JMSException, NamingException {
+		queueSender = org.jboss.seam.jms.QueueSession.instance().createSender(getQueue());
+	}
+
+	@Destroy
+	public void destroy() throws JMSException {
+		queueSender.close();
+	}
+
+	@Unwrap
+	public QueueSender getQueueSender() {
+		return queueSender;
+	}
+
+	@Override
+	public String toString() {
+		return "ManagedQueueSender(" + queueJndiName + ")";
+	}
 
 }

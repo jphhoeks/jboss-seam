@@ -3,4 +3,3 @@
  * from deployed archives. 
  */
 package org.jboss.seam.deployment;
-

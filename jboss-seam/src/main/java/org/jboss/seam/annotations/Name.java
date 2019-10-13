@@ -22,12 +22,9 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 @Retention(RUNTIME)
 @Documented
-public @interface Name 
-{
-   /**
-    * @return the component name
-    */
-   String value();
+public @interface Name {
+	/**
+	 * @return the component name
+	 */
+	String value();
 }
-
-

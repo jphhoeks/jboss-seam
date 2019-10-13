@@ -15,37 +15,27 @@ import org.jboss.seam.intercept.InvocationContext;
  * 
  * @author Gavin King
  */
-@Interceptor(type=InterceptorType.CLIENT)
-public class SynchronizationInterceptor extends AbstractInterceptor
-{
-   private static final long serialVersionUID = -4173880108889358566L;
-   
-   private ReentrantLock lock = new ReentrantLock(true);
-   
-   @AroundInvoke
-   public Object aroundInvoke(InvocationContext invocation) throws Exception
-   {
-      if ( lock.tryLock( getComponent().getTimeout(), TimeUnit.MILLISECONDS ) )
-      {
-         try
-         {
-            return invocation.proceed();
-         }
-         finally
-         {
-            lock.unlock();
-         }
-      }
-      else
-      {
-         throw new LockTimeoutException("could not acquire lock on @Synchronized component: " + 
-               getComponent().getName());
-      }
-   }
-   
-   public boolean isInterceptorEnabled()
-   {      
-      return getComponent().isSynchronize() ;
-   }
+@Interceptor(type = InterceptorType.CLIENT)
+public class SynchronizationInterceptor extends AbstractInterceptor {
+	private static final long serialVersionUID = -4173880108889358566L;
+
+	private ReentrantLock lock = new ReentrantLock(true);
+
+	@AroundInvoke
+	public Object aroundInvoke(InvocationContext invocation) throws Exception {
+		if (lock.tryLock(getComponent().getTimeout(), TimeUnit.MILLISECONDS)) {
+			try {
+				return invocation.proceed();
+			} finally {
+				lock.unlock();
+			}
+		} else {
+			throw new LockTimeoutException("could not acquire lock on @Synchronized component: " + getComponent().getName());
+		}
+	}
+
+	public boolean isInterceptorEnabled() {
+		return getComponent().isSynchronize();
+	}
 
 }

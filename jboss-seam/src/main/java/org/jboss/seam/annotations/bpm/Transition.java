@@ -14,23 +14,21 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Marks a method as causing a jBPM transition after 
- * the method returns a non-null result without exception.
+ * Marks a method as causing a jBPM transition after the method returns a
+ * non-null result without exception.
  * 
  * @author Gavin King
  */
 @Target(METHOD)
 @Retention(RUNTIME)
 @Documented
-public @interface Transition 
-{
-   
-   /**
-    * The transition name, defaults to the name
-    * of the method.
-    * 
-    * @return the transition name
-    */
-   String value() default "";
-   
+public @interface Transition {
+
+	/**
+	 * The transition name, defaults to the name of the method.
+	 * 
+	 * @return the transition name
+	 */
+	String value() default "";
+
 }

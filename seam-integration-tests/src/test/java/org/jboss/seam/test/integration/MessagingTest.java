@@ -18,104 +18,93 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class MessagingTest
-    extends JUnitSeamTest
-{
-	@Deployment(name="MessagingTest")
-    @OverProtocol("Servlet 3.0") 
-    public static Archive<?> createDeployment()
-    {
-        return Deployments.defaultSeamDeployment().addClasses(TestQueueListener.class, TestTopicListener.class);
-    }
-	
-    @Test
-    public void publishToTopic()
-        throws Exception
-    {
-        final SimpleReference<String> messageText = new SimpleReference<String>();
-        
-        new FacesRequest() {
-            @Override
-            protected void invokeApplication()
-                throws Exception 
-            {
-                Contexts.getApplicationContext().set("testMessage", messageText);
-                invokeAction("#{testTopic.publish}");
-            }
-        }.run();
+public class MessagingTest extends JUnitSeamTest {
+	@Deployment(name = "MessagingTest")
+	@OverProtocol("Servlet 3.0")
+	public static Archive<?> createDeployment() {
+		return Deployments.defaultSeamDeployment().addClasses(TestQueueListener.class, TestTopicListener.class);
+	}
 
-        // need to delay a bit to make sure the message is delivered
-        // might need 
-        Thread.sleep(2000);
-        
-        assert messageText.getValue().equals("message for topic");
-    }
-    
-    @Test
-    public void sendToQueue()
-        throws Exception
-    {
-        final SimpleReference<String> messageText = new SimpleReference<String>();
-        
-        new FacesRequest() {
-            @Override
-            protected void invokeApplication()
-                throws Exception 
-            {
-                Contexts.getApplicationContext().set("testMessage", messageText);
-                invokeAction("#{testQueue.send}");
-            }
-        }.run();
+	@Test
+	public void publishToTopic() throws Exception {
+		final SimpleReference<String> messageText = new SimpleReference<String>();
 
-        // need to delay a bit to make sure the message is delivered
-        // might need 
-        Thread.sleep(2000);
-        
-        assert messageText.getValue().equals("message for queue");
-    }
+		new FacesRequest() {
+			@Override
+			protected void invokeApplication() throws Exception {
+				Contexts.getApplicationContext().set("testMessage", messageText);
+				invokeAction("#{testTopic.publish}");
+			}
+		}.run();
 
+		// need to delay a bit to make sure the message is delivered
+		// might need 
+		Thread.sleep(2000);
 
-    @Name("testTopic")
-    public static class TopicBean {
-        @In 
-        private TopicPublisher testPublisher; 
-        
-        @In 
-        private TopicSession topicSession; 
-        
-        public void publish() 
-            throws JMSException 
-        {
-            testPublisher.publish(topicSession.createTextMessage("message for topic")); 
-        }
-    }
-    
-    @Name("testQueue")
-    public static class QueueBean {
-        @In 
-        private QueueSender testSender;
-        
-        @In 
-        private QueueSession queueSession;
-        
-        public void send() throws JMSException { 
-            testSender.send(queueSession.createTextMessage("message for queue")); 
-        } 
-    }
+		assert messageText.getValue().equals("message for topic");
+	}
 
+	@Test
+	public void sendToQueue() throws Exception {
+		final SimpleReference<String> messageText = new SimpleReference<String>();
 
-    static class SimpleReference<T> {
-        T value;
-        public SimpleReference() {
-        }
-        public SimpleReference(T value) {
-            setValue(value);
-        }
-        public T getValue() { 
-            return value; 
-        }
-        public void setValue(T value) {
-            this.value = value;
-        }
-    }
+		new FacesRequest() {
+			@Override
+			protected void invokeApplication() throws Exception {
+				Contexts.getApplicationContext().set("testMessage", messageText);
+				invokeAction("#{testQueue.send}");
+			}
+		}.run();
+
+		// need to delay a bit to make sure the message is delivered
+		// might need 
+		Thread.sleep(2000);
+
+		assert messageText.getValue().equals("message for queue");
+	}
+
+	@Name("testTopic")
+	public static class TopicBean {
+		@In
+		private TopicPublisher testPublisher;
+
+		@In
+		private TopicSession topicSession;
+
+		public void publish() throws JMSException {
+			testPublisher.publish(topicSession.createTextMessage("message for topic"));
+		}
+	}
+
+	@Name("testQueue")
+	public static class QueueBean {
+		@In
+		private QueueSender testSender;
+
+		@In
+		private QueueSession queueSession;
+
+		public void send() throws JMSException {
+			testSender.send(queueSession.createTextMessage("message for queue"));
+		}
+	}
+
+	static class SimpleReference<T> {
+		T value;
+
+		public SimpleReference() {
+		}
+
+		public SimpleReference(T value) {
+			setValue(value);
+		}
+
+		public T getValue() {
+			return value;
+		}
+
+		public void setValue(T value) {
+			this.value = value;
+		}
+	}
 }

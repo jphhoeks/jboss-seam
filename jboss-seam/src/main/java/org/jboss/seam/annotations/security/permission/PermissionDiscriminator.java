@@ -15,12 +15,12 @@ import java.lang.annotation.Target;
  *  
  * @author Shane Bryzak
  */
-@Target({METHOD,FIELD})
+@Target({ METHOD, FIELD })
 @Documented
 @Retention(RUNTIME)
 @Inherited
-public @interface PermissionDiscriminator
-{
-   String userValue() default "user";
-   String roleValue() default "role";
+public @interface PermissionDiscriminator {
+	String userValue() default "user";
+
+	String roleValue() default "role";
 }

@@ -18,14 +18,12 @@ import org.jboss.seam.annotations.Unwrap;
  *
  */
 @Name("org.jboss.seam.framework.currentDate")
-@Install(precedence=BUILT_IN)
+@Install(precedence = BUILT_IN)
 @Scope(ScopeType.STATELESS)
 @AutoCreate
-public class CurrentDate
-{
-   @Unwrap 
-   public Date getCurrentDate()
-   {
-      return new java.sql.Date( System.currentTimeMillis() );
-   }
+public class CurrentDate {
+	@Unwrap
+	public Date getCurrentDate() {
+		return new java.sql.Date(System.currentTimeMillis());
+	}
 }

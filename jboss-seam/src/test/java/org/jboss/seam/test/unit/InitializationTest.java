@@ -18,73 +18,69 @@ import org.jboss.seam.transaction.Transaction;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class InitializationTest
-{
-   @Test
-   public void testInitialization()
-   {
-      MockServletContext servletContext = new MockServletContext();
-      ServletLifecycle.beginApplication(servletContext);
-      new Initialization(servletContext).create().init();
+public class InitializationTest {
+	@Test
+	public void testInitialization() {
+		MockServletContext servletContext = new MockServletContext();
+		ServletLifecycle.beginApplication(servletContext);
+		new Initialization(servletContext).create().init();
 
-      assert !servletContext.getAttributes().isEmpty();
-      assert servletContext.getAttributes().containsKey( Seam.getComponentName(Manager.class) + ".component" );
-      assert servletContext.getAttributes().containsKey( Seam.getComponentName(Foo.class) + ".component" );
-      assert !Contexts.isApplicationContextActive();
-      ServletLifecycle.endApplication();
-   }
+		assert !servletContext.getAttributes().isEmpty();
+		assert servletContext.getAttributes().containsKey(Seam.getComponentName(Manager.class) + ".component");
+		assert servletContext.getAttributes().containsKey(Seam.getComponentName(Foo.class) + ".component");
+		assert !Contexts.isApplicationContextActive();
+		ServletLifecycle.endApplication();
+	}
 
-   /**
-    * Configuration for ConfigurableComponent is defined in ConfigurableComponent.component.xml
-    */
-   @Test
-   public void testEnumPropertyAssignment()
-   {
-       MockServletContext servletContext = new MockServletContext();
-       ServletLifecycle.beginApplication(servletContext);
-       new Initialization( servletContext ).create().init();
+	/**
+	* Configuration for ConfigurableComponent is defined in ConfigurableComponent.component.xml
+	*/
+	@Test
+	public void testEnumPropertyAssignment() {
+		MockServletContext servletContext = new MockServletContext();
+		ServletLifecycle.beginApplication(servletContext);
+		new Initialization(servletContext).create().init();
 
-       Lifecycle.beginCall();
+		Lifecycle.beginCall();
 
-       ConfigurableComponent component = (ConfigurableComponent) Component.getInstance(ConfigurableComponent.class);
-       assert component != null;
-       assert component.getPrimaryColor().equals(PrimaryColor.RED);
+		ConfigurableComponent component = (ConfigurableComponent) Component.getInstance(ConfigurableComponent.class);
+		assert component != null;
+		assert component.getPrimaryColor().equals(PrimaryColor.RED);
 
-       ServletLifecycle.endApplication();
-   }
-   
-   @Test
-   public void testEntityHomeConfiguration()
-   {
-      MockServletContext servletContext = new MockServletContext();
-      ServletLifecycle.beginApplication(servletContext);
-      new Initialization( servletContext ).create().init();
-      Lifecycle.beginCall();
-      Contexts.getEventContext().set(Seam.getComponentName(Transaction.class), new NoTransaction());
-      MyEntityHome myEntityHome = (MyEntityHome) Component.getInstance("myEntityHome");
-      assert myEntityHome != null;
-      // verify that the reference to new-instance remains unparsed
-      Assert.assertEquals(myEntityHome.getNewInstance().getExpressionString(), "#{simpleEntity}");
-      // verify that the message string for the created/updated/deleted message remains unparsed
-      Assert.assertEquals(myEntityHome.getCreatedMessage().getExpressionString(), "You #{'created'} it! Yeah!");
-      // verify that the id is parsed prior to assignment
-      Assert.assertEquals(String.valueOf(myEntityHome.getId()), "11");
-      
-      ServletLifecycle.endApplication();
-   }
-   @Test
-   public void testPostConstructMethod() {
-	   MockServletContext servletContext = new MockServletContext();
-	      ServletLifecycle.beginApplication(servletContext);
-	      new Initialization( servletContext ).create().init();
-	      Lifecycle.beginCall();
-	      Contexts.getEventContext().set(Seam.getComponentName(Transaction.class), new NoTransaction());
-	      PostConstructComponent comp = (PostConstructComponent) Component.getInstance("postConstructComponent");
-	      Assert.assertNotNull(comp);
-	      Assert.assertEquals(comp.getPostConstructCalled(), 1);
-	      Assert.assertEquals(comp.getCountNullElements(), 0);
-   }
-   
-   //TODO: write a test for components.xml
+		ServletLifecycle.endApplication();
+	}
+
+	@Test
+	public void testEntityHomeConfiguration() {
+		MockServletContext servletContext = new MockServletContext();
+		ServletLifecycle.beginApplication(servletContext);
+		new Initialization(servletContext).create().init();
+		Lifecycle.beginCall();
+		Contexts.getEventContext().set(Seam.getComponentName(Transaction.class), new NoTransaction());
+		MyEntityHome myEntityHome = (MyEntityHome) Component.getInstance("myEntityHome");
+		assert myEntityHome != null;
+		// verify that the reference to new-instance remains unparsed
+		Assert.assertEquals(myEntityHome.getNewInstance().getExpressionString(), "#{simpleEntity}");
+		// verify that the message string for the created/updated/deleted message remains unparsed
+		Assert.assertEquals(myEntityHome.getCreatedMessage().getExpressionString(), "You #{'created'} it! Yeah!");
+		// verify that the id is parsed prior to assignment
+		Assert.assertEquals(String.valueOf(myEntityHome.getId()), "11");
+
+		ServletLifecycle.endApplication();
+	}
+
+	@Test
+	public void testPostConstructMethod() {
+		MockServletContext servletContext = new MockServletContext();
+		ServletLifecycle.beginApplication(servletContext);
+		new Initialization(servletContext).create().init();
+		Lifecycle.beginCall();
+		Contexts.getEventContext().set(Seam.getComponentName(Transaction.class), new NoTransaction());
+		PostConstructComponent comp = (PostConstructComponent) Component.getInstance("postConstructComponent");
+		Assert.assertNotNull(comp);
+		Assert.assertEquals(comp.getPostConstructCalled(), 1);
+		Assert.assertEquals(comp.getCountNullElements(), 0);
+	}
+
+	//TODO: write a test for components.xml
 }
-

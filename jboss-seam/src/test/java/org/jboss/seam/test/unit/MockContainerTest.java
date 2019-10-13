@@ -18,37 +18,31 @@ import org.testng.annotations.BeforeMethod;
  * they can be looked up successfully using ComponentClass.instance(), as
  * required by much of Seam's internal API.
  */
-public abstract class MockContainerTest
-{
-   @BeforeMethod
-   protected void setUp()
-   {
-      MockServletContext servletContext = new MockServletContext();
-      ServletLifecycle.beginApplication(servletContext);
-      MockExternalContext externalContext = new MockExternalContext(servletContext);
-      Context appContext = new ApplicationContext(externalContext.getApplicationMap());
-      installComponent(appContext, Manager.class);
-      for (Class c : getComponentsToInstall())
-      {
-         installComponent(appContext, c);
-      }
-      appContext.set(Seam.getComponentName(Init.class), new Init());
-      Lifecycle.beginCall();
-   }
-   
-   protected Class[] getComponentsToInstall()
-   {
-      return new Class[] {};
-   }
-   
-   @AfterMethod
-   protected void tearDown()
-   {
-      Lifecycle.endCall();
-   }
-   
-   protected void installComponent(Context appContext, Class clazz)
-   {
-      appContext.set(Seam.getComponentName(clazz) + ".component", new Component(clazz));
-   }
+public abstract class MockContainerTest {
+	@BeforeMethod
+	protected void setUp() {
+		MockServletContext servletContext = new MockServletContext();
+		ServletLifecycle.beginApplication(servletContext);
+		MockExternalContext externalContext = new MockExternalContext(servletContext);
+		Context appContext = new ApplicationContext(externalContext.getApplicationMap());
+		installComponent(appContext, Manager.class);
+		for (Class c : getComponentsToInstall()) {
+			installComponent(appContext, c);
+		}
+		appContext.set(Seam.getComponentName(Init.class), new Init());
+		Lifecycle.beginCall();
+	}
+
+	protected Class[] getComponentsToInstall() {
+		return new Class[] {};
+	}
+
+	@AfterMethod
+	protected void tearDown() {
+		Lifecycle.endCall();
+	}
+
+	protected void installComponent(Context appContext, Class clazz) {
+		appContext.set(Seam.getComponentName(clazz) + ".component", new Component(clazz));
+	}
 }

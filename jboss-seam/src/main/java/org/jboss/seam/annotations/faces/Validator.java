@@ -18,10 +18,9 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 @Retention(RUNTIME)
 @Documented
-public @interface Validator
-{
-   /**
-    * The JSF validator id. Default to the component name.
-    */
-   String id() default "";
+public @interface Validator {
+	/**
+	* The JSF validator id. Default to the component name.
+	*/
+	String id() default "";
 }

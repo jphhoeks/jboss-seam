@@ -10,45 +10,37 @@ import org.jboss.seam.excel.ui.UICell.CellType;
  * 
  * @author karlsnic
  */
-public class CellInfo
-{
-   // Cell format of the cell
-   private WritableCellFormat cellFormat;
+public class CellInfo {
+	// Cell format of the cell
+	private WritableCellFormat cellFormat;
 
-   // Cell features of the cell
-   private WritableCellFeatures cellFeatures;
+	// Cell features of the cell
+	private WritableCellFeatures cellFeatures;
 
-   // Cell contents type of the cell
-   private CellType cellType;
+	// Cell contents type of the cell
+	private CellType cellType;
 
-   public CellType getCellType()
-   {
-      return cellType;
-   }
+	public CellType getCellType() {
+		return cellType;
+	}
 
-   public void setCellType(CellType cellType)
-   {
-      this.cellType = cellType;
-   }
+	public void setCellType(CellType cellType) {
+		this.cellType = cellType;
+	}
 
-   public WritableCellFormat getCellFormat()
-   {
-      return cellFormat;
-   }
+	public WritableCellFormat getCellFormat() {
+		return cellFormat;
+	}
 
-   public WritableCellFeatures getCellFeatures()
-   {
-      return cellFeatures;
-   }
+	public WritableCellFeatures getCellFeatures() {
+		return cellFeatures;
+	}
 
-   public void setCellFormat(WritableCellFormat cellFormat)
-   {
-      this.cellFormat = cellFormat;
-   }
+	public void setCellFormat(WritableCellFormat cellFormat) {
+		this.cellFormat = cellFormat;
+	}
 
-   public void setCellFeatures(WritableCellFeatures cellFeatures)
-   {
-      this.cellFeatures = cellFeatures;
-   }
+	public void setCellFeatures(WritableCellFeatures cellFeatures) {
+		this.cellFeatures = cellFeatures;
+	}
 }
-

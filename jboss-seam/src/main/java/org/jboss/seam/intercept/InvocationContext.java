@@ -11,12 +11,16 @@ import java.util.Map;
  * @author Gavin King
  *
  */
-public interface InvocationContext
-{
-   public Object getTarget();
-   public Map getContextData();
-   public Method getMethod();
-   public Object[] getParameters();
-   public Object proceed() throws Exception;
-   public void setParameters(Object[] params);
+public interface InvocationContext {
+	public Object getTarget();
+
+	public Map getContextData();
+
+	public Method getMethod();
+
+	public Object[] getParameters();
+
+	public Object proceed() throws Exception;
+
+	public void setParameters(Object[] params);
 }

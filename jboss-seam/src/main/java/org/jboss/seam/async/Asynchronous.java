@@ -21,92 +21,75 @@ import org.jboss.seam.servlet.ServletApplicationMap;
  * @author Gavin King
  *
  */
-public abstract class Asynchronous implements Serializable
-{
-   
-   static final long serialVersionUID = -551286304424595765L;
-   
-   private static transient final LogProvider log = Logging.getLogProvider(Asynchronous.class);
-   
-   private Long processId;
-   private Long taskId;
-   private ServletContext servletContext;
-   
-   public Asynchronous()
-   {
-      if ( Init.instance().isJbpmInstalled() )
-      {
-         BusinessProcess businessProcess = BusinessProcess.instance();
-         processId = businessProcess.getProcessId();
-         taskId = BusinessProcess.instance().getTaskId();
-      }
-      this.servletContext =  ServletLifecycle.getCurrentServletContext();
-   }
-   
-   protected abstract class ContextualAsynchronousRequest
-   {
-      
-      private Object timer;
-      private boolean createContexts;
-      
+public abstract class Asynchronous implements Serializable {
 
-      
-      public ContextualAsynchronousRequest(Object timer)
-      {
-         this.timer = timer;
-         this.createContexts = !Contexts.isEventContextActive() && !Contexts.isApplicationContextActive();
-      }
-      
-      private void setup()
-      {
-         if (createContexts) {
-        	 Lifecycle.beginApplication( new ServletApplicationMap(servletContext));
-        	 Lifecycle.beginCall();
-         }
-         Contexts.getEventContext().set(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL, true);
-         if (taskId!=null)
-         {
-            BusinessProcess.instance().resumeTask(taskId);
-         }
-         else if (processId!=null)
-         {
-            BusinessProcess.instance().resumeProcess(processId);
-         }
-         
-         if (timer!=null)
-         {
-            Contexts.getEventContext().set("timer", timer);
-         }
-         
-            log.debug("executing: " + this);
-      }
-      
-      protected abstract void process();
-      
-      public void run()
-      {
-         setup();
-         try
-         {
-            process();
-         }
-         finally
-         {
-            cleanup();
-         }
-      }
-      
-      private void cleanup()
-      {
-         Contexts.getEventContext().remove(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL);
-         if (createContexts) {
-        	 Lifecycle.endCall();
-        	 Lifecycle.beginApplication(null);
-         }
-      }
-   }   
-   
-   public abstract void execute(Object timer);
+	static final long serialVersionUID = -551286304424595765L;
 
-   protected abstract void handleException(Exception exception, Object timer);
+	private static transient final LogProvider log = Logging.getLogProvider(Asynchronous.class);
+
+	private Long processId;
+	private Long taskId;
+	private ServletContext servletContext;
+
+	public Asynchronous() {
+		if (Init.instance().isJbpmInstalled()) {
+			BusinessProcess businessProcess = BusinessProcess.instance();
+			processId = businessProcess.getProcessId();
+			taskId = BusinessProcess.instance().getTaskId();
+		}
+		this.servletContext = ServletLifecycle.getCurrentServletContext();
+	}
+
+	protected abstract class ContextualAsynchronousRequest {
+
+		private Object timer;
+		private boolean createContexts;
+
+		public ContextualAsynchronousRequest(Object timer) {
+			this.timer = timer;
+			this.createContexts = !Contexts.isEventContextActive() && !Contexts.isApplicationContextActive();
+		}
+
+		private void setup() {
+			if (createContexts) {
+				Lifecycle.beginApplication(new ServletApplicationMap(servletContext));
+				Lifecycle.beginCall();
+			}
+			Contexts.getEventContext().set(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL, true);
+			if (taskId != null) {
+				BusinessProcess.instance().resumeTask(taskId);
+			} else if (processId != null) {
+				BusinessProcess.instance().resumeProcess(processId);
+			}
+
+			if (timer != null) {
+				Contexts.getEventContext().set("timer", timer);
+			}
+
+			log.debug("executing: " + this);
+		}
+
+		protected abstract void process();
+
+		public void run() {
+			setup();
+			try {
+				process();
+			} finally {
+				cleanup();
+			}
+		}
+
+		private void cleanup() {
+			Contexts.getEventContext().remove(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL);
+			if (createContexts) {
+				Lifecycle.endCall();
+				Lifecycle.beginApplication(null);
+			}
+		}
+	}
+
+	public abstract void execute(Object timer);
+
+	protected abstract void handleException(Exception exception, Object timer);
 }

@@ -18,7 +18,6 @@ import java.lang.annotation.Target;
 @Target(ANNOTATION_TYPE)
 @Retention(RUNTIME)
 @Documented
-public @interface Interceptors 
-{
-   Class[] value();
+public @interface Interceptors {
+	Class[] value();
 }

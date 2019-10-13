@@ -27,60 +27,55 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
-
 /**
  * JSF component class which renders a link that supports invocation of an action with control over conversation propagation. 
  * It does not submit the form.
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.Link",value="A link that supports invocation of an action with control over conversation propagation. Does not submit the form."),
-family="org.jboss.seam.ui.Link", type="org.jboss.seam.ui.Link",generate="org.jboss.seam.ui.component.html.HtmlLink", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="link"), 
-renderer = @JsfRenderer(type="org.jboss.seam.ui.LinkRenderer",family="org.jboss.seam.ui.LinkRenderer"),
-attributes = {"command-button-props.xml", "javax.faces.component.UICommand.xml", "javax.faces.component.ValueHolder.xml", "i18n-props.xml", "accesskey-props.xml"})
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.Link", value = "A link that supports invocation of an action with control over conversation propagation. Does not submit the form."), family = "org.jboss.seam.ui.Link", type = "org.jboss.seam.ui.Link", generate = "org.jboss.seam.ui.component.html.HtmlLink", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "link"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.LinkRenderer", family = "org.jboss.seam.ui.LinkRenderer"), attributes = {
+		"command-button-props.xml", "javax.faces.component.UICommand.xml", "javax.faces.component.ValueHolder.xml", "i18n-props.xml",
+		"accesskey-props.xml" })
 public abstract class UILink extends UISeamCommandBase {
-   
-   @Attribute
-   public abstract String getStyleClass();
-   
-   public abstract void setStyleClass(String styleClass);
-   
-   @Attribute
-   public abstract String getStyle();
-   
-   public abstract void setStyle(String style);
-   
-   @Attribute
-   public abstract boolean isDisabled();
 
-   public abstract void setDisabled(boolean disabled);
+	@Attribute
+	public abstract String getStyleClass();
 
-   @Attribute(description = @Description("the JSF view id to link to."))
-   public abstract String getView();
+	public abstract void setStyleClass(String styleClass);
 
-   @Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
-   public abstract String getPageflow();
+	@Attribute
+	public abstract String getStyle();
 
-   @Attribute(defaultValue = "default",
-           description = @Description("determines the conversation propagation style: begin, join, nest, none, end or endRoot."))
-   public abstract String getPropagation();
+	public abstract void setStyle(String style);
 
-   @Attribute(description = @Description("the fragment identifier to link to."))
-   public abstract String getFragment();
+	@Attribute
+	public abstract boolean isDisabled();
 
-   @Attribute
-   public abstract String getOutcome();
+	public abstract void setDisabled(boolean disabled);
 
-   @Attribute
-   public abstract String getImage();
+	@Attribute(description = @Description("the JSF view id to link to."))
+	public abstract String getView();
 
-   @Attribute(description = @Description("Specify the task to operate on (e.g. for @StartTask)"))
-   public abstract Object getTaskInstance();
+	@Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
+	public abstract String getPageflow();
 
-   @Attribute(description = @Description("The name of the conversation for natural conversations"))
-   public abstract String getConversationName();
+	@Attribute(defaultValue = "default", description = @Description("determines the conversation propagation style: begin, join, nest, none, end or endRoot."))
+	public abstract String getPropagation();
 
-   @Attribute(defaultValue = "true",
-           description = @Description("Include page parameters defined in pages.xml when rendering the button"))
-   public abstract boolean isIncludePageParams();
+	@Attribute(description = @Description("the fragment identifier to link to."))
+	public abstract String getFragment();
+
+	@Attribute
+	public abstract String getOutcome();
+
+	@Attribute
+	public abstract String getImage();
+
+	@Attribute(description = @Description("Specify the task to operate on (e.g. for @StartTask)"))
+	public abstract Object getTaskInstance();
+
+	@Attribute(description = @Description("The name of the conversation for natural conversations"))
+	public abstract String getConversationName();
+
+	@Attribute(defaultValue = "true", description = @Description("Include page parameters defined in pages.xml when rendering the button"))
+	public abstract boolean isIncludePageParams();
 }

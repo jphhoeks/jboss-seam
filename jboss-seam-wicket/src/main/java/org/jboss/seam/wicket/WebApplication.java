@@ -11,33 +11,26 @@ import org.jboss.seam.contexts.Contexts;
 
 @Name("org.jboss.seam.wicket.WebApplication")
 @Scope(APPLICATION)
-@Install(precedence=21, classDependencies="org.apache.wicket.Application")
+@Install(precedence = 21, classDependencies = "org.apache.wicket.Application")
 @BypassInterceptors
-public class WebApplication
-{
-   
-   private String applicationClass;
-   
-   public String getApplicationClass()
-   {
-      return applicationClass;
-   }
-   
-   public void setApplicationClass(String applicationClass)
-   {
-      this.applicationClass = applicationClass;
-   }
-   
-   public static WebApplication instance()
-   {
-      if (Contexts.isApplicationContextActive())
-      {
-         return (WebApplication) Component.getInstance(WebApplication.class);
-      }
-      else
-      {
-         throw new IllegalStateException("Application context is not active");
-      }
-   }
+public class WebApplication {
+
+	private String applicationClass;
+
+	public String getApplicationClass() {
+		return applicationClass;
+	}
+
+	public void setApplicationClass(String applicationClass) {
+		this.applicationClass = applicationClass;
+	}
+
+	public static WebApplication instance() {
+		if (Contexts.isApplicationContextActive()) {
+			return (WebApplication) Component.getInstance(WebApplication.class);
+		} else {
+			throw new IllegalStateException("Application context is not active");
+		}
+	}
 
 }

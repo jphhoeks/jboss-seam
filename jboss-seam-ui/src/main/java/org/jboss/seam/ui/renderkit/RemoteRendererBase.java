@@ -16,52 +16,42 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  * 
  * @author Shane Bryzak
  */
-@JsfRenderer(type="org.jboss.seam.ui.RemoteRenderer", family="org.jboss.seam.ui.RemoteRenderer")
-public class RemoteRendererBase extends RendererBase
-{
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIRemote.class;
-   }
+@JsfRenderer(type = "org.jboss.seam.ui.RemoteRenderer", family = "org.jboss.seam.ui.RemoteRenderer")
+public class RemoteRendererBase extends RendererBase {
+	@Override
+	protected Class getComponentClass() {
+		return UIRemote.class;
+	}
 
-   @Override
-   protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) 
-      throws IOException
-   {
-      UIRemote remote = (UIRemote) component;
-      
-      writeScript(context, remote);
-   }
-   
-   @Override
-   protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) 
-      throws IOException
-   {
-      writer.flush();
-   }
-   
-   public void writeScript(FacesContext context, UIRemote remote) 
-      throws IOException
-   {
-      ResponseWriter response = context.getResponseWriter();
-      
-      Map request = context.getExternalContext().getRequestMap();
-      if (!request.containsKey("REMOTE_SCRIPT"))
-      {
-         response.startElement("script", null);
-         response.writeAttribute("type", "text/javascript", null);
-         response.writeAttribute("src", context.getExternalContext().getRequestContextPath()
-                  + "/seam/resource/remoting/resource/remote.js", null);
-         response.endElement("script");
-         request.put("REMOTE_SCRIPT", true);
-      }
+	@Override
+	protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+		UIRemote remote = (UIRemote) component;
 
-      response.startElement("script", null);
-      response.writeAttribute("type", "text/javascript", null);
-      response.writeAttribute("src", context.getExternalContext().getRequestContextPath()
-               + "/seam/resource/remoting/interface.js?" + 
-               remote.getInclude().replace(',', '&'), null);
-      response.endElement("script");
-   }
+		writeScript(context, remote);
+	}
+
+	@Override
+	protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+		writer.flush();
+	}
+
+	public void writeScript(FacesContext context, UIRemote remote) throws IOException {
+		ResponseWriter response = context.getResponseWriter();
+
+		Map request = context.getExternalContext().getRequestMap();
+		if (!request.containsKey("REMOTE_SCRIPT")) {
+			response.startElement("script", null);
+			response.writeAttribute("type", "text/javascript", null);
+			response.writeAttribute("src",
+					context.getExternalContext().getRequestContextPath() + "/seam/resource/remoting/resource/remote.js", null);
+			response.endElement("script");
+			request.put("REMOTE_SCRIPT", true);
+		}
+
+		response.startElement("script", null);
+		response.writeAttribute("type", "text/javascript", null);
+		response.writeAttribute("src", context.getExternalContext().getRequestContextPath() + "/seam/resource/remoting/interface.js?"
+				+ remote.getInclude().replace(',', '&'), null);
+		response.endElement("script");
+	}
 }

@@ -5,22 +5,18 @@ package org.jboss.seam.web;
  *  
  * @author Shane Bryzak
  */
-public class FileUploadException extends RuntimeException
-{   
-   private static final long serialVersionUID = 1L;
+public class FileUploadException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 
-public FileUploadException()
-   {
-      this(null, null);
-   }
-   
-   public FileUploadException(String message)
-   {
-      this(message, null);
-   }
-   
-   public FileUploadException(String message, Throwable cause)
-   {
-      super(message, cause);
-   }   
+	public FileUploadException() {
+		this(null, null);
+	}
+
+	public FileUploadException(String message) {
+		this(message, null);
+	}
+
+	public FileUploadException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

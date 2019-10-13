@@ -36,132 +36,111 @@ import javax.ws.rs.core.MediaType;
  * @author Jozef Hartinger
  * @param <T> entity class
  */
-public abstract class AbstractResource<T>
-{
+public abstract class AbstractResource<T> {
 
-   @Context
-   private HttpHeaders httpHeaders;
+	@Context
+	private HttpHeaders httpHeaders;
 
-   private String path = null;
-   private MediaType[] mediaTypes = null;
-   private Class entityClass = null;
+	private String path = null;
+	private MediaType[] mediaTypes = null;
+	private Class entityClass = null;
 
-   public AbstractResource()
-   {
-      mediaTypes = new MediaType[]{MediaType.APPLICATION_XML_TYPE};
-   }
+	public AbstractResource() {
+		mediaTypes = new MediaType[] { MediaType.APPLICATION_XML_TYPE };
+	}
 
-   public String[] getMediaTypes()
-   {
-      String[] mediaTypes = new String[this.mediaTypes.length];
-      for (int i = 0; i < mediaTypes.length; i++)
-      {
-         mediaTypes[i] = this.mediaTypes[i].toString();
-      }
-      return mediaTypes;
-   }
+	public String[] getMediaTypes() {
+		String[] mediaTypes = new String[this.mediaTypes.length];
+		for (int i = 0; i < mediaTypes.length; i++) {
+			mediaTypes[i] = this.mediaTypes[i].toString();
+		}
+		return mediaTypes;
+	}
 
-   public void setMediaTypes(String[] mediaTypes)
-   {
-      this.mediaTypes = new MediaType[mediaTypes.length];
-      for (int i = 0; i < mediaTypes.length; i++)
-      {
-         this.mediaTypes[i] = MediaType.valueOf(mediaTypes[i]);
-      }
-   }
+	public void setMediaTypes(String[] mediaTypes) {
+		this.mediaTypes = new MediaType[mediaTypes.length];
+		for (int i = 0; i < mediaTypes.length; i++) {
+			this.mediaTypes[i] = MediaType.valueOf(mediaTypes[i]);
+		}
+	}
 
-   public void setEntityClass(Class entityClass)
-   {
-      this.entityClass = entityClass;
-   }
+	public void setEntityClass(Class entityClass) {
+		this.entityClass = entityClass;
+	}
 
-   /**
-    * Retrieve entity class. If not set, type parameters of a superclass are
-    * examined.
-    *
-    * @return entity class
-    */
-   @SuppressWarnings({ "unchecked", "rawtypes" })
-   public Class<T> getEntityClass()
-   {
-      if (entityClass == null)
-      {
-         Type superclass = this.getClass().getGenericSuperclass();
-         if (superclass instanceof ParameterizedType)
-         {
-            ParameterizedType parameterizedSuperclass = (ParameterizedType) superclass;
-            if (parameterizedSuperclass.getActualTypeArguments().length > 0)
-            {
-               return (Class) parameterizedSuperclass.getActualTypeArguments()[0];
-            }
-         }
-         throw new RuntimeException("Unable to determine entity class.");
-      }
-      else
-      {
-         return entityClass;
-      }
-   }
+	/**
+	* Retrieve entity class. If not set, type parameters of a superclass are
+	* examined.
+	*
+	* @return entity class
+	*/
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Class<T> getEntityClass() {
+		if (entityClass == null) {
+			Type superclass = this.getClass().getGenericSuperclass();
+			if (superclass instanceof ParameterizedType) {
+				ParameterizedType parameterizedSuperclass = (ParameterizedType) superclass;
+				if (parameterizedSuperclass.getActualTypeArguments().length > 0) {
+					return (Class) parameterizedSuperclass.getActualTypeArguments()[0];
+				}
+			}
+			throw new RuntimeException("Unable to determine entity class.");
+		} else {
+			return entityClass;
+		}
+	}
 
-   /**
-    * Retrieve a suffix of this resource's URI. See {@link #setPath(String path)}
-    *
-    * @return path
-    * @see javax.ws.rs.Path
-    */
-   public String getPath()
-   {
-      return path;
-   }
+	/**
+	* Retrieve a suffix of this resource's URI. See {@link #setPath(String path)}
+	*
+	* @return path
+	* @see javax.ws.rs.Path
+	*/
+	public String getPath() {
+		return path;
+	}
 
-   /**
-    * Set the path this resource will operate on. This method is intended to be
-    * used only by Seam to create a resource configured in component descriptor.
-    * To specify the path in other cases, use @Path annotation. See
-    *
-    * @param path
-    */
-   public void setPath(String path)
-   {
-      this.path = path;
-   }
+	/**
+	* Set the path this resource will operate on. This method is intended to be
+	* used only by Seam to create a resource configured in component descriptor.
+	* To specify the path in other cases, use @Path annotation. See
+	*
+	* @param path
+	*/
+	public void setPath(String path) {
+		this.path = path;
+	}
 
-   /**
-    * Select a media type that will be used for marshalling entity. Media type
-    * is selected from the intersection of media types supported by this
-    * resource and media types accepted by client.
-    *
-    * @return selected media type, returns null if no suitable media type is
-    *         found
-    */
-   protected MediaType selectResponseMediaType()
-   {
-      for (MediaType acceptedMediaType : httpHeaders.getAcceptableMediaTypes())
-      {
-         for (MediaType availableMediaType : mediaTypes)
-         {
-            if (acceptedMediaType.isCompatible(availableMediaType))
-               return availableMediaType;
-         }
-      }
-      return null;
-   }
+	/**
+	* Select a media type that will be used for marshalling entity. Media type
+	* is selected from the intersection of media types supported by this
+	* resource and media types accepted by client.
+	*
+	* @return selected media type, returns null if no suitable media type is
+	*         found
+	*/
+	protected MediaType selectResponseMediaType() {
+		for (MediaType acceptedMediaType : httpHeaders.getAcceptableMediaTypes()) {
+			for (MediaType availableMediaType : mediaTypes) {
+				if (acceptedMediaType.isCompatible(availableMediaType))
+					return availableMediaType;
+			}
+		}
+		return null;
+	}
 
-   /**
-    * Check if media type passed as parameter is supported by this resource.
-    *
-    * @param mediaType
-    * @return true if and only if the media type is accepted by this resource
-    */
-   public boolean isMediaTypeCompatible(MediaType mediaType)
-   {
-      for (MediaType availableMediaType : mediaTypes)
-      {
-         if (availableMediaType.isCompatible(mediaType))
-         {
-            return true;
-         }
-      }
-      return false;
-   }
+	/**
+	* Check if media type passed as parameter is supported by this resource.
+	*
+	* @param mediaType
+	* @return true if and only if the media type is accepted by this resource
+	*/
+	public boolean isMediaTypeCompatible(MediaType mediaType) {
+		for (MediaType availableMediaType : mediaTypes) {
+			if (availableMediaType.isCompatible(mediaType)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

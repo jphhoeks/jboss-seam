@@ -15,11 +15,10 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 @Retention(RUNTIME)
 @Interceptors(GuiceInterceptor.class)
-public @interface Guice
-{
-   /**
-    * Name of the Guice injector component.
-    * By default the injector specified in the components.xml file is used.
-    */
-   String value() default "";
+public @interface Guice {
+	/**
+	* Name of the Guice injector component.
+	* By default the injector specified in the components.xml file is used.
+	*/
+	String value() default "";
 }

@@ -10,9 +10,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Specifies that the object returned by the annotated
- * getter method is to be injected instead of the
- * component itself. Supports use of the Seam "manager 
+ * Specifies that the object returned by the annotated getter method is to be
+ * injected instead of the component itself. Supports use of the Seam "manager
  * component" pattern.
  * 
  * @author Gavin King
@@ -21,4 +20,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 @Inherited
-public @interface Unwrap {}
+public @interface Unwrap {
+}

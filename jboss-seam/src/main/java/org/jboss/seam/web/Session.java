@@ -27,100 +27,82 @@ import org.jboss.seam.core.AbstractMutable;
 @Name("org.jboss.seam.web.session")
 @BypassInterceptors
 @Startup
-public class Session extends AbstractMutable
-{
-   private static final long serialVersionUID = 1L;
-private boolean isInvalid;
-   private boolean invalidateOnSchemeChange;
-   private String currentScheme;
+public class Session extends AbstractMutable {
+	private static final long serialVersionUID = 1L;
+	private boolean isInvalid;
+	private boolean invalidateOnSchemeChange;
+	private String currentScheme;
 
-   /**
-    * Is HttpSession invalidation scheduled
-    * for the end of this request?
-    */
-   public boolean isInvalid()
-   {
-      return isInvalid;
-   }
+	/**
+	* Is HttpSession invalidation scheduled
+	* for the end of this request?
+	*/
+	public boolean isInvalid() {
+		return isInvalid;
+	}
 
-   /**
-    * Schedule HttpSession invalidation at the
-    * end of the request.
-    *
-    */
-   public void invalidate()
-   {
-      this.isInvalid = true;
-      setDirty();
-   }
-   
-   /**
-    * Should we invalidate the session due to a change in
-    * the request scheme?
-    * 
-    * @param requestScheme the scheme of the current request
-    * @return true if we should invalidate the session
-    */
-   public boolean isInvalidDueToNewScheme(String requestScheme)
-   {
-      if (invalidateOnSchemeChange)
-      {
-         if ( currentScheme==null )
-         {
-            currentScheme = requestScheme;
-            setDirty();
-            return false;
-         }
-         else if ( !currentScheme.equals(requestScheme) )
-         {
-            currentScheme = requestScheme;
-            setDirty();
-            return true;
-         }
-         else
-         {
-            return false;
-         }
-      }
-      else
-      {
-         return false;
-      }
-   }
+	/**
+	* Schedule HttpSession invalidation at the
+	* end of the request.
+	*
+	*/
+	public void invalidate() {
+		this.isInvalid = true;
+		setDirty();
+	}
 
-   /**
-    * Is session invalidation on scheme change enabled?
-    */
-   public boolean isInvalidateOnSchemeChange()
-   {
-      return invalidateOnSchemeChange;
-   }
+	/**
+	* Should we invalidate the session due to a change in
+	* the request scheme?
+	* 
+	* @param requestScheme the scheme of the current request
+	* @return true if we should invalidate the session
+	*/
+	public boolean isInvalidDueToNewScheme(String requestScheme) {
+		if (invalidateOnSchemeChange) {
+			if (currentScheme == null) {
+				currentScheme = requestScheme;
+				setDirty();
+				return false;
+			} else if (!currentScheme.equals(requestScheme)) {
+				currentScheme = requestScheme;
+				setDirty();
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 
-   /**
-    * Enable or disable session invalidation on scheme change?
-    */
-   public void setInvalidateOnSchemeChange(boolean invalidateOnSchemeChange)
-   {
-      setDirty();
-      this.invalidateOnSchemeChange = invalidateOnSchemeChange;
-   }
-   
-   public static Session instance()
-   {
-      if ( !Contexts.isSessionContextActive() )
-      {
-         throw new IllegalStateException("No active session context");
-      }
-      return (Session) Component.getInstance(Session.class, ScopeType.SESSION);
-   }
+	/**
+	* Is session invalidation on scheme change enabled?
+	*/
+	public boolean isInvalidateOnSchemeChange() {
+		return invalidateOnSchemeChange;
+	}
 
-   public static Session getInstance()
-   {
-      if ( !Contexts.isSessionContextActive() )
-      {
-         throw new IllegalStateException("No active session context");
-      }
-      return (Session) Component.getInstance(Session.class, ScopeType.SESSION, false);
-   }
+	/**
+	* Enable or disable session invalidation on scheme change?
+	*/
+	public void setInvalidateOnSchemeChange(boolean invalidateOnSchemeChange) {
+		setDirty();
+		this.invalidateOnSchemeChange = invalidateOnSchemeChange;
+	}
+
+	public static Session instance() {
+		if (!Contexts.isSessionContextActive()) {
+			throw new IllegalStateException("No active session context");
+		}
+		return (Session) Component.getInstance(Session.class, ScopeType.SESSION);
+	}
+
+	public static Session getInstance() {
+		if (!Contexts.isSessionContextActive()) {
+			throw new IllegalStateException("No active session context");
+		}
+		return (Session) Component.getInstance(Session.class, ScopeType.SESSION, false);
+	}
 
 }

@@ -29,54 +29,41 @@ import org.jboss.seam.annotations.faces.Converter;
 @Converter
 @FacesConverter("org.jboss.seam.ui.EntityConverter")
 @BypassInterceptors
-public class EntityConverter implements
-         javax.faces.convert.Converter, Serializable
-{
-   
-   private static final long serialVersionUID = 1L;
-private AbstractEntityLoader entityLoader;
+public class EntityConverter implements javax.faces.convert.Converter, Serializable {
 
-   public AbstractEntityLoader getEntityLoader()
-   {
-      if (entityLoader == null)
-      {
-         return AbstractEntityLoader.instance();
-      }
-      else
-      {
-         return entityLoader;
-      }
-   }
-   
-   public void setEntityLoader(AbstractEntityLoader entityLoader)
-   {
-      this.entityLoader = entityLoader;
-   }
-   
-   @SuppressWarnings("unchecked")
-   @Transactional
-   public String getAsString(FacesContext facesContext, UIComponent cmp, Object value) throws ConverterException
-   {
-      if (value == null)
-      {
-         return null;
-      }
-      if (value instanceof String) 
-      {
-         return (String) value;
-      }
-      return getEntityLoader().put(value);
-   }
-   
+	private static final long serialVersionUID = 1L;
+	private AbstractEntityLoader entityLoader;
 
-   @Transactional
-   public Object getAsObject(FacesContext facesContext, UIComponent cmp, String value) throws ConverterException
-   {
-      if (value == null || value.length() == 0)
-      {
-         return null;
-      }
-      return getEntityLoader().get(value);
-   }
-   
+	public AbstractEntityLoader getEntityLoader() {
+		if (entityLoader == null) {
+			return AbstractEntityLoader.instance();
+		} else {
+			return entityLoader;
+		}
+	}
+
+	public void setEntityLoader(AbstractEntityLoader entityLoader) {
+		this.entityLoader = entityLoader;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public String getAsString(FacesContext facesContext, UIComponent cmp, Object value) throws ConverterException {
+		if (value == null) {
+			return null;
+		}
+		if (value instanceof String) {
+			return (String) value;
+		}
+		return getEntityLoader().put(value);
+	}
+
+	@Transactional
+	public Object getAsObject(FacesContext facesContext, UIComponent cmp, String value) throws ConverterException {
+		if (value == null || value.length() == 0) {
+			return null;
+		}
+		return getEntityLoader().get(value);
+	}
+
 }

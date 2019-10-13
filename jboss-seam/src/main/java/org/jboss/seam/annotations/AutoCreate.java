@@ -9,15 +9,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Specifies that the annotated component should be automatically
- * instantiated whenever it is asked for, even if @In does
- * not specify create=true. If this annotation appears at the
- * package level, it applies to all components in the package.
+ * Specifies that the annotated component should be automatically instantiated
+ * whenever it is asked for, even if @In does not specify create=true. If this
+ * annotation appears at the package level, it applies to all components in the
+ * package.
  * 
  * @author Gavin King
  *
  */
-@Target({TYPE, PACKAGE})
+@Target({ TYPE, PACKAGE })
 @Retention(RUNTIME)
 @Documented
-public @interface AutoCreate {}
+public @interface AutoCreate {
+}

@@ -8,12 +8,16 @@ import javax.transaction.Synchronization;
  * @author Gavin King
  *
  */
-public interface Synchronizations
-{
-   public void afterTransactionBegin();
-   public void afterTransactionCommit(boolean success);
-   public void afterTransactionRollback();
-   public void beforeTransactionCommit();
-   public void registerSynchronization(Synchronization sync);
-   public boolean isAwareOfContainerTransactions();
+public interface Synchronizations {
+	public void afterTransactionBegin();
+
+	public void afterTransactionCommit(boolean success);
+
+	public void afterTransactionRollback();
+
+	public void beforeTransactionCommit();
+
+	public void registerSynchronization(Synchronization sync);
+
+	public boolean isAwareOfContainerTransactions();
 }

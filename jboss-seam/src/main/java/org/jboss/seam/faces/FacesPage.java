@@ -26,115 +26,92 @@ import org.jboss.seam.web.Session;
  */
 @Name("org.jboss.seam.faces.facesPage")
 @BypassInterceptors
-@Install(precedence=BUILT_IN, classDependencies="javax.faces.context.FacesContext")
+@Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 @Scope(ScopeType.PAGE)
-public class FacesPage implements Serializable
-{
-   private static final long serialVersionUID = 4807114041808347239L;
-   private String pageflowName;
-   private Integer pageflowCounter;
-   private String pageflowNodeName;
-   
-   private String conversationId;
-   private boolean conversationIsLongRunning;
-   
-   //private Map<String, Object> pageParameters;
-   
-   public String getConversationId()
-   {
-      return conversationId;
-   }
-   
-   public void discardTemporaryConversation()
-   {
-      conversationId = null;
-      conversationIsLongRunning = false;
-   }
-   
-   public void discardNestedConversation(String outerConversationId)
-   {
-      conversationId = outerConversationId;
-      conversationIsLongRunning = true;
-   }
-   
-   public void storeConversation(String conversationId)
-   {
-      this.conversationId = conversationId;
-      conversationIsLongRunning = true;
-   }
-   
-   public void storePageflow()
-   {
-      if ( Init.instance().isJbpmInstalled() )
-      {
-         Pageflow pageflow = Pageflow.instance();
-         if ( pageflow.isInProcess() /*&& !pageflow.getProcessInstance().hasEnded()*/ && Manager.instance().isLongRunningConversation() )
-         {
-            pageflowName = pageflow.getSubProcessInstance().getProcessDefinition().getName();
-            pageflowNodeName = pageflow.getNode().getName();
-            pageflowCounter = pageflow.getPageflowCounter();
-         }
-         else
-         {
-            pageflowName = null;
-            pageflowNodeName = null;
-            pageflowCounter = null;
-         }
-      }
-   }
+public class FacesPage implements Serializable {
+	private static final long serialVersionUID = 4807114041808347239L;
+	private String pageflowName;
+	private Integer pageflowCounter;
+	private String pageflowNodeName;
 
-   public static FacesPage instance()
-   {
-      if ( !Contexts.isPageContextActive() )
-      {
-         throw new IllegalStateException("No page context active");
-      }
-      return (FacesPage) Component.getInstance(FacesPage.class, ScopeType.PAGE);
-   }
+	private String conversationId;
+	private boolean conversationIsLongRunning;
 
-   public boolean isConversationLongRunning()
-   {
-      return conversationIsLongRunning;
-   }
+	//private Map<String, Object> pageParameters;
 
-   public Integer getPageflowCounter()
-   {
-      return pageflowCounter;
-   }
+	public String getConversationId() {
+		return conversationId;
+	}
 
-   public String getPageflowName()
-   {
-      return pageflowName;
-   }
+	public void discardTemporaryConversation() {
+		conversationId = null;
+		conversationIsLongRunning = false;
+	}
 
-   public String getPageflowNodeName()
-   {
-      return pageflowNodeName;
-   }
+	public void discardNestedConversation(String outerConversationId) {
+		conversationId = outerConversationId;
+		conversationIsLongRunning = true;
+	}
 
-   public void storeConversation()
-   {
-      Manager manager = Manager.instance();
-      
-      //we only need to execute this code when we are in the 
-      //RENDER_RESPONSE phase, ie. not before redirects
-   
-      Session session = Session.getInstance();
-      boolean sessionInvalid = session!=null && session.isInvalid();
-      if ( !sessionInvalid && manager.isLongRunningConversation() )
-      {
-         storeConversation( manager.getCurrentConversationId() );
-      }
-      else if ( !sessionInvalid && manager.isNestedConversation() )
-      {
-         discardNestedConversation( manager.getParentConversationId() );
-      }
-      else
-      {
-         discardTemporaryConversation();
-      }
+	public void storeConversation(String conversationId) {
+		this.conversationId = conversationId;
+		conversationIsLongRunning = true;
+	}
 
-   }
+	public void storePageflow() {
+		if (Init.instance().isJbpmInstalled()) {
+			Pageflow pageflow = Pageflow.instance();
+			if (pageflow.isInProcess() /*&& !pageflow.getProcessInstance().hasEnded()*/ && Manager.instance().isLongRunningConversation()) {
+				pageflowName = pageflow.getSubProcessInstance().getProcessDefinition().getName();
+				pageflowNodeName = pageflow.getNode().getName();
+				pageflowCounter = pageflow.getPageflowCounter();
+			} else {
+				pageflowName = null;
+				pageflowNodeName = null;
+				pageflowCounter = null;
+			}
+		}
+	}
 
+	public static FacesPage instance() {
+		if (!Contexts.isPageContextActive()) {
+			throw new IllegalStateException("No page context active");
+		}
+		return (FacesPage) Component.getInstance(FacesPage.class, ScopeType.PAGE);
+	}
+
+	public boolean isConversationLongRunning() {
+		return conversationIsLongRunning;
+	}
+
+	public Integer getPageflowCounter() {
+		return pageflowCounter;
+	}
+
+	public String getPageflowName() {
+		return pageflowName;
+	}
+
+	public String getPageflowNodeName() {
+		return pageflowNodeName;
+	}
+
+	public void storeConversation() {
+		Manager manager = Manager.instance();
+
+		//we only need to execute this code when we are in the 
+		//RENDER_RESPONSE phase, ie. not before redirects
+
+		Session session = Session.getInstance();
+		boolean sessionInvalid = session != null && session.isInvalid();
+		if (!sessionInvalid && manager.isLongRunningConversation()) {
+			storeConversation(manager.getCurrentConversationId());
+		} else if (!sessionInvalid && manager.isNestedConversation()) {
+			discardNestedConversation(manager.getParentConversationId());
+		} else {
+			discardTemporaryConversation();
+		}
+
+	}
 
 }

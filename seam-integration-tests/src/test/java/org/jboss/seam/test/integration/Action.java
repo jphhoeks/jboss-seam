@@ -4,8 +4,8 @@ import org.jboss.seam.annotations.Name;
 
 @Name("action")
 public class Action {
-      
-   public String go() {
-      return "success";
-   }
+
+	public String go() {
+		return "success";
+	}
 }

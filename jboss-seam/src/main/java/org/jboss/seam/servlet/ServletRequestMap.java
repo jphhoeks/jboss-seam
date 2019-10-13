@@ -20,84 +20,69 @@ import javax.servlet.ServletRequest;
  * 
  * @author Gavin King
  */
-public class ServletRequestMap implements Map<String, Object>
-{
-   
-   private ServletRequest request;
+public class ServletRequestMap implements Map<String, Object> {
 
-   public ServletRequestMap(ServletRequest request)
-   {
-      this.request = request;
-   }
+	private ServletRequest request;
 
-   public void clear()
-   {
-      throw new UnsupportedOperationException(); 
-   }
+	public ServletRequestMap(ServletRequest request) {
+		this.request = request;
+	}
 
-   public boolean containsKey(Object key)
-   {
-      return request.getAttribute( (String) key )!=null;
-   }
+	public void clear() {
+		throw new UnsupportedOperationException();
+	}
 
-   public boolean containsValue(Object value)
-   {
-      throw new UnsupportedOperationException();
-   }
+	public boolean containsKey(Object key) {
+		return request.getAttribute((String) key) != null;
+	}
 
-   public Set<java.util.Map.Entry<String, Object>> entrySet()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public boolean containsValue(Object value) {
+		throw new UnsupportedOperationException();
+	}
 
-   public Object get(Object key)
-   {
-      return request.getAttribute( (String) key );
-   }
+	public Set<java.util.Map.Entry<String, Object>> entrySet() {
+		throw new UnsupportedOperationException();
+	}
 
-   public boolean isEmpty()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public Object get(Object key) {
+		return request.getAttribute((String) key);
+	}
 
-   public Set<String> keySet()
-   {
-      Set<String> keys = new HashSet<String>();
-      Enumeration<String> names = request.getAttributeNames();
-      while ( names.hasMoreElements() )
-      {
-         keys.add( names.nextElement() );
-      }
-      return keys;
-   }
+	public boolean isEmpty() {
+		throw new UnsupportedOperationException();
+	}
 
-   public Object put(String key, Object value)
-   {
-      Object result = request.getAttribute(key);
-      request.setAttribute(key, value);
-      return result;
-   }
+	public Set<String> keySet() {
+		Set<String> keys = new HashSet<String>();
+		Enumeration<String> names = request.getAttributeNames();
+		while (names.hasMoreElements()) {
+			keys.add(names.nextElement());
+		}
+		return keys;
+	}
 
-   public void putAll(Map<? extends String, ? extends Object> t)
-   {
-      throw new UnsupportedOperationException();
-   }
+	public Object put(String key, Object value) {
+		Object result = request.getAttribute(key);
+		request.setAttribute(key, value);
+		return result;
+	}
 
-   public Object remove(Object key)
-   {
-      Object result = request.getAttribute( (String) key );
-      request.removeAttribute( (String) key );
-      return result;
-   }
+	public void putAll(Map<? extends String, ? extends Object> t) {
+		throw new UnsupportedOperationException();
+	}
 
-   public int size()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public Object remove(Object key) {
+		Object result = request.getAttribute((String) key);
+		request.removeAttribute((String) key);
+		return result;
+	}
 
-   public Collection<Object> values()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public int size() {
+		throw new UnsupportedOperationException();
+	}
+
+	public Collection<Object> values() {
+		throw new UnsupportedOperationException();
+	}
 
 }

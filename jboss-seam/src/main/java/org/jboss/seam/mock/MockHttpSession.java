@@ -32,7 +32,7 @@ public class MockHttpSession implements HttpSession {
 	private String id;
 
 	public MockHttpSession() {
-		this(new MockServletContext());		
+		this(new MockServletContext());
 	}
 
 	public MockHttpSession(ServletContext servletContext) {
@@ -41,27 +41,31 @@ public class MockHttpSession implements HttpSession {
 		this.id = UUID.randomUUID().toString();
 	}
 
-
 	@Override
 	public long getCreationTime() {
 		return this.creationTime;
 	}
+
 	@Override
 	public String getId() {
 		return this.id;
 	}
+
 	@Override
 	public long getLastAccessedTime() {
 		return this.creationTime;
 	}
+
 	@Override
 	public void setMaxInactiveInterval(int max) {
 		maxInactiveInterval = max;
 	}
+
 	@Override
 	public int getMaxInactiveInterval() {
 		return maxInactiveInterval;
 	}
+
 	@Override
 	public Object getAttribute(String att) {
 		return attributes.get(att);
@@ -85,16 +89,18 @@ public class MockHttpSession implements HttpSession {
 	public void removeAttribute(String att) {
 		attributes.remove(att);
 	}
-	
+
 	@Override
 	public void invalidate() {
 		attributes.clear();
 		isInvalid = true;
 	}
+
 	@Override
 	public boolean isNew() {
 		return false;
 	}
+
 	@Override
 	public ServletContext getServletContext() {
 		return servletContext;
@@ -103,32 +109,35 @@ public class MockHttpSession implements HttpSession {
 	public Map<String, Object> getAttributes() {
 		return attributes;
 	}
+
 	public boolean isInvalid() {
 		return this.isInvalid;
 	}
 
-	
-	
 	@Override
 	@Deprecated
 	public void putValue(String att, Object value) {
 		setAttribute(att, value);
 	}
+
 	@Override
 	@Deprecated
 	public void removeValue(String att) {
 		removeAttribute(att);
 	}
+
 	@Override
 	@Deprecated
 	public Object getValue(String att) {
 		return getAttribute(att);
 	}
+
 	@Override
 	@Deprecated
 	public String[] getValueNames() {
 		return attributes.keySet().toArray(new String[0]);
 	}
+
 	@Override
 	@Deprecated
 	public javax.servlet.http.HttpSessionContext getSessionContext() {

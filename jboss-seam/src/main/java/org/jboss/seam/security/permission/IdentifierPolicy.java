@@ -26,76 +26,60 @@ import org.jboss.seam.annotations.security.permission.Identifier;
 @Scope(APPLICATION)
 @BypassInterceptors
 @Install(precedence = Install.BUILT_IN)
-public class IdentifierPolicy implements Serializable
-{
+public class IdentifierPolicy implements Serializable {
 
-   private static final long serialVersionUID = 684295244567560969L;
+	private static final long serialVersionUID = 684295244567560969L;
 
-   private Map<Class <?>,IdentifierStrategy> strategies = new ConcurrentHashMap<Class<?>,IdentifierStrategy>();
-   
-   private Set<IdentifierStrategy> registeredStrategies = new HashSet<IdentifierStrategy>();
-   
-   @Create
-   public void create()
-   {
-      if (registeredStrategies.isEmpty())
-      {
-         registeredStrategies.add(new EntityIdentifierStrategy());
-         registeredStrategies.add(new ClassIdentifierStrategy());
-      }
-   }
-   
-   public String getIdentifier(Object target)
-   {
-      if (target instanceof String)
-      {
-         return (String) target;
-      }
-      
-      IdentifierStrategy strategy = strategies.get(target.getClass());
-      
-      if (strategy == null)
-      {
-         if (target.getClass().isAnnotationPresent(Identifier.class))
-         {
-            Class<? extends IdentifierStrategy> strategyClass = 
-               target.getClass().getAnnotation(Identifier.class).value();
-            
-            if (strategyClass != IdentifierStrategy.class)
-            {
-               try
-               {
-                  strategy = strategyClass.getDeclaredConstructor().newInstance();
-                  strategies.put(target.getClass(), strategy);
-               }
-               catch (Exception ex)
-               {
-                  throw new RuntimeException("Error instantiating IdentifierStrategy for object " + target, ex);
-               }
-            }
-         }
+	private Map<Class<?>, IdentifierStrategy> strategies = new ConcurrentHashMap<Class<?>, IdentifierStrategy>();
 
-         for (IdentifierStrategy s : registeredStrategies)
-         {
-            if (s.canIdentify(target.getClass()))
-            {
-               strategy = s;
-               strategies.put(target.getClass(), strategy);
-               break;
-            }
-         }
-      }
-      
-      return strategy != null ? strategy.getIdentifier(target) : null;
-   }
-   
-   public Set<IdentifierStrategy> getRegisteredStrategies()
-   {
-      return registeredStrategies;
-   }
-   
-   public void setRegisteredStrategies(Set<IdentifierStrategy> registeredStrategies)
-   {
-      this.registeredStrategies = registeredStrategies;
-   }
+	private Set<IdentifierStrategy> registeredStrategies = new HashSet<IdentifierStrategy>();
+
+	@Create
+	public void create() {
+		if (registeredStrategies.isEmpty()) {
+			registeredStrategies.add(new EntityIdentifierStrategy());
+			registeredStrategies.add(new ClassIdentifierStrategy());
+		}
+	}
+
+	public String getIdentifier(Object target) {
+		if (target instanceof String) {
+			return (String) target;
+		}
+
+		IdentifierStrategy strategy = strategies.get(target.getClass());
+
+		if (strategy == null) {
+			if (target.getClass().isAnnotationPresent(Identifier.class)) {
+				Class<? extends IdentifierStrategy> strategyClass = target.getClass().getAnnotation(Identifier.class).value();
+
+				if (strategyClass != IdentifierStrategy.class) {
+					try {
+						strategy = strategyClass.getDeclaredConstructor().newInstance();
+						strategies.put(target.getClass(), strategy);
+					} catch (Exception ex) {
+						throw new RuntimeException("Error instantiating IdentifierStrategy for object " + target, ex);
+					}
+				}
+			}
+
+			for (IdentifierStrategy s : registeredStrategies) {
+				if (s.canIdentify(target.getClass())) {
+					strategy = s;
+					strategies.put(target.getClass(), strategy);
+					break;
+				}
+			}
+		}
+
+		return strategy != null ? strategy.getIdentifier(target) : null;
+	}
+
+	public Set<IdentifierStrategy> getRegisteredStrategies() {
+		return registeredStrategies;
+	}
+
+	public void setRegisteredStrategies(Set<IdentifierStrategy> registeredStrategies) {
+		this.registeredStrategies = registeredStrategies;
+	}
 }

@@ -13,11 +13,10 @@ import java.lang.annotation.Target;
  *
  * @author Shane Bryzak
  */
-@Target({TYPE})
+@Target({ TYPE })
 @Documented
 @Retention(RUNTIME)
 @Inherited
-public @interface Permissions
-{
-   Permission[] value() default {};
+public @interface Permissions {
+	Permission[] value() default {};
 }

@@ -20,126 +20,106 @@ import org.jboss.seam.core.Init;
 import org.jboss.seam.init.Initialization;
 import org.jboss.seam.wicket.SeamWebApplication;
 
-
 /**
  * A subclass of WicketTester that enforces the use of a SeamWebApplication.  This ensures that
  * ensures that seam contexts are are set up and torn down correctly in testing.   Each SeamWebApplication
  * gets a complete application context, so seam application teardown/restart happens if you create
  * a new SeamWicketTester without propogating any existing SeamWebApplication through the constructor.
  */
-public class SeamWicketTester extends WicketTester
-{
+public class SeamWicketTester extends WicketTester {
 
-   public SeamWicketTester()
-   {
-      this(DummyHomePage.class);
-   }
-   
-   public SeamWicketTester(Class homePage) 
-   {
-      this(homePage,null);
-   }
-   
-   public SeamWicketTester(Class homePage, Class loginPage) 
-   {
-      this(createApplication(homePage, loginPage));
-   }   
-   public SeamWicketTester(final SeamWebApplication application)
-   {
-      this(application,null);
-   }
-   
-   public SeamWicketTester(final SeamWebApplication application, final String path)
-   {
-      super(application,path);
-      
-      /*
-       * When in tests, we want the contexts destroyed lazily, i.e. 
-       * don't destroy the contexts after a request, but rather before the 
-       * next request, so that we can inspect the values of wicket components and
-       * their models 
-       */
-      Lifecycle.beginCall();
-      ((SeamWebApplication)getApplication()).setDestroyContextsLazily(true);
-      Lifecycle.endCall();
-   }
+	public SeamWicketTester() {
+		this(DummyHomePage.class);
+	}
 
-   /**
-    * Create a SeamWebApplication suitable for testing, a la WicketTester's DummyApplication
-    * @param homePage The WebPage class to start on
-    * @param loginPage The WebPage class to use for any Seam Authentication redirects
-    */
-   private static SeamWebApplication createApplication(final Class homePage, final Class loginPage)
-   {
-      return new SeamWebApplication()
-      {
-         @Override
-         public Class getHomePage()
-         {
-            return homePage;
-         }
-         
-         @Override
-         protected Class getLoginPage()
-         {
-            return loginPage;
-         }
+	public SeamWicketTester(Class homePage) {
+		this(homePage, null);
+	}
 
-         @Override
-         protected ISessionStore newSessionStore()
-         {
-            // Don't use a filestore, or we spawn lots of threads, which
-            // makes things slow.
-            return new HttpSessionStore(this);
-         }
+	public SeamWicketTester(Class homePage, Class loginPage) {
+		this(createApplication(homePage, loginPage));
+	}
 
-         @Override
-         protected WebResponse newWebResponse(final HttpServletResponse servletResponse)
-         {
-            // Don't use a buffered response in testing 
-            return new WebResponse(servletResponse);
-         }
+	public SeamWicketTester(final SeamWebApplication application) {
+		this(application, null);
+	}
 
-         @Override
-         protected void outputDevelopmentModeWarning()
-         {
-            // Do nothing.
-         }
-      };
-   }
-   
-   /**
-    * For each new servletContext, i.e. each new SeamWebApplication instance, we create a new seam
-    * initialization.
-    */
-   @Override
-   public ServletContext newServletContext(String path) 
-   { 
-      if (ServletLifecycle.getServletContext() != null)
-      {
-         ServletLifecycle.endApplication();
-      }
-      if (path == null) 
-      {
-         URL webxml = getClass().getResource("/WEB-INF/web.xml");
-         if (webxml != null)
-         {
-            try
-            {
-               path = new File(webxml.toURI()).getParentFile().getParentFile().getAbsolutePath();
-            }
-            catch (URISyntaxException e)
-            {
-               throw new RuntimeException(e);
-            }
-         }
-      }
-      ServletContext context = super.newServletContext(path);
-      ServletLifecycle.beginApplication(context);
-      new Initialization(context).create().init();
-      ((Init) context.getAttribute(Seam.getComponentName(Init.class))).setDebug(false);
-      return context;
-   }
+	public SeamWicketTester(final SeamWebApplication application, final String path) {
+		super(application, path);
+
+		/*
+		 * When in tests, we want the contexts destroyed lazily, i.e. 
+		 * don't destroy the contexts after a request, but rather before the 
+		 * next request, so that we can inspect the values of wicket components and
+		 * their models 
+		 */
+		Lifecycle.beginCall();
+		((SeamWebApplication) getApplication()).setDestroyContextsLazily(true);
+		Lifecycle.endCall();
+	}
+
+	/**
+	* Create a SeamWebApplication suitable for testing, a la WicketTester's DummyApplication
+	* @param homePage The WebPage class to start on
+	* @param loginPage The WebPage class to use for any Seam Authentication redirects
+	*/
+	private static SeamWebApplication createApplication(final Class homePage, final Class loginPage) {
+		return new SeamWebApplication() {
+			@Override
+			public Class getHomePage() {
+				return homePage;
+			}
+
+			@Override
+			protected Class getLoginPage() {
+				return loginPage;
+			}
+
+			@Override
+			protected ISessionStore newSessionStore() {
+				// Don't use a filestore, or we spawn lots of threads, which
+				// makes things slow.
+				return new HttpSessionStore(this);
+			}
+
+			@Override
+			protected WebResponse newWebResponse(final HttpServletResponse servletResponse) {
+				// Don't use a buffered response in testing 
+				return new WebResponse(servletResponse);
+			}
+
+			@Override
+			protected void outputDevelopmentModeWarning() {
+				// Do nothing.
+			}
+		};
+	}
+
+	/**
+	* For each new servletContext, i.e. each new SeamWebApplication instance, we create a new seam
+	* initialization.
+	*/
+	@Override
+	public ServletContext newServletContext(String path) {
+		if (ServletLifecycle.getServletContext() != null) {
+			ServletLifecycle.endApplication();
+		}
+		if (path == null) {
+			URL webxml = getClass().getResource("/WEB-INF/web.xml");
+			if (webxml != null) {
+				try {
+					path = new File(webxml.toURI()).getParentFile().getParentFile().getAbsolutePath();
+				} catch (URISyntaxException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+		ServletContext context = super.newServletContext(path);
+		ServletLifecycle.beginApplication(context);
+		new Initialization(context).create().init();
+		((Init) context.getAttribute(Seam.getComponentName(Init.class))).setDebug(false);
+		return context;
+	}
 
 	@Override
 	public WebRequestCycle setupRequestAndResponse(boolean isAjax) {

@@ -17,41 +17,38 @@ import org.jboss.seam.security.management.IdentityManager;
 @Name("org.jboss.seam.security.management.roleSearch")
 @Scope(SESSION)
 @Install(precedence = BUILT_IN)
-public class RoleSearch implements Serializable
-{
-   private static final long serialVersionUID = 1L;
+public class RoleSearch implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-@DataModel
-   List<String> roles;
-   
-   @DataModelSelection
-   String selectedRole;
-   
-   @In IdentityManager identityManager;
-   
-   public void loadRoles()
-   {
-      roles = identityManager.listRoles();     
-   }
-   
-   public String getRoleGroups(String role)
-   {
-      List<String> roles = identityManager.getRoleGroups(role);
-      
-      if (roles == null) return "";
-      
-      StringBuilder sb = new StringBuilder();
-      
-      for (String r : roles)
-      {
-         sb.append((sb.length() > 0 ? ", " : "") + r); 
-      }
-      
-      return sb.toString();      
-   }
-   
-   public String getSelectedRole()
-   {
-      return selectedRole;
-   }
+	@DataModel
+	List<String> roles;
+
+	@DataModelSelection
+	String selectedRole;
+
+	@In
+	IdentityManager identityManager;
+
+	public void loadRoles() {
+		roles = identityManager.listRoles();
+	}
+
+	public String getRoleGroups(String role) {
+		List<String> roles = identityManager.getRoleGroups(role);
+
+		if (roles == null)
+			return "";
+
+		StringBuilder sb = new StringBuilder();
+
+		for (String r : roles) {
+			sb.append((sb.length() > 0 ? ", " : "") + r);
+		}
+
+		return sb.toString();
+	}
+
+	public String getSelectedRole() {
+		return selectedRole;
+	}
 }

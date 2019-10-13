@@ -37,149 +37,116 @@ import org.jboss.seam.web.AbstractFilter;
  * @author Pete Muir
  *
  */
-public class SeamFilter implements Filter
-{
-   private static final LogProvider log = Logging.getLogProvider(SeamFilter.class);   
-   
-   private List<Filter> filters;
-   
-   private class FilterChainImpl implements FilterChain
-   {  
-      private FilterChain chain;
-      private int index;
-           
-      private FilterChainImpl(FilterChain chain)
-      {
-         this.chain = chain;
-         index = -1;
-      }
-      
-      public void doFilter(ServletRequest request, ServletResponse response)
-          throws IOException, ServletException
-      {
-         if ( ++index < filters.size() )
-         {
-            Filter filter = filters.get(index);
-            
-            if (filter instanceof AbstractFilter)
-            {
-               AbstractFilter bf = (AbstractFilter) filter;
-               if ( bf.isMappedToCurrentRequestPath(request) )
-               {
-                  filter.doFilter(request, response, this);
-               }
-               else
-               {
-                  this.doFilter(request, response);
-               }
-            }            
-            else
-            {
-               filter.doFilter(request, response, this);
-            }
-         }
-         else
-         {
-            chain.doFilter(request, response);
-         }
-      }
-   }
+public class SeamFilter implements Filter {
+	private static final LogProvider log = Logging.getLogProvider(SeamFilter.class);
 
-   public void init(FilterConfig filterConfig) throws ServletException 
-   {
-      Lifecycle.setupApplication(new ServletApplicationMap(filterConfig.getServletContext()));
-      try
-      {
-         filters = getSortedFilters();
-         for ( Filter filter : filters )
-         {
-            log.info( "Initializing filter: " + Component.getComponentName(filter.getClass()));
-            filter.init(filterConfig);
-         }
-      }
-      finally
-      {
-         Lifecycle.cleanupApplication();
-      }
-   }
+	private List<Filter> filters;
 
-   private List<Filter> getSortedFilters()
-   {
-      //retrieve the Filter instances from the application context
-      Map<String, SortItem<Filter>> sortItemsMap = new HashMap<String, SortItem<Filter>>();
-      List<SortItem<Filter>> sortItems = new ArrayList<SortItem<Filter>>();
-      
-      for (String filterName : Init.instance().getInstalledFilters())
-      {
-         Filter filter = (Filter) Component.getInstance(filterName, ScopeType.APPLICATION);
-         boolean disabled = false;
-         if (filter instanceof AbstractFilter)
-         {
-             disabled = ((AbstractFilter) filter).isDisabled();
-         }
-         if (!disabled)
-         {
-             SortItem<Filter> si = new SortItem<Filter>(filter);         
-             sortItemsMap.put(filterName, si);
-             sortItems.add(si);
-         }
-      }
+	private class FilterChainImpl implements FilterChain {
+		private FilterChain chain;
+		private int index;
 
-      //create sort items
-      for (SortItem<Filter> sortItem : sortItems)
-      {
-         org.jboss.seam.annotations.web.Filter filterAnn = getFilterAnnotation(sortItem.getObj().getClass());
-         if ( filterAnn != null )
-         {
-            for (String s : Arrays.asList( filterAnn.around() ) )
-            {
-               SortItem<Filter> aroundSortItem = sortItemsMap.get(s);
-               if (sortItem!=null && aroundSortItem != null) sortItem.getAround().add( aroundSortItem );
-            }
-            for (String s : Arrays.asList( filterAnn.within() ) )
-            {
-               SortItem<Filter> withinSortItem = sortItemsMap.get(s);
-               if (sortItem!=null && withinSortItem != null) sortItem.getWithin().add( withinSortItem );
-            }
-         }
-      }
+		private FilterChainImpl(FilterChain chain) {
+			this.chain = chain;
+			index = -1;
+		}
 
-      // Do the sort
-      Sorter<Filter> sList = new Sorter<Filter>();
-      sortItems = sList.sort(sortItems);
-      List<Filter> sorted = new ArrayList<Filter>();
-      for (SortItem<Filter> si: sortItems) sorted.add( si.getObj() );
-      return sorted;
-   }
-   
-   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-       throws IOException, ServletException
-   {
-      new FilterChainImpl(chain).doFilter(request, response);
-   }
-   
-   public void destroy() 
-   {
-      for (Filter filter: filters)
-      {
-         filter.destroy();
-      }
-   }
-   
-   private org.jboss.seam.annotations.web.Filter getFilterAnnotation(Class<?> clazz)
-   {
-      while (!Object.class.equals(clazz))
-      {
-         if (clazz.isAnnotationPresent(org.jboss.seam.annotations.web.Filter.class))
-         {
-            return clazz.getAnnotation(org.jboss.seam.annotations.web.Filter.class);
-         }
-         else
-         {
-            clazz = clazz.getSuperclass();
-         }
-      }
-      return null;
-   }
-   
+		public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
+			if (++index < filters.size()) {
+				Filter filter = filters.get(index);
+
+				if (filter instanceof AbstractFilter) {
+					AbstractFilter bf = (AbstractFilter) filter;
+					if (bf.isMappedToCurrentRequestPath(request)) {
+						filter.doFilter(request, response, this);
+					} else {
+						this.doFilter(request, response);
+					}
+				} else {
+					filter.doFilter(request, response, this);
+				}
+			} else {
+				chain.doFilter(request, response);
+			}
+		}
+	}
+
+	public void init(FilterConfig filterConfig) throws ServletException {
+		Lifecycle.setupApplication(new ServletApplicationMap(filterConfig.getServletContext()));
+		try {
+			filters = getSortedFilters();
+			for (Filter filter : filters) {
+				log.info("Initializing filter: " + Component.getComponentName(filter.getClass()));
+				filter.init(filterConfig);
+			}
+		} finally {
+			Lifecycle.cleanupApplication();
+		}
+	}
+
+	private List<Filter> getSortedFilters() {
+		//retrieve the Filter instances from the application context
+		Map<String, SortItem<Filter>> sortItemsMap = new HashMap<String, SortItem<Filter>>();
+		List<SortItem<Filter>> sortItems = new ArrayList<SortItem<Filter>>();
+
+		for (String filterName : Init.instance().getInstalledFilters()) {
+			Filter filter = (Filter) Component.getInstance(filterName, ScopeType.APPLICATION);
+			boolean disabled = false;
+			if (filter instanceof AbstractFilter) {
+				disabled = ((AbstractFilter) filter).isDisabled();
+			}
+			if (!disabled) {
+				SortItem<Filter> si = new SortItem<Filter>(filter);
+				sortItemsMap.put(filterName, si);
+				sortItems.add(si);
+			}
+		}
+
+		//create sort items
+		for (SortItem<Filter> sortItem : sortItems) {
+			org.jboss.seam.annotations.web.Filter filterAnn = getFilterAnnotation(sortItem.getObj().getClass());
+			if (filterAnn != null) {
+				for (String s : Arrays.asList(filterAnn.around())) {
+					SortItem<Filter> aroundSortItem = sortItemsMap.get(s);
+					if (sortItem != null && aroundSortItem != null)
+						sortItem.getAround().add(aroundSortItem);
+				}
+				for (String s : Arrays.asList(filterAnn.within())) {
+					SortItem<Filter> withinSortItem = sortItemsMap.get(s);
+					if (sortItem != null && withinSortItem != null)
+						sortItem.getWithin().add(withinSortItem);
+				}
+			}
+		}
+
+		// Do the sort
+		Sorter<Filter> sList = new Sorter<Filter>();
+		sortItems = sList.sort(sortItems);
+		List<Filter> sorted = new ArrayList<Filter>();
+		for (SortItem<Filter> si : sortItems)
+			sorted.add(si.getObj());
+		return sorted;
+	}
+
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		new FilterChainImpl(chain).doFilter(request, response);
+	}
+
+	public void destroy() {
+		for (Filter filter : filters) {
+			filter.destroy();
+		}
+	}
+
+	private org.jboss.seam.annotations.web.Filter getFilterAnnotation(Class<?> clazz) {
+		while (!Object.class.equals(clazz)) {
+			if (clazz.isAnnotationPresent(org.jboss.seam.annotations.web.Filter.class)) {
+				return clazz.getAnnotation(org.jboss.seam.annotations.web.Filter.class);
+			} else {
+				clazz = clazz.getSuperclass();
+			}
+		}
+		return null;
+	}
+
 }

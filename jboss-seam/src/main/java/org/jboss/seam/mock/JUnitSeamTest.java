@@ -18,42 +18,36 @@ import org.junit.Before;
  * @author <a href="http://community.jboss.org/people/jharting">Jozef Hartinger</a>
  * @author <a href="http://community.jboss.org/people/maschmid">Marek Schmidt</a>
  */
-public class JUnitSeamTest extends AbstractSeamTest
-{
-   private boolean seamStarted = false;
+public class JUnitSeamTest extends AbstractSeamTest {
+	private boolean seamStarted = false;
 
-   
-   @Before
-   @Override
-   public void begin()
-   {
-      try {
-         if (!seamStarted) {
-            startSeam();
-            setupClass();
-            seamStarted = true;
-         }
-      }
-      catch (Exception x) {
-         throw new RuntimeException(x);
-      }
-      super.begin();
-   }
+	@Before
+	@Override
+	public void begin() {
+		try {
+			if (!seamStarted) {
+				startSeam();
+				setupClass();
+				seamStarted = true;
+			}
+		} catch (Exception x) {
+			throw new RuntimeException(x);
+		}
+		super.begin();
+	}
 
-   @After
-   @Override
-   public void end()
-   {
-      super.end();
-   }
-   
-   /**
-    * Call this method within a test method to end the previous
-    * mock session and start another one. 
-    */
-   public void reset()
-   {
-      end();
-      begin();
-   }
+	@After
+	@Override
+	public void end() {
+		super.end();
+	}
+
+	/**
+	* Call this method within a test method to end the previous
+	* mock session and start another one. 
+	*/
+	public void reset() {
+		end();
+		begin();
+	}
 }

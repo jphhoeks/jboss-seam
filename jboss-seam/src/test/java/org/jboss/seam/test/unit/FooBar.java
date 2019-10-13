@@ -7,14 +7,13 @@ import org.jboss.seam.annotations.Scope;
 
 @Name("fooBar")
 @Scope(ScopeType.APPLICATION)
-public class FooBar
-{
-   @In Foo foo;
-   
-   public Foo delayedGetFoo(InvocationControl invocationControl)
-   {
-      invocationControl.init();
-      invocationControl.markStarted();
-      return foo;
-   }
+public class FooBar {
+	@In
+	Foo foo;
+
+	public Foo delayedGetFoo(InvocationControl invocationControl) {
+		invocationControl.init();
+		invocationControl.markStarted();
+		return foo;
+	}
 }

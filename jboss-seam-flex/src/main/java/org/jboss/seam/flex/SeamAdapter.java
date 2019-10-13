@@ -1,6 +1,5 @@
 package org.jboss.seam.flex;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,82 +22,75 @@ import flex.messaging.messages.Message;
  * The Seam adaptor should translate seam exceptions and do any other additional 
  * management needed  
  */
-public class SeamAdapter
-    extends JavaAdapter
-{
-   public static final String SEAM_ADAPTER_ID = "seam-adapter";
-   private static final String CONVERSATION_ID = "conversationId";
+public class SeamAdapter extends JavaAdapter {
+	public static final String SEAM_ADAPTER_ID = "seam-adapter";
+	private static final String CONVERSATION_ID = "conversationId";
 
-   private static final LogProvider log = Logging.getLogProvider(SeamAdapter.class);
+	private static final LogProvider log = Logging.getLogProvider(SeamAdapter.class);
 
-   @Override
-   public Object invoke(Message message) {
-      log.info("SeamAdapter: " + message);
+	@Override
+	public Object invoke(Message message) {
+		log.info("SeamAdapter: " + message);
 
-      try {         
-         startSeamContexts(message, FlexContext.getHttpRequest());       
-         
-         Object result = wrapResult(super.invoke(message));       
-         
-         endSeamContexts(FlexContext.getHttpRequest());
-         
-         return result;
-     } catch (RuntimeException e) {
-         // XXX end request properly....
-         e.printStackTrace();
-         throw e;
-      }
-   }
-   
-   
-   protected Object wrapResult(Object result)
-   {
-      AcknowledgeMessage response = new AcknowledgeMessage();
-      response.setHeader(CONVERSATION_ID, Manager.instance().getCurrentConversationId());
-      response.setBody(result);
-      
-      return response;
-   }
+		try {
+			startSeamContexts(message, FlexContext.getHttpRequest());
 
+			Object result = wrapResult(super.invoke(message));
 
-   protected void startSeamContexts(Message message, HttpServletRequest request)
-   {
-      ServletLifecycle.beginRequest(request);
-      ServletContexts.instance().setRequest(request);
-      
-      Map<String, String> conversationParameters = conversationMap(message);
-      ConversationPropagation.instance().restoreConversationId(conversationParameters);     
-      Manager.instance().restoreConversation();
-      ServletLifecycle.resumeConversation(request);
-      Manager.instance().handleConversationPropagation(conversationParameters);
-     
-      // Force creation of the session
-      if (request.getSession(false) == null) {
-         request.getSession(true);
-      }
-      
-   }
-   
-   protected void endSeamContexts(HttpServletRequest request)
-   {
-      Manager.instance().endRequest( new ServletRequestSessionMap(request)  );
-      ServletLifecycle.endRequest(request);
-   }
-   
-   protected Map<String, String> conversationMap(Message message) {
-      Map<String, String> result = new HashMap<String, String>();
-      
-      result.put(Manager.instance().getConversationIdParameter(), conversationId(message));
-      return result;
-   }    
+			endSeamContexts(FlexContext.getHttpRequest());
 
-   protected String conversationId(Message message) {
-      if (message == null) {
-         return null;
-      }
-      
-      Object header = message.getHeader(CONVERSATION_ID);
-      
-      return header == null ? null : header.toString();
-   }
+			return result;
+		} catch (RuntimeException e) {
+			// XXX end request properly....
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	protected Object wrapResult(Object result) {
+		AcknowledgeMessage response = new AcknowledgeMessage();
+		response.setHeader(CONVERSATION_ID, Manager.instance().getCurrentConversationId());
+		response.setBody(result);
+
+		return response;
+	}
+
+	protected void startSeamContexts(Message message, HttpServletRequest request) {
+		ServletLifecycle.beginRequest(request);
+		ServletContexts.instance().setRequest(request);
+
+		Map<String, String> conversationParameters = conversationMap(message);
+		ConversationPropagation.instance().restoreConversationId(conversationParameters);
+		Manager.instance().restoreConversation();
+		ServletLifecycle.resumeConversation(request);
+		Manager.instance().handleConversationPropagation(conversationParameters);
+
+		// Force creation of the session
+		if (request.getSession(false) == null) {
+			request.getSession(true);
+		}
+
+	}
+
+	protected void endSeamContexts(HttpServletRequest request) {
+		Manager.instance().endRequest(new ServletRequestSessionMap(request));
+		ServletLifecycle.endRequest(request);
+	}
+
+	protected Map<String, String> conversationMap(Message message) {
+		Map<String, String> result = new HashMap<String, String>();
+
+		result.put(Manager.instance().getConversationIdParameter(), conversationId(message));
+		return result;
+	}
+
+	protected String conversationId(Message message) {
+		if (message == null) {
+			return null;
+		}
+
+		Object header = message.getHeader(CONVERSATION_ID);
+
+		return header == null ? null : header.toString();
+	}
 }

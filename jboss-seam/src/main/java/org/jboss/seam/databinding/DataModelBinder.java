@@ -11,53 +11,39 @@ import org.jboss.seam.faces.DataModels;
  * 
  * @author Gavin King
  */
-public class DataModelBinder implements DataBinder<DataModel, Object, javax.faces.model.DataModel>
-{
+public class DataModelBinder implements DataBinder<DataModel, Object, javax.faces.model.DataModel> {
 
-   public String getVariableName(DataModel out)
-   {
-      return out.value();
-   }
+	public String getVariableName(DataModel out) {
+		return out.value();
+	}
 
-   public ScopeType getVariableScope(DataModel out)
-   {
-      return out.scope();
-   }
+	public ScopeType getVariableScope(DataModel out) {
+		return out.scope();
+	}
 
-   public javax.faces.model.DataModel wrap(DataModel out, Object value)
-   {
-      return DataModels.instance().getDataModel(value);
-   }
+	public javax.faces.model.DataModel wrap(DataModel out, Object value) {
+		return DataModels.instance().getDataModel(value);
+	}
 
-   public Object getWrappedData(DataModel out, javax.faces.model.DataModel wrapper)
-   {
-      return wrapper.getWrappedData();
-   }
+	public Object getWrappedData(DataModel out, javax.faces.model.DataModel wrapper) {
+		return wrapper.getWrappedData();
+	}
 
-   public Object getSelection(DataModel out, javax.faces.model.DataModel wrapper)
-   {
-      if ( wrapper.getRowCount()==0 || wrapper.getRowIndex()<0 || 
-           wrapper.getRowIndex()>=wrapper.getRowCount())
-      {
-         return null;
-      } 
-      else
-      {
-         Object rowData = wrapper.getRowData();
-         if (rowData instanceof Map.Entry)
-         {
-            return ( (Map.Entry) rowData ).getValue();
-         }
-         else
-         {
-            return rowData;
-         }
-      }
-   }
+	public Object getSelection(DataModel out, javax.faces.model.DataModel wrapper) {
+		if (wrapper.getRowCount() == 0 || wrapper.getRowIndex() < 0 || wrapper.getRowIndex() >= wrapper.getRowCount()) {
+			return null;
+		} else {
+			Object rowData = wrapper.getRowData();
+			if (rowData instanceof Map.Entry) {
+				return ((Map.Entry) rowData).getValue();
+			} else {
+				return rowData;
+			}
+		}
+	}
 
-   public boolean isDirty(DataModel out, javax.faces.model.DataModel wrapper, Object value)
-   {
-      return !getWrappedData(out, wrapper).equals(value);
-   }
-   
+	public boolean isDirty(DataModel out, javax.faces.model.DataModel wrapper, Object value) {
+		return !getWrappedData(out, wrapper).equals(value);
+	}
+
 }

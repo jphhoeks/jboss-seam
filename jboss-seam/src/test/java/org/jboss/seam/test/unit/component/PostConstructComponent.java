@@ -13,20 +13,20 @@ public class PostConstructComponent {
 
 	private int postConstructCalled = 0;
 	private int countNullElements = 0;
-	
+
 	@Logger
 	private Log log;
-	
-	@In(create=true)
+
+	@In(create = true)
 	private MyEntityHome myEntityHome;
-	
-	public PostConstructComponent () {
+
+	public PostConstructComponent() {
 		super();
 	}
-	
+
 	@javax.annotation.PostConstruct
-//	@org.jboss.seam.annotations.Create
-	public void postConstructFunction () {
+	//	@org.jboss.seam.annotations.Create
+	public void postConstructFunction() {
 		this.postConstructCalled++;
 		if (log == null) {
 			this.countNullElements++;
@@ -43,10 +43,5 @@ public class PostConstructComponent {
 	public int getCountNullElements() {
 		return countNullElements;
 	}
-	
-	
-	
-	
-	
-	 
+
 }

@@ -9,40 +9,35 @@ import java.util.Date;
  * @author Michael Yuan
  *
  */
-public class CronSchedule extends Schedule
-{
-   private static final long serialVersionUID = 1L;
-private String cron;
-   
-   String getCron()
-   {
-      return cron;
-   }
-   
-   /**
-    * @param duration the delay before the first event occurs
-    * @param cron the unix cron string to control how the events are repeated
-    */
-   public CronSchedule(Long duration, String cron)
-   {
-      super(duration);
-      this.cron = cron;
-   }
+public class CronSchedule extends Schedule {
+	private static final long serialVersionUID = 1L;
+	private String cron;
 
-   /**
-    * @param expiration the datetime at which the first event occurs
-    * @param cron the unix cron string to control how the events are repeated
-    */
-   public CronSchedule(Date expiration, String cron)
-   {
-      super(expiration);
-      this.cron = cron;
-   }
+	String getCron() {
+		return cron;
+	}
 
-   CronSchedule(Long duration, Date expiration, String cron, Date finalExpiration)
-   {
-      super(duration, expiration, finalExpiration);
-      this.cron = cron;
-   }
-   
+	/**
+	* @param duration the delay before the first event occurs
+	* @param cron the unix cron string to control how the events are repeated
+	*/
+	public CronSchedule(Long duration, String cron) {
+		super(duration);
+		this.cron = cron;
+	}
+
+	/**
+	* @param expiration the datetime at which the first event occurs
+	* @param cron the unix cron string to control how the events are repeated
+	*/
+	public CronSchedule(Date expiration, String cron) {
+		super(expiration);
+		this.cron = cron;
+	}
+
+	CronSchedule(Long duration, Date expiration, String cron, Date finalExpiration) {
+		super(duration, expiration, finalExpiration);
+		this.cron = cron;
+	}
+
 }

@@ -12,9 +12,8 @@ import org.apache.wicket.Page;
 @Target(TYPE)
 @Retention(RUNTIME)
 @Documented
-public @interface NoConversationPage
-{
+public @interface NoConversationPage {
 
-   Class<? extends Page> value();
-   
+	Class<? extends Page> value();
+
 }

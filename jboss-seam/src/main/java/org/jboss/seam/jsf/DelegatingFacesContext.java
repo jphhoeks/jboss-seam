@@ -23,150 +23,124 @@ import javax.faces.render.RenderKit;
  * @author Pete Muir
  *
  */
-public class DelegatingFacesContext extends FacesContext
-{
-   
-   private FacesContext delegate;
-   
-   public DelegatingFacesContext(FacesContext delegate)
-   {
-      this.delegate = delegate;
-   }
+public class DelegatingFacesContext extends FacesContext {
 
-   @Override
-   public void addMessage(String clientId, FacesMessage message)
-   {
-      delegate.addMessage(clientId, message);
-   }
+	private FacesContext delegate;
 
-   @Override
-   public Application getApplication()
-   {
-     return delegate.getApplication();
-   }
-   
-   
-   public Map<Object, Object> getAttributes() 
-   {
-      return delegate.getAttributes();
-   }
+	public DelegatingFacesContext(FacesContext delegate) {
+		this.delegate = delegate;
+	}
 
-   @Override
-   public Iterator getClientIdsWithMessages()
-   {
-     return delegate.getClientIdsWithMessages();
-   }
+	@Override
+	public void addMessage(String clientId, FacesMessage message) {
+		delegate.addMessage(clientId, message);
+	}
 
-   @Override
-   public ExternalContext getExternalContext()
-   {
-      return delegate.getExternalContext();
-   }
+	@Override
+	public Application getApplication() {
+		return delegate.getApplication();
+	}
 
-   @Override
-   public Severity getMaximumSeverity()
-   {
-      return delegate.getMaximumSeverity();
-   }
+	public Map<Object, Object> getAttributes() {
+		return delegate.getAttributes();
+	}
 
-   @Override
-   public Iterator getMessages()
-   {
-     return delegate.getMessages();
-   }
+	@Override
+	public Iterator getClientIdsWithMessages() {
+		return delegate.getClientIdsWithMessages();
+	}
 
-   @Override
-   public Iterator getMessages(String clientId)
-   {
-      return delegate.getMessages(clientId);
-   }
+	@Override
+	public ExternalContext getExternalContext() {
+		return delegate.getExternalContext();
+	}
 
-   @Override
-   public RenderKit getRenderKit()
-   {
-     return delegate.getRenderKit();
-   }
+	@Override
+	public Severity getMaximumSeverity() {
+		return delegate.getMaximumSeverity();
+	}
 
-   @Override
-   public boolean getRenderResponse()
-   {
-      return delegate.getRenderResponse();
-   }
+	@Override
+	public Iterator getMessages() {
+		return delegate.getMessages();
+	}
 
-   @Override
-   public boolean getResponseComplete()
-   {
-     return delegate.getResponseComplete();
-   }
+	@Override
+	public Iterator getMessages(String clientId) {
+		return delegate.getMessages(clientId);
+	}
 
-   @Override
-   public ResponseStream getResponseStream()
-   {
-      return delegate.getResponseStream();
-   }
+	@Override
+	public RenderKit getRenderKit() {
+		return delegate.getRenderKit();
+	}
 
-   @Override
-   public ResponseWriter getResponseWriter()
-   {
-      return delegate.getResponseWriter();
-   }
+	@Override
+	public boolean getRenderResponse() {
+		return delegate.getRenderResponse();
+	}
 
-   @Override
-   public UIViewRoot getViewRoot()
-   {
-     return delegate.getViewRoot();
-   }
+	@Override
+	public boolean getResponseComplete() {
+		return delegate.getResponseComplete();
+	}
 
-   @Override
-   public void release()
-   {
-      delegate.release();
-   }
+	@Override
+	public ResponseStream getResponseStream() {
+		return delegate.getResponseStream();
+	}
 
-   @Override
-   public void renderResponse()
-   {
-     delegate.renderResponse();
-   }
+	@Override
+	public ResponseWriter getResponseWriter() {
+		return delegate.getResponseWriter();
+	}
 
-   @Override
-   public void responseComplete()
-   {
-      delegate.responseComplete();
-   }
+	@Override
+	public UIViewRoot getViewRoot() {
+		return delegate.getViewRoot();
+	}
 
-   @Override
-   public void setResponseStream(ResponseStream responseStream)
-   {
-      delegate.setResponseStream(responseStream);
-   }
+	@Override
+	public void release() {
+		delegate.release();
+	}
 
-   @Override
-   public void setResponseWriter(ResponseWriter responseWriter)
-   {
-      delegate.setResponseWriter(responseWriter);
-   }
+	@Override
+	public void renderResponse() {
+		delegate.renderResponse();
+	}
 
-   @Override
-   public void setViewRoot(UIViewRoot root)
-   {
-      delegate.setViewRoot(root);
-   }
-   
-   public FacesContext getDelegate() 
-   {
-      return delegate;
-   }
-   
-   @Override
-   public ELContext getELContext()
-   {
-      return delegate.getELContext();
-   }
+	@Override
+	public void responseComplete() {
+		delegate.responseComplete();
+	}
 
-   public static void setCurrentInstance(FacesContext context) 
-   {
-      FacesContext.setCurrentInstance(context);
-  }
-   
+	@Override
+	public void setResponseStream(ResponseStream responseStream) {
+		delegate.setResponseStream(responseStream);
+	}
+
+	@Override
+	public void setResponseWriter(ResponseWriter responseWriter) {
+		delegate.setResponseWriter(responseWriter);
+	}
+
+	@Override
+	public void setViewRoot(UIViewRoot root) {
+		delegate.setViewRoot(root);
+	}
+
+	public FacesContext getDelegate() {
+		return delegate;
+	}
+
+	@Override
+	public ELContext getELContext() {
+		return delegate.getELContext();
+	}
+
+	public static void setCurrentInstance(FacesContext context) {
+		FacesContext.setCurrentInstance(context);
+	}
+
 }

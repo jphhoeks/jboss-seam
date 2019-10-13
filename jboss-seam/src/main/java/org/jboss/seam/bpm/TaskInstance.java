@@ -27,41 +27,35 @@ import org.jboss.seam.util.Work;
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.bpm.taskInstance")
 @BypassInterceptors
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.bpm.jbpm")
-public class TaskInstance 
-{
-   
-   @Unwrap
-   public org.jbpm.taskmgmt.exe.TaskInstance getTaskInstance() throws Exception
-   {
-      if ( !Contexts.isConversationContextActive() ) return null;
-      
-      return new Work<org.jbpm.taskmgmt.exe.TaskInstance>()
-      {
-         
-         @Override
-         protected org.jbpm.taskmgmt.exe.TaskInstance work() throws Exception
-         {         
-            Long taskId = BusinessProcess.instance().getTaskId();
-            if (taskId!=null)
-            {
-               //TODO: do we need to cache this??
-               return ManagedJbpmContext.instance().getTaskInstanceForUpdate(taskId);
-            }
-            else
-            {
-               return null;
-            }
-         }
-         
-      }.workInTransaction();
-   }
-   
-   public static org.jbpm.taskmgmt.exe.TaskInstance instance()
-   {
-      if ( !Contexts.isConversationContextActive() || !BusinessProcess.instance().hasCurrentTask() ) return null; //so we don't start a txn
-      
-      return (org.jbpm.taskmgmt.exe.TaskInstance) Component.getInstance(TaskInstance.class, ScopeType.STATELESS);
-   }
-   
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
+public class TaskInstance {
+
+	@Unwrap
+	public org.jbpm.taskmgmt.exe.TaskInstance getTaskInstance() throws Exception {
+		if (!Contexts.isConversationContextActive())
+			return null;
+
+		return new Work<org.jbpm.taskmgmt.exe.TaskInstance>() {
+
+			@Override
+			protected org.jbpm.taskmgmt.exe.TaskInstance work() throws Exception {
+				Long taskId = BusinessProcess.instance().getTaskId();
+				if (taskId != null) {
+					//TODO: do we need to cache this??
+					return ManagedJbpmContext.instance().getTaskInstanceForUpdate(taskId);
+				} else {
+					return null;
+				}
+			}
+
+		}.workInTransaction();
+	}
+
+	public static org.jbpm.taskmgmt.exe.TaskInstance instance() {
+		if (!Contexts.isConversationContextActive() || !BusinessProcess.instance().hasCurrentTask())
+			return null; //so we don't start a txn
+
+		return (org.jbpm.taskmgmt.exe.TaskInstance) Component.getInstance(TaskInstance.class, ScopeType.STATELESS);
+	}
+
 }

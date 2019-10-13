@@ -33,66 +33,66 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @BypassInterceptors
 public class RenderStampStore implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	class RenderStamp {
-        String stamp;
-        Date timeStamp;
-    }
+		String stamp;
+		Date timeStamp;
+	}
 
-    int maxSize = 100;
+	int maxSize = 100;
 
-    Map<String, RenderStamp> store = new ConcurrentHashMap<String, RenderStamp>();
+	Map<String, RenderStamp> store = new ConcurrentHashMap<String, RenderStamp>();
 
-    /**
-     * Stores a stamp in the store, and returns the key it is stored under.
-     */
-    public String storeStamp(String stamp) {
-        if (maxSize > 0) {
-            if (store.size() == maxSize) {
-                Date oldest = null;
-                String oldestSigniture = null;
-                for (String sig : store.keySet()) {
-                    RenderStamp s = store.get(sig);
-                    if (oldest == null || s.timeStamp.before(oldest)) {
-                        oldestSigniture = sig;
-                    }
-                }
-                store.remove(oldestSigniture);
-            }
-        }
-        RenderStamp s = new RenderStamp();
-        s.stamp = stamp;
-        s.timeStamp = new Date();
-        String key;
-        do {
-           key = UUID.randomUUID().toString();
-        } while (!store.containsKey(key));
-        store.put(key, s);
-        return key;
-    }
+	/**
+	 * Stores a stamp in the store, and returns the key it is stored under.
+	 */
+	public String storeStamp(String stamp) {
+		if (maxSize > 0) {
+			if (store.size() == maxSize) {
+				Date oldest = null;
+				String oldestSigniture = null;
+				for (String sig : store.keySet()) {
+					RenderStamp s = store.get(sig);
+					if (oldest == null || s.timeStamp.before(oldest)) {
+						oldestSigniture = sig;
+					}
+				}
+				store.remove(oldestSigniture);
+			}
+		}
+		RenderStamp s = new RenderStamp();
+		s.stamp = stamp;
+		s.timeStamp = new Date();
+		String key;
+		do {
+			key = UUID.randomUUID().toString();
+		} while (!store.containsKey(key));
+		store.put(key, s);
+		return key;
+	}
 
-    public void removeStamp(String viewSigniture) {
-        store.remove(viewSigniture);
-    }
+	public void removeStamp(String viewSigniture) {
+		store.remove(viewSigniture);
+	}
 
-    public String getStamp(String viewSigniture) {
-        RenderStamp s = store.get(viewSigniture);
-        if (s != null) {
-            return store.get(viewSigniture).stamp;
-        }
-        return null;
-    }
+	public String getStamp(String viewSigniture) {
+		RenderStamp s = store.get(viewSigniture);
+		if (s != null) {
+			return store.get(viewSigniture).stamp;
+		}
+		return null;
+	}
 
-    public static RenderStampStore instance() {
-        return (RenderStampStore) Component.getInstance(RenderStampStore.class);
-    }
+	public static RenderStampStore instance() {
+		return (RenderStampStore) Component.getInstance(RenderStampStore.class);
+	}
 
-    public int getMaxSize() {
-        return maxSize;
-    }
+	public int getMaxSize() {
+		return maxSize;
+	}
 
-    public void setMaxSize(int maxSize) {
-        this.maxSize = maxSize;
-    }
+	public void setMaxSize(int maxSize) {
+		this.maxSize = maxSize;
+	}
 }

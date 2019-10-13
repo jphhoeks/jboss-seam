@@ -7,16 +7,14 @@ package org.jboss.seam.annotations.intercept;
  * @author Gavin King
  *
  */
-public enum InterceptorType
-{
-   /**
-    * An interceptor that wraps the EJB proxy object, and intercepts
-    * invocations before EJB itself does any work.
-    */
-   CLIENT,
-   /**
-    * An interceptor that runs as part of the EJB interceptor stack.
-    */
-   SERVER,
-   ANY
+public enum InterceptorType {
+	/**
+	* An interceptor that wraps the EJB proxy object, and intercepts
+	* invocations before EJB itself does any work.
+	*/
+	CLIENT,
+	/**
+	* An interceptor that runs as part of the EJB interceptor stack.
+	*/
+	SERVER, ANY
 }

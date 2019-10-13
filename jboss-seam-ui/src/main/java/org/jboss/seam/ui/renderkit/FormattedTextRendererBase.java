@@ -10,23 +10,19 @@ import org.jboss.seam.ui.component.UIFormattedText;
 import org.jboss.seam.ui.util.cdk.RendererBase;
 import org.richfaces.cdk.annotations.JsfRenderer;
 
-@JsfRenderer(type="org.jboss.seam.ui.FormattedTextRenderer", family="org.jboss.seam.ui.FormattedTextRenderer")
-public class FormattedTextRendererBase extends RendererBase
-{
+@JsfRenderer(type = "org.jboss.seam.ui.FormattedTextRenderer", family = "org.jboss.seam.ui.FormattedTextRenderer")
+public class FormattedTextRendererBase extends RendererBase {
 
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIFormattedText.class;
-   }
-   
-   @Override
-   protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-   {
-      String formattedText = ((UIFormattedText) component).getFormattedText();
-      if (formattedText != null)
-      {
-         writer.write(formattedText);
-      }
-   }
+	@Override
+	protected Class getComponentClass() {
+		return UIFormattedText.class;
+	}
+
+	@Override
+	protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+		String formattedText = ((UIFormattedText) component).getFormattedText();
+		if (formattedText != null) {
+			writer.write(formattedText);
+		}
+	}
 }

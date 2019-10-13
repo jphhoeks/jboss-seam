@@ -24,47 +24,36 @@ import org.jboss.seam.web.Session;
  */
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.core.conversationStackFactory")
-@Install(precedence=BUILT_IN)
+@Install(precedence = BUILT_IN)
 @BypassInterceptors
-public class ConversationStack
-{
-   
-   protected List<ConversationEntry> createConversationEntryStack()
-   {
-      ConversationEntries conversationEntries = ConversationEntries.getInstance();
-      if (conversationEntries==null)
-      {
-         return Collections.emptyList();
-      }
-      else
-      {
-         ConversationEntry currentConversationEntry = Manager.instance().getCurrentConversationEntry();
-         if (currentConversationEntry==null)
-         {
-            return Collections.emptyList();
-         }
-         else
-         {
-            List<String> idStack = currentConversationEntry.getConversationIdStack();
-            List<ConversationEntry> conversationEntryStack = new ArrayList<ConversationEntry>( conversationEntries.size() );
-            ListIterator<String> ids = idStack.listIterator( idStack.size() );
-            while ( ids.hasPrevious() )
-            {
-               ConversationEntry entry = conversationEntries.getConversationEntry( ids.previous() );
-               if ( entry.isDisplayable() && !Session.instance().isInvalid() ) 
-               {
-                  conversationEntryStack.add(entry);
-               }
-            }
-            return conversationEntryStack;
-         }
-      }
-   }
-   
-   @Factory(value="org.jboss.seam.core.conversationStack", autoCreate=true, scope=PAGE)
-   public List<ConversationEntry> getConversationEntryStack()
-   {
-      return createConversationEntryStack();
-   }
-   
+public class ConversationStack {
+
+	protected List<ConversationEntry> createConversationEntryStack() {
+		ConversationEntries conversationEntries = ConversationEntries.getInstance();
+		if (conversationEntries == null) {
+			return Collections.emptyList();
+		} else {
+			ConversationEntry currentConversationEntry = Manager.instance().getCurrentConversationEntry();
+			if (currentConversationEntry == null) {
+				return Collections.emptyList();
+			} else {
+				List<String> idStack = currentConversationEntry.getConversationIdStack();
+				List<ConversationEntry> conversationEntryStack = new ArrayList<ConversationEntry>(conversationEntries.size());
+				ListIterator<String> ids = idStack.listIterator(idStack.size());
+				while (ids.hasPrevious()) {
+					ConversationEntry entry = conversationEntries.getConversationEntry(ids.previous());
+					if (entry.isDisplayable() && !Session.instance().isInvalid()) {
+						conversationEntryStack.add(entry);
+					}
+				}
+				return conversationEntryStack;
+			}
+		}
+	}
+
+	@Factory(value = "org.jboss.seam.core.conversationStack", autoCreate = true, scope = PAGE)
+	public List<ConversationEntry> getConversationEntryStack() {
+		return createConversationEntryStack();
+	}
+
 }

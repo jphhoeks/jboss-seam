@@ -8,4 +8,3 @@
 package org.jboss.seam.faces;
 
 import org.jboss.seam.annotations.AutoCreate;
-

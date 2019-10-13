@@ -14,11 +14,10 @@ import java.lang.annotation.Target;
  *
  * @author Shane Bryzak
  */
-@Target({ANNOTATION_TYPE})
+@Target({ ANNOTATION_TYPE })
 @Documented
 @Retention(RUNTIME)
 @Inherited
-public @interface PermissionCheck 
-{
-   String value() default "";
+public @interface PermissionCheck {
+	String value() default "";
 }

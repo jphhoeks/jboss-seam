@@ -10,10 +10,9 @@ import java.lang.annotation.Target;
 import org.jboss.seam.databinding.DataBinder;
 
 /**
- * Meta-annotation that specifies that an annotation
- * is a databinding annotation, ie. that it results
- * in outjection of a wrapped representation of the
- * annotated component attribute value.
+ * Meta-annotation that specifies that an annotation is a databinding
+ * annotation, ie. that it results in outjection of a wrapped representation of
+ * the annotated component attribute value.
  * 
  * @see org.jboss.seam.databinding.DataBinder
  * @author Gavin King
@@ -21,7 +20,6 @@ import org.jboss.seam.databinding.DataBinder;
 @Target(ANNOTATION_TYPE)
 @Retention(RUNTIME)
 @Documented
-public @interface DataBinderClass
-{
-   Class<? extends DataBinder> value();
+public @interface DataBinderClass {
+	Class<? extends DataBinder> value();
 }

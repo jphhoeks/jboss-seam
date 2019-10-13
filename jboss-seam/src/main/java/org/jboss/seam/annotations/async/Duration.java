@@ -8,12 +8,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * The duration of the wait before an asynchronous 
- * call is processed (or before the first occurrence
- * of a repeating asynchronous call).
+ * The duration of the wait before an asynchronous call is processed (or before
+ * the first occurrence of a repeating asynchronous call).
  * 
- * This annotation occurs on a parameter of type long
- * or Long of a method marked @Asynchronous.
+ * This annotation occurs on a parameter of type long or Long of a method
+ * marked @Asynchronous.
  * 
  * @author Gavin King
  *
@@ -21,7 +20,6 @@ import java.lang.annotation.Target;
 @Target(PARAMETER)
 @Retention(RUNTIME)
 @Documented
-public @interface Duration
-{
+public @interface Duration {
 
 }

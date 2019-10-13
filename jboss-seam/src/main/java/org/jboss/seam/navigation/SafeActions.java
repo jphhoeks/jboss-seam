@@ -31,77 +31,65 @@ import org.jboss.seam.contexts.Contexts;
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Name("org.jboss.seam.navigation.safeActions")
-@Install(precedence=BUILT_IN, classDependencies="javax.faces.context.FacesContext")
-public class SafeActions
-{
-   
-   private Set<String> safeActions = Collections.synchronizedSet( new HashSet<String>() );
-   
-   public static String toActionId(String viewId, String expression)
-   {
-      return viewId.substring(1) + ':' + expression.substring( 2, expression.length()-1 );
-   }
-   
-   public static String toAction(String id)
-   {
-      int loc = id.indexOf(':');
-      if (loc<0) throw new IllegalArgumentException();
-      return "#{" + id.substring(loc+1) + "}";
-   }
-   
-   public void addSafeAction(String id)
-   {
-      safeActions.add(id);
-   }
-   
-   public boolean isActionSafe(String id)
-   {
-      if ( safeActions.contains(id) ) return true;
-      
-      int loc = id.indexOf(':');
-      if (loc<0) throw new IllegalArgumentException("Invalid action method " + id);
-      String viewId = id.substring(0, loc);
-      String action = "\"#{" + id.substring(loc+1) + "}\"";
-      
-      // adding slash as it otherwise won't find a page viewId by getResource*
-      InputStream is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/" +viewId);
-      if (is==null) throw new IllegalStateException("Unable to read view " + "/" + viewId + " to execute action " + action);
-      BufferedReader reader = new BufferedReader( new InputStreamReader(is) );
-      try
-      {
-         while ( reader.ready() ) 
-         {
-            if ( reader.readLine().contains(action) ) 
-            {
-               addSafeAction(id);
-               return true;
-            }
-         }
-         return false;
-      }
-      catch (IOException ioe)
-      {
-         throw new RuntimeException("Error parsing view " + "/" + viewId + " to execute action " + action, ioe);
-      }
-      finally
-      {
-         try
-         {
-            reader.close();
-         }
-         catch (IOException ioe) {
-            throw new RuntimeException(ioe);
-         }
-      }
-   }
-   
-   public static SafeActions instance()
-   {
-      if ( !Contexts.isApplicationContextActive() )
-      {
-         throw new IllegalStateException("No active application context");
-      }
-      return (SafeActions) Component.getInstance(SafeActions.class, ScopeType.APPLICATION);
-   }
-   
+@Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
+public class SafeActions {
+
+	private Set<String> safeActions = Collections.synchronizedSet(new HashSet<String>());
+
+	public static String toActionId(String viewId, String expression) {
+		return viewId.substring(1) + ':' + expression.substring(2, expression.length() - 1);
+	}
+
+	public static String toAction(String id) {
+		int loc = id.indexOf(':');
+		if (loc < 0)
+			throw new IllegalArgumentException();
+		return "#{" + id.substring(loc + 1) + "}";
+	}
+
+	public void addSafeAction(String id) {
+		safeActions.add(id);
+	}
+
+	public boolean isActionSafe(String id) {
+		if (safeActions.contains(id))
+			return true;
+
+		int loc = id.indexOf(':');
+		if (loc < 0)
+			throw new IllegalArgumentException("Invalid action method " + id);
+		String viewId = id.substring(0, loc);
+		String action = "\"#{" + id.substring(loc + 1) + "}\"";
+
+		// adding slash as it otherwise won't find a page viewId by getResource*
+		InputStream is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/" + viewId);
+		if (is == null)
+			throw new IllegalStateException("Unable to read view " + "/" + viewId + " to execute action " + action);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		try {
+			while (reader.ready()) {
+				if (reader.readLine().contains(action)) {
+					addSafeAction(id);
+					return true;
+				}
+			}
+			return false;
+		} catch (IOException ioe) {
+			throw new RuntimeException("Error parsing view " + "/" + viewId + " to execute action " + action, ioe);
+		} finally {
+			try {
+				reader.close();
+			} catch (IOException ioe) {
+				throw new RuntimeException(ioe);
+			}
+		}
+	}
+
+	public static SafeActions instance() {
+		if (!Contexts.isApplicationContextActive()) {
+			throw new IllegalStateException("No active application context");
+		}
+		return (SafeActions) Component.getInstance(SafeActions.class, ScopeType.APPLICATION);
+	}
+
 }

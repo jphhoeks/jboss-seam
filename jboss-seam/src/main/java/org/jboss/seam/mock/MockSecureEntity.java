@@ -26,6 +26,7 @@ public class MockSecureEntity implements Serializable {
 	public MockSecureEntity() {
 		super();
 	}
+
 	@Id
 	public Integer getId() {
 		return id;

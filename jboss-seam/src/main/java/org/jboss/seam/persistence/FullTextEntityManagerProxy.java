@@ -12,6 +12,5 @@ import org.hibernate.search.jpa.FullTextEntityManager;
  * @author Sanne Grinovero
  * @author Mike Youngstrom
  */
-public interface FullTextEntityManagerProxy extends EntityManagerProxy, FullTextEntityManager
-{
+public interface FullTextEntityManagerProxy extends EntityManagerProxy, FullTextEntityManager {
 }

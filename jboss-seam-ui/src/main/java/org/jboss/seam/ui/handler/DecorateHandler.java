@@ -18,8 +18,8 @@ import javax.faces.view.facelets.TagAttribute;
  *
  */
 public class DecorateHandler extends ComponentHandler {
-	
-   private com.sun.faces.facelets.tag.ui.DecorateHandler delegate;
+
+	private com.sun.faces.facelets.tag.ui.DecorateHandler delegate;
 
 	public DecorateHandler(ComponentConfig config) {
 		super(config);
@@ -27,10 +27,9 @@ public class DecorateHandler extends ComponentHandler {
 			this.delegate = new com.sun.faces.facelets.tag.ui.DecorateHandler(config);
 		}
 	}
-   
-   @Override
-	public void applyNextHandler(FaceletContext context, UIComponent component) throws IOException, FacesException,
-			ELException {
+
+	@Override
+	public void applyNextHandler(FaceletContext context, UIComponent component) throws IOException, FacesException, ELException {
 		TagAttribute template = this.tag.getAttributes().get("template");
 		if (template != null) {
 			try {
@@ -39,7 +38,7 @@ public class DecorateHandler extends ComponentHandler {
 				if (e.getCause() instanceof FileNotFoundException) {
 					FileNotFoundException fnf = new FileNotFoundException("Could not load template:" + getValue(template, context));
 					fnf.initCause(e);
-					throw new FacesException(fnf.getMessage(), fnf);					
+					throw new FacesException(fnf.getMessage(), fnf);
 				}
 				throw e;
 			}
@@ -54,8 +53,7 @@ public class DecorateHandler extends ComponentHandler {
 		response.append(template.getValue()).append(":");
 		try {
 			response.append(template.getValue(context));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			response.append("unresolved");
 		}
 		return response.toString();

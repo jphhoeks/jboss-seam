@@ -18,48 +18,38 @@ import org.jboss.seam.Seam;
  * 
  * @author Gavin King
  */
-public class SessionContext extends BasicContext 
-{
-   
-   public SessionContext(Map<String, Object> map)
-   {
-      super(ScopeType.SESSION, map);
-   }
+public class SessionContext extends BasicContext {
 
-   @Override
-	public String[] getNames() 
-   {
-		ArrayList<String> results = new ArrayList<String>();
-      String prefix = ScopeType.CONVERSATION.getPrefix();
-      for ( String name: super.getNames() ) 
-      {
-         if ( !name.contains(prefix) )
-         {
-            results.add(name);
-         }
-      }
-		return results.toArray(new String[]{});
+	public SessionContext(Map<String, Object> map) {
+		super(ScopeType.SESSION, map);
 	}
-   
-   @Override
-   public void flush() 
-   {
-      for ( String name: getNames() )
-      {
-         Object attribute = get(name);
-         boolean dirty = attribute!=null && 
-               ( Contexts.isAttributeDirty(attribute) || Seam.isEntityClass( attribute.getClass() ) );
-         if ( dirty )
-         {
-            set(name, attribute);
-         }
-      }      
-   }
-  
-   @Override
-   public String toString()
-   {
-      return "SessionContext";
-   }
+
+	@Override
+	public String[] getNames() {
+		ArrayList<String> results = new ArrayList<String>();
+		String prefix = ScopeType.CONVERSATION.getPrefix();
+		for (String name : super.getNames()) {
+			if (!name.contains(prefix)) {
+				results.add(name);
+			}
+		}
+		return results.toArray(new String[] {});
+	}
+
+	@Override
+	public void flush() {
+		for (String name : getNames()) {
+			Object attribute = get(name);
+			boolean dirty = attribute != null && (Contexts.isAttributeDirty(attribute) || Seam.isEntityClass(attribute.getClass()));
+			if (dirty) {
+				set(name, attribute);
+			}
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "SessionContext";
+	}
 
 }

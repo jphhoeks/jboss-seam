@@ -66,141 +66,109 @@ import org.jboss.seam.web.Session;
 @Name("org.jboss.seam.resteasy.resourceAdapter")
 @BypassInterceptors
 @Install(precedence = BUILT_IN)
-public class ResteasyResourceAdapter extends AbstractResource
-{
+public class ResteasyResourceAdapter extends AbstractResource {
 
-   @Logger
-   Log log;
+	@Logger
+	Log log;
 
-   protected Dispatcher dispatcher;
-   protected Application application;
+	protected Dispatcher dispatcher;
+	protected Application application;
 
-   @Create
-   public void init()
-   {
-      // No injection, so lookup on first request
-      dispatcher = (Dispatcher) Component.getInstance("org.jboss.seam.resteasy.dispatcher");
-      application = (Application) Component.getInstance(Application.class);
-      if (dispatcher == null)
-      {
-         throw new IllegalStateException(
-               "ReasteasyDispatcher not available, make sure RESTEasy and all required JARs are on your classpath"
-         );
-      }
-   }
+	@Create
+	public void init() {
+		// No injection, so lookup on first request
+		dispatcher = (Dispatcher) Component.getInstance("org.jboss.seam.resteasy.dispatcher");
+		application = (Application) Component.getInstance(Application.class);
+		if (dispatcher == null) {
+			throw new IllegalStateException(
+					"ReasteasyDispatcher not available, make sure RESTEasy and all required JARs are on your classpath");
+		}
+	}
 
-   @Override
-   public String getResourcePath()
-   {
-      return application.getResourcePathPrefix();
-   }
+	@Override
+	public String getResourcePath() {
+		return application.getResourcePathPrefix();
+	}
 
-   @Override
-   public void getResource(final HttpServletRequest request, final HttpServletResponse response)
-         throws ServletException, IOException
-   {
+	@Override
+	public void getResource(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
-      try
-      {
-         log.debug("processing REST request");
+		try {
+			log.debug("processing REST request");
 
-         // TODO: As far as I can tell from tracing RE code: All this thread-local stuff has no effect because
-         // the "default" provider factory is always used. But we do it anyway, just to mimic the servlet handler
-         // in RE...
+			// TODO: As far as I can tell from tracing RE code: All this thread-local stuff has no effect because
+			// the "default" provider factory is always used. But we do it anyway, just to mimic the servlet handler
+			// in RE...
 
-         // Wrap in RESTEasy thread-local factory handling
-         ThreadLocalResteasyProviderFactory.push(dispatcher.getProviderFactory());
+			// Wrap in RESTEasy thread-local factory handling
+			ThreadLocalResteasyProviderFactory.push(dispatcher.getProviderFactory());
 
-         // Wrap in RESTEasy contexts (this also puts stuff in a thread-local)
-         SeamResteasyProviderFactory.pushContext(HttpServletRequest.class, request);
-         SeamResteasyProviderFactory.pushContext(HttpServletResponse.class, response);
-         SeamResteasyProviderFactory.pushContext(SecurityContext.class, new ServletSecurityContext(request));
+			// Wrap in RESTEasy contexts (this also puts stuff in a thread-local)
+			SeamResteasyProviderFactory.pushContext(HttpServletRequest.class, request);
+			SeamResteasyProviderFactory.pushContext(HttpServletResponse.class, response);
+			SeamResteasyProviderFactory.pushContext(SecurityContext.class, new ServletSecurityContext(request));
 
-         // Wrap in Seam contexts
-         new ContextualHttpServletRequest(request)
-         {
-            @Override
-            public void process() throws ServletException, IOException
-            {
-               try
-               {
-                  ResteasyHttpHeaders headers = ServletUtil.extractHttpHeaders(request);
-                  ResteasyUriInfo uriInfo = extractUriInfo(request, application.getResourcePathPrefix());
+			// Wrap in Seam contexts
+			new ContextualHttpServletRequest(request) {
+				@Override
+				public void process() throws ServletException, IOException {
+					try {
+						ResteasyHttpHeaders headers = ServletUtil.extractHttpHeaders(request);
+						ResteasyUriInfo uriInfo = extractUriInfo(request, application.getResourcePathPrefix());
 
-                  HttpResponse theResponse = new HttpServletResponseWrapper(
-                        response,
-                        dispatcher.getProviderFactory()
-                  );
+						HttpResponse theResponse = new HttpServletResponseWrapper(response, dispatcher.getProviderFactory());
 
-                  // TODO: This requires a SynchronousDispatcher
-                  HttpRequest in = new HttpServletInputMessage(
-                        request,
-                        response,
-                        request.getServletContext(),
-                        theResponse,
-                        headers,
-                        uriInfo,
-                        request.getMethod().toUpperCase(),
-                        (SynchronousDispatcher) dispatcher
-                  );
+						// TODO: This requires a SynchronousDispatcher
+						HttpRequest in = new HttpServletInputMessage(request, response, request.getServletContext(), theResponse, headers,
+								uriInfo, request.getMethod().toUpperCase(), (SynchronousDispatcher) dispatcher);
 
-                  dispatcher.invoke(in, theResponse);
-               }
-               finally
-               {
-                  /*
-                   * Prevent anemic sessions clog up the server
-                   *
-                   * session.isNew() check - do not close non-anemic sessions established by the view layer (JSF)
-                   * which are reused by the JAX-RS requests (so that the requests do not have to be re-authorized)
-                   */
-                  if (application.isDestroySessionAfterRequest() && request.getSession().isNew())
-                  {
-                     log.debug("Destroying HttpSession after REST request");
-                     Session.instance().invalidate();
-                  }
-               }
-            }
-         }.run();
+						dispatcher.invoke(in, theResponse);
+					} finally {
+						/*
+						 * Prevent anemic sessions clog up the server
+						 *
+						 * session.isNew() check - do not close non-anemic sessions established by the view layer (JSF)
+						 * which are reused by the JAX-RS requests (so that the requests do not have to be re-authorized)
+						 */
+						if (application.isDestroySessionAfterRequest() && request.getSession().isNew()) {
+							log.debug("Destroying HttpSession after REST request");
+							Session.instance().invalidate();
+						}
+					}
+				}
+			}.run();
 
-      }
-      finally
-      {
-         // Clean up the thread-locals
-         SeamResteasyProviderFactory.clearContextData();
-         ThreadLocalResteasyProviderFactory.pop();
-         log.debug("completed processing of REST request");
-      }
-   }
+		} finally {
+			// Clean up the thread-locals
+			SeamResteasyProviderFactory.clearContextData();
+			ThreadLocalResteasyProviderFactory.pop();
+			log.debug("completed processing of REST request");
+		}
+	}
 
-   protected ResteasyUriInfo extractUriInfo(HttpServletRequest request, String pathPrefix)
-   {
-      try
-      {
-         // Append a slash if there isn't one
-         if (!pathPrefix.startsWith("/")) {
-            pathPrefix = "/" + pathPrefix;
-         }
+	protected ResteasyUriInfo extractUriInfo(HttpServletRequest request, String pathPrefix) {
+		try {
+			// Append a slash if there isn't one
+			if (!pathPrefix.startsWith("/")) {
+				pathPrefix = "/" + pathPrefix;
+			}
 
-         // Get the full path of the current request
-         URL requestURL = new URL(request.getRequestURL().toString());
-         String requestPath = requestURL.getPath();
+			// Get the full path of the current request
+			URL requestURL = new URL(request.getRequestURL().toString());
+			String requestPath = requestURL.getPath();
 
-         // Find the 'servlet mapping prefix' for RESTEasy (in our case: /seam/resource/rest)
-         String mappingPrefix =
-            requestPath.substring(0, requestPath.indexOf(pathPrefix)+pathPrefix.length());
+			// Find the 'servlet mapping prefix' for RESTEasy (in our case: /seam/resource/rest)
+			String mappingPrefix = requestPath.substring(0, requestPath.indexOf(pathPrefix) + pathPrefix.length());
 
-         // Still is /<context>/seam/resource/rest, so cut off the context
-         mappingPrefix = mappingPrefix.substring(request.getContextPath().length());
+			// Still is /<context>/seam/resource/rest, so cut off the context
+			mappingPrefix = mappingPrefix.substring(request.getContextPath().length());
 
-         log.debug("Using request mapping prefix: " + mappingPrefix);
+			log.debug("Using request mapping prefix: " + mappingPrefix);
 
-         // This is the prefix used by RESTEasy to resolve resources and generate URIs with
-         return ServletUtil.extractUriInfo(request, mappingPrefix);
-      }
-      catch (MalformedURLException e)
-      {
-         throw new RuntimeException(e);
-      }
-   }
+			// This is the prefix used by RESTEasy to resolve resources and generate URIs with
+			return ServletUtil.extractUriInfo(request, mappingPrefix);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }

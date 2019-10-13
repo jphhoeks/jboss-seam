@@ -33,94 +33,77 @@ import org.jboss.seam.annotations.web.Filter;
  */
 @Scope(APPLICATION)
 @Name("org.jboss.seam.web.ajax4jsfFilter")
-@Install(precedence = BUILT_IN, dependencies="org.jboss.seam.web.ajax4jsfFilterInstantiator")
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.web.ajax4jsfFilterInstantiator")
 @BypassInterceptors
 @Filter
-public class Ajax4jsfFilter extends AbstractFilter
-{
-   
-   private javax.servlet.Filter delegate;
-   
-   private String forceParser;
-   private String enableCache;
-   private String log4jInitFile;
-   
-   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException
-   {
-      if (delegate==null)
-      {
-         chain.doFilter(servletRequest, servletResponse);
-      }
-      else
-      {
-         delegate.doFilter(servletRequest, servletResponse, chain);
-      }
-   }
-   
-   @Override
-   public void init(FilterConfig filterConfig) throws ServletException
-   {  
-      super.init(filterConfig);
-      
-      delegate = (javax.servlet.Filter) Component.getInstance("org.jboss.seam.web.ajax4jsfFilterInstantiator", ScopeType.STATELESS);
-      if (delegate!=null)
-      {
-         Map<String, String> parameters = new HashMap<String, String>();
-         if ( getForceParser() != null )
-         {
-            parameters.put( "forceparser", getForceParser() );
-         }
-         if ( getEnableCache() != null )
-         {
-            parameters.put( "enable-cache", getEnableCache() );
-         }
-         if ( getLog4jInitFile() != null )
-         {
-            parameters.put( "log4j-init-file", getLog4jInitFile() );
-         }
-      
-         delegate.init( new FilterConfigWrapper(filterConfig, parameters) );
-      }
-   }
-   
-   public String getEnableCache()
-   {
-      return enableCache;
-   }
+public class Ajax4jsfFilter extends AbstractFilter {
 
-   public void setEnableCache(String enableCache)
-   {
-      this.enableCache = enableCache;
-   }
+	private javax.servlet.Filter delegate;
 
-   public String getForceParser()
-   {
-      return forceParser;
-   }
+	private String forceParser;
+	private String enableCache;
+	private String log4jInitFile;
 
-   public void setForceParser(String forceParser)
-   {
-      this.forceParser = forceParser;
-   }
-   
-   public String getForceparser()
-   {
-      return forceParser;
-   }
-   
-   public void setForceparser(String forceParser)
-   {
-      this.forceParser = forceParser;
-   }
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
+			throws IOException, ServletException {
+		if (delegate == null) {
+			chain.doFilter(servletRequest, servletResponse);
+		} else {
+			delegate.doFilter(servletRequest, servletResponse, chain);
+		}
+	}
 
-   public String getLog4jInitFile()
-   {
-      return log4jInitFile;
-   }
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		super.init(filterConfig);
 
-   public void setLog4jInitFile(String log4jInitFile)
-   {
-      this.log4jInitFile = log4jInitFile;
-   }
-   
+		delegate = (javax.servlet.Filter) Component.getInstance("org.jboss.seam.web.ajax4jsfFilterInstantiator", ScopeType.STATELESS);
+		if (delegate != null) {
+			Map<String, String> parameters = new HashMap<String, String>();
+			if (getForceParser() != null) {
+				parameters.put("forceparser", getForceParser());
+			}
+			if (getEnableCache() != null) {
+				parameters.put("enable-cache", getEnableCache());
+			}
+			if (getLog4jInitFile() != null) {
+				parameters.put("log4j-init-file", getLog4jInitFile());
+			}
+
+			delegate.init(new FilterConfigWrapper(filterConfig, parameters));
+		}
+	}
+
+	public String getEnableCache() {
+		return enableCache;
+	}
+
+	public void setEnableCache(String enableCache) {
+		this.enableCache = enableCache;
+	}
+
+	public String getForceParser() {
+		return forceParser;
+	}
+
+	public void setForceParser(String forceParser) {
+		this.forceParser = forceParser;
+	}
+
+	public String getForceparser() {
+		return forceParser;
+	}
+
+	public void setForceparser(String forceParser) {
+		this.forceParser = forceParser;
+	}
+
+	public String getLog4jInitFile() {
+		return log4jInitFile;
+	}
+
+	public void setLog4jInitFile(String log4jInitFile) {
+		this.log4jInitFile = log4jInitFile;
+	}
+
 }

@@ -18,54 +18,40 @@ import org.jboss.seam.log.Logging;
  * @author Gavin King
  *
  */
-class SynchronizationRegistry
-{
-   private static final LogProvider log = Logging.getLogProvider(SynchronizationRegistry.class);
+class SynchronizationRegistry {
+	private static final LogProvider log = Logging.getLogProvider(SynchronizationRegistry.class);
 
-   private List<Synchronization> synchronizations = new ArrayList<Synchronization>();
+	private List<Synchronization> synchronizations = new ArrayList<Synchronization>();
 
-   void registerSynchronization(Synchronization sync)
-   {
-      synchronizations.add(sync);
-   }
-   
-   void afterTransactionCompletion(boolean success)
-   {
-      if ( Events.exists() ) 
-      {
-         Events.instance().raiseEvent("org.jboss.seam.afterTransactionCompletion", success);
-      }
-      for (Synchronization sync: synchronizations)
-      {
-         try
-         {
-            sync.afterCompletion(success ? Status.STATUS_COMMITTED : Status.STATUS_ROLLEDBACK);
-         }
-         catch (Exception e)
-         {
-            log.error("Exception processing transaction Synchronization after completion", e);
-         }
-      }
-      synchronizations.clear();
-   }
+	void registerSynchronization(Synchronization sync) {
+		synchronizations.add(sync);
+	}
 
-   void beforeTransactionCompletion()
-   {
-      if ( Events.exists() )
-      {
-         Events.instance().raiseEvent("org.jboss.seam.beforeTransactionCompletion");
-      }
-      for (Synchronization sync: synchronizations)
-      {
-         try
-         {
-            sync.beforeCompletion();
-         }
-         catch (Exception e)
-         {
-            log.error("Exception processing transaction Synchronization before completion", e);
-         }
-      }
-   }
-   
+	void afterTransactionCompletion(boolean success) {
+		if (Events.exists()) {
+			Events.instance().raiseEvent("org.jboss.seam.afterTransactionCompletion", success);
+		}
+		for (Synchronization sync : synchronizations) {
+			try {
+				sync.afterCompletion(success ? Status.STATUS_COMMITTED : Status.STATUS_ROLLEDBACK);
+			} catch (Exception e) {
+				log.error("Exception processing transaction Synchronization after completion", e);
+			}
+		}
+		synchronizations.clear();
+	}
+
+	void beforeTransactionCompletion() {
+		if (Events.exists()) {
+			Events.instance().raiseEvent("org.jboss.seam.beforeTransactionCompletion");
+		}
+		for (Synchronization sync : synchronizations) {
+			try {
+				sync.beforeCompletion();
+			} catch (Exception e) {
+				log.error("Exception processing transaction Synchronization before completion", e);
+			}
+		}
+	}
+
 }

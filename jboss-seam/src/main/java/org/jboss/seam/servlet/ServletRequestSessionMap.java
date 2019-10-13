@@ -22,102 +22,81 @@ import javax.servlet.http.HttpSession;
  * 
  * @author Gavin King
  */
-public class ServletRequestSessionMap implements Map<String, Object>
-{
-   private HttpServletRequest request;
+public class ServletRequestSessionMap implements Map<String, Object> {
+	private HttpServletRequest request;
 
-   public ServletRequestSessionMap(HttpServletRequest request)
-   {
-      this.request = request;
-   }
+	public ServletRequestSessionMap(HttpServletRequest request) {
+		this.request = request;
+	}
 
-   public void clear()
-   {
-      throw new UnsupportedOperationException(); 
-   }
+	public void clear() {
+		throw new UnsupportedOperationException();
+	}
 
-   public boolean containsKey(Object key)
-   {
-      HttpSession session = request.getSession(false);
-      return session==null ? false : session.getAttribute( (String) key )!=null;
-   }
+	public boolean containsKey(Object key) {
+		HttpSession session = request.getSession(false);
+		return session == null ? false : session.getAttribute((String) key) != null;
+	}
 
-   public boolean containsValue(Object value)
-   {
-      throw new UnsupportedOperationException();
-   }
+	public boolean containsValue(Object value) {
+		throw new UnsupportedOperationException();
+	}
 
-   public Set<java.util.Map.Entry<String, Object>> entrySet()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public Set<java.util.Map.Entry<String, Object>> entrySet() {
+		throw new UnsupportedOperationException();
+	}
 
-   public Object get(Object key)
-   {
-      HttpSession session = request.getSession(false);
-      return session==null ? null : session.getAttribute( (String) key );
-   }
+	public Object get(Object key) {
+		HttpSession session = request.getSession(false);
+		return session == null ? null : session.getAttribute((String) key);
+	}
 
-   public boolean isEmpty()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public boolean isEmpty() {
+		throw new UnsupportedOperationException();
+	}
 
-   public Set<String> keySet()
-   {
-      HttpSession session = request.getSession(false);
-      if (session==null)
-      {
-         return Collections.emptySet();
-      }
-      else
-      {
-         Set<String> keys = new HashSet<String>();
-         Enumeration<String> names = session.getAttributeNames();
-         while ( names.hasMoreElements() )
-         {
-            keys.add( names.nextElement() );
-         }
-         return keys;
-      }
-   }
+	public Set<String> keySet() {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return Collections.emptySet();
+		} else {
+			Set<String> keys = new HashSet<String>();
+			Enumeration<String> names = session.getAttributeNames();
+			while (names.hasMoreElements()) {
+				keys.add(names.nextElement());
+			}
+			return keys;
+		}
+	}
 
-   public Object put(String key, Object value)
-   {
-      HttpSession session = request.getSession(true);
-      Object result = session.getAttribute(key);
-      session.setAttribute(key, value);
-      return result;
-   }
+	public Object put(String key, Object value) {
+		HttpSession session = request.getSession(true);
+		Object result = session.getAttribute(key);
+		session.setAttribute(key, value);
+		return result;
+	}
 
-   public void putAll(Map<? extends String, ? extends Object> t)
-   {
-      throw new UnsupportedOperationException();
-   }
+	public void putAll(Map<? extends String, ? extends Object> t) {
+		throw new UnsupportedOperationException();
+	}
 
-   public Object remove(Object key)
-   {
-      HttpSession session = request.getSession(false);
-      if (session==null)
-      {
-         return null;
-      }
-      else
-      {
-         Object result = session.getAttribute( (String) key );
-         session.removeAttribute( (String) key );
-         return result;
-      }
-   }
+	public Object remove(Object key) {
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return null;
+		} else {
+			Object result = session.getAttribute((String) key);
+			session.removeAttribute((String) key);
+			return result;
+		}
+	}
 
-   public int size()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public int size() {
+		throw new UnsupportedOperationException();
+	}
 
-   public Collection<Object> values()
-   {
-      throw new UnsupportedOperationException();
-   }
+	public Collection<Object> values() {
+		throw new UnsupportedOperationException();
+	}
 
 }

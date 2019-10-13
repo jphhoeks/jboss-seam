@@ -10,10 +10,9 @@ import org.jboss.seam.faces.Navigator;
  * @author Gavin King
  *
  */
-public abstract class NavigationHandler extends Navigator
-{
-   /**
-    * Go ahead and execute the navigation rule. 
-    */
-   public abstract boolean navigate(FacesContext context);
+public abstract class NavigationHandler extends Navigator {
+	/**
+	* Go ahead and execute the navigation rule. 
+	*/
+	public abstract boolean navigate(FacesContext context);
 }

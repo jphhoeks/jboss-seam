@@ -14,16 +14,13 @@ import org.jboss.seam.web.CharacterEncodingFilter;
  * @author Gavin King
  * 
  */
-public class SeamCharacterEncodingFilter extends CharacterEncodingFilter
-{
-   
-   @Override
-   public void init(FilterConfig config) throws ServletException 
-   {
-      super.init(config);
-      setEncoding( config.getInitParameter("encoding") );
-      setOverrideClient( Boolean.parseBoolean( config.getInitParameter("overrideClient") ) );
-   }
-   
+public class SeamCharacterEncodingFilter extends CharacterEncodingFilter {
+
+	@Override
+	public void init(FilterConfig config) throws ServletException {
+		super.init(config);
+		setEncoding(config.getInitParameter("encoding"));
+		setOverrideClient(Boolean.parseBoolean(config.getInitParameter("overrideClient")));
+	}
 
 }

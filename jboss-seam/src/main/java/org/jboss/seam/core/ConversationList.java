@@ -24,37 +24,29 @@ import org.jboss.seam.web.Session;
  */
 @Scope(STATELESS)
 @Name("org.jboss.seam.core.conversationListFactory")
-@Install(precedence=BUILT_IN)
+@Install(precedence = BUILT_IN)
 @BypassInterceptors
-public class ConversationList
-{
-   
-   protected List<ConversationEntry> createConversationEntryList()
-   {
-      ConversationEntries conversationEntries = ConversationEntries.getInstance();
-      if (conversationEntries==null)
-      {
-         return Collections.emptyList();
-      }
-      else
-      {
-         Set<ConversationEntry> orderedEntries = new TreeSet<ConversationEntry>();
-         orderedEntries.addAll( conversationEntries.getConversationEntries() );
-         List<ConversationEntry> conversationEntryList = new ArrayList<ConversationEntry>( conversationEntries.size() );
-         for ( ConversationEntry entry: orderedEntries )
-         {
-            if ( entry.isDisplayable() && !Session.instance().isInvalid() )
-            {
-               conversationEntryList.add(entry);
-            }
-         }
-         return conversationEntryList;
-      }
-   }
-   
-   @Factory(value="org.jboss.seam.core.conversationList", autoCreate=true, scope=PAGE)
-   public List<ConversationEntry> getConversationEntryList()
-   {
-      return createConversationEntryList();
-   }
+public class ConversationList {
+
+	protected List<ConversationEntry> createConversationEntryList() {
+		ConversationEntries conversationEntries = ConversationEntries.getInstance();
+		if (conversationEntries == null) {
+			return Collections.emptyList();
+		} else {
+			Set<ConversationEntry> orderedEntries = new TreeSet<ConversationEntry>();
+			orderedEntries.addAll(conversationEntries.getConversationEntries());
+			List<ConversationEntry> conversationEntryList = new ArrayList<ConversationEntry>(conversationEntries.size());
+			for (ConversationEntry entry : orderedEntries) {
+				if (entry.isDisplayable() && !Session.instance().isInvalid()) {
+					conversationEntryList.add(entry);
+				}
+			}
+			return conversationEntryList;
+		}
+	}
+
+	@Factory(value = "org.jboss.seam.core.conversationList", autoCreate = true, scope = PAGE)
+	public List<ConversationEntry> getConversationEntryList() {
+		return createConversationEntryList();
+	}
 }

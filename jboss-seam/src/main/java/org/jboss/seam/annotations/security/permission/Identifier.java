@@ -16,12 +16,12 @@ import org.jboss.seam.security.permission.IdentifierStrategy;
  *  
  * @author Shane Bryzak
  */
-@Target({TYPE})
+@Target({ TYPE })
 @Documented
 @Retention(RUNTIME)
 @Inherited
-public @interface Identifier
-{  
-   Class<? extends IdentifierStrategy> value() default IdentifierStrategy.class;
-   String name() default "";
+public @interface Identifier {
+	Class<? extends IdentifierStrategy> value() default IdentifierStrategy.class;
+
+	String name() default "";
 }

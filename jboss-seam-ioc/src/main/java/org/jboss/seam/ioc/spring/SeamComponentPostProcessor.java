@@ -14,8 +14,7 @@ import org.springframework.core.Ordered;
  *
  * @author youngm
  */
-public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered 
-{
+public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered {
 
 	private int order = Ordered.LOWEST_PRECEDENCE;
 
@@ -23,25 +22,21 @@ public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered
 	 * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessAfterInitialization(java.lang.Object,
 	 *      java.lang.String)
 	 */
-	public Object postProcessAfterInitialization(final Object bean, String beanName) throws BeansException 
-    {
-        // Check to see if this bean is a component.
+	public Object postProcessAfterInitialization(final Object bean, String beanName) throws BeansException {
+		// Check to see if this bean is a component.
 		SpringComponent component = SpringComponent.forSpringBeanName(beanName);
 		// Not a spring component skip.
-		if (component == null) 
-        {
+		if (component == null) {
 			return bean;
 		}
 		// If this bean is a FactoryBean only request the bean from Seam if the component is a FactoryBean as well
 		// The object created by the factory should come along later
-		if (bean instanceof FactoryBean && !FactoryBean.class.isAssignableFrom(component.getBeanClass())) 
-        {
+		if (bean instanceof FactoryBean && !FactoryBean.class.isAssignableFrom(component.getBeanClass())) {
 			return bean;
 		}
 		// Wrap our bean instance in an object factory for the SpringComponent to use
 		SpringComponent.setObjectFactory(new ObjectFactory() {
-			public Object getObject() throws BeansException 
-         {
+			public Object getObject() throws BeansException {
 				return bean;
 			}
 		});
@@ -53,8 +48,7 @@ public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered
 	 * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessBeforeInitialization(java.lang.Object,
 	 *      java.lang.String)
 	 */
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException 
-    {
+	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		return bean;
 	}
 
@@ -63,16 +57,14 @@ public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered
 	 *
 	 * @see org.springframework.core.Ordered#getOrder()
 	 */
-	public int getOrder() 
-   {
+	public int getOrder() {
 		return order;
 	}
 
 	/**
 	 * @param order the order to set
 	 */
-	public void setOrder(int order) 
-    {
+	public void setOrder(int order) {
 		this.order = order;
 	}
 }

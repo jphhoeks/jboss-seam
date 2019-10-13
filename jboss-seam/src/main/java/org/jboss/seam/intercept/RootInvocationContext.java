@@ -12,48 +12,40 @@ import org.jboss.seam.util.Reflections;
  * @author Gavin King
  *
  */
-class RootInvocationContext implements InvocationContext
-{
-   private final Object bean;
-   private final Method method;
-   private Object[] params;
-   private final Map contextData = new HashMap();
+class RootInvocationContext implements InvocationContext {
+	private final Object bean;
+	private final Method method;
+	private Object[] params;
+	private final Map contextData = new HashMap();
 
-   public RootInvocationContext(Object bean, Method method, Object[] params)
-   {
-      this.bean = bean;
-      this.method = method;
-      this.params = params;
-   }
-   
-   public Object proceed() throws Exception
-   {     
-      method.setAccessible(true);
-      return Reflections.invoke(method, bean, params);
-   }
+	public RootInvocationContext(Object bean, Method method, Object[] params) {
+		this.bean = bean;
+		this.method = method;
+		this.params = params;
+	}
 
-   public Object getTarget()
-   {
-      return bean;
-   }
+	public Object proceed() throws Exception {
+		method.setAccessible(true);
+		return Reflections.invoke(method, bean, params);
+	}
 
-   public Map getContextData()
-   {
-      return contextData;
-   }
+	public Object getTarget() {
+		return bean;
+	}
 
-   public Method getMethod()
-   {
-      return method;
-   }
+	public Map getContextData() {
+		return contextData;
+	}
 
-   public Object[] getParameters()
-   {
-      return params;
-   }
+	public Method getMethod() {
+		return method;
+	}
 
-   public void setParameters(Object[] newParams)
-   {
-      params = newParams;
-   }
+	public Object[] getParameters() {
+		return params;
+	}
+
+	public void setParameters(Object[] newParams) {
+		params = newParams;
+	}
 }

@@ -11,89 +11,79 @@ import java.util.Date;
  * @author Gavin King
  *
  */
-public class TimerSchedule extends Schedule
-{
-   private static final long serialVersionUID = 2692435281183854378L;
-private Long intervalDuration;
-   
-   public Long getIntervalDuration()
-   {
-      return intervalDuration;
-   }
-   
-   /**
-    * @param duration the delay before the event occurs
-    */
-   public TimerSchedule(Long duration)
-   {
-      super(duration);
-   }
+public class TimerSchedule extends Schedule {
+	private static final long serialVersionUID = 2692435281183854378L;
+	private Long intervalDuration;
 
-   /**
-    * @param expiration the datetime at which the event occurs
-    */
-   public TimerSchedule(Date expiration)
-   {
-      super(expiration);
-   }
+	public Long getIntervalDuration() {
+		return intervalDuration;
+	}
 
-   /**
-    * @param duration the delay before the first event occurs
-    * @param intervalDuration the period between the events
-    */
-   public TimerSchedule(Long duration, Long intervalDuration)
-   {
-      super(duration);
-      this.intervalDuration = intervalDuration;
-   }
+	/**
+	* @param duration the delay before the event occurs
+	*/
+	public TimerSchedule(Long duration) {
+		super(duration);
+	}
 
-   /**
-    * @param expiration the datetime at which the first event occurs
-    * @param intervalDuration the period between the events
-    */
-   public TimerSchedule(Date expiration, Long intervalDuration)
-   {
-      super(expiration);
-      this.intervalDuration = intervalDuration;
-   }
+	/**
+	* @param expiration the datetime at which the event occurs
+	*/
+	public TimerSchedule(Date expiration) {
+		super(expiration);
+	}
 
-   public TimerSchedule(Long duration, Date expiration, Long intervalDuration)
-   {
-      super(duration, expiration);
-      this.intervalDuration = intervalDuration;
-   }
+	/**
+	* @param duration the delay before the first event occurs
+	* @param intervalDuration the period between the events
+	*/
+	public TimerSchedule(Long duration, Long intervalDuration) {
+		super(duration);
+		this.intervalDuration = intervalDuration;
+	}
 
-   public TimerSchedule(Long duration, Date expiration, Long intervalDuration, Date finalExpiration)
-   {
-      super(duration, expiration, finalExpiration);
-      this.intervalDuration = intervalDuration;
-   }
+	/**
+	* @param expiration the datetime at which the first event occurs
+	* @param intervalDuration the period between the events
+	*/
+	public TimerSchedule(Date expiration, Long intervalDuration) {
+		super(expiration);
+		this.intervalDuration = intervalDuration;
+	}
 
-   private TimerSchedule() {}
-   
-   
-   
-   public static final TimerSchedule ONCE_IMMEDIATELY = new TimerSchedule();
+	public TimerSchedule(Long duration, Date expiration, Long intervalDuration) {
+		super(duration, expiration);
+		this.intervalDuration = intervalDuration;
+	}
 
-   @Override
-   public int hashCode()
-   {
-      final int prime = 31;
-      int result = super.hashCode();
-      result = prime * result + ((intervalDuration == null) ? 0 : intervalDuration.hashCode());
-      return result;
-   }
+	public TimerSchedule(Long duration, Date expiration, Long intervalDuration, Date finalExpiration) {
+		super(duration, expiration, finalExpiration);
+		this.intervalDuration = intervalDuration;
+	}
 
-   @Override
-   public boolean equals(Object obj)
-   {
-      if (!super.equals(obj)) return false;
-      final TimerSchedule other = (TimerSchedule) obj;
-      if (intervalDuration == null)
-      {
-         if (other.intervalDuration != null) return false;
-      }
-      else if (!intervalDuration.equals(other.intervalDuration)) return false;
-      return true;
-   }
+	private TimerSchedule() {
+	}
+
+	public static final TimerSchedule ONCE_IMMEDIATELY = new TimerSchedule();
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((intervalDuration == null) ? 0 : intervalDuration.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!super.equals(obj))
+			return false;
+		final TimerSchedule other = (TimerSchedule) obj;
+		if (intervalDuration == null) {
+			if (other.intervalDuration != null)
+				return false;
+		} else if (!intervalDuration.equals(other.intervalDuration))
+			return false;
+		return true;
+	}
 }

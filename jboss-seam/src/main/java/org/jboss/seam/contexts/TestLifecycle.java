@@ -21,25 +21,22 @@ import org.jboss.seam.servlet.ServletApplicationMap;
  * 
  * @author Gavin King
  */
-public class TestLifecycle
-{
+public class TestLifecycle {
 
-   private static final LogProvider log = Logging.getLogProvider(TestLifecycle.class);
+	private static final LogProvider log = Logging.getLogProvider(TestLifecycle.class);
 
-   public static void beginTest(ServletContext context, Map<String, Object> session)
-   {
-      log.debug( ">>> Begin test" );
-      Contexts.applicationContext.set( new ApplicationContext( new ServletApplicationMap(context) ) );
-      Contexts.eventContext.set( new BasicContext(ScopeType.EVENT) );
-      Contexts.conversationContext.set( new BasicContext(ScopeType.CONVERSATION) );
-      Contexts.businessProcessContext.set( new BusinessProcessContext() );
-      Contexts.sessionContext.set( new SessionContext(session) );
-   }
+	public static void beginTest(ServletContext context, Map<String, Object> session) {
+		log.debug(">>> Begin test");
+		Contexts.applicationContext.set(new ApplicationContext(new ServletApplicationMap(context)));
+		Contexts.eventContext.set(new BasicContext(ScopeType.EVENT));
+		Contexts.conversationContext.set(new BasicContext(ScopeType.CONVERSATION));
+		Contexts.businessProcessContext.set(new BusinessProcessContext());
+		Contexts.sessionContext.set(new SessionContext(session));
+	}
 
-   public static void endTest()
-   {
-      Contexts.clearThreadlocals();
-      log.debug( "<<< End test" );
-   }
+	public static void endTest() {
+		Contexts.clearThreadlocals();
+		log.debug("<<< End test");
+	}
 
 }

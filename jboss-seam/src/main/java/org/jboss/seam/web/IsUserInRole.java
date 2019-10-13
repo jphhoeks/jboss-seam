@@ -26,38 +26,33 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Name("org.jboss.seam.web.isUserInRole")
-@Install(precedence=BUILT_IN)
-public class IsUserInRole
-{
-   @Unwrap
-   public Map<String, Boolean> getMap()
-   {
-      return new AbstractMap<String, Boolean>()
-      {
-         @Override
-         public Set<Map.Entry<String, Boolean>> entrySet() {
-            throw new UnsupportedOperationException();
-         }
+@Install(precedence = BUILT_IN)
+public class IsUserInRole {
+	@Unwrap
+	public Map<String, Boolean> getMap() {
+		return new AbstractMap<String, Boolean>() {
+			@Override
+			public Set<Map.Entry<String, Boolean>> entrySet() {
+				throw new UnsupportedOperationException();
+			}
 
-         @Override
-         public Boolean get(Object key)
-         {
-            if ( !(key instanceof String ) ) return false;
-            String role = (String) key;
-            return isUserInRole(role);
-         }
-         
-      };
-   }
+			@Override
+			public Boolean get(Object key) {
+				if (!(key instanceof String))
+					return false;
+				String role = (String) key;
+				return isUserInRole(role);
+			}
 
-   protected Boolean isUserInRole(String role)
-   {
-      ServletRequest servletRequest = ServletContexts.instance().getRequest();
-      if ( servletRequest != null )
-      {
-         return ( (HttpServletRequest) servletRequest ).isUserInRole(role);
-      }
-      return null;
-   }
-   
+		};
+	}
+
+	protected Boolean isUserInRole(String role) {
+		ServletRequest servletRequest = ServletContexts.instance().getRequest();
+		if (servletRequest != null) {
+			return ((HttpServletRequest) servletRequest).isUserInRole(role);
+		}
+		return null;
+	}
+
 }

@@ -14,27 +14,24 @@ import java.util.List;
  * @author Gavin King
  *
  */
-public class ListDataModel extends javax.faces.model.ListDataModel implements Serializable
-{
-   private static final long serialVersionUID = 5156131434571541698L;
-   
-   private void writeObject(ObjectOutputStream oos) throws IOException 
-   {
-      oos.writeObject( getWrappedData() );
-      oos.writeInt( getRowIndex() );
-   }
-   
-   private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException 
-   {
-      this.setWrappedData( ois.readObject() );
-      this.setRowIndex( ois.readInt() );
-   }
-   
-   public ListDataModel() {}
-   
-   public ListDataModel(List list)
-   {
-      super(list);
-   }
-   
+public class ListDataModel extends javax.faces.model.ListDataModel implements Serializable {
+	private static final long serialVersionUID = 5156131434571541698L;
+
+	private void writeObject(ObjectOutputStream oos) throws IOException {
+		oos.writeObject(getWrappedData());
+		oos.writeInt(getRowIndex());
+	}
+
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		this.setWrappedData(ois.readObject());
+		this.setRowIndex(ois.readInt());
+	}
+
+	public ListDataModel() {
+	}
+
+	public ListDataModel(List list) {
+		super(list);
+	}
+
 }

@@ -24,120 +24,103 @@ import org.jboss.el.lang.VariableMapperImpl;
  * @author Gavin King
  *
  */
-public class EL
-{
-   public static final ELResolver EL_RESOLVER = createELResolver();
-   //ELContext instances should not be shared between threads
-   //public static final ELContext EL_CONTEXT = createELContext( EL_RESOLVER, new FunctionMapperImpl() );
+public class EL {
+	public static final ELResolver EL_RESOLVER = createELResolver();
+	//ELContext instances should not be shared between threads
+	//public static final ELContext EL_CONTEXT = createELContext( EL_RESOLVER, new FunctionMapperImpl() );
 
-   public static final ExpressionFactory EXPRESSION_FACTORY = new ExpressionFactoryImpl();
+	public static final ExpressionFactory EXPRESSION_FACTORY = new ExpressionFactoryImpl();
 
-   private static ELResolver createELResolver()
-   {
-      CompositeELResolver resolver = new CompositeELResolver();
-      resolver.add( new SeamELResolver() );
-      resolver.add( new MapELResolver() );
-      resolver.add( new ListELResolver() );
-      resolver.add( new ArrayELResolver() );
-      resolver.add( new ResourceBundleELResolver() );
-      resolver.add( new BeanELResolver() );
-      return resolver;
-   }
+	private static ELResolver createELResolver() {
+		CompositeELResolver resolver = new CompositeELResolver();
+		resolver.add(new SeamELResolver());
+		resolver.add(new MapELResolver());
+		resolver.add(new ListELResolver());
+		resolver.add(new ArrayELResolver());
+		resolver.add(new ResourceBundleELResolver());
+		resolver.add(new BeanELResolver());
+		return resolver;
+	}
 
-   public static ELContext createELContext() {
-       return createELContext( EL_RESOLVER, new FunctionMapperImpl() );
-   }
+	public static ELContext createELContext() {
+		return createELContext(EL_RESOLVER, new FunctionMapperImpl());
+	}
 
-   public static ELContext createELContext(final ELResolver resolver, final FunctionMapper functionMapper)
-   {
-      return new ELContext()
-      {
-         final VariableMapperImpl variableMapper = new VariableMapperImpl();
+	public static ELContext createELContext(final ELResolver resolver, final FunctionMapper functionMapper) {
+		return new ELContext() {
+			final VariableMapperImpl variableMapper = new VariableMapperImpl();
 
-         @Override
-         public ELResolver getELResolver()
-         {
-            return resolver;
-         }
+			@Override
+			public ELResolver getELResolver() {
+				return resolver;
+			}
 
-         @Override
-         public FunctionMapper getFunctionMapper()
-         {
-            return functionMapper;
-         }
+			@Override
+			public FunctionMapper getFunctionMapper() {
+				return functionMapper;
+			}
 
-         @Override
-         public VariableMapper getVariableMapper()
-         {
-            return variableMapper;
-         }
+			@Override
+			public VariableMapper getVariableMapper() {
+				return variableMapper;
+			}
 
-      };
-   }
+		};
+	}
 
-   public static ELContext createELContext(final ELContext context, final ELResolver resolver)
-   {
-      return new ELContext()
-      {
+	public static ELContext createELContext(final ELContext context, final ELResolver resolver) {
+		return new ELContext() {
 
-         @Override
-         public Locale getLocale()
-         {
-            return context.getLocale();
-         }
+			@Override
+			public Locale getLocale() {
+				return context.getLocale();
+			}
 
-         @Override
-         public void setPropertyResolved(boolean value)
-         {
-            super.setPropertyResolved(value);
-            context.setPropertyResolved(value);
-         }
+			@Override
+			public void setPropertyResolved(boolean value) {
+				super.setPropertyResolved(value);
+				context.setPropertyResolved(value);
+			}
 
-         /*@Override
-         public boolean isPropertyResolved()
-         {
-            return super.isPropertyResolved();
-         }*/
+			/*@Override
+			public boolean isPropertyResolved()
+			{
+			return super.isPropertyResolved();
+			}*/
 
-         @Override
-         public void putContext(Class clazz, Object object)
-         {
-            super.putContext(clazz, object);
-            context.putContext(clazz, object);
-         }
+			@Override
+			public void putContext(Class clazz, Object object) {
+				super.putContext(clazz, object);
+				context.putContext(clazz, object);
+			}
 
-         @Override
-         public Object getContext(Class clazz)
-         {
-            return context.getContext(clazz);
-         }
+			@Override
+			public Object getContext(Class clazz) {
+				return context.getContext(clazz);
+			}
 
-         @Override
-         public void setLocale(Locale locale)
-         {
-            super.setLocale(locale);
-            context.setLocale(locale);
-         }
+			@Override
+			public void setLocale(Locale locale) {
+				super.setLocale(locale);
+				context.setLocale(locale);
+			}
 
-         @Override
-         public ELResolver getELResolver()
-         {
-            return resolver;
-         }
+			@Override
+			public ELResolver getELResolver() {
+				return resolver;
+			}
 
-         @Override
-         public FunctionMapper getFunctionMapper()
-         {
-            return context.getFunctionMapper();
-         }
+			@Override
+			public FunctionMapper getFunctionMapper() {
+				return context.getFunctionMapper();
+			}
 
-         @Override
-         public VariableMapper getVariableMapper()
-         {
-            return context.getVariableMapper();
-         }
+			@Override
+			public VariableMapper getVariableMapper() {
+				return context.getVariableMapper();
+			}
 
-      };
-   }
+		};
+	}
 
 }

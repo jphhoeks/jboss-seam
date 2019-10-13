@@ -20,50 +20,42 @@ import org.jboss.seam.util.Reflections;
  *
  */
 
-@Interceptor(stateless=true)
-public class HibernateSessionProxyInterceptor extends AbstractInterceptor
-{
+@Interceptor(stateless = true)
+public class HibernateSessionProxyInterceptor extends AbstractInterceptor {
 
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-@AroundInvoke
-   public Object aroundInvoke(InvocationContext ic) throws Exception
-   {
-      return ic.proceed();
-   }
-   
-   @PostActivate
-   public void postActivate(InvocationContext invocation) throws Exception
-   {
-      //just in case the container does some special handling of PC serialization
-      proxyPersistenceContexts(invocation.getTarget());
-      invocation.proceed();
-   }
-   
-   @PostConstruct
-   public void postConstruct(InvocationContext invocation) throws Exception
-   {
-      proxyPersistenceContexts(invocation.getTarget());
-      invocation.proceed();
-   }
-   
-   
-   private void proxyPersistenceContexts(Object bean)
-   {
-      //wrap any @PersistenceContext attributes in our proxy
-      for ( BijectedAttribute ba: getComponent().getPersistenceContextAttributes() )
-      {
-         Object object = ba.get(bean);
-         if ( ! ( object instanceof HibernateSessionProxy) && object instanceof Session)
-         {
-            ba.set( bean, HibernatePersistenceProvider.proxySession( (Session) object ) );
-         }
-      }
-   }
-   
-   public boolean isInterceptorEnabled()
-   {
-      return (getComponent().getType()==STATEFUL_SESSION_BEAN || getComponent().getType()==STATELESS_SESSION_BEAN) && Reflections.isClassAvailable("org.hibernate.Session");
-   }
+	@AroundInvoke
+	public Object aroundInvoke(InvocationContext ic) throws Exception {
+		return ic.proceed();
+	}
+
+	@PostActivate
+	public void postActivate(InvocationContext invocation) throws Exception {
+		//just in case the container does some special handling of PC serialization
+		proxyPersistenceContexts(invocation.getTarget());
+		invocation.proceed();
+	}
+
+	@PostConstruct
+	public void postConstruct(InvocationContext invocation) throws Exception {
+		proxyPersistenceContexts(invocation.getTarget());
+		invocation.proceed();
+	}
+
+	private void proxyPersistenceContexts(Object bean) {
+		//wrap any @PersistenceContext attributes in our proxy
+		for (BijectedAttribute ba : getComponent().getPersistenceContextAttributes()) {
+			Object object = ba.get(bean);
+			if (!(object instanceof HibernateSessionProxy) && object instanceof Session) {
+				ba.set(bean, HibernatePersistenceProvider.proxySession((Session) object));
+			}
+		}
+	}
+
+	public boolean isInterceptorEnabled() {
+		return (getComponent().getType() == STATEFUL_SESSION_BEAN || getComponent().getType() == STATELESS_SESSION_BEAN)
+				&& Reflections.isClassAvailable("org.hibernate.Session");
+	}
 
 }

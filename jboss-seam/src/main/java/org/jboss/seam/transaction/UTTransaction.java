@@ -18,78 +18,62 @@ import org.jboss.seam.log.Logging;
  * @author Gavin King
  * 
  */
-public class UTTransaction extends AbstractUserTransaction
-{
-   private static final LogProvider log = Logging.getLogProvider(UTTransaction.class);
-   
-   private final javax.transaction.UserTransaction delegate;
+public class UTTransaction extends AbstractUserTransaction {
+	private static final LogProvider log = Logging.getLogProvider(UTTransaction.class);
 
-   UTTransaction(javax.transaction.UserTransaction delegate)
-   {
-      this.delegate = delegate;
-      if (delegate==null)
-      {
-         throw new IllegalArgumentException("null UserTransaction");
-      }
-   }
-   
-   public void begin() throws NotSupportedException, SystemException
-   {
-      log.debug("beginning JTA transaction");
-      delegate.begin();
-      getSynchronizations().afterTransactionBegin();
-   }
+	private final javax.transaction.UserTransaction delegate;
 
-   public void commit() throws RollbackException, HeuristicMixedException,
-            HeuristicRollbackException, SecurityException, IllegalStateException, SystemException
-   {
-      log.debug("committing JTA transaction");
-      boolean success = false;
-      Synchronizations synchronizations = getSynchronizations();
-      synchronizations.beforeTransactionCommit();
-      try
-      {
-         delegate.commit();
-         success = true;
-      }
-      finally
-      {
-         synchronizations.afterTransactionCommit(success);
-      }
-   }
+	UTTransaction(javax.transaction.UserTransaction delegate) {
+		this.delegate = delegate;
+		if (delegate == null) {
+			throw new IllegalArgumentException("null UserTransaction");
+		}
+	}
 
-   public void rollback() throws IllegalStateException, SecurityException, SystemException
-   {
-      log.debug("rolling back JTA transaction");
-      try
-      {
-         delegate.rollback();
-      }
-      finally
-      {
-         getSynchronizations().afterTransactionRollback();
-      }
-   }
+	public void begin() throws NotSupportedException, SystemException {
+		log.debug("beginning JTA transaction");
+		delegate.begin();
+		getSynchronizations().afterTransactionBegin();
+	}
 
-   public int getStatus() throws SystemException
-   {
-      return delegate.getStatus();
-   }
+	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
+			IllegalStateException, SystemException {
+		log.debug("committing JTA transaction");
+		boolean success = false;
+		Synchronizations synchronizations = getSynchronizations();
+		synchronizations.beforeTransactionCommit();
+		try {
+			delegate.commit();
+			success = true;
+		} finally {
+			synchronizations.afterTransactionCommit(success);
+		}
+	}
 
-   public void setRollbackOnly() throws IllegalStateException, SystemException
-   {
-      delegate.setRollbackOnly();
-   }
+	public void rollback() throws IllegalStateException, SecurityException, SystemException {
+		log.debug("rolling back JTA transaction");
+		try {
+			delegate.rollback();
+		} finally {
+			getSynchronizations().afterTransactionRollback();
+		}
+	}
 
-   public void setTransactionTimeout(int timeout) throws SystemException
-   {
-      delegate.setTransactionTimeout(timeout);
-   }
+	public int getStatus() throws SystemException {
+		return delegate.getStatus();
+	}
 
-   @Override
-   public void registerSynchronization(Synchronization sync)
-   {
-      getSynchronizations().registerSynchronization(sync);
-   }
-  
+	public void setRollbackOnly() throws IllegalStateException, SystemException {
+		delegate.setRollbackOnly();
+	}
+
+	public void setTransactionTimeout(int timeout) throws SystemException {
+		delegate.setTransactionTimeout(timeout);
+	}
+
+	@Override
+	public void registerSynchronization(Synchronization sync) {
+		getSynchronizations().registerSynchronization(sync);
+	}
+
 }

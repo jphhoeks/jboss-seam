@@ -20,21 +20,18 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Scope(ScopeType.STATELESS)
 @BypassInterceptors
 @Name("org.jboss.seam.core.resourceBundle")
-@Install(precedence=BUILT_IN)
-public class ResourceBundle 
-{
-   @Unwrap
-   public java.util.ResourceBundle getResourceBundle()
-   {
-      return SeamResourceBundle.getBundle();
-   }
-   
-   /**
-    * @return the ResourceBundle instance
-    */
-   public static java.util.ResourceBundle instance()
-   {
-      return (java.util.ResourceBundle) Component.getInstance(ResourceBundle.class);
-   }
-   
+@Install(precedence = BUILT_IN)
+public class ResourceBundle {
+	@Unwrap
+	public java.util.ResourceBundle getResourceBundle() {
+		return SeamResourceBundle.getBundle();
+	}
+
+	/**
+	* @return the ResourceBundle instance
+	*/
+	public static java.util.ResourceBundle instance() {
+		return (java.util.ResourceBundle) Component.getInstance(ResourceBundle.class);
+	}
+
 }

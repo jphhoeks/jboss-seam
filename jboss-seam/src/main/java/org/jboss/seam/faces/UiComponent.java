@@ -26,56 +26,47 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Name("org.jboss.seam.faces.uiComponent")
 @BypassInterceptors
 @Scope(STATELESS)
-@Install(precedence=BUILT_IN, classDependencies="javax.faces.context.FacesContext")
-public class UiComponent
-{
-   
-   @Unwrap
-   public Map<String, UIComponent> getViewComponents()
-   {
-      return new AbstractMap<String, UIComponent>() 
-      {
+@Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
+public class UiComponent {
 
-         @Override
-         public boolean containsKey(Object key) {
-            return get(key) != null;
-         }
-         
-          
-         @Override
-         public Set<Map.Entry<String, UIComponent>> entrySet()
-         {
-            throw new UnsupportedOperationException();
-         }
+	@Unwrap
+	public Map<String, UIComponent> getViewComponents() {
+		return new AbstractMap<String, UIComponent>() {
 
-         @Override
-         public UIComponent get(Object key)
-         {
-            if ( !(key instanceof String) ) return null;
-            try
-            {
-                FacesContext context = FacesContext.getCurrentInstance();
+			@Override
+			public boolean containsKey(Object key) {
+				return get(key) != null;
+			}
 
-                if (context == null) {
-                    return null;
-                }
-                
-                UIViewRoot viewRoot = context.getViewRoot();
-                
-                if (viewRoot == null)
-                {
-                   return null;
-                }
+			@Override
+			public Set<Map.Entry<String, UIComponent>> entrySet() {
+				throw new UnsupportedOperationException();
+			}
 
-                return viewRoot.findComponent( (String) key );
-            }
-            catch (IllegalArgumentException iae)
-            {
-               return null;
-            }
-         }
-         
-      };
-   }
-   
+			@Override
+			public UIComponent get(Object key) {
+				if (!(key instanceof String))
+					return null;
+				try {
+					FacesContext context = FacesContext.getCurrentInstance();
+
+					if (context == null) {
+						return null;
+					}
+
+					UIViewRoot viewRoot = context.getViewRoot();
+
+					if (viewRoot == null) {
+						return null;
+					}
+
+					return viewRoot.findComponent((String) key);
+				} catch (IllegalArgumentException iae) {
+					return null;
+				}
+			}
+
+		};
+	}
+
 }

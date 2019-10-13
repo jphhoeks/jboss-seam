@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 /**
  * The stop date of the repeating asynchronous call.
  * 
- * This a parameter level annotation and it is only
- * available for the Quartz timer.
+ * This a parameter level annotation and it is only available for the Quartz
+ * timer.
  * 
  * @author Michael Yuan
  *
@@ -19,6 +19,5 @@ import java.lang.annotation.Target;
 @Target(PARAMETER)
 @Retention(RUNTIME)
 @Documented
-public @interface FinalExpiration
-{
+public @interface FinalExpiration {
 }

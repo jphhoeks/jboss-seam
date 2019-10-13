@@ -25,22 +25,18 @@ import org.jboss.seam.servlet.ContextualHttpServletRequest;
  */
 @Scope(APPLICATION)
 @Name("org.jboss.seam.web.contextFilter")
-@Install(value=false, precedence = BUILT_IN)
+@Install(value = false, precedence = BUILT_IN)
 @BypassInterceptors
-@Filter(within="org.jboss.seam.web.ajax4jsfFilter")
-public class ContextFilter extends AbstractFilter 
-{
- 
-   public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) 
-       throws IOException, ServletException 
-   {
-      new ContextualHttpServletRequest( (HttpServletRequest) request )
-      {
-         @Override
-         public void process() throws ServletException, IOException
-         {
-            chain.doFilter(request, response);
-         }
-      }.run();
-   }
+@Filter(within = "org.jboss.seam.web.ajax4jsfFilter")
+public class ContextFilter extends AbstractFilter {
+
+	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+			throws IOException, ServletException {
+		new ContextualHttpServletRequest((HttpServletRequest) request) {
+			@Override
+			public void process() throws ServletException, IOException {
+				chain.doFilter(request, response);
+			}
+		}.run();
+	}
 }

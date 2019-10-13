@@ -22,58 +22,48 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  * 
  */
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
-@JsfRenderer(type="org.jboss.seam.ui.EqualityValidatorRenderer", family="org.jboss.seam.ui.EqualityValidatorRenderer")
-public class EqualityValidatorRendererBase extends RendererBase implements ComponentSystemEventListener
-{
+@JsfRenderer(type = "org.jboss.seam.ui.EqualityValidatorRenderer", family = "org.jboss.seam.ui.EqualityValidatorRenderer")
+public class EqualityValidatorRendererBase extends RendererBase implements ComponentSystemEventListener {
 
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIEqualityValidator.class;
-   }
+	@Override
+	protected Class getComponentClass() {
+		return UIEqualityValidator.class;
+	}
 
-   private void attachValidator(UIComponent component)
-   {
-      UIEqualityValidator ev = (UIEqualityValidator) component;
-      EditableValueHolder evh = null;
-      if (ev != null && ev.getParent() instanceof EditableValueHolder)
-      {
-         evh = (EditableValueHolder) ev.getParent();
-      }
+	private void attachValidator(UIComponent component) {
+		UIEqualityValidator ev = (UIEqualityValidator) component;
+		EditableValueHolder evh = null;
+		if (ev != null && ev.getParent() instanceof EditableValueHolder) {
+			evh = (EditableValueHolder) ev.getParent();
+		}
 
-      if (evh == null)
-         throw new IllegalArgumentException("validateEquality tag must be nested in an EditableValueHolder (\"input tag\")");
+		if (evh == null)
+			throw new IllegalArgumentException("validateEquality tag must be nested in an EditableValueHolder (\"input tag\")");
 
-      if (!hasEqualityValidator(evh))
-      {
-         evh.addValidator(new EqualityValidator(ev.getFor(), ev.getMessage(), ev.getMessageId(), ev.getOperator()));
-         evh.setRequired(ev.isRequired());
-      }
+		if (!hasEqualityValidator(evh)) {
+			evh.addValidator(new EqualityValidator(ev.getFor(), ev.getMessage(), ev.getMessageId(), ev.getOperator()));
+			evh.setRequired(ev.isRequired());
+		}
 
-   }
+	}
 
-   private boolean hasEqualityValidator(EditableValueHolder evh)
-   {
-      for (Validator validator : evh.getValidators())
-      {
-         if (validator instanceof EqualityValidator)
-         {
-            return true;
-         }
-      }
-      return false;
-   }
+	private boolean hasEqualityValidator(EditableValueHolder evh) {
+		for (Validator validator : evh.getValidators()) {
+			if (validator instanceof EqualityValidator) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-   @Override
-   public boolean getRendersChildren()
-   {
-      return true;
-   }
+	@Override
+	public boolean getRendersChildren() {
+		return true;
+	}
 
-   @Override
-   public void processEvent(ComponentSystemEvent event) throws AbortProcessingException
-   {
-      UIComponent component = event.getComponent();
-      this.attachValidator(component);
-   }
+	@Override
+	public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+		UIComponent component = event.getComponent();
+		this.attachValidator(component);
+	}
 }

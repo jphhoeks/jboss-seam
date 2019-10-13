@@ -23,51 +23,43 @@ import org.jboss.seam.contexts.Context;
  */
 @Name("org.jboss.seam.core.contexts")
 @BypassInterceptors
-@Install(precedence=BUILT_IN)
+@Install(precedence = BUILT_IN)
 @Scope(ScopeType.STATELESS)
-public class Contexts 
-{
+public class Contexts {
 
-   @Factory(value="org.jboss.seam.core.eventContext", autoCreate=true)
-   public Context getEventContext() 
-   {
-      return org.jboss.seam.contexts.Contexts.getEventContext();
-   }
+	@Factory(value = "org.jboss.seam.core.eventContext", autoCreate = true)
+	public Context getEventContext() {
+		return org.jboss.seam.contexts.Contexts.getEventContext();
+	}
 
-   @Factory(value="org.jboss.seam.core.methodContext", autoCreate=true)
-   public Context getMethodContext() 
-   {
-      return org.jboss.seam.contexts.Contexts.getMethodContext();
-   }
+	@Factory(value = "org.jboss.seam.core.methodContext", autoCreate = true)
+	public Context getMethodContext() {
+		return org.jboss.seam.contexts.Contexts.getMethodContext();
+	}
 
-   @Factory(value="org.jboss.seam.core.pageContext", autoCreate=true)
-   public Context getPageContext() 
-   {
-      return org.jboss.seam.contexts.Contexts.getPageContext();
-   }
+	@Factory(value = "org.jboss.seam.core.pageContext", autoCreate = true)
+	public Context getPageContext() {
+		return org.jboss.seam.contexts.Contexts.getPageContext();
+	}
 
-   @Factory(value="org.jboss.seam.core.sessionContext", autoCreate=true)
-   public Context getSessionContext() 
-   {
-      return org.jboss.seam.contexts.Contexts.getSessionContext();
-   }
+	@Factory(value = "org.jboss.seam.core.sessionContext", autoCreate = true)
+	public Context getSessionContext() {
+		return org.jboss.seam.contexts.Contexts.getSessionContext();
+	}
 
-   @Factory(value="org.jboss.seam.core.applicationContext", autoCreate=true)
-   public Context getApplicationContext() 
-   {
-      return org.jboss.seam.contexts.Contexts.getApplicationContext();
-   }
+	@Factory(value = "org.jboss.seam.core.applicationContext", autoCreate = true)
+	public Context getApplicationContext() {
+		return org.jboss.seam.contexts.Contexts.getApplicationContext();
+	}
 
-   @Factory(value="org.jboss.seam.core.conversationContext", autoCreate=true)
-   public Context getConversationContext() 
-   {
-      return org.jboss.seam.contexts.Contexts.getConversationContext();
-   }
+	@Factory(value = "org.jboss.seam.core.conversationContext", autoCreate = true)
+	public Context getConversationContext() {
+		return org.jboss.seam.contexts.Contexts.getConversationContext();
+	}
 
-   @Factory(value="org.jboss.seam.core.businessProcessContext", autoCreate=true)
-   public Context getBusinessProcessContext() 
-   {
-      return org.jboss.seam.contexts.Contexts.getBusinessProcessContext();
-   }
+	@Factory(value = "org.jboss.seam.core.businessProcessContext", autoCreate = true)
+	public Context getBusinessProcessContext() {
+		return org.jboss.seam.contexts.Contexts.getBusinessProcessContext();
+	}
 
 }

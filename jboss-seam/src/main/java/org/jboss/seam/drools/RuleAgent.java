@@ -18,144 +18,124 @@ import org.jboss.seam.util.Resources;
  */
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
-public class RuleAgent
-{
-   private static final LogProvider log = Logging.getLogProvider(RuleAgent.class);
-   
-   private org.drools.agent.RuleAgent agent;
-   private String configurationFile;  
+public class RuleAgent {
+	private static final LogProvider log = Logging.getLogProvider(RuleAgent.class);
 
-   private String newInstance;
-   private String files;
-   private String url;
-   private String localCacheDir;
-   private String poll;
-   private String configName;
-   
-   @Create
-   public void createAgent() throws Exception
-   {  
-      Properties properties = new Properties();
-      
-      loadFromPath(properties, configurationFile);
-      setLocalProperties(properties);
-      
-      agent = org.drools.agent.RuleAgent.newRuleAgent(properties);    
-      log.debug("Creating new rules agent");
-   }
-   
-   protected void setLocalProperties(Properties properties)
-   {
-      if (newInstance != null) {
-         properties.setProperty(org.drools.agent.RuleAgent.NEW_INSTANCE, newInstance);
-      }
-      if (files != null) {
-         properties.setProperty(org.drools.agent.RuleAgent.FILES, files);
-      }
-      if (url != null) {
-         properties.setProperty(org.drools.agent.RuleAgent.URLS, url);
-      }
-      if (localCacheDir != null) {
-         properties.setProperty(org.drools.agent.RuleAgent.LOCAL_URL_CACHE, localCacheDir);
-      }
-      if (poll != null) {
-         properties.setProperty(org.drools.agent.RuleAgent.POLL_INTERVAL, poll);
-      }
-      if (configName != null) {
-         properties.setProperty(org.drools.agent.RuleAgent.CONFIG_NAME, configName);
-      }
+	private org.drools.agent.RuleAgent agent;
+	private String configurationFile;
 
-   }
+	private String newInstance;
+	private String files;
+	private String url;
+	private String localCacheDir;
+	private String poll;
+	private String configName;
 
-   protected void loadFromPath(Properties properties, String configurationFile)
-      throws IOException
-   {
-      if (configurationFile != null) {
-         InputStream inputStream = Resources.getResourceAsStream(configurationFile, null);
-         if (inputStream != null) {
-            try {
-               properties.load(inputStream);
-            } finally {
-               inputStream.close();
-            }         
-         }
-      }
-   }
+	@Create
+	public void createAgent() throws Exception {
+		Properties properties = new Properties();
 
-   @Unwrap
-   public org.drools.RuleBase getRuleBase()
-   {
-      return agent.getRuleBase();   
-   }
-   
-   public String getNewInstance()
-   {
-      return newInstance;
-   }
+		loadFromPath(properties, configurationFile);
+		setLocalProperties(properties);
 
-   public void setNewInstance(String newInstance)
-   {
-      this.newInstance = newInstance;
-   }
+		agent = org.drools.agent.RuleAgent.newRuleAgent(properties);
+		log.debug("Creating new rules agent");
+	}
 
-   public String getFiles()
-   {
-      return files;
-   }
+	protected void setLocalProperties(Properties properties) {
+		if (newInstance != null) {
+			properties.setProperty(org.drools.agent.RuleAgent.NEW_INSTANCE, newInstance);
+		}
+		if (files != null) {
+			properties.setProperty(org.drools.agent.RuleAgent.FILES, files);
+		}
+		if (url != null) {
+			properties.setProperty(org.drools.agent.RuleAgent.URLS, url);
+		}
+		if (localCacheDir != null) {
+			properties.setProperty(org.drools.agent.RuleAgent.LOCAL_URL_CACHE, localCacheDir);
+		}
+		if (poll != null) {
+			properties.setProperty(org.drools.agent.RuleAgent.POLL_INTERVAL, poll);
+		}
+		if (configName != null) {
+			properties.setProperty(org.drools.agent.RuleAgent.CONFIG_NAME, configName);
+		}
 
-   public void setFiles(String files)
-   {
-      this.files = files;
-   }
+	}
 
-   public String getUrl()
-   {
-      return url;
-   }
+	protected void loadFromPath(Properties properties, String configurationFile) throws IOException {
+		if (configurationFile != null) {
+			InputStream inputStream = Resources.getResourceAsStream(configurationFile, null);
+			if (inputStream != null) {
+				try {
+					properties.load(inputStream);
+				} finally {
+					inputStream.close();
+				}
+			}
+		}
+	}
 
-   public void setUrl(String url)
-   {
-      this.url = url;
-   }
+	@Unwrap
+	public org.drools.RuleBase getRuleBase() {
+		return agent.getRuleBase();
+	}
 
-   public String getLocalCacheDir()
-   {
-      return localCacheDir;
-   }
+	public String getNewInstance() {
+		return newInstance;
+	}
 
-   public void setLocalCacheDir(String localCacheDir)
-   {
-      this.localCacheDir = localCacheDir;
-   }
+	public void setNewInstance(String newInstance) {
+		this.newInstance = newInstance;
+	}
 
-   public String getPoll()
-   {
-      return poll;
-   }
+	public String getFiles() {
+		return files;
+	}
 
-   public void setPoll(String poll)
-   {
-      this.poll = poll;
-   }
+	public void setFiles(String files) {
+		this.files = files;
+	}
 
-   public String getConfigName()
-   {
-      return configName;
-   }
+	public String getUrl() {
+		return url;
+	}
 
-   public void setConfigName(String name)
-   {
-      this.configName = name;
-   }
-  
-   public String getConfigurationFile()
-   {
-      return configurationFile;
-   }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-   public void setConfigurationFile(String brmsConfig)
-   {
-      this.configurationFile = brmsConfig;
-   }
-   
+	public String getLocalCacheDir() {
+		return localCacheDir;
+	}
+
+	public void setLocalCacheDir(String localCacheDir) {
+		this.localCacheDir = localCacheDir;
+	}
+
+	public String getPoll() {
+		return poll;
+	}
+
+	public void setPoll(String poll) {
+		this.poll = poll;
+	}
+
+	public String getConfigName() {
+		return configName;
+	}
+
+	public void setConfigName(String name) {
+		this.configName = name;
+	}
+
+	public String getConfigurationFile() {
+		return configurationFile;
+	}
+
+	public void setConfigurationFile(String brmsConfig) {
+		this.configurationFile = brmsConfig;
+	}
+
 }

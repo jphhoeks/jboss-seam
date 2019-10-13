@@ -15,6 +15,5 @@ import org.jboss.seam.web.ExceptionFilter;
  * @deprecated use ExceptionFilter
  * @author Gavin King
  */
-public class SeamExceptionFilter extends ExceptionFilter
-{
+public class SeamExceptionFilter extends ExceptionFilter {
 }

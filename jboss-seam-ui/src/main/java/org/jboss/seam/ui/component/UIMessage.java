@@ -34,78 +34,61 @@ import org.richfaces.cdk.annotations.Tag;
  * JSF component class which decorates a JSF input field with the validation error message.
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.Message",value="Decorate a JSF input field with the validation error message."),
-family="javax.faces.Message", type="org.jboss.seam.ui.Message",generate="org.jboss.seam.ui.component.html.HtmlMessage", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="message"), 
-attributes = {"javax.faces.component.UIMessage.xml" })
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.Message", value = "Decorate a JSF input field with the validation error message."), family = "javax.faces.Message", type = "org.jboss.seam.ui.Message", generate = "org.jboss.seam.ui.component.html.HtmlMessage", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "message"), attributes = {
+		"javax.faces.component.UIMessage.xml" })
 public abstract class UIMessage extends HtmlMessage implements UIDecorateAware {
 
-   protected UIDecorate decorate;
+	protected UIDecorate decorate;
 
-   /**
-    * A depth-first search for an EditableValueHolder
-    */
-   protected static UIComponent getEditableValueHolder(UIComponent component)
-   {
-      if (component instanceof EditableValueHolder)
-      {
-         return component.isRendered() ? component : null;
-      }
-      for (Object child: component.getChildren())
-      {
-         if (child instanceof UIComponent)
-         {
-            UIComponent evh = getEditableValueHolder( (UIComponent) child );
-            if (evh!=null) return evh;
-         }
-      }
-      return null;
-   }
+	/**
+	* A depth-first search for an EditableValueHolder
+	*/
+	protected static UIComponent getEditableValueHolder(UIComponent component) {
+		if (component instanceof EditableValueHolder) {
+			return component.isRendered() ? component : null;
+		}
+		for (Object child : component.getChildren()) {
+			if (child instanceof UIComponent) {
+				UIComponent evh = getEditableValueHolder((UIComponent) child);
+				if (evh != null)
+					return evh;
+			}
+		}
+		return null;
+	}
 
-   private static String getInputId(UIComponent cmp)
-   {
-      String forId = cmp instanceof UIDecorate ?
-               ( (UIDecorate) cmp ).getFor() : null;
-      if (forId==null)
-      {
-         UIComponent evh = getEditableValueHolder(cmp);
-         return evh==null ? null : evh.getId();
-      }
-      else
-      {
-         return forId;
-      }
-   }
-   
-   private static String getFor(UIComponent component)
-   {
-      
-      if ( component.getParent()==null )
-      {
-         return null;
-      }
-      else if (component instanceof UIDecorate) 
-      {
-         return getInputId(component);
-      }
-      else
-      {
-         return getFor( component.getParent() );
-      }
-   }
+	private static String getInputId(UIComponent cmp) {
+		String forId = cmp instanceof UIDecorate ? ((UIDecorate) cmp).getFor() : null;
+		if (forId == null) {
+			UIComponent evh = getEditableValueHolder(cmp);
+			return evh == null ? null : evh.getId();
+		} else {
+			return forId;
+		}
+	}
 
-   @Override
-   public String getFor()
-   {
-      if(decorate != null) {
-         return getFor(decorate);
-      }
-      
-      return getFor(this);
-   }
+	private static String getFor(UIComponent component) {
 
-   @Override
-   public void setUIDecorate(UIDecorate decorate) {
-      this.decorate = decorate;
-   }
+		if (component.getParent() == null) {
+			return null;
+		} else if (component instanceof UIDecorate) {
+			return getInputId(component);
+		} else {
+			return getFor(component.getParent());
+		}
+	}
+
+	@Override
+	public String getFor() {
+		if (decorate != null) {
+			return getFor(decorate);
+		}
+
+		return getFor(this);
+	}
+
+	@Override
+	public void setUIDecorate(UIDecorate decorate) {
+		this.decorate = decorate;
+	}
 }

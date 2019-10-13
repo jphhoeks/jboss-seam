@@ -33,20 +33,17 @@ import org.richfaces.cdk.annotations.Tag;
  * JSF component class which surrounds a page fragment and allows you to apply render/not render without any html output
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.Fragment",value="Surround a page fragment, allows you to apply render/not render without any html output."),
-family="org.jboss.seam.ui.Fragment", type="org.jboss.seam.ui.Fragment",generate="org.jboss.seam.ui.component.html.HtmlFragment", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="fragment"), 
-renderer = @JsfRenderer(type="org.jboss.seam.ui.renderkit.FragmentRendererBase", family="org.jboss.seam.ui.FragmentRenderer"),
-attributes = {"base-props.xml" })
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.Fragment", value = "Surround a page fragment, allows you to apply render/not render without any html output."), family = "org.jboss.seam.ui.Fragment", type = "org.jboss.seam.ui.Fragment", generate = "org.jboss.seam.ui.component.html.HtmlFragment", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "fragment"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.renderkit.FragmentRendererBase", family = "org.jboss.seam.ui.FragmentRenderer"), attributes = {
+		"base-props.xml" })
 public abstract class UIFragment extends UIComponentBase {
-	
-   private static final String COMPONENT_TYPE = "org.jboss.seam.ui.Fragment";
-	
+
+	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.Fragment";
+
 	@SuppressWarnings("unused")
-   private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.Fragment";
-	
+	private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.Fragment";
+
 	public static UIFragment newInstance() {
-      return (UIFragment) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
-   }
-	
+		return (UIFragment) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
+	}
+
 }

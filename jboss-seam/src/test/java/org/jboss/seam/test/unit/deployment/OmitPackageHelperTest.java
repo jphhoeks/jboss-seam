@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class OmitPackageHelperTest {
-	
-	public OmitPackageHelperTest () {
+
+	public OmitPackageHelperTest() {
 		super();
 	}
 
@@ -19,7 +19,7 @@ public class OmitPackageHelperTest {
 		Assert.assertTrue(helper.acceptClass("org/apache/log4j/Log.class"));
 		Assert.assertFalse(helper.acceptClass("org/hibernate/Hibernate.class"));
 		Assert.assertFalse(helper.acceptClass("org/hibernate/subpackage/Hibernate.class"));
-		Assert.assertTrue(helper.acceptPackage("org/apache/"));		
+		Assert.assertTrue(helper.acceptPackage("org/apache/"));
 		Assert.assertTrue(helper.acceptPackage("org/apache"));
 		Assert.assertFalse(helper.acceptPackage("org/hibernate/"));
 		Assert.assertFalse(helper.acceptPackage("org/hibernate"));

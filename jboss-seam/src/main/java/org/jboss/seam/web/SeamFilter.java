@@ -7,4 +7,5 @@ package org.jboss.seam.web;
  * @author Shane Bryzak
  *
  */
-public class SeamFilter extends org.jboss.seam.servlet.SeamFilter {}
+public class SeamFilter extends org.jboss.seam.servlet.SeamFilter {
+}

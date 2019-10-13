@@ -30,7 +30,7 @@ public class MockSeamListener implements ServletContextListener, HttpSessionList
 	public MockSeamListener() {
 		super();
 	}
-	
+
 	public void contextInitialized(ServletContextEvent event) {
 		log.info("Welcome to Mock Seam " + Seam.getVersion());
 		event.getServletContext().setAttribute(Seam.VERSION, Seam.getVersion());

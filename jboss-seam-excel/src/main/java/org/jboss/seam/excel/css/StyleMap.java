@@ -7,8 +7,7 @@ import java.util.HashMap;
  *
  * @author karlsnic
  */
-public class StyleMap extends HashMap<String, Object>
-{
+public class StyleMap extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = 6454043046239203383L;
 }

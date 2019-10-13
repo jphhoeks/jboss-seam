@@ -17,18 +17,15 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
  */
 @Scope(SESSION)
 @BypassInterceptors
-public class ResolverChain implements Serializable
-{
-   private static final long serialVersionUID = 1L;
-private List<PermissionResolver> resolvers = new ArrayList<PermissionResolver>();
-   
-   public List<PermissionResolver> getResolvers()
-   {
-      return resolvers;
-   }
-   
-   public void setResolvers(List<PermissionResolver> resolvers)
-   {
-      this.resolvers = resolvers;
-   }   
+public class ResolverChain implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private List<PermissionResolver> resolvers = new ArrayList<PermissionResolver>();
+
+	public List<PermissionResolver> getResolvers() {
+		return resolvers;
+	}
+
+	public void setResolvers(List<PermissionResolver> resolvers) {
+		this.resolvers = resolvers;
+	}
 }

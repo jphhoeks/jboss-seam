@@ -27,82 +27,69 @@ import org.springframework.core.task.TaskExecutor;
  */
 @Scope(ScopeType.APPLICATION)
 @Name("org.jboss.seam.async.dispatcher")
-@Install(value=false, precedence=BUILT_IN)
-public class SpringTaskExecutorDispatcher<T, S extends Schedule> extends AbstractDispatcher<T, S>
-{
+@Install(value = false, precedence = BUILT_IN)
+public class SpringTaskExecutorDispatcher<T, S extends Schedule> extends AbstractDispatcher<T, S> {
 
-   private ValueExpression<Dispatcher<T, S>> scheduleDispatcher;
-   private ValueExpression<TaskExecutor> taskExecutor;
-   
-   public T scheduleAsynchronousEvent(String type, Object... parameters)
-   {
-      taskExecutor.getValue().execute(
-               new RunnableAsynchronous(new AsynchronousEvent(type, parameters)));
-      return null;
-   }
+	private ValueExpression<Dispatcher<T, S>> scheduleDispatcher;
+	private ValueExpression<TaskExecutor> taskExecutor;
 
-   public T scheduleInvocation(InvocationContext invocation, Component component)
-   {
-      Schedule schedule = createSchedule(invocation);
-      if (!TimerSchedule.ONCE_IMMEDIATELY.equals(schedule))
-      {
-         return getScheduleDispatcher().scheduleInvocation(invocation, component);
-      }
-      taskExecutor.getValue().execute(
-               new RunnableAsynchronous(new AsynchronousInvocation(invocation, component)));
-      return null;
-   }
+	public T scheduleAsynchronousEvent(String type, Object... parameters) {
+		taskExecutor.getValue().execute(new RunnableAsynchronous(new AsynchronousEvent(type, parameters)));
+		return null;
+	}
 
-   public T scheduleTimedEvent(String type, S schedule, Object... parameters)
-   {
-      return getScheduleDispatcher().scheduleTimedEvent(type, schedule, parameters);
-   }
+	public T scheduleInvocation(InvocationContext invocation, Component component) {
+		Schedule schedule = createSchedule(invocation);
+		if (!TimerSchedule.ONCE_IMMEDIATELY.equals(schedule)) {
+			return getScheduleDispatcher().scheduleInvocation(invocation, component);
+		}
+		taskExecutor.getValue().execute(new RunnableAsynchronous(new AsynchronousInvocation(invocation, component)));
+		return null;
+	}
 
-   protected Dispatcher<T, S> getScheduleDispatcher()
-   {
-      Dispatcher<T, S> dispatcher = (scheduleDispatcher==null) ? null : scheduleDispatcher.getValue();
-      if (dispatcher == null) {
-         throw new IllegalStateException(
-                  "SpringTaskExecutorDispatcher does not support scheduled Events.  Provide a fallback scheduleDispatcher for timed events.");
-      }
-      return dispatcher;
-   }
+	public T scheduleTimedEvent(String type, S schedule, Object... parameters) {
+		return getScheduleDispatcher().scheduleTimedEvent(type, schedule, parameters);
+	}
 
-   /**
-    * The dispatcher to handle scheduled events
-    * 
-    * @param scheduleDispatcher
-    */
-   public void setScheduleDispatcher(ValueExpression<Dispatcher<T, S>> scheduleDispatcher)
-   {
-      this.scheduleDispatcher = scheduleDispatcher;
-   }
+	protected Dispatcher<T, S> getScheduleDispatcher() {
+		Dispatcher<T, S> dispatcher = (scheduleDispatcher == null) ? null : scheduleDispatcher.getValue();
+		if (dispatcher == null) {
+			throw new IllegalStateException(
+					"SpringTaskExecutorDispatcher does not support scheduled Events.  Provide a fallback scheduleDispatcher for timed events.");
+		}
+		return dispatcher;
+	}
 
-   /**
-    * The Spring TaskExecutor to handle immediate asynchronous events
-    * 
-    * @param taskExecutor
-    */
-   public void setTaskExecutor(ValueExpression<TaskExecutor> taskExecutor)
-   {
-      this.taskExecutor = taskExecutor;
-   }
+	/**
+	* The dispatcher to handle scheduled events
+	* 
+	* @param scheduleDispatcher
+	*/
+	public void setScheduleDispatcher(ValueExpression<Dispatcher<T, S>> scheduleDispatcher) {
+		this.scheduleDispatcher = scheduleDispatcher;
+	}
 
-   /**
-    * Same as the one in ThreadPoolDispatcher. Perhaps area for reuse?
-    */
-   static class RunnableAsynchronous implements Runnable
-   {
-      private Asynchronous async;
+	/**
+	* The Spring TaskExecutor to handle immediate asynchronous events
+	* 
+	* @param taskExecutor
+	*/
+	public void setTaskExecutor(ValueExpression<TaskExecutor> taskExecutor) {
+		this.taskExecutor = taskExecutor;
+	}
 
-      RunnableAsynchronous(Asynchronous async)
-      {
-         this.async = async;
-      }
+	/**
+	* Same as the one in ThreadPoolDispatcher. Perhaps area for reuse?
+	*/
+	static class RunnableAsynchronous implements Runnable {
+		private Asynchronous async;
 
-      public void run()
-      {
-         async.execute(null);
-      }
-   }
+		RunnableAsynchronous(Asynchronous async) {
+			this.async = async;
+		}
+
+		public void run() {
+			async.execute(null);
+		}
+	}
 }

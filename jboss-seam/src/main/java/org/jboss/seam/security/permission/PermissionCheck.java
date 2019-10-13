@@ -10,77 +10,64 @@ import java.util.Set;
  *
  * @author Shane Bryzak
  */
-public class PermissionCheck
-{
-   private Object target;
+public class PermissionCheck {
+	private Object target;
 
-   @Deprecated
-   private String name;
+	@Deprecated
+	private String name;
 
-   private String action;
-   private boolean granted;
-   private Set<String> requirements;
-   
-   public PermissionCheck(Object target, String action)
-   {
-      if (target instanceof String)
-      {
-         this.name = (String) target;
-      }
-      
-      this.target = target;
-      this.action = action;
-      granted = false;
-   }
-   
-   public Object getTarget()
-   {
-      return target;
-   }   
+	private String action;
+	private boolean granted;
+	private Set<String> requirements;
 
-   @Deprecated
-   public String getName() 
-   {
-      return name;
-   }
+	public PermissionCheck(Object target, String action) {
+		if (target instanceof String) {
+			this.name = (String) target;
+		}
 
-   public String getAction() 
-   {
-      return action;
-   }
-   
-   public void require(String requirement)
-   {
-      if (requirements == null)
-      {
-         requirements = new HashSet<String>();
-      }
-      
-      requirements.add(requirement);
-   }
+		this.target = target;
+		this.action = action;
+		granted = false;
+	}
 
-   public void grant() 
-   {
-      this.granted = true;
-   }
+	public Object getTarget() {
+		return target;
+	}
 
-   public void revoke() 
-   {
-      this.granted = false;
-   }
+	@Deprecated
+	public String getName() {
+		return name;
+	}
 
-   public boolean isGranted() 
-   {
-      return granted;
-   }
-   
-   public boolean hasRequirements()
-   {
-      return requirements != null && requirements.size() > 0;
-   }
-   
-   public Set<String> getRequirements()
-   {
-      return requirements;
-   }
+	public String getAction() {
+		return action;
+	}
+
+	public void require(String requirement) {
+		if (requirements == null) {
+			requirements = new HashSet<String>();
+		}
+
+		requirements.add(requirement);
+	}
+
+	public void grant() {
+		this.granted = true;
+	}
+
+	public void revoke() {
+		this.granted = false;
+	}
+
+	public boolean isGranted() {
+		return granted;
+	}
+
+	public boolean hasRequirements() {
+		return requirements != null && requirements.size() > 0;
+	}
+
+	public Set<String> getRequirements() {
+		return requirements;
+	}
 }

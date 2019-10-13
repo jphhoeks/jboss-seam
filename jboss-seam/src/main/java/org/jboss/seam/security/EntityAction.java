@@ -7,17 +7,13 @@ package org.jboss.seam.security;
  * @author Shane Bryzak
  * 
  */
-public enum EntityAction { 
-   
-   READ, 
-   INSERT, 
-   UPDATE, 
-   DELETE;
-   
-   @Override
-   public String toString()
-   {
-      return super.name().toLowerCase();
-   }
-   
+public enum EntityAction {
+
+	READ, INSERT, UPDATE, DELETE;
+
+	@Override
+	public String toString() {
+		return super.name().toLowerCase();
+	}
+
 }

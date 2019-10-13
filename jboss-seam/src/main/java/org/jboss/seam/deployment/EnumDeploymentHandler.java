@@ -34,63 +34,54 @@ import org.jboss.seam.log.Logging;
  * @author Stefano Aquino
  * 
  */
-public class EnumDeploymentHandler extends AbstractDeploymentHandler
-{
-   private static DeploymentMetadata ENUM_METADATA = new DeploymentMetadata()
-   {
-      public String getFileNameSuffix()
-      {
-         return ".class";
-      }
-   };
+public class EnumDeploymentHandler extends AbstractDeploymentHandler {
+	private static DeploymentMetadata ENUM_METADATA = new DeploymentMetadata() {
+		public String getFileNameSuffix() {
+			return ".class";
+		}
+	};
 
-   public static final String NAME = "org.jboss.seam.deployment.EnumDeploymentHandler";
+	public static final String NAME = "org.jboss.seam.deployment.EnumDeploymentHandler";
 
-   private static final LogProvider log = Logging.getLogProvider(EnumDeploymentHandler.class);
+	private static final LogProvider log = Logging.getLogProvider(EnumDeploymentHandler.class);
 
-   private Set<Class<? extends Enum<?>>> enums;
+	private Set<Class<? extends Enum<?>>> enums;
 
-   public EnumDeploymentHandler()
-   {
-      enums = new HashSet<Class<? extends Enum<?>>>();
-   }
+	public EnumDeploymentHandler() {
+		enums = new HashSet<Class<? extends Enum<?>>>();
+	}
 
-   /**
-    * Returns enum classes
-    */
-   public Set<Class<? extends Enum<?>>> getEnums()
-   {
-      return Collections.unmodifiableSet(enums);
-   }
+	/**
+	* Returns enum classes
+	*/
+	public Set<Class<? extends Enum<?>>> getEnums() {
+		return Collections.unmodifiableSet(enums);
+	}
 
-   @SuppressWarnings("unchecked")
-   @Override
-   public void postProcess(ClassLoader classLoader)
-   {
-      for (FileDescriptor fileDescriptor : getResources())
-      {
-         String cname = filenameToClassName(fileDescriptor.getName());
-    	 if (isOmitClass(cname)){
-    		 continue;
-    	 }
-         try
-         {
-        
-            Class<?> clazz = Class.forName(cname);
-            if (clazz.isEnum()) {
-            	if (log.isDebugEnabled()) {
-            		log.debug("Processing enum " + clazz.getName());
-            	}
-               enums.add((Class<? extends Enum<?>>) clazz);
-            }
-         }
-         // catching everything, to manage Errors
-         catch (Throwable t)
-         {
-            // log.warn("Exception post-processing "+cname, t);
-         }
-      }
-   }
+	@SuppressWarnings("unchecked")
+	@Override
+	public void postProcess(ClassLoader classLoader) {
+		for (FileDescriptor fileDescriptor : getResources()) {
+			String cname = filenameToClassName(fileDescriptor.getName());
+			if (isOmitClass(cname)) {
+				continue;
+			}
+			try {
+
+				Class<?> clazz = Class.forName(cname);
+				if (clazz.isEnum()) {
+					if (log.isDebugEnabled()) {
+						log.debug("Processing enum " + clazz.getName());
+					}
+					enums.add((Class<? extends Enum<?>>) clazz);
+				}
+			}
+			// catching everything, to manage Errors
+			catch (Throwable t) {
+				// log.warn("Exception post-processing "+cname, t);
+			}
+		}
+	}
 
 	private boolean isOmitClass(String cname) {
 		// To reduce verbose logging of NoClassDefFoundError on JBOSS AS 7.1.1 under some specific configurations.
@@ -98,20 +89,14 @@ public class EnumDeploymentHandler extends AbstractDeploymentHandler
 		if (cname == null || "".equals(cname)) {
 			return true;
 		}
-		return 
-				cname.startsWith("org.jboss.seam.mock.DB") || 
-				cname.startsWith("org.jboss.seam.mock.J") || 
-				cname.startsWith("org.jboss.seam.jmx.AgentID") ||
-				cname.startsWith("org.jboss.seam.async.") ||
-				cname.startsWith("org.jboss.seam.persistence.") || 
-				cname.startsWith("org.jboss.seam.drools.") || 
-				cname.startsWith("org.jboss.seam.bpm.") ||
-				"org.jboss.seam.pageflow.Page".equals(cname);
+		return cname.startsWith("org.jboss.seam.mock.DB") || cname.startsWith("org.jboss.seam.mock.J")
+				|| cname.startsWith("org.jboss.seam.jmx.AgentID") || cname.startsWith("org.jboss.seam.async.")
+				|| cname.startsWith("org.jboss.seam.persistence.") || cname.startsWith("org.jboss.seam.drools.")
+				|| cname.startsWith("org.jboss.seam.bpm.") || "org.jboss.seam.pageflow.Page".equals(cname);
 	}
 
 	private static String filenameToClassName(String filename) {
-		return filename.substring(0, filename.lastIndexOf(".class"))
-				.replace('/', '.').replace('\\', '.');
+		return filename.substring(0, filename.lastIndexOf(".class")).replace('/', '.').replace('\\', '.');
 	}
 
 	public String getName() {

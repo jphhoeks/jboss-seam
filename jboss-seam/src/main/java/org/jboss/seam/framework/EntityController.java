@@ -13,75 +13,61 @@ import javax.persistence.Query;
  * @author Gavin King
  *
  */
-public class EntityController extends PersistenceController<EntityManager>
-{
-   
-   private static final long serialVersionUID = 1L;
+public class EntityController extends PersistenceController<EntityManager> {
 
-public EntityManager getEntityManager()
-   {
-      return getPersistenceContext();
-   }
-   
-   public void setEntityManager(EntityManager entityManager)
-   {
-      setPersistenceContext(entityManager);
-   }
+	private static final long serialVersionUID = 1L;
 
-   @Override
-   protected String getPersistenceContextName()
-   {
-      return "entityManager";
-   }
-   
-   protected Query createNamedQuery(String name)
-   {
-      return getEntityManager().createNamedQuery(name);
-   }
+	public EntityManager getEntityManager() {
+		return getPersistenceContext();
+	}
 
-   protected Query createQuery(String ejbql)
-   {
-      return getEntityManager().createQuery(ejbql);
-   }
+	public void setEntityManager(EntityManager entityManager) {
+		setPersistenceContext(entityManager);
+	}
 
-   protected <T> T find(Class<T> clazz, Object id)
-   {
-      return getEntityManager().find(clazz, id);
-   }
+	@Override
+	protected String getPersistenceContextName() {
+		return "entityManager";
+	}
 
-   protected void flush()
-   {
-      getEntityManager().flush();
-   }
+	protected Query createNamedQuery(String name) {
+		return getEntityManager().createNamedQuery(name);
+	}
 
-   protected <T> T getReference(Class<T> clazz, Object id)
-   {
-      return getEntityManager().getReference(clazz, id);
-   }
+	protected Query createQuery(String ejbql) {
+		return getEntityManager().createQuery(ejbql);
+	}
 
-   protected void lock(Object entity, LockModeType lockMode)
-   {
-      getEntityManager().lock(entity, lockMode);
-   }
+	protected <T> T find(Class<T> clazz, Object id) {
+		return getEntityManager().find(clazz, id);
+	}
 
-   protected <T> T merge(T entity)
-   {
-      return getEntityManager().merge(entity);
-   }
+	protected void flush() {
+		getEntityManager().flush();
+	}
 
-   protected void persist(Object entity)
-   {
-      getEntityManager().persist(entity);
-   }
+	protected <T> T getReference(Class<T> clazz, Object id) {
+		return getEntityManager().getReference(clazz, id);
+	}
 
-   protected void refresh(Object entity)
-   {
-      getEntityManager().refresh(entity);
-   }
+	protected void lock(Object entity, LockModeType lockMode) {
+		getEntityManager().lock(entity, lockMode);
+	}
 
-   protected void remove(Object entity)
-   {
-      getEntityManager().remove(entity);
-   }
-   
+	protected <T> T merge(T entity) {
+		return getEntityManager().merge(entity);
+	}
+
+	protected void persist(Object entity) {
+		getEntityManager().persist(entity);
+	}
+
+	protected void refresh(Object entity) {
+		getEntityManager().refresh(entity);
+	}
+
+	protected void remove(Object entity) {
+		getEntityManager().remove(entity);
+	}
+
 }

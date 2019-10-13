@@ -20,83 +20,71 @@ import org.jboss.seam.util.Strings;
  * 
  * @author Shane Bryzak
  */
-public class EntityIdentifierStrategy implements IdentifierStrategy, Serializable
-{
+public class EntityIdentifierStrategy implements IdentifierStrategy, Serializable {
 
-   private static final long serialVersionUID = 12456789L;
+	private static final long serialVersionUID = 12456789L;
 
-   private transient ValueExpression<EntityManager> entityManager;   
-   
-   private transient PersistenceProvider persistenceProvider;
-   
-   private Map<Class <?>,String> identifierNames = new ConcurrentHashMap<Class <?>,String>();
+	private transient ValueExpression<EntityManager> entityManager;
 
-   public void init()
-   {
-      if (persistenceProvider == null)
-      {
-         persistenceProvider = (PersistenceProvider) Component.getInstance(PersistenceProvider.class, true);
-      }
+	private transient PersistenceProvider persistenceProvider;
 
-      if (entityManager == null)
-      {
-         entityManager = Expressions.instance().createValueExpression("#{entityManager}", EntityManager.class);
-      }
+	private Map<Class<?>, String> identifierNames = new ConcurrentHashMap<Class<?>, String>();
 
-   }
+	public void init() {
+		if (persistenceProvider == null) {
+			persistenceProvider = (PersistenceProvider) Component.getInstance(PersistenceProvider.class, true);
+		}
 
-   public EntityIdentifierStrategy()
-   {
-      init();   
-   }
-   
-   public boolean canIdentify(Class<?> targetClass)
-   {
-      return targetClass.isAnnotationPresent(Entity.class);
-   }
+		if (entityManager == null) {
+			entityManager = Expressions.instance().createValueExpression("#{entityManager}", EntityManager.class);
+		}
 
-   public String getIdentifier(Object target)
-   {
-      if(persistenceProvider == null) init();
-      Object persProviderId = persistenceProvider.getId(target, lookupEntityManager()).toString();
-       return String.format("%s:%s", getIdentifierName(target.getClass()),  persProviderId);
-   }
-   
-   private String getIdentifierName(Class<? extends Object> cls)
-   {
-      if (!identifierNames.containsKey(cls))
-      {   
-         String name = null;
-         
-         if (cls.isAnnotationPresent(Identifier.class))
-         {
-            Identifier identifier = cls.getAnnotation(Identifier.class);
-            if ( !Strings.isEmpty(identifier.name()) )
-            {
-               name = identifier.name();
-            }
-         }
-         
-         if (name == null)
-         {
-            name = Seam.getComponentName(cls);
-         }
-         
-         if (name == null)
-         {
-            name = cls.getName().substring(cls.getName().lastIndexOf('.') + 1);
-         }
-         
-         identifierNames.put(cls, name);
-         return name;
-      }
-      
-      return identifierNames.get(cls);
-   }
+	}
 
-   private EntityManager lookupEntityManager()
-   {
-      if(entityManager == null) init();
-      return entityManager.getValue();
-   }
+	public EntityIdentifierStrategy() {
+		init();
+	}
+
+	public boolean canIdentify(Class<?> targetClass) {
+		return targetClass.isAnnotationPresent(Entity.class);
+	}
+
+	public String getIdentifier(Object target) {
+		if (persistenceProvider == null)
+			init();
+		Object persProviderId = persistenceProvider.getId(target, lookupEntityManager()).toString();
+		return String.format("%s:%s", getIdentifierName(target.getClass()), persProviderId);
+	}
+
+	private String getIdentifierName(Class<? extends Object> cls) {
+		if (!identifierNames.containsKey(cls)) {
+			String name = null;
+
+			if (cls.isAnnotationPresent(Identifier.class)) {
+				Identifier identifier = cls.getAnnotation(Identifier.class);
+				if (!Strings.isEmpty(identifier.name())) {
+					name = identifier.name();
+				}
+			}
+
+			if (name == null) {
+				name = Seam.getComponentName(cls);
+			}
+
+			if (name == null) {
+				name = cls.getName().substring(cls.getName().lastIndexOf('.') + 1);
+			}
+
+			identifierNames.put(cls, name);
+			return name;
+		}
+
+		return identifierNames.get(cls);
+	}
+
+	private EntityManager lookupEntityManager() {
+		if (entityManager == null)
+			init();
+		return entityManager.getValue();
+	}
 }

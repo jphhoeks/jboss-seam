@@ -66,77 +66,70 @@ import org.richfaces.cdk.annotations.Tag;
  * 
  * @author Dan Allen
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.Token",value="Render a secure token in the parent form that is validated on postback to guard against CSRF attacks"),
-family="org.jboss.seam.ui.Token", type="org.jboss.seam.ui.Token",generate="org.jboss.seam.ui.component.html.HtmlToken", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="token"), 
-renderer = @JsfRenderer(type="org.jboss.seam.ui.TokenRenderer", family="org.jboss.seam.ui.TokenRenderer"),
-attributes = {"javax.faces.component.UIComponent.xml" })
-public abstract class UIToken extends UIOutput
-{
-   @SuppressWarnings("unused")
-   private static final String COMPONENT_TYPE = "org.jboss.seam.ui.Token";
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.Token", value = "Render a secure token in the parent form that is validated on postback to guard against CSRF attacks"), family = "org.jboss.seam.ui.Token", type = "org.jboss.seam.ui.Token", generate = "org.jboss.seam.ui.component.html.HtmlToken", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "token"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.TokenRenderer", family = "org.jboss.seam.ui.TokenRenderer"), attributes = {
+		"javax.faces.component.UIComponent.xml" })
+public abstract class UIToken extends UIOutput {
+	@SuppressWarnings("unused")
+	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.Token";
 
-   @SuppressWarnings("unused")
-   private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.Token";
-   
-   /**
-    * Indicates whether the session id should be included in the form signature,
-    * hence binding the token to the session. This value can be set to false
-    * if the "build before restore" mode of Facelets is activated (the
-    * default in JSF 2.0). The default value is false.
-    */
-   @Attribute(defaultValue = "false",
-           description = @Description("A flag indicating whether the session id should be tied into the secure token."))
-   public abstract boolean isRequireSession();
-   
-   public abstract void setRequireSession(boolean required);
-   
-   /**
-    * Indicates whether a JavaScript check should be inserted into the page to
-    * verify that cookies are enabled in the browser. If cookies are not
-    * enabled, present a notice to the user that form posts will not work.
-    * The default value is false.
-    */
-   @Attribute(defaultValue = "false",
-           description = @Description("A flag indicating whether a notice should be presented to the user if cookies are disabled."))
-   public abstract boolean isEnableCookieNotice();
-   
-   public abstract void setEnableCookieNotice(boolean state);
+	@SuppressWarnings("unused")
+	private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.Token";
 
-   /**
-    * Indicates whether to allow the same form to be submitted multiple times
-    * with the same signature (as long as the view does not change). This is a
-    * common need if the form is perform Ajax calls but not rerendering itself
-    * or, at the very least, the UIToken component. The preferred approach is to
-    * have the UIToken component rerendered on any Ajax call where the UIToken
-    * component would be processed. The default value is false.
-    */
-   @Attribute(defaultValue = "false",
-           description = @Description("A flag indicating whether the form can be submitted multiple times with the same signature (i.e., token)."))
-   public abstract boolean isAllowMultiplePosts();
-   
-   public abstract void setAllowMultiplePosts(boolean allow);
-   
-   /**
-    * Return the selector that controls the unique browser identifier cookie.
-    */
-   public ClientUidSelector getClientUidSelector() {
-      return (ClientUidSelector) Component.getInstance(ClientUidSelector.class);
-   }
-   
-   public String getClientUid() {
-      return getClientUidSelector().getClientUid();
-   }
-   
-   public UIForm getParentForm() {
-      UIComponent parent = getParent();
-      while (parent != null) {
-         if (parent instanceof UIForm) {
-            return (UIForm) parent;
-         }
-         parent = parent.getParent();
-      }
-      
-      return null;
-   }
+	/**
+	* Indicates whether the session id should be included in the form signature,
+	* hence binding the token to the session. This value can be set to false
+	* if the "build before restore" mode of Facelets is activated (the
+	* default in JSF 2.0). The default value is false.
+	*/
+	@Attribute(defaultValue = "false", description = @Description("A flag indicating whether the session id should be tied into the secure token."))
+	public abstract boolean isRequireSession();
+
+	public abstract void setRequireSession(boolean required);
+
+	/**
+	* Indicates whether a JavaScript check should be inserted into the page to
+	* verify that cookies are enabled in the browser. If cookies are not
+	* enabled, present a notice to the user that form posts will not work.
+	* The default value is false.
+	*/
+	@Attribute(defaultValue = "false", description = @Description("A flag indicating whether a notice should be presented to the user if cookies are disabled."))
+	public abstract boolean isEnableCookieNotice();
+
+	public abstract void setEnableCookieNotice(boolean state);
+
+	/**
+	* Indicates whether to allow the same form to be submitted multiple times
+	* with the same signature (as long as the view does not change). This is a
+	* common need if the form is perform Ajax calls but not rerendering itself
+	* or, at the very least, the UIToken component. The preferred approach is to
+	* have the UIToken component rerendered on any Ajax call where the UIToken
+	* component would be processed. The default value is false.
+	*/
+	@Attribute(defaultValue = "false", description = @Description("A flag indicating whether the form can be submitted multiple times with the same signature (i.e., token)."))
+	public abstract boolean isAllowMultiplePosts();
+
+	public abstract void setAllowMultiplePosts(boolean allow);
+
+	/**
+	* Return the selector that controls the unique browser identifier cookie.
+	*/
+	public ClientUidSelector getClientUidSelector() {
+		return (ClientUidSelector) Component.getInstance(ClientUidSelector.class);
+	}
+
+	public String getClientUid() {
+		return getClientUidSelector().getClientUid();
+	}
+
+	public UIForm getParentForm() {
+		UIComponent parent = getParent();
+		while (parent != null) {
+			if (parent instanceof UIForm) {
+				return (UIForm) parent;
+			}
+			parent = parent.getParent();
+		}
+
+		return null;
+	}
 }

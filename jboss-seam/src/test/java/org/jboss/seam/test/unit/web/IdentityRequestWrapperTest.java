@@ -15,61 +15,56 @@ import org.jboss.seam.security.SimplePrincipal;
 import org.jboss.seam.web.IdentityRequestWrapper;
 import org.testng.annotations.Test;
 
-public class IdentityRequestWrapperTest
-{
-   private static final String JAAS_USER = "jaasUser";
-   
-   private static final String JAAS_ROLE = "jaasRole";
-   
-   private static final String SEAM_USER = "seamUser";
-   
-   private static final String SEAM_ROLE = "seamRole";
-   
-   @Test
-   public void testWithSeamSecurityEnabled()
-   {
-      HttpServletRequest request = initializeWrappedRequest();
-      if (!Identity.isSecurityEnabled())
-      {
-         Identity.setSecurityEnabled(true);
-      }
-      assert request.getUserPrincipal() != null && request.getUserPrincipal().getName().equals(SEAM_USER);
-      assert request.getRemoteUser() != null && request.getRemoteUser().equals(SEAM_USER);
-      assert request.isUserInRole(SEAM_ROLE);
-   }
-   
-   @Test
-   public void testWithSeamSecurityDisabled()
-   {
-      HttpServletRequest request = initializeWrappedRequest();
-      Identity.setSecurityEnabled(false);
-      assert request.getUserPrincipal() != null && request.getUserPrincipal().getName().equals(JAAS_USER);
-      assert request.getRemoteUser() != null && request.getRemoteUser().equals(JAAS_USER);
-      assert request.isUserInRole(JAAS_ROLE);
-   }
-   
-   public HttpServletRequest initializeWrappedRequest() {
-      HttpSession session = new MockHttpSession();
-      Identity identity = new Identity() {
+public class IdentityRequestWrapperTest {
+	private static final String JAAS_USER = "jaasUser";
 
-         private static final long serialVersionUID = 1L;
+	private static final String JAAS_ROLE = "jaasRole";
 
-		@Override
-         public Principal getPrincipal()
-         {
-            return new SimplePrincipal(SEAM_USER);
-         }
+	private static final String SEAM_USER = "seamUser";
 
-         @Override
-         public boolean hasRole(String role)
-         {
-            return SEAM_ROLE.equals(role);
-         }
-         
-      };
-      session.setAttribute(Seam.getComponentName(Identity.class), identity);
-      HttpServletRequest request = new MockHttpServletRequest(session, JAAS_USER, new HashSet<String>(Arrays.asList(JAAS_ROLE)), null, "GET");
-      return new IdentityRequestWrapper(request);
-   }
-   
+	private static final String SEAM_ROLE = "seamRole";
+
+	@Test
+	public void testWithSeamSecurityEnabled() {
+		HttpServletRequest request = initializeWrappedRequest();
+		if (!Identity.isSecurityEnabled()) {
+			Identity.setSecurityEnabled(true);
+		}
+		assert request.getUserPrincipal() != null && request.getUserPrincipal().getName().equals(SEAM_USER);
+		assert request.getRemoteUser() != null && request.getRemoteUser().equals(SEAM_USER);
+		assert request.isUserInRole(SEAM_ROLE);
+	}
+
+	@Test
+	public void testWithSeamSecurityDisabled() {
+		HttpServletRequest request = initializeWrappedRequest();
+		Identity.setSecurityEnabled(false);
+		assert request.getUserPrincipal() != null && request.getUserPrincipal().getName().equals(JAAS_USER);
+		assert request.getRemoteUser() != null && request.getRemoteUser().equals(JAAS_USER);
+		assert request.isUserInRole(JAAS_ROLE);
+	}
+
+	public HttpServletRequest initializeWrappedRequest() {
+		HttpSession session = new MockHttpSession();
+		Identity identity = new Identity() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Principal getPrincipal() {
+				return new SimplePrincipal(SEAM_USER);
+			}
+
+			@Override
+			public boolean hasRole(String role) {
+				return SEAM_ROLE.equals(role);
+			}
+
+		};
+		session.setAttribute(Seam.getComponentName(Identity.class), identity);
+		HttpServletRequest request = new MockHttpServletRequest(session, JAAS_USER, new HashSet<String>(Arrays.asList(JAAS_ROLE)), null,
+				"GET");
+		return new IdentityRequestWrapper(request);
+	}
+
 }

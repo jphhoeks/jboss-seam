@@ -16,32 +16,29 @@ import org.jboss.seam.security.Identity;
  */
 public class IdentityRequestWrapper extends HttpServletRequestWrapper {
 
-   private Identity identity;
+	private Identity identity;
 
-   public IdentityRequestWrapper(HttpServletRequest request) {
-      super(request);
-      identity = (Identity) request.getSession().
-         getAttribute(Seam.getComponentName(Identity.class));
-   }
+	public IdentityRequestWrapper(HttpServletRequest request) {
+		super(request);
+		identity = (Identity) request.getSession().getAttribute(Seam.getComponentName(Identity.class));
+	}
 
-   @Override
-   public String getRemoteUser() {
-      return getUserPrincipal() != null ? getUserPrincipal().getName() : null;
-   }
+	@Override
+	public String getRemoteUser() {
+		return getUserPrincipal() != null ? getUserPrincipal().getName() : null;
+	}
 
-   @Override
-   public Principal getUserPrincipal() 
-   {
-      return seamSecurityIsActive() ? identity.getPrincipal() : super.getUserPrincipal();
-   }
+	@Override
+	public Principal getUserPrincipal() {
+		return seamSecurityIsActive() ? identity.getPrincipal() : super.getUserPrincipal();
+	}
 
-   @Override
-   public boolean isUserInRole(String role) {
-      return seamSecurityIsActive() ? identity.hasRole(role) : super.isUserInRole(role);
-   }
-   
-   private boolean seamSecurityIsActive()
-   {
-      return Identity.isSecurityEnabled() && identity != null;
-   }
+	@Override
+	public boolean isUserInRole(String role) {
+		return seamSecurityIsActive() ? identity.hasRole(role) : super.isUserInRole(role);
+	}
+
+	private boolean seamSecurityIsActive() {
+		return Identity.isSecurityEnabled() && identity != null;
+	}
 }

@@ -12,29 +12,24 @@ import java.io.Serializable;
  * @author Gavin King
  *
  */
-public class ArrayDataModel extends javax.faces.model.ArrayDataModel implements
-      Serializable
-{
-   private static final long serialVersionUID = -1369792328129853864L;
-   
-   private void writeObject(ObjectOutputStream oos) throws IOException
-   {
-      oos.writeObject(getWrappedData());
-      oos.writeInt(getRowIndex());
-   }
-   
-   private void readObject(ObjectInputStream ois) throws IOException,
-         ClassNotFoundException
-   {
-      this.setWrappedData( ois.readObject() );
-      this.setRowIndex( ois.readInt() );
-   }
-   
-   public ArrayDataModel() {}
-   
-   public ArrayDataModel(Object[] array)
-   {
-      super(array);
-   }
-   
+public class ArrayDataModel extends javax.faces.model.ArrayDataModel implements Serializable {
+	private static final long serialVersionUID = -1369792328129853864L;
+
+	private void writeObject(ObjectOutputStream oos) throws IOException {
+		oos.writeObject(getWrappedData());
+		oos.writeInt(getRowIndex());
+	}
+
+	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		this.setWrappedData(ois.readObject());
+		this.setRowIndex(ois.readInt());
+	}
+
+	public ArrayDataModel() {
+	}
+
+	public ArrayDataModel(Object[] array) {
+		super(array);
+	}
+
 }

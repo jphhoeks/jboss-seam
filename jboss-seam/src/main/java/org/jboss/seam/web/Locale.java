@@ -19,17 +19,16 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
  */
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.core.locale")
-@Install(precedence=FRAMEWORK-1)
+@Install(precedence = FRAMEWORK - 1)
 @BypassInterceptors
-public class Locale extends org.jboss.seam.core.Locale
-{
+public class Locale extends org.jboss.seam.core.Locale {
 
-   @Unwrap @Override
-   public java.util.Locale getLocale()
-   {
-      ServletContexts servletContexts = ServletContexts.getInstance();
-      ServletRequest request = servletContexts==null ? null : servletContexts.getRequest();
-      return request==null ? super.getLocale() : request.getLocale();
-   }
-   
+	@Unwrap
+	@Override
+	public java.util.Locale getLocale() {
+		ServletContexts servletContexts = ServletContexts.getInstance();
+		ServletRequest request = servletContexts == null ? null : servletContexts.getRequest();
+		return request == null ? super.getLocale() : request.getLocale();
+	}
+
 }

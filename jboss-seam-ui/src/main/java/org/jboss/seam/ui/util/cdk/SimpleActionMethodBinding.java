@@ -43,15 +43,13 @@ public class SimpleActionMethodBinding extends MethodBinding implements StateHol
 		_outcome = outcome;
 	}
 
-   @Override
-	public Object invoke(FacesContext facescontext, Object aobj[])
-			throws EvaluationException, MethodNotFoundException {
+	@Override
+	public Object invoke(FacesContext facescontext, Object aobj[]) throws EvaluationException, MethodNotFoundException {
 		return _outcome;
 	}
-   
-   @Override
-	public Class getType(FacesContext facescontext)
-			throws MethodNotFoundException {
+
+	@Override
+	public Class getType(FacesContext facescontext) throws MethodNotFoundException {
 		return String.class;
 	}
 
@@ -85,14 +83,12 @@ public class SimpleActionMethodBinding extends MethodBinding implements StateHol
 	}
 
 	@Override
-   public String toString() {
+	public String toString() {
 		return _outcome;
 	}
-   
-   @Override
-   public String getExpressionString()
-   {
-      return _outcome;
-   }
-}
 
+	@Override
+	public String getExpressionString() {
+		return _outcome;
+	}
+}

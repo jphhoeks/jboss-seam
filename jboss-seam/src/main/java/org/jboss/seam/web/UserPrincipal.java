@@ -25,28 +25,23 @@ import org.jboss.seam.contexts.Contexts;
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Name("org.jboss.seam.web.userPrincipal")
-@Install(precedence=BUILT_IN)
-public class UserPrincipal
-{
-   @Unwrap
-   public Principal getUserPrincipal()
-   {
-      ServletRequest servletRequest = ServletContexts.instance().getRequest();
-      if ( servletRequest != null )
-      {
-         return ( (HttpServletRequest) servletRequest ).getUserPrincipal();
-      }
-      
-      return null;
-   }
-   
-   public static Principal instance()
-   {
-      if ( !Contexts.isApplicationContextActive() )
-      {
-         throw new IllegalStateException("No active application scope");
-      }
-      return (Principal) Component.getInstance(UserPrincipal.class, ScopeType.APPLICATION);
-   }
-   
+@Install(precedence = BUILT_IN)
+public class UserPrincipal {
+	@Unwrap
+	public Principal getUserPrincipal() {
+		ServletRequest servletRequest = ServletContexts.instance().getRequest();
+		if (servletRequest != null) {
+			return ((HttpServletRequest) servletRequest).getUserPrincipal();
+		}
+
+		return null;
+	}
+
+	public static Principal instance() {
+		if (!Contexts.isApplicationContextActive()) {
+			throw new IllegalStateException("No active application scope");
+		}
+		return (Principal) Component.getInstance(UserPrincipal.class, ScopeType.APPLICATION);
+	}
+
 }

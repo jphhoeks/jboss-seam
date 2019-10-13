@@ -19,6 +19,7 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
  */
 @Name("org.jboss.seam.transaction.ejbTransaction")
 @Scope(ScopeType.STATELESS)
-@Install(precedence=BUILT_IN, value=false)
+@Install(precedence = BUILT_IN, value = false)
 @BypassInterceptors
-public class EjbTransaction {}
+public class EjbTransaction {
+}

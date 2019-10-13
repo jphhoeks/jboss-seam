@@ -14,12 +14,12 @@ import java.lang.annotation.Target;
  *
  * @author Shane Bryzak
  */
-@Target({TYPE})
+@Target({ TYPE })
 @Documented
 @Retention(RUNTIME)
 @Inherited
-public @interface Permission
-{
-   String action();
-   long mask() default 0L;
+public @interface Permission {
+	String action();
+
+	long mask() default 0L;
 }

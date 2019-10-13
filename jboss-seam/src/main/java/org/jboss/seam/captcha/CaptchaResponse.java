@@ -11,12 +11,11 @@ import javax.validation.Constraint;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Target(ElementType.METHOD)
-@Constraint(validatedBy=CaptchaResponseValidator.class)
-public @interface CaptchaResponse 
-{
-   String message() default "#{messages['org.jboss.seam.captcha.error']}";
-   
-   Class<?>[] groups() default {};
-   
-   Class<?>[] payload() default {};
+@Constraint(validatedBy = CaptchaResponseValidator.class)
+public @interface CaptchaResponse {
+	String message() default "#{messages['org.jboss.seam.captcha.error']}";
+
+	Class<?>[] groups() default {};
+
+	Class<?>[] payload() default {};
 }

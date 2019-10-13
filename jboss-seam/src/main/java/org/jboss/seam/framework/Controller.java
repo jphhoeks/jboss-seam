@@ -39,280 +39,223 @@ import org.jboss.seam.web.Session;
  * @author Gavin King
  *
  */
-public abstract class Controller implements Serializable
-{
+public abstract class Controller implements Serializable {
 
-   private static final long serialVersionUID = 839840486566115237L;
-@Logger Log log;
+	private static final long serialVersionUID = 839840486566115237L;
+	@Logger
+	Log log;
 
-   protected Context getApplicationContext()
-   {
-      return Contexts.getApplicationContext();
-   }
+	protected Context getApplicationContext() {
+		return Contexts.getApplicationContext();
+	}
 
-   protected Context getBusinessProcessContext()
-   {
-      return Contexts.getBusinessProcessContext();
-   }
+	protected Context getBusinessProcessContext() {
+		return Contexts.getBusinessProcessContext();
+	}
 
-   protected Context getConversationContext()
-   {
-      return Contexts.getConversationContext();
-   }
+	protected Context getConversationContext() {
+		return Contexts.getConversationContext();
+	}
 
-   protected Context getEventContext()
-   {
-      return Contexts.getEventContext();
-   }
+	protected Context getEventContext() {
+		return Contexts.getEventContext();
+	}
 
-   protected Events getEvents()
-   {
-      return Events.instance();
-   }
-   
-   protected Conversation getConversation()
-   {
-      return Conversation.instance();
-   }
+	protected Events getEvents() {
+		return Events.instance();
+	}
 
-   @Deprecated
-   protected FacesMessages getFacesMessages()
-   {
-      return FacesMessages.instance();
-   }
-   
-   protected StatusMessages getStatusMessages()
-   {
-      return StatusMessages.instance();
-   }
-   
-   protected Identity getIdentity()
-   {
-      return Identity.instance();
-   }
-   
-   protected Cookie getCookie(String name)
-   {
-      return (Cookie) FacesContext.getCurrentInstance().getExternalContext()
-                                  .getRequestCookieMap().get(name);
-   }
-   
-   protected void addCookie(Cookie cookie)
-   {
-      ( (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
-                                          .getResponse() ).addCookie(cookie);
-   }
-   
-   protected void addFacesMessage(String messageTemplate, Object... params)
-   {
-      getFacesMessages().add(messageTemplate, params);
-   }
-   
-   protected void addFacesMessageFromResourceBundle(String key, Object... params)
-   {
-      getFacesMessages().addFromResourceBundle(key, params);
-   }
-   
-   protected String render(String path)
-   {
-      return Renderer.instance().render(path);
-   }
+	protected Conversation getConversation() {
+		return Conversation.instance();
+	}
 
-   protected void sendHttpError(int code)
-   {
-      HttpError.instance().send(code);
-   }
-   
-   protected void sendHttpError(int code, String message)
-   {
-      HttpError.instance().send(code, message);
-   }
+	@Deprecated
+	protected FacesMessages getFacesMessages() {
+		return FacesMessages.instance();
+	}
 
-   protected Log getLog()
-   {
-      return log;
-   }
+	protected StatusMessages getStatusMessages() {
+		return StatusMessages.instance();
+	}
 
-   protected Map<String, String> getMessages()
-   {
-      return Messages.instance();
-   }
+	protected Identity getIdentity() {
+		return Identity.instance();
+	}
 
-   protected Context getMethodContext()
-   {
-      return Contexts.getMethodContext();
-   }
+	protected Cookie getCookie(String name) {
+		return (Cookie) FacesContext.getCurrentInstance().getExternalContext().getRequestCookieMap().get(name);
+	}
 
-   protected Context getPageContext()
-   {
-      return Contexts.getPageContext();
-   }
+	protected void addCookie(Cookie cookie) {
+		((HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse()).addCookie(cookie);
+	}
 
-   protected Redirect getRedirect()
-   {
-      return Redirect.instance();
-   }
+	protected void addFacesMessage(String messageTemplate, Object... params) {
+		getFacesMessages().add(messageTemplate, params);
+	}
 
-   protected Context getSessionContext()
-   {
-      return Contexts.getSessionContext();
-   }
-   
-   protected FacesContext getFacesContext()
-   {
-      return FacesContext.getCurrentInstance();
-   }
+	protected void addFacesMessageFromResourceBundle(String key, Object... params) {
+		getFacesMessages().addFromResourceBundle(key, params);
+	}
 
-   protected boolean validationSucceeded()
-   {
-      return Validation.instance().isSucceeded();
-   }
+	protected String render(String path) {
+		return Renderer.instance().render(path);
+	}
 
-   protected boolean validationFailed()
-   {
-      return Validation.instance().isFailed();
-   }
+	protected void sendHttpError(int code) {
+		HttpError.instance().send(code);
+	}
 
-   protected void failValidation()
-   {
-      Validation.instance().fail();
-   }
-   
-   protected String interpolate(String string, Object... params) 
-   {
-      return Interpolator.instance().interpolate(string, params);
-   }
+	protected void sendHttpError(int code, String message) {
+		HttpError.instance().send(code, message);
+	}
 
-   protected <T> ClassValidator<T> getValidator(Class<T> modelClass)
-   {
-      return Validators.instance().getValidator(modelClass);
-   } 
+	protected Log getLog() {
+		return log;
+	}
 
-   protected <T> ClassValidator<T> getValidator(T model)
-   {
-      return Validators.instance().getValidator(model);
-   } 
+	protected Map<String, String> getMessages() {
+		return Messages.instance();
+	}
 
-   protected void debug(Object object, Object... params)
-   {
-      log.debug(object, params);
-   }
+	protected Context getMethodContext() {
+		return Contexts.getMethodContext();
+	}
 
-   protected void debug(Object object, Throwable t, Object... params)
-   {
-      log.debug(object, t, params);
-   }
+	protected Context getPageContext() {
+		return Contexts.getPageContext();
+	}
 
-   protected void error(Object object, Object... params)
-   {
-      log.error(object, params);
-   }
+	protected Redirect getRedirect() {
+		return Redirect.instance();
+	}
 
-   protected void error(Object object, Throwable t, Object... params)
-   {
-      log.error(object, t, params);
-   }
+	protected Context getSessionContext() {
+		return Contexts.getSessionContext();
+	}
 
-   protected void fatal(Object object, Object... params)
-   {
-      log.fatal(object, params);
-   }
+	protected FacesContext getFacesContext() {
+		return FacesContext.getCurrentInstance();
+	}
 
-   protected void fatal(Object object, Throwable t, Object... params)
-   {
-      log.fatal(object, t, params);
-   }
+	protected boolean validationSucceeded() {
+		return Validation.instance().isSucceeded();
+	}
 
-   protected void info(Object object, Object... params)
-   {
-      log.info(object, params);
-   }
+	protected boolean validationFailed() {
+		return Validation.instance().isFailed();
+	}
 
-   protected void info(Object object, Throwable t, Object... params)
-   {
-      log.info(object, t, params);
-   }
+	protected void failValidation() {
+		Validation.instance().fail();
+	}
 
-   protected void trace(Object object, Object... params)
-   {
-      log.trace(object, params);
-   }
+	protected String interpolate(String string, Object... params) {
+		return Interpolator.instance().interpolate(string, params);
+	}
 
-   protected void trace(Object object, Throwable t, Object... params)
-   {
-      log.trace(object, t, params);
-   }
+	protected <T> ClassValidator<T> getValidator(Class<T> modelClass) {
+		return Validators.instance().getValidator(modelClass);
+	}
 
-   protected void warn(Object object, Object... params)
-   {
-      log.warn(object, params);
-   }
+	protected <T> ClassValidator<T> getValidator(T model) {
+		return Validators.instance().getValidator(model);
+	}
 
-   protected void warn(Object object, Throwable t, Object... params)
-   {
-      log.warn(object, t, params);
-   }
+	protected void debug(Object object, Object... params) {
+		log.debug(object, params);
+	}
 
-   protected void raiseAsynchronousEvent(String type, Object... parameters)
-   {
-      getEvents().raiseAsynchronousEvent(type, parameters);
-   }
+	protected void debug(Object object, Throwable t, Object... params) {
+		log.debug(object, t, params);
+	}
 
-   protected void raiseEvent(String type, Object... parameters)
-   {
-      getEvents().raiseEvent(type, parameters);
-   }
+	protected void error(Object object, Object... params) {
+		log.error(object, params);
+	}
 
-   protected void raiseTransactionSuccessEvent(String type, Object... parameters)
-   {
-      getEvents().raiseTransactionSuccessEvent(type, parameters);
-   }
-   
-   protected Object getComponentInstance(String name)
-   {
-      return Component.getInstance(name);
-   }
+	protected void error(Object object, Throwable t, Object... params) {
+		log.error(object, t, params);
+	}
 
-   protected Object getComponentInstance(Class<?> clazz)
-   {
-      return Component.getInstance(clazz);
-   }
-   
-   protected void invalidateSession()
-   {
-      Session.instance().invalidate();
-   }
+	protected void fatal(Object object, Object... params) {
+		log.fatal(object, params);
+	}
 
-   protected boolean isTransactionMarkedRollback()
-   {
-      try
-      {
-         return Transaction.instance().isMarkedRollback();
-      }
-      catch (Exception e)
-      {
-         return false;
-      }
-   }
-   
-   protected <T> T evaluateValueExpression(String expression, Class<T> type)
-   {
-       return createValueExpression(expression, type).getValue();
-   }
-   
-   protected Object evaluateValueExpression(String expression)
-   {
-       return createValueExpression(expression).getValue();
-   }
-   
-   protected <T> ValueExpression<T> createValueExpression(String expression, Class<T> type)
-   {
-       return Expressions.instance().createValueExpression(expression, type);
-   }
-   
-   protected ValueExpression<?> createValueExpression(String expression)
-   {
-       return createValueExpression(expression, Object.class);
-   }
+	protected void fatal(Object object, Throwable t, Object... params) {
+		log.fatal(object, t, params);
+	}
+
+	protected void info(Object object, Object... params) {
+		log.info(object, params);
+	}
+
+	protected void info(Object object, Throwable t, Object... params) {
+		log.info(object, t, params);
+	}
+
+	protected void trace(Object object, Object... params) {
+		log.trace(object, params);
+	}
+
+	protected void trace(Object object, Throwable t, Object... params) {
+		log.trace(object, t, params);
+	}
+
+	protected void warn(Object object, Object... params) {
+		log.warn(object, params);
+	}
+
+	protected void warn(Object object, Throwable t, Object... params) {
+		log.warn(object, t, params);
+	}
+
+	protected void raiseAsynchronousEvent(String type, Object... parameters) {
+		getEvents().raiseAsynchronousEvent(type, parameters);
+	}
+
+	protected void raiseEvent(String type, Object... parameters) {
+		getEvents().raiseEvent(type, parameters);
+	}
+
+	protected void raiseTransactionSuccessEvent(String type, Object... parameters) {
+		getEvents().raiseTransactionSuccessEvent(type, parameters);
+	}
+
+	protected Object getComponentInstance(String name) {
+		return Component.getInstance(name);
+	}
+
+	protected Object getComponentInstance(Class<?> clazz) {
+		return Component.getInstance(clazz);
+	}
+
+	protected void invalidateSession() {
+		Session.instance().invalidate();
+	}
+
+	protected boolean isTransactionMarkedRollback() {
+		try {
+			return Transaction.instance().isMarkedRollback();
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	protected <T> T evaluateValueExpression(String expression, Class<T> type) {
+		return createValueExpression(expression, type).getValue();
+	}
+
+	protected Object evaluateValueExpression(String expression) {
+		return createValueExpression(expression).getValue();
+	}
+
+	protected <T> ValueExpression<T> createValueExpression(String expression, Class<T> type) {
+		return Expressions.instance().createValueExpression(expression, type);
+	}
+
+	protected ValueExpression<?> createValueExpression(String expression) {
+		return createValueExpression(expression, Object.class);
+	}
 
 }

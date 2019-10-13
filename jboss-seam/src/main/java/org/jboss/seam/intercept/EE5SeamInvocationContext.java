@@ -11,28 +11,25 @@ import java.util.List;
  *
  */
 @SuppressWarnings("unchecked")
-class EE5SeamInvocationContext extends SeamInvocationContext implements javax.interceptor.InvocationContext
-{
+class EE5SeamInvocationContext extends SeamInvocationContext implements javax.interceptor.InvocationContext {
 
-   public EE5SeamInvocationContext(InvocationContext context, EventType type, List<Object> userInterceptors, List<Interceptor> interceptors)
-   {
-      super(context, type, userInterceptors, interceptors);
-   }
+	public EE5SeamInvocationContext(InvocationContext context, EventType type, List<Object> userInterceptors,
+			List<Interceptor> interceptors) {
+		super(context, type, userInterceptors, interceptors);
+	}
 
-   public Object getTimer()
-   {
-      // not supported method
-      return null;
-   }
+	public Object getTimer() {
+		// not supported method
+		return null;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Constructor<?> getConstructor()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Constructor<?> getConstructor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

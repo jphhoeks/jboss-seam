@@ -18,19 +18,16 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.international.timeZone")
 @BypassInterceptors
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.international.timeZoneSelector")
-public class TimeZone 
-{
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.international.timeZoneSelector")
+public class TimeZone {
 
-   @Unwrap
-   public java.util.TimeZone getTimeZone()
-   {
-      return TimeZoneSelector.instance().getTimeZone();
-   }
-   
-   public static java.util.TimeZone instance()
-   {
-      return (java.util.TimeZone) Component.getInstance(TimeZone.class, ScopeType.STATELESS);
-   }
-   
+	@Unwrap
+	public java.util.TimeZone getTimeZone() {
+		return TimeZoneSelector.instance().getTimeZone();
+	}
+
+	public static java.util.TimeZone instance() {
+		return (java.util.TimeZone) Component.getInstance(TimeZone.class, ScopeType.STATELESS);
+	}
+
 }

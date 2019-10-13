@@ -11,67 +11,57 @@ import javax.security.auth.Subject;
  * 
  * @author Shane Bryzak
  */
-public abstract class RunAsOperation
-{
-   private Principal principal;
-   private Subject subject;
-   
-   private boolean systemOp = false;
-      
-   public RunAsOperation()
-   {
-      principal = new SimplePrincipal(null);  
-      subject = new Subject();
-   }
-   
-   /**
-    * A system operation allows any security checks to pass
-    * 
-    * @param systemOp
-    */
-   public RunAsOperation(boolean systemOp)
-   {      
-      this();
-      this.systemOp = systemOp;
-   }
-   
-   public abstract void execute();
-   
-   public Principal getPrincipal()
-   {
-      return principal;
-   }
-   
-   public Subject getSubject()
-   {
-      return subject;
-   }
-   
-   public RunAsOperation addRole(String role)
-   {
-      for ( Group sg : getSubject().getPrincipals(Group.class) )      
-      {
-         if ( Identity.ROLES_GROUP.equals( sg.getName() ) )
-         {
-            sg.addMember(new SimplePrincipal(role));
-            break;
-         }
-      }
-               
-      SimpleGroup roleGroup = new SimpleGroup(Identity.ROLES_GROUP);
-      roleGroup.addMember(new SimplePrincipal(role));
-      getSubject().getPrincipals().add(roleGroup); 
-      
-      return this;
-   }
-   
-   public boolean isSystemOperation()
-   {
-      return systemOp;
-   }
-   
-   public void run()
-   {      
-      Identity.instance().runAs(this);
-   }
+public abstract class RunAsOperation {
+	private Principal principal;
+	private Subject subject;
+
+	private boolean systemOp = false;
+
+	public RunAsOperation() {
+		principal = new SimplePrincipal(null);
+		subject = new Subject();
+	}
+
+	/**
+	* A system operation allows any security checks to pass
+	* 
+	* @param systemOp
+	*/
+	public RunAsOperation(boolean systemOp) {
+		this();
+		this.systemOp = systemOp;
+	}
+
+	public abstract void execute();
+
+	public Principal getPrincipal() {
+		return principal;
+	}
+
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public RunAsOperation addRole(String role) {
+		for (Group sg : getSubject().getPrincipals(Group.class)) {
+			if (Identity.ROLES_GROUP.equals(sg.getName())) {
+				sg.addMember(new SimplePrincipal(role));
+				break;
+			}
+		}
+
+		SimpleGroup roleGroup = new SimpleGroup(Identity.ROLES_GROUP);
+		roleGroup.addMember(new SimplePrincipal(role));
+		getSubject().getPrincipals().add(roleGroup);
+
+		return this;
+	}
+
+	public boolean isSystemOperation() {
+		return systemOp;
+	}
+
+	public void run() {
+		Identity.instance().runAs(this);
+	}
 }

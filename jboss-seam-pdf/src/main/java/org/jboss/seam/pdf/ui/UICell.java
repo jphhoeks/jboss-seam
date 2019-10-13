@@ -8,324 +8,305 @@ import com.lowagie.text.pdf.*;
 import javax.faces.context.FacesContext;
 
 public class UICell extends UIRectangle {
-    public static final String COMPONENT_TYPE = "org.jboss.seam.pdf.ui.UICell";
+	public static final String COMPONENT_TYPE = "org.jboss.seam.pdf.ui.UICell";
 
-    PdfPCell cell;
-    String horizontalAlignment;
-    String verticalAlignment;
-    Float padding;
-    Float paddingLeft;
-    Float paddingRight;
-    Float paddingTop;
-    Float paddingBottom;
-    Boolean useBorderPadding;
-    Float leading;
-    Float multipliedLeading;
-    Float indent;
-    Float extraParagraphSpace;
-    Float fixedHeight;
-    Boolean noWrap;
-    Float minimumHeight;
-    Integer colspan;
-    Float followingIndent;
-    Float rightIndent;
-    Integer spaceCharRatio;
-    Integer runDirection;
-    Integer arabicOptions;
-    Boolean useAscender;
-    Float grayFill;
-    Integer rotation;
+	PdfPCell cell;
+	String horizontalAlignment;
+	String verticalAlignment;
+	Float padding;
+	Float paddingLeft;
+	Float paddingRight;
+	Float paddingTop;
+	Float paddingBottom;
+	Boolean useBorderPadding;
+	Float leading;
+	Float multipliedLeading;
+	Float indent;
+	Float extraParagraphSpace;
+	Float fixedHeight;
+	Boolean noWrap;
+	Float minimumHeight;
+	Integer colspan;
+	Float followingIndent;
+	Float rightIndent;
+	Integer spaceCharRatio;
+	Integer runDirection;
+	Integer arabicOptions;
+	Boolean useAscender;
+	Float grayFill;
+	Integer rotation;
 
-    boolean hasContent = false;
+	boolean hasContent = false;
 
-    public void setGrayFill(Float grayFill) {
-        this.grayFill = grayFill;
-    }
+	public void setGrayFill(Float grayFill) {
+		this.grayFill = grayFill;
+	}
 
-    public void setHorizontalAlignment(String horizontalAlignment) {
-        this.horizontalAlignment = horizontalAlignment;
-    }
+	public void setHorizontalAlignment(String horizontalAlignment) {
+		this.horizontalAlignment = horizontalAlignment;
+	}
 
-    public void setVerticalAlignment(String verticalAlignment) {
-        this.verticalAlignment = verticalAlignment;
-    }
+	public void setVerticalAlignment(String verticalAlignment) {
+		this.verticalAlignment = verticalAlignment;
+	}
 
-    public void setPadding(Float padding) {
-        this.padding = padding;
-    }
+	public void setPadding(Float padding) {
+		this.padding = padding;
+	}
 
-    public void setPaddingLeft(Float paddingLeft) {
-        this.paddingLeft = paddingLeft;
-    }
+	public void setPaddingLeft(Float paddingLeft) {
+		this.paddingLeft = paddingLeft;
+	}
 
-    public void setPaddingRight(Float paddingRight) {
-        this.paddingRight = paddingRight;
-    }
+	public void setPaddingRight(Float paddingRight) {
+		this.paddingRight = paddingRight;
+	}
 
-    public void setPaddingTop(Float paddingTop) {
-        this.paddingTop = paddingTop;
-    }
+	public void setPaddingTop(Float paddingTop) {
+		this.paddingTop = paddingTop;
+	}
 
-    public void setPaddingBottom(Float paddingBottom) {
-        this.paddingBottom = paddingBottom;
-    }
+	public void setPaddingBottom(Float paddingBottom) {
+		this.paddingBottom = paddingBottom;
+	}
 
-    public void setUseBorderPadding(Boolean useBorderPadding) {
-        this.useBorderPadding = useBorderPadding;
-    }
+	public void setUseBorderPadding(Boolean useBorderPadding) {
+		this.useBorderPadding = useBorderPadding;
+	}
 
-    public void setLeading(Float leading) {
-        this.leading = leading;
-    }
+	public void setLeading(Float leading) {
+		this.leading = leading;
+	}
 
-    public void setMultipliedLeading(Float multipliedLeading) {
-        this.multipliedLeading = multipliedLeading;
-    }
+	public void setMultipliedLeading(Float multipliedLeading) {
+		this.multipliedLeading = multipliedLeading;
+	}
 
-    public void setIndent(Float indent) {
-        this.indent = indent;
-    }
+	public void setIndent(Float indent) {
+		this.indent = indent;
+	}
 
-    public void setExtraParagraphSpace(Float extraParagraphSpace) {
-        this.extraParagraphSpace = extraParagraphSpace;
-    }
+	public void setExtraParagraphSpace(Float extraParagraphSpace) {
+		this.extraParagraphSpace = extraParagraphSpace;
+	}
 
-    public void setFixedHeight(Float fixedHeight) {
-        this.fixedHeight = fixedHeight;
-    }
+	public void setFixedHeight(Float fixedHeight) {
+		this.fixedHeight = fixedHeight;
+	}
 
-    public void setNoWrap(Boolean noWrap) {
-        this.noWrap = noWrap;
-    }
+	public void setNoWrap(Boolean noWrap) {
+		this.noWrap = noWrap;
+	}
 
-    public void setMinimumHeight(Float minimumHeight) {
-        this.minimumHeight = minimumHeight;
-    }
+	public void setMinimumHeight(Float minimumHeight) {
+		this.minimumHeight = minimumHeight;
+	}
 
-    public void setColspan(Integer colspan) {
-        this.colspan = colspan;
-    }
+	public void setColspan(Integer colspan) {
+		this.colspan = colspan;
+	}
 
-    public void setFollowingIndent(Float followingIndent) {
-        this.followingIndent = followingIndent;
-    }
+	public void setFollowingIndent(Float followingIndent) {
+		this.followingIndent = followingIndent;
+	}
 
-    public void setRightIndent(Float rightIndent) {
-        this.rightIndent = rightIndent;
-    }
+	public void setRightIndent(Float rightIndent) {
+		this.rightIndent = rightIndent;
+	}
 
-    public void setSpaceCharRatio(Integer spaceCharRatio) {
-        this.spaceCharRatio = spaceCharRatio;
-    }
+	public void setSpaceCharRatio(Integer spaceCharRatio) {
+		this.spaceCharRatio = spaceCharRatio;
+	}
 
-    public void setRunDirection(Integer runDirection) {
-        this.runDirection = runDirection;
-    }
+	public void setRunDirection(Integer runDirection) {
+		this.runDirection = runDirection;
+	}
 
-    public void setArabicOptions(Integer arabicOptions) {
-        this.arabicOptions = arabicOptions;
-    }
+	public void setArabicOptions(Integer arabicOptions) {
+		this.arabicOptions = arabicOptions;
+	}
 
-    public void setUseAscender(Boolean useAscender) {
-        this.useAscender = useAscender;
-    }
+	public void setUseAscender(Boolean useAscender) {
+		this.useAscender = useAscender;
+	}
 
-    public void setRotation(Integer rotation) {
-        this.rotation = rotation;
-    }
+	public void setRotation(Integer rotation) {
+		this.rotation = rotation;
+	}
 
-    @Override
-    public Object getITextObject() {
-        return cell;
-    }
+	@Override
+	public Object getITextObject() {
+		return cell;
+	}
 
-    @Override
-    public void removeITextObject() {
-        cell = null;
-    }
+	@Override
+	public void removeITextObject() {
+		cell = null;
+	}
 
-    @Override
-    public void createITextObject(FacesContext context) {
-        hasContent = false;
-        PdfPCell defaultCell = getDefaultCellFromTable();
-        if (defaultCell != null) {
-            cell = new PdfPCell(defaultCell);
-        } else {
-            cell = new PdfPCell();
-        }
+	@Override
+	public void createITextObject(FacesContext context) {
+		hasContent = false;
+		PdfPCell defaultCell = getDefaultCellFromTable();
+		if (defaultCell != null) {
+			cell = new PdfPCell(defaultCell);
+		} else {
+			cell = new PdfPCell();
+		}
 
-        horizontalAlignment = (String) valueBinding(context,
-                "horizontalAlignment", horizontalAlignment);
-        if (horizontalAlignment != null) {
-            cell.setHorizontalAlignment(ITextUtils
-                    .alignmentValue(horizontalAlignment));            
-        }
-        
-        verticalAlignment = (String) valueBinding(context, "verticalAlignment",
-                verticalAlignment);
-        if (verticalAlignment != null) {
-            cell.setVerticalAlignment(ITextUtils
-                    .alignmentValue(verticalAlignment));
-        }
+		horizontalAlignment = (String) valueBinding(context, "horizontalAlignment", horizontalAlignment);
+		if (horizontalAlignment != null) {
+			cell.setHorizontalAlignment(ITextUtils.alignmentValue(horizontalAlignment));
+		}
 
-        padding = (Float) valueBinding(context, "padding", padding);
-        if (padding != null) {
-            cell.setPadding(padding);
-        }
+		verticalAlignment = (String) valueBinding(context, "verticalAlignment", verticalAlignment);
+		if (verticalAlignment != null) {
+			cell.setVerticalAlignment(ITextUtils.alignmentValue(verticalAlignment));
+		}
 
-        paddingLeft = (Float) valueBinding(context, "paddingLeft", paddingLeft);
-        if (paddingLeft != null) {
-            cell.setPaddingLeft(paddingLeft);
-        }
+		padding = (Float) valueBinding(context, "padding", padding);
+		if (padding != null) {
+			cell.setPadding(padding);
+		}
 
-        paddingRight = (Float) valueBinding(context, "paddingRight",
-                paddingRight);
-        if (paddingRight != null) {
-            cell.setPaddingRight(paddingRight);
-        }
+		paddingLeft = (Float) valueBinding(context, "paddingLeft", paddingLeft);
+		if (paddingLeft != null) {
+			cell.setPaddingLeft(paddingLeft);
+		}
 
-        paddingTop = (Float) valueBinding(context, "paddingTop", paddingTop);
-        if (paddingTop != null) {
-            cell.setPaddingTop(paddingTop);
-        }
+		paddingRight = (Float) valueBinding(context, "paddingRight", paddingRight);
+		if (paddingRight != null) {
+			cell.setPaddingRight(paddingRight);
+		}
 
-        paddingBottom = (Float) valueBinding(context, "paddingBottom",
-                paddingBottom);
-        if (paddingBottom != null) {
-            cell.setPaddingBottom(paddingBottom);
-        }
+		paddingTop = (Float) valueBinding(context, "paddingTop", paddingTop);
+		if (paddingTop != null) {
+			cell.setPaddingTop(paddingTop);
+		}
 
-        useBorderPadding = (Boolean) valueBinding(context, "useBorderPadding",
-                useBorderPadding);
-        if (useBorderPadding != null) {
-            cell.setUseBorderPadding(useBorderPadding);
-        }
+		paddingBottom = (Float) valueBinding(context, "paddingBottom", paddingBottom);
+		if (paddingBottom != null) {
+			cell.setPaddingBottom(paddingBottom);
+		}
 
-        leading = (Float) valueBinding(context, "leading", leading);
-        multipliedLeading = (Float) valueBinding(context, "multipliedLeading",
-                multipliedLeading);
-        if (leading != null || multipliedLeading != null) {
-            cell.setLeading(leading == null ? 0 : leading.floatValue(),
-                    multipliedLeading == null ? 0 : multipliedLeading
-                            .floatValue());
-        }
+		useBorderPadding = (Boolean) valueBinding(context, "useBorderPadding", useBorderPadding);
+		if (useBorderPadding != null) {
+			cell.setUseBorderPadding(useBorderPadding);
+		}
 
-        indent = (Float) valueBinding(context, "indent", indent);
-        if (indent != null) {
-            cell.setIndent(indent);
-        }
+		leading = (Float) valueBinding(context, "leading", leading);
+		multipliedLeading = (Float) valueBinding(context, "multipliedLeading", multipliedLeading);
+		if (leading != null || multipliedLeading != null) {
+			cell.setLeading(leading == null ? 0 : leading.floatValue(), multipliedLeading == null ? 0 : multipliedLeading.floatValue());
+		}
 
-        extraParagraphSpace = (Float) valueBinding(context,
-                "extraParagraphSpace", extraParagraphSpace);
-        if (extraParagraphSpace != null) {
-            cell.setExtraParagraphSpace(extraParagraphSpace);
-        }
+		indent = (Float) valueBinding(context, "indent", indent);
+		if (indent != null) {
+			cell.setIndent(indent);
+		}
 
-        fixedHeight = (Float) valueBinding(context, "fixedHeight", fixedHeight);
-        if (fixedHeight != null) {
-            cell.setFixedHeight(fixedHeight);
-        }
+		extraParagraphSpace = (Float) valueBinding(context, "extraParagraphSpace", extraParagraphSpace);
+		if (extraParagraphSpace != null) {
+			cell.setExtraParagraphSpace(extraParagraphSpace);
+		}
 
-        noWrap = (Boolean) valueBinding(context, "noWrap", noWrap);
-        if (noWrap != null) {
-            cell.setNoWrap(noWrap);
-        }
+		fixedHeight = (Float) valueBinding(context, "fixedHeight", fixedHeight);
+		if (fixedHeight != null) {
+			cell.setFixedHeight(fixedHeight);
+		}
 
-        minimumHeight = (Float) valueBinding(context, "minimumHeight",
-                minimumHeight);
-        if (minimumHeight != null) {
-            cell.setMinimumHeight(minimumHeight);
-        }
+		noWrap = (Boolean) valueBinding(context, "noWrap", noWrap);
+		if (noWrap != null) {
+			cell.setNoWrap(noWrap);
+		}
 
-        colspan = (Integer) valueBinding(context, "colspan", colspan);
-        if (colspan != null) {
-            cell.setColspan(colspan);
-        }
+		minimumHeight = (Float) valueBinding(context, "minimumHeight", minimumHeight);
+		if (minimumHeight != null) {
+			cell.setMinimumHeight(minimumHeight);
+		}
 
-        followingIndent = (Float) valueBinding(context, "followingIndent",
-                followingIndent);
-        if (followingIndent != null) {
-            cell.setFollowingIndent(followingIndent);
-        }
-        rightIndent = (Float) valueBinding(context, "rightIndent", rightIndent);
-        if (rightIndent != null) {
-            cell.setRightIndent(rightIndent);
-        }
-        spaceCharRatio = (Integer) valueBinding(context, "spaceCharRatio",
-                spaceCharRatio);
-        if (spaceCharRatio != null) {
-            cell.setSpaceCharRatio(spaceCharRatio);
-        }
-        runDirection = (Integer) valueBinding(context, "runDirection",
-                runDirection);
-        if (runDirection != null) {
-            cell.setRunDirection(runDirection);
-        }
-        arabicOptions = (Integer) valueBinding(context, "arabicOptions",
-                arabicOptions);
-        if (arabicOptions != null) {
-            cell.setArabicOptions(arabicOptions);
-        }
-        useAscender = (Boolean) valueBinding(context, "useAscender",
-                useAscender);
-        if (useAscender != null) {
-            cell.setUseAscender(useAscender);
-        }
+		colspan = (Integer) valueBinding(context, "colspan", colspan);
+		if (colspan != null) {
+			cell.setColspan(colspan);
+		}
 
-        grayFill = (Float) valueBinding(context, "grayFill", grayFill);
-        if (grayFill != null) {
-            cell.setGrayFill(grayFill);
-        }
+		followingIndent = (Float) valueBinding(context, "followingIndent", followingIndent);
+		if (followingIndent != null) {
+			cell.setFollowingIndent(followingIndent);
+		}
+		rightIndent = (Float) valueBinding(context, "rightIndent", rightIndent);
+		if (rightIndent != null) {
+			cell.setRightIndent(rightIndent);
+		}
+		spaceCharRatio = (Integer) valueBinding(context, "spaceCharRatio", spaceCharRatio);
+		if (spaceCharRatio != null) {
+			cell.setSpaceCharRatio(spaceCharRatio);
+		}
+		runDirection = (Integer) valueBinding(context, "runDirection", runDirection);
+		if (runDirection != null) {
+			cell.setRunDirection(runDirection);
+		}
+		arabicOptions = (Integer) valueBinding(context, "arabicOptions", arabicOptions);
+		if (arabicOptions != null) {
+			cell.setArabicOptions(arabicOptions);
+		}
+		useAscender = (Boolean) valueBinding(context, "useAscender", useAscender);
+		if (useAscender != null) {
+			cell.setUseAscender(useAscender);
+		}
 
-        rotation = (Integer) valueBinding(context, "rotation", rotation);
-        if (rotation != null) {
-            cell.setRotation(rotation);
-        }
+		grayFill = (Float) valueBinding(context, "grayFill", grayFill);
+		if (grayFill != null) {
+			cell.setGrayFill(grayFill);
+		}
 
-        applyRectangleProperties(context, cell);
-    }
+		rotation = (Integer) valueBinding(context, "rotation", rotation);
+		if (rotation != null) {
+			cell.setRotation(rotation);
+		}
 
-    private PdfPCell getDefaultCellFromTable() {
-        UITable parentTable = (UITable) findITextParent(this, UITable.class);
-        if (parentTable != null) {
-            return parentTable.getDefaultCellFacet();
-        }
-        return null;
-    }
+		applyRectangleProperties(context, cell);
+	}
 
-    @Override
-    public void handleAdd(Object o) {
-        if (!hasContent) {
-            if (o instanceof Image) {
-                // added by user request, but it mages the logic here rather
-                // ugly.
-                cell.setImage((Image) o);
-            } else if (o instanceof Phrase) {
-                cell.setPhrase((Phrase) o);
-            } else if (o instanceof Element) {
-                cell.addElement((Element) o);
-            } else {
-                throw new RuntimeException("Can't add "
-                        + o.getClass().getName() + " to cell");
-            }
+	private PdfPCell getDefaultCellFromTable() {
+		UITable parentTable = (UITable) findITextParent(this, UITable.class);
+		if (parentTable != null) {
+			return parentTable.getDefaultCellFacet();
+		}
+		return null;
+	}
 
-            hasContent = true;
-        } else if (o instanceof Element) {
-            if (cell.getImage() != null) {
-                Image image = cell.getImage(); 
-                cell.setImage(null);
-                cell.addElement(image);
-            }
-            if (cell.getPhrase() != null) {
-                Phrase p = cell.getPhrase();
-                cell.setPhrase(null);
-                cell.addElement(p);
-            }
-            cell.addElement((Element) o);
-        } else {
-            throw new RuntimeException("Can't add " + o.getClass().getName()
-                    + " to cell");
-        }
-    }
+	@Override
+	public void handleAdd(Object o) {
+		if (!hasContent) {
+			if (o instanceof Image) {
+				// added by user request, but it mages the logic here rather
+				// ugly.
+				cell.setImage((Image) o);
+			} else if (o instanceof Phrase) {
+				cell.setPhrase((Phrase) o);
+			} else if (o instanceof Element) {
+				cell.addElement((Element) o);
+			} else {
+				throw new RuntimeException("Can't add " + o.getClass().getName() + " to cell");
+			}
+
+			hasContent = true;
+		} else if (o instanceof Element) {
+			if (cell.getImage() != null) {
+				Image image = cell.getImage();
+				cell.setImage(null);
+				cell.addElement(image);
+			}
+			if (cell.getPhrase() != null) {
+				Phrase p = cell.getPhrase();
+				cell.setPhrase(null);
+				cell.addElement(p);
+			}
+			cell.addElement((Element) o);
+		} else {
+			throw new RuntimeException("Can't add " + o.getClass().getName() + " to cell");
+		}
+	}
 
 }

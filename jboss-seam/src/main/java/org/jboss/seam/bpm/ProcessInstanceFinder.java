@@ -22,84 +22,67 @@ import org.jbpm.graph.exe.ProcessInstance;
  * @author Gavin King
  */
 @Name("org.jboss.seam.bpm.processInstanceFinder")
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.bpm.jbpm")
-public class ProcessInstanceFinder
-{
-   
-   private String processDefinitionName;
-   private String nodeName;
-   private Boolean processInstanceEnded = false;
-   private Boolean sortDescending = false;
-   
-   @Factory(value="org.jboss.seam.bpm.processInstanceList", autoCreate=true)
-   @Transactional
-   public List<ProcessInstance> getProcessInstanceList()
-   {
-      Criteria query = ManagedJbpmContext.instance().getSession()
-                  .createCriteria(ProcessInstance.class);
-      if ( processInstanceEnded!=null )
-      {
-         query.add( processInstanceEnded ? isNotNull("end") : isNull("end") );
-      }
-      
-      if (processDefinitionName!=null)
-      {
-         query.createCriteria("processDefinition")
-               .add( Restrictions.eq("name", processDefinitionName) );
-      }
-      
-      query = query.createCriteria("rootToken");
-      if (sortDescending!=null)
-      {
-         query.addOrder( sortDescending ? desc("nodeEnter") : asc("nodeEnter") );
-      }
-      if (nodeName!=null)
-      {
-         query.createCriteria("node")
-               .add( Restrictions.eq("name", nodeName) );
-      }
-      
-      return query.list();
-   }
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
+public class ProcessInstanceFinder {
 
-   protected String getNodeName()
-   {
-      return nodeName;
-   }
+	private String processDefinitionName;
+	private String nodeName;
+	private Boolean processInstanceEnded = false;
+	private Boolean sortDescending = false;
 
-   protected void setNodeName(String nodeName)
-   {
-      this.nodeName = nodeName;
-   }
+	@Factory(value = "org.jboss.seam.bpm.processInstanceList", autoCreate = true)
+	@Transactional
+	public List<ProcessInstance> getProcessInstanceList() {
+		Criteria query = ManagedJbpmContext.instance().getSession().createCriteria(ProcessInstance.class);
+		if (processInstanceEnded != null) {
+			query.add(processInstanceEnded ? isNotNull("end") : isNull("end"));
+		}
 
-   protected String getProcessDefinitionName()
-   {
-      return processDefinitionName;
-   }
+		if (processDefinitionName != null) {
+			query.createCriteria("processDefinition").add(Restrictions.eq("name", processDefinitionName));
+		}
 
-   protected void setProcessDefinitionName(String processDefinitionName)
-   {
-      this.processDefinitionName = processDefinitionName;
-   }
+		query = query.createCriteria("rootToken");
+		if (sortDescending != null) {
+			query.addOrder(sortDescending ? desc("nodeEnter") : asc("nodeEnter"));
+		}
+		if (nodeName != null) {
+			query.createCriteria("node").add(Restrictions.eq("name", nodeName));
+		}
 
-   protected Boolean isSortDescending()
-   {
-      return sortDescending;
-   }
+		return query.list();
+	}
 
-   protected void setSortDescending(Boolean sortDescending)
-   {
-      this.sortDescending = sortDescending;
-   }
+	protected String getNodeName() {
+		return nodeName;
+	}
 
-   protected Boolean getProcessInstanceEnded()
-   {
-      return processInstanceEnded;
-   }
+	protected void setNodeName(String nodeName) {
+		this.nodeName = nodeName;
+	}
 
-   protected void setProcessInstanceEnded(Boolean ended)
-   {
-      this.processInstanceEnded = ended;
-   }
-   
+	protected String getProcessDefinitionName() {
+		return processDefinitionName;
+	}
+
+	protected void setProcessDefinitionName(String processDefinitionName) {
+		this.processDefinitionName = processDefinitionName;
+	}
+
+	protected Boolean isSortDescending() {
+		return sortDescending;
+	}
+
+	protected void setSortDescending(Boolean sortDescending) {
+		this.sortDescending = sortDescending;
+	}
+
+	protected Boolean getProcessInstanceEnded() {
+		return processInstanceEnded;
+	}
+
+	protected void setProcessInstanceEnded(Boolean ended) {
+		this.processInstanceEnded = ended;
+	}
+
 }

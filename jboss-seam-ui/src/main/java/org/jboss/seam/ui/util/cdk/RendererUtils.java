@@ -27,53 +27,41 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.html.HtmlCommandButton;
 
+public class RendererUtils {
 
-public class RendererUtils 
-{
-   
-   private static final String TRINIDAD_FORM_FAMILY = "org.apache.myfaces.trinidad.Form";
-   private static final String TRINIDAD_COMMANDBUTTON_CLASS = "org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton";
-   private static final String RICHFACES_COMMANDBUTTON_CLASS = "org.ajax4jsf.component.UIAjaxCommandButton";
+	private static final String TRINIDAD_FORM_FAMILY = "org.apache.myfaces.trinidad.Form";
+	private static final String TRINIDAD_COMMANDBUTTON_CLASS = "org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton";
+	private static final String RICHFACES_COMMANDBUTTON_CLASS = "org.ajax4jsf.component.UIAjaxCommandButton";
 
-   /**
-    * Since Trinidad, and possibly other JSF implementations don't always subclass
-    * from {@link javax.faces.component.UIForm} we can't cast to UIForm.
-    */
-   public UIComponent getForm(UIComponent component) 
-   {
-       while (component != null) 
-       {
-          if (isForm(component)) 
-          {
-             break;
-          }
-          component = component.getParent();
-       }
-       return component;
-   }
-   
-   public boolean isCommandButton(UIComponent cmp)
-   {
-      if ( cmp instanceof HtmlCommandButton || isInstanceOf(cmp.getClass(), TRINIDAD_COMMANDBUTTON_CLASS) || isInstanceOf(cmp.getClass(), RICHFACES_COMMANDBUTTON_CLASS) )
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
-   }
-   
-   public boolean isForm(UIComponent cmp)
-   {
-      if ( cmp instanceof UIForm || TRINIDAD_FORM_FAMILY.equals(cmp.getFamily()) ) 
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
-   }
-   
+	/**
+	* Since Trinidad, and possibly other JSF implementations don't always subclass
+	* from {@link javax.faces.component.UIForm} we can't cast to UIForm.
+	*/
+	public UIComponent getForm(UIComponent component) {
+		while (component != null) {
+			if (isForm(component)) {
+				break;
+			}
+			component = component.getParent();
+		}
+		return component;
+	}
+
+	public boolean isCommandButton(UIComponent cmp) {
+		if (cmp instanceof HtmlCommandButton || isInstanceOf(cmp.getClass(), TRINIDAD_COMMANDBUTTON_CLASS)
+				|| isInstanceOf(cmp.getClass(), RICHFACES_COMMANDBUTTON_CLASS)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isForm(UIComponent cmp) {
+		if (cmp instanceof UIForm || TRINIDAD_FORM_FAMILY.equals(cmp.getFamily())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

@@ -22,22 +22,20 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
  */
 @Name("org.jboss.seam.bpm.taskInstanceList")
 @Scope(APPLICATION)
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.bpm.jbpm")
-public class TaskInstanceList
-{
-   
-   @Unwrap
-   @Transactional
-   public List<TaskInstance> getTaskInstanceList()
-   {
-      return getTaskInstanceList( Actor.instance().getId() );
-   }
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
+public class TaskInstanceList {
 
-   private List<TaskInstance> getTaskInstanceList(String actorId)
-   {
-      if ( actorId == null ) return null;
+	@Unwrap
+	@Transactional
+	public List<TaskInstance> getTaskInstanceList() {
+		return getTaskInstanceList(Actor.instance().getId());
+	}
 
-      return ManagedJbpmContext.instance().getTaskList(actorId);
-   }
-   
+	private List<TaskInstance> getTaskInstanceList(String actorId) {
+		if (actorId == null)
+			return null;
+
+		return ManagedJbpmContext.instance().getTaskList(actorId);
+	}
+
 }

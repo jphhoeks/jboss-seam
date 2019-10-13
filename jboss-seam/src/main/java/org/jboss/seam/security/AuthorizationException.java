@@ -7,13 +7,11 @@ import javax.ejb.ApplicationException;
  * 
  * @author Shane Bryzak
  */
-@ApplicationException(rollback=true)
-public class AuthorizationException extends RuntimeException
-{ 
-   private static final long serialVersionUID = -981091398588455903L;
+@ApplicationException(rollback = true)
+public class AuthorizationException extends RuntimeException {
+	private static final long serialVersionUID = -981091398588455903L;
 
-public AuthorizationException(String message)
-   {
-      super(message);
-   }
+	public AuthorizationException(String message) {
+		super(message);
+	}
 }

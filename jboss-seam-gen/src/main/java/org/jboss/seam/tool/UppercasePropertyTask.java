@@ -8,33 +8,27 @@ import org.apache.tools.ant.Task;
  * 
  * @author Dan Allen
  */
-public class UppercasePropertyTask extends Task
-{
-   private String name;
+public class UppercasePropertyTask extends Task {
+	private String name;
 
-   private String value;
+	private String value;
 
-   @Override
-   public void execute() throws BuildException
-   {
-      if (value != null && !"".equals(value))
-      {
-         getProject().setProperty(name, upper(value));
-      }
-   }
+	@Override
+	public void execute() throws BuildException {
+		if (value != null && !"".equals(value)) {
+			getProject().setProperty(name, upper(value));
+		}
+	}
 
-   protected String upper(String value)
-   {
-      return value.toUpperCase();
-   }
+	protected String upper(String value) {
+		return value.toUpperCase();
+	}
 
-   public void setValue(String value)
-   {
-      this.value = value;
-   }
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-   public void setName(String propertyName)
-   {
-      this.name = propertyName;
-   }
+	public void setName(String propertyName) {
+		this.name = propertyName;
+	}
 }

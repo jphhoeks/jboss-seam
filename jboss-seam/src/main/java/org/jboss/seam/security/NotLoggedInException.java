@@ -7,7 +7,8 @@ import javax.ejb.ApplicationException;
  * 
  * @author Shane Bryzak
  */
-@ApplicationException(rollback=true)
+@ApplicationException(rollback = true)
 public class NotLoggedInException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;}
+	private static final long serialVersionUID = 1L;
+}

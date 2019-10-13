@@ -7,43 +7,44 @@ import javax.persistence.Version;
 
 @Entity
 public class Thing {
-    public Thing() {}
+	public Thing() {
+	}
 
-    @GeneratedValue
-    @Id
-    private Long id;
+	@GeneratedValue
+	@Id
+	private Long id;
 
-    @Version
-    private Integer version;
+	@Version
+	private Integer version;
 
-    private String name;
+	private String name;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Integer getVersion() {
-        return version;
-    }
+	public Integer getVersion() {
+		return version;
+	}
 
-    public void setVersion(Integer version) {
-        this.version = version;
-    }   
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 
-    @Override
-    public String toString() {
-        return "Thing#" + id + "[v=" + version + "]";
-    }
+	@Override
+	public String toString() {
+		return "Thing#" + id + "[v=" + version + "]";
+	}
 }

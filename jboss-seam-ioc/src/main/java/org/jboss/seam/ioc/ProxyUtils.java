@@ -35,53 +35,46 @@ import org.jboss.seam.log.Logging;
 /**
  * @author <a href="mailto:ales.justin@jboss.com">Ales Justin</a>
  */
-public class ProxyUtils
-{
-   private static final LogProvider log = Logging.getLogProvider(ProxyUtils.class);
+public class ProxyUtils {
+	private static final LogProvider log = Logging.getLogProvider(ProxyUtils.class);
 
-   public static boolean isProxy(Class clazz)
-   {
-      return Proxy.isProxyClass(clazz);
-   }
+	public static boolean isProxy(Class clazz) {
+		return Proxy.isProxyClass(clazz);
+	}
 
-   public static Object enhance(Object bean, Set<Class> interfaces, IoCComponent component) throws Exception
-   {
-      Class beanClass = bean.getClass();
-      if (isProxy(beanClass))
-      {
-         throw new RuntimeException("Seam cannot wrap JDK proxied IoC beans. Please use CGLib or Javassist proxying instead");
-      }
-      //
-      if (isCglibProxyClass(beanClass) || isJavassistProxyClass(beanClass))
-      {
-         beanClass = beanClass.getSuperclass();
-      }
-      if (log.isDebugEnabled())
-      {
-         log.debug("Creating proxy for " + component.getIoCName() + " Seam component '"
-               + component.getName() + "' using class: " + beanClass.getName());
-      }
-      // create pojo proxy
-      JavaBeanInterceptor interceptor = new JavaBeanInterceptor(bean, component);
-      // Should probably create a Factory but required a lot of duplicated
-      // code and there is potential for a spring bean to provide
-      // different interfaces at different times in an application. If
-      // need is great I can create a Factory and assume the same
-      // interfaces all the time.
-      ProxyObject po = Component.createProxyFactory(ComponentType.JAVA_BEAN, beanClass, interfaces).getDeclaredConstructor().newInstance();
-      po.setHandler(interceptor);
-      interceptor.postConstruct();
-      return po;
-   }
+	public static Object enhance(Object bean, Set<Class> interfaces, IoCComponent component) throws Exception {
+		Class beanClass = bean.getClass();
+		if (isProxy(beanClass)) {
+			throw new RuntimeException("Seam cannot wrap JDK proxied IoC beans. Please use CGLib or Javassist proxying instead");
+		}
+		//
+		if (isCglibProxyClass(beanClass) || isJavassistProxyClass(beanClass)) {
+			beanClass = beanClass.getSuperclass();
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Creating proxy for " + component.getIoCName() + " Seam component '" + component.getName() + "' using class: "
+					+ beanClass.getName());
+		}
+		// create pojo proxy
+		JavaBeanInterceptor interceptor = new JavaBeanInterceptor(bean, component);
+		// Should probably create a Factory but required a lot of duplicated
+		// code and there is potential for a spring bean to provide
+		// different interfaces at different times in an application. If
+		// need is great I can create a Factory and assume the same
+		// interfaces all the time.
+		ProxyObject po = Component.createProxyFactory(ComponentType.JAVA_BEAN, beanClass, interfaces).getDeclaredConstructor()
+				.newInstance();
+		po.setHandler(interceptor);
+		interceptor.postConstruct();
+		return po;
+	}
 
-   public static boolean isCglibProxyClass(Class clazz)
-   {
-      return clazz != null && clazz.getName().contains("$$");
-   }
+	public static boolean isCglibProxyClass(Class clazz) {
+		return clazz != null && clazz.getName().contains("$$");
+	}
 
-   public static boolean isJavassistProxyClass(Class clazz)
-   {
-      return false; // todo
-   }
+	public static boolean isJavassistProxyClass(Class clazz) {
+		return false; // todo
+	}
 
 }

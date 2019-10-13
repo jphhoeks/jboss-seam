@@ -33,63 +33,47 @@ import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
-
 /**
  * JSF component class which addd the conversation id to JSF link or button (e.g. &lt;h:commandLink/&gt;, &lt;s:button/&gt;)
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.ConversationId",value="Add the conversation id to JSF link or button (e.g. &lt;h:commandLink/&gt;, &lt;s:button/&gt;)."),
-family="org.jboss.seam.ui.ConversationId", type="org.jboss.seam.ui.ConversationId",generate="org.jboss.seam.ui.component.html.HtmlConversationId", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="conversationId"),
-attributes = {"javax.faces.component.UIParameter.xml"})
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.ConversationId", value = "Add the conversation id to JSF link or button (e.g. &lt;h:commandLink/&gt;, &lt;s:button/&gt;)."), family = "org.jboss.seam.ui.ConversationId", type = "org.jboss.seam.ui.ConversationId", generate = "org.jboss.seam.ui.component.html.HtmlConversationId", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "conversationId"), attributes = {
+		"javax.faces.component.UIParameter.xml" })
 public abstract class UIConversationId extends UIParameter {
-	
-	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.ConversationId";   
-   
-   @Override
-   public String getName()
-   {
-      Conversation conversation = Conversation.instance();
-      if (getViewId()!=null && ( !conversation.isNested() || conversation.isLongRunning() ) )
-      {
-         return Pages.instance().getPage(getViewId())
-                     .getConversationIdParameter()
-                     .getParameterName();
-      }
-      else
-      {
-         return Manager.instance().getConversationIdParameter();
-      }
-   }
-   
-   @Override
-   public Object getValue()
-   {
-      Conversation conversation = Conversation.instance();
-      if ( !conversation.isNested() || conversation.isLongRunning() )
-      {
-         if (getViewId()!=null)
-         {
-            Page page = Pages.instance().getPage(getViewId());
-            return page.getConversationIdParameter().getParameterValue();
-         }
-         else
-         {
-            return conversation.getId();
-         }
-      }
-      else
-      {
-         return conversation.getParentId();
-      }
-   }
 
-   @Attribute(hidden=true, literal=true)
-   public abstract String getViewId();
+	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.ConversationId";
 
-   public abstract void setViewId(String viewId);
-   
-   public static UIConversationId newInstance() {
-      return (UIConversationId) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
-   }
+	@Override
+	public String getName() {
+		Conversation conversation = Conversation.instance();
+		if (getViewId() != null && (!conversation.isNested() || conversation.isLongRunning())) {
+			return Pages.instance().getPage(getViewId()).getConversationIdParameter().getParameterName();
+		} else {
+			return Manager.instance().getConversationIdParameter();
+		}
+	}
+
+	@Override
+	public Object getValue() {
+		Conversation conversation = Conversation.instance();
+		if (!conversation.isNested() || conversation.isLongRunning()) {
+			if (getViewId() != null) {
+				Page page = Pages.instance().getPage(getViewId());
+				return page.getConversationIdParameter().getParameterValue();
+			} else {
+				return conversation.getId();
+			}
+		} else {
+			return conversation.getParentId();
+		}
+	}
+
+	@Attribute(hidden = true, literal = true)
+	public abstract String getViewId();
+
+	public abstract void setViewId(String viewId);
+
+	public static UIConversationId newInstance() {
+		return (UIConversationId) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
+	}
 }

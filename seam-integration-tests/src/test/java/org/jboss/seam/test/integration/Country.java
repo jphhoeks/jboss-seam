@@ -9,46 +9,40 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Country
-{
+public class Country {
 
-    @Id @GeneratedValue
-    private Integer id;
-    
-    private String name;
+	@Id
+	@GeneratedValue
+	private Integer id;
 
-    /**
-     * @return the id
-     */
-    public Integer getId()
-    {
-        return this.id;
-    }
+	private String name;
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return this.id;
+	}
 
-    /**
-     * @return the name
-     */
-    public String getName()
-    {
-        return this.name;
-    }
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-    
-    
-    
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

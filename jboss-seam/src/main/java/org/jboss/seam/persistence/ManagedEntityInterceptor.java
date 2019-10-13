@@ -21,62 +21,48 @@ import org.jboss.seam.transaction.Transaction;
  * 
  */
 @Interceptor(around = BijectionInterceptor.class)
-public class ManagedEntityInterceptor extends AbstractInterceptor
-{
+public class ManagedEntityInterceptor extends AbstractInterceptor {
 
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-private static LogProvider log = Logging.getLogProvider(ManagedEntityInterceptor.class);
-   
-   private static ManagedEntityWrapper managedEntityWrapper = new ManagedEntityWrapper();
+	private static LogProvider log = Logging.getLogProvider(ManagedEntityInterceptor.class);
 
-   private boolean reentrant;
-   
-   @AroundInvoke
-   public Object aroundInvoke(InvocationContext ctx) throws Exception
-   {
-      if (reentrant)
-      {
-         return ctx.proceed();
-      }
-      else
-      {
-         reentrant = true;
-         log.trace("Attempting to activate " + getComponent().getName() + " component");
-         managedEntityWrapper.deserialize(ctx.getTarget(), getComponent());
-         log.debug("Activated " + getComponent().getName() + " component");
-         try
-         {
-            return ctx.proceed();
-         }
-         finally
-         {
-            if (!isTransactionRolledBackOrMarkedRollback())
-            {
-               log.trace("Attempting to passivate " + getComponent().getName() + " component");
-               managedEntityWrapper.wrap(ctx.getTarget(), getComponent());
-               reentrant = false;
-               log.debug("Passivated " + getComponent().getName() + " component");
-            }
-         }
-      }
-   }
+	private static ManagedEntityWrapper managedEntityWrapper = new ManagedEntityWrapper();
 
-   public boolean isInterceptorEnabled()
-   {
-      return getComponent().getScope() == CONVERSATION;
-   }
+	private boolean reentrant;
 
-   private static boolean isTransactionRolledBackOrMarkedRollback()
-   {
-      try
-      {
-         return Transaction.instance().isRolledBackOrMarkedRollback();
-      }
-      catch (Exception e)
-      {
-         return false;
-      }
-   }
+	@AroundInvoke
+	public Object aroundInvoke(InvocationContext ctx) throws Exception {
+		if (reentrant) {
+			return ctx.proceed();
+		} else {
+			reentrant = true;
+			log.trace("Attempting to activate " + getComponent().getName() + " component");
+			managedEntityWrapper.deserialize(ctx.getTarget(), getComponent());
+			log.debug("Activated " + getComponent().getName() + " component");
+			try {
+				return ctx.proceed();
+			} finally {
+				if (!isTransactionRolledBackOrMarkedRollback()) {
+					log.trace("Attempting to passivate " + getComponent().getName() + " component");
+					managedEntityWrapper.wrap(ctx.getTarget(), getComponent());
+					reentrant = false;
+					log.debug("Passivated " + getComponent().getName() + " component");
+				}
+			}
+		}
+	}
+
+	public boolean isInterceptorEnabled() {
+		return getComponent().getScope() == CONVERSATION;
+	}
+
+	private static boolean isTransactionRolledBackOrMarkedRollback() {
+		try {
+			return Transaction.instance().isRolledBackOrMarkedRollback();
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }

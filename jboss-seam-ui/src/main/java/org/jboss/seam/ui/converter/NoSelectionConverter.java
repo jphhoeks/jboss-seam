@@ -12,29 +12,26 @@ import javax.faces.convert.FacesConverter;
  * @author mnovotny
  *
  */
-@FacesConverter(value="org.jboss.sema.ui.NoSelectionConverter")
-public class NoSelectionConverter implements Converter
-{
+@FacesConverter(value = "org.jboss.sema.ui.NoSelectionConverter")
+public class NoSelectionConverter implements Converter {
 	public static final String NO_SELECTION_VALUE = "org.jboss.seam.ui.NoSelectionConverter.noSelectionValue";
 
-   public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException
-   {
-      if (value == null) {
-    	  return null;
-      } else if (value.equals(NO_SELECTION_VALUE)) {
-    	  return null;
-      } else {
-    	  return ConverterChain.CONTINUE;
-      }
-   }
+	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+		if (value == null) {
+			return null;
+		} else if (value.equals(NO_SELECTION_VALUE)) {
+			return null;
+		} else {
+			return ConverterChain.CONTINUE;
+		}
+	}
 
-   public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException
-   {
-      if (value == null) {
-    	  return NO_SELECTION_VALUE;
-      } else {
-    	  return ConverterChain.CONTINUE;
-      }
-   }
+	public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
+		if (value == null) {
+			return NO_SELECTION_VALUE;
+		} else {
+			return ConverterChain.CONTINUE;
+		}
+	}
 
 }

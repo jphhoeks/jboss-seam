@@ -26,59 +26,50 @@ import org.jboss.seam.util.Naming;
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Name("org.jboss.seam.jms.topicConnection")
-@Install(precedence=BUILT_IN, genericDependencies=ManagedTopicPublisher.class)
-public class TopicConnection
-{
-   private String topicConnectionFactoryJndiName = "UIL2ConnectionFactory";
-   private javax.jms.TopicConnection topicConnection;
+@Install(precedence = BUILT_IN, genericDependencies = ManagedTopicPublisher.class)
+public class TopicConnection {
+	private String topicConnectionFactoryJndiName = "UIL2ConnectionFactory";
+	private javax.jms.TopicConnection topicConnection;
 
-   /**
-    * The JNDI name of the TopicConnectionFactory
-    */
-   public String getTopicConnectionFactoryJndiName()
-   {
-      return topicConnectionFactoryJndiName;
-   }
+	/**
+	* The JNDI name of the TopicConnectionFactory
+	*/
+	public String getTopicConnectionFactoryJndiName() {
+		return topicConnectionFactoryJndiName;
+	}
 
-   public void setTopicConnectionFactoryJndiName(String jndiName)
-   {
-      this.topicConnectionFactoryJndiName = jndiName;
-   }
-   
-   @Create
-   public void init() throws NamingException, JMSException
-   {
-      topicConnection = getTopicConnectionFactory().createTopicConnection();
-      topicConnection.start();
-   }
-   
-   @Destroy
-   public void destroy() throws JMSException
-   {
-      topicConnection.stop();
-      topicConnection.close();
-   }
+	public void setTopicConnectionFactoryJndiName(String jndiName) {
+		this.topicConnectionFactoryJndiName = jndiName;
+	}
 
-   private TopicConnectionFactory getTopicConnectionFactory() throws NamingException
-   {
-      return (TopicConnectionFactory) Naming.getInitialContext().lookup(getTopicConnectionFactoryJndiName());
-   }
-   
-   @Unwrap
-   public javax.jms.TopicConnection getTopicConnection()
-   {
-      return topicConnection;
-   }
-   
-   public static javax.jms.TopicConnection instance()
-   {
-      return (javax.jms.TopicConnection) Component.getInstance(TopicConnection.class);
-   }
+	@Create
+	public void init() throws NamingException, JMSException {
+		topicConnection = getTopicConnectionFactory().createTopicConnection();
+		topicConnection.start();
+	}
 
-   @Override
-   public String toString()
-   {
-      return "TopicConnection(" + getTopicConnectionFactoryJndiName() + ")";
-   }
+	@Destroy
+	public void destroy() throws JMSException {
+		topicConnection.stop();
+		topicConnection.close();
+	}
+
+	private TopicConnectionFactory getTopicConnectionFactory() throws NamingException {
+		return (TopicConnectionFactory) Naming.getInitialContext().lookup(getTopicConnectionFactoryJndiName());
+	}
+
+	@Unwrap
+	public javax.jms.TopicConnection getTopicConnection() {
+		return topicConnection;
+	}
+
+	public static javax.jms.TopicConnection instance() {
+		return (javax.jms.TopicConnection) Component.getInstance(TopicConnection.class);
+	}
+
+	@Override
+	public String toString() {
+		return "TopicConnection(" + getTopicConnectionFactoryJndiName() + ")";
+	}
 
 }

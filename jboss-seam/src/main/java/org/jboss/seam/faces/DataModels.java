@@ -29,53 +29,40 @@ import org.jboss.seam.jsf.SetDataModel;
  * @author pmuir
  */
 @Name("org.jboss.seam.faces.dataModels")
-@Install(precedence=BUILT_IN, classDependencies="javax.faces.context.FacesContext")
+@Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 @Scope(STATELESS)
 @BypassInterceptors
-public class DataModels
-{
-   
-   /**
-    * Wrap the value in a DataModel
-    * 
-    * This implementation supports {@link List}, {@link Map}, {@link Set} and
-    * arrays
-    */
-   public DataModel getDataModel(Object value)
-   {
-      if (value instanceof List)
-      {
-         return new ListDataModel( (List) value );
-      }
-      else if (value instanceof Object[])
-      {
-         return new ArrayDataModel( (Object[]) value ); 
-      }
-      else if (value instanceof Map)
-      {
-         return new MapDataModel( (Map) value );
-      }
-      else if (value instanceof Set)
-      {
-         return new SetDataModel( (Set) value );
-      }
-      else
-      {
-         throw new IllegalArgumentException("unknown collection type: " + value.getClass());
-      }
-   }
-   
-   /**
-    * Wrap the the Seam Framework {@link Query} in a JSF DataModel
-    */
-   public DataModel getDataModel(Query query)
-   {
-      return getDataModel( query.getResultList() );
-   }
-   
-   public static DataModels instance()
-   {
-      return (DataModels) Component.getInstance(DataModels.class, ScopeType.STATELESS);
-   }
-   
+public class DataModels {
+
+	/**
+	* Wrap the value in a DataModel
+	* 
+	* This implementation supports {@link List}, {@link Map}, {@link Set} and
+	* arrays
+	*/
+	public DataModel getDataModel(Object value) {
+		if (value instanceof List) {
+			return new ListDataModel((List) value);
+		} else if (value instanceof Object[]) {
+			return new ArrayDataModel((Object[]) value);
+		} else if (value instanceof Map) {
+			return new MapDataModel((Map) value);
+		} else if (value instanceof Set) {
+			return new SetDataModel((Set) value);
+		} else {
+			throw new IllegalArgumentException("unknown collection type: " + value.getClass());
+		}
+	}
+
+	/**
+	* Wrap the the Seam Framework {@link Query} in a JSF DataModel
+	*/
+	public DataModel getDataModel(Query query) {
+		return getDataModel(query.getResultList());
+	}
+
+	public static DataModels instance() {
+		return (DataModels) Component.getInstance(DataModels.class, ScopeType.STATELESS);
+	}
+
 }

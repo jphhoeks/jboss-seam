@@ -30,17 +30,14 @@ import org.jboss.resteasy.spi.ResteasyProviderFactory;
  *
  * @author Christian Bauer
  */
-public class SeamResteasyProviderFactory extends ResteasyProviderFactory
-{
+public class SeamResteasyProviderFactory extends ResteasyProviderFactory {
 
-   public static void setInstance(ResteasyProviderFactory factory)
-   {
-      ResteasyProviderFactory.setInstance(factory);
-   }
+	public static void setInstance(ResteasyProviderFactory factory) {
+		ResteasyProviderFactory.setInstance(factory);
+	}
 
-   public static ResteasyProviderFactory getInstance()
-   {
-      return ResteasyProviderFactory.getInstance();
-   }
+	public static ResteasyProviderFactory getInstance() {
+		return ResteasyProviderFactory.getInstance();
+	}
 
 }

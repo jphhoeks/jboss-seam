@@ -26,227 +26,172 @@ import javax.faces.context.ResponseWriter;
  * The ResponseWriter for mail objects needs to support unencoded plain text
  * output.
  */
-public class MailResponseWriter extends ResponseWriter
-{
-   
-   public static String TEXT_PLAIN_CONTENT_TYPE = "text/plain";
-   
-   public static String HTML_PLAIN_CONTENT_TYPE = "text/html";
-   
-   private String contentType;
-   
-   private ResponseWriter delegate;
+public class MailResponseWriter extends ResponseWriter {
 
-   public MailResponseWriter(ResponseWriter responseWriter, String contentType)
-            throws FacesException
-   {
-      this.delegate = responseWriter;
-      this.contentType = contentType;
-   }
+	public static String TEXT_PLAIN_CONTENT_TYPE = "text/plain";
 
-   @Override
-   public String getContentType()
-   {
-      if (contentType == null)
-      {
-         return delegate.getContentType();
-      }
-      else
-      {
-         return contentType;
-      }
-   }
+	public static String HTML_PLAIN_CONTENT_TYPE = "text/html";
 
-   @Override
-   public String getCharacterEncoding()
-   {
-      return delegate.getCharacterEncoding();
-   }
+	private String contentType;
 
-   @Override
-   public void flush() throws IOException
-   {
-      delegate.flush();
-   }
+	private ResponseWriter delegate;
 
-   @Override
-   public void startDocument() throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         // Do nothing, can't write tags/attributes to plaintext!
-      }
-      else
-      {
-         delegate.startDocument();
-      }
-   }
+	public MailResponseWriter(ResponseWriter responseWriter, String contentType) throws FacesException {
+		this.delegate = responseWriter;
+		this.contentType = contentType;
+	}
 
-   @Override
-   public void endDocument() throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         // Do nothing, can't write tags/attributes to plaintext!
-      }
-      else
-      {
-         delegate.endDocument();
-      }
-   }
+	@Override
+	public String getContentType() {
+		if (contentType == null) {
+			return delegate.getContentType();
+		} else {
+			return contentType;
+		}
+	}
 
-   @Override
-   public void startElement(String name, UIComponent component) throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         // Do nothing, can't write tags/attributes to plaintext!
-      }
-      else
-      {
-         delegate.startElement(name, component);
-      }
-   }
+	@Override
+	public String getCharacterEncoding() {
+		return delegate.getCharacterEncoding();
+	}
 
-   @Override
-   public void endElement(String name) throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         // Do nothing, can't write tags/attributes to plaintext!
-      }
-      else
-      {
-         delegate.endElement(name);
-      }
-   }
+	@Override
+	public void flush() throws IOException {
+		delegate.flush();
+	}
 
-   @Override
-   public void writeAttribute(String name, Object value, String property)
-            throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         // Do nothing, can't write tags/attributes to plaintext!
-      }
-      else
-      {
-         delegate.writeAttribute(name, value, property);
-      }
-      
-   }
+	@Override
+	public void startDocument() throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			// Do nothing, can't write tags/attributes to plaintext!
+		} else {
+			delegate.startDocument();
+		}
+	}
 
-   @Override
-   public void writeURIAttribute(String name, Object value, String componentPropertyName)
-            throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         // Do nothing, can't write tags/attributes to plaintext!
-      }
-      else
-      {
-         delegate.writeURIAttribute(name, value, componentPropertyName);
-      }
-     
-   }
+	@Override
+	public void endDocument() throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			// Do nothing, can't write tags/attributes to plaintext!
+		} else {
+			delegate.endDocument();
+		}
+	}
 
-   @Override
-   public void writeComment(Object comment) throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         // Do nothing, can't write comments to plaintext!
-      }
-      else
-      {
-         delegate.writeComment(comment);
-      }
-   }
+	@Override
+	public void startElement(String name, UIComponent component) throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			// Do nothing, can't write tags/attributes to plaintext!
+		} else {
+			delegate.startElement(name, component);
+		}
+	}
 
-   @Override
-   public void writeText(Object value, String componentPropertyName) throws IOException
-   {
-      if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType()))
-      {
-         if (value == null)
-         {
-            throw new NullPointerException("Text must not be null.");
-         }
-         String strValue = value.toString();
-         write(strValue);
-      }
-      else
-      {
-         delegate.writeText(value, componentPropertyName);
-      }
-   }
+	@Override
+	public void endElement(String name) throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			// Do nothing, can't write tags/attributes to plaintext!
+		} else {
+			delegate.endElement(name);
+		}
+	}
 
-   @Override
-   public void writeText(char cbuf[], int off, int len) throws IOException
-   {
-      if (cbuf == null)
-      {
-         throw new NullPointerException("cbuf name must not be null");
-      }
-      if (cbuf.length < off + len)
-      {
-         throw new IndexOutOfBoundsException((off + len) + " > " + cbuf.length);
-      }
-      String strValue = new String(cbuf, off, len);
-      write(strValue);
-   }
+	@Override
+	public void writeAttribute(String name, Object value, String property) throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			// Do nothing, can't write tags/attributes to plaintext!
+		} else {
+			delegate.writeAttribute(name, value, property);
+		}
 
-   @Override
-   public ResponseWriter cloneWithWriter(Writer writer)
-   {
-      return cloneWithWriter(writer, null);
-   }
-   
-   public MailResponseWriter cloneWithWriter(Writer writer, String contentType)
-   {
-      MailResponseWriter newWriter = new MailResponseWriter(delegate.cloneWithWriter(writer), contentType);
-      return newWriter;
-   }
+	}
 
-   // Writer methods
+	@Override
+	public void writeURIAttribute(String name, Object value, String componentPropertyName) throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			// Do nothing, can't write tags/attributes to plaintext!
+		} else {
+			delegate.writeURIAttribute(name, value, componentPropertyName);
+		}
 
-   @Override
-   public void close() throws IOException
-   {
-      delegate.close();
-   }
+	}
 
-   @Override
-   public void write(char cbuf[], int off, int len) throws IOException
-   {
-      String strValue = new String(cbuf, off, len);
-      write(strValue);
-   }
+	@Override
+	public void writeComment(Object comment) throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			// Do nothing, can't write comments to plaintext!
+		} else {
+			delegate.writeComment(comment);
+		}
+	}
 
-   @Override
-   public void write(int c) throws IOException
-   {
-      delegate.write(c);
-   }
+	@Override
+	public void writeText(Object value, String componentPropertyName) throws IOException {
+		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			if (value == null) {
+				throw new NullPointerException("Text must not be null.");
+			}
+			String strValue = value.toString();
+			write(strValue);
+		} else {
+			delegate.writeText(value, componentPropertyName);
+		}
+	}
 
-   @Override
-   public void write(char cbuf[]) throws IOException
-   {
-      String strValue = new String(cbuf);
-      write(strValue);
-   }
+	@Override
+	public void writeText(char cbuf[], int off, int len) throws IOException {
+		if (cbuf == null) {
+			throw new NullPointerException("cbuf name must not be null");
+		}
+		if (cbuf.length < off + len) {
+			throw new IndexOutOfBoundsException((off + len) + " > " + cbuf.length);
+		}
+		String strValue = new String(cbuf, off, len);
+		write(strValue);
+	}
 
-   @Override
-   public void write(String str) throws IOException
-   {
-      delegate.write(str);
-   }
+	@Override
+	public ResponseWriter cloneWithWriter(Writer writer) {
+		return cloneWithWriter(writer, null);
+	}
 
-   @Override
-   public void write(String str, int off, int len) throws IOException
-   {
-      String strValue = str.substring(off, off + len);
-      write(strValue);
-   }
+	public MailResponseWriter cloneWithWriter(Writer writer, String contentType) {
+		MailResponseWriter newWriter = new MailResponseWriter(delegate.cloneWithWriter(writer), contentType);
+		return newWriter;
+	}
+
+	// Writer methods
+
+	@Override
+	public void close() throws IOException {
+		delegate.close();
+	}
+
+	@Override
+	public void write(char cbuf[], int off, int len) throws IOException {
+		String strValue = new String(cbuf, off, len);
+		write(strValue);
+	}
+
+	@Override
+	public void write(int c) throws IOException {
+		delegate.write(c);
+	}
+
+	@Override
+	public void write(char cbuf[]) throws IOException {
+		String strValue = new String(cbuf);
+		write(strValue);
+	}
+
+	@Override
+	public void write(String str) throws IOException {
+		delegate.write(str);
+	}
+
+	@Override
+	public void write(String str, int off, int len) throws IOException {
+		String strValue = str.substring(off, off + len);
+		write(strValue);
+	}
 }

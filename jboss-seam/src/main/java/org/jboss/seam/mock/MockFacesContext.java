@@ -54,8 +54,7 @@ public class MockFacesContext extends FacesContext {
 	// Create a MockFacesContext using a ApplicationFactory to get the
 	// Application
 	public MockFacesContext(ExternalContext externalContext) {
-		application = ((ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY))
-				.getApplication();
+		application = ((ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY)).getApplication();
 		renderKitFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
 		this.externalContext = externalContext;
 	}

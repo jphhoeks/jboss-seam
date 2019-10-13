@@ -4,4 +4,3 @@
  * @see org.jboss.seam.security.Identity
  */
 package org.jboss.seam.annotations.security;
-

@@ -30,32 +30,26 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
-
 /**
  * JSF component class for Seam UICache
  * 
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.Cache",value="Cache the rendered page fragment using the installed cache provider."),
-family="org.jboss.seam.ui.Cache", type="org.jboss.seam.ui.Cache",generate="org.jboss.seam.ui.component.html.HtmlCache", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="cache"), 
-renderer = @JsfRenderer(type="org.jboss.seam.ui.CacheRenderer", family="org.jboss.seam.ui.CacheRenderer"),
-attributes = {"base-props.xml" })
-public abstract class UICache extends UIComponentBase
-{
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.Cache", value = "Cache the rendered page fragment using the installed cache provider."), family = "org.jboss.seam.ui.Cache", type = "org.jboss.seam.ui.Cache", generate = "org.jboss.seam.ui.component.html.HtmlCache", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "cache"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.CacheRenderer", family = "org.jboss.seam.ui.CacheRenderer"), attributes = {
+		"base-props.xml" })
+public abstract class UICache extends UIComponentBase {
 
-   @Attribute(defaultValue = "true", description = @Description("a value expression that determines if the cache should be used."))
-   public abstract boolean isEnabled();
-   
-   @Attribute(description = @Description("the key to cache rendered content, often a value expression. For example, " +
-           "if we were caching a page fragment that displays a document, we might use key=\"Document-#{document.id}\"."))
-   public abstract String getKey();
-   
-   @Attribute(description = @Description("a cache node to use (different nodes can have different expiry policies)."))
-   public abstract String getRegion();
-   
-   @Attribute(defaultValue = "org.jboss.seam.cache.CacheProvider.instance()",
-           description = @Description("The cache provider to use, only needed if you install alter the default " +
-           "cache provider in an application where multiple cache providers are in use"))
-   public abstract CacheProvider getCacheProvider();
-   
+	@Attribute(defaultValue = "true", description = @Description("a value expression that determines if the cache should be used."))
+	public abstract boolean isEnabled();
+
+	@Attribute(description = @Description("the key to cache rendered content, often a value expression. For example, "
+			+ "if we were caching a page fragment that displays a document, we might use key=\"Document-#{document.id}\"."))
+	public abstract String getKey();
+
+	@Attribute(description = @Description("a cache node to use (different nodes can have different expiry policies)."))
+	public abstract String getRegion();
+
+	@Attribute(defaultValue = "org.jboss.seam.cache.CacheProvider.instance()", description = @Description("The cache provider to use, only needed if you install alter the default "
+			+ "cache provider in an application where multiple cache providers are in use"))
+	public abstract CacheProvider getCacheProvider();
+
 }

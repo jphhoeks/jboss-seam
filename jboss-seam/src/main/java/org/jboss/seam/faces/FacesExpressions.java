@@ -21,27 +21,24 @@ import org.jboss.seam.core.Expressions;
  */
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
-@Install(precedence=FRAMEWORK, classDependencies="javax.faces.context.FacesContext")
+@Install(precedence = FRAMEWORK, classDependencies = "javax.faces.context.FacesContext")
 @Name("org.jboss.seam.core.expressions")
-public class FacesExpressions extends Expressions
-{
-   
-   private static final long serialVersionUID = 1L;
+public class FacesExpressions extends Expressions {
 
-/**
-    * Get an appropriate ELContext. If there is an active JSF request,
-    * use JSF's ELContext. Otherwise, use one that we created.
-    */
-   @Override
-   public ELContext getELContext()
-   {
-      return isFacesContextActive() ? FacesContext.getCurrentInstance().getELContext() : super.getELContext();
-   }
-   
-   @Override
-   protected boolean isFacesContextActive()
-   { 
-      return FacesContext.getCurrentInstance() != null && FacesLifecycle.getPhaseId() != null;
-   }
-   
+	private static final long serialVersionUID = 1L;
+
+	/**
+	* Get an appropriate ELContext. If there is an active JSF request,
+	* use JSF's ELContext. Otherwise, use one that we created.
+	*/
+	@Override
+	public ELContext getELContext() {
+		return isFacesContextActive() ? FacesContext.getCurrentInstance().getELContext() : super.getELContext();
+	}
+
+	@Override
+	protected boolean isFacesContextActive() {
+		return FacesContext.getCurrentInstance() != null && FacesLifecycle.getPhaseId() != null;
+	}
+
 }

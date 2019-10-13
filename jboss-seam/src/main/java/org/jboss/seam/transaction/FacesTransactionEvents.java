@@ -24,43 +24,34 @@ import org.jboss.seam.international.StatusMessage.Severity;
 @Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 @BypassInterceptors
 @Startup
-public class FacesTransactionEvents 
-{  
-   private boolean transactionFailedMessageEnabled = true;
-   
-   @Observer(Transaction.TRANSACTION_FAILED)
-   public void addTransactionFailedMessage(int status)
-   {
-      if (transactionFailedMessageEnabled) {
-         StatusMessages.instance().addFromResourceBundleOrDefault(
-                  getTransactionFailedMessageSeverity(), 
-                  getTransactionFailedMessageKey(), 
-                  getTransactionFailedMessage());
-      }
-   }
+public class FacesTransactionEvents {
+	private boolean transactionFailedMessageEnabled = true;
 
-   public String getTransactionFailedMessage()
-   {
-      return "Transaction failed";
-   }
+	@Observer(Transaction.TRANSACTION_FAILED)
+	public void addTransactionFailedMessage(int status) {
+		if (transactionFailedMessageEnabled) {
+			StatusMessages.instance().addFromResourceBundleOrDefault(getTransactionFailedMessageSeverity(),
+					getTransactionFailedMessageKey(), getTransactionFailedMessage());
+		}
+	}
 
-   public Severity getTransactionFailedMessageSeverity()
-   {
-      return Severity.WARN;
-   }
+	public String getTransactionFailedMessage() {
+		return "Transaction failed";
+	}
 
-   public String getTransactionFailedMessageKey()
-   {
-      return "org.jboss.seam.TransactionFailed";
-   }
+	public Severity getTransactionFailedMessageSeverity() {
+		return Severity.WARN;
+	}
 
-   public boolean isTransactionFailedMessageEnabled()
-   {
-      return transactionFailedMessageEnabled;
-   }
+	public String getTransactionFailedMessageKey() {
+		return "org.jboss.seam.TransactionFailed";
+	}
 
-   public void setTransactionFailedMessageEnabled(boolean enabled)
-   {
-      this.transactionFailedMessageEnabled = enabled;
-   }
+	public boolean isTransactionFailedMessageEnabled() {
+		return transactionFailedMessageEnabled;
+	}
+
+	public void setTransactionFailedMessageEnabled(boolean enabled) {
+		this.transactionFailedMessageEnabled = enabled;
+	}
 }

@@ -124,8 +124,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		this(session, principalName, principalRoles, new Cookie[] {}, null);
 	}
 
-	public MockHttpServletRequest(HttpSession session, String principalName, Set<String> principalRoles,
-			Cookie[] cookies, String method) {
+	public MockHttpServletRequest(HttpSession session, String principalName, Set<String> principalRoles, Cookie[] cookies, String method) {
 		this.session = session;
 		this.principalName = principalName;
 		this.principalRoles = principalRoles;
@@ -392,8 +391,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	}
 
 	@Override
-	public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)
-			throws IllegalStateException {
+	public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse) throws IllegalStateException {
 		// TODO Auto-generated method stub
 		return null;
 	}

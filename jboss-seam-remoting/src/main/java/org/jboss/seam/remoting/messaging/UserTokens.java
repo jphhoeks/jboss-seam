@@ -12,26 +12,25 @@ import org.jboss.seam.annotations.Scope;
 
 @Name("org.jboss.seam.remoting.messaging.SubscriptionRegistry.userTokens")
 @Scope(ScopeType.SESSION)
-public class UserTokens implements Serializable
-{
-   private static final long serialVersionUID = 7622628505968486686L;
-Set<String> tokens = Collections.synchronizedSet(new HashSet<String>());
-   
-   public void add(String token) {
-      tokens.add(token);
-   }
-   
-   public boolean contains(String token) {
-      return tokens.contains(token); 
-   }
-   
-   public void remove(String token) {
-      tokens.remove(token);
-   }
-   
-   @Destroy 
-   public void cleanUp() {
-	   Set<String> cleanupTokens = new HashSet<String>(tokens);
-	   SubscriptionRegistry.instance().cleanupTokens(cleanupTokens);
-   }
+public class UserTokens implements Serializable {
+	private static final long serialVersionUID = 7622628505968486686L;
+	Set<String> tokens = Collections.synchronizedSet(new HashSet<String>());
+
+	public void add(String token) {
+		tokens.add(token);
+	}
+
+	public boolean contains(String token) {
+		return tokens.contains(token);
+	}
+
+	public void remove(String token) {
+		tokens.remove(token);
+	}
+
+	@Destroy
+	public void cleanUp() {
+		Set<String> cleanupTokens = new HashSet<String>(tokens);
+		SubscriptionRegistry.instance().cleanupTokens(cleanupTokens);
+	}
 }

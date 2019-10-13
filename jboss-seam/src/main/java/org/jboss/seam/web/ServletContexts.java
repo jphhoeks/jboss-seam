@@ -27,35 +27,28 @@ import org.jboss.seam.contexts.Contexts;
 @Scope(ScopeType.EVENT)
 @Name("org.jboss.seam.web.servletContexts")
 @BypassInterceptors
-@Install(precedence=BUILT_IN)
-public class ServletContexts 
-{
-   
-   private HttpServletRequest request;
-   
-   public static ServletContexts instance()
-   {
-      if ( !Contexts.isEventContextActive() ) 
-      {
-         throw new IllegalStateException("no event context active");
-      }
-      return (ServletContexts) Component.getInstance(ServletContexts.class, ScopeType.EVENT);
-   }
-   
-   public static ServletContexts getInstance()
-   {
-      return Contexts.isEventContextActive() ? 
-               (ServletContexts) Component.getInstance(ServletContexts.class, ScopeType.EVENT) : null;
-   }
+@Install(precedence = BUILT_IN)
+public class ServletContexts {
 
-   public HttpServletRequest getRequest()
-   {
-      return request;
-   }
+	private HttpServletRequest request;
 
-   public void setRequest(HttpServletRequest request)
-   {
-      this.request = request;
-   }
-   
+	public static ServletContexts instance() {
+		if (!Contexts.isEventContextActive()) {
+			throw new IllegalStateException("no event context active");
+		}
+		return (ServletContexts) Component.getInstance(ServletContexts.class, ScopeType.EVENT);
+	}
+
+	public static ServletContexts getInstance() {
+		return Contexts.isEventContextActive() ? (ServletContexts) Component.getInstance(ServletContexts.class, ScopeType.EVENT) : null;
+	}
+
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
 }

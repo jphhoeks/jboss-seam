@@ -24,28 +24,24 @@ import org.jboss.seam.contexts.Contexts;
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Name("org.jboss.seam.web.userPrincipal")
-@Install(precedence=FRAMEWORK, classDependencies="javax.faces.context.FacesContext")
-public class UserPrincipal extends org.jboss.seam.web.UserPrincipal
-{
-   @Unwrap @Override
-   public Principal getUserPrincipal()
-   {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      if ( facesContext != null ) 
-      {
-         return facesContext.getExternalContext().getUserPrincipal();
-      }
-      
-      return super.getUserPrincipal();
-   }
-   
-   public static Principal instance()
-   {
-      if ( !Contexts.isApplicationContextActive() )
-      {
-         throw new IllegalStateException("No active application scope");
-      }
-      return (Principal) Component.getInstance(UserPrincipal.class, ScopeType.APPLICATION);
-   }
-   
+@Install(precedence = FRAMEWORK, classDependencies = "javax.faces.context.FacesContext")
+public class UserPrincipal extends org.jboss.seam.web.UserPrincipal {
+	@Unwrap
+	@Override
+	public Principal getUserPrincipal() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		if (facesContext != null) {
+			return facesContext.getExternalContext().getUserPrincipal();
+		}
+
+		return super.getUserPrincipal();
+	}
+
+	public static Principal instance() {
+		if (!Contexts.isApplicationContextActive()) {
+			throw new IllegalStateException("No active application scope");
+		}
+		return (Principal) Component.getInstance(UserPrincipal.class, ScopeType.APPLICATION);
+	}
+
 }

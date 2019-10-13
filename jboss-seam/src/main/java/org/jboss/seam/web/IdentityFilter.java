@@ -27,16 +27,15 @@ import org.jboss.seam.annotations.web.Filter;
 @Name("org.jboss.seam.web.identityFilter")
 @Install(precedence = Install.BUILT_IN, dependencies = "org.jboss.seam.security.identity")
 @BypassInterceptors
-@Filter(within = {"org.jboss.seam.web.multipartFilter"})
+@Filter(within = { "org.jboss.seam.web.multipartFilter" })
 public class IdentityFilter extends AbstractFilter {
 
-   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-      throws IOException, ServletException {
-      if (!(request instanceof HttpServletRequest)) {
-         throw new ServletException("This filter can only process HttpServletRequest requests");
-      }
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		if (!(request instanceof HttpServletRequest)) {
+			throw new ServletException("This filter can only process HttpServletRequest requests");
+		}
 
-      HttpServletRequest httpRequest = (HttpServletRequest) request;
-      chain.doFilter(new IdentityRequestWrapper(httpRequest), response);
-   }
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		chain.doFilter(new IdentityRequestWrapper(httpRequest), response);
+	}
 }

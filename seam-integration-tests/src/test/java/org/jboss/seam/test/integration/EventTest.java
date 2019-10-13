@@ -10,7 +10,6 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 /**
  * 
  * @author Pete Muir
@@ -19,43 +18,38 @@ import org.junit.runner.RunWith;
 @RunWith(Arquillian.class)
 public class EventTest extends JUnitSeamTest {
 
-	@Deployment(name="IdentifierTest")
+	@Deployment(name = "IdentifierTest")
 	@OverProtocol("Servlet 3.0")
-	public static Archive<?> createDeployment()
-	{
-		return Deployments.defaultSeamDeployment()
-				.addClasses(BeanA.class, BeanB.class);
+	public static Archive<?> createDeployment() {
+		return Deployments.defaultSeamDeployment().addClasses(BeanA.class, BeanB.class);
 	}
-	
-    @Test
-    public void testEventChain() throws Exception {
 
-        new FacesRequest("/index.xhtml") {
+	@Test
+	public void testEventChain() throws Exception {
 
-            @Override
-            protected void invokeApplication() throws Exception {
-                BeanA beanA = (BeanA) Component.getInstance("beanA");
-                BeanB beanB = (BeanB) Component.getInstance("beanB");
+		new FacesRequest("/index.xhtml") {
 
-                assert "Foo".equals(beanA.getMyValue());
-                assert beanB.getMyValue() == null;
+			@Override
+			protected void invokeApplication() throws Exception {
+				BeanA beanA = (BeanA) Component.getInstance("beanA");
+				BeanB beanB = (BeanB) Component.getInstance("beanB");
 
-                Events.instance().raiseEvent("BeanA.refreshMyValue");
+				assert "Foo".equals(beanA.getMyValue());
+				assert beanB.getMyValue() == null;
 
-                beanA = (BeanA) Component.getInstance("beanA");
-                
-                assert "Bar".equals(beanA.getMyValue());        
-            }
-            
-            @Override
-            protected void renderResponse() throws Exception
-            {
-               BeanB beanB = (BeanB) Component.getInstance("beanB");
-               assert "Bar".equals(beanB.getMyValue());
-            }
-        }.run();
-    }
+				Events.instance().raiseEvent("BeanA.refreshMyValue");
+
+				beanA = (BeanA) Component.getInstance("beanA");
+
+				assert "Bar".equals(beanA.getMyValue());
+			}
+
+			@Override
+			protected void renderResponse() throws Exception {
+				BeanB beanB = (BeanB) Component.getInstance("beanB");
+				assert "Bar".equals(beanB.getMyValue());
+			}
+		}.run();
+	}
 
 }
-
-

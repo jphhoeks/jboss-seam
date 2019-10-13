@@ -8,57 +8,47 @@ import org.jboss.seam.core.Events;
  * @author Gavin King
  *
  */
-public class AsynchronousEvent extends Asynchronous
-{
-   static final long serialVersionUID = 2074586442931427819L;
-   
-   private String type;
-   private Object[] parameters;
+public class AsynchronousEvent extends Asynchronous {
+	static final long serialVersionUID = 2074586442931427819L;
 
-   public AsynchronousEvent(String type, Object[] parameters)
-   {
-      this.type = type;
-      this.parameters = parameters;
-   }
+	private String type;
+	private Object[] parameters;
 
-   @Override
-   public void execute(Object timer)
-   {
-      new ContextualAsynchronousRequest(timer)
-      {
-         
-         @Override
-         protected void process()
-         {
-            Events.instance().raiseEvent(type, parameters);
-         }
-         
-      }.run();
-   }
-   
-   @Override
-   public String toString()
-   {
-      return "AsynchronousEvent(" + type + ')';
-   }
-   
-   protected String getType()
-   {
-      return type;
-   }
+	public AsynchronousEvent(String type, Object[] parameters) {
+		this.type = type;
+		this.parameters = parameters;
+	}
 
-   @Override
-   protected void handleException(final Exception exception, Object timer)
-   {
-      new ContextualAsynchronousRequest(timer)
-      {
-         @Override
-         protected void process()
-         {
-            AsynchronousExceptionHandler.instance().handleException(exception);
-         }
-      }.run();
-      
-   }
-   
+	@Override
+	public void execute(Object timer) {
+		new ContextualAsynchronousRequest(timer) {
+
+			@Override
+			protected void process() {
+				Events.instance().raiseEvent(type, parameters);
+			}
+
+		}.run();
+	}
+
+	@Override
+	public String toString() {
+		return "AsynchronousEvent(" + type + ')';
+	}
+
+	protected String getType() {
+		return type;
+	}
+
+	@Override
+	protected void handleException(final Exception exception, Object timer) {
+		new ContextualAsynchronousRequest(timer) {
+			@Override
+			protected void process() {
+				AsynchronousExceptionHandler.instance().handleException(exception);
+			}
+		}.run();
+
+	}
+
 }

@@ -19,31 +19,26 @@ import org.jboss.seam.mock.MockHttpSession;
 @Name("org.jboss.seam.ui.facelet.mockHttpSession")
 @Scope(SESSION)
 @BypassInterceptors
-@Install(dependencies="org.jboss.seam.faces.renderer")
+@Install(dependencies = "org.jboss.seam.faces.renderer")
 @AutoCreate
-public class HttpSessionManager implements Serializable
-{
-   
-   private static final long serialVersionUID = 1L;
-private transient HttpSession session;
-   
-   @Unwrap
-   public HttpSession getSession()
-   {
-      if (session == null)
-      {
-         this.session = new MockHttpSession(ServletContextManager.instance());
-      }
-      return session;
-   }
-   
-   public static HttpSession instance()
-   {
-      if (!Contexts.isSessionContextActive())
-      {
-         throw new IllegalStateException("Session context is not active");
-      }
-      return (HttpSession) Component.getInstance(HttpSessionManager.class, SESSION);
-   }
+public class HttpSessionManager implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	private transient HttpSession session;
+
+	@Unwrap
+	public HttpSession getSession() {
+		if (session == null) {
+			this.session = new MockHttpSession(ServletContextManager.instance());
+		}
+		return session;
+	}
+
+	public static HttpSession instance() {
+		if (!Contexts.isSessionContextActive()) {
+			throw new IllegalStateException("Session context is not active");
+		}
+		return (HttpSession) Component.getInstance(HttpSessionManager.class, SESSION);
+	}
 
 }

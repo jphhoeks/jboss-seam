@@ -40,229 +40,196 @@ import org.junit.runner.RunWith;
  * @author Dan Allen
  */
 @RunWith(Arquillian.class)
-public class EntityPassivationTest extends JUnitSeamTest
-{
-   @Deployment(name="EntityPassivationTest")
-   @OverProtocol("Servlet 3.0") 
-   public static Archive<?> createDeployment()
-   {
-       return Deployments.defaultSeamDeployment()
-       	.addClasses(SomeComponent.class, NestedComponent.class, UnversionedThing.class);
-   }
-    
-   @Test
-   public void testEntityList() throws Exception
-   {
-      String pid = new FacesRequest("/test.xhtml")
-      {
-         @Override
-         protected void invokeApplication() throws Exception
-         {
-            // MEI is not installed by default, so we need to enable it
-            Component.forName("entitytest.someComponent").addInterceptor(new ManagedEntityInterceptor());
-            Component.forName("entitytest.nestedComponent").addInterceptor(new ManagedEntityInterceptor());
-            
-            Conversation.instance().begin(true, false);
+public class EntityPassivationTest extends JUnitSeamTest {
+	@Deployment(name = "EntityPassivationTest")
+	@OverProtocol("Servlet 3.0")
+	public static Archive<?> createDeployment() {
+		return Deployments.defaultSeamDeployment().addClasses(SomeComponent.class, NestedComponent.class, UnversionedThing.class);
+	}
 
-            invokeAction("#{entitytest.someComponent.createSomeThings}");
-            invokeAction("#{entitytest.someComponent.loadThings}");
-         }
+	@Test
+	public void testEntityList() throws Exception {
+		String pid = new FacesRequest("/test.xhtml") {
+			@Override
+			protected void invokeApplication() throws Exception {
+				// MEI is not installed by default, so we need to enable it
+				Component.forName("entitytest.someComponent").addInterceptor(new ManagedEntityInterceptor());
+				Component.forName("entitytest.nestedComponent").addInterceptor(new ManagedEntityInterceptor());
 
-         @Override
-         protected void renderResponse() throws Exception
-         {
-            Object thing = getValue("#{entitytest.someComponent.thing}");
-            assert thing != null;
+				Conversation.instance().begin(true, false);
 
-            List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
-            assert thingList != null && !thingList.isEmpty();
-            assert thingList.get(0) != null;
+				invokeAction("#{entitytest.someComponent.createSomeThings}");
+				invokeAction("#{entitytest.someComponent.loadThings}");
+			}
 
-            Set thingSet = (Set) getValue("#{entitytest.someComponent.thingsAsSet}");
-            assert thingSet != null && thingSet.size() > 0;
-            assert thingSet.iterator().next() != null;
+			@Override
+			protected void renderResponse() throws Exception {
+				Object thing = getValue("#{entitytest.someComponent.thing}");
+				assert thing != null;
 
-            Map thingMap = (Map) getValue("#{entitytest.someComponent.thingsAsMap}");
-            assert thingMap != null && thingMap.size() > 0;
-         }
-      }.run();
+				List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
+				assert thingList != null && !thingList.isEmpty();
+				assert thingList.get(0) != null;
 
-      new FacesRequest("/test.xhtml", pid)
-      {
-         // the entities should be passivated
-      }.run();
+				Set thingSet = (Set) getValue("#{entitytest.someComponent.thingsAsSet}");
+				assert thingSet != null && thingSet.size() > 0;
+				assert thingSet.iterator().next() != null;
 
-      new FacesRequest("/test.xhtml", pid)
-      {
-         // passivated a second time
-      }.run();
+				Map thingMap = (Map) getValue("#{entitytest.someComponent.thingsAsMap}");
+				assert thingMap != null && thingMap.size() > 0;
+			}
+		}.run();
 
-      new FacesRequest("/test.xhtml", pid)
-      {
-         @Override
-         protected void renderResponse() throws Exception
-         {
-            Object thing = getValue("#{entitytest.someComponent.thing}");
-            assert thing != null;
+		new FacesRequest("/test.xhtml", pid) {
+			// the entities should be passivated
+		}.run();
 
-            List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
-            assert thingList != null && !thingList.isEmpty();
-            assert thingList.get(0) != null;
+		new FacesRequest("/test.xhtml", pid) {
+			// passivated a second time
+		}.run();
 
-            Set thingSet = (Set) getValue("#{entitytest.someComponent.thingsAsSet}");
-            assert thingSet != null && thingSet.size() > 0;
-            assert thingSet.iterator().next() != null;
+		new FacesRequest("/test.xhtml", pid) {
+			@Override
+			protected void renderResponse() throws Exception {
+				Object thing = getValue("#{entitytest.someComponent.thing}");
+				assert thing != null;
 
-            Map thingMap = (Map) getValue("#{entitytest.someComponent.thingsAsMap}");
-            assert thingMap != null && thingMap.size() > 0;
-         }
+				List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
+				assert thingList != null && !thingList.isEmpty();
+				assert thingList.get(0) != null;
 
-      }.run();
+				Set thingSet = (Set) getValue("#{entitytest.someComponent.thingsAsSet}");
+				assert thingSet != null && thingSet.size() > 0;
+				assert thingSet.iterator().next() != null;
 
-      // Start a nested conversation to verify that calls to a component in a parent conversation
-      // will passivate that component's state in the parent conversation context and not in
-      // the nested conversation. Thus, when the parent conversation is restored, its state
-      // will be properly restored.
-      String nid = new FacesRequest("/test.xhtml", pid)
-      {
-         @Override
-         protected void invokeApplication() throws Exception
-         {
-            invokeMethod("#{entitytest.nestedComponent.nest}");
-         }
+				Map thingMap = (Map) getValue("#{entitytest.someComponent.thingsAsMap}");
+				assert thingMap != null && thingMap.size() > 0;
+			}
 
-         @Override
-         protected void renderResponse() throws Exception
-         {
-            assert Conversation.instance().isNested();
-         }
+		}.run();
 
-      }.run();
-      
-      new FacesRequest("/test.xhtml", nid)
-      {
-         @Override
-         protected void invokeApplication() throws Exception
-         {
-            // invoke component in parent conversation from nested conversation
-            invokeMethod("#{entitytest.someComponent.removeFirstThingFromList}");
-         }
-         
-         @Override
-         protected void renderResponse() throws Exception
-         {
-            // the nested conversation should not hold the serialized property of the component in the parent conversation
-            assert !Arrays.asList(Contexts.getConversationContext().getNames()).contains("entitytest.someComponent.thingList");
-            List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
-            assert thingList.size() == 1;
-         }   
-      }.run();
-      
-      new FacesRequest("/test.xhtml", nid)
-      {
-         @Override
-         protected void invokeApplication() throws Exception
-         {
-            invokeMethod("#{entitytest.nestedComponent.end}");
-         }  
-      }.run();
-      
-      new FacesRequest("/test.xhtml", pid)
-      {
-         @Override
-         protected void renderResponse() throws Exception
-         {
-            // The state of the component in the parent conversation should be preserved.
-            List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
-            assert thingList.size() == 1;
-         }  
-      }.run();
-   }
-   
-   @Name("entitytest.someComponent")
-   @Scope(ScopeType.CONVERSATION)
-   @AutoCreate
-   public static class SomeComponent implements Serializable
-   {
-      private static final long serialVersionUID = 1L;
+		// Start a nested conversation to verify that calls to a component in a parent conversation
+		// will passivate that component's state in the parent conversation context and not in
+		// the nested conversation. Thus, when the parent conversation is restored, its state
+		// will be properly restored.
+		String nid = new FacesRequest("/test.xhtml", pid) {
+			@Override
+			protected void invokeApplication() throws Exception {
+				invokeMethod("#{entitytest.nestedComponent.nest}");
+			}
 
-	@In
-      EntityManager entityManager;
+			@Override
+			protected void renderResponse() throws Exception {
+				assert Conversation.instance().isNested();
+			}
 
-      Set<UnversionedThing> thingSet;
-      List<UnversionedThing> thingList;
-      Map<Long, UnversionedThing> thingMap;
-      UnversionedThing thing;
+		}.run();
 
-      public void loadThings()
-      {
-         thingList = entityManager.createQuery("select t from UnversionedThing t").getResultList();
-         thingSet = new HashSet<UnversionedThing>(thingList);
+		new FacesRequest("/test.xhtml", nid) {
+			@Override
+			protected void invokeApplication() throws Exception {
+				// invoke component in parent conversation from nested conversation
+				invokeMethod("#{entitytest.someComponent.removeFirstThingFromList}");
+			}
 
-         thingMap = new HashMap<Long, UnversionedThing>();
-         for (UnversionedThing thing : thingList)
-         {
-            thingMap.put(thing.getId(), thing);
-         }
+			@Override
+			protected void renderResponse() throws Exception {
+				// the nested conversation should not hold the serialized property of the component in the parent conversation
+				assert !Arrays.asList(Contexts.getConversationContext().getNames()).contains("entitytest.someComponent.thingList");
+				List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
+				assert thingList.size() == 1;
+			}
+		}.run();
 
-         thing = thingList.get(0);
-      }
+		new FacesRequest("/test.xhtml", nid) {
+			@Override
+			protected void invokeApplication() throws Exception {
+				invokeMethod("#{entitytest.nestedComponent.end}");
+			}
+		}.run();
 
-      public List<UnversionedThing> getThingsAsList()
-      {
-         return thingList;
-      }
+		new FacesRequest("/test.xhtml", pid) {
+			@Override
+			protected void renderResponse() throws Exception {
+				// The state of the component in the parent conversation should be preserved.
+				List thingList = (List) getValue("#{entitytest.someComponent.thingsAsList}");
+				assert thingList.size() == 1;
+			}
+		}.run();
+	}
 
-      public Set<UnversionedThing> getThingsAsSet()
-      {
-         return thingSet;
-      }
+	@Name("entitytest.someComponent")
+	@Scope(ScopeType.CONVERSATION)
+	@AutoCreate
+	public static class SomeComponent implements Serializable {
+		private static final long serialVersionUID = 1L;
 
-      public Map<Long, UnversionedThing> getThingsAsMap()
-      {
-         return thingMap;
-      }
+		@In
+		EntityManager entityManager;
 
-      public UnversionedThing getThing()
-      {
-         return thing;
-      }
-      
-      public void removeFirstThingFromList()
-      {
-         loadThings();
-         thingList.remove(0);
-      }
+		Set<UnversionedThing> thingSet;
+		List<UnversionedThing> thingList;
+		Map<Long, UnversionedThing> thingMap;
+		UnversionedThing thing;
 
-      public void createSomeThings()
-      {
-         UnversionedThing thing1 = new UnversionedThing();
-         thing1.setName("thing one");
-         entityManager.persist(thing1);
-         
-         UnversionedThing thing2 = new UnversionedThing();
-         thing2.setName("thing two");
-         entityManager.persist(thing2);
-      }
-   }
-   
-   @Name("entitytest.nestedComponent")
-   @Scope(ScopeType.CONVERSATION)
-   @AutoCreate
-   public static class NestedComponent implements Serializable
-   {
-      private static final long serialVersionUID = 1L;
-	@In
-      EntityManager entityManager;
+		public void loadThings() {
+			thingList = entityManager.createQuery("select t from UnversionedThing t").getResultList();
+			thingSet = new HashSet<UnversionedThing>(thingList);
 
-      @Begin(nested = true)
-      public void nest()
-      {
-      }
+			thingMap = new HashMap<Long, UnversionedThing>();
+			for (UnversionedThing thing : thingList) {
+				thingMap.put(thing.getId(), thing);
+			}
 
-      public void end()
-      {
-         Conversation.instance().end();
-      }
-   }
+			thing = thingList.get(0);
+		}
+
+		public List<UnversionedThing> getThingsAsList() {
+			return thingList;
+		}
+
+		public Set<UnversionedThing> getThingsAsSet() {
+			return thingSet;
+		}
+
+		public Map<Long, UnversionedThing> getThingsAsMap() {
+			return thingMap;
+		}
+
+		public UnversionedThing getThing() {
+			return thing;
+		}
+
+		public void removeFirstThingFromList() {
+			loadThings();
+			thingList.remove(0);
+		}
+
+		public void createSomeThings() {
+			UnversionedThing thing1 = new UnversionedThing();
+			thing1.setName("thing one");
+			entityManager.persist(thing1);
+
+			UnversionedThing thing2 = new UnversionedThing();
+			thing2.setName("thing two");
+			entityManager.persist(thing2);
+		}
+	}
+
+	@Name("entitytest.nestedComponent")
+	@Scope(ScopeType.CONVERSATION)
+	@AutoCreate
+	public static class NestedComponent implements Serializable {
+		private static final long serialVersionUID = 1L;
+		@In
+		EntityManager entityManager;
+
+		@Begin(nested = true)
+		public void nest() {
+		}
+
+		public void end() {
+			Conversation.instance().end();
+		}
+	}
 }

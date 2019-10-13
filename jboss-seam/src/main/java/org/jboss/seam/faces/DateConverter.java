@@ -58,7 +58,7 @@ public class DateConverter extends javax.faces.convert.DateTimeConverter {
 	private static final String STYLE_SHORT = "short";
 	private static final String TWO_DIGIT_YEAR_PATTERN = "yy";
 	private static final String FOUR_DIGIT_YEAR_PATTERN = "yyyy";
-	
+
 	// constructor is used to initialize converter to allow these values to be overridden using component properties
 	public DateConverter() {
 		super();
@@ -66,7 +66,7 @@ public class DateConverter extends javax.faces.convert.DateTimeConverter {
 		setDateStyle(STYLE_SHORT);
 		setTimeStyle(STYLE_SHORT); // default in case developer overrides type to be time or both
 	}
-	
+
 	@Create
 	public void create() {
 		// TODO make this work if using "both" for type; requires more analysis of time style
@@ -102,26 +102,26 @@ public class DateConverter extends javax.faces.convert.DateTimeConverter {
 	}
 
 	@Override
-	public Object getAsObject(FacesContext context, UIComponent component,
-			String value) throws ConverterException {
+	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
 		if (log.isDebugEnabled()) {
-			log.debug("Converting string '#0' to date for clientId '#1' using Seam's built-in JSF date converter", value, component.getClientId(context));
+			log.debug("Converting string '#0' to date for clientId '#1' using Seam's built-in JSF date converter", value,
+					component.getClientId(context));
 		}
 		return super.getAsObject(context, component, value);
 	}
 
 	@Override
-	public String getAsString(FacesContext context, UIComponent component,
-			Object value) throws ConverterException {
+	public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
 		if (log.isDebugEnabled()) {
-			log.debug("Converting date '#0' to string for clientId '#1' using Seam's built-in JSF date converter", value, component.getClientId(context));
+			log.debug("Converting date '#0' to string for clientId '#1' using Seam's built-in JSF date converter", value,
+					component.getClientId(context));
 		}
 		return super.getAsString(context, component, value);
 	}
-	
-	public static javax.faces.convert.Converter getInstance(){
 
-	   return (javax.faces.convert.Converter) Component.getInstance("org.jboss.seam.faces.dateConverter");
-	   
+	public static javax.faces.convert.Converter getInstance() {
+
+		return (javax.faces.convert.Converter) Component.getInstance("org.jboss.seam.faces.dateConverter");
+
 	}
 }

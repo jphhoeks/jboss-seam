@@ -9,8 +9,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Synonym for javax.ejb.ApplicationException, 
- * for use in a pre Java EE 5 environment.
+ * Synonym for javax.ejb.ApplicationException, for use in a pre Java EE 5
+ * environment.
  * 
  * @author Gavin King
  */
@@ -18,16 +18,16 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 @Inherited
-public @interface ApplicationException
-{
-   /**
-    * @return true if this exception should set 
-    * the transaction to rollback only
-    */
-   public boolean rollback() default false;
-   /**
-    * @return true if this exception should end
-    * the current long-running conversation
-    */
-   public boolean end() default false;
+public @interface ApplicationException {
+	/**
+	 * @return true if this exception should set the transaction to rollback
+	 *         only
+	 */
+	public boolean rollback() default false;
+
+	/**
+	 * @return true if this exception should end the current long-running
+	 *         conversation
+	 */
+	public boolean end() default false;
 }

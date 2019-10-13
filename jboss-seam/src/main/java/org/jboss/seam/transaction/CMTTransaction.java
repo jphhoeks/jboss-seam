@@ -21,106 +21,79 @@ import javax.transaction.UserTransaction;
  * @author Gavin King
  * 
  */
-public class CMTTransaction extends AbstractUserTransaction
-{
-   
-   private final EJBContext ejbContext;
+public class CMTTransaction extends AbstractUserTransaction {
 
-   public CMTTransaction(EJBContext ejbContext)
-   {
-      this.ejbContext = ejbContext;
-      if (ejbContext==null)
-      {
-         throw new IllegalArgumentException("null EJBContext");
-      }
-   }
+	private final EJBContext ejbContext;
 
-   public void begin() throws NotSupportedException, SystemException
-   {
-      ejbContext.getUserTransaction().begin();
-      getSynchronizations().afterTransactionBegin();
-   }
+	public CMTTransaction(EJBContext ejbContext) {
+		this.ejbContext = ejbContext;
+		if (ejbContext == null) {
+			throw new IllegalArgumentException("null EJBContext");
+		}
+	}
 
-   public void commit() throws RollbackException, HeuristicMixedException,
-            HeuristicRollbackException, SecurityException, IllegalStateException, SystemException
-   {
-      UserTransaction userTransaction = ejbContext.getUserTransaction();
-      boolean success = false;
-      Synchronizations synchronizations = getSynchronizations();
-      synchronizations.beforeTransactionCommit();
-      try
-      {
-         userTransaction.commit();
-         success = true;
-      }
-      finally
-      {
-         synchronizations.afterTransactionCommit(success);
-      }
-   }
+	public void begin() throws NotSupportedException, SystemException {
+		ejbContext.getUserTransaction().begin();
+		getSynchronizations().afterTransactionBegin();
+	}
 
-   public void rollback() throws IllegalStateException, SecurityException, SystemException
-   {
-      UserTransaction userTransaction = ejbContext.getUserTransaction();
-      try
-      {
-         userTransaction.rollback();
-      }
-      finally
-      {
-         getSynchronizations().afterTransactionRollback();
-      }
-   }
+	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
+			IllegalStateException, SystemException {
+		UserTransaction userTransaction = ejbContext.getUserTransaction();
+		boolean success = false;
+		Synchronizations synchronizations = getSynchronizations();
+		synchronizations.beforeTransactionCommit();
+		try {
+			userTransaction.commit();
+			success = true;
+		} finally {
+			synchronizations.afterTransactionCommit(success);
+		}
+	}
 
-   public int getStatus() throws SystemException
-   {
-      try
-      {
-         //TODO: not correct for SUPPORTS or NEVER!
-         if ( !ejbContext.getRollbackOnly() )
-         {
-            return Status.STATUS_ACTIVE;
-         }
-         else
-         {
-            return Status.STATUS_MARKED_ROLLBACK;
-         }
-      }
-      catch (IllegalStateException ise)
-      {
-         try
-         {
-            return ejbContext.getUserTransaction().getStatus();
-         }
-         catch (IllegalStateException is)
-         {
-            return Status.STATUS_NO_TRANSACTION;
-         }
-      }
-   }
+	public void rollback() throws IllegalStateException, SecurityException, SystemException {
+		UserTransaction userTransaction = ejbContext.getUserTransaction();
+		try {
+			userTransaction.rollback();
+		} finally {
+			getSynchronizations().afterTransactionRollback();
+		}
+	}
 
-   public void setRollbackOnly() throws IllegalStateException, SystemException
-   {
-      ejbContext.setRollbackOnly();
-   }
+	public int getStatus() throws SystemException {
+		try {
+			//TODO: not correct for SUPPORTS or NEVER!
+			if (!ejbContext.getRollbackOnly()) {
+				return Status.STATUS_ACTIVE;
+			} else {
+				return Status.STATUS_MARKED_ROLLBACK;
+			}
+		} catch (IllegalStateException ise) {
+			try {
+				return ejbContext.getUserTransaction().getStatus();
+			} catch (IllegalStateException is) {
+				return Status.STATUS_NO_TRANSACTION;
+			}
+		}
+	}
 
-   public void setTransactionTimeout(int timeout) throws SystemException
-   {
-      ejbContext.getUserTransaction().setTransactionTimeout(timeout);
-   }
-   
-   @Override
-   public void registerSynchronization(Synchronization sync)
-   {
-      Synchronizations synchronizations = getSynchronizations();
-      if ( synchronizations.isAwareOfContainerTransactions() )
-      {
-         synchronizations.registerSynchronization(sync);
-      }
-      else
-      {
-         throw new UnsupportedOperationException("cannot register synchronization with container transaction, use <transaction:ejb-transaction/>");
-      }
-   }
+	public void setRollbackOnly() throws IllegalStateException, SystemException {
+		ejbContext.setRollbackOnly();
+	}
+
+	public void setTransactionTimeout(int timeout) throws SystemException {
+		ejbContext.getUserTransaction().setTransactionTimeout(timeout);
+	}
+
+	@Override
+	public void registerSynchronization(Synchronization sync) {
+		Synchronizations synchronizations = getSynchronizations();
+		if (synchronizations.isAwareOfContainerTransactions()) {
+			synchronizations.registerSynchronization(sync);
+		} else {
+			throw new UnsupportedOperationException(
+					"cannot register synchronization with container transaction, use <transaction:ejb-transaction/>");
+		}
+	}
 
 }

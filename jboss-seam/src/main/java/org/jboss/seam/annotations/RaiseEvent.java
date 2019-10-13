@@ -14,25 +14,23 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Causes an event to be raised after the method returns
- * a non-null result without exception.
+ * Causes an event to be raised after the method returns a non-null result
+ * without exception.
  * 
  * @author Gavin King
  */
 @Target(METHOD)
 @Retention(RUNTIME)
 @Documented
-public @interface RaiseEvent 
-{
-   
-   /**
-    * The event name, defaults to the name
-    * of the method.
-    * 
-    * @return the event name
-    */
-   String[] value() default {};
-   
-   //TODO: String[] ifOutcome() default {};
-   
+public @interface RaiseEvent {
+
+	/**
+	 * The event name, defaults to the name of the method.
+	 * 
+	 * @return the event name
+	 */
+	String[] value() default {};
+
+	// TODO: String[] ifOutcome() default {};
+
 }

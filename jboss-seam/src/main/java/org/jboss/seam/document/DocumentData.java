@@ -4,85 +4,71 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 
-public abstract class DocumentData implements Serializable
-{
-   private static final long serialVersionUID = 1L;
-DocumentType documentType;
-   String baseName;
+public abstract class DocumentData implements Serializable {
+	private static final long serialVersionUID = 1L;
+	DocumentType documentType;
+	String baseName;
 
-   String disposition = "inline";
-   String fileName;
+	String disposition = "inline";
+	String fileName;
 
-   public DocumentData(String baseName, DocumentType documentType)
-   {
-      super();
-      this.documentType = documentType;
-      this.baseName = baseName;
-   }
+	public DocumentData(String baseName, DocumentType documentType) {
+		super();
+		this.documentType = documentType;
+		this.baseName = baseName;
+	}
 
-   public abstract void writeDataToStream(OutputStream stream) throws IOException;
+	public abstract void writeDataToStream(OutputStream stream) throws IOException;
 
-   public DocumentType getDocumentType()
-   {
-      return documentType;
-   }
+	public DocumentType getDocumentType() {
+		return documentType;
+	}
 
-   public String getBaseName()
-   {
-      return baseName;
-   }
+	public String getBaseName() {
+		return baseName;
+	}
 
-   public void setFilename(String fileName)
-   {
-      this.fileName = fileName;
-   }
+	public void setFilename(String fileName) {
+		this.fileName = fileName;
+	}
 
-   public String getFileName()
-   {
-      if (fileName == null)
-      {
-         return getBaseName() + "." + getDocumentType().getExtension();
-      }
-      else
-      {
-         return fileName;
-      }
-   }
+	public String getFileName() {
+		if (fileName == null) {
+			return getBaseName() + "." + getDocumentType().getExtension();
+		} else {
+			return fileName;
+		}
+	}
 
-   public void setDisposition(String disposition)
-   {
-      this.disposition = disposition;
-   }
+	public void setDisposition(String disposition) {
+		this.disposition = disposition;
+	}
 
-   public String getDisposition()
-   {
-      return disposition;
-   }
-   public void cleanup() {
-	   // Do nothing
-   }
+	public String getDisposition() {
+		return disposition;
+	}
 
-   static public class DocumentType implements Serializable
-   {
-      private static final long serialVersionUID = 1L;
-	private String mimeType;
-      private String extension;
+	public void cleanup() {
+		// Do nothing
+	}
 
-      public DocumentType(String extension, String mimeType)
-      {
-         this.extension = extension;
-         this.mimeType = mimeType;
-      }
+	static public class DocumentType implements Serializable {
+		private static final long serialVersionUID = 1L;
+		private String mimeType;
+		private String extension;
 
-      public String getMimeType()
-      {
-         return mimeType;
-      }
+		public DocumentType(String extension, String mimeType) {
+			this.extension = extension;
+			this.mimeType = mimeType;
+		}
 
-      public String getExtension()
-      {
-         return extension;
-      }
+		public String getMimeType() {
+			return mimeType;
+		}
 
-   }
+		public String getExtension() {
+			return extension;
+		}
+
+	}
 }

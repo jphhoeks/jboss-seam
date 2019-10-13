@@ -17,11 +17,11 @@ import org.jboss.seam.util.Strings;
 public final class DocumentDataFactory {
 
 	private static final LogProvider log = Logging.getLogProvider(DocumentDataFactory.class);
-	
-	private DocumentDataFactory () {
+
+	private DocumentDataFactory() {
 		throw new AssertionError("No instances allowed");
 	}
-	
+
 	public static DocumentData getDocumentData(String baseName, DocumentType documentType, byte[] data) {
 		File tempFile = getTempFile(data);
 		if (tempFile != null) {
@@ -35,14 +35,13 @@ public final class DocumentDataFactory {
 		File tempDir = getTempDir();
 		if (tempDir != null) {
 			File tempFile = new File(tempDir, "seam-docstore-" + UUID.randomUUID().toString());
-			
+
 			try {
 				Files.write(tempFile.toPath(), data, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-			}
-			catch (IOException ioe) {
+			} catch (IOException ioe) {
 				log.warn("Error creating temp file", ioe);
 				tempFile = null;
-			}			
+			}
 			return tempFile;
 		}
 		return null;
@@ -51,7 +50,7 @@ public final class DocumentDataFactory {
 	private static File getTempDir() {
 		Object ctx = FacesContext.getCurrentInstance().getExternalContext().getContext();
 		if (ctx instanceof ServletContext) {
-			ServletContext servletContext  = (ServletContext) ctx;
+			ServletContext servletContext = (ServletContext) ctx;
 			boolean useTempFiles = Boolean.parseBoolean(servletContext.getInitParameter("org.jboss.seam.document.useTempFiles"));
 			if (!useTempFiles) {
 				return null;
@@ -60,11 +59,11 @@ public final class DocumentDataFactory {
 			if (!Strings.isEmpty(result)) {
 				return new File(result);
 			}
-	        File servletTempDir = (File) servletContext.getAttribute(ServletContext.TEMPDIR);
-	        if (servletTempDir != null) {
-	              return servletTempDir;
-	        }
-	        return new File(System.getProperty("java.io.tmpdir"));
+			File servletTempDir = (File) servletContext.getAttribute(ServletContext.TEMPDIR);
+			if (servletTempDir != null) {
+				return servletTempDir;
+			}
+			return new File(System.getProperty("java.io.tmpdir"));
 		}
 		return null;
 

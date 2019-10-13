@@ -19,64 +19,52 @@ import org.jboss.seam.ScopeType;
  * @author Gavin King
  * 
  */
-public abstract class AbstractUserTransaction implements UserTransaction
-{
-   
-   public boolean isActive() throws SystemException
-   {
-      return getStatus() == STATUS_ACTIVE;
-   }
+public abstract class AbstractUserTransaction implements UserTransaction {
 
-   public boolean isActiveOrMarkedRollback() throws SystemException
-   {
-      int status = getStatus();
-      return status == STATUS_ACTIVE || status == STATUS_MARKED_ROLLBACK;
-   }
+	public boolean isActive() throws SystemException {
+		return getStatus() == STATUS_ACTIVE;
+	}
 
-   public boolean isRolledBackOrMarkedRollback() throws SystemException
-   {
-      int status = getStatus();
-      return status == STATUS_ROLLEDBACK || status == STATUS_MARKED_ROLLBACK;
-   }
+	public boolean isActiveOrMarkedRollback() throws SystemException {
+		int status = getStatus();
+		return status == STATUS_ACTIVE || status == STATUS_MARKED_ROLLBACK;
+	}
 
-   public boolean isMarkedRollback() throws SystemException
-   {
-      return getStatus() == STATUS_MARKED_ROLLBACK;
-   }
+	public boolean isRolledBackOrMarkedRollback() throws SystemException {
+		int status = getStatus();
+		return status == STATUS_ROLLEDBACK || status == STATUS_MARKED_ROLLBACK;
+	}
 
-   public boolean isNoTransaction() throws SystemException
-   {
-      return getStatus() == STATUS_NO_TRANSACTION;
-   }
+	public boolean isMarkedRollback() throws SystemException {
+		return getStatus() == STATUS_MARKED_ROLLBACK;
+	}
 
-   public boolean isRolledBack() throws SystemException
-   {
-      return getStatus() == STATUS_ROLLEDBACK;
-   }
+	public boolean isNoTransaction() throws SystemException {
+		return getStatus() == STATUS_NO_TRANSACTION;
+	}
 
-   public boolean isCommitted() throws SystemException
-   {
-      return getStatus() == STATUS_COMMITTED;
-   }
-   
-   public boolean isConversationContextRequired()
-   {
-      return false;
-   }
-   
-   public abstract void registerSynchronization(Synchronization sync);
-   
-   public void enlist(EntityManager entityManager) throws SystemException
-   {
-      if ( isActiveOrMarkedRollback() )
-      {
-         entityManager.joinTransaction();
-      }
-   }
-   
-   public static Synchronizations getSynchronizations()
-   {
-      return (Synchronizations) Component.getInstance("org.jboss.seam.transaction.synchronizations", ScopeType.EVENT);
-   }
-      
+	public boolean isRolledBack() throws SystemException {
+		return getStatus() == STATUS_ROLLEDBACK;
+	}
+
+	public boolean isCommitted() throws SystemException {
+		return getStatus() == STATUS_COMMITTED;
+	}
+
+	public boolean isConversationContextRequired() {
+		return false;
+	}
+
+	public abstract void registerSynchronization(Synchronization sync);
+
+	public void enlist(EntityManager entityManager) throws SystemException {
+		if (isActiveOrMarkedRollback()) {
+			entityManager.joinTransaction();
+		}
+	}
+
+	public static Synchronizations getSynchronizations() {
+		return (Synchronizations) Component.getInstance("org.jboss.seam.transaction.synchronizations", ScopeType.EVENT);
+	}
+
 }

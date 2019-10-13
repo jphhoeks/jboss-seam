@@ -26,184 +26,146 @@ import org.jboss.seam.util.FacesUrlTransformer;
  * @author Gavin King
  *
  */
-public class SeamViewHandler extends ViewHandlerWrapper
-{
-   private static enum Source
-   {
-      ACTION, BOOKMARKABLE, REDIRECT, RESOURCE
-   }
+public class SeamViewHandler extends ViewHandlerWrapper {
+	private static enum Source {
+		ACTION, BOOKMARKABLE, REDIRECT, RESOURCE
+	}
 
-   private ViewHandler viewHandler;
-   private static final ThreadLocal<Source> source = new ThreadLocal<Source>();
+	private ViewHandler viewHandler;
+	private static final ThreadLocal<Source> source = new ThreadLocal<Source>();
 
-   public SeamViewHandler(ViewHandler viewHandler)
-   {
-      this.viewHandler = viewHandler;
-   }
+	public SeamViewHandler(ViewHandler viewHandler) {
+		this.viewHandler = viewHandler;
+	}
 
-   @Override
-   public String calculateCharacterEncoding(FacesContext context)
-   {
-      return viewHandler.calculateCharacterEncoding(context);
-   }
+	@Override
+	public String calculateCharacterEncoding(FacesContext context) {
+		return viewHandler.calculateCharacterEncoding(context);
+	}
 
-   @Override
-   public void initView(FacesContext context) throws FacesException
-   {
-      viewHandler.initView(context);
-   }
+	@Override
+	public void initView(FacesContext context) throws FacesException {
+		viewHandler.initView(context);
+	}
 
-   @Override
-   public Locale calculateLocale(FacesContext facesContext)
-   {
-      Locale jsfLocale = viewHandler.calculateLocale(facesContext);
-      // Skip non-seam applications    
-      if (!SeamApplication.isSeamApplication(facesContext) || !Contexts.isSessionContextActive() )
-      {
-         return jsfLocale;
-      }
-      else
-      {
-    	  try {
-	    	  LocaleSelector localeSelectorInstance = LocaleSelector.instance();
-	    	  if (localeSelectorInstance != null) {
-	    		  return localeSelectorInstance.calculateLocale(jsfLocale);
-	    	  }
-    	  }
-    	  catch (Exception e) {
-    		  // Don't fail, return default value
-    		  return jsfLocale;
-    	  }
-    	  return jsfLocale;
-      }
-   }
+	@Override
+	public Locale calculateLocale(FacesContext facesContext) {
+		Locale jsfLocale = viewHandler.calculateLocale(facesContext);
+		// Skip non-seam applications    
+		if (!SeamApplication.isSeamApplication(facesContext) || !Contexts.isSessionContextActive()) {
+			return jsfLocale;
+		} else {
+			try {
+				LocaleSelector localeSelectorInstance = LocaleSelector.instance();
+				if (localeSelectorInstance != null) {
+					return localeSelectorInstance.calculateLocale(jsfLocale);
+				}
+			} catch (Exception e) {
+				// Don't fail, return default value
+				return jsfLocale;
+			}
+			return jsfLocale;
+		}
+	}
 
-   @Override
-   public String calculateRenderKitId(FacesContext ctx)
-   {
-      return viewHandler.calculateRenderKitId(ctx);
-   }
+	@Override
+	public String calculateRenderKitId(FacesContext ctx) {
+		return viewHandler.calculateRenderKitId(ctx);
+	}
 
-   @Override
-   public UIViewRoot createView(FacesContext ctx, String viewId)
-   {
-      return viewHandler.createView(ctx, viewId);
-   }
+	@Override
+	public UIViewRoot createView(FacesContext ctx, String viewId) {
+		return viewHandler.createView(ctx, viewId);
+	}
 
-   /**
-    * Allow the delegate to produce the action URL. If the conversation is
-    * long-running, append the conversation id request parameter to the query
-    * string part of the URL, but only if the request parameter is not already
-    * present.
-    * <p/>
-    * This covers form actions Ajax calls, and redirect URLs (which we want) and
-    * link hrefs (which we don't)
-    *
-    * {@link ViewHandler#getActionURL(FacesContext, String)}
-    */
-   @Override
-   public String getActionURL(FacesContext facesContext, String viewId) {
-       String actionUrl = super.getActionURL(facesContext, viewId);
-    	// Skip non-seam applications       
-       if (!SeamApplication.isSeamApplication(facesContext) || !Contexts.isConversationContextActive()) {
-           return actionUrl;
-       }
-       Conversation conversation = Conversation.instance();
-       Manager manager = Manager.instance();
-       String conversationIdParameter = manager.getConversationIdParameter();
+	/**
+	* Allow the delegate to produce the action URL. If the conversation is
+	* long-running, append the conversation id request parameter to the query
+	* string part of the URL, but only if the request parameter is not already
+	* present.
+	* <p/>
+	* This covers form actions Ajax calls, and redirect URLs (which we want) and
+	* link hrefs (which we don't)
+	*
+	* {@link ViewHandler#getActionURL(FacesContext, String)}
+	*/
+	@Override
+	public String getActionURL(FacesContext facesContext, String viewId) {
+		String actionUrl = super.getActionURL(facesContext, viewId);
+		// Skip non-seam applications       
+		if (!SeamApplication.isSeamApplication(facesContext) || !Contexts.isConversationContextActive()) {
+			return actionUrl;
+		}
+		Conversation conversation = Conversation.instance();
+		Manager manager = Manager.instance();
+		String conversationIdParameter = manager.getConversationIdParameter();
 
-       if (!getSource().equals(Source.BOOKMARKABLE) && !getSource().equals(Source.REDIRECT) )
-       {
-          if ( conversation.isLongRunning() )
-          {
-             return new FacesUrlTransformer(actionUrl, facesContext)
-             .appendConversationIdIfNecessary(conversationIdParameter, conversation.getId())
-             .getUrl();
-          }
-          else if (conversation.isNested())
-          {
-             return new FacesUrlTransformer(actionUrl, facesContext)
-             .appendConversationIdIfNecessary(conversationIdParameter, conversation.getParentId())
-             .getUrl();
-          }
-          else 
-          {
-             return actionUrl;
-          }
+		if (!getSource().equals(Source.BOOKMARKABLE) && !getSource().equals(Source.REDIRECT)) {
+			if (conversation.isLongRunning()) {
+				return new FacesUrlTransformer(actionUrl, facesContext)
+						.appendConversationIdIfNecessary(conversationIdParameter, conversation.getId()).getUrl();
+			} else if (conversation.isNested()) {
+				return new FacesUrlTransformer(actionUrl, facesContext)
+						.appendConversationIdIfNecessary(conversationIdParameter, conversation.getParentId()).getUrl();
+			} else {
+				return actionUrl;
+			}
 
-       } else {
-           return actionUrl;
-       }
-   }
+		} else {
+			return actionUrl;
+		}
+	}
 
-   /* (non-Javadoc)
-    * @see javax.faces.application.ViewHandlerWrapper#getRedirectURL(javax.faces.context.FacesContext, java.lang.String, java.util.Map, boolean)
-    */
-   @Override
-   public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams)
-   {
-      try
-      {
-         source.set(Source.REDIRECT);
-         return super.getRedirectURL(context, viewId, parameters, includeViewParams);
-      }
-      finally
-      {
-         source.remove();
-      }
-   }
+	/* (non-Javadoc)
+	* @see javax.faces.application.ViewHandlerWrapper#getRedirectURL(javax.faces.context.FacesContext, java.lang.String, java.util.Map, boolean)
+	*/
+	@Override
+	public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
+		try {
+			source.set(Source.REDIRECT);
+			return super.getRedirectURL(context, viewId, parameters, includeViewParams);
+		} finally {
+			source.remove();
+		}
+	}
 
-   /* (non-Javadoc)
-    * @see javax.faces.application.ViewHandlerWrapper#getBookmarkableURL(javax.faces.context.FacesContext, java.lang.String, java.util.Map, boolean)
-    */
-   @Override
-   public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams)
-   {
-      try
-      {
-         source.set(Source.BOOKMARKABLE);
-         return viewHandler.getBookmarkableURL(context, viewId, parameters, includeViewParams);
-      }
-      finally
-      {
-         source.remove();
-      }
-   }
+	/* (non-Javadoc)
+	* @see javax.faces.application.ViewHandlerWrapper#getBookmarkableURL(javax.faces.context.FacesContext, java.lang.String, java.util.Map, boolean)
+	*/
+	@Override
+	public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
+		try {
+			source.set(Source.BOOKMARKABLE);
+			return viewHandler.getBookmarkableURL(context, viewId, parameters, includeViewParams);
+		} finally {
+			source.remove();
+		}
+	}
 
-   private Source getSource()
-   {
-      if (source.get() == null)
-      {
-         return Source.ACTION;
-      }
-      else
-      {
-         return source.get();
-      }
-   }
+	private Source getSource() {
+		if (source.get() == null) {
+			return Source.ACTION;
+		} else {
+			return source.get();
+		}
+	}
 
-   @Override
-   public String getResourceURL(FacesContext ctx, String path)
-   {
-      try
-      {
-         source.set(Source.RESOURCE);
-         return super.getResourceURL(ctx, path);
-      }
-      finally
-      {
-         source.remove();
-      }
-   }
+	@Override
+	public String getResourceURL(FacesContext ctx, String path) {
+		try {
+			source.set(Source.RESOURCE);
+			return super.getResourceURL(ctx, path);
+		} finally {
+			source.remove();
+		}
+	}
 
-   @Override
-   public void renderView(FacesContext ctx, UIViewRoot viewRoot)
-         throws IOException, FacesException
-   {
-      viewHandler.renderView(ctx, viewRoot);
-   }
+	@Override
+	public void renderView(FacesContext ctx, UIViewRoot viewRoot) throws IOException, FacesException {
+		viewHandler.renderView(ctx, viewRoot);
+	}
 
-   @Override
+	@Override
 	public UIViewRoot restoreView(FacesContext ctx, String viewId) {
 		UIViewRoot viewRoot = viewHandler.restoreView(ctx, viewId);
 		if (viewRoot != null && SeamApplication.isSeamApplication(ctx)) {
@@ -212,17 +174,14 @@ public class SeamViewHandler extends ViewHandlerWrapper
 		return viewRoot;
 	}
 
-   @Override
-   public void writeState(FacesContext ctx) throws IOException
-   {
-      viewHandler.writeState(ctx);
-   }
+	@Override
+	public void writeState(FacesContext ctx) throws IOException {
+		viewHandler.writeState(ctx);
+	}
 
-   @Override
-   public ViewHandler getWrapped()
-   {
-      return viewHandler;
-   }
-
+	@Override
+	public ViewHandler getWrapped() {
+		return viewHandler;
+	}
 
 }

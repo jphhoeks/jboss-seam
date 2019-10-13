@@ -27,141 +27,111 @@ import org.jboss.seam.util.AnnotatedBeanProperty;
  * @author Shane Bryzak
  */
 @Name("org.jboss.seam.security.tokenStore")
-@Install(precedence = BUILT_IN, value=false) 
+@Install(precedence = BUILT_IN, value = false)
 @Scope(APPLICATION)
 @BypassInterceptors
-public class JpaTokenStore implements TokenStore, Serializable
-{
-   private static final long serialVersionUID = 1L;
+public class JpaTokenStore implements TokenStore, Serializable {
+	private static final long serialVersionUID = 1L;
 
-private Class tokenClass;
-   
-   private ValueExpression<EntityManager> entityManager;    
-   
-   private AnnotatedBeanProperty<TokenUsername> tokenUsernameProperty;
-   private AnnotatedBeanProperty<TokenValue> tokenValueProperty;
-   
-   @Create
-   public void create()
-   {
-      if (entityManager == null)
-      {
-         entityManager = Expressions.instance().createValueExpression("#{entityManager}", EntityManager.class);
-      }       
-      
-      tokenUsernameProperty = new AnnotatedBeanProperty<TokenUsername>(tokenClass, TokenUsername.class);
-      tokenValueProperty = new AnnotatedBeanProperty<TokenValue>(tokenClass, TokenValue.class);
-      
-      if (!tokenUsernameProperty.isSet()) 
-      {
-         throw new IllegalStateException("Invalid tokenClass " + tokenClass.getName() + 
-               " - required annotation @TokenUsername not found on any Field or Method.");
-      }
-      
-      if (!tokenValueProperty.isSet()) 
-      {
-         throw new IllegalStateException("Invalid tokenClass " + tokenClass.getName() + 
-               " - required annotation @TokenValue not found on any Field or Method.");
-      }       
-   }
-   
-   public void createToken(String username, String value)
-   {
-      if (tokenClass == null)
-      {
-         throw new IllegalStateException("Could not create token, tokenClass not set");
-      }   
-      
-      try
-      {
-         Object token = tokenClass.getDeclaredConstructor().newInstance();
-         
-         tokenUsernameProperty.setValue(token, username);
-         tokenValueProperty.setValue(token, value);
-         
-         lookupEntityManager().persist(token);
-      }
-      catch (Exception ex)
-      {
-         if (ex instanceof IdentityManagementException)
-         {
-            throw (IdentityManagementException) ex;
-         }
-         else
-         {
-            throw new IdentityManagementException("Could not create account", ex);
-         }
-      }       
-   }
-   
-   public boolean validateToken(String username, String value)
-   {
-      return lookupToken(username, value) != null;
-   }
-   
-   public void invalidateToken(String username, String value)
-   {
-      Object token = lookupToken(username, value);
-      if (token != null)
-      {
-         lookupEntityManager().remove(token);
-      }
-   }
-   
-   public void invalidateAll(String username)
-   {
-      Query query = lookupEntityManager().createQuery(
-         "select t from " + tokenClass.getName() + " t where " + tokenUsernameProperty.getName() +
-         " = :username")
-         .setParameter("username", username);
-      
-      for (Object token : query.getResultList())
-      {
-         lookupEntityManager().remove(token);
-      }      
-   }
-   
-   public Object lookupToken(String username, String value)       
-   {
-      try
-      {
-         Object token = lookupEntityManager().createQuery(
-            "select t from " + tokenClass.getName() + " t where " + tokenUsernameProperty.getName() +
-            " = :username and " + tokenValueProperty.getName() + " = :value")
-            .setParameter("username", username)
-            .setParameter("value", value)
-            .getSingleResult();
-         
-         return token;
-      }
-      catch (NoResultException ex)
-      {
-         return null;        
-      }      
-   }   
-   
-   public Class getTokenClass()
-   {
-      return tokenClass;
-   }
-   
-   public void setTokenClass(Class tokenClass)
-   {
-      this.tokenClass = tokenClass;
-   }
-   
-   private EntityManager lookupEntityManager()
-   {
-      return entityManager.getValue();
-   }
-   
-   public ValueExpression getEntityManager()
-   {
-      return entityManager;
-   }
-   
-   public void setEntityManager(ValueExpression expression)
-   {
-      this.entityManager = expression;
-   }    
+	private Class tokenClass;
+
+	private ValueExpression<EntityManager> entityManager;
+
+	private AnnotatedBeanProperty<TokenUsername> tokenUsernameProperty;
+	private AnnotatedBeanProperty<TokenValue> tokenValueProperty;
+
+	@Create
+	public void create() {
+		if (entityManager == null) {
+			entityManager = Expressions.instance().createValueExpression("#{entityManager}", EntityManager.class);
+		}
+
+		tokenUsernameProperty = new AnnotatedBeanProperty<TokenUsername>(tokenClass, TokenUsername.class);
+		tokenValueProperty = new AnnotatedBeanProperty<TokenValue>(tokenClass, TokenValue.class);
+
+		if (!tokenUsernameProperty.isSet()) {
+			throw new IllegalStateException("Invalid tokenClass " + tokenClass.getName()
+					+ " - required annotation @TokenUsername not found on any Field or Method.");
+		}
+
+		if (!tokenValueProperty.isSet()) {
+			throw new IllegalStateException(
+					"Invalid tokenClass " + tokenClass.getName() + " - required annotation @TokenValue not found on any Field or Method.");
+		}
+	}
+
+	public void createToken(String username, String value) {
+		if (tokenClass == null) {
+			throw new IllegalStateException("Could not create token, tokenClass not set");
+		}
+
+		try {
+			Object token = tokenClass.getDeclaredConstructor().newInstance();
+
+			tokenUsernameProperty.setValue(token, username);
+			tokenValueProperty.setValue(token, value);
+
+			lookupEntityManager().persist(token);
+		} catch (Exception ex) {
+			if (ex instanceof IdentityManagementException) {
+				throw (IdentityManagementException) ex;
+			} else {
+				throw new IdentityManagementException("Could not create account", ex);
+			}
+		}
+	}
+
+	public boolean validateToken(String username, String value) {
+		return lookupToken(username, value) != null;
+	}
+
+	public void invalidateToken(String username, String value) {
+		Object token = lookupToken(username, value);
+		if (token != null) {
+			lookupEntityManager().remove(token);
+		}
+	}
+
+	public void invalidateAll(String username) {
+		Query query = lookupEntityManager()
+				.createQuery("select t from " + tokenClass.getName() + " t where " + tokenUsernameProperty.getName() + " = :username")
+				.setParameter("username", username);
+
+		for (Object token : query.getResultList()) {
+			lookupEntityManager().remove(token);
+		}
+	}
+
+	public Object lookupToken(String username, String value) {
+		try {
+			Object token = lookupEntityManager()
+					.createQuery("select t from " + tokenClass.getName() + " t where " + tokenUsernameProperty.getName()
+							+ " = :username and " + tokenValueProperty.getName() + " = :value")
+					.setParameter("username", username).setParameter("value", value).getSingleResult();
+
+			return token;
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+
+	public Class getTokenClass() {
+		return tokenClass;
+	}
+
+	public void setTokenClass(Class tokenClass) {
+		this.tokenClass = tokenClass;
+	}
+
+	private EntityManager lookupEntityManager() {
+		return entityManager.getValue();
+	}
+
+	public ValueExpression getEntityManager() {
+		return entityManager;
+	}
+
+	public void setEntityManager(ValueExpression expression) {
+		this.entityManager = expression;
+	}
 }

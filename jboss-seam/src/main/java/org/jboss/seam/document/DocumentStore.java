@@ -17,94 +17,77 @@ import org.jboss.seam.util.Faces;
 
 @Name("org.jboss.seam.document.documentStore")
 @Scope(ScopeType.CONVERSATION)
-@Install(precedence=Install.BUILT_IN)
-public class DocumentStore 
-    implements Serializable
-{    
-    public static final String DOCSTORE_BASE_URL = "/seam/docstore/document";
+@Install(precedence = Install.BUILT_IN)
+public class DocumentStore implements Serializable {
+	public static final String DOCSTORE_BASE_URL = "/seam/docstore/document";
 
-    private static final long serialVersionUID = -357154201942127711L;
+	private static final long serialVersionUID = -357154201942127711L;
 
-    Map<String,DocumentData> dataStore = new HashMap<String,DocumentData>();   
+	Map<String, DocumentData> dataStore = new HashMap<String, DocumentData>();
 
-    long nextId = 1;
-    
- 
-    boolean useExtensions = false;
-    String errorPage = null;
-    
-    public void setUseExtensions(boolean useExtensions) 
-    {
-        this.useExtensions = useExtensions;
-    }
-    
-    public void setErrorPage(String errorPage) 
-    {
-        this.errorPage = errorPage;
-    }
-    
-    public String getErrorPage() 
-    {
-        return errorPage;
-    }
-    
-    public String newId() 
-    {
-        return String.valueOf(nextId++);
-    }
+	long nextId = 1;
 
-    public void saveData(String id, DocumentData documentData) 
-    {
-        dataStore.put(id, documentData);
-    }
+	boolean useExtensions = false;
+	String errorPage = null;
 
-    public boolean idIsValid(String id) 
-    {
-        return dataStore.get(id) != null;
-    }
-    
-    public DocumentData getDocumentData(String id) 
-    {
-        return dataStore.get(id);
-    }
-    
-    public static DocumentStore instance()
-    {
-       return (DocumentStore) Component.getInstance("org.jboss.seam.document.documentStore");
-    }
-  
+	public void setUseExtensions(boolean useExtensions) {
+		this.useExtensions = useExtensions;
+	}
 
-    public String preferredUrlForContent(String baseName, String extension, String contentId) 
-    {                
-    	StringBuffer url = new StringBuffer(baseUrlForContent(baseName, extension));
-    	if (url.toString().indexOf('?') >= 0)
-    	{ 
-    		url.append("&docId=").append(contentId); 
-    	}
-    	else
-    	{
-    		url.append("?docId=").append(contentId); 
-    	}
-        return url.toString();
-    }
-    
-    @PreDestroy
-    public void destroy() {
-    	for (Map.Entry<String, DocumentData> entry: dataStore.entrySet()) {
-    		entry.getValue().cleanup();
-    	}
-    }
+	public void setErrorPage(String errorPage) {
+		this.errorPage = errorPage;
+	}
 
-    protected String baseUrlForContent(String baseName, String extension) {
-        if (useExtensions) {
-            return baseName + "." + extension;
-        } else { 
-            FacesContext context = FacesContext.getCurrentInstance();
-            ViewHandler handler = context.getApplication().getViewHandler();
-            String url = handler.getActionURL(context, 
-                    DOCSTORE_BASE_URL + Faces.getDefaultSuffix(context));
-            return context.getExternalContext().encodeActionURL(url);
-        }
-    }
+	public String getErrorPage() {
+		return errorPage;
+	}
+
+	public String newId() {
+		return String.valueOf(nextId++);
+	}
+
+	public void saveData(String id, DocumentData documentData) {
+		dataStore.put(id, documentData);
+	}
+
+	public boolean idIsValid(String id) {
+		return dataStore.get(id) != null;
+	}
+
+	public DocumentData getDocumentData(String id) {
+		return dataStore.get(id);
+	}
+
+	public static DocumentStore instance() {
+		return (DocumentStore) Component.getInstance("org.jboss.seam.document.documentStore");
+	}
+
+	public String preferredUrlForContent(String baseName, String extension, String contentId) {
+		StringBuffer url = new StringBuffer(baseUrlForContent(baseName, extension));
+		if (url.toString().indexOf('?') >= 0) {
+			url.append("&docId=").append(contentId);
+		} else {
+			url.append("?docId=").append(contentId);
+		}
+		return url.toString();
+	}
+
+	@PreDestroy
+	public void destroy() {
+		for (Map.Entry<String, DocumentData> entry : dataStore.entrySet()) {
+			entry.getValue().cleanup();
+		}
+	}
+
+	protected String baseUrlForContent(String baseName, String extension) {
+		if (useExtensions) {
+			return baseName + "." + extension;
+		} else {
+			FacesContext context = FacesContext.getCurrentInstance();
+			ViewHandler handler = context.getApplication().getViewHandler();
+			String url = handler.getActionURL(context, DOCSTORE_BASE_URL + Faces.getDefaultSuffix(context));
+			return context.getExternalContext().encodeActionURL(url);
+		}
+	}
 
 }

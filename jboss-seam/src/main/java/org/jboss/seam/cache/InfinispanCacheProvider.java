@@ -33,95 +33,77 @@ import org.jboss.seam.util.Reflections;
 @Install(value = false, precedence = BUILT_IN, classDependencies = { "org.infinispan.tree.TreeCache", "org.jgroups.MembershipListener" })
 @AutoCreate
 @SuppressWarnings("rawtypes")
-public class InfinispanCacheProvider extends AbstractInfinispanCacheProvider<TreeCache<Object, Object>>
-{
+public class InfinispanCacheProvider extends AbstractInfinispanCacheProvider<TreeCache<Object, Object>> {
 
-   private org.infinispan.tree.TreeCache cache;
+	private org.infinispan.tree.TreeCache cache;
 
-   private static final LogProvider log = Logging.getLogProvider(InfinispanCacheProvider.class);
+	private static final LogProvider log = Logging.getLogProvider(InfinispanCacheProvider.class);
 
-   private static Method GET;
-   private static Method PUT;
-   private static Method REMOVE;
-   private static Method REMOVE_NODE;
+	private static Method GET;
+	private static Method PUT;
+	private static Method REMOVE;
+	private static Method REMOVE_NODE;
 
-   static
-   {
-      try
-      {
-         GET = TreeCache.class.getDeclaredMethod("get", Fqn.class, Object.class);
-         PUT = TreeCache.class.getDeclaredMethod("put", Fqn.class, Object.class, Object.class);
-         REMOVE = TreeCache.class.getDeclaredMethod("remove", Fqn.class, Object.class);
-         REMOVE_NODE = TreeCache.class.getDeclaredMethod("removeNode", Fqn.class);
-      }
-      catch (Exception e)
-      {
-         log.error(e);
-         throw new IllegalStateException("Unable to use Infinispan Cache", e);
-      }
-   }
+	static {
+		try {
+			GET = TreeCache.class.getDeclaredMethod("get", Fqn.class, Object.class);
+			PUT = TreeCache.class.getDeclaredMethod("put", Fqn.class, Object.class, Object.class);
+			REMOVE = TreeCache.class.getDeclaredMethod("remove", Fqn.class, Object.class);
+			REMOVE_NODE = TreeCache.class.getDeclaredMethod("removeNode", Fqn.class);
+		} catch (Exception e) {
+			log.error(e);
+			throw new IllegalStateException("Unable to use Infinispan Cache", e);
+		}
+	}
 
-   @SuppressWarnings("unchecked")
-   @Create
-   public void create()
-   {
-      log.debug("Starting Infinispan Cache");
+	@SuppressWarnings("unchecked")
+	@Create
+	public void create() {
+		log.debug("Starting Infinispan Cache");
 
-      try
-      {
-         DefaultCacheManager manager = new DefaultCacheManager(getConfigurationAsStream());        
-         Cache defaultCache = manager.getCache();
-         cache = new TreeCacheFactory().createTreeCache(defaultCache);
-      }
-      catch (Exception e)
-      {
-         throw new IllegalStateException("Error starting Infinispan Cache", e);
-      }
-   }
+		try {
+			DefaultCacheManager manager = new DefaultCacheManager(getConfigurationAsStream());
+			Cache defaultCache = manager.getCache();
+			cache = new TreeCacheFactory().createTreeCache(defaultCache);
+		} catch (Exception e) {
+			throw new IllegalStateException("Error starting Infinispan Cache", e);
+		}
+	}
 
-   @Destroy
-   public void destroy()
-   {
-      log.debug("Stopping Infinispan Cache");
-      try
-      {
-         cache.stop();
-         cache = null;
-      }
-      catch (Exception e)
-      {
-         throw new IllegalStateException("Error stopping Infinispan Cache", e);
-      }
-   }
+	@Destroy
+	public void destroy() {
+		log.debug("Stopping Infinispan Cache");
+		try {
+			cache.stop();
+			cache = null;
+		} catch (Exception e) {
+			throw new IllegalStateException("Error stopping Infinispan Cache", e);
+		}
+	}
 
-   @Override
-   public Object get(String region, String key)
-   {
-      return Reflections.invokeAndWrap(GET, cache, getFqn(region), key);
-   }
+	@Override
+	public Object get(String region, String key) {
+		return Reflections.invokeAndWrap(GET, cache, getFqn(region), key);
+	}
 
-   @Override
-   public void put(String region, String key, Object object)
-   {
-      Reflections.invokeAndWrap(PUT, cache, getFqn(region), key, object);
-   }
+	@Override
+	public void put(String region, String key, Object object) {
+		Reflections.invokeAndWrap(PUT, cache, getFqn(region), key, object);
+	}
 
-   @Override
-   public void remove(String region, String key)
-   {
-      Reflections.invokeAndWrap(REMOVE, cache, getFqn(region), key);
-   }
+	@Override
+	public void remove(String region, String key) {
+		Reflections.invokeAndWrap(REMOVE, cache, getFqn(region), key);
+	}
 
-   @Override
-   public void clear()
-   {
-      Reflections.invokeAndWrap(REMOVE_NODE, cache, getFqn(null));
-   }
+	@Override
+	public void clear() {
+		Reflections.invokeAndWrap(REMOVE_NODE, cache, getFqn(null));
+	}
 
-   @Override
-   public TreeCache getDelegate()
-   {
-      return cache;
-   }
+	@Override
+	public TreeCache getDelegate() {
+		return cache;
+	}
 
 }

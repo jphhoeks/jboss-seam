@@ -19,18 +19,21 @@ import org.jboss.seam.util.Strings;
  * @author Gavin King
  *
  */
-public abstract class RedirectHandler extends ExceptionHandler
-{
+public abstract class RedirectHandler extends ExceptionHandler {
 
-   private static final LogProvider log = Logging.getLogProvider(RedirectHandler.class);
+	private static final LogProvider log = Logging.getLogProvider(RedirectHandler.class);
 
-   protected abstract String getViewId(Exception e);
-   protected abstract String getMessage(Exception e);
-   protected abstract boolean isEnd(Exception e);
-   protected abstract Severity getMessageSeverity(Exception e);
-   protected abstract boolean isEndBeforeRedirect(Exception e);
+	protected abstract String getViewId(Exception e);
 
-   @Override
+	protected abstract String getMessage(Exception e);
+
+	protected abstract boolean isEnd(Exception e);
+
+	protected abstract Severity getMessageSeverity(Exception e);
+
+	protected abstract boolean isEndBeforeRedirect(Exception e);
+
+	@Override
 	public void handle(Exception e) throws Exception {
 		String viewId = getViewId(e);
 
@@ -49,9 +52,8 @@ public abstract class RedirectHandler extends ExceptionHandler
 
 		if (Contexts.isConversationContextActive()) {
 			if (isEndBeforeRedirect(e)) {
-				Conversation.instance().endBeforeRedirect();				
-			}
-			else if (isEnd(e)) {
+				Conversation.instance().endBeforeRedirect();
+			} else if (isEnd(e)) {
 				Conversation.instance().end();
 			}
 		}
@@ -80,7 +82,7 @@ public abstract class RedirectHandler extends ExceptionHandler
 		if (Strings.isEmpty(viewId)) {
 			return false;
 		}
-		return viewId.equals("/404" + Pages.getSuffix()) ;
+		return viewId.equals("/404" + Pages.getSuffix());
 	}
 
 	private boolean is403Page(String viewId) {
@@ -89,6 +91,7 @@ public abstract class RedirectHandler extends ExceptionHandler
 		}
 		return viewId.equals("/403" + Pages.getSuffix());
 	}
+
 	private boolean isErrorOrDebugPage(String viewId) {
 		if (Strings.isEmpty(viewId)) {
 			return false;

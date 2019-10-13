@@ -26,6 +26,7 @@ import java.util.TimeZone;
 import javax.faces.convert.FacesConverter;
 
 import org.jboss.seam.contexts.Contexts;
+
 /**
  *  Extended DateTimeConverter which set Timezone from Seam web application config
  * 
@@ -33,24 +34,19 @@ import org.jboss.seam.contexts.Contexts;
  *
  */
 @FacesConverter("org.jboss.seam.ui.DateTimeConverter")
-public class DateTimeConverter extends javax.faces.convert.DateTimeConverter{
-	
-   public DateTimeConverter()
-   {
-      setTimeZone( getTimeZone() );
-   }
+public class DateTimeConverter extends javax.faces.convert.DateTimeConverter {
 
-   @Override
-   public TimeZone getTimeZone()
-   {
-      if ( Contexts.isApplicationContextActive() )
-      {
-         return org.jboss.seam.international.TimeZone.instance();
-      }
-      else
-      {
-         return TimeZone.getDefault();
-      }
-   }
-   
+	public DateTimeConverter() {
+		setTimeZone(getTimeZone());
+	}
+
+	@Override
+	public TimeZone getTimeZone() {
+		if (Contexts.isApplicationContextActive()) {
+			return org.jboss.seam.international.TimeZone.instance();
+		} else {
+			return TimeZone.getDefault();
+		}
+	}
+
 }

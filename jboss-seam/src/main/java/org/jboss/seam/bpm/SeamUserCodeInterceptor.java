@@ -20,134 +20,100 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
  * @author Gavin King
  *
  */
-class SeamUserCodeInterceptor implements UserCodeInterceptor
-{
-   abstract static class ContextualCall
-   {
-      abstract void process() throws Exception;
-      
-      void run() throws Exception
-      {
-         if ( Contexts.isEventContextActive() || Contexts.isApplicationContextActive() ) //not sure about the second bit (only needed at init time!)
-         {
-            process();
-         }
-         else
-         {
-            Lifecycle.beginCall();
-            try
-            {
-               process();
-            }
-            finally
-            {
-               Lifecycle.endCall();
-            }
-         }
-      }
-      
-      void runAndWrap()
-      {
-         try
-         {
-            run();
-         }
-         catch (RuntimeException re)
-         {
-            throw re;
-         }
-         catch (Exception e)
-         {
-            throw new RuntimeException(e);
-         }
-      }
-   }
+class SeamUserCodeInterceptor implements UserCodeInterceptor {
+	abstract static class ContextualCall {
+		abstract void process() throws Exception;
 
-   public void executeAction(final Action action, final ExecutionContext context) throws Exception
-   {
-      if ( isPageflow(context) )
-      {
-         action.execute(context);
-      }
-      else
-      {
-         new ContextualCall()
-         {
-            @Override
-            void process() throws Exception
-            {
-               initProcessAndTask(context);
-               action.execute(context);
-            }
-         }.run();
-      }
-   }
+		void run() throws Exception {
+			if (Contexts.isEventContextActive() || Contexts.isApplicationContextActive()) //not sure about the second bit (only needed at init time!)
+			{
+				process();
+			} else {
+				Lifecycle.beginCall();
+				try {
+					process();
+				} finally {
+					Lifecycle.endCall();
+				}
+			}
+		}
 
-   private boolean isPageflow(final ExecutionContext context)
-   {
-      return Contexts.isConversationContextActive() && 
-            Jbpm.instance().isPageflowProcessDefinition( context.getProcessDefinition().getName() );
-   }
+		void runAndWrap() {
+			try {
+				run();
+			} catch (RuntimeException re) {
+				throw re;
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
 
-   public void executeAssignment(final AssignmentHandler handler, final Assignable assignable, 
-            final ExecutionContext context)
-            throws Exception
-   {
-      new ContextualCall()
-      {
-         @Override
-         void process() throws Exception
-         {
-            initProcessAndTask(context);
-            handler.assign(assignable, context);
-         }
-      }.run();
-   }
+	public void executeAction(final Action action, final ExecutionContext context) throws Exception {
+		if (isPageflow(context)) {
+			action.execute(context);
+		} else {
+			new ContextualCall() {
+				@Override
+				void process() throws Exception {
+					initProcessAndTask(context);
+					action.execute(context);
+				}
+			}.run();
+		}
+	}
 
-   public void executeTaskControllerInitialization(final TaskControllerHandler handler, final TaskInstance task,
-            final ContextInstance context, final Token token)
-   {
-      new ContextualCall()
-      {
-         @Override
-         void process() throws Exception
-         {
-            initProcessAndTask(task);
-            handler.initializeTaskVariables(task, context, token);
-         }
-      }.runAndWrap();
-   }
+	private boolean isPageflow(final ExecutionContext context) {
+		return Contexts.isConversationContextActive()
+				&& Jbpm.instance().isPageflowProcessDefinition(context.getProcessDefinition().getName());
+	}
 
-   public void executeTaskControllerSubmission(final TaskControllerHandler handler, final TaskInstance task,
-            final ContextInstance context, final Token token)
-   {
-      new ContextualCall()
-      {
-         @Override
-         void process() throws Exception
-         {
-            initProcessAndTask(task);
-            handler.submitTaskVariables(task, context, token);
-         }
-      }.runAndWrap();
-   }
+	public void executeAssignment(final AssignmentHandler handler, final Assignable assignable, final ExecutionContext context)
+			throws Exception {
+		new ContextualCall() {
+			@Override
+			void process() throws Exception {
+				initProcessAndTask(context);
+				handler.assign(assignable, context);
+			}
+		}.run();
+	}
 
-   private static void initProcessAndTask(ExecutionContext context)
-   {
-      BusinessProcess businessProcess = BusinessProcess.instance();
-      businessProcess.setProcessId( context.getProcessInstance().getId() );
-      TaskInstance taskInstance = context.getTaskInstance();
-      if (taskInstance!=null)
-      {
-         businessProcess.setTaskId( taskInstance.getId() );
-      }
-   }
+	public void executeTaskControllerInitialization(final TaskControllerHandler handler, final TaskInstance task,
+			final ContextInstance context, final Token token) {
+		new ContextualCall() {
+			@Override
+			void process() throws Exception {
+				initProcessAndTask(task);
+				handler.initializeTaskVariables(task, context, token);
+			}
+		}.runAndWrap();
+	}
 
-   private static void initProcessAndTask(TaskInstance task)
-   {
-      BusinessProcess businessProcess = BusinessProcess.instance();
-      businessProcess.setProcessId( task.getProcessInstance().getId() );
-      businessProcess.setTaskId( task.getId() );
-   }
+	public void executeTaskControllerSubmission(final TaskControllerHandler handler, final TaskInstance task, final ContextInstance context,
+			final Token token) {
+		new ContextualCall() {
+			@Override
+			void process() throws Exception {
+				initProcessAndTask(task);
+				handler.submitTaskVariables(task, context, token);
+			}
+		}.runAndWrap();
+	}
+
+	private static void initProcessAndTask(ExecutionContext context) {
+		BusinessProcess businessProcess = BusinessProcess.instance();
+		businessProcess.setProcessId(context.getProcessInstance().getId());
+		TaskInstance taskInstance = context.getTaskInstance();
+		if (taskInstance != null) {
+			businessProcess.setTaskId(taskInstance.getId());
+		}
+	}
+
+	private static void initProcessAndTask(TaskInstance task) {
+		BusinessProcess businessProcess = BusinessProcess.instance();
+		businessProcess.setProcessId(task.getProcessInstance().getId());
+		businessProcess.setTaskId(task.getId());
+	}
 
 }

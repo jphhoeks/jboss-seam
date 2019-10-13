@@ -10,31 +10,26 @@ import java.util.Iterator;
  *
  * @author Shane Bryzak
  */
-public class ParserUtils
-{
+public class ParserUtils {
 
+	public static Object unmarshalResult(Element resultElement) {
+		Element valueElement = resultElement.element("value");
+		Element refsElement = resultElement.element("refs");
 
-  public static Object unmarshalResult(Element resultElement)
-  {
-    Element valueElement = resultElement.element("value");
-    Element refsElement = resultElement.element("refs");
+		CallContext ctx = new CallContext();
 
-    CallContext ctx = new CallContext();
+		Iterator iter = refsElement.elementIterator("ref");
+		while (iter.hasNext()) {
+			ctx.createWrapperFromElement((Element) iter.next());
+		}
 
-    Iterator iter = refsElement.elementIterator("ref");
-    while (iter.hasNext())
-    {
-      ctx.createWrapperFromElement((Element) iter.next());
-    }
+		Wrapper resultWrapper = ctx.createWrapperFromElement((Element) valueElement.elementIterator().next());
 
-    Wrapper resultWrapper = ctx.createWrapperFromElement((Element) valueElement.elementIterator().next());
+		// Now unmarshal the ref values
+		for (Wrapper w : ctx.getInRefs().values())
+			w.unmarshal();
 
-    // Now unmarshal the ref values
-    for (Wrapper w : ctx.getInRefs().values())
-      w.unmarshal();
-
-    return resultWrapper.getValue();
-  }
-
+		return resultWrapper.getValue();
+	}
 
 }

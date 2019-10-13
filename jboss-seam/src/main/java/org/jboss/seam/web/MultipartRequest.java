@@ -10,11 +10,14 @@ import javax.servlet.http.HttpServletRequest;
  *  
  * @author Shane Bryzak
  */
-public interface MultipartRequest extends HttpServletRequest
-{
-   byte[] getFileBytes(String name);
-   InputStream getFileInputStream(String name);
-   String getFileContentType(String name);
-   String getFileName(String name);
-   int getFileSize(String name);
+public interface MultipartRequest extends HttpServletRequest {
+	byte[] getFileBytes(String name);
+
+	InputStream getFileInputStream(String name);
+
+	String getFileContentType(String name);
+
+	String getFileName(String name);
+
+	int getFileSize(String name);
 }

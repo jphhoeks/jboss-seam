@@ -12,7 +12,6 @@ import javax.ejb.Timer;
  *
  */
 @Local
-public interface LocalTimerServiceDispatcher extends Dispatcher<Timer, TimerSchedule>
-{   
-   public Object call(Callable task);
+public interface LocalTimerServiceDispatcher extends Dispatcher<Timer, TimerSchedule> {
+	public Object call(Callable task);
 }

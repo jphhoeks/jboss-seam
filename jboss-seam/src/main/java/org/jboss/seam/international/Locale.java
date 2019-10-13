@@ -18,17 +18,14 @@ import org.jboss.seam.contexts.Contexts;
  */
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.core.locale")
-@Install(precedence=FRAMEWORK, dependencies="org.jboss.seam.international.localeSelector")
+@Install(precedence = FRAMEWORK, dependencies = "org.jboss.seam.international.localeSelector")
 @BypassInterceptors
-public class Locale extends org.jboss.seam.core.Locale
-{
+public class Locale extends org.jboss.seam.core.Locale {
 
-   @Unwrap @Override
-   public java.util.Locale getLocale()
-   {
-      return Contexts.isSessionContextActive() ?
-            LocaleSelector.instance().getLocale() :
-            super.getLocale();
-   }
-   
+	@Unwrap
+	@Override
+	public java.util.Locale getLocale() {
+		return Contexts.isSessionContextActive() ? LocaleSelector.instance().getLocale() : super.getLocale();
+	}
+
 }

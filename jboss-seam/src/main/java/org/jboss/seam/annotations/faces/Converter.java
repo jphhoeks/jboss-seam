@@ -18,15 +18,15 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 @Retention(RUNTIME)
 @Documented
-public @interface Converter
-{
-   /**
-    * The JSF converter id. Default to the component name.
-    */
-   String id() default "";
-   /**
-    * If specified, register this component as the default
-    * converter for a type.
-    */
-   Class forClass() default void.class;
+public @interface Converter {
+	/**
+	* The JSF converter id. Default to the component name.
+	*/
+	String id() default "";
+
+	/**
+	* If specified, register this component as the default
+	* converter for a type.
+	*/
+	Class forClass() default void.class;
 }

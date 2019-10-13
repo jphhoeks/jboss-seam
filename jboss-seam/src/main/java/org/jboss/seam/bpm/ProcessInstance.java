@@ -27,43 +27,37 @@ import org.jboss.seam.util.Work;
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.bpm.processInstance")
 @BypassInterceptors
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.bpm.jbpm")
-public class ProcessInstance 
-{
-   
-   @Unwrap
-   public org.jbpm.graph.exe.ProcessInstance getProcessInstance() throws Exception
-   {
-      if ( !Contexts.isConversationContextActive() ) return null;
-      
-      return new Work<org.jbpm.graph.exe.ProcessInstance>()
-      {
-         
-         @Override
-         protected org.jbpm.graph.exe.ProcessInstance work() throws Exception
-         {         
-            Long processId = BusinessProcess.instance().getProcessId();
-            if (processId!=null)
-            {
-               //TODO: do we need to cache this??
-               //return ManagedJbpmContext.instance().getProcessInstanceForUpdate(processId);
-               //JBSEAM-4629:
-               return ManagedJbpmContext.instance().getProcessInstance(processId); 
-            }
-            else
-            {
-               return null;
-            }
-         }
-         
-      }.workInTransaction();
-      
-   }
-   
-   public static org.jbpm.graph.exe.ProcessInstance instance()
-   {
-      if ( !Contexts.isConversationContextActive() || !BusinessProcess.instance().hasCurrentProcess() ) return null; //so we don't start a txn
-      
-      return (org.jbpm.graph.exe.ProcessInstance) Component.getInstance(ProcessInstance.class, ScopeType.STATELESS);
-   }
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
+public class ProcessInstance {
+
+	@Unwrap
+	public org.jbpm.graph.exe.ProcessInstance getProcessInstance() throws Exception {
+		if (!Contexts.isConversationContextActive())
+			return null;
+
+		return new Work<org.jbpm.graph.exe.ProcessInstance>() {
+
+			@Override
+			protected org.jbpm.graph.exe.ProcessInstance work() throws Exception {
+				Long processId = BusinessProcess.instance().getProcessId();
+				if (processId != null) {
+					//TODO: do we need to cache this??
+					//return ManagedJbpmContext.instance().getProcessInstanceForUpdate(processId);
+					//JBSEAM-4629:
+					return ManagedJbpmContext.instance().getProcessInstance(processId);
+				} else {
+					return null;
+				}
+			}
+
+		}.workInTransaction();
+
+	}
+
+	public static org.jbpm.graph.exe.ProcessInstance instance() {
+		if (!Contexts.isConversationContextActive() || !BusinessProcess.instance().hasCurrentProcess())
+			return null; //so we don't start a txn
+
+		return (org.jbpm.graph.exe.ProcessInstance) Component.getInstance(ProcessInstance.class, ScopeType.STATELESS);
+	}
 }

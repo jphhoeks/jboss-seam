@@ -15,7 +15,8 @@ import java.lang.annotation.Target;
  * 
  * @author Gavin King
  */
-@Target({TYPE, METHOD})
+@Target({ TYPE, METHOD })
 @Retention(RUNTIME)
 @Documented
-public @interface BypassInterceptors {}
+public @interface BypassInterceptors {
+}

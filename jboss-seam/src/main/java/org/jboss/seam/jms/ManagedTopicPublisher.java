@@ -23,52 +23,44 @@ import org.jboss.seam.util.Naming;
 @Scope(ScopeType.EVENT)
 @BypassInterceptors
 @Install(false)
-public class ManagedTopicPublisher
-{
-   private String topicJndiName;
-   
-   private TopicPublisher topicPublisher;
-   
-   /**
-    * The JNDI name of the topic
-    */
-   public String getTopicJndiName()
-   {
-      return topicJndiName;
-   }
+public class ManagedTopicPublisher {
+	private String topicJndiName;
 
-   public void setTopicJndiName(String jndiName)
-   {
-      this.topicJndiName = jndiName;
-   }
-   
-   public Topic getTopic() throws NamingException
-   {
-      return (Topic) Naming.getInitialContext().lookup(topicJndiName);
-   }
-   
-   @Create
-   public void create() throws JMSException, NamingException
-   {
-      topicPublisher = org.jboss.seam.jms.TopicSession.instance().createPublisher( getTopic() );
-   }
-   
-   @Destroy
-   public void destroy() throws JMSException
-   {
-      topicPublisher.close();
-   }
-   
-   @Unwrap
-   public TopicPublisher getTopicPublisher()
-   {
-      return topicPublisher;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return "TopicConnection(" + topicJndiName + ")";
-   }
+	private TopicPublisher topicPublisher;
+
+	/**
+	* The JNDI name of the topic
+	*/
+	public String getTopicJndiName() {
+		return topicJndiName;
+	}
+
+	public void setTopicJndiName(String jndiName) {
+		this.topicJndiName = jndiName;
+	}
+
+	public Topic getTopic() throws NamingException {
+		return (Topic) Naming.getInitialContext().lookup(topicJndiName);
+	}
+
+	@Create
+	public void create() throws JMSException, NamingException {
+		topicPublisher = org.jboss.seam.jms.TopicSession.instance().createPublisher(getTopic());
+	}
+
+	@Destroy
+	public void destroy() throws JMSException {
+		topicPublisher.close();
+	}
+
+	@Unwrap
+	public TopicPublisher getTopicPublisher() {
+		return topicPublisher;
+	}
+
+	@Override
+	public String toString() {
+		return "TopicConnection(" + topicJndiName + ")";
+	}
 
 }

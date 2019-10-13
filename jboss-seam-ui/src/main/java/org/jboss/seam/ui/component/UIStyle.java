@@ -13,20 +13,16 @@ import org.richfaces.cdk.annotations.Tag;
  * @author mnovotny
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.Div",value="Render a HTML &lt;div&gt;"),
-family="org.jboss.seam.ui.Div", type="org.jboss.seam.ui.Div",generate="org.jboss.seam.ui.component.html.HtmlDiv", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="div"), 
-renderer = @JsfRenderer(type="org.jboss.seam.ui.DivRenderer", family="org.jboss.seam.ui.DivRenderer"))
-public abstract class UIStyle extends UIComponentBase
-{
-   @Attribute
-   public abstract String getStyleClass();
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.Div", value = "Render a HTML &lt;div&gt;"), family = "org.jboss.seam.ui.Div", type = "org.jboss.seam.ui.Div", generate = "org.jboss.seam.ui.component.html.HtmlDiv", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "div"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.DivRenderer", family = "org.jboss.seam.ui.DivRenderer"))
+public abstract class UIStyle extends UIComponentBase {
+	@Attribute
+	public abstract String getStyleClass();
 
-   @Attribute
-   public abstract String getStyle();
-   
-   public abstract void setStyleClass(String styleClass);
-   
-   public abstract void setStyle(String style);
+	@Attribute
+	public abstract String getStyle();
+
+	public abstract void setStyleClass(String styleClass);
+
+	public abstract void setStyle(String style);
 
 }

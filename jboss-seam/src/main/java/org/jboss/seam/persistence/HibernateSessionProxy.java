@@ -14,6 +14,5 @@ import org.hibernate.event.spi.EventSource;
  * @author Mike Youngstrom
  * 
  */
-public interface HibernateSessionProxy extends Session, SessionImplementor, EventSource
-{
+public interface HibernateSessionProxy extends Session, SessionImplementor, EventSource {
 }

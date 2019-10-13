@@ -10,28 +10,23 @@ import org.jboss.seam.ui.component.UIResource;
 import org.jboss.seam.ui.util.cdk.RendererBase;
 import org.richfaces.cdk.annotations.JsfRenderer;
 
-@JsfRenderer(type="org.jboss.seam.ui.ResourceRenderer", family="org.jboss.seam.ui.ResourceRenderer")
-public class ResourceRendererBase extends RendererBase
-{
+@JsfRenderer(type = "org.jboss.seam.ui.ResourceRenderer", family = "org.jboss.seam.ui.ResourceRenderer")
+public class ResourceRendererBase extends RendererBase {
 
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIResource.class;
-   }
+	@Override
+	protected Class getComponentClass() {
+		return UIResource.class;
+	}
 
-   @Override
-   protected void doEncodeBegin(javax.faces.context.ResponseWriter writer, FacesContext ctx, UIComponent component) throws IOException
-   {
+	@Override
+	protected void doEncodeBegin(javax.faces.context.ResponseWriter writer, FacesContext ctx, UIComponent component) throws IOException {
 
-      UIResource resource = (UIResource) component;
+		UIResource resource = (UIResource) component;
 
-      String url = DocumentStoreUtils.addResourceToDataStore(ctx, resource);
+		String url = DocumentStoreUtils.addResourceToDataStore(ctx, resource);
 
-      ctx.getExternalContext().redirect(url);
+		ctx.getExternalContext().redirect(url);
 
-   }
-
-
+	}
 
 }

@@ -14,11 +14,11 @@ import java.lang.annotation.Target;
  *
  * @author Shane Bryzak
  */
-@Target({METHOD, PARAMETER})
+@Target({ METHOD, PARAMETER })
 @Documented
 @Retention(RUNTIME)
 @Inherited
 @PermissionCheck
 public @interface Insert {
-   Class value() default void.class;
+	Class value() default void.class;
 }

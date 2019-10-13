@@ -22,46 +22,38 @@ import org.jboss.seam.core.Events;
  */
 @Name("org.jboss.seam.faces.validation")
 @BypassInterceptors
-@Install(precedence=BUILT_IN, classDependencies="javax.faces.context.FacesContext")
-public class Validation
-{
+@Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
+public class Validation {
 
-   private boolean succeeded;
-   private boolean failed;
+	private boolean succeeded;
+	private boolean failed;
 
-   public static Validation instance()
-   {
-      if ( !Contexts.isEventContextActive() )
-      {
-         throw new IllegalStateException("No active event scope");
-      }
-      return (Validation) Component.getInstance(Validation.class, ScopeType.EVENT);
-   }
-   
-   public void afterProcessValidations(FacesContext facesContext)
-   {
-      failed = facesContext.getRenderResponse();
-      if (failed)
-      {
-         Events.instance().raiseEvent("org.jboss.seam.validationFailed");
-      }
-      succeeded = !failed;
-   }
+	public static Validation instance() {
+		if (!Contexts.isEventContextActive()) {
+			throw new IllegalStateException("No active event scope");
+		}
+		return (Validation) Component.getInstance(Validation.class, ScopeType.EVENT);
+	}
 
-   public boolean isSucceeded()
-   {
-      return succeeded;
-   }
+	public void afterProcessValidations(FacesContext facesContext) {
+		failed = facesContext.getRenderResponse();
+		if (failed) {
+			Events.instance().raiseEvent("org.jboss.seam.validationFailed");
+		}
+		succeeded = !failed;
+	}
 
-   public boolean isFailed()
-   {
-      return failed;
-   }
+	public boolean isSucceeded() {
+		return succeeded;
+	}
 
-   public void fail()
-   {
-      failed = true;
-      succeeded = false;
-   }
+	public boolean isFailed() {
+		return failed;
+	}
+
+	public void fail() {
+		failed = true;
+		succeeded = false;
+	}
 
 }

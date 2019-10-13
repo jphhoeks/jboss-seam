@@ -24,71 +24,56 @@ import org.jboss.seam.intercept.InvocationContext;
  * 
  * @author Gavin King
  */
-@Interceptor(stateless=true, type=InterceptorType.CLIENT)
-public class RemoveInterceptor extends AbstractInterceptor
-{
-   private static final long serialVersionUID = -6693606158918954699L;
-   
-   private static final LogProvider log = Logging.getLogProvider(RemoveInterceptor.class);
+@Interceptor(stateless = true, type = InterceptorType.CLIENT)
+public class RemoveInterceptor extends AbstractInterceptor {
+	private static final long serialVersionUID = -6693606158918954699L;
 
-   @AroundInvoke
-   public Object aroundInvoke(InvocationContext invocation) throws Exception
-   {
-      //we have the method from the local interface, get the corresponding one
-      //for the actual bean class (it has the @Remove annotation)
-      Method removeMethod = getComponent().getRemoveMethod( invocation.getMethod().getName() );
-      Object result;
-      try
-      {
-         result = invocation.proceed();
-      }
-      catch (Exception exception)
-      {
-         removeIfNecessary(removeMethod, exception);
-         throw exception;
-      }
-      removeIfNecessary(removeMethod);
-      return result;
-   }
+	private static final LogProvider log = Logging.getLogProvider(RemoveInterceptor.class);
 
-   private void removeIfNecessary(Method removeMethod, Exception exception) {
-      if ( exception instanceof RuntimeException || exception instanceof RemoteException )
-      {
-         if ( !exception.getClass().isAnnotationPresent(ApplicationException.class) ) 
-         {
-            //it is a "system exception"
-            remove();
-         }
-      }
-      else if ( removeMethod!=null )
-      {
-         if ( !removeMethod.getAnnotation(Remove.class).retainIfException() ) 
-         {
-            remove();
-         }
-      }
-   }
+	@AroundInvoke
+	public Object aroundInvoke(InvocationContext invocation) throws Exception {
+		//we have the method from the local interface, get the corresponding one
+		//for the actual bean class (it has the @Remove annotation)
+		Method removeMethod = getComponent().getRemoveMethod(invocation.getMethod().getName());
+		Object result;
+		try {
+			result = invocation.proceed();
+		} catch (Exception exception) {
+			removeIfNecessary(removeMethod, exception);
+			throw exception;
+		}
+		removeIfNecessary(removeMethod);
+		return result;
+	}
 
-   private void removeIfNecessary(Method removeMethod)
-   {
-      if ( removeMethod!=null ) 
-      {
-         remove();
-      }
-   }
+	private void removeIfNecessary(Method removeMethod, Exception exception) {
+		if (exception instanceof RuntimeException || exception instanceof RemoteException) {
+			if (!exception.getClass().isAnnotationPresent(ApplicationException.class)) {
+				//it is a "system exception"
+				remove();
+			}
+		} else if (removeMethod != null) {
+			if (!removeMethod.getAnnotation(Remove.class).retainIfException()) {
+				remove();
+			}
+		}
+	}
 
-   private void remove() 
-   {
-      getComponent().getScope().getContext().remove( getComponent().getName() );
-      if ( log.isDebugEnabled() )
-      {
-         log.debug( "Stateful component was removed: " + getComponent().getName() );
-      }
-   }
-   
-   public boolean isInterceptorEnabled()
-   {
-      return getComponent().getType() == STATEFUL_SESSION_BEAN;
-   }
+	private void removeIfNecessary(Method removeMethod) {
+		if (removeMethod != null) {
+			remove();
+		}
+	}
+
+	private void remove() {
+		getComponent().getScope().getContext().remove(getComponent().getName());
+		if (log.isDebugEnabled()) {
+			log.debug("Stateful component was removed: " + getComponent().getName());
+		}
+	}
+
+	public boolean isInterceptorEnabled() {
+		return getComponent().getType() == STATEFUL_SESSION_BEAN;
+	}
 
 }

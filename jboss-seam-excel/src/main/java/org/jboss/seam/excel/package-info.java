@@ -2,4 +2,3 @@
 package org.jboss.seam.excel;
 
 import org.jboss.seam.annotations.Namespace;
-

@@ -14,7 +14,6 @@ import org.jboss.seam.intercept.SessionBeanInterceptor;
  * 
  * @author Gavin King
  */
-public class SeamInterceptor extends SessionBeanInterceptor
-{
-   private static final long serialVersionUID = 4250146024419999221L;   
+public class SeamInterceptor extends SessionBeanInterceptor {
+	private static final long serialVersionUID = 4250146024419999221L;
 }

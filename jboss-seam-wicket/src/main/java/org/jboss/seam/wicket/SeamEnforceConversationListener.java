@@ -14,28 +14,20 @@ import org.jboss.seam.international.StatusMessages;
  * annotated with NoConversationPage is rendered 
  *
  */
-public class SeamEnforceConversationListener implements IComponentOnBeforeRenderListener
-{
-   public void onBeforeRender(Component component)
-   {
-      if (!Manager.instance().isLongRunningConversation())
-      {
-         WicketComponent<?> wicketComponent = WicketComponent.getInstance(component.getClass());
-         if (wicketComponent != null)
-         {
-            Class<? extends Page> noConversationPage = wicketComponent.getNoConversationPage();
-            if (noConversationPage != null)
-            {
-               final RequestCycle cycle = RequestCycle.get();
-               StatusMessages.instance().addFromResourceBundleOrDefault( 
-                     StatusMessage.Severity.WARN, 
-                     "org.jboss.seam.NoConversation", 
-                     "The conversation ended or timed" 
-                  );
-               cycle.redirectTo(cycle.getSession().getPageFactory().newPage(noConversationPage));
-               throw new AbortException();
-            }
-         }
-      }
-   }
+public class SeamEnforceConversationListener implements IComponentOnBeforeRenderListener {
+	public void onBeforeRender(Component component) {
+		if (!Manager.instance().isLongRunningConversation()) {
+			WicketComponent<?> wicketComponent = WicketComponent.getInstance(component.getClass());
+			if (wicketComponent != null) {
+				Class<? extends Page> noConversationPage = wicketComponent.getNoConversationPage();
+				if (noConversationPage != null) {
+					final RequestCycle cycle = RequestCycle.get();
+					StatusMessages.instance().addFromResourceBundleOrDefault(StatusMessage.Severity.WARN, "org.jboss.seam.NoConversation",
+							"The conversation ended or timed");
+					cycle.redirectTo(cycle.getSession().getPageFactory().newPage(noConversationPage));
+					throw new AbortException();
+				}
+			}
+		}
+	}
 }

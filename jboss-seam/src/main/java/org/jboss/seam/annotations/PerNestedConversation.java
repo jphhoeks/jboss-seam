@@ -9,15 +9,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Limit the scope of a CONVERSATION-scoped component
- * to just the parent conversation in which it was 
- * instantiated. The component instance will not be
- * visible to nested child conversations, which will
- * get their own instance.
+ * Limit the scope of a CONVERSATION-scoped component to just the parent
+ * conversation in which it was instantiated. The component instance will not be
+ * visible to nested child conversations, which will get their own instance.
  * 
- * Warning: this is ill-defined, since it implies that
- * a component will be visible for some part of a
- * request cycle, and invisible after that. It is not
+ * Warning: this is ill-defined, since it implies that a component will be
+ * visible for some part of a request cycle, and invisible after that. It is not
  * recommended that applications use this feature!
  * 
  * @author Gavin King
@@ -27,4 +24,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 @Inherited
-public @interface PerNestedConversation {}
+public @interface PerNestedConversation {
+}

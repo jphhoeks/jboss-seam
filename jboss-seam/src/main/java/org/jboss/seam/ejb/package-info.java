@@ -3,4 +3,3 @@
  * interesting here.
  */
 package org.jboss.seam.ejb;
-

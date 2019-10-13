@@ -14,12 +14,11 @@ import java.lang.annotation.Target;
  * 
  * @author Shane Bryzak
  */
-@Target({TYPE, METHOD})
+@Target({ TYPE, METHOD })
 @Documented
 @Retention(RUNTIME)
 @Inherited
 @RoleCheck
-public @interface Admin
-{
+public @interface Admin {
 
 }

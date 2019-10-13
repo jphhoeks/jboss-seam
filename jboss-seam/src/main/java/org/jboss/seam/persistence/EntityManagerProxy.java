@@ -11,6 +11,5 @@ import javax.persistence.EntityManager;
  * @author Gavin King
  *
  */
-public interface EntityManagerProxy extends EntityManager, Serializable
-{
+public interface EntityManagerProxy extends EntityManager, Serializable {
 }

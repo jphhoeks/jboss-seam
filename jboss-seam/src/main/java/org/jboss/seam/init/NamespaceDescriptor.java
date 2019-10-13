@@ -5,21 +5,19 @@ import java.util.Set;
 
 import org.jboss.seam.annotations.Namespace;
 
-class NamespaceDescriptor
-{
+class NamespaceDescriptor {
 	private String namespace;
 	private Set<String> packageNames = new HashSet<String>();
 	private String componentPrefix;
 
-	NamespaceDescriptor(Namespace namespaceAnnotation, Package pkg)
-	{
-		this.namespace       = namespaceAnnotation.value();
+	NamespaceDescriptor(Namespace namespaceAnnotation, Package pkg) {
+		this.namespace = namespaceAnnotation.value();
 		this.componentPrefix = namespaceAnnotation.prefix();
 		packageNames.add(pkg.getName());
 	}
-	
+
 	NamespaceDescriptor(String namespace, String packageName) {
-		this.namespace       = namespace;
+		this.namespace = namespace;
 		packageNames.add(packageName);
 		this.componentPrefix = "";
 	}
@@ -27,14 +25,13 @@ class NamespaceDescriptor
 	public String getNamespace() {
 		return namespace;
 	}
-	
+
 	public String getComponentPrefix() {
 		return componentPrefix;
 	}
-	
-	public void addPackageName(String packageName)
-	{
-	   packageNames.add(packageName);
+
+	public void addPackageName(String packageName) {
+		packageNames.add(packageName);
 	}
 
 	public Set<String> getPackageNames() {
@@ -42,8 +39,7 @@ class NamespaceDescriptor
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "NamespaceDescriptor(" + namespace + ')';
 	}
 }

@@ -19,27 +19,28 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 @Inherited
-public @interface Redirect
-{
-   /**
-    * The message to be displayed as a FacesMessage, default
-    * to using the exception message.
-    * 
-    * @return a templated message
-    */
-   String message() default "";
-   /**
-    * The view to redirect to, default to the current view.
-    * 
-    * @return a JSF view id
-    */
-   String viewId();
-   /**
-    * Should the current long-running conversation end
-    * when this exception occurs.
-    * 
-    * @return true if we should end the conversation
-    * @deprecated use @ApplicationException(end=true)
-    */
-   boolean end() default false;
+public @interface Redirect {
+	/**
+	* The message to be displayed as a FacesMessage, default
+	* to using the exception message.
+	* 
+	* @return a templated message
+	*/
+	String message() default "";
+
+	/**
+	* The view to redirect to, default to the current view.
+	* 
+	* @return a JSF view id
+	*/
+	String viewId();
+
+	/**
+	* Should the current long-running conversation end
+	* when this exception occurs.
+	* 
+	* @return true if we should end the conversation
+	* @deprecated use @ApplicationException(end=true)
+	*/
+	boolean end() default false;
 }

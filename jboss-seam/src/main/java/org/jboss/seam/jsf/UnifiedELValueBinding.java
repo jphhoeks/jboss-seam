@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-
 /**
  * Nobody should be using ValueBinding anymore, but if they 
  * are, we need this.
@@ -15,60 +14,56 @@ import javax.faces.context.FacesContext;
  */
 
 @Deprecated
-public class UnifiedELValueBinding extends javax.faces.el.ValueBinding implements Serializable
-{
-   private static final long serialVersionUID = -7555716855004738587L;
+public class UnifiedELValueBinding extends javax.faces.el.ValueBinding implements Serializable {
+	private static final long serialVersionUID = -7555716855004738587L;
 
-private transient ValueExpression valueExpression;
-   
-   private String expressionString;
+	private transient ValueExpression valueExpression;
 
-   public UnifiedELValueBinding(String expressionString)
-   {
-      this.expressionString = expressionString;
-   }
+	private String expressionString;
 
-   public UnifiedELValueBinding() {}
-   
-   @Override
-   public String getExpressionString()
-   {
-      return expressionString;
-   }
+	public UnifiedELValueBinding(String expressionString) {
+		this.expressionString = expressionString;
+	}
 
-   @Override
-   public Class getType(FacesContext ctx) throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
-      return getValueExpression(ctx).getType( ctx.getELContext() );
-   }
+	public UnifiedELValueBinding() {
+	}
 
-   @Override
-   public Object getValue(FacesContext ctx) throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
-   	return getValueExpression(ctx).getValue( ctx.getELContext() );
-   }
+	@Override
+	public String getExpressionString() {
+		return expressionString;
+	}
 
-   @Override
-   public boolean isReadOnly(FacesContext ctx) throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
-   	return getValueExpression(ctx).isReadOnly( ctx.getELContext() );
-   }
+	@Override
+	public Class getType(FacesContext ctx) throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
+		return getValueExpression(ctx).getType(ctx.getELContext());
+	}
 
-   @Override
-   public void setValue(FacesContext ctx, Object value) throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
-      getValueExpression(ctx).setValue( ctx.getELContext(), value);
-   }
-   
-   @Override
-   public String toString()
-   {
-      return getExpressionString();
-   }
+	@Override
+	public Object getValue(FacesContext ctx) throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
+		return getValueExpression(ctx).getValue(ctx.getELContext());
+	}
 
-   private ValueExpression getValueExpression(FacesContext ctx)
-   {
-      if (valueExpression==null)
-      {
-         valueExpression = ctx.getApplication().getExpressionFactory()
-                  .createValueExpression( ctx.getELContext(), expressionString, Object.class );
-      }
-      return valueExpression;
-   }
+	@Override
+	public boolean isReadOnly(FacesContext ctx) throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
+		return getValueExpression(ctx).isReadOnly(ctx.getELContext());
+	}
+
+	@Override
+	public void setValue(FacesContext ctx, Object value)
+			throws javax.faces.el.EvaluationException, javax.faces.el.PropertyNotFoundException {
+		getValueExpression(ctx).setValue(ctx.getELContext(), value);
+	}
+
+	@Override
+	public String toString() {
+		return getExpressionString();
+	}
+
+	private ValueExpression getValueExpression(FacesContext ctx) {
+		if (valueExpression == null) {
+			valueExpression = ctx.getApplication().getExpressionFactory().createValueExpression(ctx.getELContext(), expressionString,
+					Object.class);
+		}
+		return valueExpression;
+	}
 }

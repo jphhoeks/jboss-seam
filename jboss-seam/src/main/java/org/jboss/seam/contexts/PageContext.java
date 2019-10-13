@@ -35,149 +35,124 @@ import org.jboss.seam.core.Events;
  * 
  * @author Gavin King
  */
-public class PageContext implements Context 
-{
+public class PageContext implements Context {
 
-   private static final String PAGE_CONTEXT_PREFIX = ScopeType.PAGE.getPrefix() + '$';
-   private Map<String, Object> previousPageMap;
-   private Map<String, Object> nextPageMap;
-   
-   public PageContext()
-   {
-      previousPageMap = getOrCreateViewMap();
-      nextPageMap = new HashMap<String, Object>();
-   }
+	private static final String PAGE_CONTEXT_PREFIX = ScopeType.PAGE.getPrefix() + '$';
+	private Map<String, Object> previousPageMap;
+	private Map<String, Object> nextPageMap;
 
-   public ScopeType getType()
-   {
-      return ScopeType.PAGE;
-   }
-   
-   private String getKey(String name)
-   {
-      return getPrefix() + name;
-   }
-
-   private String getPrefix()
-   {
-      return PAGE_CONTEXT_PREFIX;
-   }
-
-	public Object get(String name) 
-   {
-      return getCurrentReadableMap().get( getKey(name) );
-	}
-   
-   public boolean isSet(String name) 
-   {
-      return getCurrentReadableMap().containsKey( getKey(name) );
-   }
-   
-   private Map<String, Object> getCurrentReadableMap()
-   {
-      if ( !isInPhase() )
-      {
-         return Collections.emptyMap();
-      }
-      else
-      {
-         return isRenderResponsePhase() ?
-               nextPageMap : previousPageMap;
-      }
-   }
-
-   private Map<String, Object> getCurrentWritableMap()
-   {
-      return isBeforeInvokeApplicationPhase() ?
-            previousPageMap : nextPageMap;
-   }
-
-	public void set(String name, Object value) 
-   {
-      if ( Events.exists() ) Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
-      getCurrentWritableMap().put( getKey(name), value );
-      if ( Events.exists() ) Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
+	public PageContext() {
+		previousPageMap = getOrCreateViewMap();
+		nextPageMap = new HashMap<String, Object>();
 	}
 
-	public void remove(String name) 
-   {
-      if ( Events.exists() ) Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
-      getCurrentWritableMap().remove( getKey(name) );
-      if ( Events.exists() ) Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
+	public ScopeType getType() {
+		return ScopeType.PAGE;
 	}
 
-   public String[] getNames() 
-   {
-      Set<String> keys = getCurrentReadableMap().keySet();
-      List<String> names = new ArrayList<String>( keys.size() );
-      String prefix = getPrefix();
-      for (String key: keys)
-      {
-         if ( key.startsWith(prefix) )
-         {
-            names.add( key.substring( prefix.length() ) );
-         }
-      }
-      return names.toArray( new String[ names.size() ] );
-   }
-   
-   @Override
-   public String toString()
-   {
-      return "PageContext";
-   }
+	private String getKey(String name) {
+		return getPrefix() + name;
+	}
 
-   public Object get(Class<?> clazz)
-   {
-      return get( Component.getComponentName(clazz) );
-   }
+	private String getPrefix() {
+		return PAGE_CONTEXT_PREFIX;
+	}
 
-   /**
-    * Put the buffered context variables in the faces view root, 
-    * at the beginning of the render phase.
-    */
-   public void flush()
-   {
-      Map<String, Object> viewMap = getOrCreateViewMap();
-      viewMap.putAll(nextPageMap);
-      nextPageMap = viewMap;
-   }
+	public Object get(String name) {
+		return getCurrentReadableMap().get(getKey(name));
+	}
 
-   private static Map<String, Object> getOrCreateViewMap()
-   {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      if (facesContext==null)
-      {
-         throw new IllegalStateException("no FacesContext bound to current thread");
-      }
-      UIViewRoot viewRoot = facesContext.getViewRoot();
-      return viewRoot==null ? 
-            new HashMap<String, Object>() : viewRoot.getViewMap();
-   }
+	public boolean isSet(String name) {
+		return getCurrentReadableMap().containsKey(getKey(name));
+	}
 
-   private static PhaseId getPhaseId()
-   {
-      PhaseId phaseId = FacesLifecycle.getPhaseId();
-      if (phaseId==null)
-      {
-         throw new IllegalStateException("No phase id bound to current thread (make sure you do not have two SeamPhaseListener instances installed)");
-      }
-      return phaseId;
-   }
-   
-   private static boolean isInPhase()
-   {
-      return FacesLifecycle.getPhaseId()!=null;
-   }
+	private Map<String, Object> getCurrentReadableMap() {
+		if (!isInPhase()) {
+			return Collections.emptyMap();
+		} else {
+			return isRenderResponsePhase() ? nextPageMap : previousPageMap;
+		}
+	}
 
-   private static boolean isBeforeInvokeApplicationPhase()
-   {
-      return getPhaseId().compareTo(PhaseId.INVOKE_APPLICATION) < 0;
-   }
+	private Map<String, Object> getCurrentWritableMap() {
+		return isBeforeInvokeApplicationPhase() ? previousPageMap : nextPageMap;
+	}
 
-   private static boolean isRenderResponsePhase()
-   {
-      return getPhaseId().compareTo(PhaseId.INVOKE_APPLICATION) > 0;
-   }
+	public void set(String name, Object value) {
+		if (Events.exists())
+			Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
+		getCurrentWritableMap().put(getKey(name), value);
+		if (Events.exists())
+			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
+	}
+
+	public void remove(String name) {
+		if (Events.exists())
+			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
+		getCurrentWritableMap().remove(getKey(name));
+		if (Events.exists())
+			Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
+	}
+
+	public String[] getNames() {
+		Set<String> keys = getCurrentReadableMap().keySet();
+		List<String> names = new ArrayList<String>(keys.size());
+		String prefix = getPrefix();
+		for (String key : keys) {
+			if (key.startsWith(prefix)) {
+				names.add(key.substring(prefix.length()));
+			}
+		}
+		return names.toArray(new String[names.size()]);
+	}
+
+	@Override
+	public String toString() {
+		return "PageContext";
+	}
+
+	public Object get(Class<?> clazz) {
+		return get(Component.getComponentName(clazz));
+	}
+
+	/**
+	* Put the buffered context variables in the faces view root, 
+	* at the beginning of the render phase.
+	*/
+	public void flush() {
+		Map<String, Object> viewMap = getOrCreateViewMap();
+		viewMap.putAll(nextPageMap);
+		nextPageMap = viewMap;
+	}
+
+	private static Map<String, Object> getOrCreateViewMap() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		if (facesContext == null) {
+			throw new IllegalStateException("no FacesContext bound to current thread");
+		}
+		UIViewRoot viewRoot = facesContext.getViewRoot();
+		return viewRoot == null ? new HashMap<String, Object>() : viewRoot.getViewMap();
+	}
+
+	private static PhaseId getPhaseId() {
+		PhaseId phaseId = FacesLifecycle.getPhaseId();
+		if (phaseId == null) {
+			throw new IllegalStateException(
+					"No phase id bound to current thread (make sure you do not have two SeamPhaseListener instances installed)");
+		}
+		return phaseId;
+	}
+
+	private static boolean isInPhase() {
+		return FacesLifecycle.getPhaseId() != null;
+	}
+
+	private static boolean isBeforeInvokeApplicationPhase() {
+		return getPhaseId().compareTo(PhaseId.INVOKE_APPLICATION) < 0;
+	}
+
+	private static boolean isRenderResponsePhase() {
+		return getPhaseId().compareTo(PhaseId.INVOKE_APPLICATION) > 0;
+	}
 
 }

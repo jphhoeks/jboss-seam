@@ -21,137 +21,117 @@ import yarfraw.core.datamodel.Text.TextType;
  * atomUpdated & extensionElement*) }
  */
 
-public class UIEntry extends SyndicationComponent
-{
-   private static final String COMPONENT_TYPE = "org.jboss.seam.rss.ui.UIEntry";
+public class UIEntry extends SyndicationComponent {
+	private static final String COMPONENT_TYPE = "org.jboss.seam.rss.ui.UIEntry";
 
-   private String uid;
-   private String title;
-   private String link;
-   private String author;
-   private String summary;
-   private TextType textFormat = TextType.html;
-   private Date published;
-   private Date updated;
+	private String uid;
+	private String title;
+	private String link;
+	private String author;
+	private String summary;
+	private TextType textFormat = TextType.html;
+	private Date published;
+	private Date updated;
 
-   @Override
-   public String getFamily()
-   {
-      return COMPONENT_TYPE;
-   }
+	@Override
+	public String getFamily() {
+		return COMPONENT_TYPE;
+	}
 
-   private Text makeText(String textString) {
-      Text text = new Text(textFormat);
-      text.setText(textString);
-      return text;
-   }
-   
-   @SuppressWarnings("unchecked")
-   @Override
-   public void encodeBegin(FacesContext facesContext) throws IOException
-   {
-      ChannelFeed channelFeed = (ChannelFeed) Contexts.getEventContext().get(FEED_IMPL_KEY);
+	private Text makeText(String textString) {
+		Text text = new Text(textFormat);
+		text.setText(textString);
+		return text;
+	}
 
-      ItemEntry itemEntry = new ItemEntry();
-      itemEntry.setUid(getUid());
-      itemEntry.setTitle(makeText(getTitle()));
-      itemEntry.addLink(getLink());
-      String author = getAuthor();
-      if (author != null)
-      {
-         Person authorPerson = new Person();
-         authorPerson.setName(author);
-         itemEntry.addAuthorOrCreator(authorPerson);
-      }
-      itemEntry.setDescriptionOrSummary(makeText(getSummary()));
-      if (getUpdated() != null) {
-         itemEntry.setUpdatedDate(getUpdated(), new SimpleDateFormat(ATOM_DATE_FORMAT));
-      }
-      if (getPublished() != null) {
-         itemEntry.setPubDate(getPublished(), new SimpleDateFormat(ATOM_DATE_FORMAT));
-      }
+	@SuppressWarnings("unchecked")
+	@Override
+	public void encodeBegin(FacesContext facesContext) throws IOException {
+		ChannelFeed channelFeed = (ChannelFeed) Contexts.getEventContext().get(FEED_IMPL_KEY);
 
-      channelFeed.addItem(itemEntry);
-   }
+		ItemEntry itemEntry = new ItemEntry();
+		itemEntry.setUid(getUid());
+		itemEntry.setTitle(makeText(getTitle()));
+		itemEntry.addLink(getLink());
+		String author = getAuthor();
+		if (author != null) {
+			Person authorPerson = new Person();
+			authorPerson.setName(author);
+			itemEntry.addAuthorOrCreator(authorPerson);
+		}
+		itemEntry.setDescriptionOrSummary(makeText(getSummary()));
+		if (getUpdated() != null) {
+			itemEntry.setUpdatedDate(getUpdated(), new SimpleDateFormat(ATOM_DATE_FORMAT));
+		}
+		if (getPublished() != null) {
+			itemEntry.setPubDate(getPublished(), new SimpleDateFormat(ATOM_DATE_FORMAT));
+		}
 
-   public String getTitle()
-   {
-      return (String) valueOf("title", title);
-   }
+		channelFeed.addItem(itemEntry);
+	}
 
-   public void setTitle(String title)
-   {
-      this.title = title;
-   }
+	public String getTitle() {
+		return (String) valueOf("title", title);
+	}
 
-   public String getLink()
-   {
-      return (String) valueOf("link", link);
-   }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-   public void setLink(String link)
-   {
-      this.link = link;
-   }
+	public String getLink() {
+		return (String) valueOf("link", link);
+	}
 
-   public String getAuthor()
-   {
-      return (String) valueOf("author", author);
-   }
+	public void setLink(String link) {
+		this.link = link;
+	}
 
-   public void setAuthor(String author)
-   {
-      this.author = author;
-   }
+	public String getAuthor() {
+		return (String) valueOf("author", author);
+	}
 
-   public String getSummary()
-   {
-      return (String) valueOf("summary", summary);
-   }
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
-   public void setSummary(String summary)
-   {
-      this.summary = summary;
-   }
+	public String getSummary() {
+		return (String) valueOf("summary", summary);
+	}
 
-   public Date getPublished()
-   {
-      return (Date) valueOf("published", published);
-   }
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
 
-   public void setPublished(Date published)
-   {
-      this.published = published;
-   }
+	public Date getPublished() {
+		return (Date) valueOf("published", published);
+	}
 
-   public Date getUpdated()
-   {
-      return (Date) valueOf("updated", updated);
-   }
+	public void setPublished(Date published) {
+		this.published = published;
+	}
 
-   public void setUpdated(Date updated)
-   {
-      this.updated = updated;
-   }
+	public Date getUpdated() {
+		return (Date) valueOf("updated", updated);
+	}
 
-   public String getUid()
-   {
-      return (String) valueOf("uid", uid);
-   }
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
 
-   public void setUid(String uid)
-   {
-      this.uid = uid;
-   }
+	public String getUid() {
+		return (String) valueOf("uid", uid);
+	}
 
-   public TextType getTextFormat()
-   {
-      return textFormat;
-   }
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
-   public void setTextFormat(TextType textFormat)
-   {
-      this.textFormat = textFormat;
-   }
+	public TextType getTextFormat() {
+		return textFormat;
+	}
+
+	public void setTextFormat(TextType textFormat) {
+		this.textFormat = textFormat;
+	}
 
 }

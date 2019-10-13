@@ -17,217 +17,180 @@ import org.jboss.seam.web.AbstractResource;
  * @author Norman Richards
  *
  */
-public class ComponentDescriptor implements Comparable<ComponentDescriptor>
-{
-    protected String name;
-    protected Class<?> componentClass;
-    protected ScopeType scope;
-    protected String jndiName;
-    protected Boolean installed;
-    protected Boolean autoCreate;
-    protected Boolean startup;
-    protected String[] startupDepends;
-    protected Integer precedence;
+public class ComponentDescriptor implements Comparable<ComponentDescriptor> {
+	protected String name;
+	protected Class<?> componentClass;
+	protected ScopeType scope;
+	protected String jndiName;
+	protected Boolean installed;
+	protected Boolean autoCreate;
+	protected Boolean startup;
+	protected String[] startupDepends;
+	protected Integer precedence;
 
-    /**
-     * For components.xml
-     */
-    public ComponentDescriptor(String name, Class<?> componentClass, ScopeType scope,
-            Boolean autoCreate, Boolean startup, String[] startupDepends, String jndiName, Boolean installed, Integer precedence)
-    {
-        this.name = name;
-        this.componentClass = componentClass;
-        this.scope = scope;
-        this.jndiName = jndiName;
-        this.installed = installed;
-        this.autoCreate = autoCreate;
-        this.precedence = precedence;
-        this.startup = startup;
-        this.startupDepends = startupDepends;
-    }
+	/**
+	 * For components.xml
+	 */
+	public ComponentDescriptor(String name, Class<?> componentClass, ScopeType scope, Boolean autoCreate, Boolean startup,
+			String[] startupDepends, String jndiName, Boolean installed, Integer precedence) {
+		this.name = name;
+		this.componentClass = componentClass;
+		this.scope = scope;
+		this.jndiName = jndiName;
+		this.installed = installed;
+		this.autoCreate = autoCreate;
+		this.precedence = precedence;
+		this.startup = startup;
+		this.startupDepends = startupDepends;
+	}
 
-    /**
-     * For a scanned role
-     */
-    public ComponentDescriptor(String name, Class<?> componentClass, ScopeType scope)
-    {
-        this.name = name;
-        this.componentClass = componentClass;
-        this.scope = scope;
-    }
+	/**
+	 * For a scanned role
+	 */
+	public ComponentDescriptor(String name, Class<?> componentClass, ScopeType scope) {
+		this.name = name;
+		this.componentClass = componentClass;
+		this.scope = scope;
+	}
 
-    /**
-     * For a scanned default role
-     */
-    public ComponentDescriptor(Class<?> componentClass)
-    {
-        this.componentClass = componentClass;
-    }
+	/**
+	 * For a scanned default role
+	 */
+	public ComponentDescriptor(Class<?> componentClass) {
+		this.componentClass = componentClass;
+	}
 
-    /**
-     * For built-ins with special rules
-     */
-    public ComponentDescriptor(Class<?> componentClass, Boolean installed)
-    {
-        this.componentClass = componentClass;
-        this.installed = installed;
+	/**
+	 * For built-ins with special rules
+	 */
+	public ComponentDescriptor(Class<?> componentClass, Boolean installed) {
+		this.componentClass = componentClass;
+		this.installed = installed;
 
-    }
+	}
 
-    public String getName()
-    {
-        return name == null ? Seam.getComponentName(componentClass) : name;
-    }
+	public String getName() {
+		return name == null ? Seam.getComponentName(componentClass) : name;
+	}
 
-    public ScopeType getScope()
-    {
-        return scope == null ? Seam.getComponentScope(componentClass) : scope;
-    }
+	public ScopeType getScope() {
+		return scope == null ? Seam.getComponentScope(componentClass) : scope;
+	}
 
-    public Class<?> getComponentClass()
-    {
-        return componentClass;
-    }
+	public Class<?> getComponentClass() {
+		return componentClass;
+	}
 
-    public String getJndiName()
-    {
-        return jndiName;
-    }
-    
-    public boolean isStartup()
-    {
-       return startup!=null ? startup : componentClass.isAnnotationPresent(Startup.class);
-    }
+	public String getJndiName() {
+		return jndiName;
+	}
 
-    public boolean isAutoCreate()
-    {
-        return autoCreate!=null ? autoCreate : isAutoCreateAnnotationPresent();
-    }
+	public boolean isStartup() {
+		return startup != null ? startup : componentClass.isAnnotationPresent(Startup.class);
+	}
 
-    private boolean isAutoCreateAnnotationPresent()
-    {
-        if (componentClass.isAnnotationPresent(AutoCreate.class)) {
-           return true;
-        }
-   
-        Package pkg = componentClass.getPackage();
-        return pkg!=null && pkg.isAnnotationPresent(AutoCreate.class);
-    }
+	public boolean isAutoCreate() {
+		return autoCreate != null ? autoCreate : isAutoCreateAnnotationPresent();
+	}
 
-    public String[] getStartupDependencies()
-    {
-        if (startupDepends != null && startupDepends.length > 0) {
-           return startupDepends;
-        }
-        Startup startup = componentClass.getAnnotation(Startup.class);
-        if (startup != null)
-        {
-            return startup.depends();
-        }
-        return new String[0];
-    }
+	private boolean isAutoCreateAnnotationPresent() {
+		if (componentClass.isAnnotationPresent(AutoCreate.class)) {
+			return true;
+		}
 
-   public String[] getDependencies()
-    {
-        Install install = componentClass.getAnnotation(Install.class);
-        if (install == null)
-        {
-            return null;
-        }
-        return install.dependencies();
-    }
+		Package pkg = componentClass.getPackage();
+		return pkg != null && pkg.isAnnotationPresent(AutoCreate.class);
+	}
 
-    public Class<?>[] getGenericDependencies()
-    {
-        
-        Install install = componentClass.getAnnotation(Install.class);
-        if (install == null)
-        {
-            return null;
-        }
-        return install.genericDependencies();
-    }
+	public String[] getStartupDependencies() {
+		if (startupDepends != null && startupDepends.length > 0) {
+			return startupDepends;
+		}
+		Startup startup = componentClass.getAnnotation(Startup.class);
+		if (startup != null) {
+			return startup.depends();
+		}
+		return new String[0];
+	}
 
-    public String[] getClassDependencies() 
-    {
-        Install install = componentClass.getAnnotation(Install.class);
-        if (install == null)
-        {
-            return null;
-        }
-        return install.classDependencies();  
-    }
+	public String[] getDependencies() {
+		Install install = componentClass.getAnnotation(Install.class);
+		if (install == null) {
+			return null;
+		}
+		return install.dependencies();
+	}
 
-    public boolean isInstalled()
-    {
-        if (installed != null)
-        {
-            return installed;
-        }
-        Install install = componentClass.getAnnotation(Install.class);
-        if (install == null)
-        {
-            return true;
-        }
-        return install.debug() ? Init.instance().isDebug() : install.value();
-    }
+	public Class<?>[] getGenericDependencies() {
 
-    public int getPrecedence()
-    {
-        if (precedence != null)
-        {
-            return precedence;
-        }
-        Install install = componentClass.getAnnotation(Install.class);
-        if (install == null)
-        {
-            return Install.APPLICATION;
-        }
-        return install.precedence();
-    }
+		Install install = componentClass.getAnnotation(Install.class);
+		if (install == null) {
+			return null;
+		}
+		return install.genericDependencies();
+	}
 
-    public int compareTo(ComponentDescriptor other)
-    {
-        return other.getPrecedence() - getPrecedence();
-    }
+	public String[] getClassDependencies() {
+		Install install = componentClass.getAnnotation(Install.class);
+		if (install == null) {
+			return null;
+		}
+		return install.classDependencies();
+	}
 
-    public boolean isFilter()
-    {
-        if (javax.servlet.Filter.class.isAssignableFrom(componentClass))
-        {
-           for (Class<?> clazz = componentClass; !Object.class.equals(clazz); clazz = clazz.getSuperclass())
-           {
-              if (clazz.isAnnotationPresent(org.jboss.seam.annotations.web.Filter.class))
-              {
-                 return true;
-              }
-           }
-        }
-        return false;
-    }
+	public boolean isInstalled() {
+		if (installed != null) {
+			return installed;
+		}
+		Install install = componentClass.getAnnotation(Install.class);
+		if (install == null) {
+			return true;
+		}
+		return install.debug() ? Init.instance().isDebug() : install.value();
+	}
 
-    public boolean isResourceProvider()
-    {
-        return AbstractResource.class.isAssignableFrom(componentClass);
-    }
-    
-    public boolean isPermissionResolver()
-    {
-       return PermissionResolver.class.isAssignableFrom(componentClass);
-    }
-    
-    @Override
-    public String toString()
-    {
-        return "ComponentDescriptor(" + getName() + ":" + getComponentClass() + ')';
-    }
-            
-    public static class PrecedenceComparator    
-         implements Comparator<ComponentDescriptor>
-    {               
-        public int compare(ComponentDescriptor obj1, ComponentDescriptor obj2) 
-        {        
-            return obj2.getPrecedence() - obj1.getPrecedence();
-        }
-    }
+	public int getPrecedence() {
+		if (precedence != null) {
+			return precedence;
+		}
+		Install install = componentClass.getAnnotation(Install.class);
+		if (install == null) {
+			return Install.APPLICATION;
+		}
+		return install.precedence();
+	}
+
+	public int compareTo(ComponentDescriptor other) {
+		return other.getPrecedence() - getPrecedence();
+	}
+
+	public boolean isFilter() {
+		if (javax.servlet.Filter.class.isAssignableFrom(componentClass)) {
+			for (Class<?> clazz = componentClass; !Object.class.equals(clazz); clazz = clazz.getSuperclass()) {
+				if (clazz.isAnnotationPresent(org.jboss.seam.annotations.web.Filter.class)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public boolean isResourceProvider() {
+		return AbstractResource.class.isAssignableFrom(componentClass);
+	}
+
+	public boolean isPermissionResolver() {
+		return PermissionResolver.class.isAssignableFrom(componentClass);
+	}
+
+	@Override
+	public String toString() {
+		return "ComponentDescriptor(" + getName() + ":" + getComponentClass() + ')';
+	}
+
+	public static class PrecedenceComparator implements Comparator<ComponentDescriptor> {
+		public int compare(ComponentDescriptor obj1, ComponentDescriptor obj2) {
+			return obj2.getPrecedence() - obj1.getPrecedence();
+		}
+	}
 }

@@ -28,13 +28,14 @@ import org.jboss.seam.log.Logging;
 @Name("org.jboss.seam.faces.httpError")
 @Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 public class HttpError {
-	
+
 	private static final LogProvider log = Logging.getLogProvider(HttpError.class);
+
 	/**
 	 * Send a HTTP error as the response
 	 */
 	public void send(int code) {
-		send(code, Integer.toString(code));		
+		send(code, Integer.toString(code));
 	}
 
 	/**
@@ -48,8 +49,7 @@ public class HttpError {
 				response.setContentType("text/plain; charset=" + StandardCharsets.UTF_8);
 				response.setStatus(code);
 				response.getOutputStream().write(message.getBytes(StandardCharsets.UTF_8));
-			}
-			else {
+			} else {
 				log.warn("Cannot send error because response is already commited");
 			}
 		} catch (Exception e) {

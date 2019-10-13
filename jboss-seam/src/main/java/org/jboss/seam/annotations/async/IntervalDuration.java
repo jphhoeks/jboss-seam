@@ -8,11 +8,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * The interval between occurrences of a repeating
- * asynchronous call.
+ * The interval between occurrences of a repeating asynchronous call.
  * 
- * This annotation occurs on a parameter of type long
- * or Long of a method marked @Asynchronous.
+ * This annotation occurs on a parameter of type long or Long of a method
+ * marked @Asynchronous.
  * 
  * @author Gavin King
  *
@@ -20,7 +19,6 @@ import java.lang.annotation.Target;
 @Target(PARAMETER)
 @Retention(RUNTIME)
 @Documented
-public @interface IntervalDuration
-{
+public @interface IntervalDuration {
 
 }

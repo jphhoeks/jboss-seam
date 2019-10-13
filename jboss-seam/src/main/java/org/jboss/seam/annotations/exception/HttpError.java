@@ -20,28 +20,28 @@ import javax.servlet.http.HttpServletResponse;
 @Retention(RUNTIME)
 @Documented
 @Inherited
-public @interface HttpError
-{
-   /**
-    * The message to be sent in the HTTP error, default
-    * to using the exception message.
-    * 
-    * @return a templated message
-    */
-   String message() default "";
-   
-   /**
-    * The HTTP error code, default to 500.
-    * 
-    * @return an error code
-    */
-   int errorCode() default HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
-   /**
-    * Should the current long-running conversation end
-    * when this exception occurs.
-    * 
-    * @return true if we should end the conversation
-    * @deprecated use @ApplicationException(end=true)
-    */
-   boolean end() default false;
+public @interface HttpError {
+	/**
+	* The message to be sent in the HTTP error, default
+	* to using the exception message.
+	* 
+	* @return a templated message
+	*/
+	String message() default "";
+
+	/**
+	* The HTTP error code, default to 500.
+	* 
+	* @return an error code
+	*/
+	int errorCode() default HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+
+	/**
+	* Should the current long-running conversation end
+	* when this exception occurs.
+	* 
+	* @return true if we should end the conversation
+	* @deprecated use @ApplicationException(end=true)
+	*/
+	boolean end() default false;
 }

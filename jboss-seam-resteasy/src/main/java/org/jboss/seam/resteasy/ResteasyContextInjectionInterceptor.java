@@ -36,32 +36,28 @@ import org.jboss.seam.intercept.InvocationContext;
  * @author Christian Bauer
  */
 @Interceptor(stateless = true)
-public class ResteasyContextInjectionInterceptor extends AbstractInterceptor
-{
+public class ResteasyContextInjectionInterceptor extends AbstractInterceptor {
 
-   private static final long serialVersionUID = 1L;
-public static final String RE_HTTP_REQUEST_VAR = "org.jboss.resteasy.spi.HttpRequest";
-   public static final String RE_HTTP_RESPONSE_VAR = "org.jboss.resteasy.spi.HttpResponse";
+	private static final long serialVersionUID = 1L;
+	public static final String RE_HTTP_REQUEST_VAR = "org.jboss.resteasy.spi.HttpRequest";
+	public static final String RE_HTTP_RESPONSE_VAR = "org.jboss.resteasy.spi.HttpResponse";
 
-   private final PropertyInjector propertyInjector;
+	private final PropertyInjector propertyInjector;
 
-   public ResteasyContextInjectionInterceptor(PropertyInjector propertyInjector)
-   {
-      this.propertyInjector = propertyInjector;
-   }
+	public ResteasyContextInjectionInterceptor(PropertyInjector propertyInjector) {
+		this.propertyInjector = propertyInjector;
+	}
 
-   public Object aroundInvoke(InvocationContext ic) throws Exception
-   {
-      HttpRequest request = (HttpRequest) Component.getInstance(RE_HTTP_REQUEST_VAR);
-      HttpResponse response = (HttpResponse) Component.getInstance(RE_HTTP_RESPONSE_VAR);
+	public Object aroundInvoke(InvocationContext ic) throws Exception {
+		HttpRequest request = (HttpRequest) Component.getInstance(RE_HTTP_REQUEST_VAR);
+		HttpResponse response = (HttpResponse) Component.getInstance(RE_HTTP_RESPONSE_VAR);
 
-      propertyInjector.inject(request, response, ic.getTarget());
+		propertyInjector.inject(request, response, ic.getTarget());
 
-      return ic.proceed();
-   }
+		return ic.proceed();
+	}
 
-   public boolean isInterceptorEnabled()
-   {
-      return true;
-   }
+	public boolean isInterceptorEnabled() {
+		return true;
+	}
 }

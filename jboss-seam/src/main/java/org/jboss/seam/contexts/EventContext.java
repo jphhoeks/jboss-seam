@@ -16,12 +16,10 @@ import org.jboss.seam.ScopeType;
  * 
  * @author Gavin King
  */
-public class EventContext extends BasicContext 
-{
-   
-   public EventContext(Map<String, Object> map)
-   {
-      super(ScopeType.EVENT, map);
-   }
-  
+public class EventContext extends BasicContext {
+
+	public EventContext(Map<String, Object> map) {
+		super(ScopeType.EVENT, map);
+	}
+
 }

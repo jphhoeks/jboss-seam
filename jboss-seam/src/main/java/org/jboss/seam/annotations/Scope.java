@@ -27,7 +27,5 @@ import org.jboss.seam.ScopeType;
 @Documented
 @Inherited
 public @interface Scope {
-   ScopeType value();
+	ScopeType value();
 }
-
-

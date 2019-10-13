@@ -13,242 +13,230 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 
 public class UIImage extends UIRectangle {
-    public static final String COMPONENT_TYPE = "org.jboss.seam.pdf.ui.UIImage";
+	public static final String COMPONENT_TYPE = "org.jboss.seam.pdf.ui.UIImage";
 
-    Image image;
+	Image image;
 
-    Object value;
-    float rotation;
-    float height;
-    float width;
-    String alignment;
-    String alt;    
+	Object value;
+	float rotation;
+	float height;
+	float width;
+	String alignment;
+	String alt;
 
-    Float indentationLeft;
-    Float indentationRight;
-    Float spacingBefore;
-    Float spacingAfter;
-    Float widthPercentage;
-    Float initialRotation;
-    String dpi;
-    String scalePercent;
-    String scaleToFit;
-    
-    Boolean wrap;
-    Boolean underlying;
+	Float indentationLeft;
+	Float indentationRight;
+	Float spacingBefore;
+	Float spacingAfter;
+	Float widthPercentage;
+	Float initialRotation;
+	String dpi;
+	String scalePercent;
+	String scaleToFit;
 
-    java.awt.Image imageData;
+	Boolean wrap;
+	Boolean underlying;
 
-    
+	java.awt.Image imageData;
 
-    public void setValue(Object value) {
-        this.value = value;
-    }
+	public void setValue(Object value) {
+		this.value = value;
+	}
 
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
+	public void setRotation(float rotation) {
+		this.rotation = rotation;
+	}
 
-    public void setHeight(float height) {
-        this.height = height;
-    }
+	public void setHeight(float height) {
+		this.height = height;
+	}
 
-    public void setWidth(float width) {
-        this.width = width;
-    }
+	public void setWidth(float width) {
+		this.width = width;
+	}
 
-    public void setAlignment(String alignment) {
-        this.alignment = alignment;
-    }
+	public void setAlignment(String alignment) {
+		this.alignment = alignment;
+	}
 
-    public void setAlt(String alt) {
-        this.alt = alt;
-    }
+	public void setAlt(String alt) {
+		this.alt = alt;
+	}
 
-    public void setWrap(Boolean wrap) {
-        this.wrap = wrap;
-    }
+	public void setWrap(Boolean wrap) {
+		this.wrap = wrap;
+	}
 
-    public void setUnderlying(Boolean underlying) {
-        this.underlying = underlying;
-    }
+	public void setUnderlying(Boolean underlying) {
+		this.underlying = underlying;
+	}
 
-    public void setDpi(String dpi) {
-        this.dpi = dpi;
-    }
+	public void setDpi(String dpi) {
+		this.dpi = dpi;
+	}
 
-    public void setIndentationLeft(Float indentationLeft) {
-        this.indentationLeft = indentationLeft;
-    }
+	public void setIndentationLeft(Float indentationLeft) {
+		this.indentationLeft = indentationLeft;
+	}
 
-    public void setIndentationRight(Float indentationRight) {
-        this.indentationRight = indentationRight;
-    }
+	public void setIndentationRight(Float indentationRight) {
+		this.indentationRight = indentationRight;
+	}
 
-    public void setInitialRotation(Float initialRotation) {
-        this.initialRotation = initialRotation;
-    }
+	public void setInitialRotation(Float initialRotation) {
+		this.initialRotation = initialRotation;
+	}
 
-    public void setSpacingAfter(Float spacingAfter) {
-        this.spacingAfter = spacingAfter;
-    }
+	public void setSpacingAfter(Float spacingAfter) {
+		this.spacingAfter = spacingAfter;
+	}
 
-    public void setSpacingBefore(Float spacingBefore) {
-        this.spacingBefore = spacingBefore;
-    }
+	public void setSpacingBefore(Float spacingBefore) {
+		this.spacingBefore = spacingBefore;
+	}
 
-    public void setWidthPercentage(Float widthPercentage) {
-        this.widthPercentage = widthPercentage;
-    }
+	public void setWidthPercentage(Float widthPercentage) {
+		this.widthPercentage = widthPercentage;
+	}
 
-    public void setScalePercent(String scalePercent) {
-        this.scalePercent = scalePercent;
-    }
-    
-    public void setScaleToFit(String scaleToFit) {
-        this.scaleToFit = scaleToFit;
-    }
-    
+	public void setScalePercent(String scalePercent) {
+		this.scalePercent = scalePercent;
+	}
 
-    @Override
-    public Object getITextObject() {
-        return image;
-    }
+	public void setScaleToFit(String scaleToFit) {
+		this.scaleToFit = scaleToFit;
+	}
 
-    @Override
-    public void removeITextObject() {
-        image = null;
-    }
+	@Override
+	public Object getITextObject() {
+		return image;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void createITextObject(FacesContext context) throws IOException,
-            DocumentException {
-        value = valueBinding(context, "value", value);
+	@Override
+	public void removeITextObject() {
+		image = null;
+	}
 
-        // instance() doesn't work here - we need a new instance
-        org.jboss.seam.ui.graphicImage.Image seamImage = new org.jboss.seam.ui.graphicImage.Image();
-        if (value instanceof BufferedImage) {
-            seamImage.setBufferedImage((BufferedImage) value);
-        } else {
-            seamImage.setInput(value);
-        }
+	@SuppressWarnings("unchecked")
+	@Override
+	public void createITextObject(FacesContext context) throws IOException, DocumentException {
+		value = valueBinding(context, "value", value);
 
-        for (UIComponent cmp : this.getChildren()) {
-            if (cmp instanceof ImageTransform) {
-                ImageTransform imageTransform = (ImageTransform) cmp;
-                imageTransform.applyTransform(seamImage);
-            }
-        }
+		// instance() doesn't work here - we need a new instance
+		org.jboss.seam.ui.graphicImage.Image seamImage = new org.jboss.seam.ui.graphicImage.Image();
+		if (value instanceof BufferedImage) {
+			seamImage.setBufferedImage((BufferedImage) value);
+		} else {
+			seamImage.setInput(value);
+		}
 
-        byte[] data = seamImage.getImage();
-        image = Image.getInstance(data);
+		for (UIComponent cmp : this.getChildren()) {
+			if (cmp instanceof ImageTransform) {
+				ImageTransform imageTransform = (ImageTransform) cmp;
+				imageTransform.applyTransform(seamImage);
+			}
+		}
 
-        rotation = (Float) valueBinding(context, "rotation", rotation);
-        if (rotation != 0) {
-            image.setRotationDegrees(rotation);
-        }
+		byte[] data = seamImage.getImage();
+		image = Image.getInstance(data);
 
-        height = (Float) valueBinding(context, "height", height);
-        width  = (Float) valueBinding(context, "width",  width);
-        if (height > 0 || width > 0) {
-            image.scaleAbsolute(width, height);
-        } 
-        
-        int alignmentValue = 0;
-        alignment = (String) valueBinding(context, "alignment", alignment);
-        if (alignment != null) {
-            alignmentValue = (ITextUtils.alignmentValue(alignment));
-        }
+		rotation = (Float) valueBinding(context, "rotation", rotation);
+		if (rotation != 0) {
+			image.setRotationDegrees(rotation);
+		}
 
-        wrap = (Boolean) valueBinding(context, "wrap", wrap);
-        if (wrap != null && wrap.booleanValue()) {
-            alignmentValue |= Image.TEXTWRAP;
-        }
+		height = (Float) valueBinding(context, "height", height);
+		width = (Float) valueBinding(context, "width", width);
+		if (height > 0 || width > 0) {
+			image.scaleAbsolute(width, height);
+		}
 
-        underlying = (Boolean) valueBinding(context, "underlying", underlying);
-        if (underlying != null && underlying.booleanValue()) {
-            alignmentValue |= Image.UNDERLYING;
-        }
+		int alignmentValue = 0;
+		alignment = (String) valueBinding(context, "alignment", alignment);
+		if (alignment != null) {
+			alignmentValue = (ITextUtils.alignmentValue(alignment));
+		}
 
-        image.setAlignment(alignmentValue);
+		wrap = (Boolean) valueBinding(context, "wrap", wrap);
+		if (wrap != null && wrap.booleanValue()) {
+			alignmentValue |= Image.TEXTWRAP;
+		}
 
-        alt = (String) valueBinding(context, "alt", alt);
-        if (alt != null) {
-            image.setAlt(alt);
-        }
+		underlying = (Boolean) valueBinding(context, "underlying", underlying);
+		if (underlying != null && underlying.booleanValue()) {
+			alignmentValue |= Image.UNDERLYING;
+		}
 
-        indentationLeft = (Float) valueBinding(context, "indentationLeft",
-                indentationLeft);
-        if (indentationLeft != null) {
-            image.setIndentationLeft(indentationLeft);
-        }
+		image.setAlignment(alignmentValue);
 
-        indentationRight = (Float) valueBinding(context, "indentationRight",
-                indentationRight);
-        if (indentationRight != null) {
-            image.setIndentationRight(indentationRight);
-        }
+		alt = (String) valueBinding(context, "alt", alt);
+		if (alt != null) {
+			image.setAlt(alt);
+		}
 
-        spacingBefore = (Float) valueBinding(context, "spacingBefore",
-                spacingBefore);
-        if (spacingBefore != null) {
-            image.setSpacingBefore(spacingBefore);
-        }
+		indentationLeft = (Float) valueBinding(context, "indentationLeft", indentationLeft);
+		if (indentationLeft != null) {
+			image.setIndentationLeft(indentationLeft);
+		}
 
-        spacingAfter = (Float) valueBinding(context, "spacingAfter",
-                spacingAfter);
-        if (spacingAfter != null) {
-            image.setSpacingAfter(spacingAfter);
-        }
-        widthPercentage = (Float) valueBinding(context, "widthPercentage",
-                widthPercentage);
-        if (widthPercentage != null) {
-            image.setWidthPercentage(widthPercentage);
-        }
+		indentationRight = (Float) valueBinding(context, "indentationRight", indentationRight);
+		if (indentationRight != null) {
+			image.setIndentationRight(indentationRight);
+		}
 
-        initialRotation = (Float) valueBinding(context, "initialRotation",
-                initialRotation);
-        if (initialRotation != null) {
-            image.setInitialRotation(initialRotation);
-        }
+		spacingBefore = (Float) valueBinding(context, "spacingBefore", spacingBefore);
+		if (spacingBefore != null) {
+			image.setSpacingBefore(spacingBefore);
+		}
 
-        dpi = (String) valueBinding(context, "dpi", dpi);
-        if (dpi != null) {
-            int[] dpiValues = ITextUtils.stringToIntArray(dpi);
-            image.setDpi(dpiValues[0], dpiValues[1]);
-        }
+		spacingAfter = (Float) valueBinding(context, "spacingAfter", spacingAfter);
+		if (spacingAfter != null) {
+			image.setSpacingAfter(spacingAfter);
+		}
+		widthPercentage = (Float) valueBinding(context, "widthPercentage", widthPercentage);
+		if (widthPercentage != null) {
+			image.setWidthPercentage(widthPercentage);
+		}
 
-        applyRectangleProperties(context, image);
+		initialRotation = (Float) valueBinding(context, "initialRotation", initialRotation);
+		if (initialRotation != null) {
+			image.setInitialRotation(initialRotation);
+		}
 
-        scaleToFit = (String) valueBinding(context, "scaleToFit", scaleToFit);        
-        if (scaleToFit != null) {
-            float[] scale = ITextUtils.stringToFloatArray(scaleToFit);
-            if (scale.length == 2) {
-                image.scaleToFit(scale[0],scale[1]);
-            } else {
-                throw new RuntimeException("scaleToFit must contain two dimensions");
-            }
-        }
-        
-        scalePercent = (String) valueBinding(context, "scalePercent", scalePercent);
-        if (scalePercent != null) {
-            float[] scale = ITextUtils.stringToFloatArray(scalePercent);
-            if (scale.length == 1) {
-                image.scalePercent(scale[0]);
-            } else if (scale.length == 2) {
-                image.scalePercent(scale[0], scale[1]);
-            } else {
-                throw new RuntimeException(
-                        "scalePercent must contain one or two scale percentages");
-            }
-        }
-    }
+		dpi = (String) valueBinding(context, "dpi", dpi);
+		if (dpi != null) {
+			int[] dpiValues = ITextUtils.stringToIntArray(dpi);
+			image.setDpi(dpiValues[0], dpiValues[1]);
+		}
 
-    @Override
-    public void handleAdd(Object o) {
-        throw new RuntimeException("can't add " + o.getClass().getName()
-                + " to image");
-    }
+		applyRectangleProperties(context, image);
+
+		scaleToFit = (String) valueBinding(context, "scaleToFit", scaleToFit);
+		if (scaleToFit != null) {
+			float[] scale = ITextUtils.stringToFloatArray(scaleToFit);
+			if (scale.length == 2) {
+				image.scaleToFit(scale[0], scale[1]);
+			} else {
+				throw new RuntimeException("scaleToFit must contain two dimensions");
+			}
+		}
+
+		scalePercent = (String) valueBinding(context, "scalePercent", scalePercent);
+		if (scalePercent != null) {
+			float[] scale = ITextUtils.stringToFloatArray(scalePercent);
+			if (scale.length == 1) {
+				image.scalePercent(scale[0]);
+			} else if (scale.length == 2) {
+				image.scalePercent(scale[0], scale[1]);
+			} else {
+				throw new RuntimeException("scalePercent must contain one or two scale percentages");
+			}
+		}
+	}
+
+	@Override
+	public void handleAdd(Object o) {
+		throw new RuntimeException("can't add " + o.getClass().getName() + " to image");
+	}
 
 }

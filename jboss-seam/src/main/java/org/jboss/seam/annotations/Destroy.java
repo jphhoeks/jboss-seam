@@ -10,11 +10,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Alternative to javax.annotations.PreDestroy
- * for use in a pre Java EE 5 environment.
+ * Alternative to javax.annotations.PreDestroy for use in a pre Java EE 5
+ * environment.
  * 
- * Designates a destroy method that is called when a
- * context ends and the component is being disposed.
+ * Designates a destroy method that is called when a context ends and the
+ * component is being disposed.
  * 
  * @author Gavin King
  */
@@ -22,4 +22,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Documented
 @Inherited
-public @interface Destroy {}
+public @interface Destroy {
+}

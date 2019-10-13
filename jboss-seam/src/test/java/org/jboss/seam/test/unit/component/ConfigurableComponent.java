@@ -6,13 +6,13 @@ import org.jboss.seam.annotations.Name;
 @Name("configurableComponent")
 @Install(false)
 public class ConfigurableComponent {
-    private PrimaryColor primaryColor;
+	private PrimaryColor primaryColor;
 
-    public PrimaryColor getPrimaryColor() {
-        return primaryColor;
-    }
+	public PrimaryColor getPrimaryColor() {
+		return primaryColor;
+	}
 
-    public void setPrimaryColor( PrimaryColor primaryColor ) {
-        this.primaryColor = primaryColor;
-    }
+	public void setPrimaryColor(PrimaryColor primaryColor) {
+		this.primaryColor = primaryColor;
+	}
 }

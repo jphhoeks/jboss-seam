@@ -33,193 +33,154 @@ import org.jboss.seam.web.AbstractResource;
 @Name("org.jboss.seam.remoting.remoting")
 @Install(precedence = BUILT_IN)
 @BypassInterceptors
-public class Remoting extends AbstractResource
-{   
-   public static final int DEFAULT_POLL_TIMEOUT = 10; // 10 seconds
-   public static final int DEFAULT_POLL_INTERVAL = 1; // 1 second
+public class Remoting extends AbstractResource {
+	public static final int DEFAULT_POLL_TIMEOUT = 10; // 10 seconds
+	public static final int DEFAULT_POLL_INTERVAL = 1; // 1 second
 
-   private int pollTimeout = DEFAULT_POLL_TIMEOUT;
-   
-   private int pollInterval = DEFAULT_POLL_INTERVAL;
-   
-   private boolean debug = false;   
-   
-   /**
-    * We use a Map for this because a Servlet can serve requests for more than
-    * one context path.
-    */
-   private Map<String, byte[]> cachedConfig = new HashMap<String, byte[]>();
-   
-   private static final LogProvider log = Logging.getLogProvider(Remoting.class);
+	private int pollTimeout = DEFAULT_POLL_TIMEOUT;
 
-   private static final Pattern pathPattern = Pattern.compile("/(.*?)/([^/]+)");
+	private int pollInterval = DEFAULT_POLL_INTERVAL;
 
-   private static final String REMOTING_RESOURCE_PATH = "resource";   
-   
-   @Override
-   public String getResourcePath()
-   {
-      return "/remoting";
-   }
-   
-   private synchronized void initConfig(String contextPath, HttpServletRequest request)
-   {
-      if (!cachedConfig.containsKey(contextPath))
-      {
-         try
-         {
-            ServletLifecycle.beginRequest(request,getServletContext());
+	private boolean debug = false;
 
-            StringBuilder sb = new StringBuilder();
-            sb.append("\nSeam.Remoting.resourcePath = \"");
-            sb.append(contextPath);
-            sb.append(request.getServletPath());
-            sb.append(getResourcePath());
-            sb.append("\";");
-            sb.append("\nSeam.Remoting.debug = ");
-            sb.append(getDebug() ? "true" : "false");
-            sb.append(";");
-            sb.append("\nSeam.Remoting.pollInterval = ");
-            sb.append(getPollInterval());
-            sb.append(";");
-            sb.append("\nSeam.Remoting.pollTimeout = ");
-            sb.append(getPollTimeout());
-            sb.append(";");
+	/**
+	* We use a Map for this because a Servlet can serve requests for more than
+	* one context path.
+	*/
+	private Map<String, byte[]> cachedConfig = new HashMap<String, byte[]>();
 
-            cachedConfig.put(contextPath, sb.toString().getBytes());
-         }
-         finally
-         {
-            ServletLifecycle.endRequest(request);
-         }
-      }
-   }   
-   
-   @Override
-   public void getResource(HttpServletRequest request, HttpServletResponse response)
-       throws IOException
-   {
-      try
-      {         
-         String pathInfo = request.getPathInfo().substring(getResourcePath().length());      
-         
-         RequestHandler handler = RequestHandlerFactory.getInstance()
-               .getRequestHandler(pathInfo);
-         if (handler != null)
-         {
-            handler.setServletContext(getServletContext());
-            handler.handle(request, response);
-         }
-         else
-         {
-            Matcher m = pathPattern.matcher(pathInfo);
-            if (m.matches())
-            {
-               String path = m.group(1);
-               String resource = m.group(2);
+	private static final LogProvider log = Logging.getLogProvider(Remoting.class);
 
-               if (REMOTING_RESOURCE_PATH.equals(path))
-               {
-                  writeResource(resource, response);
-                  if ("remote.js".equals(resource))
-                  {
-                     appendConfig(response.getOutputStream(), request
-                           .getContextPath(), request);
-                  }
-               }
-               response.getOutputStream().flush();               
-            }
-         }
-      }
-      catch (Exception ex)
-      {
-         log.error("Error", ex);
-      }      
-   }
+	private static final Pattern pathPattern = Pattern.compile("/(.*?)/([^/]+)");
 
-   /**
-    * Appends various configuration options to the remoting javascript client
-    * api.
-    * 
-    * @param out OutputStream
-    */
-   private void appendConfig(OutputStream out, String contextPath,
-         HttpServletRequest request) throws IOException
-   {
-      if (!cachedConfig.containsKey(contextPath))
-      {
-         initConfig(contextPath, request);
-      }
+	private static final String REMOTING_RESOURCE_PATH = "resource";
 
-      out.write(cachedConfig.get(contextPath));
-   }   
+	@Override
+	public String getResourcePath() {
+		return "/remoting";
+	}
 
-   /**
-    * 
-    * @param resourceName String
-    * @param out OutputStream
-    */
-   private void writeResource(String resourceName, HttpServletResponse response)
-         throws IOException
-   {
-      // Only allow resource requests for .js files
-      if (resourceName.endsWith(".js"))
-      {                  
-         InputStream in = this.getClass().getClassLoader().getResourceAsStream(
-               "org/jboss/seam/remoting/" + resourceName);
-         try
-         {
-            if (in != null)
-            {
-               response.setContentType("text/javascript");
-               
-               byte[] buffer = new byte[1024];
-               int read = in.read(buffer);
-               while (read != -1)
-               {
-                  response.getOutputStream().write(buffer, 0, read);
-                  read = in.read(buffer);
-               }
-            }
-            else
-            {
-               log.error(String.format("Resource [%s] not found.", resourceName));
-            }
-         }
-         finally
-         {
-            if (in != null) in.close();
-         }
-      }
-   }   
-   
-   public int getPollTimeout()
-   {
-     return pollTimeout;
-   }
+	private synchronized void initConfig(String contextPath, HttpServletRequest request) {
+		if (!cachedConfig.containsKey(contextPath)) {
+			try {
+				ServletLifecycle.beginRequest(request, getServletContext());
 
-   public void setPollTimeout(int pollTimeout)
-   {
-     this.pollTimeout = pollTimeout;
-   }
+				StringBuilder sb = new StringBuilder();
+				sb.append("\nSeam.Remoting.resourcePath = \"");
+				sb.append(contextPath);
+				sb.append(request.getServletPath());
+				sb.append(getResourcePath());
+				sb.append("\";");
+				sb.append("\nSeam.Remoting.debug = ");
+				sb.append(getDebug() ? "true" : "false");
+				sb.append(";");
+				sb.append("\nSeam.Remoting.pollInterval = ");
+				sb.append(getPollInterval());
+				sb.append(";");
+				sb.append("\nSeam.Remoting.pollTimeout = ");
+				sb.append(getPollTimeout());
+				sb.append(";");
 
-   public int getPollInterval()
-   {
-     return pollInterval;
-   }
+				cachedConfig.put(contextPath, sb.toString().getBytes());
+			} finally {
+				ServletLifecycle.endRequest(request);
+			}
+		}
+	}
 
-   public void setPollInterval(int pollInterval)
-   {
-     this.pollInterval = pollInterval;
-   }
+	@Override
+	public void getResource(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		try {
+			String pathInfo = request.getPathInfo().substring(getResourcePath().length());
 
-   public boolean getDebug()
-   {
-     return debug;
-   }
+			RequestHandler handler = RequestHandlerFactory.getInstance().getRequestHandler(pathInfo);
+			if (handler != null) {
+				handler.setServletContext(getServletContext());
+				handler.handle(request, response);
+			} else {
+				Matcher m = pathPattern.matcher(pathInfo);
+				if (m.matches()) {
+					String path = m.group(1);
+					String resource = m.group(2);
 
-   public void setDebug(boolean debug)
-   {
-     this.debug = debug;
-   }   
+					if (REMOTING_RESOURCE_PATH.equals(path)) {
+						writeResource(resource, response);
+						if ("remote.js".equals(resource)) {
+							appendConfig(response.getOutputStream(), request.getContextPath(), request);
+						}
+					}
+					response.getOutputStream().flush();
+				}
+			}
+		} catch (Exception ex) {
+			log.error("Error", ex);
+		}
+	}
+
+	/**
+	* Appends various configuration options to the remoting javascript client
+	* api.
+	* 
+	* @param out OutputStream
+	*/
+	private void appendConfig(OutputStream out, String contextPath, HttpServletRequest request) throws IOException {
+		if (!cachedConfig.containsKey(contextPath)) {
+			initConfig(contextPath, request);
+		}
+
+		out.write(cachedConfig.get(contextPath));
+	}
+
+	/**
+	* 
+	* @param resourceName String
+	* @param out OutputStream
+	*/
+	private void writeResource(String resourceName, HttpServletResponse response) throws IOException {
+		// Only allow resource requests for .js files
+		if (resourceName.endsWith(".js")) {
+			InputStream in = this.getClass().getClassLoader().getResourceAsStream("org/jboss/seam/remoting/" + resourceName);
+			try {
+				if (in != null) {
+					response.setContentType("text/javascript");
+
+					byte[] buffer = new byte[1024];
+					int read = in.read(buffer);
+					while (read != -1) {
+						response.getOutputStream().write(buffer, 0, read);
+						read = in.read(buffer);
+					}
+				} else {
+					log.error(String.format("Resource [%s] not found.", resourceName));
+				}
+			} finally {
+				if (in != null)
+					in.close();
+			}
+		}
+	}
+
+	public int getPollTimeout() {
+		return pollTimeout;
+	}
+
+	public void setPollTimeout(int pollTimeout) {
+		this.pollTimeout = pollTimeout;
+	}
+
+	public int getPollInterval() {
+		return pollInterval;
+	}
+
+	public void setPollInterval(int pollInterval) {
+		this.pollInterval = pollInterval;
+	}
+
+	public boolean getDebug() {
+		return debug;
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 }

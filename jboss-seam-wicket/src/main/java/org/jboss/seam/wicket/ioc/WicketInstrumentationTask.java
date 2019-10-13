@@ -11,87 +11,71 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 
-public class WicketInstrumentationTask extends Task
-{
-   Path buildPath;
+public class WicketInstrumentationTask extends Task {
+	Path buildPath;
 
-   public Path getBuildPath()
-   {
-      return buildPath;
-   }
+	public Path getBuildPath() {
+		return buildPath;
+	}
 
-   public void setBuildPath(Path buildPath)
-   {
-      this.buildPath = buildPath;
-   }
+	public void setBuildPath(Path buildPath) {
+		this.buildPath = buildPath;
+	}
 
-   public void addClasspath(Path path)
-   {
-      buildPath = path;
-   }
+	public void addClasspath(Path path) {
+		buildPath = path;
+	}
 
-   private File outputDirectory;
+	private File outputDirectory;
 
-   public File getOutputDirectory()
-   {
-      return outputDirectory;
-   }
+	public File getOutputDirectory() {
+		return outputDirectory;
+	}
 
-   public void setOutputDirectory(File outputDirectory)
-   {
-      this.outputDirectory = outputDirectory;
-   }
+	public void setOutputDirectory(File outputDirectory) {
+		this.outputDirectory = outputDirectory;
+	}
 
-   private FileSet fileset;
+	private FileSet fileset;
 
-   public void addFileset(FileSet fileset)
-   {
-      this.fileset = fileset;
-   }
-   
-   private boolean useAnnotations = false;
+	public void addFileset(FileSet fileset) {
+		this.fileset = fileset;
+	}
 
-   public boolean isUseAnnotations()
-   {
-      return useAnnotations;
-   }
+	private boolean useAnnotations = false;
 
-   public void setUseAnnotations(boolean useAnnotations)
-   {
-      this.useAnnotations = useAnnotations;
-   }
+	public boolean isUseAnnotations() {
+		return useAnnotations;
+	}
 
-   @Override
-   public void execute()
-   {
-      try
-      {
+	public void setUseAnnotations(boolean useAnnotations) {
+		this.useAnnotations = useAnnotations;
+	}
 
-         ClassPool classPool = new ClassPool();
-         classPool.insertClassPath(new LoaderClassPath(getProject().createClassLoader(buildPath)));
-         
-         //List<CtClass> instrumentedClasses = new ArrayList<CtClass>();
+	@Override
+	public void execute() {
+		try {
 
-         JavassistInstrumentor instrumentor = new JavassistInstrumentor(classPool,useAnnotations);
+			ClassPool classPool = new ClassPool();
+			classPool.insertClassPath(new LoaderClassPath(getProject().createClassLoader(buildPath)));
 
-         Set<String> toInstrument = new HashSet<String>();
-         for (String file : fileset.getDirectoryScanner(getProject()).getIncludedFiles())
-         {
-            if (file.endsWith(".class"))
-            {
-               toInstrument.add(filenameToClassname(file));
-            }
-         }
-         instrumentor.instrumentClassSet(toInstrument,outputDirectory.getPath());
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException(e);
-      }
-   }
+			//List<CtClass> instrumentedClasses = new ArrayList<CtClass>();
 
-   protected static String filenameToClassname(String filename)
-   {
-      return filename.substring(0, filename.lastIndexOf(".class")).replace('/', '.').replace('\\', '.');
-   }
+			JavassistInstrumentor instrumentor = new JavassistInstrumentor(classPool, useAnnotations);
+
+			Set<String> toInstrument = new HashSet<String>();
+			for (String file : fileset.getDirectoryScanner(getProject()).getIncludedFiles()) {
+				if (file.endsWith(".class")) {
+					toInstrument.add(filenameToClassname(file));
+				}
+			}
+			instrumentor.instrumentClassSet(toInstrument, outputDirectory.getPath());
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected static String filenameToClassname(String filename) {
+		return filename.substring(0, filename.lastIndexOf(".class")).replace('/', '.').replace('\\', '.');
+	}
 }

@@ -12,12 +12,11 @@ import java.io.Serializable;
  * @author Gavin King
  *
  */
-public interface Mutable extends Serializable
-{
-   /**
-    * Get and clear the dirty flag.
-    * 
-    * @return true if the instance is dirty and requires replication
-    */
-   public boolean clearDirty();
+public interface Mutable extends Serializable {
+	/**
+	* Get and clear the dirty flag.
+	* 
+	* @return true if the instance is dirty and requires replication
+	*/
+	public boolean clearDirty();
 }

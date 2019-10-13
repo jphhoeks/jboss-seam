@@ -33,132 +33,98 @@ import org.jboss.seam.framework.Home;
  * @see org.jboss.seam.framework.EntityHome
  * @see org.jboss.seam.framework.HibernateEntityHome
  */
-public class EntityHomeWrapper<T>
-{
-   private Home<?, T> home = null;
-   private boolean hibernate;
+public class EntityHomeWrapper<T> {
+	private Home<?, T> home = null;
+	private boolean hibernate;
 
-   /**
-    * EntityHome or HibernateEntityHome instance is expected.
-    */
-   public EntityHomeWrapper(Home<?, T> entityHome)
-   {
-      if (entityHome instanceof EntityHome)
-      {
-         hibernate = false;
-      }
-      else if (entityHome instanceof HibernateEntityHome)
-      {
-         hibernate = true;
-      }
-      else
-      {
-         throw new IllegalArgumentException("You must use either EntityHome or HibernateEntityHome instance.");
-      }
-      this.home = entityHome;
-   }
+	/**
+	* EntityHome or HibernateEntityHome instance is expected.
+	*/
+	public EntityHomeWrapper(Home<?, T> entityHome) {
+		if (entityHome instanceof EntityHome) {
+			hibernate = false;
+		} else if (entityHome instanceof HibernateEntityHome) {
+			hibernate = true;
+		} else {
+			throw new IllegalArgumentException("You must use either EntityHome or HibernateEntityHome instance.");
+		}
+		this.home = entityHome;
+	}
 
-   public Object getId()
-   {
-      return home.getId();
-   }
+	public Object getId() {
+		return home.getId();
+	}
 
-   public void setId(Object id)
-   {
-      home.setId(id);
-   }
+	public void setId(Object id) {
+		home.setId(id);
+	}
 
-   public T getInstance()
-   {
-      return home.getInstance();
-   }
+	public T getInstance() {
+		return home.getInstance();
+	}
 
-   public void setInstance(T instance)
-   {
-      home.setInstance(instance);
-   }
+	public void setInstance(T instance) {
+		home.setInstance(instance);
+	}
 
-   public T find()
-   {
-      if (hibernate)
-      {
-         return getHibernateEntityHome().find();
-      }
-      else
-      {
-         return getEntityHome().find();
-      }
-   }
+	public T find() {
+		if (hibernate) {
+			return getHibernateEntityHome().find();
+		} else {
+			return getEntityHome().find();
+		}
+	}
 
-   public void persist()
-   {
-      if (hibernate)
-      {
-         getHibernateEntityHome().persist();
-      }
-      else
-      {
-         getEntityHome().persist();
-      }
-   }
+	public void persist() {
+		if (hibernate) {
+			getHibernateEntityHome().persist();
+		} else {
+			getEntityHome().persist();
+		}
+	}
 
-   public void remove()
-   {
-      if (hibernate)
-      {
-         getHibernateEntityHome().remove();
-      }
-      else
-      {
-         getEntityHome().remove();
-      }
-   }
+	public void remove() {
+		if (hibernate) {
+			getHibernateEntityHome().remove();
+		} else {
+			getEntityHome().remove();
+		}
+	}
 
-   /**
-    * Merge the state of the given entity with the current persistence context.
-    */
-   public void merge(T object)
-   {
-      if (hibernate)
-      {
-         getHibernateEntityHome().getSession().merge(object);
-         getHibernateEntityHome().update();
-      }
-      else
-      {
-         getEntityHome().getEntityManager().merge(object);
-         getEntityHome().update();
-      }
-   }
+	/**
+	* Merge the state of the given entity with the current persistence context.
+	*/
+	public void merge(T object) {
+		if (hibernate) {
+			getHibernateEntityHome().getSession().merge(object);
+			getHibernateEntityHome().update();
+		} else {
+			getEntityHome().getEntityManager().merge(object);
+			getEntityHome().update();
+		}
+	}
 
-   public Class<T> getEntityClass()
-   {
-      return home.getEntityClass();
-   }
+	public Class<T> getEntityClass() {
+		return home.getEntityClass();
+	}
 
-   private EntityHome<T> getEntityHome()
-   {
-      return (EntityHome<T>) home;
-   }
+	private EntityHome<T> getEntityHome() {
+		return (EntityHome<T>) home;
+	}
 
-   private HibernateEntityHome<T> getHibernateEntityHome()
-   {
-      return (HibernateEntityHome<T>) home;
-   }
+	private HibernateEntityHome<T> getHibernateEntityHome() {
+		return (HibernateEntityHome<T>) home;
+	}
 
-   /**
-    * Return the underlying EntityHome or HibernateEntityHome instance.
-    */
-   public Home<?, T> unwrap()
-   {
-      if (hibernate)
-      {
-         return getHibernateEntityHome();
-      }
-      else
-      {
-         return getEntityHome();
-      }
-   }
+	/**
+	* Return the underlying EntityHome or HibernateEntityHome instance.
+	*/
+	public Home<?, T> unwrap() {
+		if (hibernate) {
+			return getHibernateEntityHome();
+		} else {
+			return getEntityHome();
+		}
+	}
 
 }

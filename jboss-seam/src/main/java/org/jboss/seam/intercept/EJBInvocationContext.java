@@ -11,58 +11,48 @@ import java.util.Map;
  * @author Gavin King
  *
  */
-class EJBInvocationContext implements InvocationContext, javax.interceptor.InvocationContext
-{
-   private javax.interceptor.InvocationContext context;
+class EJBInvocationContext implements InvocationContext, javax.interceptor.InvocationContext {
+	private javax.interceptor.InvocationContext context;
 
-   public EJBInvocationContext(javax.interceptor.InvocationContext context)
-   {
-      this.context = context;
-   }
+	public EJBInvocationContext(javax.interceptor.InvocationContext context) {
+		this.context = context;
+	}
 
-   public Map getContextData()
-   {
-      return context.getContextData();
-   }
+	public Map getContextData() {
+		return context.getContextData();
+	}
 
-   public Method getMethod()
-   {
-      return context.getMethod();
-   }
+	public Method getMethod() {
+		return context.getMethod();
+	}
 
-   public Object[] getParameters()
-   {
-      return context.getParameters();
-   }
+	public Object[] getParameters() {
+		return context.getParameters();
+	}
 
-   public Object getTarget()
-   {
-      return context.getTarget();
-   }
+	public Object getTarget() {
+		return context.getTarget();
+	}
 
-   public Object proceed() throws Exception
-   {
-      return context.proceed();
-   }
+	public Object proceed() throws Exception {
+		return context.proceed();
+	}
 
-   public void setParameters(Object[] params)
-   {
-      context.setParameters(params);
-   }
+	public void setParameters(Object[] params) {
+		context.setParameters(params);
+	}
 
-   @Override
-   public Object getTimer()
-   {
-      return context.getTimer();
-   }
+	@Override
+	public Object getTimer() {
+		return context.getTimer();
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Constructor<?> getConstructor()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Constructor<?> getConstructor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

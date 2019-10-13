@@ -29,206 +29,180 @@ import org.jboss.seam.util.XML;
  *
  * @author Shane Bryzak
  */
-public class ExecutionHandler extends BaseRequestHandler implements RequestHandler
-{
-   private static final LogProvider log = Logging.getLogProvider(ExecutionHandler.class);
+public class ExecutionHandler extends BaseRequestHandler implements RequestHandler {
+	private static final LogProvider log = Logging.getLogProvider(ExecutionHandler.class);
 
-  private static final byte[] HEADER_OPEN = "<header>".getBytes();
-  private static final byte[] HEADER_CLOSE = "</header>".getBytes();
-  private static final byte[] CONVERSATION_ID_TAG_OPEN = "<conversationId>".getBytes();
-  private static final byte[] CONVERSATION_ID_TAG_CLOSE = "</conversationId>".getBytes();
+	private static final byte[] HEADER_OPEN = "<header>".getBytes();
+	private static final byte[] HEADER_CLOSE = "</header>".getBytes();
+	private static final byte[] CONVERSATION_ID_TAG_OPEN = "<conversationId>".getBytes();
+	private static final byte[] CONVERSATION_ID_TAG_CLOSE = "</conversationId>".getBytes();
 
-  private static final byte[] CONTEXT_TAG_OPEN = "<context>".getBytes();
-  private static final byte[] CONTEXT_TAG_CLOSE = "</context>".getBytes();
+	private static final byte[] CONTEXT_TAG_OPEN = "<context>".getBytes();
+	private static final byte[] CONTEXT_TAG_CLOSE = "</context>".getBytes();
 
-  /**
-   * The entry point for handling a request.
-   *
-   * @param request HttpServletRequest
-   * @param response HttpServletResponse
-   * @throws Exception
-   */
-  public void handle(HttpServletRequest request, final HttpServletResponse response)
-      throws Exception
-  {
-      // We're sending an XML response, so set the response content type to text/xml
-      response.setContentType("text/xml");
-      
-      ByteArrayOutputStream out = new ByteArrayOutputStream();
-      
-      byte[] buffer = new byte[256];
-      int read = request.getInputStream().read(buffer);
-      while (read != -1)
-      {
-         out.write(buffer, 0, read);
-         read = request.getInputStream().read(buffer);
-      }
-      
-      String requestData = new String(out.toByteArray());
-      log.debug("Processing remote request: " + requestData);
-      
-      // Parse the incoming request as XML
-      SAXReader xmlReader = XML.getSafeSaxReader();
-      Document doc = xmlReader.read( new StringReader(requestData) );
-      final Element env = doc.getRootElement();
-      final RequestContext ctx = unmarshalContext(env);
+	/**
+	 * The entry point for handling a request.
+	 *
+	 * @param request HttpServletRequest
+	 * @param response HttpServletResponse
+	 * @throws Exception
+	 */
+	public void handle(HttpServletRequest request, final HttpServletResponse response) throws Exception {
+		// We're sending an XML response, so set the response content type to text/xml
+		response.setContentType("text/xml");
 
-      // TODO - we really want to extract the page context from our request
-      RemotingLifecycle.restorePageContext();
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-      new ContextualHttpServletRequest(request)
-      {
-         @Override
-         public void process() throws Exception
-         {
-            // Extract the calls from the request            
-            List<Call> calls = unmarshalCalls(env);
+		byte[] buffer = new byte[256];
+		int read = request.getInputStream().read(buffer);
+		while (read != -1) {
+			out.write(buffer, 0, read);
+			read = request.getInputStream().read(buffer);
+		}
 
-            // Execute each of the calls
-            for (Call call : calls) 
-            {
-               call.execute();
-            }               
+		String requestData = new String(out.toByteArray());
+		log.debug("Processing remote request: " + requestData);
 
-            // Store the conversation ID in the outgoing context
-            ctx.setConversationId( Manager.instance().getCurrentConversationId() );               
-            
-            // Package up the response
-            marshalResponse(calls, ctx, response.getOutputStream());               
-         }
-         
-         @Override
-         protected void restoreConversationId()
-         {
-            ConversationPropagation.instance().setConversationId( ctx.getConversationId() );
-         }
-         
-         @Override
-         protected void handleConversationPropagation() {}
-         
-      }.run();
-      
-  }
+		// Parse the incoming request as XML
+		SAXReader xmlReader = XML.getSafeSaxReader();
+		Document doc = xmlReader.read(new StringReader(requestData));
+		final Element env = doc.getRootElement();
+		final RequestContext ctx = unmarshalContext(env);
 
-  /**
-   * Unmarshals the context from the request envelope header.
-   *
-   * @param env Element
-   * @return RequestContext
-   */
-  private RequestContext unmarshalContext(Element env)
-  {
-    RequestContext ctx = new RequestContext();
+		// TODO - we really want to extract the page context from our request
+		RemotingLifecycle.restorePageContext();
 
-    Element header = env.element("header");
-    if (header != null)
-    {
-      Element context = header.element("context");
-      if (context != null)
-      {
+		new ContextualHttpServletRequest(request) {
+			@Override
+			public void process() throws Exception {
+				// Extract the calls from the request            
+				List<Call> calls = unmarshalCalls(env);
 
-        Element convId = context.element("conversationId");
-        if (convId != null)
-        {
-          ctx.setConversationId(convId.getText());
-        }
-      }
-    }
+				// Execute each of the calls
+				for (Call call : calls) {
+					call.execute();
+				}
 
-    return ctx;
-  }
+				// Store the conversation ID in the outgoing context
+				ctx.setConversationId(Manager.instance().getCurrentConversationId());
 
-  /**
-   * Unmarshal the request into a list of Calls.
-   *
-   * @param env Element
-   * @throws Exception
-   */
-  private List<Call> unmarshalCalls(Element env) throws Exception
-  {
-    try 
-    {
-      List<Call> calls = new ArrayList<Call>();
+				// Package up the response
+				marshalResponse(calls, ctx, response.getOutputStream());
+			}
 
-      List<Element> callElements = env.element("body").elements("call");
+			@Override
+			protected void restoreConversationId() {
+				ConversationPropagation.instance().setConversationId(ctx.getConversationId());
+			}
 
-      for (Element e : callElements) 
-      {
-        Call call = new Call(e.attributeValue("id"),
-                             e.attributeValue("component"),
-                             e.attributeValue("method"));
+			@Override
+			protected void handleConversationPropagation() {
+			}
 
-        // First reconstruct all the references
-        Element refsNode = e.element("refs");
+		}.run();
 
-        Iterator iter = refsNode.elementIterator("ref");
-        while (iter.hasNext())
-        {
-          call.getContext().createWrapperFromElement((Element) iter.next());
-        }
+	}
 
-        // Now unmarshal the ref values
-        for (Wrapper w : call.getContext().getInRefs().values())
-        {
-          w.unmarshal();
-        }
+	/**
+	 * Unmarshals the context from the request envelope header.
+	 *
+	 * @param env Element
+	 * @return RequestContext
+	 */
+	private RequestContext unmarshalContext(Element env) {
+		RequestContext ctx = new RequestContext();
 
-        Element paramsNode = e.element("params");
+		Element header = env.element("header");
+		if (header != null) {
+			Element context = header.element("context");
+			if (context != null) {
 
-        // Then process the param values
-        iter = paramsNode.elementIterator("param");
-        while (iter.hasNext()) 
-        {
-          Element param = (Element) iter.next();
+				Element convId = context.element("conversationId");
+				if (convId != null) {
+					ctx.setConversationId(convId.getText());
+				}
+			}
+		}
 
-          call.addParameter(call.getContext().createWrapperFromElement(
-            (Element) param.elementIterator().next()));
-        }
+		return ctx;
+	}
 
-        calls.add(call);
-      }
+	/**
+	 * Unmarshal the request into a list of Calls.
+	 *
+	 * @param env Element
+	 * @throws Exception
+	 */
+	private List<Call> unmarshalCalls(Element env) throws Exception {
+		try {
+			List<Call> calls = new ArrayList<Call>();
 
-      return calls;
-    }
-    catch (Exception ex) 
-    {
-      log.error("Error unmarshalling calls from request", ex);
-      throw ex;
-    }
-  }
+			List<Element> callElements = env.element("body").elements("call");
 
-  /**
-   * Write the results to the output stream.
-   *
-   * @param calls List The list of calls to write
-   * @param out OutputStream The stream to write to
-   * @throws IOException
-   */
-  private void marshalResponse(List<Call> calls, RequestContext ctx, OutputStream out)
-      throws IOException
-  {
-    out.write(ENVELOPE_TAG_OPEN);
+			for (Element e : callElements) {
+				Call call = new Call(e.attributeValue("id"), e.attributeValue("component"), e.attributeValue("method"));
 
-    if (ctx.getConversationId() != null)
-    {
-      out.write(HEADER_OPEN);
-      out.write(CONTEXT_TAG_OPEN);
-      out.write(CONVERSATION_ID_TAG_OPEN);
-      out.write(ctx.getConversationId().getBytes());
-      out.write(CONVERSATION_ID_TAG_CLOSE);
-      out.write(CONTEXT_TAG_CLOSE);
-      out.write(HEADER_CLOSE);
-    }
+				// First reconstruct all the references
+				Element refsNode = e.element("refs");
 
-    out.write(BODY_TAG_OPEN);
+				Iterator iter = refsNode.elementIterator("ref");
+				while (iter.hasNext()) {
+					call.getContext().createWrapperFromElement((Element) iter.next());
+				}
 
-    for (Call call : calls)
-    {
-      MarshalUtils.marshalResult(call, out);
-    }
+				// Now unmarshal the ref values
+				for (Wrapper w : call.getContext().getInRefs().values()) {
+					w.unmarshal();
+				}
 
-    out.write(BODY_TAG_CLOSE);
-    out.write(ENVELOPE_TAG_CLOSE);
-    out.flush();
-  }
+				Element paramsNode = e.element("params");
+
+				// Then process the param values
+				iter = paramsNode.elementIterator("param");
+				while (iter.hasNext()) {
+					Element param = (Element) iter.next();
+
+					call.addParameter(call.getContext().createWrapperFromElement((Element) param.elementIterator().next()));
+				}
+
+				calls.add(call);
+			}
+
+			return calls;
+		} catch (Exception ex) {
+			log.error("Error unmarshalling calls from request", ex);
+			throw ex;
+		}
+	}
+
+	/**
+	 * Write the results to the output stream.
+	 *
+	 * @param calls List The list of calls to write
+	 * @param out OutputStream The stream to write to
+	 * @throws IOException
+	 */
+	private void marshalResponse(List<Call> calls, RequestContext ctx, OutputStream out) throws IOException {
+		out.write(ENVELOPE_TAG_OPEN);
+
+		if (ctx.getConversationId() != null) {
+			out.write(HEADER_OPEN);
+			out.write(CONTEXT_TAG_OPEN);
+			out.write(CONVERSATION_ID_TAG_OPEN);
+			out.write(ctx.getConversationId().getBytes());
+			out.write(CONVERSATION_ID_TAG_CLOSE);
+			out.write(CONTEXT_TAG_CLOSE);
+			out.write(HEADER_CLOSE);
+		}
+
+		out.write(BODY_TAG_OPEN);
+
+		for (Call call : calls) {
+			MarshalUtils.marshalResult(call, out);
+		}
+
+		out.write(BODY_TAG_CLOSE);
+		out.write(ENVELOPE_TAG_CLOSE);
+		out.flush();
+	}
 }

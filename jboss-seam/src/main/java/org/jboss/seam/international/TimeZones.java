@@ -31,41 +31,39 @@ import org.jboss.seam.annotations.Create;
  */
 @Scope(ScopeType.APPLICATION)
 @Name("org.jboss.seam.international.timeZones")
-public class TimeZones
-{
-   private static final String TIMEZONE_ID_PREFIXES =
-      "^(Africa|America|Asia|Atlantic|Australia|Europe|Indian|Pacific)/.*";
+public class TimeZones {
+	private static final String TIMEZONE_ID_PREFIXES = "^(Africa|America|Asia|Atlantic|Australia|Europe|Indian|Pacific)/.*";
 
-   private boolean wrap = true;
+	private boolean wrap = true;
 
-   private List<TimeZone> timeZones = null;
-   
-   @Create
-   public void init() {
-      timeZones = new ArrayList<TimeZone>();
-      final String[] timeZoneIds = TimeZone.getAvailableIDs();
-      for (final String id : timeZoneIds) {
-         if (id.matches(TIMEZONE_ID_PREFIXES)) {
-            timeZones.add(wrap ? new TimeZoneWrapper(TimeZone.getTimeZone(id)) : TimeZone.getTimeZone(id));
-         }
-      }
-      Collections.sort(timeZones, new Comparator<TimeZone>() {
-         public int compare(final TimeZone a, final TimeZone b) {
-            return a.getID().compareTo(b.getID());
-         }
-      });
-   }
+	private List<TimeZone> timeZones = null;
 
-   @Unwrap
-   public List<TimeZone> getTimeZones() {
-      return timeZones;
-   }
+	@Create
+	public void init() {
+		timeZones = new ArrayList<TimeZone>();
+		final String[] timeZoneIds = TimeZone.getAvailableIDs();
+		for (final String id : timeZoneIds) {
+			if (id.matches(TIMEZONE_ID_PREFIXES)) {
+				timeZones.add(wrap ? new TimeZoneWrapper(TimeZone.getTimeZone(id)) : TimeZone.getTimeZone(id));
+			}
+		}
+		Collections.sort(timeZones, new Comparator<TimeZone>() {
+			public int compare(final TimeZone a, final TimeZone b) {
+				return a.getID().compareTo(b.getID());
+			}
+		});
+	}
 
-   public boolean isWrap() {
-      return wrap;
-   }
+	@Unwrap
+	public List<TimeZone> getTimeZones() {
+		return timeZones;
+	}
 
-   public void setWrap(boolean wrap) {
-      this.wrap = wrap;
-   }
+	public boolean isWrap() {
+		return wrap;
+	}
+
+	public void setWrap(boolean wrap) {
+		this.wrap = wrap;
+	}
 }

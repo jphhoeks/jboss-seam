@@ -42,39 +42,34 @@ import antlr.RecognitionException;
  * JSF component class which outputs Seam Text. Parse errors generate WARN level log messages.
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.FormattedText",value="Outputs Seam Text. Parse errors generate WARN level log messages."),
-family="org.jboss.seam.ui.FormattedText", type="org.jboss.seam.ui.FormattedText",generate="org.jboss.seam.ui.component.html.HtmlFormattedText", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="formattedText"),
-renderer = @JsfRenderer(type="org.jboss.seam.ui.FormattedTextRenderer", family="org.jboss.seam.ui.FormattedTextRenderer"),
-attributes = {"javax.faces.component.UIOutput.xml" })
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.FormattedText", value = "Outputs Seam Text. Parse errors generate WARN level log messages."), family = "org.jboss.seam.ui.FormattedText", type = "org.jboss.seam.ui.FormattedText", generate = "org.jboss.seam.ui.component.html.HtmlFormattedText", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "formattedText"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.FormattedTextRenderer", family = "org.jboss.seam.ui.FormattedTextRenderer"), attributes = {
+		"javax.faces.component.UIOutput.xml" })
 public abstract class UIFormattedText extends UIOutput {
-	
-   Log log = Logging.getLog(UIFormattedText.class);
+
+	Log log = Logging.getLog(UIFormattedText.class);
 
 	@SuppressWarnings("unused")
-   private static final String COMPONENT_TYPE = "org.jboss.seam.ui.FormattedText";
-	
+	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.FormattedText";
+
 	@SuppressWarnings("unused")
-   private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.FormattedText";
-   
-   public String getFormattedText() 
-   {
-      if ( getValue() == null) return null;
-      Reader r = new StringReader( (String) getValue() );
-      SeamTextLexer lexer = new SeamTextLexer(r);
-      SeamTextParser parser = new SeamTextParser(lexer);
-      try
-      {
-         parser.startRule();
-      }
-      catch (RecognitionException rex) {
-          // Log a nice message for any lexer/parser errors, users can disable this if they want to
-          log.warn( "Seam Text parse error: " + rex.getMessage() );
-      } catch (ANTLRException ex) {
-          // All other errors are fatal;
-          throw new RuntimeException(ex);
-      }
-      return parser.toString();
-   }
-	
+	private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.FormattedText";
+
+	public String getFormattedText() {
+		if (getValue() == null)
+			return null;
+		Reader r = new StringReader((String) getValue());
+		SeamTextLexer lexer = new SeamTextLexer(r);
+		SeamTextParser parser = new SeamTextParser(lexer);
+		try {
+			parser.startRule();
+		} catch (RecognitionException rex) {
+			// Log a nice message for any lexer/parser errors, users can disable this if they want to
+			log.warn("Seam Text parse error: " + rex.getMessage());
+		} catch (ANTLRException ex) {
+			// All other errors are fatal;
+			throw new RuntimeException(ex);
+		}
+		return parser.toString();
+	}
+
 }

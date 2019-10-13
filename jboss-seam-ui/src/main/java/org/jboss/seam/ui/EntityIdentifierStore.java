@@ -26,48 +26,38 @@ import org.jboss.seam.framework.Identifier;
  *
  */
 @Name("org.jboss.seam.ui.entityIdentifierStore")
-@Install(precedence=BUILT_IN)
+@Install(precedence = BUILT_IN)
 @Scope(PAGE)
-public class EntityIdentifierStore extends AbstractMutable
-{
-   
-   private static final long serialVersionUID = 1L;
-private List<Identifier> store;
-   
-   @Create
-   public void create()
-   {
-      store = new ArrayList<Identifier>();
-   }
-   
-   public Identifier get(String key)
-   {
-      try
-      {
-         return store.get(Integer.valueOf(key));
-      }
-      catch (IndexOutOfBoundsException e)
-      {
-         return null;
-      }   
-   }
-      
-   public String put(Identifier identifier, Object entity)
-   {      
-      if (!store.contains(identifier))
-      {
-         store.add(identifier);
-         setDirty();
-      }
-      return ((Integer) store.indexOf(identifier)).toString();
-   }
+public class EntityIdentifierStore extends AbstractMutable {
 
-   public static EntityIdentifierStore instance()
-   {
-      if (!Contexts.isPageContextActive())
-      {
-         throw new IllegalArgumentException("Page scope not active");
-      }
-      return (EntityIdentifierStore) Component.getInstance(EntityIdentifierStore.class, PAGE);
-   }
+	private static final long serialVersionUID = 1L;
+	private List<Identifier> store;
+
+	@Create
+	public void create() {
+		store = new ArrayList<Identifier>();
+	}
+
+	public Identifier get(String key) {
+		try {
+			return store.get(Integer.valueOf(key));
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
+	public String put(Identifier identifier, Object entity) {
+		if (!store.contains(identifier)) {
+			store.add(identifier);
+			setDirty();
+		}
+		return ((Integer) store.indexOf(identifier)).toString();
+	}
+
+	public static EntityIdentifierStore instance() {
+		if (!Contexts.isPageContextActive()) {
+			throw new IllegalArgumentException("Page scope not active");
+		}
+		return (EntityIdentifierStore) Component.getInstance(EntityIdentifierStore.class, PAGE);
+	}
 }

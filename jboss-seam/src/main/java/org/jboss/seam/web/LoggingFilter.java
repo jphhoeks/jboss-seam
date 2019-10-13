@@ -30,37 +30,30 @@ import org.jboss.seam.security.Credentials;
 @Scope(ScopeType.APPLICATION)
 @Name("org.jboss.seam.web.loggingFilter")
 @BypassInterceptors
-@Filter(within="org.jboss.seam.web.authenticationFilter")
-@Install(classDependencies="org.apache.log4j.Logger", 
-         dependencies="org.jboss.seam.security.identity",
-         precedence=Install.BUILT_IN)
-public class LoggingFilter extends AbstractFilter 
-{
-   
-   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-         throws IOException, ServletException 
-   {
-   
-      HttpSession session = ((HttpServletRequest) servletRequest).getSession(false);
-      if (session!=null)
-      {
-         Object attribute = session.getAttribute("org.jboss.seam.security.identity");
-         if (attribute instanceof Identity) 
-         {
-             Identity identity = (Identity) attribute;
-             Credentials credentials = identity.getCredentials();
-             String username = credentials != null ? credentials.getUsername() : null;
-             if (username != null) 
-             {
-                 MDC.put("username", username);
-             }
-         }
-      }
-      
-      filterChain.doFilter(servletRequest, servletResponse);
-      
-      MDC.remove("username");
-      
-   }
-   
+@Filter(within = "org.jboss.seam.web.authenticationFilter")
+@Install(classDependencies = "org.apache.log4j.Logger", dependencies = "org.jboss.seam.security.identity", precedence = Install.BUILT_IN)
+public class LoggingFilter extends AbstractFilter {
+
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+			throws IOException, ServletException {
+
+		HttpSession session = ((HttpServletRequest) servletRequest).getSession(false);
+		if (session != null) {
+			Object attribute = session.getAttribute("org.jboss.seam.security.identity");
+			if (attribute instanceof Identity) {
+				Identity identity = (Identity) attribute;
+				Credentials credentials = identity.getCredentials();
+				String username = credentials != null ? credentials.getUsername() : null;
+				if (username != null) {
+					MDC.put("username", username);
+				}
+			}
+		}
+
+		filterChain.doFilter(servletRequest, servletResponse);
+
+		MDC.remove("username");
+
+	}
+
 }

@@ -10,51 +10,43 @@ import org.jboss.seam.ui.component.UISpan;
 import org.jboss.seam.ui.component.UIStyle;
 import org.richfaces.cdk.annotations.JsfRenderer;
 
-@JsfRenderer(type="org.jboss.seam.ui.SpanRenderer", family="org.jboss.seam.ui.SpanRenderer")
-public class SpanRendererBase extends StyleRendererBase
-{
+@JsfRenderer(type = "org.jboss.seam.ui.SpanRenderer", family = "org.jboss.seam.ui.SpanRenderer")
+public class SpanRendererBase extends StyleRendererBase {
 
-   @Override
-   protected Class getComponentClass()
-   {
-      return UISpan.class;
-   }
+	@Override
+	protected Class getComponentClass() {
+		return UISpan.class;
+	}
 
-   @Override
-   public void endElement(ResponseWriter writer) throws IOException
-   {
-      writer.endElement("span");
-   }
-   
-   @Override
-   protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-   {
-      UISpan span = (UISpan) component;
-      
-      startElement(writer, span);
+	@Override
+	public void endElement(ResponseWriter writer) throws IOException {
+		writer.endElement("span");
+	}
 
-      writer.writeAttribute("id", component.getClientId(context), "id");
-      
-      if (span.getStyleClass() != null) 
-      {
-         writer.writeAttribute("class", span.getStyleClass(), "styleClass");
-      }
+	@Override
+	protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+		UISpan span = (UISpan) component;
 
-      if (span.getStyle() != null) 
-      {
-         writer.writeAttribute("style", span.getStyle(), "style");
-      }
+		startElement(writer, span);
 
-      if (span.getTitle() != null) 
-      {
-         writer.writeAttribute("title", span.getTitle(), "title");
-      }      
-   }   
-   
-   @Override
-   public void startElement(ResponseWriter writer, UIStyle style) throws IOException
-   {
-      writer.startElement("span", style);
-   }
-   
+		writer.writeAttribute("id", component.getClientId(context), "id");
+
+		if (span.getStyleClass() != null) {
+			writer.writeAttribute("class", span.getStyleClass(), "styleClass");
+		}
+
+		if (span.getStyle() != null) {
+			writer.writeAttribute("style", span.getStyle(), "style");
+		}
+
+		if (span.getTitle() != null) {
+			writer.writeAttribute("title", span.getTitle(), "title");
+		}
+	}
+
+	@Override
+	public void startElement(ResponseWriter writer, UIStyle style) throws IOException {
+		writer.startElement("span", style);
+	}
+
 }

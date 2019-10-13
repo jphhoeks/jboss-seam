@@ -8,44 +8,41 @@ import javax.faces.FacesException;
  * 
  * @author Dan Allen
  */
-public class UnauthorizedCommandException extends FacesException
-{
-   private static final long serialVersionUID = -2944175773351515562L;
-private String viewId;
-   
-   /**
-    * <p>Construct a new exception with no detail message or root cause.</p>
-    */
-   public UnauthorizedCommandException() {
-      super();
-   }
-   
-   /**
-    * <p>Construct a new exception with a detail message and the view ID</p>
-    */
-   public UnauthorizedCommandException(String viewId, String message) {
-      super(message);
-      this.viewId = viewId;
-   }
+public class UnauthorizedCommandException extends FacesException {
+	private static final long serialVersionUID = -2944175773351515562L;
+	private String viewId;
 
-   /**
-    * <p>Returns the view ID to which the authorized command was directed.</p>
-    */
-   public String getViewId()
-   {
-      return viewId;
-   }
+	/**
+	* <p>Construct a new exception with no detail message or root cause.</p>
+	*/
+	public UnauthorizedCommandException() {
+		super();
+	}
 
-   /**
-    * <p>Returns the detail message explaining the reason for the denial.
-    * Includes the view ID if specified.</p>
-    */
-   @Override
-   public String getMessage()
-   {
-      if (viewId != null) {
-         return "viewId: " + viewId + " - " + super.getMessage();
-      }
-      return super.getMessage();
-   }
+	/**
+	* <p>Construct a new exception with a detail message and the view ID</p>
+	*/
+	public UnauthorizedCommandException(String viewId, String message) {
+		super(message);
+		this.viewId = viewId;
+	}
+
+	/**
+	* <p>Returns the view ID to which the authorized command was directed.</p>
+	*/
+	public String getViewId() {
+		return viewId;
+	}
+
+	/**
+	* <p>Returns the detail message explaining the reason for the denial.
+	* Includes the view ID if specified.</p>
+	*/
+	@Override
+	public String getMessage() {
+		if (viewId != null) {
+			return "viewId: " + viewId + " - " + super.getMessage();
+		}
+		return super.getMessage();
+	}
 }

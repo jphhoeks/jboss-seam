@@ -26,142 +26,99 @@ import org.jboss.seam.intercept.InvocationContext;
  */
 @Scope(ScopeType.APPLICATION)
 @Name("org.jboss.seam.async.dispatcher")
-@Install(precedence=BUILT_IN)
-public class ThreadPoolDispatcher extends AbstractDispatcher<Future, TimerSchedule>
-{
-   private int threadPoolSize = 10; 
-   
-   private ScheduledExecutorService executor;
-   
-   @Create
-   public void startup() {
-       executor = Executors.newScheduledThreadPool(threadPoolSize);
-   }
-    
-   public Future scheduleAsynchronousEvent(String type, Object... parameters)
-   {  
-      RunnableAsynchronous runnableAsynchronous = new RunnableAsynchronous( new AsynchronousEvent(type, parameters) ); 
-      Future future = executor.submit(runnableAsynchronous);
-      runnableAsynchronous.setFuture(future);
-      return future;
-   }
-    
-   public Future scheduleTimedEvent(String type, TimerSchedule schedule, Object... parameters)
-   {
-      return scheduleWithExecutorService( schedule, new RunnableAsynchronous( new AsynchronousEvent(type, parameters) ) );
-   }
-   
-   public Future scheduleInvocation(InvocationContext invocation, Component component)
-   {
-      return scheduleWithExecutorService( 
-               createTimerSchedule(invocation), 
-               new RunnableAsynchronous( new AsynchronousInvocation(invocation, component) ) 
-            );
-   }
-   
-   private static long toDuration(Date expiration)
-   {
-      return expiration.getTime() - new Date().getTime();
-   }
-   
-   private Future scheduleWithExecutorService(TimerSchedule schedule, RunnableAsynchronous runnable)
-   {
-      Future future = null;
-      if ( schedule.getIntervalDuration()!=null )
-      {
-         if ( schedule.getExpiration()!=null )
-         {
-            future = executor.scheduleAtFixedRate( runnable, 
-                    toDuration( schedule.getExpiration() ), 
-                    schedule.getIntervalDuration(), 
-                    TimeUnit.MILLISECONDS );
-         }
-         else if ( schedule.getDuration()!=null )
-         {
-            future = executor.scheduleAtFixedRate( runnable, 
-                     schedule.getDuration(), 
-                     schedule.getIntervalDuration(), 
-                     TimeUnit.MILLISECONDS );
-         }
-         else
-         {
-            future = executor.scheduleAtFixedRate( runnable, 0l, 
-                    schedule.getIntervalDuration(), 
-                    TimeUnit.MILLISECONDS );
-         }
-      }
-      else if ( schedule.getExpiration()!=null )
-      {
-         future = executor.schedule( runnable, 
-                  toDuration( schedule.getExpiration() ), 
-                  TimeUnit.MILLISECONDS );
-      }
-      else if ( schedule.getDuration()!=null )
-      {
-         future = executor.schedule( runnable, 
-                  schedule.getDuration(), 
-                  TimeUnit.MILLISECONDS );
-      }
-      else
-      {
-         future = executor.schedule(runnable, 0l, TimeUnit.MILLISECONDS);
-      }
-      runnable.setFuture(future);
-      return future;
-   }
-   
-   @Destroy
-   public void destroy()
-   {
-      executor.shutdown();
-      try
-      {
-         executor.awaitTermination(5, TimeUnit.SECONDS);
-      }
-      catch (InterruptedException ie)
-      {
-         
-      }
-   }
-   
-   static class RunnableAsynchronous implements Runnable
-   {
-      private Asynchronous async;
-      
-      private Future future;
-      
-      RunnableAsynchronous(Asynchronous async)
-      {
-         this.async = async;
-      }
-      
-      public void run()
-      {
-         try
-         {
-            async.execute(future);
-         }
-         catch (Exception exception) 
-         {
-            async.handleException(exception, future); 
-         }
-      }
-      
-      public void setFuture(Future future)
-      {
-         this.future = future;
-      }
-      
-   }
+@Install(precedence = BUILT_IN)
+public class ThreadPoolDispatcher extends AbstractDispatcher<Future, TimerSchedule> {
+	private int threadPoolSize = 10;
 
-   public int getThreadPoolSize()
-   {
-      return threadPoolSize;
-   }
+	private ScheduledExecutorService executor;
 
-   public void setThreadPoolSize(int threadPoolSize)
-   {
-      this.threadPoolSize = threadPoolSize;
-   }
-   
+	@Create
+	public void startup() {
+		executor = Executors.newScheduledThreadPool(threadPoolSize);
+	}
+
+	public Future scheduleAsynchronousEvent(String type, Object... parameters) {
+		RunnableAsynchronous runnableAsynchronous = new RunnableAsynchronous(new AsynchronousEvent(type, parameters));
+		Future future = executor.submit(runnableAsynchronous);
+		runnableAsynchronous.setFuture(future);
+		return future;
+	}
+
+	public Future scheduleTimedEvent(String type, TimerSchedule schedule, Object... parameters) {
+		return scheduleWithExecutorService(schedule, new RunnableAsynchronous(new AsynchronousEvent(type, parameters)));
+	}
+
+	public Future scheduleInvocation(InvocationContext invocation, Component component) {
+		return scheduleWithExecutorService(createTimerSchedule(invocation),
+				new RunnableAsynchronous(new AsynchronousInvocation(invocation, component)));
+	}
+
+	private static long toDuration(Date expiration) {
+		return expiration.getTime() - new Date().getTime();
+	}
+
+	private Future scheduleWithExecutorService(TimerSchedule schedule, RunnableAsynchronous runnable) {
+		Future future = null;
+		if (schedule.getIntervalDuration() != null) {
+			if (schedule.getExpiration() != null) {
+				future = executor.scheduleAtFixedRate(runnable, toDuration(schedule.getExpiration()), schedule.getIntervalDuration(),
+						TimeUnit.MILLISECONDS);
+			} else if (schedule.getDuration() != null) {
+				future = executor.scheduleAtFixedRate(runnable, schedule.getDuration(), schedule.getIntervalDuration(),
+						TimeUnit.MILLISECONDS);
+			} else {
+				future = executor.scheduleAtFixedRate(runnable, 0l, schedule.getIntervalDuration(), TimeUnit.MILLISECONDS);
+			}
+		} else if (schedule.getExpiration() != null) {
+			future = executor.schedule(runnable, toDuration(schedule.getExpiration()), TimeUnit.MILLISECONDS);
+		} else if (schedule.getDuration() != null) {
+			future = executor.schedule(runnable, schedule.getDuration(), TimeUnit.MILLISECONDS);
+		} else {
+			future = executor.schedule(runnable, 0l, TimeUnit.MILLISECONDS);
+		}
+		runnable.setFuture(future);
+		return future;
+	}
+
+	@Destroy
+	public void destroy() {
+		executor.shutdown();
+		try {
+			executor.awaitTermination(5, TimeUnit.SECONDS);
+		} catch (InterruptedException ie) {
+
+		}
+	}
+
+	static class RunnableAsynchronous implements Runnable {
+		private Asynchronous async;
+
+		private Future future;
+
+		RunnableAsynchronous(Asynchronous async) {
+			this.async = async;
+		}
+
+		public void run() {
+			try {
+				async.execute(future);
+			} catch (Exception exception) {
+				async.handleException(exception, future);
+			}
+		}
+
+		public void setFuture(Future future) {
+			this.future = future;
+		}
+
+	}
+
+	public int getThreadPoolSize() {
+		return threadPoolSize;
+	}
+
+	public void setThreadPoolSize(int threadPoolSize) {
+		this.threadPoolSize = threadPoolSize;
+	}
+
 }

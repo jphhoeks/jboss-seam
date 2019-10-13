@@ -21,44 +21,39 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-public class TimeZoneTest extends JUnitSeamTest
-{
-   @Deployment(name="TimeZoneTest")
-   @OverProtocol("Servlet 3.0") 
-   public static Archive<?> createDeployment()
-   {
-      return Deployments.defaultSeamDeployment();
-   } 
+public class TimeZoneTest extends JUnitSeamTest {
+	@Deployment(name = "TimeZoneTest")
+	@OverProtocol("Servlet 3.0")
+	public static Archive<?> createDeployment() {
+		return Deployments.defaultSeamDeployment();
+	}
 
-   @Test
-   public void timeZoneTest() throws Exception
-   {
-      new FacesRequest()
-      {
-         @Override
-         protected void invokeApplication() throws Exception
-         {
-            assert org.jboss.seam.international.TimeZone.instance().equals(java.util.TimeZone.getDefault());
-            
-            TimeZone cet = TimeZone.getTimeZone("CET");
-            TimeZoneSelector.instance().setTimeZone(cet);
-            
-            assert org.jboss.seam.international.TimeZone.instance().equals(cet);
-          
-            TimeZoneSelector.instance().setTimeZoneId("CET");
-            
-            assert org.jboss.seam.international.TimeZone.instance().equals(cet);
-            
-            TimeZoneSelector.instance().selectTimeZone("GMT");
-            assert org.jboss.seam.international.TimeZone.instance().getID().equals("GMT");
-            
-            ValueChangeEvent valueChangeEvent = new ValueChangeEvent(new UIOutput(), "GMT", "PST");
-            TimeZoneSelector.instance().select(valueChangeEvent);
-            assert org.jboss.seam.international.TimeZone.instance().getID().equals("PST");
-            
-            // TODO Test cookie stuff (need to extend Mocks for this)
-            
-         }
-      }.run();
-   }
+	@Test
+	public void timeZoneTest() throws Exception {
+		new FacesRequest() {
+			@Override
+			protected void invokeApplication() throws Exception {
+				assert org.jboss.seam.international.TimeZone.instance().equals(java.util.TimeZone.getDefault());
+
+				TimeZone cet = TimeZone.getTimeZone("CET");
+				TimeZoneSelector.instance().setTimeZone(cet);
+
+				assert org.jboss.seam.international.TimeZone.instance().equals(cet);
+
+				TimeZoneSelector.instance().setTimeZoneId("CET");
+
+				assert org.jboss.seam.international.TimeZone.instance().equals(cet);
+
+				TimeZoneSelector.instance().selectTimeZone("GMT");
+				assert org.jboss.seam.international.TimeZone.instance().getID().equals("GMT");
+
+				ValueChangeEvent valueChangeEvent = new ValueChangeEvent(new UIOutput(), "GMT", "PST");
+				TimeZoneSelector.instance().select(valueChangeEvent);
+				assert org.jboss.seam.international.TimeZone.instance().getID().equals("PST");
+
+				// TODO Test cookie stuff (need to extend Mocks for this)
+
+			}
+		}.run();
+	}
 }

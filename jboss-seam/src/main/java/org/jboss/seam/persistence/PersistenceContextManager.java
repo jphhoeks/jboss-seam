@@ -9,7 +9,6 @@ import org.jboss.seam.annotations.FlushModeType;
  * @author Gavin King
  *
  */
-public interface PersistenceContextManager
-{
-   public void changeFlushMode(FlushModeType flushMode);
+public interface PersistenceContextManager {
+	public void changeFlushMode(FlushModeType flushMode);
 }

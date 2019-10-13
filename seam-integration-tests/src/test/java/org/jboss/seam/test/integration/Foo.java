@@ -23,71 +23,68 @@ import org.jboss.seam.annotations.Scope;
  */
 @Name("foo")
 @Scope(ScopeType.SESSION)
-public class Foo implements Serializable
-{
-   private static final long serialVersionUID = -5448030633067107049L;
-   
-   private String value;
-   
-   public String foo() { return "foo"; }
+public class Foo implements Serializable {
+	private static final long serialVersionUID = -5448030633067107049L;
 
-   @Remove
-   public void destroy() {}
+	private String value;
 
-   @NotNull
-   public String getValue()
-   {
-      return value;
-   }
+	public String foo() {
+		return "foo";
+	}
 
-   public void setValue(String value)
-   {
-      this.value = value;
-   }
-   
-   public String bar()
-   {
-      return "bar";
-   }
-   
-   @Begin
-   public String begin()
-   {
-      return "begun";
-   }
-   @End
-   public String end()
-   {
-      return "ended";
-   }
-   
-   @Begin
-   public String beginNull()
-   {
-      return null;
-   }
-   @End
-   public String endNull()
-   {
-      return null;
-   }
-   
-   @Begin
-   public void beginVoid() { }
-   @End
-   public void endVoid() { }
-   
-   @Begin(ifOutcome="success")
-   public String beginIf()
-   {
-      return "success";
-   }
-   @End(ifOutcome="success")
-   public String endIf()
-   {
-      return "success";
-   }
-   
+	@Remove
+	public void destroy() {
+	}
+
+	@NotNull
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public String bar() {
+		return "bar";
+	}
+
+	@Begin
+	public String begin() {
+		return "begun";
+	}
+
+	@End
+	public String end() {
+		return "ended";
+	}
+
+	@Begin
+	public String beginNull() {
+		return null;
+	}
+
+	@End
+	public String endNull() {
+		return null;
+	}
+
+	@Begin
+	public void beginVoid() {
+	}
+
+	@End
+	public void endVoid() {
+	}
+
+	@Begin(ifOutcome = "success")
+	public String beginIf() {
+		return "success";
+	}
+
+	@End(ifOutcome = "success")
+	public String endIf() {
+		return "success";
+	}
+
 }
-
-

@@ -10,19 +10,17 @@ import org.jboss.seam.annotations.Out;
  *
  */
 @Name("testslink")
-public class TestComponent
-{
-   @In(required=false) @Out(required=false) String input;
-   
-   public String getInput()
-   {
-      return input;
-   }
-   
-   public void setInput(String input)
-   {
-      this.input = input;
-   }
-  
-  
+public class TestComponent {
+	@In(required = false)
+	@Out(required = false)
+	String input;
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+
 }

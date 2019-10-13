@@ -28,50 +28,41 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Scope(ScopeType.EVENT)
 @Install(value = false, precedence = FRAMEWORK)
 @BypassInterceptors
-public class NoTransaction extends AbstractUserTransaction
-{
-   
-   public void begin() throws NotSupportedException, SystemException
-   {
-      throw new UnsupportedOperationException("no transaction");
-   }
+public class NoTransaction extends AbstractUserTransaction {
 
-   public void commit() throws RollbackException, HeuristicMixedException,
-            HeuristicRollbackException, SecurityException, IllegalStateException, SystemException
-   {
-      throw new UnsupportedOperationException("no transaction");
-   }
+	public void begin() throws NotSupportedException, SystemException {
+		throw new UnsupportedOperationException("no transaction");
+	}
 
-   public int getStatus() throws SystemException
-   {
-      return Status.STATUS_NO_TRANSACTION;
-   }
+	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
+			IllegalStateException, SystemException {
+		throw new UnsupportedOperationException("no transaction");
+	}
 
-   public void rollback() throws IllegalStateException, SecurityException, SystemException
-   {
-      throw new UnsupportedOperationException("no transaction");
-   }
+	public int getStatus() throws SystemException {
+		return Status.STATUS_NO_TRANSACTION;
+	}
 
-   public void setRollbackOnly() throws IllegalStateException, SystemException
-   {
-      throw new UnsupportedOperationException("no transaction");
-   }
+	public void rollback() throws IllegalStateException, SecurityException, SystemException {
+		throw new UnsupportedOperationException("no transaction");
+	}
 
-   public void setTransactionTimeout(int timeout) throws SystemException
-   {
-      throw new UnsupportedOperationException("no transaction");
-   }
-   
-   @Override
-   public void registerSynchronization(Synchronization sync)
-   {
-      throw new UnsupportedOperationException("no transaction");
-   }
-   
-   @Override
-   public void enlist(EntityManager entityManager) throws SystemException
-   {
-      //no-op
-   }
+	public void setRollbackOnly() throws IllegalStateException, SystemException {
+		throw new UnsupportedOperationException("no transaction");
+	}
+
+	public void setTransactionTimeout(int timeout) throws SystemException {
+		throw new UnsupportedOperationException("no transaction");
+	}
+
+	@Override
+	public void registerSynchronization(Synchronization sync) {
+		throw new UnsupportedOperationException("no transaction");
+	}
+
+	@Override
+	public void enlist(EntityManager entityManager) throws SystemException {
+		//no-op
+	}
 
 }

@@ -49,8 +49,7 @@ public class MockApplication extends Application {
 	}
 
 	@Override
-	public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass,
-			Class<?> sourceBaseType, Object source) {
+	public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass, Class<?> sourceBaseType, Object source) {
 		// empty publish method
 	}
 
@@ -67,10 +66,8 @@ public class MockApplication extends Application {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T evaluateExpressionGet(FacesContext context, String expression, Class<? extends T> type)
-			throws javax.el.ELException {
-		return (T) getExpressionFactory().createValueExpression(context.getELContext(), expression, type)
-				.getValue(context.getELContext());
+	public <T> T evaluateExpressionGet(FacesContext context, String expression, Class<? extends T> type) throws javax.el.ELException {
+		return (T) getExpressionFactory().createValueExpression(context.getELContext(), expression, type).getValue(context.getELContext());
 	}
 
 	@Override
@@ -84,8 +81,7 @@ public class MockApplication extends Application {
 	}
 
 	@Override
-	public UIComponent createComponent(javax.el.ValueExpression ve, FacesContext context, String id)
-			throws FacesException {
+	public UIComponent createComponent(javax.el.ValueExpression ve, FacesContext context, String id) throws FacesException {
 		throw new UnsupportedOperationException();
 	}
 
@@ -331,8 +327,7 @@ public class MockApplication extends Application {
 
 	@Override
 	@Deprecated
-	public UIComponent createComponent(javax.faces.el.ValueBinding vb, FacesContext fc, String x)
-			throws FacesException {
+	public UIComponent createComponent(javax.faces.el.ValueBinding vb, FacesContext fc, String x) throws FacesException {
 		throw new UnsupportedOperationException();
 	}
 
@@ -346,8 +341,7 @@ public class MockApplication extends Application {
 
 	@Override
 	@Deprecated
-	public javax.faces.el.ValueBinding createValueBinding(String expression)
-			throws javax.faces.el.ReferenceSyntaxException {
+	public javax.faces.el.ValueBinding createValueBinding(String expression) throws javax.faces.el.ReferenceSyntaxException {
 		return new org.jboss.seam.jsf.UnifiedELValueBinding(expression);
 	}
 

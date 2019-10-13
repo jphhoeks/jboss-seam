@@ -9,23 +9,19 @@ import org.apache.tools.ant.Task;
  * Creates a random UUID using {@link java.util.UUID#randomUUID()} and
  * assigns it to the property.
  */
-public class RandomUUIDTask extends Task
-{
-   private String property;
+public class RandomUUIDTask extends Task {
+	private String property;
 
-   @Override
-   public void execute() throws BuildException
-   {
-      getProject().setProperty(property, generateRandomUUID());
-   }
+	@Override
+	public void execute() throws BuildException {
+		getProject().setProperty(property, generateRandomUUID());
+	}
 
-   protected String generateRandomUUID()
-   {
-      return UUID.randomUUID().toString();
-   }
+	protected String generateRandomUUID() {
+		return UUID.randomUUID().toString();
+	}
 
-   public void setProperty(String property)
-   {
-      this.property = property;
-   }
+	public void setProperty(String property) {
+		this.property = property;
+	}
 }

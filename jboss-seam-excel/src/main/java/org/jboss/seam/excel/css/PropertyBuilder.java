@@ -5,7 +5,6 @@ package org.jboss.seam.excel.css;
  * 
  * @author karlsnic
  */
-public interface PropertyBuilder
-{
-   public StyleMap parseProperty(String key, String[] values);
+public interface PropertyBuilder {
+	public StyleMap parseProperty(String key, String[] values);
 }

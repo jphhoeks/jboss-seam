@@ -13,21 +13,18 @@ import org.jboss.seam.log.Logging;
 
 @Scope(ScopeType.STATELESS)
 @Name("org.jboss.seam.async.asynchronousExceptionHandler")
-@Install(precedence=BUILT_IN)
+@Install(precedence = BUILT_IN)
 @BypassInterceptors
-public class AsynchronousExceptionHandler
-{
+public class AsynchronousExceptionHandler {
 
-   private LogProvider log = Logging.getLogProvider(AsynchronousExceptionHandler.class);
-   
-   public void handleException(Exception throwable)
-   {
-      log.error("Exception thrown whilst executing asynchronous call", throwable);
-   }
-   
-   public static AsynchronousExceptionHandler instance()
-   {
-      return (AsynchronousExceptionHandler) Component.getInstance(AsynchronousExceptionHandler.class);
-   }
-   
+	private LogProvider log = Logging.getLogProvider(AsynchronousExceptionHandler.class);
+
+	public void handleException(Exception throwable) {
+		log.error("Exception thrown whilst executing asynchronous call", throwable);
+	}
+
+	public static AsynchronousExceptionHandler instance() {
+		return (AsynchronousExceptionHandler) Component.getInstance(AsynchronousExceptionHandler.class);
+	}
+
 }

@@ -7,34 +7,28 @@ import java.io.Serializable;
  * 
  * @author Shane Bryzak
  */
-public class RoleCheck implements Serializable
-{
-   private static final long serialVersionUID = 1L;
-private String name;
-   private boolean granted;
-   
-   public RoleCheck(String name)
-   {
-      this.name = name;
-   }
-   
-   public boolean isGranted()
-   {
-      return granted;
-   }
-   
-   public void grant()
-   {
-      this.granted = true;
-   }
-   
-   public void revoke()
-   {
-      this.granted = false;
-   }
-   
-   public String getName()
-   {
-      return name;
-   }
+public class RoleCheck implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private String name;
+	private boolean granted;
+
+	public RoleCheck(String name) {
+		this.name = name;
+	}
+
+	public boolean isGranted() {
+		return granted;
+	}
+
+	public void grant() {
+		this.granted = true;
+	}
+
+	public void revoke() {
+		this.granted = false;
+	}
+
+	public String getName() {
+		return name;
+	}
 }

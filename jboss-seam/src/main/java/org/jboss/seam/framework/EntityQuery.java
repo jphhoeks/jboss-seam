@@ -20,58 +20,51 @@ import org.jboss.seam.transaction.Transaction;
  * @author Gavin King
  *
  */
-public class EntityQuery<E> extends Query<EntityManager, E>
-{
+public class EntityQuery<E> extends Query<EntityManager, E> {
 
-   private static final long serialVersionUID = 1L;
-private List<E> resultList;
-   private E singleResult;
-   private Long resultCount;
-   private Map<String, Object> hints;
+	private static final long serialVersionUID = 1L;
+	private List<E> resultList;
+	private E singleResult;
+	private Long resultCount;
+	private Map<String, Object> hints;
 
-   /**
-    * Validate the query
-    * 
-    * @throws IllegalStateException if the query is not valid
-    */
-   @Override
-   public void validate()
-   {
-      super.validate();
-      if ( getEntityManager()==null )
-      {
-         throw new IllegalStateException("entityManager is null");
-      }
-      
-      if (!PersistenceProvider.instance().supportsFeature(Feature.WILDCARD_AS_COUNT_QUERY_SUBJECT)) {
-         setUseWildcardAsCountQuerySubject(false);
-      }
-   }
+	/**
+	* Validate the query
+	* 
+	* @throws IllegalStateException if the query is not valid
+	*/
+	@Override
+	public void validate() {
+		super.validate();
+		if (getEntityManager() == null) {
+			throw new IllegalStateException("entityManager is null");
+		}
 
-   @Override
-   @Transactional
-   public boolean isNextExists()
-   {
-	   return getResultCount() > (getFirstResult() != null ? getFirstResult() : 0) + getMaxResults();
-   }
+		if (!PersistenceProvider.instance().supportsFeature(Feature.WILDCARD_AS_COUNT_QUERY_SUBJECT)) {
+			setUseWildcardAsCountQuerySubject(false);
+		}
+	}
 
+	@Override
+	@Transactional
+	public boolean isNextExists() {
+		return getResultCount() > (getFirstResult() != null ? getFirstResult() : 0) + getMaxResults();
+	}
 
-   /**
-    * Get the list of results this query returns
-    * 
-    * Any changed restriction values will be applied
-    */
-   @Transactional
-   @Override
-   public List<E> getResultList()
-   {
-      if ( isAnyParameterDirty() )
-      {
-         refresh();
-      }
-      initResultList();
-      return truncResultList(resultList);
-   }
+	/**
+	* Get the list of results this query returns
+	* 
+	* Any changed restriction values will be applied
+	*/
+	@Transactional
+	@Override
+	public List<E> getResultList() {
+		if (isAnyParameterDirty()) {
+			refresh();
+		}
+		initResultList();
+		return truncResultList(resultList);
+	}
 
 	@SuppressWarnings("unchecked")
 	private void initResultList() {
@@ -80,25 +73,23 @@ private List<E> resultList;
 			resultList = query == null ? null : query.getResultList();
 		}
 	}
-   
-   /**
-    * Get a single result from the query
-    * 
-    * Any changed restriction values will be applied
-    * 
-    * @throws NonUniqueResultException if there is more than one result
-    */
-   @Transactional
-   @Override
-   public E getSingleResult()
-   {
-      if (isAnyParameterDirty())
-      {
-         refresh();
-      }
-      initSingleResult();
-      return singleResult;
-   }
+
+	/**
+	* Get a single result from the query
+	* 
+	* Any changed restriction values will be applied
+	* 
+	* @throws NonUniqueResultException if there is more than one result
+	*/
+	@Transactional
+	@Override
+	public E getSingleResult() {
+		if (isAnyParameterDirty()) {
+			refresh();
+		}
+		initSingleResult();
+		return singleResult;
+	}
 
 	@SuppressWarnings("unchecked")
 	private void initSingleResult() {
@@ -108,59 +99,51 @@ private List<E> resultList;
 		}
 	}
 
-   /**
-    * Get the number of results this query returns
-    * 
-    * Any changed restriction values will be applied
-    */
-   @Transactional
-   @Override
-   public Long getResultCount()
-   {
-      if (isAnyParameterDirty())
-      {
-         refresh();
-      }
-      initResultCount();
-      return resultCount;
-   }
+	/**
+	* Get the number of results this query returns
+	* 
+	* Any changed restriction values will be applied
+	*/
+	@Transactional
+	@Override
+	public Long getResultCount() {
+		if (isAnyParameterDirty()) {
+			refresh();
+		}
+		initResultCount();
+		return resultCount;
+	}
 
-   private void initResultCount()
-   {
-      if ( resultCount==null )
-      {
-         javax.persistence.Query query = createCountQuery();
-         resultCount = query==null ? 
-               null : (Long) query.getSingleResult();
-      }
-   }
+	private void initResultCount() {
+		if (resultCount == null) {
+			javax.persistence.Query query = createCountQuery();
+			resultCount = query == null ? null : (Long) query.getSingleResult();
+		}
+	}
 
-   /**
-    * The refresh method will cause the result to be cleared.  The next access
-    * to the result set will cause the query to be executed.
-    * 
-    * This method <b>does not</b> cause the ejbql or restrictions to reread.
-    * If you want to update the ejbql or restrictions you must call 
-    * {@link #setEjbql(String)} or {@link #setRestrictions(List)}
-    */
-   @Override
-   public void refresh()
-   {
-      super.refresh();
-      resultCount = null;
-      resultList = null;
-      singleResult = null;
-   }
-   
-   public EntityManager getEntityManager()
-   {
-      return getPersistenceContext();
-   }
+	/**
+	* The refresh method will cause the result to be cleared.  The next access
+	* to the result set will cause the query to be executed.
+	* 
+	* This method <b>does not</b> cause the ejbql or restrictions to reread.
+	* If you want to update the ejbql or restrictions you must call 
+	* {@link #setEjbql(String)} or {@link #setRestrictions(List)}
+	*/
+	@Override
+	public void refresh() {
+		super.refresh();
+		resultCount = null;
+		resultList = null;
+		singleResult = null;
+	}
 
-   public void setEntityManager(EntityManager entityManager)
-   {
-      setPersistenceContext(entityManager);
-   }
+	public EntityManager getEntityManager() {
+		return getPersistenceContext();
+	}
+
+	public void setEntityManager(EntityManager entityManager) {
+		setPersistenceContext(entityManager);
+	}
 
 	@Override
 	protected String getPersistenceContextName() {
@@ -170,80 +153,67 @@ private List<E> resultList;
 		}
 		return "entityManager";
 	}
-   
-   protected javax.persistence.Query createQuery()
-   {
-      parseEjbql();
-      
-      evaluateAllParameters();
-      
-      joinTransaction();
-      
-      javax.persistence.Query query = getEntityManager().createQuery( getRenderedEjbql() );
-      setParameters( query, getQueryParameterValues(), 0 );
-      setParameters( query, getRestrictionParameterValues(), getQueryParameterValues().size() );
-      if ( getFirstResult()!=null) {
-    	  query.setFirstResult( getFirstResult() );
-      }
-      if ( getMaxResults()!=null) {
-    	  query.setMaxResults( getMaxResults() );
-      }
-      if ( getHints()!=null )
-      {
-         for ( Map.Entry<String, Object> me: getHints().entrySet() )
-         {
-            query.setHint(me.getKey(), me.getValue());
-         }
-      }
-      return query;
-   }
-   
-   protected javax.persistence.Query createCountQuery()
-   {
-      parseEjbql();
 
-      evaluateAllParameters();
+	protected javax.persistence.Query createQuery() {
+		parseEjbql();
 
-      joinTransaction();
-      
-      javax.persistence.Query query = getEntityManager().createQuery( getCountEjbql() );
-      setParameters( query, getQueryParameterValues(), 0 );
-      setParameters( query, getRestrictionParameterValues(), getQueryParameterValues().size() );
-      return query;
-   }
+		evaluateAllParameters();
 
-   private void setParameters(javax.persistence.Query query, List<Object> parameters, int start)
-   {
-      for (int i=0; i<parameters.size(); i++)
-      {
-         Object parameterValue = parameters.get(i);
-         if ( isRestrictionParameterSet(parameterValue) )
-         {
-            query.setParameter( QueryParser.getParameterName(start + i), parameterValue );
-         }
-      }
-   }
+		joinTransaction();
 
-   public Map<String, Object> getHints()
-   {
-      return hints;
-   }
+		javax.persistence.Query query = getEntityManager().createQuery(getRenderedEjbql());
+		setParameters(query, getQueryParameterValues(), 0);
+		setParameters(query, getRestrictionParameterValues(), getQueryParameterValues().size());
+		if (getFirstResult() != null) {
+			query.setFirstResult(getFirstResult());
+		}
+		if (getMaxResults() != null) {
+			query.setMaxResults(getMaxResults());
+		}
+		if (getHints() != null) {
+			for (Map.Entry<String, Object> me : getHints().entrySet()) {
+				query.setHint(me.getKey(), me.getValue());
+			}
+		}
+		return query;
+	}
 
-   public void setHints(Map<String, Object> hints)
-   {
-      this.hints = hints;
-   }
-   
-   protected void joinTransaction()
-   {
-      try
-      {
-         Transaction.instance().enlist( getEntityManager() );
-      }
-      catch (SystemException se)
-      {
-         throw new RuntimeException("could not join transaction", se);
-      }
-   }
-   
+	protected javax.persistence.Query createCountQuery() {
+		parseEjbql();
+
+		evaluateAllParameters();
+
+		joinTransaction();
+
+		javax.persistence.Query query = getEntityManager().createQuery(getCountEjbql());
+		setParameters(query, getQueryParameterValues(), 0);
+		setParameters(query, getRestrictionParameterValues(), getQueryParameterValues().size());
+		return query;
+	}
+
+	private void setParameters(javax.persistence.Query query, List<Object> parameters, int start) {
+		for (int i = 0; i < parameters.size(); i++) {
+			Object parameterValue = parameters.get(i);
+			if (isRestrictionParameterSet(parameterValue)) {
+				query.setParameter(QueryParser.getParameterName(start + i), parameterValue);
+			}
+		}
+	}
+
+	public Map<String, Object> getHints() {
+		return hints;
+	}
+
+	public void setHints(Map<String, Object> hints) {
+		this.hints = hints;
+	}
+
+	protected void joinTransaction() {
+		try {
+			Transaction.instance().enlist(getEntityManager());
+		} catch (SystemException se) {
+			throw new RuntimeException("could not join transaction", se);
+		}
+	}
+
 }

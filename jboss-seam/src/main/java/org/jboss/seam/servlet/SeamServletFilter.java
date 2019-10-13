@@ -8,7 +8,6 @@ import org.jboss.seam.web.ContextFilter;
  * @deprecated use ContextFilter
  * @author Gavin King
  */
-public class SeamServletFilter extends ContextFilter 
-{
-   
+public class SeamServletFilter extends ContextFilter {
+
 }

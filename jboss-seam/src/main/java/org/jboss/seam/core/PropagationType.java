@@ -5,13 +5,6 @@ package org.jboss.seam.core;
  *  
  * @author Shane Bryzak
  */
-public enum PropagationType
-{
-   DEFAULT,
-   BEGIN,
-   JOIN,
-   NESTED,
-   NONE,
-   END,
-   ENDROOT
+public enum PropagationType {
+	DEFAULT, BEGIN, JOIN, NESTED, NONE, END, ENDROOT
 }

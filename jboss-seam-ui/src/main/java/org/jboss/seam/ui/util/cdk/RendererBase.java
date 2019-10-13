@@ -29,7 +29,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-
 /**
  * Mangled version of Ajax4Jsf's RendererBase without supporting classes
  * 
@@ -40,66 +39,78 @@ import javax.faces.render.Renderer;
  *
  */
 public abstract class RendererBase extends Renderer {
-	
+
 	/**
 	 * logger for common cases. 
 	 */
 	protected static final String JAVASCRIPT_NAMESPACE = "JBossSeam";
-   private static final RendererUtils utils = new RendererUtils();
+	private static final RendererUtils utils = new RendererUtils();
 
 	@Override
-   public void decode(FacesContext context, UIComponent component) {
+	public void decode(FacesContext context, UIComponent component) {
 		// Test for correct parameters.
-        if (context == null) throw new NullPointerException("Context must not be null");
-        if (component == null) throw new NullPointerException("Component must not be null");
-        if (! getComponentClass().isInstance(component)) throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());	
-		preDecode(context,component);
-        // TODO - create set od common decoders ( UIInput, ActionSource etc. ) for process decoding.
-        if (component.isRendered()) {
+		if (context == null)
+			throw new NullPointerException("Context must not be null");
+		if (component == null)
+			throw new NullPointerException("Component must not be null");
+		if (!getComponentClass().isInstance(component))
+			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		preDecode(context, component);
+		// TODO - create set od common decoders ( UIInput, ActionSource etc. ) for process decoding.
+		if (component.isRendered()) {
 			doDecode(context, component);
 		}
 	}
 
-	protected void preDecode(FacesContext context, UIComponent component)   {
+	protected void preDecode(FacesContext context, UIComponent component) {
 	}
 
-	protected void preEncodeBegin(FacesContext context, UIComponent component) throws IOException  {
-		
+	protected void preEncodeBegin(FacesContext context, UIComponent component) throws IOException {
+
 	}
 
-   @Override
+	@Override
 	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
 		// Test for correct parameters.
-      if (context == null) throw new NullPointerException("Context must not be null");
-      if (component == null) throw new NullPointerException("Component must not be null");
-      if (! getComponentClass().isInstance(component)) throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
-		preEncodeBegin(context,component);
-        if (component.isRendered()) {
+		if (context == null)
+			throw new NullPointerException("Context must not be null");
+		if (component == null)
+			throw new NullPointerException("Component must not be null");
+		if (!getComponentClass().isInstance(component))
+			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		preEncodeBegin(context, component);
+		if (component.isRendered()) {
 			ResponseWriter writer = context.getResponseWriter();
 			doEncodeBegin(writer, context, component);
 		}
 	}
 
-   @Override
+	@Override
 	public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
 		// Test for correct parameters.
-      if (context == null) throw new NullPointerException("Context must not be null");
-      if (component == null) throw new NullPointerException("Component must not be null");
-      if (! getComponentClass().isInstance(component)) throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
-		preEncodeBegin(context,component);
-        if (component.isRendered()) {
+		if (context == null)
+			throw new NullPointerException("Context must not be null");
+		if (component == null)
+			throw new NullPointerException("Component must not be null");
+		if (!getComponentClass().isInstance(component))
+			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		preEncodeBegin(context, component);
+		if (component.isRendered()) {
 			ResponseWriter writer = context.getResponseWriter();
 			doEncodeChildren(writer, context, component);
 		}
 	}
 
-   @Override
+	@Override
 	public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
 		// Test for correct parameters.
-      if (context == null) throw new NullPointerException("Context must not be null");
-      if (component == null) throw new NullPointerException("Component must not be null");
-      if (! getComponentClass().isInstance(component)) throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
-        if (component.isRendered()) {
+		if (context == null)
+			throw new NullPointerException("Context must not be null");
+		if (component == null)
+			throw new NullPointerException("Component must not be null");
+		if (!getComponentClass().isInstance(component))
+			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		if (component.isRendered()) {
 			ResponseWriter writer = context.getResponseWriter();
 			doEncodeEnd(writer, context, component);
 		}
@@ -110,7 +121,6 @@ public abstract class RendererBase extends Renderer {
 	 */
 	protected abstract Class getComponentClass();
 
-
 	/**
 	 * Template method for custom decoding of concrete renderer.
 	 * All parameters checking if performed in original decode() method.
@@ -118,7 +128,7 @@ public abstract class RendererBase extends Renderer {
 	 * @param component
 	 */
 	protected void doDecode(FacesContext context, UIComponent component) {
-		
+
 	}
 
 	/**
@@ -128,15 +138,16 @@ public abstract class RendererBase extends Renderer {
 	 * @param context
 	 * @param component
 	 */
-	protected void doEncodeBegin(ResponseWriter writer,FacesContext context, UIComponent component) throws IOException {
-		
+	protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+
 	}
+
 	/**
 	 * @param writer
 	 * @param context
 	 * @param component
 	 */
-	protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException  {
+	protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 		// Hook method, must be overriden in renderers with special children processing
 	}
 
@@ -149,17 +160,16 @@ public abstract class RendererBase extends Renderer {
 	 * @throws IOException 
 	 */
 	protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-		
+
 	}
 
-    /**
-     * Render all children for given component.
-     * @param facesContext
-     * @param component
-     * @throws IOException
-     */
-    public void renderChildren(FacesContext facesContext,
-			UIComponent component) throws IOException {
+	/**
+	 * Render all children for given component.
+	 * @param facesContext
+	 * @param component
+	 * @throws IOException
+	 */
+	public void renderChildren(FacesContext facesContext, UIComponent component) throws IOException {
 		if (component.getChildCount() > 0) {
 			for (Iterator it = component.getChildren().iterator(); it.hasNext();) {
 				UIComponent child = (UIComponent) it.next();
@@ -168,15 +178,13 @@ public abstract class RendererBase extends Renderer {
 		}
 	}
 
-
 	/**
 	 * Render one component and it childrens
 	 * @param facesContext
 	 * @param child
 	 * @throws IOException
 	 */
-	public void renderChild(FacesContext facesContext, UIComponent child)
-			throws IOException {
+	public void renderChild(FacesContext facesContext, UIComponent child) throws IOException {
 		if (!child.isRendered()) {
 			return;
 		}
@@ -189,10 +197,9 @@ public abstract class RendererBase extends Renderer {
 		}
 		child.encodeEnd(facesContext);
 	}
-   
-   public static RendererUtils getUtils()
-   {
-      return utils;
-   }
+
+	public static RendererUtils getUtils() {
+		return utils;
+	}
 
 }

@@ -8,46 +8,38 @@ import java.util.HashMap;
  *
  * @author Shane Bryzak
  */
-public class RequestHandlerFactory
-{
-  private static final String REQUEST_PATH_EXECUTE = "/execute";
-  private static final String REQUEST_PATH_SUBSCRIPTION = "/subscription";
-  private static final String REQUEST_PATH_POLL = "/poll";
-  private static final String REQUEST_PATH_INTERFACE = "/interface.js";
+public class RequestHandlerFactory {
+	private static final String REQUEST_PATH_EXECUTE = "/execute";
+	private static final String REQUEST_PATH_SUBSCRIPTION = "/subscription";
+	private static final String REQUEST_PATH_POLL = "/poll";
+	private static final String REQUEST_PATH_INTERFACE = "/interface.js";
 
-  private static RequestHandlerFactory instance = new RequestHandlerFactory();
+	private static RequestHandlerFactory instance = new RequestHandlerFactory();
 
-  private Map<String,RequestHandler> handlers = new HashMap<String,RequestHandler>();
+	private Map<String, RequestHandler> handlers = new HashMap<String, RequestHandler>();
 
-  private RequestHandlerFactory()
-  {
-    registerHandler(REQUEST_PATH_EXECUTE, new ExecutionHandler());
-    registerHandler(REQUEST_PATH_SUBSCRIPTION, new SubscriptionHandler());
-    registerHandler(REQUEST_PATH_INTERFACE, new InterfaceGenerator());
-    
-    try
-    {
-       Class.forName("javax.jms.Message");
-       registerHandler(REQUEST_PATH_POLL, new PollHandler());
-    }
-    catch (ClassNotFoundException ex) 
-    { 
-        // Don't register PollHandler, swallow the exception
-    }
-  }
+	private RequestHandlerFactory() {
+		registerHandler(REQUEST_PATH_EXECUTE, new ExecutionHandler());
+		registerHandler(REQUEST_PATH_SUBSCRIPTION, new SubscriptionHandler());
+		registerHandler(REQUEST_PATH_INTERFACE, new InterfaceGenerator());
 
-  public void registerHandler(String path, RequestHandler handler)
-  {
-    handlers.put(path, handler);
-  }
+		try {
+			Class.forName("javax.jms.Message");
+			registerHandler(REQUEST_PATH_POLL, new PollHandler());
+		} catch (ClassNotFoundException ex) {
+			// Don't register PollHandler, swallow the exception
+		}
+	}
 
-  public RequestHandler getRequestHandler(String path)
-  {
-    return handlers.get(path);
-  }
+	public void registerHandler(String path, RequestHandler handler) {
+		handlers.put(path, handler);
+	}
 
-  public static RequestHandlerFactory getInstance()
-  {
-    return instance;
-  }
+	public RequestHandler getRequestHandler(String path) {
+		return handlers.get(path);
+	}
+
+	public static RequestHandlerFactory getInstance() {
+		return instance;
+	}
 }

@@ -25,34 +25,29 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Scope(ScopeType.EVENT)
 @BypassInterceptors
 @Name("org.jboss.seam.jms.queueSession")
-@Install(precedence=BUILT_IN, genericDependencies=ManagedQueueSender.class)
-public class QueueSession
-{
-   
-   private javax.jms.QueueSession queueSession;
-   
-   @Create
-   public void create() throws JMSException, NamingException
-   {
-      //TODO: i really want a transactional session!
-      queueSession = QueueConnection.instance().createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-   }
-   
-   @Destroy
-   public void destroy() throws JMSException
-   {
-      queueSession.close();
-   }
-   
-   @Unwrap
-   public javax.jms.QueueSession getQueueSession()
-   {
-      return queueSession;
-   }
-   
-   public static javax.jms.QueueSession instance()
-   {
-      return (javax.jms.QueueSession) Component.getInstance(QueueSession.class);
-   }
-   
+@Install(precedence = BUILT_IN, genericDependencies = ManagedQueueSender.class)
+public class QueueSession {
+
+	private javax.jms.QueueSession queueSession;
+
+	@Create
+	public void create() throws JMSException, NamingException {
+		//TODO: i really want a transactional session!
+		queueSession = QueueConnection.instance().createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+	}
+
+	@Destroy
+	public void destroy() throws JMSException {
+		queueSession.close();
+	}
+
+	@Unwrap
+	public javax.jms.QueueSession getQueueSession() {
+		return queueSession;
+	}
+
+	public static javax.jms.QueueSession instance() {
+		return (javax.jms.QueueSession) Component.getInstance(QueueSession.class);
+	}
+
 }

@@ -25,28 +25,22 @@ import org.jboss.seam.faces.Renderer;
 @BypassInterceptors
 @Name("org.jboss.seam.faces.renderer")
 @AutoCreate
-@Install(value = true, precedence = Install.BUILT_IN, classDependencies="com.sun.faces.application.ApplicationAssociate")
-public class FaceletsRenderer extends Renderer
-{
-   
-   
-   /**
-    * Render the viewId, anything written to the JSF ResponseWriter is
-    * returned 
-    */
-   @Override
-   public String render(final String viewId) 
-   {
-      RendererRequest rendererRequest = new RendererRequest(viewId);
-      try
-      {
-         rendererRequest.run();
-      }
-      catch (IOException e)
-      {
-         throw new RuntimeException("error rendering " + viewId, e);
-      }
-      return rendererRequest.getOutput();
-   }
-   
+@Install(value = true, precedence = Install.BUILT_IN, classDependencies = "com.sun.faces.application.ApplicationAssociate")
+public class FaceletsRenderer extends Renderer {
+
+	/**
+	* Render the viewId, anything written to the JSF ResponseWriter is
+	* returned 
+	*/
+	@Override
+	public String render(final String viewId) {
+		RendererRequest rendererRequest = new RendererRequest(viewId);
+		try {
+			rendererRequest.run();
+		} catch (IOException e) {
+			throw new RuntimeException("error rendering " + viewId, e);
+		}
+		return rendererRequest.getOutput();
+	}
+
 }

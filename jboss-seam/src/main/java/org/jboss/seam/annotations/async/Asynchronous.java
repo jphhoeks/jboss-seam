@@ -8,19 +8,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * Marks a method as an asynchronous method, to be
- * dispatched by the EJB3 TimerService.
+ * Marks a method as an asynchronous method, to be dispatched by the EJB3
+ * TimerService.
  * 
- * If the method returns Timer, the return value
- * will be the Timer used for dispatching the
- * method call. Otherwise, the method should return
- * void.
+ * If the method returns Timer, the return value will be the Timer used for
+ * dispatching the method call. Otherwise, the method should return void.
  * 
- * Note that asynchronous calls are processed in
- * a different EVENT, SESSION and CONVERSATION
- * context to the caller, so the actual receiving
- * object may be a different instance of the 
- * component to the object that was called.
+ * Note that asynchronous calls are processed in a different EVENT, SESSION and
+ * CONVERSATION context to the caller, so the actual receiving object may be a
+ * different instance of the component to the object that was called.
  * 
  * @author Gavin King
  * 
@@ -32,4 +28,5 @@ import java.lang.annotation.Target;
 @Target(METHOD)
 @Retention(RUNTIME)
 @Documented
-public @interface Asynchronous {}
+public @interface Asynchronous {
+}

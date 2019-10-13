@@ -5,24 +5,20 @@ package org.jboss.seam.security.digest;
  * 
  * @author Shane Bryzak
  */
-public class DigestValidationException extends Exception
-{
-   private static final long serialVersionUID = 1L;
-private boolean nonceExpired = false;
-   
-   public DigestValidationException(String message)
-   {
-      super(message);
-   }
-   
-   public DigestValidationException(String message, boolean nonceExpired)
-   {
-      super(message);
-      this.nonceExpired = nonceExpired;
-   }
-   
-   public boolean isNonceExpired()
-   {
-      return nonceExpired;
-   }
+public class DigestValidationException extends Exception {
+	private static final long serialVersionUID = 1L;
+	private boolean nonceExpired = false;
+
+	public DigestValidationException(String message) {
+		super(message);
+	}
+
+	public DigestValidationException(String message, boolean nonceExpired) {
+		super(message);
+		this.nonceExpired = nonceExpired;
+	}
+
+	public boolean isNonceExpired() {
+		return nonceExpired;
+	}
 }

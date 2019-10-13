@@ -5,17 +5,14 @@ package org.jboss.seam.security.management;
  *  
  * @author Shane Bryzak
  */
-public class NoSuchRoleException extends RuntimeException
-{
-   private static final long serialVersionUID = 1L;
+public class NoSuchRoleException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
 
-public NoSuchRoleException(String message)
-   {
-      super(message);
-   }
-   
-   public NoSuchRoleException(String message, Throwable cause)
-   {
-      super(message, cause);
-   }
+	public NoSuchRoleException(String message) {
+		super(message);
+	}
+
+	public NoSuchRoleException(String message, Throwable cause) {
+		super(message, cause);
+	}
 }

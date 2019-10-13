@@ -15,28 +15,23 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
  * @author Gavin King
  *
  */
-public class BusinessProcessController extends Controller
-{
-   private static final long serialVersionUID = 8997804429715719508L;
+public class BusinessProcessController extends Controller {
+	private static final long serialVersionUID = 8997804429715719508L;
 
-protected BusinessProcess getBusinessProcess()
-   {
-      return BusinessProcess.instance();
-   }
-   
-   protected JbpmContext getJbpmContext()
-   {
-      return ManagedJbpmContext.instance();
-   }
-   
-   protected TaskInstance getTaskInstance()
-   {
-      return org.jboss.seam.bpm.TaskInstance.instance();
-   }
-   
-   protected ProcessInstance getProcessInstance()
-   {
-      return org.jboss.seam.bpm.ProcessInstance.instance();
-   }
-     
+	protected BusinessProcess getBusinessProcess() {
+		return BusinessProcess.instance();
+	}
+
+	protected JbpmContext getJbpmContext() {
+		return ManagedJbpmContext.instance();
+	}
+
+	protected TaskInstance getTaskInstance() {
+		return org.jboss.seam.bpm.TaskInstance.instance();
+	}
+
+	protected ProcessInstance getProcessInstance() {
+		return org.jboss.seam.bpm.ProcessInstance.instance();
+	}
+
 }

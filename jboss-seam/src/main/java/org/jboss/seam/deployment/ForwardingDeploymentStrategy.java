@@ -12,14 +12,13 @@ import javax.servlet.ServletContext;
  * @author Dan Allen
  * @author Pete Muir
  */
-public abstract class ForwardingDeploymentStrategy extends DeploymentStrategy
-{
+public abstract class ForwardingDeploymentStrategy extends DeploymentStrategy {
 
 	public ForwardingDeploymentStrategy() {
 		super();
 	}
-	
-	   protected abstract DeploymentStrategy delegate();
+
+	protected abstract DeploymentStrategy delegate();
 
 	@Override
 	public ClassLoader getClassLoader() {

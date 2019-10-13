@@ -45,109 +45,86 @@ import org.jboss.seam.util.Strings;
 @Startup
 @Name("org.jboss.seam.international.localeConfig")
 @Install(value = false, precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
-public class LocaleConfig
-{
-   private String defaultLocale;
+public class LocaleConfig {
+	private String defaultLocale;
 
-   private List<String> supportedLocales;
-   
-   private static final LogProvider log = Logging.getLogProvider(LocaleConfig.class);
+	private List<String> supportedLocales;
 
-   @Create
-   public void initLocaleConfig()
-   {
-      Application application = getApplication();
-      if (application == null)
-      {
-         return;
-      }
+	private static final LogProvider log = Logging.getLogProvider(LocaleConfig.class);
 
-      String defaultAsString = getDefaultLocale();
-      if (defaultAsString != null)
-      {
-         application.setDefaultLocale(getLocaleFromString(defaultAsString));
-      }
+	@Create
+	public void initLocaleConfig() {
+		Application application = getApplication();
+		if (application == null) {
+			return;
+		}
 
-      List<String> supportedAsStrings = getSupportedLocales();
-      int numSupported = supportedAsStrings != null ? supportedAsStrings.size() : 0;
-      if (numSupported > 0)
-      {
-         // use set to prevent duplicates, yet retain order just to be nice
-         Set<java.util.Locale> locales = new LinkedHashSet<java.util.Locale>(numSupported);
-         for (String supportedAsString : supportedAsStrings)
-         {
-            locales.add(getLocaleFromString(supportedAsString));
-         }
-         application.setSupportedLocales(locales);
-      }
-   }
+		String defaultAsString = getDefaultLocale();
+		if (defaultAsString != null) {
+			application.setDefaultLocale(getLocaleFromString(defaultAsString));
+		}
 
-   public String getDefaultLocale()
-   {
-      return defaultLocale;
-   }
+		List<String> supportedAsStrings = getSupportedLocales();
+		int numSupported = supportedAsStrings != null ? supportedAsStrings.size() : 0;
+		if (numSupported > 0) {
+			// use set to prevent duplicates, yet retain order just to be nice
+			Set<java.util.Locale> locales = new LinkedHashSet<java.util.Locale>(numSupported);
+			for (String supportedAsString : supportedAsStrings) {
+				locales.add(getLocaleFromString(supportedAsString));
+			}
+			application.setSupportedLocales(locales);
+		}
+	}
 
-   public void setDefaultLocale(String defaultLocale)
-   {
-      this.defaultLocale = defaultLocale;
-      log.debug("Default locale was set to " + this.defaultLocale);
-   }
+	public String getDefaultLocale() {
+		return defaultLocale;
+	}
 
-   public List<String> getSupportedLocales()
-   {
-      return supportedLocales;
-   }
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+		log.debug("Default locale was set to " + this.defaultLocale);
+	}
 
-   public void setSupportedLocales(List<String> supportedLocales)
-   {
-      this.supportedLocales = supportedLocales;
-      log.debug("Supported locales are " + this.supportedLocales);
-   }
+	public List<String> getSupportedLocales() {
+		return supportedLocales;
+	}
 
-   public static LocaleConfig instance()
-   {
-      return (LocaleConfig) Component.getInstance(LocaleConfig.class, ScopeType.APPLICATION);
-   }
+	public void setSupportedLocales(List<String> supportedLocales) {
+		this.supportedLocales = supportedLocales;
+		log.debug("Supported locales are " + this.supportedLocales);
+	}
 
-   private java.util.Locale getLocaleFromString(String localeString)
-   {
-      if (localeString == null || localeString.length() < 2)
-      {
-         throw new IllegalArgumentException("Invalid locale string: " + localeString);
-      }
+	public static LocaleConfig instance() {
+		return (LocaleConfig) Component.getInstance(LocaleConfig.class, ScopeType.APPLICATION);
+	}
 
-      StringTokenizer tokens = new StringTokenizer(localeString, "-_");
-      String language = tokens.hasMoreTokens() ? tokens.nextToken() : null;
-      String country = tokens.hasMoreTokens() ? tokens.nextToken() : null;
-      String variant = tokens.hasMoreTokens() ? tokens.nextToken() : null;
-      if (!Strings.isEmpty(variant))
-      {
-         return new java.util.Locale(language, country, variant);
-      }
-      else if (!Strings.isEmpty(country))
-      {
-         return new java.util.Locale(language, country);
-      }
-      else
-      {
-         return new java.util.Locale(language);
-      }
-   }
+	private java.util.Locale getLocaleFromString(String localeString) {
+		if (localeString == null || localeString.length() < 2) {
+			throw new IllegalArgumentException("Invalid locale string: " + localeString);
+		}
 
-   private Application getApplication()
-   {
-      try
-      {
-         ApplicationFactory factory = (ApplicationFactory) FactoryFinder
-            .getFactory(FactoryFinder.APPLICATION_FACTORY);
-         return factory.getApplication();
-      }
-      catch (IllegalStateException e)
-      {
-         log.warn("JSF is not properly initialized, see http://jira.jboss.org/jira/browse/JBSEAM-4401");
-         // just in case, for units and the like
-         // if we can't do it, it just wan't meant to be
-         return null;
-      }
-   }
+		StringTokenizer tokens = new StringTokenizer(localeString, "-_");
+		String language = tokens.hasMoreTokens() ? tokens.nextToken() : null;
+		String country = tokens.hasMoreTokens() ? tokens.nextToken() : null;
+		String variant = tokens.hasMoreTokens() ? tokens.nextToken() : null;
+		if (!Strings.isEmpty(variant)) {
+			return new java.util.Locale(language, country, variant);
+		} else if (!Strings.isEmpty(country)) {
+			return new java.util.Locale(language, country);
+		} else {
+			return new java.util.Locale(language);
+		}
+	}
+
+	private Application getApplication() {
+		try {
+			ApplicationFactory factory = (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+			return factory.getApplication();
+		} catch (IllegalStateException e) {
+			log.warn("JSF is not properly initialized, see http://jira.jboss.org/jira/browse/JBSEAM-4401");
+			// just in case, for units and the like
+			// if we can't do it, it just wan't meant to be
+			return null;
+		}
+	}
 }

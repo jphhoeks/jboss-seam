@@ -26,114 +26,90 @@ import org.jboss.seam.log.Logging;
 @Name("org.jboss.seam.cache.cacheProvider")
 @Scope(APPLICATION)
 @BypassInterceptors
-@Install(value = false, precedence = BUILT_IN, classDependencies="net.sf.ehcache.Cache")
+@Install(value = false, precedence = BUILT_IN, classDependencies = "net.sf.ehcache.Cache")
 @AutoCreate
-public class EhCacheProvider extends CacheProvider<CacheManager>
-{
+public class EhCacheProvider extends CacheProvider<CacheManager> {
 
-   private CacheManager cacheManager;
+	private CacheManager cacheManager;
 
-   private static final LogProvider log = Logging.getLogProvider(EhCacheProvider.class);
+	private static final LogProvider log = Logging.getLogProvider(EhCacheProvider.class);
 
-   @Override
-   public CacheManager getDelegate()
-   {
-      return cacheManager;
-   }
+	@Override
+	public CacheManager getDelegate() {
+		return cacheManager;
+	}
 
-   @Override
-   public void put(String region, String key, Object object)
-   {
-      Cache cache = getCacheRegion(region);
-      Element element = new Element(key, object);
-      cache.put(element);
-   }
+	@Override
+	public void put(String region, String key, Object object) {
+		Cache cache = getCacheRegion(region);
+		Element element = new Element(key, object);
+		cache.put(element);
+	}
 
-   @Override
-   public void clear()
-   {
-      String[] strings = cacheManager.getCacheNames();
-      for (String cacheName : strings)
-      {
-         Cache cache = getCacheRegion(cacheName);
-         cache.removeAll();
-      }
-   }
+	@Override
+	public void clear() {
+		String[] strings = cacheManager.getCacheNames();
+		for (String cacheName : strings) {
+			Cache cache = getCacheRegion(cacheName);
+			cache.removeAll();
+		}
+	}
 
-   @Override
-   public Object get(String region, String key)
-   {
-      Cache cache = getCacheRegion(region);
-      Element element = cache.get(key);
-      if (element != null)
-      {
-         return element.getObjectValue();
-      }
-      else
-      {
-         return null;
-      }
-   }
+	@Override
+	public Object get(String region, String key) {
+		Cache cache = getCacheRegion(region);
+		Element element = cache.get(key);
+		if (element != null) {
+			return element.getObjectValue();
+		} else {
+			return null;
+		}
+	}
 
-   private net.sf.ehcache.Cache getCacheRegion(String regionName)
-   {
-      if (regionName == null)
-      {
-         regionName = getDefaultRegion();
-      }
-      Cache result = cacheManager.getCache(regionName);
-      if (result == null)
-      {
-          log.debug("Could not find configuration for region [" + regionName + "]; using defaults.");
-          cacheManager.addCacheIfAbsent(regionName);
-          result = cacheManager.getCache(regionName);
-          log.debug("EHCache region created: " + regionName); 
-      }
-      return result;
-   }
+	private net.sf.ehcache.Cache getCacheRegion(String regionName) {
+		if (regionName == null) {
+			regionName = getDefaultRegion();
+		}
+		Cache result = cacheManager.getCache(regionName);
+		if (result == null) {
+			log.debug("Could not find configuration for region [" + regionName + "]; using defaults.");
+			cacheManager.addCacheIfAbsent(regionName);
+			result = cacheManager.getCache(regionName);
+			log.debug("EHCache region created: " + regionName);
+		}
+		return result;
+	}
 
-   @Override
-   public void remove(String region, String key)
-   {
-      Cache cache = getCacheRegion(region);
-      cache.remove(key);
-   }
+	@Override
+	public void remove(String region, String key) {
+		Cache cache = getCacheRegion(region);
+		cache.remove(key);
+	}
 
-   @Create
-   public void create()
-   {
-      log.debug("Starting EhCacheProvider cache");
-      try
-      {
-         if (getConfiguration() != null)
-         {
-            cacheManager = new CacheManager(getConfigurationAsStream());
-         }
-         else
-         {
-            cacheManager = new CacheManager();
-         }
-      }
-      catch (net.sf.ehcache.CacheException e)
-      {
-         throw new IllegalStateException("Error starting EHCache Cache", e);
-      }
-   }
+	@Create
+	public void create() {
+		log.debug("Starting EhCacheProvider cache");
+		try {
+			if (getConfiguration() != null) {
+				cacheManager = new CacheManager(getConfigurationAsStream());
+			} else {
+				cacheManager = new CacheManager();
+			}
+		} catch (net.sf.ehcache.CacheException e) {
+			throw new IllegalStateException("Error starting EHCache Cache", e);
+		}
+	}
 
-   @Destroy
-   public void destroy()
-   {
-      log.debug("Stopping EhCacheProvider cache");
+	@Destroy
+	public void destroy() {
+		log.debug("Stopping EhCacheProvider cache");
 
-      try
-      {
-         cacheManager.shutdown();
-         cacheManager = null;
-      }
-      catch (RuntimeException e)
-      {
-         throw new IllegalStateException("Error stopping EHCache Cache", e);
-      }
-   }
+		try {
+			cacheManager.shutdown();
+			cacheManager = null;
+		} catch (RuntimeException e) {
+			throw new IllegalStateException("Error stopping EHCache Cache", e);
+		}
+	}
 
 }

@@ -16,116 +16,103 @@ import org.jboss.seam.log.Log;
 
 @Name("ConversationAction")
 @Scope(ScopeType.CONVERSATION)
-public class ConversationAction implements Serializable
-{
-   private static final long serialVersionUID = 1L;
+public class ConversationAction implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-   @Logger
-   private Log log;
+	@Logger
+	private Log log;
 
-   @In
-   StatusMessages statusMessages;
+	@In
+	StatusMessages statusMessages;
 
-   @Out(value = "state", scope = ScopeType.SESSION)
-   String state = "";
+	@Out(value = "state", scope = ScopeType.SESSION)
+	String state = "";
 
-   @Out(value = "foo", scope = ScopeType.CONVERSATION)
-   String foo = "";
+	@Out(value = "foo", scope = ScopeType.CONVERSATION)
+	String foo = "";
 
-   @Out(value = "bar", scope = ScopeType.PAGE)
-   String bar = "";
+	@Out(value = "bar", scope = ScopeType.PAGE)
+	String bar = "";
 
-   @Begin
-   public void begin()
-   {
-      state += "begin;";
-   }
+	@Begin
+	public void begin() {
+		state += "begin;";
+	}
 
-   @End
-   public void end()
-   {
-      state += "end;";
-   }
+	@End
+	public void end() {
+		state += "end;";
+	}
 
-   public void xyzzy()
-   {
-      state += "xyzzy;";
-   }
+	public void xyzzy() {
+		state += "xyzzy;";
+	}
 
-   public String viewOutput()
-   {
+	public String viewOutput() {
 
-      state += "viewOutput;";
+		state += "viewOutput;";
 
-      return "output";
-   }
+		return "output";
+	}
 
-   public String redirectOutput()
-   {
+	public String redirectOutput() {
 
-      state += "redirectOutput;";
+		state += "redirectOutput;";
 
-      return "output?faces-redirect=true";
-   }
+		return "output?faces-redirect=true";
+	}
 
-   public void raiseException() throws MyException
-   {
-      state += "raiseException;";
-      throw new MyException();
-   }
+	public void raiseException() throws MyException {
+		state += "raiseException;";
+		throw new MyException();
+	}
 
-   public void raiseConversationEndingException() throws MyConversationEndingException
-   {
-      state += "raiseConversationEndingException;";
-      throw new MyConversationEndingException();
-   }
+	public void raiseConversationEndingException() throws MyConversationEndingException {
+		state += "raiseConversationEndingException;";
+		throw new MyConversationEndingException();
+	}
 
-   public String getState()
-   {
-      return state;
-   }
+	public String getState() {
+		return state;
+	}
 
-   public String pagesRender()
-   {
-      state += "pagesRender;";
+	public String pagesRender() {
+		state += "pagesRender;";
 
-      return "render";
-   }
+		return "render";
+	}
 
-   public String pagesRedirect()
-   {
-      state += "pagesRedirect;";
+	public String pagesRedirect() {
+		state += "pagesRedirect;";
 
-      return "redirect";
-   }
+		return "redirect";
+	}
 
-   public void programmaticRedirect()
-   {
+	public void programmaticRedirect() {
 
-      state += "programmaticRedirect;";
+		state += "programmaticRedirect;";
 
-      Redirect redirect = Redirect.instance();
-      redirect.setViewId("/output.xhtml");
-      redirect.execute();
-   }
+		Redirect redirect = Redirect.instance();
+		redirect.setViewId("/output.xhtml");
+		redirect.execute();
+	}
 
-   public void programmaticRedirectNoPropagation()
-   {
+	public void programmaticRedirectNoPropagation() {
 
-      state += "programmaticRedirectNoPropagation;";
+		state += "programmaticRedirectNoPropagation;";
 
-      Redirect redirect = Redirect.instance();
-      redirect.setConversationPropagationEnabled(false);
-      redirect.setViewId("/output.xhtml");
-      redirect.execute();
+		Redirect redirect = Redirect.instance();
+		redirect.setConversationPropagationEnabled(false);
+		redirect.setViewId("/output.xhtml");
+		redirect.execute();
 
-      // FacesManager.instance().redirect("/output.xhtml", null, false, false);
-   }
+		// FacesManager.instance().redirect("/output.xhtml", null, false, false);
+	}
 
-   /*
-       @BypassInterceptors
-       public boolean equals(Object other) {
-          return super.equals(other);
-       }
-   */
+	/*
+	   @BypassInterceptors
+	   public boolean equals(Object other) {
+	      return super.equals(other);
+	   }
+	*/
 }

@@ -25,129 +25,107 @@ import com.lowagie.text.pdf.AcroFields;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 
-public class UIForm extends FormComponent
-{
-   public static final String COMPONENT_FAMILY = "org.jboss.seam.pdf.UIForm";
+public class UIForm extends FormComponent {
+	public static final String COMPONENT_FAMILY = "org.jboss.seam.pdf.UIForm";
 
-   private Log log = Logging.getLog(getClass());
+	private Log log = Logging.getLog(getClass());
 
-   private String URL;
-   private String filename;
-   private String exportKey;
+	private String URL;
+	private String filename;
+	private String exportKey;
 
-   PdfReader reader;
-   PdfStamper stamper;
-   AcroFields fields;
-   ByteArrayOutputStream buffer;
+	PdfReader reader;
+	PdfStamper stamper;
+	AcroFields fields;
+	ByteArrayOutputStream buffer;
 
-   public String getURL()
-   {
-      return (String) valueOf("URL", URL);
-   }
+	public String getURL() {
+		return (String) valueOf("URL", URL);
+	}
 
-   public void setURL(String url)
-   {
-      URL = url;
-   }
+	public void setURL(String url) {
+		URL = url;
+	}
 
-   @Override
-   public void encodeBegin(FacesContext facesContext) throws IOException
-   {
-      log.info("Loading template #0", getURL());
-      if (getURL().indexOf("://") < 0)
-      {
-         reader = new PdfReader(ResourceLoader.instance().getResourceAsStream(getURL()));
-      }
-      else
-      {
-         reader = new PdfReader(new URL(getURL()));
-      }
-      buffer = new ByteArrayOutputStream();
-      try
-      {
-         stamper = new PdfStamper(reader, buffer);
-         Contexts.getEventContext().set(STAMPER_KEY, stamper);
-      }
-      catch (DocumentException e)
-      {
-         throw new FacesException("Could not create PDF stamper", e);
-      }
-      fields = stamper.getAcroFields();
-      Contexts.getEventContext().set(FIELDS_KEY, fields);
-   }
+	@Override
+	public void encodeBegin(FacesContext facesContext) throws IOException {
+		log.info("Loading template #0", getURL());
+		if (getURL().indexOf("://") < 0) {
+			reader = new PdfReader(ResourceLoader.instance().getResourceAsStream(getURL()));
+		} else {
+			reader = new PdfReader(new URL(getURL()));
+		}
+		buffer = new ByteArrayOutputStream();
+		try {
+			stamper = new PdfStamper(reader, buffer);
+			Contexts.getEventContext().set(STAMPER_KEY, stamper);
+		} catch (DocumentException e) {
+			throw new FacesException("Could not create PDF stamper", e);
+		}
+		fields = stamper.getAcroFields();
+		Contexts.getEventContext().set(FIELDS_KEY, fields);
+	}
 
-   @Override
-   public void encodeEnd(FacesContext facesContext) throws IOException
-   {
-      stamper.setFormFlattening(true);
-      try
-      {
-         stamper.close();
-      }
-      catch (DocumentException e)
-      {
-         throw new FacesException("Could not flush PDF", e);
-      }
+	@Override
+	public void encodeEnd(FacesContext facesContext) throws IOException {
+		stamper.setFormFlattening(true);
+		try {
+			stamper.close();
+		} catch (DocumentException e) {
+			throw new FacesException("Could not flush PDF", e);
+		}
 
-      if (getExportKey() == null)
-      {
-         UIComponent parent = getParent();
-         if (parent != null && (parent instanceof ValueHolder))
-         {
-            log.debug("Storing PDF data in ValueHolder parent");
-            ValueHolder valueHolder = (ValueHolder) parent;
-            valueHolder.setValue(buffer.toByteArray());
-            return;
-         }
-      }
+		if (getExportKey() == null) {
+			UIComponent parent = getParent();
+			if (parent != null && (parent instanceof ValueHolder)) {
+				log.debug("Storing PDF data in ValueHolder parent");
+				ValueHolder valueHolder = (ValueHolder) parent;
+				valueHolder.setValue(buffer.toByteArray());
+				return;
+			}
+		}
 
-      String viewId = Pages.getViewId(facesContext);
-      String baseName = Pages.getCurrentBaseName();
+		String viewId = Pages.getViewId(facesContext);
+		String baseName = Pages.getCurrentBaseName();
 
-      DocumentStore store = DocumentStore.instance();
-      DocumentType documentType = new DocumentData.DocumentType("pdf", "application/pdf");
-      DocumentData documentData = DocumentDataFactory.getDocumentData(baseName, documentType, buffer.toByteArray());
-      documentData.setFilename(getFilename());
+		DocumentStore store = DocumentStore.instance();
+		DocumentType documentType = new DocumentData.DocumentType("pdf", "application/pdf");
+		DocumentData documentData = DocumentDataFactory.getDocumentData(baseName, documentType, buffer.toByteArray());
+		documentData.setFilename(getFilename());
 
-      if (getExportKey() != null)
-      {
-         log.debug("Exporting PDF data to event key #0", getExportKey());
-         Contexts.getEventContext().set(getExportKey(), documentData);
-         return;
-      }
+		if (getExportKey() != null) {
+			log.debug("Exporting PDF data to event key #0", getExportKey());
+			Contexts.getEventContext().set(getExportKey(), documentData);
+			return;
+		}
 
-      String id = store.newId();
-      String url = store.preferredUrlForContent(baseName, documentType.getExtension(), id);
-      url = Manager.instance().encodeConversationId(url, viewId);
-      store.saveData(id, documentData);
-      log.debug("Redirecting to #0 for PDF view", url);
-      facesContext.getExternalContext().redirect(url);
-   }
+		String id = store.newId();
+		String url = store.preferredUrlForContent(baseName, documentType.getExtension(), id);
+		url = Manager.instance().encodeConversationId(url, viewId);
+		store.saveData(id, documentData);
+		log.debug("Redirecting to #0 for PDF view", url);
+		facesContext.getExternalContext().redirect(url);
+	}
 
-   @Override
-   public String getFamily()
-   {
-      return COMPONENT_FAMILY;
-   }
+	@Override
+	public String getFamily() {
+		return COMPONENT_FAMILY;
+	}
 
-   public String getFilename()
-   {
-      return (String) valueOf("filename", filename);
-   }
+	public String getFilename() {
+		return (String) valueOf("filename", filename);
+	}
 
-   public void setFilename(String filename)
-   {
-      this.filename = filename;
-   }
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 
-   public String getExportKey()
-   {
-      return (String) valueOf("exportKey", exportKey);
-   }
+	public String getExportKey() {
+		return (String) valueOf("exportKey", exportKey);
+	}
 
-   public void setExportKey(String exportKey)
-   {
-      this.exportKey = exportKey;
-   }
+	public void setExportKey(String exportKey) {
+		this.exportKey = exportKey;
+	}
 
 }

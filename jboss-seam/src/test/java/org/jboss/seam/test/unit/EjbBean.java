@@ -14,9 +14,12 @@ import org.jboss.seam.annotations.Scope;
 @Name("ejb")
 @Scope(ScopeType.EVENT)
 @JndiName("x")
-public class EjbBean implements Ejb
-{
-   public void foo() {}
-   @Remove @Destroy
-   public void destroy() {}
+public class EjbBean implements Ejb {
+	public void foo() {
+	}
+
+	@Remove
+	@Destroy
+	public void destroy() {
+	}
 }

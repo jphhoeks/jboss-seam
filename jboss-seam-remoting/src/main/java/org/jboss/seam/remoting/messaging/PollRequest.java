@@ -10,51 +10,38 @@ import javax.jms.*;
  *
  * @author Shane Bryzak
  */
-public class PollRequest
-{
-  private String token;
-  private int timeout;
-  private List<Message> messages;
-  private List<PollError> errors = new ArrayList<PollError>();
+public class PollRequest {
+	private String token;
+	private int timeout;
+	private List<Message> messages;
+	private List<PollError> errors = new ArrayList<PollError>();
 
-  public PollRequest(String token, int timeout)
-  {
-    this.token = token;
-    this.timeout = timeout;
-  }
+	public PollRequest(String token, int timeout) {
+		this.token = token;
+		this.timeout = timeout;
+	}
 
-  public String getToken()
-  {
-    return token;
-  }
+	public String getToken() {
+		return token;
+	}
 
-  public List<Message> getMessages()
-  {
-    return messages;
-  }
+	public List<Message> getMessages() {
+		return messages;
+	}
 
-  public List<PollError> getErrors()
-  {
-    return errors;
-  }
+	public List<PollError> getErrors() {
+		return errors;
+	}
 
-  public void poll()
-  {
-    RemoteSubscriber subscriber = SubscriptionRegistry.instance().getSubscription(token);
-    if (subscriber != null)
-    {
-      try
-      {
-        messages = subscriber.poll(timeout);
-      }
-      catch (JMSException ex)
-      {
-        errors.add(new PollError(PollError.ERROR_CODE_JMS_EXCEPTION,
-                                 "Error polling for messages"));
-      }
-    }
-    else
-      errors.add(new PollError(PollError.ERROR_CODE_TOKEN_NOT_FOUND,
-                               "No subscription was found for the specified token."));
-  }
+	public void poll() {
+		RemoteSubscriber subscriber = SubscriptionRegistry.instance().getSubscription(token);
+		if (subscriber != null) {
+			try {
+				messages = subscriber.poll(timeout);
+			} catch (JMSException ex) {
+				errors.add(new PollError(PollError.ERROR_CODE_JMS_EXCEPTION, "Error polling for messages"));
+			}
+		} else
+			errors.add(new PollError(PollError.ERROR_CODE_TOKEN_NOT_FOUND, "No subscription was found for the specified token."));
+	}
 }

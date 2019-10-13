@@ -17,41 +17,38 @@ import org.jboss.seam.security.management.IdentityManager;
 @Name("org.jboss.seam.security.management.userSearch")
 @Scope(SESSION)
 @Install(precedence = BUILT_IN)
-public class UserSearch implements Serializable
-{
-   private static final long serialVersionUID = 8592034786339372510L;
+public class UserSearch implements Serializable {
+	private static final long serialVersionUID = 8592034786339372510L;
 
-   @DataModel
-   List<String> users;
-   
-   @DataModelSelection
-   String selectedUser;
-   
-   @In IdentityManager identityManager;
-   
-   public void loadUsers()
-   {
-      users = identityManager.listUsers();     
-   }
-   
-   public String getUserRoles(String username)
-   {
-      List<String> roles = identityManager.getGrantedRoles(username);
-      
-      if (roles == null) return "";
-      
-      StringBuilder sb = new StringBuilder();
-      
-      for (String role : roles)
-      {
-         sb.append((sb.length() > 0 ? ", " : "") + role); 
-      }
-      
-      return sb.toString();      
-   }
-   
-   public String getSelectedUser()
-   {
-      return selectedUser;
-   }
+	@DataModel
+	List<String> users;
+
+	@DataModelSelection
+	String selectedUser;
+
+	@In
+	IdentityManager identityManager;
+
+	public void loadUsers() {
+		users = identityManager.listUsers();
+	}
+
+	public String getUserRoles(String username) {
+		List<String> roles = identityManager.getGrantedRoles(username);
+
+		if (roles == null)
+			return "";
+
+		StringBuilder sb = new StringBuilder();
+
+		for (String role : roles) {
+			sb.append((sb.length() > 0 ? ", " : "") + role);
+		}
+
+		return sb.toString();
+	}
+
+	public String getSelectedUser() {
+		return selectedUser;
+	}
 }

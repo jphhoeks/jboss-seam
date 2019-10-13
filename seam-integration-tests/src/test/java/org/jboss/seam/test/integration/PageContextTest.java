@@ -15,35 +15,31 @@ import org.junit.runner.RunWith;
  *
  */
 @RunWith(Arquillian.class)
-public class PageContextTest extends JUnitSeamTest
-{
-   @Deployment(name="PageContextTest")
-   @OverProtocol("Servlet 3.0") 
-   public static Archive<?> createDeployment()
-   {
-      return Deployments.defaultSeamDeployment();
-   }
+public class PageContextTest extends JUnitSeamTest {
+	@Deployment(name = "PageContextTest")
+	@OverProtocol("Servlet 3.0")
+	public static Archive<?> createDeployment() {
+		return Deployments.defaultSeamDeployment();
+	}
 
-   @Test
-   public void pageContextTest() throws Exception {
+	@Test
+	public void pageContextTest() throws Exception {
 
-      new FacesRequest("/index.xhtml") {
-          
-         @Override
-         protected void invokeApplication() throws Exception
-         {
-            Contexts.getPageContext().set("foo", "bar");
-            assert Contexts.getPageContext().get("foo") == null;
-         }
-         
-         @Override
-         protected void renderResponse() throws Exception
-         {
-             assert Contexts.getPageContext().get("foo") != null;
-             assert "bar".equals(Contexts.getPageContext().get("foo"));
-         }
-      }.run();
-      
-  } 
-   
+		new FacesRequest("/index.xhtml") {
+
+			@Override
+			protected void invokeApplication() throws Exception {
+				Contexts.getPageContext().set("foo", "bar");
+				assert Contexts.getPageContext().get("foo") == null;
+			}
+
+			@Override
+			protected void renderResponse() throws Exception {
+				assert Contexts.getPageContext().get("foo") != null;
+				assert "bar".equals(Contexts.getPageContext().get("foo"));
+			}
+		}.run();
+
+	}
+
 }

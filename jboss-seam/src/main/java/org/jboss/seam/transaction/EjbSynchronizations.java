@@ -35,83 +35,68 @@ import org.jboss.seam.log.Logging;
 @Stateful
 @Name("org.jboss.seam.transaction.synchronizations")
 @Scope(ScopeType.EVENT)
-@Install(precedence=FRAMEWORK, dependencies="org.jboss.seam.transaction.ejbTransaction")
+@Install(precedence = FRAMEWORK, dependencies = "org.jboss.seam.transaction.ejbTransaction")
 @BypassInterceptors
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
-public class EjbSynchronizations implements LocalEjbSynchronizations, SessionSynchronization
-{
-   private static final LogProvider log = Logging.getLogProvider(EjbSynchronizations.class);
-   
-   //maintain two lists to work around a bug in JBoss EJB3 where a new SessionSynchronization
-   //gets registered each time the bean is called
-   protected LinkedList<SynchronizationRegistry> synchronizations = new LinkedList<SynchronizationRegistry>();
-   protected LinkedList<SynchronizationRegistry> committing = new LinkedList<SynchronizationRegistry>();
-   
-   public void afterBegin()
-   {
-      log.debug("afterBegin");
-      synchronizations.addLast( new SynchronizationRegistry() );
-   }
-   
-   public void beforeCompletion() throws EJBException, RemoteException
-   {
-      log.debug("beforeCompletion");
-      SynchronizationRegistry sync = synchronizations.removeLast();
-      sync.beforeTransactionCompletion();
-      committing.addLast(sync);
-   }
-   
-   public void afterCompletion(boolean success) throws EJBException, RemoteException
-   {
-      log.debug("afterCompletion");
-      if ( committing.isEmpty() )
-      {
-         if (success)
-         {
-            throw new IllegalStateException("beforeCompletion was never called");
-         }
-         else
-         {
-            synchronizations.removeLast().afterTransactionCompletion(false);
-         }
-      }
-      else
-      {
-         committing.removeFirst().afterTransactionCompletion(success);
-      }
-   }
-   
-   public boolean isAwareOfContainerTransactions()
-   {
-      return true;
-   }
-   
-   public void afterTransactionBegin()
-   {
-      //noop, let JTA notify us
-   }
-   
-   public void afterTransactionCommit(boolean success)
-   {
-      //noop, let JTA notify us
-   }
-   
-   public void afterTransactionRollback()
-   {
-      //noop, let JTA notify us
-   }
-   
-   public void beforeTransactionCommit()
-   {
-      //noop, let JTA notify us
-   }
-   
-   public void registerSynchronization(Synchronization sync)
-   {
-      synchronizations.getLast().registerSynchronization(sync);
-   }
-   
-   @Remove
-   public void destroy() {}
-   
+public class EjbSynchronizations implements LocalEjbSynchronizations, SessionSynchronization {
+	private static final LogProvider log = Logging.getLogProvider(EjbSynchronizations.class);
+
+	//maintain two lists to work around a bug in JBoss EJB3 where a new SessionSynchronization
+	//gets registered each time the bean is called
+	protected LinkedList<SynchronizationRegistry> synchronizations = new LinkedList<SynchronizationRegistry>();
+	protected LinkedList<SynchronizationRegistry> committing = new LinkedList<SynchronizationRegistry>();
+
+	public void afterBegin() {
+		log.debug("afterBegin");
+		synchronizations.addLast(new SynchronizationRegistry());
+	}
+
+	public void beforeCompletion() throws EJBException, RemoteException {
+		log.debug("beforeCompletion");
+		SynchronizationRegistry sync = synchronizations.removeLast();
+		sync.beforeTransactionCompletion();
+		committing.addLast(sync);
+	}
+
+	public void afterCompletion(boolean success) throws EJBException, RemoteException {
+		log.debug("afterCompletion");
+		if (committing.isEmpty()) {
+			if (success) {
+				throw new IllegalStateException("beforeCompletion was never called");
+			} else {
+				synchronizations.removeLast().afterTransactionCompletion(false);
+			}
+		} else {
+			committing.removeFirst().afterTransactionCompletion(success);
+		}
+	}
+
+	public boolean isAwareOfContainerTransactions() {
+		return true;
+	}
+
+	public void afterTransactionBegin() {
+		//noop, let JTA notify us
+	}
+
+	public void afterTransactionCommit(boolean success) {
+		//noop, let JTA notify us
+	}
+
+	public void afterTransactionRollback() {
+		//noop, let JTA notify us
+	}
+
+	public void beforeTransactionCommit() {
+		//noop, let JTA notify us
+	}
+
+	public void registerSynchronization(Synchronization sync) {
+		synchronizations.getLast().registerSynchronization(sync);
+	}
+
+	@Remove
+	public void destroy() {
+	}
+
 }

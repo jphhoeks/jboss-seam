@@ -4,24 +4,20 @@ package org.jboss.seam.util;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-public class IteratorEnumeration<T> implements Enumeration<T>
-{
-   
-   private Iterator<? extends T> iterator;
-   
-   public IteratorEnumeration(Iterator<? extends T> iterator)
-   {
-      this.iterator = iterator;
-   }
+public class IteratorEnumeration<T> implements Enumeration<T> {
 
-   public boolean hasMoreElements()
-   {
-      return iterator.hasNext();
-   }
+	private Iterator<? extends T> iterator;
 
-   public T nextElement()
-   {
-      return iterator.next();
-   }
+	public IteratorEnumeration(Iterator<? extends T> iterator) {
+		this.iterator = iterator;
+	}
+
+	public boolean hasMoreElements() {
+		return iterator.hasNext();
+	}
+
+	public T nextElement() {
+		return iterator.next();
+	}
 
 }

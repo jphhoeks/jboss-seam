@@ -7,8 +7,8 @@ import java.util.Set;
  *  
  * @author Shane Bryzak
  */
-public interface PermissionResolver
-{
-   boolean hasPermission(Object target, String action);
-   void filterSetByAction(Set<Object> targets, String action);
+public interface PermissionResolver {
+	boolean hasPermission(Object target, String action);
+
+	void filterSetByAction(Set<Object> targets, String action);
 }

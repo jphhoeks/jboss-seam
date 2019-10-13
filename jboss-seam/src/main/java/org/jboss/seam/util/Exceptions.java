@@ -10,27 +10,19 @@ public class Exceptions {
 	}
 
 	public static Throwable getCauseThrowable(Throwable exception) {
-	      Throwable cause = null;
-	      try
-	      {
-	         if ( EJB.EJB_EXCEPTION.isInstance(exception) )
-	         {
-	            cause = (Throwable) Reflections.getGetterMethod(EJB.EJB_EXCEPTION, "causedByException").invoke(exception);
-	         }
-	         else if (exception instanceof ServletException)
-	         {
-	            cause = ( (ServletException) exception ).getRootCause();
-	         }
-	         else
-	         {
-	            cause = exception.getCause();
-	         }
-	      }
-	      catch (Exception x)
-	      {
-	         return null;
-	      }
-	      return cause;
-   }
+		Throwable cause = null;
+		try {
+			if (EJB.EJB_EXCEPTION.isInstance(exception)) {
+				cause = (Throwable) Reflections.getGetterMethod(EJB.EJB_EXCEPTION, "causedByException").invoke(exception);
+			} else if (exception instanceof ServletException) {
+				cause = ((ServletException) exception).getRootCause();
+			} else {
+				cause = exception.getCause();
+			}
+		} catch (Exception x) {
+			return null;
+		}
+		return cause;
+	}
 
 }

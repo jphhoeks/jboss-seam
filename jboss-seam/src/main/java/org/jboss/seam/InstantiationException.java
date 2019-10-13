@@ -7,20 +7,16 @@ package org.jboss.seam;
  * @author Gavin King
  *
  */
-public class InstantiationException extends RuntimeException
-{
+public class InstantiationException extends RuntimeException {
 
-   /** The serialVersionUID */
-   private static final long serialVersionUID = -5437284703511833879L;
+	private static final long serialVersionUID = -5437284703511833879L;
 
-   public InstantiationException(String message, Throwable cause)
-   {
-      super(message, cause);
-   }
+	public InstantiationException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-   public InstantiationException(Throwable cause)
-   {
-      super(cause);
-   }
+	public InstantiationException(Throwable cause) {
+		super(cause);
+	}
 
 }

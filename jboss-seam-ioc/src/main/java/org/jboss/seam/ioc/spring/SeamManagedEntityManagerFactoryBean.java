@@ -11,29 +11,24 @@ import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
  * 
  * @author Mike Youngstrom
  */
-public class SeamManagedEntityManagerFactoryBean extends AbstractEntityManagerFactoryBean
-{
-   private String persistenceContextName;
+public class SeamManagedEntityManagerFactoryBean extends AbstractEntityManagerFactoryBean {
+	private String persistenceContextName;
 
-   @Override
-   protected EntityManagerFactory createNativeEntityManagerFactory() throws PersistenceException
-   {
-      return new SeamManagedEntityManagerFactory(persistenceContextName);
-   }
+	@Override
+	protected EntityManagerFactory createNativeEntityManagerFactory() throws PersistenceException {
+		return new SeamManagedEntityManagerFactory(persistenceContextName);
+	}
 
-   @Override
-   public String getPersistenceUnitName()
-   {
-      String persistenceUnitName = super.getPersistenceUnitName();
-      if (persistenceUnitName == null || "".equals(persistenceUnitName))
-      {
-         return persistenceContextName;
-      }
-      return persistenceUnitName;
-   }
+	@Override
+	public String getPersistenceUnitName() {
+		String persistenceUnitName = super.getPersistenceUnitName();
+		if (persistenceUnitName == null || "".equals(persistenceUnitName)) {
+			return persistenceContextName;
+		}
+		return persistenceUnitName;
+	}
 
-   public void setPersistenceContextName(String persistenceContextName)
-   {
-      this.persistenceContextName = persistenceContextName;
-   }
+	public void setPersistenceContextName(String persistenceContextName) {
+		this.persistenceContextName = persistenceContextName;
+	}
 }

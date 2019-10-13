@@ -8,32 +8,27 @@ import java.security.Principal;
  *  
  * @author Shane Bryzak
  */
-public class Permission implements Serializable
-{
-   private static final long serialVersionUID = 1L;
-private Object target;
-   private String action;
-   private Principal recipient;
-   
-   public Permission(Object target, String action, Principal recipient)
-   {
-      this.target = target;
-      this.action = action;
-      this.recipient = recipient;
-   }
-   
-   public Object getTarget()
-   {
-      return target;
-   }
-   
-   public String getAction()
-   {
-      return action;
-   }
-   
-   public Principal getRecipient()
-   {
-      return recipient;
-   }
+public class Permission implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private Object target;
+	private String action;
+	private Principal recipient;
+
+	public Permission(Object target, String action, Principal recipient) {
+		this.target = target;
+		this.action = action;
+		this.recipient = recipient;
+	}
+
+	public Object getTarget() {
+		return target;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public Principal getRecipient() {
+		return recipient;
+	}
 }

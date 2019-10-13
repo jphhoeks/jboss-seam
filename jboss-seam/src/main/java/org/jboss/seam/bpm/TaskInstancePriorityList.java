@@ -23,33 +23,26 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
  */
 @Name("org.jboss.seam.bpm.taskInstancePriorityList")
 @Scope(APPLICATION)
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.bpm.jbpm")
-public class TaskInstancePriorityList
-{
-   
-   //TODO: we really need to cache the list in the event context,
-   //      but then we would need some events to refresh it
-   //      when tasks end, which is non-trivial to do....
-   
-   @Unwrap
-   @Transactional
-   public List<TaskInstance> getTaskInstanceList()
-   {
-      return getTaskInstanceList( Actor.instance().getId() );
-   }
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
+public class TaskInstancePriorityList {
 
-   private List<TaskInstance> getTaskInstanceList(String actorId)
-   {
-      if ( actorId == null ) return null;
+	//TODO: we really need to cache the list in the event context,
+	//      but then we would need some events to refresh it
+	//      when tasks end, which is non-trivial to do....
 
-      return ManagedJbpmContext.instance().getSession()
-         .createCriteria(TaskInstance.class)
-         .add( Restrictions.eq("actorId", actorId) )
-         .add( Restrictions.eq("isOpen", true) )
-         .add( Restrictions.ne("isSuspended", true) )
-         .addOrder( Order.asc("priority") )
-         .setCacheable(true)
-         .list();
-   }
-   
+	@Unwrap
+	@Transactional
+	public List<TaskInstance> getTaskInstanceList() {
+		return getTaskInstanceList(Actor.instance().getId());
+	}
+
+	private List<TaskInstance> getTaskInstanceList(String actorId) {
+		if (actorId == null)
+			return null;
+
+		return ManagedJbpmContext.instance().getSession().createCriteria(TaskInstance.class).add(Restrictions.eq("actorId", actorId))
+				.add(Restrictions.eq("isOpen", true)).add(Restrictions.ne("isSuspended", true)).addOrder(Order.asc("priority"))
+				.setCacheable(true).list();
+	}
+
 }

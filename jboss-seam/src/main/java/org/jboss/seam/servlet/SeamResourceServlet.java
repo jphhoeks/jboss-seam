@@ -26,70 +26,55 @@ import org.jboss.seam.web.AbstractResource;
  * 
  * @author Shane Bryzak
  */
-public class SeamResourceServlet extends HttpServlet
-{  
-   private static final long serialVersionUID = 1L;
+public class SeamResourceServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
-private ServletContext context;
+	private ServletContext context;
 
-   private Map<String, AbstractResource> providers = new HashMap<String, AbstractResource>();
+	private Map<String, AbstractResource> providers = new HashMap<String, AbstractResource>();
 
-   @Override
-   public void init(ServletConfig config) throws ServletException
-   {
-      super.init(config);
-      context = config.getServletContext();
-      loadResourceProviders();
-   }
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		context = config.getServletContext();
+		loadResourceProviders();
+	}
 
-   protected void loadResourceProviders()
-   {
-      try
-      {
-         Lifecycle.setupApplication(new ServletApplicationMap(context));
+	protected void loadResourceProviders() {
+		try {
+			Lifecycle.setupApplication(new ServletApplicationMap(context));
 
-         for (String name : Init.instance().getResourceProviders())
-         {         
-            AbstractResource provider = (AbstractResource) Component.getInstance(name, true);
-            if (provider != null)
-            {
-               provider.setServletContext(context);
-               providers.put( provider.getResourcePath(), provider );
-            }
-         }
-      }
-      finally
-      {
-         Lifecycle.cleanupApplication();
-      }
-   }
+			for (String name : Init.instance().getResourceProviders()) {
+				AbstractResource provider = (AbstractResource) Component.getInstance(name, true);
+				if (provider != null) {
+					provider.setServletContext(context);
+					providers.put(provider.getResourcePath(), provider);
+				}
+			}
+		} finally {
+			Lifecycle.cleanupApplication();
+		}
+	}
 
-   @Override
-   public void service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-   {
-      String prefix = request.getContextPath() + request.getServletPath();
+	@Override
+	public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String prefix = request.getContextPath() + request.getServletPath();
 
-      if (request.getRequestURI().startsWith(prefix))
-      {
-         String path = request.getRequestURI().replaceFirst(prefix, "");
-         int index = path.indexOf('/', 1);
-         if (index != -1) path = path.substring(0, index);
+		if (request.getRequestURI().startsWith(prefix)) {
+			String path = request.getRequestURI().replaceFirst(prefix, "");
+			int index = path.indexOf('/', 1);
+			if (index != -1)
+				path = path.substring(0, index);
 
-         AbstractResource provider = providers.get(path);
-         if (provider != null)
-         {
-            provider.getResource(request, response);            
-         }
-         else
-         {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-         }
-      }
-      else
-      {
-         response.sendError(HttpServletResponse.SC_NOT_FOUND);
-      }
-   }
+			AbstractResource provider = providers.get(path);
+			if (provider != null) {
+				provider.getResource(request, response);
+			} else {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			}
+		} else {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+		}
+	}
 
 }

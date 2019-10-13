@@ -15,13 +15,12 @@ import java.lang.annotation.Target;
  * @see org.jboss.seam.web.Parameters
  * @author Gavin King
  */
-@Target({METHOD, FIELD/*, PARAMETER*/})
+@Target({ METHOD, FIELD/*, PARAMETER*/ })
 @Retention(RUNTIME)
 @Documented
-public @interface RequestParameter 
-{
-   /**
-    * The name of the request parameter
-    */
-   String value() default "";
+public @interface RequestParameter {
+	/**
+	* The name of the request parameter
+	*/
+	String value() default "";
 }

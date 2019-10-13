@@ -61,331 +61,295 @@ import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 // Empty @Path because it's ignored by second-stage bootstrap if not subclassed or in components.xml
 // but we need it as a marker so we'll find components.xml declarations during first stage of bootstrap.
 @Path("")
-public class ResourceHome<T, T2> extends AbstractResource<T>
-{
-   private EntityHomeWrapper<T> entityHome = null;
+public class ResourceHome<T, T2> extends AbstractResource<T> {
+	private EntityHomeWrapper<T> entityHome = null;
 
-   @Context
-   private UriInfo uriInfo;
-   @Context
-   private HttpHeaders headers;
-   @HeaderParam("Content-Type")
-   private MediaType requestContentType;
+	@Context
+	private UriInfo uriInfo;
+	@Context
+	private HttpHeaders headers;
+	@HeaderParam("Content-Type")
+	private MediaType requestContentType;
 
-   private Class entityIdClass = null;
-   private boolean readonly;
-   
-   private static final PathParamAnnotation pathParamAnnotation = new PathParamAnnotation();
+	private Class entityIdClass = null;
+	private boolean readonly;
 
-   /**
-    * Called at component instantiation. EntityHome component must be set in
-    * order for component to be created.
-    */
-   @Create
-   public void create()
-   {
-      setEntityHome(getEntityHome());
-      if (entityHome == null)
-      {
-         throw new IllegalStateException("entityHome is not set");
-      }
-   }
+	private static final PathParamAnnotation pathParamAnnotation = new PathParamAnnotation();
 
-   /**
-    * Called by RESTEasy when HTTP GET request is received. String form of
-    * entity identifier is passed as a parameter. Returns a response containing
-    * database entity.
-    *
-    * @param rawId String form of entity identifier
-    * @return response
-    * @see #getEntity
-    */
-   @Path("/{id}")
-   @GET
-   public Response getResource(@PathParam("id") String rawId)
-   {
-      MediaType selectedMediaType = selectResponseMediaType();
-      if (selectedMediaType == null)
-      {
-         return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
-      }
+	/**
+	* Called at component instantiation. EntityHome component must be set in
+	* order for component to be created.
+	*/
+	@Create
+	public void create() {
+		setEntityHome(getEntityHome());
+		if (entityHome == null) {
+			throw new IllegalStateException("entityHome is not set");
+		}
+	}
 
-      T2 id = unmarshallId(rawId);
-      T entity = getEntity(id);
+	/**
+	* Called by RESTEasy when HTTP GET request is received. String form of
+	* entity identifier is passed as a parameter. Returns a response containing
+	* database entity.
+	*
+	* @param rawId String form of entity identifier
+	* @return response
+	* @see #getEntity
+	*/
+	@Path("/{id}")
+	@GET
+	public Response getResource(@PathParam("id") String rawId) {
+		MediaType selectedMediaType = selectResponseMediaType();
+		if (selectedMediaType == null) {
+			return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
+		}
 
-      return Response.ok(new GenericEntity(entity, getEntityClass())
-      {
-      }, selectedMediaType).build();
-   }
+		T2 id = unmarshallId(rawId);
+		T entity = getEntity(id);
 
-   /**
-    * Retrieve an entity identified by id parameter.
-    *
-    * @param id entity identifier
-    * @return entity database entity
-    */
-   public T getEntity(T2 id)
-   {
-      entityHome.setId(id);
-      return entityHome.find();
+		return Response.ok(new GenericEntity(entity, getEntityClass()) {
+		}, selectedMediaType).build();
+	}
 
-   }
+	/**
+	* Retrieve an entity identified by id parameter.
+	*
+	* @param id entity identifier
+	* @return entity database entity
+	*/
+	public T getEntity(T2 id) {
+		entityHome.setId(id);
+		return entityHome.find();
 
-   /**
-    * Called by RESTEasy when HTTP POST request is received. Persists received
-    * entity and returns 201 HTTP status code with location header set to new
-    * URI if operation succeeds.
-    *
-    * @param messageBody HTTP request body
-    * @return response
-    * @see #createEntity
-    */
-   @POST
-   public Response createResource(InputStream messageBody)
-   {
-      if (readonly)
-      {
-         return Response.status(405).build();
-      }
+	}
 
-      // check if we accept this content type
-      if (!isMediaTypeCompatible(requestContentType))
-      {
-         return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
-      }
+	/**
+	* Called by RESTEasy when HTTP POST request is received. Persists received
+	* entity and returns 201 HTTP status code with location header set to new
+	* URI if operation succeeds.
+	*
+	* @param messageBody HTTP request body
+	* @return response
+	* @see #createEntity
+	*/
+	@POST
+	public Response createResource(InputStream messageBody) {
+		if (readonly) {
+			return Response.status(405).build();
+		}
 
-      T entity = unmarshallEntity(messageBody);
+		// check if we accept this content type
+		if (!isMediaTypeCompatible(requestContentType)) {
+			return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
+		}
 
-      T2 id = createEntity(entity);
+		T entity = unmarshallEntity(messageBody);
 
-      URI uri = uriInfo.getAbsolutePathBuilder().path(id.toString()).build();
-      return Response.created(uri).build();
-   }
+		T2 id = createEntity(entity);
 
-   /**
-    * Store entity passed as a parameter in the database.
-    *
-    * @param entity Object to be persisted
-    * @return id identifier assigned to the entity
-    */
-   public T2 createEntity(T entity)
-   {
-      entityHome.setInstance(entity);
-      entityHome.persist();
-      return (T2) entityHome.getId();
-   }
+		URI uri = uriInfo.getAbsolutePathBuilder().path(id.toString()).build();
+		return Response.created(uri).build();
+	}
 
-   /**
-    * Called by RESTEasy when HTTP PUT request is received. Merges the state of
-    * the database entity with the received representation.
-    *
-    * @param rawId       String form of entity identifier
-    * @param messageBody HTTP request body
-    * @return response
-    * @see #updateEntity
-    */
-   @Path("/{id}")
-   @PUT
-   public Response updateResource(@PathParam("id") String rawId, InputStream messageBody)
-   {
-      if (readonly)
-      {
-         return Response.status(405).build();
-      }
+	/**
+	* Store entity passed as a parameter in the database.
+	*
+	* @param entity Object to be persisted
+	* @return id identifier assigned to the entity
+	*/
+	public T2 createEntity(T entity) {
+		entityHome.setInstance(entity);
+		entityHome.persist();
+		return (T2) entityHome.getId();
+	}
 
-      // check if we accept this content type
-      if (!isMediaTypeCompatible(requestContentType))
-      {
-         return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
-      }
+	/**
+	* Called by RESTEasy when HTTP PUT request is received. Merges the state of
+	* the database entity with the received representation.
+	*
+	* @param rawId       String form of entity identifier
+	* @param messageBody HTTP request body
+	* @return response
+	* @see #updateEntity
+	*/
+	@Path("/{id}")
+	@PUT
+	public Response updateResource(@PathParam("id") String rawId, InputStream messageBody) {
+		if (readonly) {
+			return Response.status(405).build();
+		}
 
-      T entity = unmarshallEntity(messageBody);
-      T2 id = unmarshallId(rawId);
+		// check if we accept this content type
+		if (!isMediaTypeCompatible(requestContentType)) {
+			return Response.status(UNSUPPORTED_MEDIA_TYPE).build();
+		}
 
-      // check representation id - we don't allow renaming
-      Object storedId = Entity.forBean(entity).getIdentifier(entity);
-      if (!id.equals(storedId))
-      {
-         return Response.status(BAD_REQUEST).build();
-      }
+		T entity = unmarshallEntity(messageBody);
+		T2 id = unmarshallId(rawId);
 
-      updateEntity(entity, id);
-      return Response.noContent().build();
-   }
+		// check representation id - we don't allow renaming
+		Object storedId = Entity.forBean(entity).getIdentifier(entity);
+		if (!id.equals(storedId)) {
+			return Response.status(BAD_REQUEST).build();
+		}
 
-   /**
-    * Merge the state of the database entity with the entity passed as a
-    * parameter. Override to customize the update strategy - for instance to
-    * update specific fields only instead of a full merge.
-    *
-    * @param entity
-    */
-   public void updateEntity(T entity, T2 id)
-   {
-      entityHome.merge(entity);
-   }
+		updateEntity(entity, id);
+		return Response.noContent().build();
+	}
 
-   /**
-    * Called by RESTEasy when HTTP DELETE request is received. Deletes a
-    * database entity.
-    *
-    * @param rawId String form of entity identifier
-    * @return response
-    * @see #deleteEntity
-    */
-   @Path("/{id}")
-   @DELETE
-   public Response deleteResource(@PathParam("id") String rawId)
-   {
-      if (readonly)
-      {
-         return Response.status(405).build();
-      }
+	/**
+	* Merge the state of the database entity with the entity passed as a
+	* parameter. Override to customize the update strategy - for instance to
+	* update specific fields only instead of a full merge.
+	*
+	* @param entity
+	*/
+	public void updateEntity(T entity, T2 id) {
+		entityHome.merge(entity);
+	}
 
-      T2 id = unmarshallId(rawId);
-      deleteEntity(id);
-      return Response.noContent().build();
-   }
+	/**
+	* Called by RESTEasy when HTTP DELETE request is received. Deletes a
+	* database entity.
+	*
+	* @param rawId String form of entity identifier
+	* @return response
+	* @see #deleteEntity
+	*/
+	@Path("/{id}")
+	@DELETE
+	public Response deleteResource(@PathParam("id") String rawId) {
+		if (readonly) {
+			return Response.status(405).build();
+		}
 
-   /**
-    * Delete database entity.
-    *
-    * @param id entity identifier
-    */
-   public void deleteEntity(T2 id)
-   {
-      getEntity(id);
-      entityHome.remove();
-   }
+		T2 id = unmarshallId(rawId);
+		deleteEntity(id);
+		return Response.noContent().build();
+	}
 
-   /**
-    * Convert HTTP request body into entity class instance.
-    *
-    * @param is HTTP request body
-    * @return entity
-    */
-   private T unmarshallEntity(InputStream is)
-   {
-      Class<T> entityClass = getEntityClass();
-      MessageBodyReader<T> reader = SeamResteasyProviderFactory.getInstance().getMessageBodyReader(entityClass, entityClass, entityClass.getAnnotations(), requestContentType);
-      if (reader == null)
-      {
-         throw new RuntimeException("Unable to find MessageBodyReader for content type " + requestContentType);
-      }
-      T entity;
-      try
-      {
-         entity = reader.readFrom(entityClass, entityClass, entityClass.getAnnotations(), requestContentType, headers.getRequestHeaders(), is);
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException("Unable to unmarshall request body");
-      }
-      return entity;
-   }
+	/**
+	* Delete database entity.
+	*
+	* @param id entity identifier
+	*/
+	public void deleteEntity(T2 id) {
+		getEntity(id);
+		entityHome.remove();
+	}
 
-   /**
-    * Converts String form of entity identifier to it's natural type.
-    *
-    * @param id String form of entity identifier
-    * @return entity identifier
-    */
-   private T2 unmarshallId(String id)
-   {
-      StringParameterInjector injector = new StringParameterInjector(getEntityIdClass(), getEntityIdClass(), "id", PathParam.class, null, null, new Annotation[] {pathParamAnnotation}, SeamResteasyProviderFactory.getInstance());
-      return (T2) injector.extractValue(id);
-   }
+	/**
+	* Convert HTTP request body into entity class instance.
+	*
+	* @param is HTTP request body
+	* @return entity
+	*/
+	private T unmarshallEntity(InputStream is) {
+		Class<T> entityClass = getEntityClass();
+		MessageBodyReader<T> reader = SeamResteasyProviderFactory.getInstance().getMessageBodyReader(entityClass, entityClass,
+				entityClass.getAnnotations(), requestContentType);
+		if (reader == null) {
+			throw new RuntimeException("Unable to find MessageBodyReader for content type " + requestContentType);
+		}
+		T entity;
+		try {
+			entity = reader.readFrom(entityClass, entityClass, entityClass.getAnnotations(), requestContentType,
+					headers.getRequestHeaders(), is);
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to unmarshall request body");
+		}
+		return entity;
+	}
 
-   /**
-    * EntityHome component getter. Override this method to set the EntityHome
-    * this resource will operate on. You can use either EntityHome or
-    * HibernateEntityHome instance.
-    *
-    * @return entity home
-    */
-   public Home<?, T> getEntityHome()
-   {
-      return (entityHome == null) ? null : entityHome.unwrap();
-   }
+	/**
+	* Converts String form of entity identifier to it's natural type.
+	*
+	* @param id String form of entity identifier
+	* @return entity identifier
+	*/
+	private T2 unmarshallId(String id) {
+		StringParameterInjector injector = new StringParameterInjector(getEntityIdClass(), getEntityIdClass(), "id", PathParam.class, null,
+				null, new Annotation[] { pathParamAnnotation }, SeamResteasyProviderFactory.getInstance());
+		return (T2) injector.extractValue(id);
+	}
 
-   /**
-    * EntityHome component setter
-    *
-    * @param entityHome
-    */
-   public void setEntityHome(Home<?, T> entityHome)
-   {
-      this.entityHome = new EntityHomeWrapper<T>(entityHome);
-   }
+	/**
+	* EntityHome component getter. Override this method to set the EntityHome
+	* this resource will operate on. You can use either EntityHome or
+	* HibernateEntityHome instance.
+	*
+	* @return entity home
+	*/
+	public Home<?, T> getEntityHome() {
+		return (entityHome == null) ? null : entityHome.unwrap();
+	}
 
-   @Override
-   public Class<T> getEntityClass()
-   {
-      return entityHome.getEntityClass();
-   }
+	/**
+	* EntityHome component setter
+	*
+	* @param entityHome
+	*/
+	public void setEntityHome(Home<?, T> entityHome) {
+		this.entityHome = new EntityHomeWrapper<T>(entityHome);
+	}
 
-   public boolean isReadonly()
-   {
-      return readonly;
-   }
+	@Override
+	public Class<T> getEntityClass() {
+		return entityHome.getEntityClass();
+	}
 
-   /**
-    * If set to read-only mode, this resource will only response to GET
-    * requests. HTTP 415 status code (method not allowed) will returned in all
-    * other cases.
-    *
-    * @param readonly
-    */
-   public void setReadonly(boolean readonly)
-   {
-      this.readonly = readonly;
-   }
+	public boolean isReadonly() {
+		return readonly;
+	}
 
-   /**
-    * Retrieve entity identifier's class. If not set, type parameters of a
-    * superclass are examined.
-    *
-    * @return class of entity identifier
-    */
-   public Class getEntityIdClass()
-   {
-      if (entityIdClass == null)
-      {
-         Type superclass = this.getClass().getGenericSuperclass();
-         if (superclass instanceof ParameterizedType)
-         {
-            ParameterizedType parameterizedSuperclass = (ParameterizedType) superclass;
-            if (parameterizedSuperclass.getActualTypeArguments().length == 2)
-            {
-               return (Class) parameterizedSuperclass.getActualTypeArguments()[1];
-            }
-         }
-         throw new RuntimeException("Unable to determine entity id class.");
-      }
-      else
-      {
-         return entityIdClass;
-      }
-   }
+	/**
+	* If set to read-only mode, this resource will only response to GET
+	* requests. HTTP 415 status code (method not allowed) will returned in all
+	* other cases.
+	*
+	* @param readonly
+	*/
+	public void setReadonly(boolean readonly) {
+		this.readonly = readonly;
+	}
 
-   public void setEntityIdClass(Class entityIdClass)
-   {
-      this.entityIdClass = entityIdClass;
-   }
-   
-   /**
-    * Annotation implementation (@PathParam("id")) for providing RESTEasy with metadata. 
-    */
-   static class PathParamAnnotation implements PathParam {
+	/**
+	* Retrieve entity identifier's class. If not set, type parameters of a
+	* superclass are examined.
+	*
+	* @return class of entity identifier
+	*/
+	public Class getEntityIdClass() {
+		if (entityIdClass == null) {
+			Type superclass = this.getClass().getGenericSuperclass();
+			if (superclass instanceof ParameterizedType) {
+				ParameterizedType parameterizedSuperclass = (ParameterizedType) superclass;
+				if (parameterizedSuperclass.getActualTypeArguments().length == 2) {
+					return (Class) parameterizedSuperclass.getActualTypeArguments()[1];
+				}
+			}
+			throw new RuntimeException("Unable to determine entity id class.");
+		} else {
+			return entityIdClass;
+		}
+	}
 
-      public String value()
-      {
-         return "id";
-      }
+	public void setEntityIdClass(Class entityIdClass) {
+		this.entityIdClass = entityIdClass;
+	}
 
-      public Class<? extends Annotation> annotationType()
-      {
-         return PathParam.class;
-      }
-   }
+	/**
+	* Annotation implementation (@PathParam("id")) for providing RESTEasy with metadata. 
+	*/
+	static class PathParamAnnotation implements PathParam {
+
+		public String value() {
+			return "id";
+		}
+
+		public Class<? extends Annotation> annotationType() {
+			return PathParam.class;
+		}
+	}
 }

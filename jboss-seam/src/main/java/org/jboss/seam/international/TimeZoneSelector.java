@@ -24,89 +24,74 @@ import org.jboss.seam.faces.Selector;
 @Scope(ScopeType.SESSION)
 @Name("org.jboss.seam.international.timeZoneSelector")
 @BypassInterceptors
-@Install(precedence=BUILT_IN, classDependencies="javax.faces.context.FacesContext")
-public class TimeZoneSelector extends Selector
-{
-   private static final long serialVersionUID = -5013819375360015369L;
-   
-   private String id;
-   
-   @Create
-   public void initTimeZone()
-   {
-      String timeZoneId = getCookieValueIfEnabled();
-      if (timeZoneId!=null) setTimeZoneId(timeZoneId);
-   }
-   
-   @Override
-   protected String getCookieName()
-   {
-      return "org.jboss.seam.core.TimeZone";
-   }
-   
-   /**
-    * Force the resource bundle to reload, using the current locale, 
-    * and raise the org.jboss.seam.timeZoneSelected event
-    */
-   public void select()
-   {
-      setCookieValueIfEnabled( getTimeZoneId() );
+@Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
+public class TimeZoneSelector extends Selector {
+	private static final long serialVersionUID = -5013819375360015369L;
 
-      if ( Events.exists() ) 
-      {
-          Events.instance().raiseEvent( "org.jboss.seam.timeZoneSelected", getTimeZoneId() );
-      }
-   }
+	private String id;
 
-   public void select(ValueChangeEvent event) 
-   {
-      selectTimeZone( (String) event.getNewValue() );
-   }
-   
-   public void selectTimeZone(String timeZoneId)
-   {
-      setTimeZoneId(timeZoneId);
-      select();
-   }
-   
-   public void setTimeZone(java.util.TimeZone timeZone)
-   {
-      setTimeZoneId( timeZone.getID() );
-   }
+	@Create
+	public void initTimeZone() {
+		String timeZoneId = getCookieValueIfEnabled();
+		if (timeZoneId != null)
+			setTimeZoneId(timeZoneId);
+	}
 
-   public void setTimeZoneId(String id)
-   {
-      setDirty(this.id, id);
-      this.id = id;
-   }
-   
-   public String getTimeZoneId()
-   {
-      return id;
-   }
+	@Override
+	protected String getCookieName() {
+		return "org.jboss.seam.core.TimeZone";
+	}
 
-   /**
-    * Get the selected timezone
-    */
-   public java.util.TimeZone getTimeZone() 
-   {
-      if (id==null)
-      {
-         return java.util.TimeZone.getDefault();
-      }
-      else
-      {
-         return java.util.TimeZone.getTimeZone( getTimeZoneId() );
-      }
-   }
+	/**
+	* Force the resource bundle to reload, using the current locale, 
+	* and raise the org.jboss.seam.timeZoneSelected event
+	*/
+	public void select() {
+		setCookieValueIfEnabled(getTimeZoneId());
 
-   public static TimeZoneSelector instance()
-   {
-      if ( !Contexts.isSessionContextActive() )
-      {
-         throw new IllegalStateException("No active session context");
-      }
-      return (TimeZoneSelector) Component.getInstance(TimeZoneSelector.class, ScopeType.SESSION);
-   }
-   
+		if (Events.exists()) {
+			Events.instance().raiseEvent("org.jboss.seam.timeZoneSelected", getTimeZoneId());
+		}
+	}
+
+	public void select(ValueChangeEvent event) {
+		selectTimeZone((String) event.getNewValue());
+	}
+
+	public void selectTimeZone(String timeZoneId) {
+		setTimeZoneId(timeZoneId);
+		select();
+	}
+
+	public void setTimeZone(java.util.TimeZone timeZone) {
+		setTimeZoneId(timeZone.getID());
+	}
+
+	public void setTimeZoneId(String id) {
+		setDirty(this.id, id);
+		this.id = id;
+	}
+
+	public String getTimeZoneId() {
+		return id;
+	}
+
+	/**
+	* Get the selected timezone
+	*/
+	public java.util.TimeZone getTimeZone() {
+		if (id == null) {
+			return java.util.TimeZone.getDefault();
+		} else {
+			return java.util.TimeZone.getTimeZone(getTimeZoneId());
+		}
+	}
+
+	public static TimeZoneSelector instance() {
+		if (!Contexts.isSessionContextActive()) {
+			throw new IllegalStateException("No active session context");
+		}
+		return (TimeZoneSelector) Component.getInstance(TimeZoneSelector.class, ScopeType.SESSION);
+	}
+
 }

@@ -29,42 +29,35 @@ import org.jboss.seam.util.Naming;
 @Scope(ScopeType.APPLICATION)
 @BypassInterceptors
 @Startup
-public class EntityManagerFactory
-{
-   private javax.persistence.EntityManagerFactory entityManagerFactory;
+public class EntityManagerFactory {
+	private javax.persistence.EntityManagerFactory entityManagerFactory;
 
-   private String persistenceUnitName;
-   private Map<String, String> persistenceUnitProperties;
-   
-   private static final LogProvider log = Logging.getLogProvider(EntityManagerFactory.class);
-   
-   @Unwrap
-   public javax.persistence.EntityManagerFactory getEntityManagerFactory()
-   {
-      return entityManagerFactory;
-   }
-   
-   @Create
-   public void startup(Component component) throws Exception
-   {
-      if (persistenceUnitName==null)
-      {
-         persistenceUnitName = component.getName();
-      }
-      entityManagerFactory = createEntityManagerFactory();
-   }
+	private String persistenceUnitName;
+	private Map<String, String> persistenceUnitProperties;
 
-   @Destroy
-   public void shutdown()
-   {
-      if (entityManagerFactory!=null)
-      {
-         entityManagerFactory.close();
-      }
-   }
-   
-   protected javax.persistence.EntityManagerFactory createEntityManagerFactory()
-   {
+	private static final LogProvider log = Logging.getLogProvider(EntityManagerFactory.class);
+
+	@Unwrap
+	public javax.persistence.EntityManagerFactory getEntityManagerFactory() {
+		return entityManagerFactory;
+	}
+
+	@Create
+	public void startup(Component component) throws Exception {
+		if (persistenceUnitName == null) {
+			persistenceUnitName = component.getName();
+		}
+		entityManagerFactory = createEntityManagerFactory();
+	}
+
+	@Destroy
+	public void shutdown() {
+		if (entityManagerFactory != null) {
+			entityManagerFactory.close();
+		}
+	}
+
+	protected javax.persistence.EntityManagerFactory createEntityManagerFactory() {
 		long startTime = System.currentTimeMillis();
 		log.info("Creating EntityManagerFactory with name:" + persistenceUnitName);
 		Map properties = new HashMap();
@@ -90,31 +83,27 @@ public class EntityManagerFactory
 
 		return retVal;
 	}
-   
-   /**
-    * The persistence unit name
-    */
-   public String getPersistenceUnitName()
-   {
-      return persistenceUnitName;
-   }
 
-   public void setPersistenceUnitName(String persistenceUnitName)
-   {
-      this.persistenceUnitName = persistenceUnitName;
-   }
+	/**
+	* The persistence unit name
+	*/
+	public String getPersistenceUnitName() {
+		return persistenceUnitName;
+	}
 
-   /**
-    * Properties to pass to Persistence.createEntityManagerFactory()
-    */
-   public Map<String, String> getPersistenceUnitProperties()
-   {
-      return persistenceUnitProperties;
-   }
+	public void setPersistenceUnitName(String persistenceUnitName) {
+		this.persistenceUnitName = persistenceUnitName;
+	}
 
-   public void setPersistenceUnitProperties(Map<String, String> persistenceUnitProperties)
-   {
-      this.persistenceUnitProperties = persistenceUnitProperties;
-   }
+	/**
+	* Properties to pass to Persistence.createEntityManagerFactory()
+	*/
+	public Map<String, String> getPersistenceUnitProperties() {
+		return persistenceUnitProperties;
+	}
+
+	public void setPersistenceUnitProperties(Map<String, String> persistenceUnitProperties) {
+		this.persistenceUnitProperties = persistenceUnitProperties;
+	}
 
 }

@@ -16,4 +16,5 @@ import java.lang.annotation.Target;
 @Target(METHOD)
 @Retention(RUNTIME)
 @Documented
-public @interface PostConstruct {}
+public @interface PostConstruct {
+}

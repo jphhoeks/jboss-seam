@@ -31,187 +31,167 @@ import org.openid4java.message.ParameterList;
 import org.openid4java.message.ax.FetchRequest;
 
 @Name("org.jboss.seam.security.openid.openid")
-@Install(precedence=Install.BUILT_IN, classDependencies="org.openid4java.consumer.ConsumerManager")
+@Install(precedence = Install.BUILT_IN, classDependencies = "org.openid4java.consumer.ConsumerManager")
 @Scope(ScopeType.SESSION)
-public class OpenId 
-    implements Serializable
-{
-    private static final long serialVersionUID = 1L;
+public class OpenId implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private transient LogProvider log = Logging.getLogProvider(OpenId.class);
 
-    String id;
-    String validatedId;
+	String id;
+	String validatedId;
 
-    ConsumerManager manager;
-    DiscoveryInformation discovered;
+	ConsumerManager manager;
+	DiscoveryInformation discovered;
 
-    @Create
-    public void init()
-        throws ConsumerException
-    {
-        manager = new ConsumerManager();
-        discovered = null;
-        id = null;
-        validatedId = null;
-    }
+	@Create
+	public void init() throws ConsumerException {
+		manager = new ConsumerManager();
+		discovered = null;
+		id = null;
+		validatedId = null;
+	}
 
+	public String getId() {
+		return id;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String returnToUrl() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
-    
-    public String returnToUrl()  {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+		try {
+			URL returnToUrl;
+			if (request.getServerPort() == 80) {
+				returnToUrl = new URL("http", request.getServerName(),
+						context.getApplication().getViewHandler().getActionURL(context, "/openid.xhtml"));
+			} else {
+				returnToUrl = new URL("http", request.getServerName(), request.getServerPort(),
+						context.getApplication().getViewHandler().getActionURL(context, "/openid.xhtml"));
 
-        try {   
-            URL returnToUrl;            
-            if (request.getServerPort()==80) {
-               returnToUrl = new URL("http",   
-                     request.getServerName(), 
-                     context.getApplication().getViewHandler().getActionURL(context, "/openid.xhtml"));
-            } else {
-               returnToUrl = new URL("http",   
-                     request.getServerName(), 
-                     request.getServerPort(),
-                     context.getApplication().getViewHandler().getActionURL(context, "/openid.xhtml"));
-               
-            }
-            return returnToUrl.toExternalForm();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    
-    public void login() throws IOException {
-        validatedId = null;
-        String returnToUrl = returnToUrl();
+			}
+			return returnToUrl.toExternalForm();
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-        String url = authRequest(id, returnToUrl);
+	public void login() throws IOException {
+		validatedId = null;
+		String returnToUrl = returnToUrl();
 
-        if (url != null) {
-            Redirect redirect = Redirect.instance();
-            redirect.captureCurrentView();
+		String url = authRequest(id, returnToUrl);
 
-            FacesManager.instance().redirectToExternalURL(url);
-        }
-    }
+		if (url != null) {
+			Redirect redirect = Redirect.instance();
+			redirect.captureCurrentView();
 
-    // --- placing the authentication request ---
-    @SuppressWarnings("unchecked")
-    protected String authRequest(String userSuppliedString, String returnToUrl)
-        throws IOException
-    {
-        try {
-            // perform discovery on the user-supplied identifier
-            List discoveries = manager.discover(userSuppliedString);
-            
-            // attempt to associate with the OpenID provider
-            // and retrieve one service endpoint for authentication
-            discovered = manager.associate(discoveries);
-            
-            //// store the discovery information in the user's session
-            // httpReq.getSession().setAttribute("openid-disc", discovered);
+			FacesManager.instance().redirectToExternalURL(url);
+		}
+	}
 
-            // obtain a AuthRequest message to be sent to the OpenID provider
-            AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
+	// --- placing the authentication request ---
+	@SuppressWarnings("unchecked")
+	protected String authRequest(String userSuppliedString, String returnToUrl) throws IOException {
+		try {
+			// perform discovery on the user-supplied identifier
+			List discoveries = manager.discover(userSuppliedString);
 
-            // Attribute Exchange example: fetching the 'email' attribute
-            FetchRequest fetch = FetchRequest.createFetchRequest();
-            fetch.addAttribute("email",
-                               "http://schema.openid.net/contact/email",   // type URI
-                               true);                                      // required
-            
-            // attach the extension to the authentication request
-            authReq.addExtension(fetch);
+			// attempt to associate with the OpenID provider
+			// and retrieve one service endpoint for authentication
+			discovered = manager.associate(discoveries);
 
-            return authReq.getDestinationUrl(true);
-        } catch (OpenIDException e)  {
-	    log.warn(e);
-        }
-        
-        return null;
-    }
+			//// store the discovery information in the user's session
+			// httpReq.getSession().setAttribute("openid-disc", discovered);
 
-    public void verify() 
-    {       
-        ExternalContext    context = javax.faces.context.FacesContext.getCurrentInstance().getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) context.getRequest();
-        
-        validatedId = verifyResponse(request);
-    }
+			// obtain a AuthRequest message to be sent to the OpenID provider
+			AuthRequest authReq = manager.authenticate(discovered, returnToUrl);
 
+			// Attribute Exchange example: fetching the 'email' attribute
+			FetchRequest fetch = FetchRequest.createFetchRequest();
+			fetch.addAttribute("email", "http://schema.openid.net/contact/email", // type URI
+					true); // required
 
-    public boolean loginImmediately() {
-        if (validatedId !=null) {
-            Identity.instance().acceptExternallyAuthenticatedPrincipal((new OpenIdPrincipal(validatedId)));
-            return true;
-        } 
+			// attach the extension to the authentication request
+			authReq.addExtension(fetch);
 
-        return false;
-    }
+			return authReq.getDestinationUrl(true);
+		} catch (OpenIDException e) {
+			log.warn(e);
+		}
 
-    public boolean isValid() {
-        return validatedId != null;
-    }
+		return null;
+	}
 
-    public String getValidatedId() {
-        return validatedId;
-    }
+	public void verify() {
+		ExternalContext context = javax.faces.context.FacesContext.getCurrentInstance().getExternalContext();
+		HttpServletRequest request = (HttpServletRequest) context.getRequest();
 
-    @SuppressWarnings("unchecked")
-    public String verifyResponse(HttpServletRequest httpReq)
-    {
-        try {
-            // extract the parameters from the authentication response
-            // (which comes in as a HTTP request from the OpenID provider)
-            ParameterList response =
-                new ParameterList(httpReq.getParameterMap());
-          
-            // extract the receiving URL from the HTTP request
-            StringBuffer receivingURL = httpReq.getRequestURL();
-            String queryString = httpReq.getQueryString();
-            if (queryString != null && queryString.length() > 0)
-                receivingURL.append("?").append(httpReq.getQueryString());
-            
-            
-            // verify the response; ConsumerManager needs to be the same
-            // (static) instance used to place the authentication request
-            VerificationResult verification = manager.verify(receivingURL.toString(),
-                                                             response, discovered);
-            
-            // examine the verification result and extract the verified identifier
-            Identifier verified = verification.getVerifiedId();
-            if (verified != null) {
-//                AuthSuccess authSuccess =
-//                    (AuthSuccess) verification.getAuthResponse();
-                
-//                if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
-//                    FetchResponse fetchResp = (FetchResponse) authSuccess
-//                        .getExtension(AxMessage.OPENID_NS_AX);
-//                    
-//                    List emails = fetchResp.getAttributeValues("email");
-//                    String email = (String) emails.get(0);
-//                }
-                
-                return verified.getIdentifier();
-            }
-        } catch (OpenIDException e) {
-            // present error to the user
-        }
-        
-        return null;
-    }
+		validatedId = verifyResponse(request);
+	}
 
-    public void logout() 
-        throws ConsumerException
-    {
-        init();
-    }
+	public boolean loginImmediately() {
+		if (validatedId != null) {
+			Identity.instance().acceptExternallyAuthenticatedPrincipal((new OpenIdPrincipal(validatedId)));
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean isValid() {
+		return validatedId != null;
+	}
+
+	public String getValidatedId() {
+		return validatedId;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String verifyResponse(HttpServletRequest httpReq) {
+		try {
+			// extract the parameters from the authentication response
+			// (which comes in as a HTTP request from the OpenID provider)
+			ParameterList response = new ParameterList(httpReq.getParameterMap());
+
+			// extract the receiving URL from the HTTP request
+			StringBuffer receivingURL = httpReq.getRequestURL();
+			String queryString = httpReq.getQueryString();
+			if (queryString != null && queryString.length() > 0)
+				receivingURL.append("?").append(httpReq.getQueryString());
+
+			// verify the response; ConsumerManager needs to be the same
+			// (static) instance used to place the authentication request
+			VerificationResult verification = manager.verify(receivingURL.toString(), response, discovered);
+
+			// examine the verification result and extract the verified identifier
+			Identifier verified = verification.getVerifiedId();
+			if (verified != null) {
+				//                AuthSuccess authSuccess =
+				//                    (AuthSuccess) verification.getAuthResponse();
+
+				//                if (authSuccess.hasExtension(AxMessage.OPENID_NS_AX)) {
+				//                    FetchResponse fetchResp = (FetchResponse) authSuccess
+				//                        .getExtension(AxMessage.OPENID_NS_AX);
+				//                    
+				//                    List emails = fetchResp.getAttributeValues("email");
+				//                    String email = (String) emails.get(0);
+				//                }
+
+				return verified.getIdentifier();
+			}
+		} catch (OpenIDException e) {
+			// present error to the user
+		}
+
+		return null;
+	}
+
+	public void logout() throws ConsumerException {
+		init();
+	}
 }

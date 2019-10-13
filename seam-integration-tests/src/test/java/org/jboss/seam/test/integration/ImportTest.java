@@ -13,45 +13,36 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class ImportTest
-    extends JUnitSeamTest
-{
-	@Deployment(name="IdentifierTest")
+public class ImportTest extends JUnitSeamTest {
+	@Deployment(name = "IdentifierTest")
 	@OverProtocol("Servlet 3.0")
-	public static Archive<?> createDeployment()
-	{
-		return Deployments.defaultSeamDeployment()
-				.addClasses(Importer.class);
+	public static Archive<?> createDeployment() {
+		return Deployments.defaultSeamDeployment().addClasses(Importer.class);
 	}
 
-    @Test
-    public void testImport() 
-        throws Exception 
-    {        
-        new FacesRequest() {
-            @Override
-            protected void invokeApplication()
-                throws Exception
-            {
-                assert getValue("#{importTest.otherValue}").equals("foobar2");
-            }        
-        }.run();
-    }
+	@Test
+	public void testImport() throws Exception {
+		new FacesRequest() {
+			@Override
+			protected void invokeApplication() throws Exception {
+				assert getValue("#{importTest.otherValue}").equals("foobar2");
+			}
+		}.run();
+	}
 
+	@Name("importTest")
+	@Import("importTest.ns2")
+	public static class Importer {
+		@In
+		String otherValue;
 
-    @Name("importTest")
-    @Import("importTest.ns2")
-    public static class Importer {
-        @In
-        String otherValue;
+		public String getOtherValue() {
+			return otherValue;
+		}
 
-        public String getOtherValue() {
-            return otherValue;
-        }
-
-        @Factory(value="importTest.ns2.otherValue", autoCreate=true)
-        public String createOtherValue() {
-            return "foobar2";
-        }
-    }
+		@Factory(value = "importTest.ns2.otherValue", autoCreate = true)
+		public String createOtherValue() {
+			return "foobar2";
+		}
+	}
 }

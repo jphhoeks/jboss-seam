@@ -14,26 +14,26 @@ import org.jboss.seam.core.Events;
 @AutoCreate
 public class BeanA implements Serializable {
 
-    private static final long serialVersionUID = 7900410160133122428L;
+	private static final long serialVersionUID = 7900410160133122428L;
 	private String myValue;
 
-    public String getMyValue() {
-        return myValue;
-    }
+	public String getMyValue() {
+		return myValue;
+	}
 
-    public void setMyValue(String myValue) {
-        this.myValue = myValue;
-    }
+	public void setMyValue(String myValue) {
+		this.myValue = myValue;
+	}
 
-    @Create
-    public void create() {
-        myValue = "Foo";
-    }
+	@Create
+	public void create() {
+		myValue = "Foo";
+	}
 
-    @Observer(value = "BeanA.refreshMyValue")
-    public void refreshMyValue() {
-        myValue = "Bar";
-        Events.instance().raiseEvent("BeanA.valueModified");
-    }
+	@Observer(value = "BeanA.refreshMyValue")
+	public void refreshMyValue() {
+		myValue = "Bar";
+		Events.instance().raiseEvent("BeanA.valueModified");
+	}
 
 }

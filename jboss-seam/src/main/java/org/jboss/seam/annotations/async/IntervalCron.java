@@ -8,14 +8,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * The unix cron expression to specify the frequency 
- * and other conditions for the repeating asynchronous call
- * to be invoked (after the initial delay specified in Expiration
- * or Duration parameters). If this parameter is set, the 
- * IntervalDuration parameter will have no effect.
+ * The unix cron expression to specify the frequency and other conditions for
+ * the repeating asynchronous call to be invoked (after the initial delay
+ * specified in Expiration or Duration parameters). If this parameter is set,
+ * the IntervalDuration parameter will have no effect.
  * 
- * This annotation occurs on a parameter of type String
- * of a method marked @Asynchronous.
+ * This annotation occurs on a parameter of type String of a method
+ * marked @Asynchronous.
  * 
  * @author Michael Yuan
  *
@@ -23,4 +22,5 @@ import java.lang.annotation.Target;
 @Target(PARAMETER)
 @Retention(RUNTIME)
 @Documented
-public @interface IntervalCron {}
+public @interface IntervalCron {
+}

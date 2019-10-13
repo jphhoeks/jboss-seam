@@ -9,26 +9,21 @@ import org.apache.wicket.protocol.http.WebSession;
  * @author cpopetz
  *
  */
-public class SeamWebSession extends WebSession
-{
-   private static final long serialVersionUID = 1L;
+public class SeamWebSession extends WebSession {
+	private static final long serialVersionUID = 1L;
 
-public
-   SeamWebSession(Request request)
-   {
-      super(request);
-   }
+	public SeamWebSession(Request request) {
+		super(request);
+	}
 
-   @Override
-   public void invalidate() 
-   {
-      org.jboss.seam.web.Session.getInstance().invalidate();
-   }
+	@Override
+	public void invalidate() {
+		org.jboss.seam.web.Session.getInstance().invalidate();
+	}
 
-   @Override
-   public void invalidateNow() 
-   {
-      // sorry, can't support this with Seam
-      org.jboss.seam.web.Session.getInstance().invalidate();
-   }
+	@Override
+	public void invalidateNow() {
+		// sorry, can't support this with Seam
+		org.jboss.seam.web.Session.getInstance().invalidate();
+	}
 }

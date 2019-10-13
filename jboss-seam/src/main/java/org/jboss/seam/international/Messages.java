@@ -33,89 +33,89 @@ import org.jboss.seam.core.SeamResourceBundle;
 @Name("org.jboss.seam.international.messagesFactory")
 @Install(precedence = BUILT_IN)
 public class Messages {
-    protected Map<String, String> createMap() {
-        final java.util.ResourceBundle bundle = SeamResourceBundle.getBundle();
+	protected Map<String, String> createMap() {
+		final java.util.ResourceBundle bundle = SeamResourceBundle.getBundle();
 
-        if (bundle == null) {
-            return null;
-        }
+		if (bundle == null) {
+			return null;
+		}
 
-        return new AbstractMap<String, String>() {
-            @Override
-            public String get(Object key) {
-                if (key instanceof String) {
-                    String resourceKey = (String) key;
+		return new AbstractMap<String, String>() {
+			@Override
+			public String get(Object key) {
+				if (key instanceof String) {
+					String resourceKey = (String) key;
 
-                    String resource;
-                    try {
-                        resource = bundle.getString(resourceKey);
-                    } catch (MissingResourceException mre) {
-                        return resourceKey;
-                    }
+					String resource;
+					try {
+						resource = bundle.getString(resourceKey);
+					} catch (MissingResourceException mre) {
+						return resourceKey;
+					}
 
-                    return (resource == null) ? resourceKey : resource;
+					return (resource == null) ? resourceKey : resource;
 
-                } else {
-                    return null;
-                }
-            }
+				} else {
+					return null;
+				}
+			}
 
-            @Override
-            public Set<Map.Entry<String, String>> entrySet() {
-                Set<Map.Entry<String, String>> entrySet = new HashSet<Map.Entry<String, String>>();
+			@Override
+			public Set<Map.Entry<String, String>> entrySet() {
+				Set<Map.Entry<String, String>> entrySet = new HashSet<Map.Entry<String, String>>();
 
-                Enumeration<String> keys = bundle.getKeys();
+				Enumeration<String> keys = bundle.getKeys();
 
-                while (keys.hasMoreElements()) {
-                    final String key = keys.nextElement();
+				while (keys.hasMoreElements()) {
+					final String key = keys.nextElement();
 
-                    entrySet.add(new Map.Entry<String, String>() {
+					entrySet.add(new Map.Entry<String, String>() {
 
-                        public String getKey() {
-                            return key;
-                        }
+						public String getKey() {
+							return key;
+						}
 
-                        public String getValue() {
-                            return get(key);
-                        }
+						public String getValue() {
+							return get(key);
+						}
 
-                        public String setValue(String arg0) {
-                            throw new UnsupportedOperationException("not implemented");
-                        }
-                    });
-                }
+						public String setValue(String arg0) {
+							throw new UnsupportedOperationException("not implemented");
+						}
+					});
+				}
 
-                return entrySet;
-            }
-            
-            @Override
-            public boolean containsKey(Object key) {
-            	String recovered = get(key);
-            	return recovered != null && !recovered.equals(key);
-            }
+				return entrySet;
+			}
 
-        };
+			@Override
+			public boolean containsKey(Object key) {
+				String recovered = get(key);
+				return recovered != null && !recovered.equals(key);
+			}
 
-    }
+		};
 
-    /**
-     * Create the Map and cache it in the EVENT scope. No need to cache it in
-     * the SESSION scope, since it is inexpensive to create.
-     * 
-     * @return a Map that interpolates messages in the Seam ResourceBundle
-     */
-    @Factory(value = "org.jboss.seam.international.messages", autoCreate = true, scope = EVENT)
-    public Map<String, String> getMessages() {
-        return createMap();
-    }
+	}
 
-    /**
-     * @return the message Map instance
-     */
-    public static Map<String, String> instance() {
-        if (!Contexts.isSessionContextActive()) {
-            throw new IllegalStateException("no event context active");
-        }
-        return (Map<String, String>) Component.getInstance("org.jboss.seam.international.messages", true);
-    }
+	/**
+	 * Create the Map and cache it in the EVENT scope. No need to cache it in
+	 * the SESSION scope, since it is inexpensive to create.
+	 * 
+	 * @return a Map that interpolates messages in the Seam ResourceBundle
+	 */
+	@Factory(value = "org.jboss.seam.international.messages", autoCreate = true, scope = EVENT)
+	public Map<String, String> getMessages() {
+		return createMap();
+	}
+
+	/**
+	 * @return the message Map instance
+	 */
+	public static Map<String, String> instance() {
+		if (!Contexts.isSessionContextActive()) {
+			throw new IllegalStateException("no event context active");
+		}
+		return (Map<String, String>) Component.getInstance("org.jboss.seam.international.messages", true);
+	}
 }

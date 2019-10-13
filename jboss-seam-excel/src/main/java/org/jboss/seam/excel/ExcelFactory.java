@@ -22,74 +22,60 @@ import org.jboss.seam.util.Strings;
 @Name("org.jboss.seam.excel.excelFactory")
 @Scope(ScopeType.STATELESS)
 @AutoCreate
-@Install(precedence=Install.BUILT_IN)
+@Install(precedence = Install.BUILT_IN)
 @BypassInterceptors
-public class ExcelFactory
-{
+public class ExcelFactory {
 
-   private static Map<String, Class<? extends ExcelWorkbook>> defaultImplementations;
+	private static Map<String, Class<? extends ExcelWorkbook>> defaultImplementations;
 
-   private Map<String, Class<? extends ExcelWorkbook>> implementations;
+	private Map<String, Class<? extends ExcelWorkbook>> implementations;
 
-   static
-   {
-      defaultImplementations = new HashMap<String, Class<? extends ExcelWorkbook>>();
-      defaultImplementations.put("csv", CsvExcelWorkbook.class);
-      defaultImplementations.put("jxl", JXLExcelWorkbook.class);
-   }
+	static {
+		defaultImplementations = new HashMap<String, Class<? extends ExcelWorkbook>>();
+		defaultImplementations.put("csv", CsvExcelWorkbook.class);
+		defaultImplementations.put("jxl", JXLExcelWorkbook.class);
+	}
 
-   public static ExcelFactory instance()
-   {
-      return (ExcelFactory) Component.getInstance(ExcelFactory.class);
-   }
+	public static ExcelFactory instance() {
+		return (ExcelFactory) Component.getInstance(ExcelFactory.class);
+	}
 
-   public ExcelWorkbook getExcelWorkbook(String type)
-   {
+	public ExcelWorkbook getExcelWorkbook(String type) {
 
-      Class<? extends ExcelWorkbook> clazz;
+		Class<? extends ExcelWorkbook> clazz;
 
-      ExcelWorkbook excelWorkbook;
+		ExcelWorkbook excelWorkbook;
 
-      if (Strings.isEmpty(type))
-      {
-         type = "jxl";
-      }
+		if (Strings.isEmpty(type)) {
+			type = "jxl";
+		}
 
-      if (implementations != null && implementations.get(type) != null)
-      {
-         clazz = implementations.get(type);
-      }
-      else
-      {
-         clazz = defaultImplementations.get(type);
-      }
+		if (implementations != null && implementations.get(type) != null) {
+			clazz = implementations.get(type);
+		} else {
+			clazz = defaultImplementations.get(type);
+		}
 
-      if (clazz == null)
-      {
-         throw new IllegalArgumentException("Unable to create workbook of type " + type);
-      }
+		if (clazz == null) {
+			throw new IllegalArgumentException("Unable to create workbook of type " + type);
+		}
 
-      try
-      {
-         excelWorkbook = clazz.getDeclaredConstructor().newInstance();
-      }
-      catch (Exception e)
-      {
-         throw new IllegalArgumentException("The class provided could not be instanciated " + type, e);
-      }
+		try {
+			excelWorkbook = clazz.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			throw new IllegalArgumentException("The class provided could not be instanciated " + type, e);
+		}
 
-      return excelWorkbook;
+		return excelWorkbook;
 
-   }
+	}
 
-   public Map<String, Class<? extends ExcelWorkbook>> getImplementations()
-   {
-      return implementations;
-   }
+	public Map<String, Class<? extends ExcelWorkbook>> getImplementations() {
+		return implementations;
+	}
 
-   public void setImplementations(Map<String, Class<? extends ExcelWorkbook>> implementations)
-   {
-      this.implementations = implementations;
-   }
+	public void setImplementations(Map<String, Class<? extends ExcelWorkbook>> implementations) {
+		this.implementations = implementations;
+	}
 
 }

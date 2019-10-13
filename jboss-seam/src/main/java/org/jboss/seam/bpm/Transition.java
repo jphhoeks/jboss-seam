@@ -24,40 +24,34 @@ import org.jboss.seam.core.AbstractMutable;
 @Name("org.jboss.seam.bpm.transition")
 @Scope(ScopeType.CONVERSATION)
 @BypassInterceptors
-@Install(precedence=BUILT_IN, dependencies="org.jboss.seam.bpm.jbpm")
-public class Transition extends AbstractMutable implements Serializable 
-{
-   private static final long serialVersionUID = -3054558654376670239L;
-   
-   private String name;
-   
-   public String getName() 
-   {
-      return name;
-   }
-   
-   /**
-    * Set the jBPM transition name
-    */
-   public void setName(String name) 
-   {
-      setDirty(this.name, name);
-      this.name = name;
-   }
-   
-   public static Transition instance()
-   {
-      if ( !Contexts.isApplicationContextActive() )
-      {
-         throw new IllegalStateException("No active application context");
-      }
-      return (Transition) Component.getInstance(Transition.class, ScopeType.CONVERSATION);
-   }
-   
-   @Override
-   public String toString()
-   {
-      return "Transition(" + name + ")";
-   }
-   
+@Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
+public class Transition extends AbstractMutable implements Serializable {
+	private static final long serialVersionUID = -3054558654376670239L;
+
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	/**
+	* Set the jBPM transition name
+	*/
+	public void setName(String name) {
+		setDirty(this.name, name);
+		this.name = name;
+	}
+
+	public static Transition instance() {
+		if (!Contexts.isApplicationContextActive()) {
+			throw new IllegalStateException("No active application context");
+		}
+		return (Transition) Component.getInstance(Transition.class, ScopeType.CONVERSATION);
+	}
+
+	@Override
+	public String toString() {
+		return "Transition(" + name + ")";
+	}
+
 }

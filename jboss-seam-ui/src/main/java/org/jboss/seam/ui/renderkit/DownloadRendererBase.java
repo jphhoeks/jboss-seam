@@ -13,71 +13,60 @@ import org.jboss.seam.ui.util.ViewUrlBuilder;
 import org.jboss.seam.ui.util.cdk.RendererBase;
 import org.richfaces.cdk.annotations.JsfRenderer;
 
-@JsfRenderer(type="org.jboss.seam.ui.DownloadRenderer", family="org.jboss.seam.ui.DownloadRenderer")
-public class DownloadRendererBase extends RendererBase
-{
+@JsfRenderer(type = "org.jboss.seam.ui.DownloadRenderer", family = "org.jboss.seam.ui.DownloadRenderer")
+public class DownloadRendererBase extends RendererBase {
 
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIDownload.class;
-   }
+	@Override
+	protected Class getComponentClass() {
+		return UIDownload.class;
+	}
 
-   @Override
-   protected void doEncodeBegin(javax.faces.context.ResponseWriter writer, FacesContext ctx, UIComponent component) throws IOException
-   {
-      UIDownload download = (UIDownload) component;
+	@Override
+	protected void doEncodeBegin(javax.faces.context.ResponseWriter writer, FacesContext ctx, UIComponent component) throws IOException {
+		UIDownload download = (UIDownload) component;
 
-      if (!download.isRendered())
-         return;
+		if (!download.isRendered())
+			return;
 
-      if (download.getSrc() != null)
-      {
+		if (download.getSrc() != null) {
 
-         ViewUrlBuilder builder = new ViewUrlBuilder(download.getSrc(), null);
+			ViewUrlBuilder builder = new ViewUrlBuilder(download.getSrc(), null);
 
-         for (Object child : download.getChildren())
-         {
-            if (child instanceof UIParameter)
-            {
-               builder.addParameter((UIParameter) child);
-            }
+			for (Object child : download.getChildren()) {
+				if (child instanceof UIParameter) {
+					builder.addParameter((UIParameter) child);
+				}
 
-         }
-         writeStartTag(writer, download, builder.getEncodedUrl());
-         renderNonResourceChildren(ctx, download);
-         writer.endElement(HTML.ANCHOR_ELEM);
+			}
+			writeStartTag(writer, download, builder.getEncodedUrl());
+			renderNonResourceChildren(ctx, download);
+			writer.endElement(HTML.ANCHOR_ELEM);
 
-      }
+		}
 
-   }
+	}
 
-   private void renderNonResourceChildren(FacesContext ctx, UIComponent component) throws IOException
-   {
-      for (Object child : component.getChildren())
-      {
-         if (!(child instanceof UIParameter) && !(child instanceof UIResource) && (child instanceof UIComponent))
-         {
-            renderChild(ctx, (UIComponent) child);
-         }
+	private void renderNonResourceChildren(FacesContext ctx, UIComponent component) throws IOException {
+		for (Object child : component.getChildren()) {
+			if (!(child instanceof UIParameter) && !(child instanceof UIResource) && (child instanceof UIComponent)) {
+				renderChild(ctx, (UIComponent) child);
+			}
 
-      }
-   }
+		}
+	}
 
-   private void writeStartTag(javax.faces.context.ResponseWriter writer, UIDownload download, String url) throws IOException
-   {
-      writer.startElement(HTML.ANCHOR_ELEM, null);
-      writer.writeAttribute(HTML.HREF_ATTR, url, null);
-      if (download.getStyle() != null)
-         writer.writeAttribute(HTML.STYLE_ATTR, download.getStyle(), null);
-      if (download.getStyleClass() != null)
-         writer.writeAttribute(HTML.CLASS_ATTR, download.getStyleClass(), null);
-   }
+	private void writeStartTag(javax.faces.context.ResponseWriter writer, UIDownload download, String url) throws IOException {
+		writer.startElement(HTML.ANCHOR_ELEM, null);
+		writer.writeAttribute(HTML.HREF_ATTR, url, null);
+		if (download.getStyle() != null)
+			writer.writeAttribute(HTML.STYLE_ATTR, download.getStyle(), null);
+		if (download.getStyleClass() != null)
+			writer.writeAttribute(HTML.CLASS_ATTR, download.getStyleClass(), null);
+	}
 
-   @Override
-   public boolean getRendersChildren()
-   {
-      return true;
-   }
+	@Override
+	public boolean getRendersChildren() {
+		return true;
+	}
 
 }

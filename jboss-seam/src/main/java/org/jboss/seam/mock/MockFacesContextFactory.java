@@ -10,8 +10,7 @@ public class MockFacesContextFactory extends FacesContextFactory {
 	private static FacesContext facesContext;
 
 	@Override
-	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
-			throws FacesException {
+	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle) throws FacesException {
 		return facesContext;
 	}
 

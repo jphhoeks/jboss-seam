@@ -27,55 +27,52 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 
-
 /**
  * JSF component class for Seam UIButton
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.Button",value="A link that supports invocation of an action with control over conversation propagation"),
- family="org.jboss.seam.ui.Button", type="org.jboss.seam.ui.Button",generate="org.jboss.seam.ui.component.html.HtmlButton", 
- tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="button", handler="org.jboss.seam.ui.handler.CommandButtonParameterComponentHandler"),
- renderer = @JsfRenderer(type="org.jboss.seam.ui.ButtonRenderer", family="org.jboss.seam.ui.ButtonRenderer"),
- attributes = {"command-button-props.xml", "javax.faces.component.UICommand.xml", "javax.faces.component.ValueHolder.xml", "i18n-props.xml", "accesskey-props.xml" })
-public abstract class UIButton extends UISeamCommandBase  {
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.Button", value = "A link that supports invocation of an action with control over conversation propagation"), family = "org.jboss.seam.ui.Button", type = "org.jboss.seam.ui.Button", generate = "org.jboss.seam.ui.component.html.HtmlButton", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "button", handler = "org.jboss.seam.ui.handler.CommandButtonParameterComponentHandler"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.ButtonRenderer", family = "org.jboss.seam.ui.ButtonRenderer"), attributes = {
+		"command-button-props.xml", "javax.faces.component.UICommand.xml", "javax.faces.component.ValueHolder.xml", "i18n-props.xml",
+		"accesskey-props.xml" })
+public abstract class UIButton extends UISeamCommandBase {
 
-   @Attribute
+	@Attribute
 	public abstract String getStyleClass();
-   
-   @Attribute   
-   public abstract String getStyle();
 
-   @Attribute(defaultValue="false")
-   public abstract boolean isDisabled();
+	@Attribute
+	public abstract String getStyle();
 
-   @Attribute
-   public abstract String getOnclick();
+	@Attribute(defaultValue = "false")
+	public abstract boolean isDisabled();
 
-   @Attribute
-   public abstract String getImage();
+	@Attribute
+	public abstract String getOnclick();
 
-   @Attribute(defaultValue = "true", description = @Description("Include page parameters defined in pages.xml when rendering the button"))
-   public abstract boolean isIncludePageParams();
+	@Attribute
+	public abstract String getImage();
 
-   @Attribute(description = @Description("The name of the conversation for natural conversations"))
-   public abstract String getConversationName();
+	@Attribute(defaultValue = "true", description = @Description("Include page parameters defined in pages.xml when rendering the button"))
+	public abstract boolean isIncludePageParams();
 
-   @Attribute(description = @Description("Specify the task to operate on (e.g. for @StartTask)"))
-   public abstract Object getTaskInstance();
+	@Attribute(description = @Description("The name of the conversation for natural conversations"))
+	public abstract String getConversationName();
 
-   @Attribute
-   public abstract String getOutcome();
+	@Attribute(description = @Description("Specify the task to operate on (e.g. for @StartTask)"))
+	public abstract Object getTaskInstance();
 
-   @Attribute(description = @Description("the fragment identifier to link to."))
-   public abstract String getFragment();
+	@Attribute
+	public abstract String getOutcome();
 
-   @Attribute(defaultValue = "default", description = @Description("determines the conversation propagation style: begin, join, nest, none, end or endRoot."))
-   public abstract String getPropagation();
+	@Attribute(description = @Description("the fragment identifier to link to."))
+	public abstract String getFragment();
 
-   @Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
-   public abstract String getPageflow();
+	@Attribute(defaultValue = "default", description = @Description("determines the conversation propagation style: begin, join, nest, none, end or endRoot."))
+	public abstract String getPropagation();
 
-   @Attribute(description = @Description("the JSF view id to link to."))
-   public abstract String getView();
-   
+	@Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
+	public abstract String getPageflow();
+
+	@Attribute(description = @Description("the JSF view id to link to."))
+	public abstract String getView();
+
 }

@@ -23,36 +23,26 @@ import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 
 @Name("org.jboss.seam.web.hotDeployFilter")
-@Install(debug=true, precedence=BUILT_IN)
+@Install(debug = true, precedence = BUILT_IN)
 @BypassInterceptors
 @Scope(APPLICATION)
 @Filter
-public class HotDeployFilter extends AbstractFilter
-{
+public class HotDeployFilter extends AbstractFilter {
 
-   private static LogProvider log = Logging.getLogProvider(HotDeployFilter.class);
-   
-   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException
-   {
-      if (request instanceof HttpServletRequest)
-      {
-         Init init = (Init) getServletContext().getAttribute(Seam.getComponentName(Init.class));
-         if (init != null)
-         {
-            try
-            {
-               new Initialization(getServletContext()).redeploy((HttpServletRequest) request, init);
-            }
-            catch (InterruptedException e)
-            {
-               log.warn("Unable to redeploy, please try again");
-            }
-         }
-      }
-      chain.doFilter(request, response);
-   }
+	private static LogProvider log = Logging.getLogProvider(HotDeployFilter.class);
 
-
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		if (request instanceof HttpServletRequest) {
+			Init init = (Init) getServletContext().getAttribute(Seam.getComponentName(Init.class));
+			if (init != null) {
+				try {
+					new Initialization(getServletContext()).redeploy((HttpServletRequest) request, init);
+				} catch (InterruptedException e) {
+					log.warn("Unable to redeploy, please try again");
+				}
+			}
+		}
+		chain.doFilter(request, response);
+	}
 
 }

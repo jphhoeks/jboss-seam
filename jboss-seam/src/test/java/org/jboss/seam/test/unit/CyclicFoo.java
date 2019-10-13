@@ -7,18 +7,16 @@ import org.jboss.seam.annotations.Scope;
 
 @Name("cyclicFoo")
 @Scope(ScopeType.APPLICATION)
-public class CyclicFoo
-{
-   @In String cyclicFooBar; //from CyclicBar#provideCyclicFooBar
-   
-   public String getName() throws Exception
-   {
-      return "foo";
-   }
-   
-   public String getFooBar() throws Exception
-   {
-      return cyclicFooBar;
-   }
-   
+public class CyclicFoo {
+	@In
+	String cyclicFooBar; //from CyclicBar#provideCyclicFooBar
+
+	public String getName() throws Exception {
+		return "foo";
+	}
+
+	public String getFooBar() throws Exception {
+		return cyclicFooBar;
+	}
+
 }

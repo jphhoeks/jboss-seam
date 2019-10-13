@@ -9,15 +9,10 @@ import javax.management.ObjectName;
  * @version $Revision: 81019 $
  *   
  */
-public interface ProxyContext
-{
-   void setExceptionHandler(ProxyExceptionHandler handler);
-   
-   MBeanServer getMBeanServer();
-   
-   ObjectName getObjectName();
+public interface ProxyContext {
+	void setExceptionHandler(ProxyExceptionHandler handler);
+
+	MBeanServer getMBeanServer();
+
+	ObjectName getObjectName();
 }
-      
-
-
-

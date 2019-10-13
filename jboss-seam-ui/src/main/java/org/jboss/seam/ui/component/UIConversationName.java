@@ -15,30 +15,25 @@ import org.richfaces.cdk.annotations.Tag;
  *
  * @author Shane Bryzak
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.ConversationName",value="Set the conversation name for a command link or button (or similar JSF control)."),
-family="org.jboss.seam.ui.ConversationName", type="org.jboss.seam.ui.ConversationName",generate="org.jboss.seam.ui.component.html.HtmlConversationName", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="conversationName", handler="org.jboss.seam.ui.handler.CommandButtonParameterComponentHandler"), 
-renderer = @JsfRenderer(type="org.jboss.seam.ui.ConversationNameRenderer", family="org.jboss.seam.ui.ConversationNameRenderer"),
-attributes = {"javax.faces.component.UIParameter.xml" })
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.ConversationName", value = "Set the conversation name for a command link or button (or similar JSF control)."), family = "org.jboss.seam.ui.ConversationName", type = "org.jboss.seam.ui.ConversationName", generate = "org.jboss.seam.ui.component.html.HtmlConversationName", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "conversationName", handler = "org.jboss.seam.ui.handler.CommandButtonParameterComponentHandler"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.ConversationNameRenderer", family = "org.jboss.seam.ui.ConversationNameRenderer"), attributes = {
+		"javax.faces.component.UIParameter.xml" })
 public abstract class UIConversationName extends UIParameter {
-	
+
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.ConversationName";
-   
-   @Override
-   public String getName()
-   {
-      return "conversationName";
-   }
-   
-   @Override
-   public Object getValue()
-   {
-      ConversationIdParameter param = Pages.instance().getConversationIdParameter(super.getValue().toString());      
-      return param != null ? param.getConversationId() : null;
-   }
-   
-   public static UIConversationName newInstance() {
-      return (UIConversationName) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
-   }
-   
+
+	@Override
+	public String getName() {
+		return "conversationName";
+	}
+
+	@Override
+	public Object getValue() {
+		ConversationIdParameter param = Pages.instance().getConversationIdParameter(super.getValue().toString());
+		return param != null ? param.getConversationId() : null;
+	}
+
+	public static UIConversationName newInstance() {
+		return (UIConversationName) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
+	}
+
 }

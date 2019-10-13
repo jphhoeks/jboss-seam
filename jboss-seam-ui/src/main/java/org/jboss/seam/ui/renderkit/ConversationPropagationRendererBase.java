@@ -1,8 +1,5 @@
 package org.jboss.seam.ui.renderkit;
 
-
-
-
 import javax.faces.component.UIComponent;
 
 import org.jboss.seam.log.LogProvider;
@@ -14,27 +11,23 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  * @author Pete Muir
  *
  */
-@JsfRenderer(type="org.jboss.seam.ui.ConversationPropagationRenderer", family="org.jboss.seam.ui.ConversationPropagationRenderer")
-public class ConversationPropagationRendererBase extends CommandButtonParameterRendererBase
-{   
-   
-   private static LogProvider log = Logging.getLogProvider(ConversationPropagationRendererBase.class);
- 
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIConversationPropagation.class;
-   }
+@JsfRenderer(type = "org.jboss.seam.ui.ConversationPropagationRenderer", family = "org.jboss.seam.ui.ConversationPropagationRenderer")
+public class ConversationPropagationRendererBase extends CommandButtonParameterRendererBase {
 
-   @Override
-   protected LogProvider getLog()
-   {
-      return log;
-   }
+	private static LogProvider log = Logging.getLogProvider(ConversationPropagationRendererBase.class);
 
-   @Override
-   protected String getParameterName(UIComponent component)
-   {
-      return ((UIConversationPropagation) component).getName();
-   }
+	@Override
+	protected Class getComponentClass() {
+		return UIConversationPropagation.class;
+	}
+
+	@Override
+	protected LogProvider getLog() {
+		return log;
+	}
+
+	@Override
+	protected String getParameterName(UIComponent component) {
+		return ((UIConversationPropagation) component).getName();
+	}
 }

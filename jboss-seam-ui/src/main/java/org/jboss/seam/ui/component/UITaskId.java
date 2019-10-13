@@ -34,30 +34,28 @@ import org.richfaces.cdk.annotations.Tag;
  * JSF component class for adding of task id to an output link (or similar JSF control), when the task is available via #{task}.
  *
  */
-@JsfComponent(description=@Description(displayName="org.jboss.seam.ui.TaskId",value="Add the task id to an output link (or similar JSF control), when the task is available via #{task}."),
-family="org.jboss.seam.ui.TaskId", type="org.jboss.seam.ui.TaskId",generate="org.jboss.seam.ui.component.html.HtmlTaskId", 
-tag = @Tag(baseClass="org.jboss.seam.ui.util.cdk.UIComponentTagBase", name="taskid"),
-attributes = {"javax.faces.component.UIParameter.xml" })
+@JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.TaskId", value = "Add the task id to an output link (or similar JSF control), when the task is available via #{task}."), family = "org.jboss.seam.ui.TaskId", type = "org.jboss.seam.ui.TaskId", generate = "org.jboss.seam.ui.component.html.HtmlTaskId", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "taskid"), attributes = {
+		"javax.faces.component.UIParameter.xml" })
 public abstract class UITaskId extends UIParameter {
-	
+
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.TaskId";
-	
-   @Override
-   public String getName()
-   {
-      return "taskId";
-   }
-   
-   @Override
-   public Object getValue()
-   {
-      ValueExpression valueExpression = getValueExpression("taskInstance");
-      if (valueExpression==null) valueExpression = getFacesContext().getApplication().getExpressionFactory().createValueExpression(getFacesContext().getELContext(), "#{task}", TaskInstance.class);
-      TaskInstance taskInstance = (TaskInstance) valueExpression.getValue( getFacesContext().getELContext() );
-      return taskInstance==null ? null : taskInstance.getId();
-   }
-   
-   public static UITaskId newInstance() {
-      return (UITaskId) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
-   }
+
+	@Override
+	public String getName() {
+		return "taskId";
+	}
+
+	@Override
+	public Object getValue() {
+		ValueExpression valueExpression = getValueExpression("taskInstance");
+		if (valueExpression == null)
+			valueExpression = getFacesContext().getApplication().getExpressionFactory()
+					.createValueExpression(getFacesContext().getELContext(), "#{task}", TaskInstance.class);
+		TaskInstance taskInstance = (TaskInstance) valueExpression.getValue(getFacesContext().getELContext());
+		return taskInstance == null ? null : taskInstance.getId();
+	}
+
+	public static UITaskId newInstance() {
+		return (UITaskId) FacesContext.getCurrentInstance().getApplication().createComponent(COMPONENT_TYPE);
+	}
 }

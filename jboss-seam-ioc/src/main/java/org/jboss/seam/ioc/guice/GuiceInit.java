@@ -24,25 +24,21 @@ import com.google.inject.Injector;
 @Startup
 @Install(precedence = FRAMEWORK, classDependencies = "com.google.inject.Injector")
 @BypassInterceptors
-public class GuiceInit implements Serializable
-{
-   private static final long serialVersionUID = -1517814449129434488L;
-   
-   private Injector injector;
-   
-   public Injector getInjector()
-   {
-      return injector;
-   }
-   
-   public void setInjector(Injector injector)
-   {
-      this.injector = injector;
-   }
-   
-   @Override
-   public String toString()
-   {
-      return "org.jboss.seam.ioc.guice.init(" + injector + ")";
-   }
+public class GuiceInit implements Serializable {
+	private static final long serialVersionUID = -1517814449129434488L;
+
+	private Injector injector;
+
+	public Injector getInjector() {
+		return injector;
+	}
+
+	public void setInjector(Injector injector) {
+		this.injector = injector;
+	}
+
+	@Override
+	public String toString() {
+		return "org.jboss.seam.ioc.guice.init(" + injector + ")";
+	}
 }

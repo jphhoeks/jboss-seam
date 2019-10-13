@@ -6,24 +6,20 @@ package org.jboss.seam.security;
  *  
  * @author Shane Bryzak
  */
-public class Role extends SimplePrincipal
-{   
-   private static final long serialVersionUID = 1L;
-private boolean conditional;
-   
-   public Role(String name)
-   {
-      super(name);
-   }   
-   
-   public Role(String name, boolean conditional)
-   {
-      this(name);
-      this.conditional = conditional;
-   }
-   
-   public boolean isConditional()
-   {
-      return conditional;
-   }
+public class Role extends SimplePrincipal {
+	private static final long serialVersionUID = 1L;
+	private boolean conditional;
+
+	public Role(String name) {
+		super(name);
+	}
+
+	public Role(String name, boolean conditional) {
+		this(name);
+		this.conditional = conditional;
+	}
+
+	public boolean isConditional() {
+		return conditional;
+	}
 }

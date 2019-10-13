@@ -17,175 +17,150 @@ import org.jboss.seam.ui.util.HTML;
 import org.jboss.seam.ui.util.cdk.RendererBase;
 import org.richfaces.cdk.annotations.JsfRenderer;
 
-@JsfRenderer(type="org.jboss.seam.ui.DecorateRenderer", family="org.jboss.seam.ui.DecorateRenderer")
-public class DecorateRendererBase extends RendererBase
-{
-   // Place the attributes you want to store away
-   private Map<String, Object> originalValues = new HashMap();
-   // The list of attributes in the event scope to store away
-   String[] storeOriginals = new String[] {"invalid", "required"};
-   
-   @Override
-   protected Class getComponentClass()
-   {
-      return UIDecorate.class;
-   }
+@JsfRenderer(type = "org.jboss.seam.ui.DecorateRenderer", family = "org.jboss.seam.ui.DecorateRenderer")
+public class DecorateRendererBase extends RendererBase {
+	// Place the attributes you want to store away
+	private Map<String, Object> originalValues = new HashMap();
+	// The list of attributes in the event scope to store away
+	String[] storeOriginals = new String[] { "invalid", "required" };
 
-   private static void setUIDecorate(UIComponent component, UIDecorate decorator)
-   {
-      if (component instanceof UIDecorateAware)
-      {
-         ((UIDecorateAware)component).setUIDecorate(decorator);
-      }
-      for (Object child: component.getChildren())
-      {
-         if (child instanceof UIComponent)
-         {
-            setUIDecorate((UIComponent)child, decorator);
-         }
-      }
-   }
+	@Override
+	protected Class getComponentClass() {
+		return UIDecorate.class;
+	}
 
-   /**
-    * Store away the attribute from the event context (if it is set)
-    * 
-    * @param names The list of context keys to store away
-    * @param context The context to target
-    */
-   private void storeOriginalValues(String[] names, Context context)
-   {
-      for (String name : names)
-      {
-         if (context.isSet(name))
-         {
-            originalValues.put(name, context.get(name));
-         }
-      }
-   }
-   
-   /**
-    * Restores the state of the event context. If the value is stored away, it is restored
-    * It it was not in the map, it was not in the context in the first place so clean
-    * up what we have placed there during this run.
-    * 
-    * @param names The list of context keys to restore
-    * @param context The context to target
-    */
-   private void restoreOriginalValues(String[] names, Context context) {
-      for (String name : names) {
-         if (originalValues.containsKey(name)) {
-            context.set(name, originalValues.get(name));
-         } else {
-            context.remove(name);
-         }
-      }
-   }
+	private static void setUIDecorate(UIComponent component, UIDecorate decorator) {
+		if (component instanceof UIDecorateAware) {
+			((UIDecorateAware) component).setUIDecorate(decorator);
+		}
+		for (Object child : component.getChildren()) {
+			if (child instanceof UIComponent) {
+				setUIDecorate((UIComponent) child, decorator);
+			}
+		}
+	}
 
-   @Override
-   protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-   {
-      UIDecorate decorate = (UIDecorate) component;
+	/**
+	* Store away the attribute from the event context (if it is set)
+	* 
+	* @param names The list of context keys to store away
+	* @param context The context to target
+	*/
+	private void storeOriginalValues(String[] names, Context context) {
+		for (String name : names) {
+			if (context.isSet(name)) {
+				originalValues.put(name, context.get(name));
+			}
+		}
+	}
 
-      storeOriginalValues(storeOriginals, Contexts.getEventContext());
+	/**
+	* Restores the state of the event context. If the value is stored away, it is restored
+	* It it was not in the map, it was not in the context in the first place so clean
+	* up what we have placed there during this run.
+	* 
+	* @param names The list of context keys to restore
+	* @param context The context to target
+	*/
+	private void restoreOriginalValues(String[] names, Context context) {
+		for (String name : names) {
+			if (originalValues.containsKey(name)) {
+				context.set(name, originalValues.get(name));
+			} else {
+				context.remove(name);
+			}
+		}
+	}
 
-      Contexts.getEventContext().set("invalid", Decoration.hasMessage(decorate, context));
-      Contexts.getEventContext().set("required", Decoration.hasRequired(component, context));
+	@Override
+	protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+		UIDecorate decorate = (UIDecorate) component;
 
-      boolean hasMessage = decorate.hasMessage();
+		storeOriginalValues(storeOriginals, Contexts.getEventContext());
 
-      if (decorate.isEnclose())
-      {
-          writer.startElement(decorate.getElement(), decorate);
-          if (decorate.getStyleClass() != null)
-          {
-             writer.writeAttribute(HTML.CLASS_ATTR, decorate.getStyleClass(), HTML.CLASS_ATTR);
-          }
-          if (decorate.getStyle() != null)
-          {
-             writer.writeAttribute(HTML.STYLE_ATTR, decorate.getStyle(), HTML.STYLE_ATTR);
-          }
-          writer.writeAttribute("id", decorate.getClientId(context), "id");
-      }
+		Contexts.getEventContext().set("invalid", Decoration.hasMessage(decorate, context));
+		Contexts.getEventContext().set("required", Decoration.hasRequired(component, context));
 
-      UIComponent aroundDecoration = decorate.getDecoration("aroundField");
-      UIComponent aroundInvalidDecoration = decorate.getDecoration("aroundInvalidField");
-      if (aroundDecoration != null && !hasMessage)
-      {
-         setUIDecorate(aroundDecoration, decorate);
-         aroundDecoration.encodeBegin(context);
-      }
-      if (aroundInvalidDecoration != null && hasMessage)
-      {
-         setUIDecorate(aroundInvalidDecoration, decorate);
-         aroundInvalidDecoration.encodeBegin(context);
-      }
-   }
+		boolean hasMessage = decorate.hasMessage();
 
-   @Override
-   protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-   {
-      UIDecorate decorate = (UIDecorate) component;
+		if (decorate.isEnclose()) {
+			writer.startElement(decorate.getElement(), decorate);
+			if (decorate.getStyleClass() != null) {
+				writer.writeAttribute(HTML.CLASS_ATTR, decorate.getStyleClass(), HTML.CLASS_ATTR);
+			}
+			if (decorate.getStyle() != null) {
+				writer.writeAttribute(HTML.STYLE_ATTR, decorate.getStyle(), HTML.STYLE_ATTR);
+			}
+			writer.writeAttribute("id", decorate.getClientId(context), "id");
+		}
 
-      boolean hasMessage = decorate.hasMessage();
-      UIComponent aroundDecoration = decorate.getDecoration("aroundField");
-      UIComponent aroundInvalidDecoration = decorate.getDecoration("aroundInvalidField");
-      if (aroundDecoration != null && !hasMessage)
-      {
-         setUIDecorate(aroundDecoration, decorate);
-         aroundDecoration.encodeEnd(context);
-      }
-      if (aroundInvalidDecoration != null && hasMessage)
-      {
-         setUIDecorate(aroundInvalidDecoration, decorate);
-         aroundInvalidDecoration.encodeEnd(context);
-      }
-      if (decorate.isEnclose())
-      {
-          context.getResponseWriter().endElement(decorate.getElement());
-      }
+		UIComponent aroundDecoration = decorate.getDecoration("aroundField");
+		UIComponent aroundInvalidDecoration = decorate.getDecoration("aroundInvalidField");
+		if (aroundDecoration != null && !hasMessage) {
+			setUIDecorate(aroundDecoration, decorate);
+			aroundDecoration.encodeBegin(context);
+		}
+		if (aroundInvalidDecoration != null && hasMessage) {
+			setUIDecorate(aroundInvalidDecoration, decorate);
+			aroundInvalidDecoration.encodeBegin(context);
+		}
+	}
 
-      restoreOriginalValues(storeOriginals, Contexts.getEventContext());
-   }
+	@Override
+	protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+		UIDecorate decorate = (UIDecorate) component;
 
-   @Override
-   protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException
-   {
-      UIDecorate decorate = (UIDecorate) component;
+		boolean hasMessage = decorate.hasMessage();
+		UIComponent aroundDecoration = decorate.getDecoration("aroundField");
+		UIComponent aroundInvalidDecoration = decorate.getDecoration("aroundInvalidField");
+		if (aroundDecoration != null && !hasMessage) {
+			setUIDecorate(aroundDecoration, decorate);
+			aroundDecoration.encodeEnd(context);
+		}
+		if (aroundInvalidDecoration != null && hasMessage) {
+			setUIDecorate(aroundInvalidDecoration, decorate);
+			aroundInvalidDecoration.encodeEnd(context);
+		}
+		if (decorate.isEnclose()) {
+			context.getResponseWriter().endElement(decorate.getElement());
+		}
 
-      boolean hasMessage = decorate.hasMessage();
+		restoreOriginalValues(storeOriginals, Contexts.getEventContext());
+	}
 
-      UIComponent beforeDecoration = decorate.getDecoration("beforeField");
-      UIComponent beforeInvalidDecoration = decorate.getDecoration("beforeInvalidField");
-      if (beforeDecoration != null && !hasMessage)
-      {
-         setUIDecorate(beforeDecoration, decorate);
-         renderChild(context, beforeDecoration);
-      }
-      if (beforeInvalidDecoration != null && hasMessage)
-      {
-         setUIDecorate(beforeInvalidDecoration, decorate);
-         renderChild(context, beforeInvalidDecoration);
-      }
+	@Override
+	protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+		UIDecorate decorate = (UIDecorate) component;
 
-      renderChildren(context, decorate);
+		boolean hasMessage = decorate.hasMessage();
 
-      UIComponent afterDecoration = decorate.getDecoration("afterField");
-      UIComponent afterInvalidDecoration = decorate.getDecoration("afterInvalidField");
-      if (afterDecoration != null && !hasMessage)
-      {
-         setUIDecorate(afterDecoration, decorate);
-         renderChild(context, afterDecoration);
-      }
-      if (afterInvalidDecoration != null && hasMessage)
-      {
-         setUIDecorate(afterInvalidDecoration, decorate);
-         renderChild(context, afterInvalidDecoration);
-      }
-   }
+		UIComponent beforeDecoration = decorate.getDecoration("beforeField");
+		UIComponent beforeInvalidDecoration = decorate.getDecoration("beforeInvalidField");
+		if (beforeDecoration != null && !hasMessage) {
+			setUIDecorate(beforeDecoration, decorate);
+			renderChild(context, beforeDecoration);
+		}
+		if (beforeInvalidDecoration != null && hasMessage) {
+			setUIDecorate(beforeInvalidDecoration, decorate);
+			renderChild(context, beforeInvalidDecoration);
+		}
 
-   @Override
-   public boolean getRendersChildren()
-   {
-      return true;
-   }
+		renderChildren(context, decorate);
+
+		UIComponent afterDecoration = decorate.getDecoration("afterField");
+		UIComponent afterInvalidDecoration = decorate.getDecoration("afterInvalidField");
+		if (afterDecoration != null && !hasMessage) {
+			setUIDecorate(afterDecoration, decorate);
+			renderChild(context, afterDecoration);
+		}
+		if (afterInvalidDecoration != null && hasMessage) {
+			setUIDecorate(afterInvalidDecoration, decorate);
+			renderChild(context, afterInvalidDecoration);
+		}
+	}
+
+	@Override
+	public boolean getRendersChildren() {
+		return true;
+	}
 }

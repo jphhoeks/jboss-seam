@@ -4,4 +4,3 @@
  * @see org.jboss.seam.annotations.exception
  */
 package org.jboss.seam.exception;
-
