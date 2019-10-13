@@ -47,9 +47,9 @@ options
     public interface Sanitizer {
 
         /**
-         * Called by the SeamTextParser when a link tag is parsed, i.e. [=>some URI].
+         * Called by the SeamTextParser when a link tag is parsed, i.e. [=&gt;some URI].
          *
-         * @param element the token of the parse tree, here the ">" symbol which comes after the "="
+         * @param element the token of the parse tree, here the "&gt;" symbol which comes after the "="
          * @param uri the user-entered link text
          * @throws SemanticException thrown if the URI is not syntactically or semantically valid
          */
