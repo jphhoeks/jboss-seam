@@ -42,7 +42,6 @@ public class SeamAdapter extends JavaAdapter {
 			return result;
 		} catch (RuntimeException e) {
 			// XXX end request properly....
-			e.printStackTrace();
 			throw e;
 		}
 	}

@@ -103,7 +103,7 @@ public class ParameterParser {
 			i2--;
 		}
 		// Strip away quotation marks if necessary
-		if (quoted && ((i2 - i1) >= 2) && (chars[i1] == '"') && (chars[i2 - 1] == '"')) {
+		if (quoted && (i2 - i1) >= 2 && chars[i1] == '"' && chars[i2 - 1] == '"') {
 			i1++;
 			i2--;
 		}

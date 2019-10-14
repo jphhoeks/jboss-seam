@@ -162,9 +162,8 @@ public class RedirectFilter extends AbstractFilter {
 				setStatus(SC_INTERNAL_SERVER_ERROR);
 				try {
 					getOutputStream().write(message.getBytes());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
+				} catch (IOException ignored) {
+					// 
 				}
 			}
 		}

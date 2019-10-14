@@ -194,8 +194,7 @@ public class TokenRendererBase extends RendererBase {
 			digest.update(salt);
 			byte[] raw = digest.digest();
 			return Base64.encodeBytes(raw);
-		} catch (NoSuchAlgorithmException ex) {
-			ex.printStackTrace();
+		} catch (NoSuchAlgorithmException ex) {			
 			return null;
 		}
 	}

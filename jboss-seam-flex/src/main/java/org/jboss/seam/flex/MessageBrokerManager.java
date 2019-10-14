@@ -122,10 +122,10 @@ public class MessageBrokerManager {
 
 			endpoint.service(req, res);
 		} catch (UnsupportedOperationException ue) {
-			ue.printStackTrace();
+			log.error("Error", ue);
 			sendError(res);
 		} catch (RuntimeException e) {
-			e.printStackTrace();
+			log.error("Error", e);
 		} finally {
 			FlexContext.clearThreadLocalObjects();
 		}
