@@ -6,125 +6,129 @@ Unreleased
 
 
 Release Notes - Seam 2 - Version 2.3.15.ayg 2019-03-18
-	* [JBSEAM-2381] EntityQuery to stop fetching maxResults + 1 rows
-	* [#21] Fix for JBSEAM-4806 is breaking Asynchronous initialization
-	* [   ] Treat @PostConstruct as @Create when used without arguments
-	* [   ] Upgrade PrimeFaces and PrimeFaces Extensions to version 7.0
-	* [   ] Upgrade RichFaces to version 4.6.8.ayg
-	* [   ] Upgrade beanshell to 2.0b6
-	* [   ] Upgrade jbpm-jpdl to 3.2.14.ayg
-	* [   ] Upgrade itext2 to 2.1.16
+
+    * [JBSEAM-2381] EntityQuery to stop fetching maxResults + 1 rows
+    * [#21] Fix for JBSEAM-4806 is breaking Asynchronous initialization
+    * [   ] Treat @PostConstruct as @Create when used without arguments
+    * [   ] Upgrade PrimeFaces and PrimeFaces Extensions to version 7.0
+    * [   ] Upgrade RichFaces to version 4.6.8.ayg
+    * [   ] Upgrade beanshell to 2.0b6
+    * [   ] Upgrade jbpm-jpdl to 3.2.14.ayg
+    * [   ] Upgrade itext2 to 2.1.16
 
 Release Notes - Seam 2 - Version 2.3.14.ayg 2018-08-22
-	* [#18] fix actionOutcome EL expresion evaluation from user input.
-	* [   ] Upgrade Richfaces to 4.6.5.ayg, fixes CVE-2018-12532
+
+    * [#18] fix actionOutcome EL expresion evaluation from user input.
+    * [   ] Upgrade Richfaces to 4.6.5.ayg, fixes CVE-2018-12532
 
 Release Notes - Seam 2 - Version 2.3.13.ayg 2018-05-17
-	* [   ] Prevent exception logging if jbpm is not present at runtime
-	* [   ] Adjust some log levels	 
+
+    * [   ] Prevent exception logging if jbpm is not present at runtime
+    * [   ] Adjust some log levels	 
 
 Release Notes - Seam 2 - Version 2.3.12.ayg 2018-05-06
+
     * [   ] PrimeFaces upgraded to 6.2
     * [#15] Package PrimeFaces Extensions http://primefaces-extensions.github.io/
-	* [   ] Use PdfSmartCopy to reduce the size of generated PDF files
-	* [#09] Avoid to call FileInputStream and others to prevent GC overhead
-	* [   ] Better JBPM Subprocess resolve
-	* [   ] Encode filename header value in file download
-	* [   ] Upgrade hibernate-tools to 5.0.6.Final
-	* [   ] Upgrade commons-collections to 3.2.2
-	* [JBSEAM-4758] Seam is allowing concurrent thread access to conversation components during conversation timeout, resulting in @Destroy being called multiple times
-	* [JBSEAM-2577] pageflow.hasTransition(...) throws NPE if not in process
-	* [JBSEAM-1793] optimize s:transformImageSize - no transform if image already at desired size
-	* [JBSEAM-1690] Errors wrapped by ServletExceptions are not logged by ExceptionFilter
+    * [   ] Use PdfSmartCopy to reduce the size of generated PDF files
+    * [#09] Avoid to call FileInputStream and others to prevent GC overhead
+    * [   ] Better JBPM Subprocess resolve
+    * [   ] Encode filename header value in file download
+    * [   ] Upgrade hibernate-tools to 5.0.6.Final
+    * [   ] Upgrade commons-collections to 3.2.2
+    * [JBSEAM-4758] Seam is allowing concurrent thread access to conversation components during conversation timeout, resulting in @Destroy being called multiple times
+    * [JBSEAM-2577] pageflow.hasTransition(...) throws NPE if not in process
+    * [JBSEAM-1793] optimize s:transformImageSize - no transform if image already at desired size
+    * [JBSEAM-1690] Errors wrapped by ServletExceptions are not logged by ExceptionFilter
 
 
 Release Notes - Seam 2 - Version 2.3.11.ayg 2017-08-22
 	
-	* [ ] Sanity checks for not null on BasicContext Constructor
-	* [ ] Fix support for hibernate search 5
-	* [ ] Removes portlet compile dependency
-	* [ ] Added BootsFaces and PrimeFaces bootstrap theme. 
-	* [ ] Upgrade commons-logging to 1.2
-	* [ ] Upgrade log4j to 1.2.17
-	* [ ] Upgrade hibernate-search to 5.5.7.Final
-	* [ ] Upgrade hibernate to 5.0.14.Final-redhat-1
-	* [ ] As per RF-13865 - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
+    * [ ] Sanity checks for not null on BasicContext Constructor
+    * [ ] Fix support for hibernate search 5
+    * [ ] Removes portlet compile dependency
+    * [ ] Added BootsFaces and PrimeFaces bootstrap theme. 
+    * [ ] Upgrade commons-logging to 1.2
+    * [ ] Upgrade log4j to 1.2.17
+    * [ ] Upgrade hibernate-search to 5.5.7.Final
+    * [ ] Upgrade hibernate to 5.0.14.Final-redhat-1
+    * [ ] As per RF-13865 - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
 
 Release Notes - Seam 2 - Version 2.3.10.ayg (pre-release) 2017-06-05
 
-	* [ ] Includes full Richfaces distribution (main jar)
-	* [ ] Upgrade JExcelapi to 2.6.12
-	* [ ] Upgrade Primefaces to 6.1
-	* [ ] Parametrize logging output (Fixes CVE-2014-0248)
+    * [ ] Includes full Richfaces distribution (main jar)
+    * [ ] Upgrade JExcelapi to 2.6.12
+    * [ ] Upgrade Primefaces to 6.1
+    * [ ] Parametrize logging output (Fixes CVE-2014-0248)
 
 
 Release Notes - Seam 2 - Version 2.3.9.ayg (pre-release) 2017-04-05
 
-	* [ ] Preliminary (incomplete) support for JEE7
-	* [ ] Set compiler version to java 7
-	* [ ] Package Richfaces and related jars (cssparser, sac, etc)
-	* [ ] Package Primefaces 6.0
+    * [ ] Preliminary (incomplete) support for JEE7
+    * [ ] Set compiler version to java 7
+    * [ ] Package Richfaces and related jars (cssparser, sac, etc)
+    * [ ] Package Primefaces 6.0
 
 
 Release Notes - Seam 2 - Version 2.3.8.ayg 2016-05-30
 
-	* [ ] Only depends on EHCache 2 (removes dependency with EHCache 1)
-	* [ ] Update jboss-cache to 1.4.1.SP14
+    * [ ] Only depends on EHCache 2 (removes dependency with EHCache 1)
+    * [ ] Update jboss-cache to 1.4.1.SP14
 	
 	
 Release Notes - Seam 2 - Version 2.3.7.ayg (not released)
 
 Release Notes - Seam 2 - Version 2.3.6.ayg 2016-05-26
 
-	* [JBSEAM-4678] Stop the PhaseListener doing work on non-seam applications
-	* [JBSEAM-2703] Avoid exceptions for invalid system request parameters
-	* [ ] Really ensure not entering in a redirection loop on error/debug/login pages
-	* [ ] RendererRequest with utf-8 character encoding
+    * [JBSEAM-4678] Stop the PhaseListener doing work on non-seam applications
+    * [JBSEAM-2703] Avoid exceptions for invalid system request parameters
+    * [ ] Really ensure not entering in a redirection loop on error/debug/login pages
+    * [ ] RendererRequest with utf-8 character encoding
 
 
 Release Notes - Seam 2 - Version 2.3.5.ayg 2016-05-03
 
-	* [JBSEAM-4853] Complete the fix for JBSEAM-4853 (SSL downloads in IE)
-	* [JBSEAM-5145] Captcha validation prints message key instead of message	
-	* [JBSEAM-2929] Externalize the CAPTCHA incorrect response message to a resource bundle
-	* [JBSEAM-4651] s:button with image attribute doesn't add contextroot in src attribute	
-	* [JBSEAM-3345] Seam buttons don't render path in relative images (same of above)	
-	* [JBSEAM-4631] Fix posible NPE in s:validateEquality
-	* [JBSEAM-4313] EntityHome created/updated/deleted default messages should come from resource bundle instead of hard-coded messages
-	* [JBSEAM-2724] Internationalize Home default messages
-	* [JBSEAM-4502] pages.xml expires attribute : invalid Expires HTTP header with non-English JVM default locale
-	* [JBSEAM-4490] Messages: AbstractMap needs containsKey
-	* [JBSEAM-4384] Seam/Hibernate filter enabled --> ClassCastException	
-	* [JBSEAM-4063] MultipartRequestImpl implementation of getPerameterMap
-	* [JBSEAM-3897] MultipartRequest Error: 100% CPU or Missing data
-	* [JBSEAM-4435] Exception in Seam Resource is Swallowed and Redirection to debug.seam Does not Work.
-	* [JBSEAM-4347] NullPointerException in UISelectItems when var attribute is not specified in s:selectItems
-	* [JBSEAM-4678] Stop the PhaseListener doing work on non-seam applications
-	* [JBSEAM-4395] Endless loop when an exception occurs during commit inside a long running conversation, and there is an <exception> clause to handle it in page.xml
-	* [JBSEAM-4528] static pages don't work at all with database down and XA datasource used
-	* [JBSEAM-4312] Exception while checking out transaction causing infinite loop trying to render error page
-	* [JBSEAM-4646] ConcurrentModificationException in RewriterFilter
-	* [JBSEAM-5078] Unsynchronized access to conversation entries map
-	* [JBSEAM-4832] Exception in the filter chain javax.servlet.ServletException: java.util.ConcurrentModificationException
-	* [JBSEAM-3464] better message for HibernatePersistenceProvider.checkVersion() exception
-	* [JBSEAM-4200] hot deploy re-reads the class files, not just timestamps, on every request
-	* [JBSEAM-4487] Concurrent requests; one invalidates the session, results in recursive loop of session creation
-	* [JBSEAM-2211] NPE in SeamELResolver
-	* [ ] Recover and improve Seam Debug page
-	* [ ] Only enable Seam Debug if facelets and JSF are in development mode
-	* [ ] FileDocumentData allow store documents on files instead of memory.
-	* [ ] Fix posible NPE on locale calculation
-	* [ ] Cache scan results for improved startup time on shared classpath (via org.jboss.seam.deployment.CACHE_SCAN_RESULTS initial parameter)
+    * [JBSEAM-4853] Complete the fix for JBSEAM-4853 (SSL downloads in IE)
+    * [JBSEAM-5145] Captcha validation prints message key instead of message	
+    * [JBSEAM-2929] Externalize the CAPTCHA incorrect response message to a resource bundle
+    * [JBSEAM-4651] s:button with image attribute doesn't add contextroot in src attribute	
+    * [JBSEAM-3345] Seam buttons don't render path in relative images (same of above)	
+    * [JBSEAM-4631] Fix posible NPE in s:validateEquality
+    * [JBSEAM-4313] EntityHome created/updated/deleted default messages should come from resource bundle instead of hard-coded messages
+    * [JBSEAM-2724] Internationalize Home default messages
+    * [JBSEAM-4502] pages.xml expires attribute : invalid Expires HTTP header with non-English JVM default locale
+    * [JBSEAM-4490] Messages: AbstractMap needs containsKey
+    * [JBSEAM-4384] Seam/Hibernate filter enabled --> ClassCastException	
+    * [JBSEAM-4063] MultipartRequestImpl implementation of getPerameterMap
+    * [JBSEAM-3897] MultipartRequest Error: 100% CPU or Missing data
+    * [JBSEAM-4435] Exception in Seam Resource is Swallowed and Redirection to debug.seam Does not Work.
+    * [JBSEAM-4347] NullPointerException in UISelectItems when var attribute is not specified in s:selectItems
+    * [JBSEAM-4678] Stop the PhaseListener doing work on non-seam applications
+    * [JBSEAM-4395] Endless loop when an exception occurs during commit inside a long running conversation, and there is an <exception> clause to handle it in page.xml
+    * [JBSEAM-4528] static pages don't work at all with database down and XA datasource used
+    * [JBSEAM-4312] Exception while checking out transaction causing infinite loop trying to render error page
+    * [JBSEAM-4646] ConcurrentModificationException in RewriterFilter
+    * [JBSEAM-5078] Unsynchronized access to conversation entries map
+    * [JBSEAM-4832] Exception in the filter chain javax.servlet.ServletException: java.util.ConcurrentModificationException
+    * [JBSEAM-3464] better message for HibernatePersistenceProvider.checkVersion() exception
+    * [JBSEAM-4200] hot deploy re-reads the class files, not just timestamps, on every request
+    * [JBSEAM-4487] Concurrent requests; one invalidates the session, results in recursive loop of session creation
+    * [JBSEAM-2211] NPE in SeamELResolver
+    * [ ] Recover and improve Seam Debug page
+    * [ ] Only enable Seam Debug if facelets and JSF are in development mode
+    * [ ] FileDocumentData allow store documents on files instead of memory.
+    * [ ] Fix posible NPE on locale calculation
+    * [ ] Cache scan results for improved startup time on shared classpath (via org.jboss.seam.deployment.CACHE_SCAN_RESULTS initial parameter)
 	
 
 Release Notes - Seam 2 - Version 2.3.4.ayg 2016-03-23
 	 
-	 * [ ] Allow to exclude packages from scanning (initial parameter org.jboss.seam.deployment.OMIT_PACKAGES)
-	 * [ ] Don't scan for annotations if we have no annotations to search for
-	 * [ ] Log startup times
-	 * [ ] Fix posible concurrency issues on UserTokens.java
-	 * [ ] Escape xml data before putting it in a stream (MarshalUtils.java)
-	 * [ ] Seam pdf now generates full compressed PDF version 1.7 
+    * [ ] Allow to exclude packages from scanning (initial parameter org.jboss.seam.deployment.OMIT_PACKAGES)
+    * [ ] Don't scan for annotations if we have no annotations to search for
+    * [ ] Log startup times
+    * [ ] Fix posible concurrency issues on UserTokens.java
+    * [ ] Escape xml data before putting it in a stream (MarshalUtils.java)
+    * [ ] Seam pdf now generates full compressed PDF version 1.7 
 
 
 Release Notes - Seam 2 - Version 2.3.3-ayg 2016-03-10
