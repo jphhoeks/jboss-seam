@@ -3,7 +3,7 @@ JBoss Seam Changelog
 
 Unreleased
 
-
+    * [   ] Upgrade jbpm-jpdl to 3.2.15.ayg
 
 Release Notes - Seam 2 - Version 2.3.15.ayg 2019-03-18
 
