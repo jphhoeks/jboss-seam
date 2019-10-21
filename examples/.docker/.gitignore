@@ -1,0 +1,4 @@
+deployments/*.ear
+deployments/*.deployed
+deployments/*.undeployed
+deployments/*.failed
