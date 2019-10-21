@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  wildfly:
+    #image: jboss/wildfly:10.0.0.Final
+    build:
+      context: ./.docker
+      dockerfile: Dockerfile-wildfly10
+    networks:
+      - default
+    ports:
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:9990:9990
+    command: []
+    volumes:
+      - ./.docker/deployments/:/opt/jboss/wildfly/standalone/deployments/ #copy files here to deploy
+      #- ./.docker/logs:/opt/jboss/wildfly/standalone/logs/ #surface logs if you want

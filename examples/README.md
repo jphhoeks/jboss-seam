@@ -85,3 +85,48 @@ To run a functional test:
 To run all functional tests:
 
     mvn clean test -Dftest
+
+### How to Build and Deploy an Docker Wildfly
+
+1. Download and install Docker and docker-compose
+
+2. Build the example by running the following command from the Seam `examples/${example.name}` directory:
+   
+        mvn clean install
+
+   _NOTE: There is an option to create an "exploded" archive. For this purpose, use `-Pexploded` maven profile._
+
+3. Start Wildfly in new terminal
+
+        docker-compose up
+        
+4. Deploy the example by
+ 
+        copying the ear file to examples/.docker/deployments/ 
+         
+   To undeploy the example:
+
+        remove ear/war from examples/.docker/deployments/
+5. Watch logs on docker-compose terminal window or via admin console 
+
+        http://localhost:9990 
+ 
+    with username / password 
+
+         admin / Admin#70365
+
+6. Point your web browser to:
+
+        http://localhost:8080/seam-${example.name}
+
+   The context path is set to the final name of the EAR archive.
+
+   However, WAR deployments use a different naming convention for the context
+   path. If you deploy a WAR example, point your web browser to:
+
+        http://localhost:8080/${example.name}-web
+
+   The WAR examples are:
+   spring, jpa, hibernate, groovybooking.
+
+_NOTE: The examples use the H2 database embedded in JBoss AS_
