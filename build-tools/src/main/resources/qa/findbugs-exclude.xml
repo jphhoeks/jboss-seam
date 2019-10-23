@@ -1,0 +1,25 @@
+<FindBugsFilter>
+    <Match>
+        <!-- We don't care that much about serialization -->
+        <!-- Some fb-contrib filters just aren't production-grade -->
+        <Bug pattern="SE_BAD_FIELD,SE_COMPARATOR_SHOULD_BE_SERIALIZABLE,SE_NO_SERIALVERSIONID,EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS,EXS_EXCEPTION_SOFTENING_NO_CHECKED,PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS,LO_STUTTERED_MESSAGE"
+            category="MALICIOUS_CODE"
+        />
+    </Match>
+    <!-- Tests -->
+
+    <!-- Classes that don't represent state don't need some methods -->
+    <Match>
+        <Or>
+            <Class name="~org\.jboss\.seam\..*Test$"/>
+        </Or>
+        <Bug pattern="IMC_IMMATURE_CLASS_NO_EQUALS,IMC_IMMATURE_CLASS_NO_TOSTRING"/>
+    </Match>
+
+    <Match>
+        <!-- Mockito initialises fields through reflection, and verifies that methods were called -->
+        <!-- No need to micro-optimise test performance or sanitize servlets -->
+        <Class name="~org\.jboss\.seam\..*(Test|IT)([$][0-9]+)?"/>
+        <Bug category="PERFORMANCE" pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR,RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT,SERVLET_CONTENT_TYPE,SERVLET_PARAMETER,HARD_CODE_PASSWORD,SERVLET_HEADER,URLCONNECTION_SSRF_FD"/>
+    </Match>
+</FindBugsFilter>

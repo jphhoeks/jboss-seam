@@ -43,65 +43,39 @@
     </dependencies>
 <build>
     	<plugins>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+                    <!-- this is false by default, forces the plugin to generate the git.properties file -->
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <!-- The path for the properties file to be generated. See Super Pom for default variable reference https://maven.apache.org/guides/introduction/introduction-to-the-pom.html -->
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
     		<plugin>
 			    <groupId>com.github.spotbugs</groupId>
 			    <artifactId>spotbugs-maven-plugin</artifactId>
-			    <version>3.1.12.2</version>
-				<executions>
-					<execution>
-						<id>spotbugs-check</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<failOnError>false</failOnError>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>${version.plugin.pmd}</version>
-				<configuration>
-					<verbose>true</verbose>
-					<failOnViolation>false</failOnViolation>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-							<goal>cpd-check</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
     	</plugins>
     </build>
     <profiles>
-        <profile>
-            <id>code-coverage</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>emma-maven-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                      <groupId>org.apache.maven.plugins</groupId>
-                      <artifactId>maven-antrun-plugin</artifactId>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
          <profile>
             <id>distribution</id>
             <build>
             <plugins>
                  <plugin>
                      <artifactId>maven-dependency-plugin</artifactId>
-                     <version>${version.dependency.plugin}</version>
                      <executions>
                             <execution>
                                 <id>copy-dependencies</id>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+<!--
+2019 Oct 23
+[ERROR] infinispan-core-8.2.4.Final.jar: CVE-2017-2638, CVE-2017-15089, CVE-2016-0750
+[ERROR] jgroups-3.6.7.Final.jar: CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')
+[ERROR] hibernate-validator-5.2.5.Final.jar: CVE-2017-7536
+[ERROR] dom4j-1.6.1-brew.jar: CVE-2018-1000632
+[ERROR] drools-core-5.3.3.Final.jar: CVE-2014-8125
+[ERROR] knowledge-api-5.3.3.Final.jar: CVE-2014-8125
+[ERROR] bsh-2.0b4.jar: CVE-2016-2510
+[ERROR] oak-jackrabbit-api-1.16.0.jar: CVE-2015-1833
+[ERROR] httpclient-4.0.jar: CVE-2014-3577, CVE-2015-5262, CVE-2011-1498
+[ERROR] xercesImpl-2.8.1.jar: CVE-2012-0881
+[ERROR] testng-6.9.10.jar: jquery-1.7.1.min.js: CVE-2015-9251, CVE-2012-6708, CVE-2019-11358
+
+ -->
+    <suppress>
+        <cve>CVE-2016-0750</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2017-15089</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2017-2638</cve>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <cve>CVE-2017-7536</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2018-1000632</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2014-8125</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: bsh-2.0b4.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.beanshell/bsh@.*$</packageUrl>
+        <vulnerabilityName>CVE-2016-2510</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: oak-jackrabbit-api-1.16.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.jackrabbit/oak\-jackrabbit\-api@.*$</packageUrl>
+        <cve>CVE-2015-1833</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: httpclient-4.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.httpcomponents/httpclient@.*$</packageUrl>
+        <cve>CVE-2011-1498</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: httpclient-4.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.httpcomponents/httpclient@.*$</packageUrl>
+        <cve>CVE-2014-3577</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: httpclient-4.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.httpcomponents/httpclient@.*$</packageUrl>
+        <vulnerabilityName>CVE-2015-5262</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: xercesImpl-2.8.1.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/xerces/xercesImpl@.*$</packageUrl>
+        <vulnerabilityName>CVE-2009-2625</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: xercesImpl-2.8.1.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/xerces/xercesImpl@.*$</packageUrl>
+        <cve>CVE-2012-0881</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: testng-6.9.x.jar: jquery-1.7.1.min.js
+   ]]></notes>
+        <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
+        <cve>CVE-2015-9251</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: testng-6.9.x.jar: jquery-1.7.1.min.js
+   ]]></notes>
+        <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
+        <cve>CVE-2012-6708</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: testng-6.9.x.jar: jquery-1.7.1.min.js
+   ]]></notes>
+        <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
+        <cve>CVE-2019-11358</cve>
+    </suppress>
+</suppressions>
