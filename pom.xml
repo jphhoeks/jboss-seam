@@ -80,8 +80,14 @@
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
-        
+
         <jacoco.skip>false</jacoco.skip>
+        <dependency.skip>false</dependency.skip>
+        <spotbugs.skip>false</spotbugs.skip>
+        <pmd.skip>false</pmd.skip>
+        <checkstyle.skip>true</checkstyle.skip><!-- turn on once we have a checkstyle file we want to meet -->
+        <checkstyle.failsOnErrors>false</checkstyle.failsOnErrors><!-- turn on once we have a checkstyle happy -->
+        <checkstyle.failOnViolation>false</checkstyle.failOnViolation><!-- turn on once we have a checkstyle happy -->
 	</properties>
 
 	<dependencyManagement>
@@ -441,17 +447,6 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-checkstyle-plugin</artifactId><version>${version.maven-checkstyle-plugin}</version>
-                    <configuration>
-                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                        <configLocation>qa/checkstyle_rules.xml</configLocation>
-                        <logViolationsToConsole>true</logViolationsToConsole>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <phase>prepare-package</phase>
-                            <goals><goal>check</goal></goals>
-                        </execution>
-                    </executions>
                     <dependencies>
                         <dependency>
                             <groupId>org.jboss.seam</groupId>
@@ -459,11 +454,29 @@
                             <version>1.0-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
+                    <configuration>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                        <configLocation>qa/checkstyle_rules.xml</configLocation>
+                        <logViolationsToConsole>true</logViolationsToConsole>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals><goal>check</goal></goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>${version.spotbugs-maven-plugin}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jboss.seam</groupId>
+                            <artifactId>build-tools</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
                     <configuration>
                         <excludeFilterFile>qa/findbugs-exclude.xml</excludeFilterFile>
                         <effort>Max</effort>
@@ -476,13 +489,15 @@
 <!--                            <plugin><groupId>com.mebigfatguy.sb-contrib</groupId><artifactId>sb-contrib</artifactId><version>${version.sb-contrib}</version></plugin>-->
 <!--                        </plugins>-->
                     </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jboss.seam</groupId>
-                            <artifactId>build-tools</artifactId>
-                            <version>1.0-SNAPSHOT</version>
-                        </dependency>
-                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>spotbugs-check</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -531,6 +546,13 @@
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>${version.org.owasp.dependency-check-maven}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jboss.seam</groupId>
+                            <artifactId>build-tools</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
                     <configuration>
                         <suppressionFile>qa/owasp-dependency-checker-suppressions.xml</suppressionFile>
                         <failBuildOnCVSS>1</failBuildOnCVSS>
@@ -542,13 +564,6 @@
                             <goals><goal>check</goal></goals>
                         </execution>
                     </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jboss.seam</groupId>
-                            <artifactId>build-tools</artifactId>
-                            <version>1.0-SNAPSHOT</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
 			</plugins>
 		</pluginManagement>
@@ -630,6 +645,14 @@
    </modules>
 
     <profiles>
+        <profile>
+            <id>quickrun</id> <!-- to disable pmd/spotbugs/owasp check for quick runs mvn ${command} -Pquickrun -->
+            <properties>
+                <dependency.skip>true</dependency.skip>
+                <pmd.skip>true</pmd.skip>
+                <spotbugs.skip>true</spotbugs.skip>
+            </properties>
+        </profile>
        <!-- Profile for generating Seam reference documentation  -->
        <profile>
            <id>doc</id>
