@@ -47,7 +47,10 @@
 					<jsSrcDir>src/main/resources/org/jboss/seam/remoting/</jsSrcDir>
 				</configuration>
 			</plugin>
-    		<plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
 			    <groupId>com.github.spotbugs</groupId>
 			    <artifactId>spotbugs-maven-plugin</artifactId>
 			</plugin>
