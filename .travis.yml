@@ -1,6 +1,24 @@
 language: java
+# speed up travis with repo caching https://docs.travis-ci.com/user/caching/
+cache:
+  directories:
+    - $HOME/.m2
 
-install: mvn install -DskipTests=true -Dgpg.skip=true -B -q
+#using jobs instead
+#install: mvn install -DskipTests=true -Dgpg.skip=true -B -q
 
 jdk:
   - openjdk8
+#  - openjdk10
+#  - openjdk11
+
+jobs:
+  include:
+    # compile check is fast
+    - stage: install
+      script: mvn test-compile -DskipTests=true -Dgpg.skip=true -B -q
+    # verify
+    - stage: test
+      script: mvn verify -B
+
+
