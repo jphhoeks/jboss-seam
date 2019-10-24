@@ -2,17 +2,17 @@
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
 <!--
 2019 Oct 23
-[ERROR] infinispan-core-8.2.4.Final.jar: CVE-2017-2638, CVE-2017-15089, CVE-2016-0750
-[ERROR] jgroups-3.6.7.Final.jar: CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')
-[ERROR] hibernate-validator-5.2.5.Final.jar: CVE-2017-7536
-[ERROR] dom4j-1.6.1-brew.jar: CVE-2018-1000632
-[ERROR] drools-core-5.3.3.Final.jar: CVE-2014-8125
-[ERROR] knowledge-api-5.3.3.Final.jar: CVE-2014-8125
-[ERROR] bsh-2.0b4.jar: CVE-2016-2510
-[ERROR] oak-jackrabbit-api-1.16.0.jar: CVE-2015-1833
-[ERROR] httpclient-4.0.jar: CVE-2014-3577, CVE-2015-5262, CVE-2011-1498
-[ERROR] xercesImpl-2.8.1.jar: CVE-2012-0881
-[ERROR] testng-6.9.10.jar: jquery-1.7.1.min.js: CVE-2015-9251, CVE-2012-6708, CVE-2019-11358
+infinispan-core-8.2.4.Final.jar: CVE-2017-2638, CVE-2017-15089, CVE-2016-0750
+jgroups-3.6.7.Final.jar: CWE-300: Channel Accessible by Non-Endpoint ('Man-in-the-Middle')
+hibernate-validator-5.2.5.Final.jar: CVE-2017-7536
+dom4j-1.6.1-brew.jar: CVE-2018-1000632
+drools-core-5.3.3.Final.jar: CVE-2014-8125
+knowledge-api-5.3.3.Final.jar: CVE-2014-8125
+bsh-2.0b4.jar: CVE-2016-2510
+oak-jackrabbit-api-1.16.0.jar: CVE-2015-1833
+httpclient-4.0.jar: CVE-2014-3577, CVE-2015-5262, CVE-2011-1498
+xercesImpl-2.8.1.jar: CVE-2012-0881
+testng-6.9.10.jar: jquery-1.7.1.min.js: CVE-2015-9251, CVE-2012-6708, CVE-2019-11358
 
  -->
     <suppress>
@@ -106,4 +106,152 @@
         <packageUrl regex="true">^pkg:javascript/jquery@.*$</packageUrl>
         <cve>CVE-2019-11358</cve>
     </suppress>
+<!-- on project jboss-seam-ui: annotations-4.5.0.Final.jar: CVE-2015-0279, CVE-2013-2165-->
+    <suppress>
+        <packageUrl regex="true">^pkg:maven/org\.richfaces\.cdk/annotations@.*$</packageUrl>
+        <cve>CVE-2013-2165</cve>
+    </suppress>
+    <suppress>
+        <packageUrl regex="true">^pkg:maven/org\.richfaces\.cdk/annotations@.*$</packageUrl>
+        <cve>CVE-2015-0279</cve>
+    </suppress>
+<!-- on project jboss-seam-gen: guava-19.0.jar: CVE-2018-10237 , primefaces-7.0.jar: CVE-2019-11358 -->
+    <suppress>
+        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
+        <cve>CVE-2018-10237</cve>
+    </suppress>
+    <suppress>
+        <packageUrl regex="true">^pkg:maven/org\.primefaces/primefaces@.*$</packageUrl>
+        <vulnerabilityName>CVE-2019-11358</vulnerabilityName>
+    </suppress>
+<!-- on project jboss-seam-flex:  blazeds-core-3.2.0.3978.jar: CVE-2011-2093, CVE-2011-2092 blazeds-proxy-3.2.0.3978.jar: CVE-2011-2093, CVE-2011-2092 -->
+    <suppress>
+        <cve>CVE-2011-2092</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2011-2093</cve>
+    </suppress>
+<!-- on project jboss-seam-remoting: gwt-servlet-1.5.2.jar: CVE-2007-2378, CVE-2013-4204 gwt-user-1.5.2.jar: CVE-2013-4204 -->
+    <suppress>
+        <cve>CVE-2007-2378</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2013-4204</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2013-4204</cve>
+    </suppress>
+<!-- on project jboss-seam-resteasy: resteasy-jaxrs-3.0.19.Final.jar: CVE-2016-9606 -->
+    <suppress>
+        <cve>CVE-2016-9606</cve>
+    </suppress>
+<!-- on project jboss-seam-wicket: 
+wicket-1.4.14.jar: CVE-2012-5636, CVE-2016-6793, CVE-2015-7520, CVE-2014-3526, CVE-2014-7808, CVE-2012-3373, CVE-2015-5347, CVE-2011-2712, CVE-2012-0047, CVE-2012-1089, CVE-2013-2055
+wicket-ioc-1.4.14.jar: CVE-2012-5636, CVE-2014-3526, CVE-2014-7808, CVE-2012-3373, CVE-2011-2712, CVE-2012-0047, CVE-2012-1089, CVE-2013-2055
+wicket-datetime-1.4.14.jar: calendar-min.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: calendar.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: yuiloader-min.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: dom-min.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: dom.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: yahoo-dom-event.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: yuiloader.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: event.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: event-min.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: yahoo.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+wicket-datetime-1.4.14.jar: yahoo-min.js: CVE-2010-4208, CVE-2010-4207, CVE-2010-4710, CVE-2012-5881, CVE-2012-5882
+
+Cross-site scripting (XSS) vulnerability in Apache Wicket 1.4.x before 1.4.18, when setAutomaticMultiWindowSupport is enabled, allows remote attackers to inject arbitrary web script or HTML via unspecified parameters.
+Cross-site scripting (XSS) vulnerability in the addItem method in the Menu widget in YUI(inside wicket-datetime-1.4.14.jar) before 2.9.0 allows remote attackers to inject arbitrary web script or HTML
+-->
+    <suppress>
+        <vulnerabilityName>CVE-2012-5636</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2016-6793</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2015-7520</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2014-3526</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2014-7808</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2012-3373</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2015-5347</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2011-2712</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2012-0047</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2012-1089</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2013-2055</vulnerabilityName>
+    </suppress>
+
+    <suppress>
+        <vulnerabilityName>CVE-2010-4208</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2010-4207</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2010-4710</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2012-5881</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <vulnerabilityName>CVE-2012-5882</vulnerabilityName>
+    </suppress>
+<!-- on project jboss-seam-ioc: 
+spring-core-3.1.4.RELEASE.jar: CVE-2013-4152, CVE-2014-1904, CVE-2014-0054, CVE-2013-6429, CVE-2014-3578, CVE-2014-0225, CVE-2014-3625, CVE-2018-1272, CVE-2013-7315, CVE-2016-9878, CVE-2018-1271, CVE-2018-1270
+spring-tx-3.1.4.RELEASE.jar: CVE-2013-4152, CVE-2014-1904, CVE-2014-0054, CVE-2013-6429, CVE-2018-1272, CVE-2013-7315, CVE-2016-9878, CVE-2018-1271, CVE-2018-1270
+spring-web-3.1.4.RELEASE.jar: CVE-2013-4152, CVE-2014-1904, CVE-2014-0054, CVE-2013-6429, CVE-2014-0225, CVE-2018-1272, CVE-2013-7315, CVE-2016-9878, CVE-2018-1271, CVE-2018-1270
+-->
+    <suppress>
+        <cve>CVE-2013-4152</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2014-1904</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2014-0054</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2013-6429</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2014-3578</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2014-0225</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2014-3625</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2018-1272</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2013-7315</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2016-9878</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2018-1271</cve>
+    </suppress>
+    <suppress>
+        <cve>CVE-2018-1270</cve>
+    </suppress>
+
 </suppressions>

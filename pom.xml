@@ -80,8 +80,11 @@
 		<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
         <maven.compiler.target>1.7</maven.compiler.target>
         <maven.compiler.source>1.7</maven.compiler.source>
-        
+
         <jacoco.skip>false</jacoco.skip>
+        <dependency.skip>false</dependency.skip>
+        <spotbugs.skip>false</spotbugs.skip>
+        <pmd.skip>false</pmd.skip>
 	</properties>
 
 	<dependencyManagement>
@@ -630,6 +633,17 @@
    </modules>
 
     <profiles>
+        <profile>
+            <id>quickrun</id> <!-- to disable pmd/spotbugs/owasp check for quick runs mvn ${command} -Pquickrun -->
+            <properties>
+                <jacoco.skip>true</jacoco.skip>
+                <dependency.skip>true</dependency.skip>
+                <pmd.skip>true</pmd.skip>
+                <findbugs.skip>true</findbugs.skip>
+                <spotbugs.skip>true</spotbugs.skip>
+                <skip.clear.db>true</skip.clear.db>
+            </properties>
+        </profile>
        <!-- Profile for generating Seam reference documentation  -->
        <profile>
            <id>doc</id>
