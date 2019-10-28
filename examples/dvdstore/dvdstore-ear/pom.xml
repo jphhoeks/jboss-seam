@@ -26,7 +26,7 @@
             <exclusions>
             	<exclusion>
             		<artifactId>dom4j</artifactId>
-            		<groupId>dom4j</groupId>
+            		<groupId>org.dom4j</groupId>
             	</exclusion>
             	<exclusion>
             		<artifactId>javassist</artifactId>
