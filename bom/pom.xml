@@ -114,12 +114,22 @@
                         <groupId>xml-apis</groupId>
                         <artifactId>xml-apis</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>dom4j</groupId>
+                        <artifactId>dom4j</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${version.org.hibernate}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>dom4j</groupId>
+                        <artifactId>dom4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.hibernate</groupId>
@@ -399,6 +409,10 @@
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-core</artifactId>
 					</exclusion>
+                    <exclusion>
+                        <groupId>dom4j</groupId>
+                        <artifactId>dom4j</artifactId>
+                    </exclusion>
 				</exclusions>
 			</dependency>
 
@@ -981,15 +995,15 @@
             </dependency>
 
             <dependency>
-                <groupId>dom4j</groupId>
+                <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
-                <version>1.6.1-brew</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>2.1.1</version>
+<!--                <exclusions>-->
+<!--                    <exclusion>-->
+<!--                        <groupId>xml-apis</groupId>-->
+<!--                        <artifactId>xml-apis</artifactId>-->
+<!--                    </exclusion>-->
+<!--                </exclusions>-->
             </dependency>
 
 			<dependency>
