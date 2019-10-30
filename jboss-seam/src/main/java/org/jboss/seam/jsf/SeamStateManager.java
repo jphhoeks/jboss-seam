@@ -3,6 +3,7 @@ package org.jboss.seam.jsf;
 import java.io.IOException;
 
 import javax.faces.application.StateManager;
+import javax.faces.application.StateManagerWrapper;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
@@ -18,31 +19,15 @@ import org.jboss.seam.navigation.Pages;
  * @author Gavin King
  */
 @SuppressWarnings("deprecation")
-public class SeamStateManager extends StateManager {
+public class SeamStateManager extends StateManagerWrapper {
 	private final StateManager stateManager;
 
 	public SeamStateManager(StateManager sm) {
 		this.stateManager = sm;
 	}
 
-	@Override
-	protected Object getComponentStateToSave(FacesContext ctx) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	protected Object getTreeStructureToSave(FacesContext ctx) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	protected void restoreComponentState(FacesContext ctx, UIViewRoot viewRoot, String str) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	protected UIViewRoot restoreTreeStructure(FacesContext ctx, String str1, String str2) {
-		throw new UnsupportedOperationException();
+	public StateManager getWrapped() {
+		return stateManager;
 	}
 
 	@Override
@@ -57,16 +42,6 @@ public class SeamStateManager extends StateManager {
 	}
 
 	@Override
-	public void writeState(FacesContext ctx, SerializedView sv) throws IOException {
-		stateManager.writeState(ctx, sv);
-	}
-
-	@Override
-	public UIViewRoot restoreView(FacesContext ctx, String str1, String str2) {
-		return stateManager.restoreView(ctx, str1, str2);
-	}
-
-	@Override
 	public Object saveView(FacesContext facesContext) {
 
 		if (Contexts.isPageContextActive()) {
@@ -76,15 +51,4 @@ public class SeamStateManager extends StateManager {
 
 		return stateManager.saveView(facesContext);
 	}
-
-	@Override
-	public void writeState(FacesContext ctx, Object sv) throws IOException {
-		stateManager.writeState(ctx, sv);
-	}
-
-	@Override
-	public boolean isSavingStateInClient(FacesContext ctx) {
-		return stateManager.isSavingStateInClient(ctx);
-	}
-
 }
