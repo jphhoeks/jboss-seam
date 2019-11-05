@@ -3,7 +3,21 @@ JBoss Seam Changelog
 
 Unreleased
 
-    * [   ] Upgrade jbpm-jpdl to 3.2.15.ayg
+    * [#29] Upgrade org.opensymphony.quartz:quartz to org.quartz-scheduler:quartz:1.7.3
+    * [#29] Upgrade mail to javax.mail:javax.mail-api:1.5.1 and com.sun.mail:javax.mail:1.5.1
+    * [#29] Downgrade Hibernate to latest public 5.0.x version i.e. 5.0.12.Final
+    * [#29] Downgrade dom4j to latest public 1.6.x version ie. 1.6.1
+    * [#29] Pom Improvements for maven 3
+    * [#29] Examples updated from hibernate-jpa-2.0-api to hibernate-jpa-2.1-api
+    * [#29] Examples updated from jboss-servlet-api_3.0_spec to jboss-servlet-api_3.1_spec
+    * [#29] Examples updated from jboss-ejb-api_3.1_spec to jboss-ejb-api_3.2_spec
+    * [#29] Examples updated from jboss-jsf-api_2.1_spec to jboss-jsf-api_2.2_spec
+    * [#29] Examples dropped jboss-transaction-api_1.1_spec
+    * [#29] Java compile and source from 1.7 to  1.8
+    * [#24] Swap SeamApplication from using Application to use ApplicationWrapper Instead
+
+    * [rev 9305c3c] commons-beanutils Dropped
+    * [rev 18b1d9d] Upgrade jbpm-jpdl to 3.2.15.ayg
 
 Release Notes - Seam 2 - Version 2.3.15.ayg 2019-03-18
 

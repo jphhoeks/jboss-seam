@@ -1,5 +1,5 @@
 Seam is Copyright 2005-2013, JBoss, Home of Professional Open Source.
-Red Hat, Inc., and individual contributorsi as indicated above.
+Red Hat, Inc., and individual contributors as indicated above.
 It is licensed under the GNU LGPL except where otherwise
 noted in the source file's header.
 
@@ -44,5 +44,13 @@ sboscarine                           Steven Boscarine
 sannegrinovero                       Sanne Grinovero
 swd847                               Stuart Douglas
 albfernandez                         Alberto Fernández
+
+From 2016 on Github
+albfernandez                         Alberto Fernández
+mark1900                             Mark
+nickl-                               Nick Lombard
+Snyk bot                             snyk-bot
+duttonw                              William Dutton
+
 ------------------------------------------------------------------------
 * JBoss is a registered trademark of Red Hat, Inc.
