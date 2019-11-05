@@ -10,8 +10,8 @@
     <properties>
         <example.name>groovybooking</example.name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
         
         <!-- To use custom Maven settings with ShrinkWrap Resolver, uncomment 
         and customize the following property.  -->
@@ -22,7 +22,7 @@
         <!-- Plugin versions -->
         <version.dependency.plugin>2.5.1</version.dependency.plugin>
         <version.resources.plugin>2.6</version.resources.plugin>
-        <version.antrun.plugin>1.7</version.antrun.plugin>
+        <version.antrun.plugin>1.8</version.antrun.plugin>
         <version.build.helper.plugin>1.7</version.build.helper.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
@@ -108,6 +108,16 @@
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.8.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

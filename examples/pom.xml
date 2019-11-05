@@ -51,8 +51,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
     
         <!--
             Options to override the compiler arguments directly on the compiler arument line to separate between what
@@ -66,6 +66,19 @@
 
     <profiles>
         <profile>
+            <id>trouble</id>
+            <activation>
+                <property>
+                    <name>trouble</name>
+                </property>
+            </activation>
+            <modules>
+                <module>blog</module>
+                <module>dvdstore</module>
+                <module>remoting/gwt</module>
+            </modules>
+        </profile>
+        <profile>
             <id>default</id>
             <activation>
                 <property>
@@ -73,11 +86,11 @@
                 </property>
             </activation>
             <modules>
-                <module>blog</module>
+<!--                <module>blog</module>--><!--org.apache.solr.analysis does not exist-->
                 <module>booking</module>
                 <module>contactlist</module>
                 <module>drools</module>
-                <module>dvdstore</module>
+<!--                <module>dvdstore</module>&lt;!&ndash; org.apache.solr.analysis does not exist &ndash;&gt;-->
                 <module>excel</module>
                 <module>groovybooking</module>
                 <module>guice</module>
@@ -96,7 +109,7 @@
                 <module>quartz</module>
                 <module>registration</module>
                 <module>remoting/chatroom</module>
-                <module>remoting/gwt</module>
+<!--                <module>remoting/gwt</module>--><!--[ERROR] Errors in 'jar:file:/Users/duttonw/.m2/repository/com/google/gwt/gwt-user/1.5.2/gwt-user-1.5.2.jar!/com/google/gwt/user/client/Random.java',  Line 1: The type java.io.ObjectInputStream cannot be resolved. It is indirectly referenced from required .class files -->
                 <module>remoting/helloworld</module>
                 <module>remoting/progressbar</module>
                 <module>restbay</module>
