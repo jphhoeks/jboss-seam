@@ -9,16 +9,46 @@ cache:
 
 jdk:
   - openjdk8
-#  - openjdk10
-#  - openjdk11
+  - openjdk11
+
+before_script:
+  - echo $HOME
+  - echo $JAVA_OPTS
+  - echo $MAVEN_OPTS
+
+install: true
 
 jobs:
+  fast_finish: true
   include:
-    # compile check is fast
-    - stage: install
-      script: mvn test-compile -DskipTests=true -Dgpg.skip=true -B -q
-    # verify
-    - stage: test
-      script: mvn verify -B
+    - stage: quick
+      script:  "mvn clean test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun"
+      name: "Jboss Core: test-compile"
+    - script: "mvn test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,all"
+      name: "Jboss Core + examples: test-compile"
+      env: CANFAIL=true
+    - stage: long
+      script: "mvn verify -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun"
+      name: "Jboss Core: verify"
+    - script: "mvn package -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,all"
+      name: "Jboss Core + examples: verify"
+      env: CANFAIL=true
+  allow_failures:
+    - jdk: openjdk8
+      env: CANFAIL=true
+    - jdk: openjdk11
+    - jdk: openjdk11
+      env: CANFAIL=true
+#    - stage: integration
+#      script: "mvn test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,all"
+#      name: "Integration Wildfly 10"
+#    - script:
+#        - "docker-compose up as7"
+#        - "mvn package -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,all"
+#      name: "Integration JBoss AS 7"
 
+#    - stage: integration
 
+stages:
+  - quick
+  - long
