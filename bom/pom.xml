@@ -44,7 +44,7 @@
 		<version.org.jboss.spec.javax.faces>2.2.13</version.org.jboss.spec.javax.faces>
 
         <!-- Version of Hibernate projects -->
-        <version.org.hibernate>5.0.14.Final-redhat-1</version.org.hibernate>
+        <version.org.hibernate>5.0.12.Final</version.org.hibernate><!--5.0.14.Final-redhat-1 is not in normal mvn repos-->
         <version.org.hibernate.validator>5.2.5.Final</version.org.hibernate.validator>
         <version.org.hibernate.search>5.5.7.Final</version.org.hibernate.search>
         <version.org.hibernate.javax.persistence>1.0.1.Final</version.org.hibernate.javax.persistence>
