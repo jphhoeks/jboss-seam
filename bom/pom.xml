@@ -295,8 +295,13 @@
                 <artifactId>testng</artifactId>
                 <version>${version.org.testng}</version>
             </dependency>
+            <!-- Used in TestNG, updating due to CWE-494, CWE-829, SNYK-JAVA-COMBEUST-174815 -->
+            <dependency>
+                <groupId>com.beust</groupId>
+                <artifactId>jcommander</artifactId>
+                <version>1.78</version>
+            </dependency>
 
-          
             <dependency>
                 <groupId>com.github.albfernandez.richfaces</groupId>
                 <artifactId>richfaces-core</artifactId>
@@ -544,9 +549,15 @@
 				<groupId>commons-httpclient</groupId>
 				<artifactId>commons-httpclient</artifactId>
 				<version>3.1-jbossorg-1</version>
-			</dependency>	
+			</dependency>
+            <!-- https://app.snyk.io/vuln/SNYK-JAVA-XERCES-31585-->
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>2.12.0</version>
+            </dependency>
 
-			<dependency>
+            <dependency>
 				<groupId>jboss</groupId>
 				<artifactId>jbossxb</artifactId>
 				<version>1.0.0.CR8</version>
@@ -645,9 +656,15 @@
 
 			<dependency>
 				<groupId>javax.mail</groupId>
-				<artifactId>mail</artifactId>
+				<artifactId>javax.mail-api</artifactId>
 				<version>1.5.1</version>
 			</dependency>
+
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.5.1</version>
+            </dependency>
 
 			<dependency>
 				<groupId>javax.xml.ws</groupId>
@@ -849,9 +866,9 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.opensymphony.quartz</groupId>
+				<groupId>org.quartz-scheduler</groupId>
 				<artifactId>quartz</artifactId>
-				<version>1.6.5</version>
+				<version>1.7.3</version>
 			</dependency>
 
 
@@ -926,6 +943,13 @@
                 <version>1.0</version>
             </dependency>
 
+            <!-- Upgraded due to CVE-2018-10237, SNYK-JAVA-COMGOOGLEGUAVA-32236 -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>28.1-jre</version>
+            </dependency>
+
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
@@ -981,6 +1005,19 @@
                 <version>0.9.6</version>
                 <type>pom</type>
             </dependency>
+            <!-- upgrading due to CVE-2011-1498, SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-30644 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.10</version>
+            </dependency>
+            <!-- upgrading due to CVE-2011-1498, SNYK-JAVA-ORGAPACHEHTTPCOMPONENTS-30644 -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.4.12</version>
+            </dependency>
+
 
             <dependency>
                 <groupId>com.google.gwt</groupId>
@@ -998,12 +1035,6 @@
                 <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
                 <version>2.1.1</version>
-<!--                <exclusions>-->
-<!--                    <exclusion>-->
-<!--                        <groupId>xml-apis</groupId>-->
-<!--                        <artifactId>xml-apis</artifactId>-->
-<!--                    </exclusion>-->
-<!--                </exclusions>-->
             </dependency>
 
 			<dependency>
@@ -1223,7 +1254,20 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.8.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+        </plugins>
+    </build>
 
       <repositories>
         <repository>
