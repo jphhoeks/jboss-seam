@@ -666,6 +666,12 @@
                <module>seam-reference-guide</module>
            </modules>
        </profile>
+        <profile>
+            <id>examples</id>
+            <modules>
+                <module>examples</module>
+            </modules>
+        </profile>
        <profile>
            <id>all</id>
            <modules>
