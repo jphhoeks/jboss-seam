@@ -114,7 +114,8 @@
                 <module>remoting/progressbar</module>
                 <module>restbay</module>
                 <module>rss</module>
-                <module>seambay</module>
+<!--                 <module>seambay</module> -->
+<!-- Failed to execute goal org.apache.maven.plugins:maven-ear-plugin:2.6:generate-application-xml (default-generate-application-xml) on project seambay-ear: Failed to initialize ear modules: Unknown artifact type[zip] -> [Help 1] -->
                 <module>seamdiscs</module>
                 <module>seampay</module>
                 <module>seamspace</module>
