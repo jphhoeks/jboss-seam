@@ -30,7 +30,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.richfaces.cdk</groupId>
+                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                 <artifactId>richfaces-cdk-maven-plugin</artifactId>
                 <version>${version.richfaces.cdk}</version>
                 <executions>
@@ -121,7 +121,7 @@
                        <pluginExecutions>
                           <pluginExecution>
                              <pluginExecutionFilter>
-                                <groupId>org.richfaces.cdk</groupId>
+                                <groupId>com.github.albfernandez.richfaces.cdk</groupId>
                                 <artifactId>
                                    maven-cdk-plugin
                                 </artifactId>
@@ -173,7 +173,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.richfaces.cdk</groupId>
+            <groupId>com.github.albfernandez.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
             <version>${version.richfaces.cdk}</version>
             <optional>true</optional>
