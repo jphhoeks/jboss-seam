@@ -338,18 +338,7 @@
 	</organization>
 
 
-	<distributionManagement>
-		<repository>
-			<id>jboss-releases-repository</id>
-			<name>JBoss Releases Repository</name>
-			<url>${jboss.releases.repo.url}</url>
-		</repository>
-		<snapshotRepository>
-			<id>jboss-snapshots-repository</id>
-			<name>JBoss Snapshots Repository</name>
-			<url>${jboss.snapshots.repo.url}</url>
-		</snapshotRepository>
-	</distributionManagement>
+
 
 	<build>
 		<defaultGoal>package</defaultGoal>
@@ -698,21 +687,7 @@
                    <jacoco.skip>false</jacoco.skip>
            </properties>
       </profile>
-      <profile>
-        <id>release</id>
-        <build>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <configuration>
-                      <stagingRepository>https://repository.jboss.org/nexus/content/groups/staging</stagingRepository>
-                      <tagNameFormat>JBoss_Seam_@{project.version}</tagNameFormat>
-                      <autoVersionSubmodules>true</autoVersionSubmodules>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-      </profile>
+      
 
       <profile>
         <id>validate</id>
