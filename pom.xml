@@ -16,7 +16,7 @@
 	<licenses>
 		<license>
 			<name>LGPL</name>
-			<url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html</url>
+			<url>http://www.gnu.org/licenses/lgpl.txt</url>
 		</license>
 	</licenses>
 
@@ -26,14 +26,24 @@
 		</developer>
 	</developers>
 
-	<mailingLists>
-		<mailingList>
-			<archive>http://lists.jboss.org/pipermail/seam-dev/</archive>
-			<name>Seam Developer List</name>
-		</mailingList>
-	</mailingLists>
+
 	<description>Java EE 5 framework to get easy developing Java Enterprise applications</description>
-	<url>http://seamframework.org/Seam2</url>
+	<url>https://github.com/albfernandez/jboss-seam</url>
+	
+	<scm>
+		<connection>scm:git:git@github.com:albfernandez/jboss-seam.git</connection>
+		<developerConnection>scm:git:git@github.com:albfernandez/jboss-seam.git</developerConnection>
+		<url>git@github.com:albfernandez/jboss-seam.git</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/albfernandez/jboss-seam/issues</url>
+	</issueManagement>
+	
+	<ciManagement>
+        <system>Travis</system>
+        <url>https://travis-ci.org/albfernandez/jboss-seam</url>
+    </ciManagement>
 
 	<properties>
 		<version.dependency.plugin>3.0.1</version.dependency.plugin>
@@ -313,32 +323,6 @@
 
         </dependencies>
     </dependencyManagement>
-
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://issues.jboss.org/browse/JBSEAM</url>
-    </issueManagement>
-
-    <ciManagement>
-        <system>Jenkins</system>
-        <url>https://hudson.jboss.org/hudson/view/Seam/</url>
-    </ciManagement>
-
-    <scm>
-        <connection>scm:git:git@github.com:seam2/jboss-seam.git</connection>
-        <developerConnection>scm:git:git@github.com:seam2/jboss-seam.git</developerConnection>
-        <url>scm:git:git@github.com:seam2/jboss-seam.git</url>
-      <tag>HEAD</tag>
-  </scm>
-
-
-	<organization>
-		<name>Seam Framework</name>
-		<url>http://seamframework.org</url>
-	</organization>
-
-
-
 
 	<build>
 		<defaultGoal>package</defaultGoal>

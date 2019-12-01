@@ -20,14 +20,24 @@
 		</developer>
 	</developers>
 
-	<mailingLists>
-		<mailingList>
-			<archive>http://lists.jboss.org/pipermail/seam-dev/</archive>
-			<name>Seam Developer List</name>
-		</mailingList>
-	</mailingLists>
 	<description>Seam 2 BOM file for importing dependency management for Seam 2 applications</description>
-	<url>http://seamframework.org/Seam2</url>
+	<url>https://github.com/albfernandez/jboss-seam</url>
+	
+	<scm>
+		<connection>scm:git:git@github.com:albfernandez/jboss-seam.git</connection>
+		<developerConnection>scm:git:git@github.com:albfernandez/jboss-seam.git</developerConnection>
+		<url>git@github.com:albfernandez/jboss-seam.git</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/albfernandez/jboss-seam/issues</url>
+	</issueManagement>
+	
+	<ciManagement>
+        <system>Travis</system>
+        <url>https://travis-ci.org/albfernandez/jboss-seam</url>
+    </ciManagement>
+
 
 	<properties>
 	
@@ -1218,27 +1228,8 @@
         </dependencies>
     </dependencyManagement>
 
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://issues.jboss.org/browse/JBSEAM</url>
-    </issueManagement>
 
-    <ciManagement>
-        <system>Hudson</system>
-        <url>http://hudson.jboss.org/hudson/view/Seam/</url>
-    </ciManagement>
 
-    <scm>
-        <connection>scm:svn:https://svn.jboss.org/repos/seam/branches/community/Seam_2_3</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/seam/branches/community/Seam_2_3</developerConnection>
-        <url>scm:svn:https://svn.jboss.org/repos/seam/branches/community/Seam_2_3</url>
-      <tag>HEAD</tag>
-  </scm>
-
-	<organization>
-		<name>Seam Framework</name>
-		<url>http://seamframework.org</url>
-	</organization>
   
 
 	<distributionManagement>
