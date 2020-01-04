@@ -70,6 +70,7 @@ Resulting jar files will be in each sub-project target directory.
 ## Note for flex users.
 
 In version 2.3.16.ayg BlazeDS is upgraded to Apache Flex BlazeDS 4.7.3. 
-One change is you must provide a service.xml yourself (seam can not provide a default one by itself now), by creating a /WEB-INF/flex/services-config.xml file or using other file name and provide it via ``init-param`` named  ``services.configuration.file`` in web.xml 
+
+One change is you must provide a service-config.xml yourself (Seam can not provide a default one by itself now), by creating a ``/WEB-INF/flex/services-config.xml`` file or using other file name and provide it via ``init-param`` named  ``services.configuration.file`` in web.xml 
 
 
