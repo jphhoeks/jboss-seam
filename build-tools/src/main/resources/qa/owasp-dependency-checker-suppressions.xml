@@ -253,5 +253,10 @@ spring-web-3.1.4.RELEASE.jar: CVE-2013-4152, CVE-2014-1904, CVE-2014-0054, CVE-2
     <suppress>
         <cve>CVE-2018-1270</cve>
     </suppress>
+    
+    <!--  Fixed in  our custom log4j-1.2.18.ayg01  https://github.com/albfernandez/log4j   -->
+   <suppress>
+        <cve>CVE-2019-17571</cve>
+   </suppress>
 
 </suppressions>
