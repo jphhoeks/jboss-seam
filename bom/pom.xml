@@ -959,29 +959,26 @@
                 <version>2.2</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.adobe.blazeds</groupId>
-                <artifactId>blazeds-common</artifactId>
-                <version>3.2.0.3978</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.adobe.blazeds</groupId>
-                <artifactId>blazeds-proxy</artifactId>
-                <version>3.2.0.3978</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.adobe.blazeds</groupId>
-                <artifactId>blazeds-core</artifactId>
-                <version>3.2.0.3978</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.adobe.blazeds</groupId>
-                <artifactId>blazeds-remoting</artifactId>
-                <version>3.2.0.3978</version>
-            </dependency>
+		    <dependency>
+		        <groupId>org.apache.flex.blazeds</groupId>
+		        <artifactId>flex-messaging-common</artifactId>
+		        <version>4.7.3</version>
+		    </dependency>
+		    <dependency>
+		        <groupId>org.apache.flex.blazeds</groupId>
+		        <artifactId>flex-messaging-core</artifactId>
+		        <version>4.7.3</version>
+		    </dependency>
+		    <dependency>
+		        <groupId>org.apache.flex.blazeds</groupId>
+		        <artifactId>flex-messaging-proxy</artifactId>
+		        <version>4.7.3</version>
+		    </dependency>
+		    <dependency>
+		        <groupId>org.apache.flex.blazeds</groupId>
+		        <artifactId>flex-messaging-remoting</artifactId>
+		        <version>4.7.3</version>
+		    </dependency>
 
             <dependency>
                 <groupId>com.github.albfernandez</groupId>

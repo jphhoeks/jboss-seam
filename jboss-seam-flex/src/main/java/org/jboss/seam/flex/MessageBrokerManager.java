@@ -49,7 +49,7 @@ public class MessageBrokerManager {
 			FlexContext.setThreadLocalObjects(null, null, null, null, null, servletConfig);
 			ServletLogTarget.setServletContext(servletConfig.getServletContext());
 
-			FlexConfigurationManager configManager = new SeamFlexConfigurationManager();
+			FlexConfigurationManager configManager = new FlexConfigurationManager();
 			MessagingConfiguration config = configManager.getMessagingConfiguration(servletConfig);
 
 			config.createLogAndTargets();
@@ -169,7 +169,6 @@ public class MessageBrokerManager {
 	// Call ONLY on servlet startup
 	public void createThreadLocals() {
 		// allocate static thread local objects
-		flex.messaging.MessageBroker.createThreadLocalObjects();
 		FlexContext.createThreadLocalObjects();
 		flex.messaging.io.SerializationContext.createThreadLocalObjects();
 		flex.messaging.io.TypeMarshallingContext.createThreadLocalObjects();
@@ -177,7 +176,6 @@ public class MessageBrokerManager {
 
 	protected void destroyThreadLocals() {
 		// Destroy static thread local objects
-		flex.messaging.MessageBroker.releaseThreadLocalObjects();
 		FlexContext.releaseThreadLocalObjects();
 		flex.messaging.io.SerializationContext.releaseThreadLocalObjects();
 		flex.messaging.io.TypeMarshallingContext.releaseThreadLocalObjects();

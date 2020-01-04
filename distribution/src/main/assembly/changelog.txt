@@ -3,6 +3,7 @@ JBoss Seam Changelog
 
 Unreleased
 
+    * [#38] Upgrade Adoble BlazeDS to Apache Flex BlazeDS
     * [#29] Upgrade org.opensymphony.quartz:quartz to org.quartz-scheduler:quartz:1.7.3
     * [#29] Upgrade mail to javax.mail:javax.mail-api:1.5.1 and com.sun.mail:javax.mail:1.5.1
     * [#29] Downgrade Hibernate to latest public 5.0.x version i.e. 5.0.12.Final
