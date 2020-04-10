@@ -258,5 +258,15 @@ spring-web-3.1.4.RELEASE.jar: CVE-2013-4152, CVE-2014-1904, CVE-2014-0054, CVE-2
    <suppress>
         <cve>CVE-2019-17571</cve>
    </suppress>
+   <!--  Infinispan 10.0 which fixes CVE-2019-10174 doesn't have org.ininispan.tree (more research needed) -->
+   <suppress>
+        <cve>CVE-2019-10174</cve>
+   </suppress>
 
+	<!-- Migrating to quartz 2.3.2 requires some code changes, at the moment ignore... -->
+	<suppress>
+		<cve>CVE-2019-13990</cve>
+	</suppress>
+	
+	
 </suppressions>
