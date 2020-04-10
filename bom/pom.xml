@@ -50,7 +50,7 @@
 		<version.resteasy>3.0.19.Final</version.resteasy>
 		<version.spring>3.1.4.RELEASE</version.spring>
         <version.richfaces>4.6.8.ayg</version.richfaces>
-        <version.richfaces.cdk>4.6.0.ayg</version.richfaces.cdk>
+        <version.richfaces.cdk>4.6.1.ayg</version.richfaces.cdk>
 		<version.org.jboss.spec.javax.faces>2.2.13</version.org.jboss.spec.javax.faces>
 
         <!-- Version of Hibernate projects -->
