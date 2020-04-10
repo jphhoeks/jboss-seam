@@ -683,8 +683,7 @@ public class Component extends Model {
 		}
 
 		if (method.isAnnotationPresent(POST_CONSTRUCT)) {
-
-			if (method.getParameterTypes().length == 0) {
+			if (method.getParameterTypes().length == 0 && (type == JAVA_BEAN || type == STATEFUL_SESSION_BEAN)) {
 				addCreateMethod(method);
 			} else {
 				postConstructMethod = method;
