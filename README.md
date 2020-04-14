@@ -69,7 +69,7 @@ Resulting jar files will be in each sub-project target directory.
 In some cases dependency check will block you from building because insecure dedendencies, yoy can bypas with
 
 ```bash
-    mvn -Ddependency-check.skip=true clean package install -Prelease
+    mvn -Ddependency-check.skip=true clean package install -Pdistribution
 ```
 
 
