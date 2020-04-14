@@ -66,6 +66,12 @@ If you are making changes to source code and want to test quickly without making
 
 Resulting jar files will be in each sub-project target directory.
 
+In some cases dependency check will block you from building because insecure dedendencies, yoy can bypas with
+
+```bash
+    mvn -Ddependency-check.skip=true clean package install -Prelease
+```
+
 
 ## Note for flex users.
 
