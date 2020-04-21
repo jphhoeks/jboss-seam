@@ -76,7 +76,7 @@ public class SeamFilter implements Filter {
 		try {
 			filters = getSortedFilters();
 			for (Filter filter : filters) {
-				log.info("Initializing filter: " + Component.getComponentName(filter.getClass()));
+				log.debug("Initializing filter: " + Component.getComponentName(filter.getClass()));
 				filter.init(filterConfig);
 			}
 		} finally {
