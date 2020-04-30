@@ -6,9 +6,12 @@ To see the original Jboss Seam guide, see [release-process.txt](release-process.
 
 ## Check the SNAPSHOT builds and pass the tests
 
+Check that the project builds in java 8 and java 11. maybe you need to disable dependency-check
+
 ```bash
-mvn clean package install verify -Pdistribution
-mvn -Ddependency-check.skip=true clean package install -Pdistribution
+mvn clean package install verify -Pdistribution,examples
+mvn -Ddependency-check.skip=true clean package install -Pdistribution,examples
+JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/ mvn -Ddependency-check.skip=true clean package install -Pdistribution,examples
 ```
 
 ## Set version and build 
