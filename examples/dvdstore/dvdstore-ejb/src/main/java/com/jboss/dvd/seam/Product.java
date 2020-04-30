@@ -24,9 +24,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.apache.solr.analysis.LowerCaseFilterFactory;
-import org.apache.solr.analysis.NGramFilterFactory;
-import org.apache.solr.analysis.StandardTokenizerFactory;
+//import org.apache.solr.analysis.LowerCaseFilterFactory;
+//import org.apache.solr.analysis.NGramFilterFactory;
+//import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Fields;
@@ -42,12 +42,12 @@ import org.hibernate.search.annotations.TokenizerDef;
 @Entity
 @Table(name="PRODUCTS")
 @Indexed
-@AnalyzerDef(name="ngrams", tokenizer=@TokenizerDef(factory=StandardTokenizerFactory.class),
-      filters={
-         @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-         @TokenFilterDef(factory = NGramFilterFactory.class,
-               params = { @Parameter(name = "minGramSize", value = "3"), @Parameter(name = "maxGramSize", value = "3") })
-   })
+//@AnalyzerDef(name="ngrams", tokenizer=@TokenizerDef(factory=StandardTokenizerFactory.class),
+//      filters={
+//         @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+//         @TokenFilterDef(factory = NGramFilterFactory.class,
+//               params = { @Parameter(name = "minGramSize", value = "3"), @Parameter(name = "maxGramSize", value = "3") })
+//   })
 public class Product implements Serializable
 {
     private static final long serialVersionUID = -5378546367347755065L;

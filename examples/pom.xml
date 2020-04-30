@@ -90,7 +90,7 @@
                 <module>booking</module>
                 <module>contactlist</module>
                 <module>drools</module>
-<!--                <module>dvdstore</module>&lt;!&ndash; org.apache.solr.analysis does not exist &ndash;&gt;-->
+				<module>dvdstore</module>
                 <module>excel</module>
                 <module>groovybooking</module>
                 <module>guice</module>
