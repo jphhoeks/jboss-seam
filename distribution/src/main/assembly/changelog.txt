@@ -1,6 +1,10 @@
 JBoss Seam Changelog
 ====================
 
+Unreleased
+
+
+
 Release Notes - Seam 2 - Version 2.3.17.ayg 2020-04-30
 
     * [#38] Upgrade Adoble BlazeDS to Apache Flex BlazeDS
