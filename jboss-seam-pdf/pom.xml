@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>jboss-seam-parent</artifactId>
 		<groupId>org.jboss.seam</groupId>
-		<version>2.3.16-SNAPSHOT</version>
+		<version>3.2.16.ayg</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 

@@ -1,7 +1,7 @@
 JBoss Seam Changelog
 ====================
 
-Unreleased
+Release Notes - Seam 2 - Version 2.3.16.ayg 2020-04-30
 
     * [#38] Upgrade Adoble BlazeDS to Apache Flex BlazeDS
     * [#29] Upgrade org.opensymphony.quartz:quartz to org.quartz-scheduler:quartz:1.7.3

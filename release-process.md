@@ -18,9 +18,9 @@ JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/ mvn -Ddependency-check.skip=true c
 
 ```bash
 # change release in poms and distribution/src/assembly/changelog.txt
+mvn -Ddependency-check.skip=true clean package install -Pdistribution,examples
 git -add -A
 git commit -S -m 'Release <2.3.12>'
-mvn -Ddependency-check.skip=true clean package install  -Pdistribution
 git tag -a <2.3.12> -m "Tagging release <2.3.12>"
 git push --tags
 ```

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jboss.seam.examples</groupId>
     <artifactId>excel</artifactId>
-    <version>2.3.16-SNAPSHOT</version>
+    <version>3.2.16.ayg</version>
     <packaging>pom</packaging>
     <name>Excel Example (EE6)</name>
   
