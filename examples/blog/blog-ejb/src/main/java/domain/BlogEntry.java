@@ -1,10 +1,10 @@
 //$Id: BlogEntry.java 13984 2011-01-11 12:45:45Z sannegrinovero $
 package domain;
 
-import org.apache.solr.analysis.LowerCaseFilterFactory;
-import org.apache.solr.analysis.NGramFilterFactory;
-import org.apache.solr.analysis.SnowballPorterFilterFactory;
-import org.apache.solr.analysis.StandardTokenizerFactory;
+//import org.apache.solr.analysis.LowerCaseFilterFactory;
+//import org.apache.solr.analysis.NGramFilterFactory;
+//import org.apache.solr.analysis.SnowballPorterFilterFactory;
+//import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.search.annotations.*;
@@ -26,22 +26,22 @@ import java.util.Date;
 @Entity
 @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 @Indexed
-@AnalyzerDefs({
-        @AnalyzerDef(name = "en",
-                tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-                filters = {
-                        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-                        @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
-                                @Parameter(name = "language", value = "English")
-                        })
-                }),
-        @AnalyzerDef(name = "ngrams", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
-                filters = {
-                        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
-                        @TokenFilterDef(factory = NGramFilterFactory.class,
-                                params = {@Parameter(name = "minGramSize", value = "3"), @Parameter(name = "maxGramSize", value = "3")})
-                })}
-)
+//@AnalyzerDefs({
+//        @AnalyzerDef(name = "en",
+//                tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+//                filters = {
+//                        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+//                        @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+//                                @Parameter(name = "language", value = "English")
+//                        })
+//                }),
+//        @AnalyzerDef(name = "ngrams", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+//                filters = {
+//                        @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+//                        @TokenFilterDef(factory = NGramFilterFactory.class,
+//                                params = {@Parameter(name = "minGramSize", value = "3"), @Parameter(name = "maxGramSize", value = "3")})
+//                })}
+//)
 public class BlogEntry {
 
    @Id
