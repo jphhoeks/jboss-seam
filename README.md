@@ -75,7 +75,7 @@ In some cases dependency check will block you from building because insecure ded
 
 ## Note for flex users.
 
-In Seam version 2.3.16.ayg BlazeDS is upgraded to Apache Flex BlazeDS 4.7.3. 
+In Seam version 2.3.17.ayg BlazeDS is upgraded to Apache Flex BlazeDS 4.7.3. 
 
 One change is you must provide a service-config.xml yourself (Seam can not provide a default one by itself now), by creating a ``/WEB-INF/flex/services-config.xml`` file or using other file name and provide it via ``init-param`` named  ``services.configuration.file`` in web.xml 
 
