@@ -77,6 +77,14 @@ public class RootInterceptor implements Serializable {
 	}
 
 	protected Object invoke(InvocationContext invocation, EventType invocationType) throws Exception {
+		String methodName = "";
+		if (invocation.getMethod() != null) {
+			methodName = invocation.getMethod().getName();
+		}
+		int paramCount = 0;
+		if (invocation.getParameters() != null) {
+			paramCount = invocation.getParameters().length;
+		}
 		if (!isSeamComponent || !Lifecycle.isApplicationInitialized()) {
 			//not a Seam component
 			return invocation.proceed();
@@ -85,6 +93,9 @@ public class RootInterceptor implements Serializable {
 
 			// a Seam component, and Seam contexts exist
 			return createInvocationContext(invocation, invocationType).proceed();
+		} else if (paramCount == 0 && ("hashCode".equals(methodName) || "toString".equals(methodName))) {
+			// if no context is active, for hashCode and toString proceed
+			return invocation.proceed();
 		} else {
 			//if invoked outside of a set of Seam contexts,
 			//set up temporary Seam EVENT and APPLICATION

@@ -2,7 +2,8 @@ JBoss Seam Changelog
 ====================
 
 Unreleased
-
+	
+    * [JBSEAM-4367] clustering and replication calls hashCode and injection fails.
 
 
 Release Notes - Seam 2 - Version 2.3.17.ayg 2020-04-30
