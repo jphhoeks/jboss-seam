@@ -96,17 +96,21 @@ public class RootInterceptor implements Serializable {
 		} else if (paramCount == 0 && ("hashCode".equals(methodName) || "toString".equals(methodName))) {
 			// if no context is active, for hashCode and toString proceed
 			return invocation.proceed();
-		} else {
+		} else if (Lifecycle.isApplicationInitialized() && Lifecycle.getApplication() != null)  {
 			//if invoked outside of a set of Seam contexts,
 			//set up temporary Seam EVENT and APPLICATION
 			//contexts just for this call
-
+			// Only call if we're sure we can create the context
 			Lifecycle.beginCall();
 			try {
 				return createInvocationContext(invocation, invocationType).proceed();
 			} finally {
 				Lifecycle.endCall();
-			}
+			}			
+		}
+		else {
+			// We need the context but we have no one.
+			throw new IllegalArgumentException("trying to use interceptors but no Seam context can be created");
 		}
 	}
 
