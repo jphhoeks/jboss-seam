@@ -49,4 +49,10 @@ public class SeamStateManager extends StateManagerWrapper {
 
 		return stateManager.saveView(facesContext);
 	}
+	
+    @Override
+    public String getViewState(FacesContext context) {
+    	Object state = saveView(context);
+        return context.getRenderKit().getResponseStateManager().getViewState(context, state);
+    }
 }
