@@ -1,6 +1,7 @@
 JBoss Seam Changelog
 ====================
 
+Unreleased
 
 Release Notes - Seam 2 - Version 2.3.19.ayg 2020-05-21
 
