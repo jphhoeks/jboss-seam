@@ -1,10 +1,8 @@
 package org.jboss.seam.jsf;
 
-import java.io.IOException;
 
 import javax.faces.application.StateManager;
 import javax.faces.application.StateManagerWrapper;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.jboss.seam.contexts.Contexts;
