@@ -1,8 +1,5 @@
 package org.jboss.seam.test.unit.component;
 
-import javax.annotation.PostConstruct;
-
-import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
