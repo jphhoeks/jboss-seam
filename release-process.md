@@ -22,6 +22,7 @@ mvn -Ddependency-check.skip=true clean package install -Pdistribution,examples
 git add -A
 git commit -S -m 'Release <2.3.12>'
 git tag -a <2.3.12> -m "Tagging release <2.3.12>"
+git push
 git push --tags
 ```
 
@@ -32,6 +33,7 @@ git push --tags
 # change release in poms and distribution/src/assembly/changelog.txt
 git add -A
 git commit -m 'Next release cycle'
+git push
 ```
 
 ## Create release and upload artifacts to github
