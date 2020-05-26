@@ -314,25 +314,21 @@ public class Seam
     * Get the Seam component, even if no application context
     * is associated with the current thread.
     */
-   public static Component componentForName(String name)
-   {
-      if ( Contexts.isApplicationContextActive() )
-      {
-         return Component.forName(name);
-      }
-      else
-      {
-         Lifecycle.setupApplication();
-         try
-         {
-            return Component.forName(name);
-         }
-         finally
-         {
-            Lifecycle.cleanupApplication();
-         }
-      }
-   }
+	public static Component componentForName(String name) {
+		if (Contexts.isApplicationContextActive()) {
+			return Component.forName(name);
+		} else {
+			if (Lifecycle.getApplication() != null) {
+				Lifecycle.setupApplication();
+				try {
+					return Component.forName(name);
+				} finally {
+					Lifecycle.cleanupApplication();
+				}
+			}
+		}
+		return null;
+	}
    
    public static String getVersion()
    {
