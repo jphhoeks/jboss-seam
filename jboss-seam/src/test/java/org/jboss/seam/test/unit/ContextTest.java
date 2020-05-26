@@ -1,6 +1,10 @@
 //$Id: ContextTest.java 11208 2009-06-25 14:55:53Z manaRH $
 package org.jboss.seam.test.unit;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Map;
 
 import javax.el.ELContext;
@@ -226,6 +230,104 @@ public class ContextTest {
 
 		ServletLifecycle.endApplication();
 	}
+	
+	
+	@Test
+	public void testSerialize() throws Exception {
+		/*
+		 * In some High-Availability scenarios session is serialized outside thre request thread, and seam is not initilialized
+		 */
+		
+		
+		ELContext elContext = EL.createELContext();
+		SeamELResolver seamVariableResolver = new SeamELResolver();
+		// org.jboss.seam.bpm.SeamVariableResolver jbpmVariableResolver = new
+		// org.jboss.seam.bpm.SeamVariableResolver();
+
+		MockServletContext servletContext = new MockServletContext();
+		ServletLifecycle.beginApplication(servletContext);
+		MockExternalContext externalContext = new MockExternalContext(servletContext);
+		Context appContext = new ApplicationContext(externalContext.getApplicationMap());
+		// appContext.set( Seam.getComponentName(Init.class), new Init() );
+		installComponent(appContext, ConversationEntries.class);
+		installComponent(appContext, Manager.class);
+		installComponent(appContext, Session.class);
+		installComponent(appContext, ServletContexts.class);
+		installComponent(appContext, Parameters.class);
+		appContext.set(Seam.getComponentName(Init.class), new Init());
+
+		installComponent(appContext, Bar.class);
+		installComponent(appContext, Foo.class);
+		appContext.set("otherFoo", new Foo());
+
+		assert !Contexts.isEventContextActive();
+		assert !Contexts.isSessionContextActive();
+		assert !Contexts.isConversationContextActive();
+		assert !Contexts.isApplicationContextActive();
+
+		FacesLifecycle.beginRequest(externalContext);
+
+		assert Contexts.isEventContextActive();
+		assert Contexts.isSessionContextActive();
+		assert !Contexts.isConversationContextActive();
+		assert Contexts.isApplicationContextActive();
+
+		Manager.instance().setCurrentConversationId("3");
+		FacesLifecycle.resumeConversation(externalContext);
+		Manager.instance().setLongRunningConversation(true);
+
+		assert Contexts.isEventContextActive();
+		assert Contexts.isSessionContextActive();
+		assert Contexts.isConversationContextActive();
+		assert Contexts.isApplicationContextActive();
+		assert !Contexts.isPageContextActive();
+
+		assert Contexts.getEventContext() != null;
+		assert Contexts.getSessionContext() != null;
+		assert Contexts.getConversationContext() != null;
+		assert Contexts.getApplicationContext() != null;
+		assert Contexts.getEventContext() instanceof EventContext;
+		assert Contexts.getSessionContext() instanceof SessionContext;
+		assert Contexts.getConversationContext() instanceof ServerConversationContext;
+		assert Contexts.getApplicationContext() instanceof ApplicationContext;
+
+
+		Object bar = seamVariableResolver.getValue(elContext, null, "bar");
+		assert bar != null;
+		assert bar instanceof Bar;
+		assert Contexts.getConversationContext().get("bar") == bar;
+		
+		Object foo = Contexts.getSessionContext().get("foo");
+		assert foo != null;
+		assert foo instanceof Foo;
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ObjectOutputStream os = new ObjectOutputStream(baos);
+		os.writeObject(foo);
+		os.flush();
+		os.close();
+
+		FacesLifecycle.endRequest(externalContext);
+
+		assert !Contexts.isEventContextActive();
+		assert !Contexts.isSessionContextActive();
+		assert !Contexts.isConversationContextActive();
+		assert !Contexts.isApplicationContextActive();
+		assert ((MockHttpSession) externalContext.getSession(false)).getAttributes().size() == 2;
+		assert ((MockServletContext) externalContext.getContext()).getAttributes().size() == 11;
+
+
+
+		ServletLifecycle.endSession(((HttpServletRequest) externalContext.getRequest()).getSession());
+
+		ServletLifecycle.endApplication();
+		
+		ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(baos.toByteArray()));
+		in.readObject();
+		in.close();
+
+	}
+
 
 	private interface ContextCreator {
 		Context createContext();
