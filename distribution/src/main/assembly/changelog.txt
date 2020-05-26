@@ -3,6 +3,11 @@ JBoss Seam Changelog
 
 Unreleased
 
+
+Release Notes - Seam 2 - Version 2.3.20.ayg 2020-05-26
+
+	* [ ] Prevent NPE when replicating session in some HA scenarios
+
 Release Notes - Seam 2 - Version 2.3.19.ayg 2020-05-21
 
     * [ ] Revert excepction filter change, we need both mocks
