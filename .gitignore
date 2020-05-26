@@ -8,6 +8,7 @@
 *.iml
 *.tern-project
 *.jsfdia
+.checkstyle
 
 # maven build results
 target
