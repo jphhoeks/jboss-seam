@@ -13,8 +13,6 @@ import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.core.Expressions;
 import org.jboss.seam.core.Validators;
 import org.jboss.seam.faces.DateConverter;
-import org.jboss.seam.mock.EnhancedMockHttpServletRequest;
-import org.jboss.seam.navigation.Pages;
 import org.jboss.seam.navigation.Param;
 import org.testng.annotations.Test;
 
