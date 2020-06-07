@@ -132,6 +132,11 @@ public class UIParagraph extends ITextComponent {
 
 	@Override
 	public void handleAdd(Object o) {
-		paragraph.add(o);
+		if (o instanceof Element) {
+			paragraph.add((Element) o);
+		}
+		else if (o instanceof String) {
+			paragraph.add((String) o);
+		}
 	}
 }

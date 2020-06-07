@@ -2,6 +2,7 @@ package org.jboss.seam.pdf.ui;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.lang.reflect.Method;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -188,7 +189,6 @@ public abstract class ITextComponent extends UIComponentBase {
 		removeITextObject();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException {
 		for (UIComponent child : this.getChildren()) {
@@ -222,7 +222,6 @@ public abstract class ITextComponent extends UIComponentBase {
 		return stringWriter.getBuffer().toString();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void encode(FacesContext context, UIComponent component) throws IOException {
 		if (!component.isRendered()) {
 			return;
@@ -239,7 +238,6 @@ public abstract class ITextComponent extends UIComponentBase {
 				}
 			}
 		}
-
 		component.encodeEnd(context);
 	}
 }

@@ -12,9 +12,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.albfernandez</groupId>
-            <artifactId>itext2</artifactId>
-        </dependency>
+	        <groupId>com.github.librepdf</groupId>
+	        <artifactId>openpdf</artifactId>
+	    </dependency>
+		<dependency>
+		    <groupId>com.github.librepdf</groupId>
+		    <artifactId>openrtf</artifactId>
+		</dependency>
 
         <dependency>
             <groupId>jfree</groupId>

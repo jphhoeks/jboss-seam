@@ -3,6 +3,7 @@ JBoss Seam Changelog
 
 Unreleased
 
+	* [#39] Migrate from itext to OpenPdf 
 
 Release Notes - Seam 2 - Version 2.3.20.ayg 2020-05-26
 

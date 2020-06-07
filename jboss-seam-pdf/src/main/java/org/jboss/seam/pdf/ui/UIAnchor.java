@@ -46,6 +46,11 @@ public class UIAnchor extends ITextComponent {
 
 	@Override
 	public void handleAdd(Object o) {
-		anchor.add(o);
+		if (o instanceof Element) {
+			anchor.add((Element) o);
+		}
+		else if (o instanceof String) {
+			anchor.add((String) o);
+		}
 	}
 }

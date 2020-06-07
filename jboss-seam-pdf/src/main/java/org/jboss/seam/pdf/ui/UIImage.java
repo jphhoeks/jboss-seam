@@ -117,7 +117,6 @@ public class UIImage extends UIRectangle {
 		image = null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void createITextObject(FacesContext context) throws IOException, DocumentException {
 		value = valueBinding(context, "value", value);

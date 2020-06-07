@@ -43,7 +43,9 @@ public class UISection extends ITextComponent {
 
 	@Override
 	public void handleAdd(Object o) {
-		section.add(o);
+		if (o instanceof Element) {
+			section.add((Element) o);
+		}
 	}
 
 	@Override

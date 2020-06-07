@@ -55,13 +55,13 @@
             <artifactId>commons-digester</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext-rtf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
-        </dependency>
+	        <groupId>com.github.librepdf</groupId>
+	        <artifactId>openpdf</artifactId>
+	    </dependency>
+		<dependency>
+		    <groupId>com.github.librepdf</groupId>
+		    <artifactId>openrtf</artifactId>
+		</dependency>
         <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
@@ -98,13 +98,13 @@
             <artifactId>jboss-seam-pdf</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>com.lowagie</groupId>
-                    <artifactId>itext</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.lowagie</groupId>
-                    <artifactId>itext-rtf</artifactId>
-                </exclusion>
+			        <groupId>com.github.librepdf</groupId>
+			        <artifactId>openpdf</artifactId>
+			    </exclusion>
+				<exclusion>
+				    <groupId>com.github.librepdf</groupId>
+				    <artifactId>openrtf</artifactId>
+				</exclusion>
             </exclusions>
         </dependency>
         

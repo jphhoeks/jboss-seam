@@ -106,6 +106,14 @@ public class UIList extends ITextComponent {
 
 	@Override
 	public void handleAdd(Object o) {
-		list.add(o);
+		if (o instanceof com.lowagie.text.List) {
+			list.add((com.lowagie.text.List) o);
+		}
+		else if (o instanceof Element) {
+			list.add((Element) o);
+		}
+		else if (o instanceof String) {
+			list.add((String) o);
+		}
 	}
 }

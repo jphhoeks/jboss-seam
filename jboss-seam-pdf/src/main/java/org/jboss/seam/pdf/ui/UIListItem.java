@@ -76,6 +76,11 @@ public class UIListItem extends ITextComponent {
 
 	@Override
 	public void handleAdd(Object o) {
-		listItem.add(o);
+		if (o instanceof Element) {
+			listItem.add((Element) o);
+		}
+		else if (o instanceof String) {
+			listItem.add((String) o);
+		}
 	}
 }

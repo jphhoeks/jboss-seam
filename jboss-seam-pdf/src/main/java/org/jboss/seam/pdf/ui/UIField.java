@@ -14,6 +14,7 @@ import org.jboss.seam.log.Logging;
 
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.pdf.AcroFields;
+import com.lowagie.text.pdf.AcroFields.Item;
 import com.lowagie.text.pdf.PdfStamper;
 
 public class UIField extends FormComponent {
@@ -65,20 +66,22 @@ public class UIField extends FormComponent {
 	}
 
 	private void warnNotFound(AcroFields fields, String theName, Object theValue) {
-		log.warn("Could not set field '#0' to '#1'", theName, theValue);
-		Map fieldMap = fields.getFields();
-		if (!fieldMap.containsKey(theName)) {
-			log.warn("Could not find field '#0'. Found fields are", theName);
-			for (Iterator i = fieldMap.keySet().iterator(); i.hasNext();) {
-				log.warn(i.next());
+		if (log.isWarnEnabled()) { 
+			log.warn("Could not set field '#0' to '#1'", theName, theValue);
+			Map<String, Item> fieldMap = fields.getFields();
+			if (!fieldMap.containsKey(theName)) {
+				log.warn("Could not find field '#0'. Found fields are", theName);
+				for (Iterator<String> i = fieldMap.keySet().iterator(); i.hasNext();) {
+					log.warn(i.next());
+				}
+				return;
 			}
-			return;
-		}
-		String[] options = fields.getListOptionExport(theName);
-		String[] values = fields.getListOptionDisplay(theName);
-		log.warn("Valid values for #0 are", theName);
-		for (int i = 0; i < options.length; i++) {
-			log.warn("'#0' : '#1'", options[i], values[i]);
+			String[] options = fields.getListOptionExport(theName);
+			String[] values = fields.getListOptionDisplay(theName);
+			log.warn("Valid values for #0 are", theName);
+			for (int i = 0; i < options.length; i++) {
+				log.warn("'#0' : '#1'", options[i], values[i]);
+			}
 		}
 	}
 

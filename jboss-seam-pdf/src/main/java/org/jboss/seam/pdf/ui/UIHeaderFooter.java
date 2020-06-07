@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 
 import org.jboss.seam.pdf.ITextUtils;
 
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Phrase;
@@ -38,11 +39,19 @@ public abstract class UIHeaderFooter extends UIRectangle {
 
 	@Override
 	public void handleAdd(Object other) {
-		if (after == null) {
-			before.add(other);
-		} else {
-			after.add(other);
+		Phrase p = after;
+		if (p == null) {
+			p = before;
 		}
+		if (p != null) {
+			if (other instanceof Element) {
+				p.add((Element) other);				
+			}
+			else if (other instanceof String) {
+				p.add((String) other);
+			}
+			
+		}		
 	}
 
 	@Override
