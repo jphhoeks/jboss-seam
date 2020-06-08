@@ -23,7 +23,6 @@
             <groupId>org.jboss.seam.examples.itext</groupId>
             <artifactId>itext-ejb</artifactId>
             <type>ejb</type>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.seam</groupId>
@@ -60,6 +59,10 @@
             <artifactId>jboss-seam-pdf</artifactId>
         </dependency>
         
+        <dependency>
+				<groupId>antlr</groupId>
+				<artifactId>antlr</artifactId>
+		</dependency>
         <dependency>
 			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>

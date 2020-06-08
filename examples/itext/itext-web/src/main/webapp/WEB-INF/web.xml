@@ -9,7 +9,10 @@
         <param-name>org.richfaces.SKIN</param-name>
         <param-value>emeraldTown</param-value>
     </context-param> 
-
+	<context-param>
+	    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+	    <param-value>true</param-value>
+	</context-param>
     <listener>
         <listener-class>org.jboss.seam.servlet.SeamListener</listener-class>
     </listener>
