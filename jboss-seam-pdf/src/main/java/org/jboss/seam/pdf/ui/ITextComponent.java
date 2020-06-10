@@ -2,7 +2,6 @@ package org.jboss.seam.pdf.ui;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.lang.reflect.Method;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
