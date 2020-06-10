@@ -8,6 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
+import org.jboss.seam.util.Strings;
+
 /**
  * Converter for Enums
  * 
@@ -17,6 +19,13 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "org.jboss.seam.ui.EnumConverter")
 public class EnumConverter implements javax.faces.convert.Converter {
 	public Object getAsObject(FacesContext context, UIComponent comp, String value) throws ConverterException {
+		if (value == null) {
+			return null;
+		}
+		if (Strings.isEmpty(value)) {
+			return null;
+		}
+		
 		ValueExpression expr = comp.getValueExpression("value");
 
 		Class enumType = expr == null ? null : expr.getType(context.getELContext());
@@ -53,7 +62,10 @@ public class EnumConverter implements javax.faces.convert.Converter {
 	}
 
 	public String getAsString(FacesContext context, UIComponent component, Object object) throws ConverterException {
-		return object == null ? null : ((Enum) object).name();
+		if (object == null) {
+			return null;
+		}
+		return ((Enum) object).name();
 	}
 
 }
