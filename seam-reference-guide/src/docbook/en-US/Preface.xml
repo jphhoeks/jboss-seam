@@ -5,7 +5,16 @@
 
 <preface id="Book-Preface">
         <title>Introduction to JBoss Seam</title>
-
+        
+        <note>
+        	<para>Upstream Seam 2 is not maintained since 2014. This fork is an attemp to keep the project live for a while.</para>
+        	<para>Main concepts from Seam 2 were incorporated in Java EE 6 as CDI technology.</para>
+        	<para>You should use CDI instead Seam 2 in new developments, and consider migrate old apps to CDI.
+        		See <ulink url="https://github.com/seam/migration">Seam migration</ulink> or more details here 
+        		<ulink url="https://developer.jboss.org/en/seam/seam2/blog/2015/07/20/migration-from-seam-2-to-cdideltaspike">Migration from Seam 2 to CDI and DeltaSpike</ulink>
+        	</para>
+        </note>
+        
         <para>
             Seam is an application framework for Enterprise Java. It is inspired by the following principles:
         </para>

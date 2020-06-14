@@ -2,7 +2,11 @@
 
 ## Important
 
-Seam 2 is not maintained anymore, you should have migrated to CDI (Standard Java EE technology) long ago ;). 
+Upstream Seam 2 is not maintained since 2014. This fork is an attemp to keep the project live for a while.
+
+Main concepts from Seam 2 were incorporated in Java EE 6 as CDI technology.
+
+You should use CDI instead Seam 2 in new developments, and consider migrate old apps to CDI.
 
 See https://github.com/seam/migration or more details here https://developer.jboss.org/en/seam/seam2/blog/2015/07/20/migration-from-seam-2-to-cdideltaspike
 

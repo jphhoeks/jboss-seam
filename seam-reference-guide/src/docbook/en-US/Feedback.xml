@@ -3,11 +3,11 @@
 ]>
 
 <section id="Book-We_Need_Feedback">
-   <title>Contribute to Seam</title>
+   <title>Contribute to this fork of Seam</title>
    <para>
       Visit
-      <ulink url="http://www.seamframework.org/Community/Contribute">
-         SeamFramework.org
+      <ulink url="https://github.com/albfernandez/jboss-seam">
+         Github page
       </ulink>
       to find out how to contribute to Seam!
    </para>
