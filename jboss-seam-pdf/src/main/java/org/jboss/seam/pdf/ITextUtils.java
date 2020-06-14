@@ -1,32 +1,17 @@
 package org.jboss.seam.pdf;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.jboss.seam.util.Strings;
 
 import com.lowagie.text.ElementTags;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Rectangle;
+import com.lowagie.text.html.WebColors;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class ITextUtils {
-	static Map<String, Color> colorMap = new HashMap<String, Color>();
-
-	static {
-		colorMap.put("white", Color.white);
-		colorMap.put("gray", Color.gray);
-		colorMap.put("lightgray", Color.lightGray);
-		colorMap.put("darkgray", Color.darkGray);
-		colorMap.put("black", Color.black);
-		colorMap.put("red", Color.red);
-		colorMap.put("pink", Color.pink);
-		colorMap.put("yellow", Color.yellow);
-		colorMap.put("green", Color.green);
-		colorMap.put("magenta", Color.magenta);
-		colorMap.put("cyan", Color.cyan);
-		colorMap.put("blue", Color.blue);
-		colorMap.put("orange", Color.orange);
-	}
+	
 
 	/**
 	* not all itext objects accept a string value as input, so we'll copy that
@@ -44,21 +29,23 @@ public class ITextUtils {
 	* return a color value from a string specification.
 	*/
 	public static Color colorValue(String colorName) {
-		if (colorName == null) {
+		if (Strings.isEmpty(colorName)) {
 			return null;
 		}
-
+		
 		colorName = colorName.trim().toLowerCase();
-
-		Color color = colorMap.get(colorName);
-
-		if (color == null && colorName.startsWith("rgb")) {
+		Color color = null;
+		if (colorName.startsWith("rgb") || colorName.startsWith("hsl") || colorName.startsWith("#")) {
 			color = rgbStringToColor(colorName);
 		}
 		if (color == null) {
-			color = Color.decode(colorName);
+			try {
+				color = Color.decode(colorName);
+			}
+			catch (NumberFormatException e) {
+				return null;
+			}
 		}
-
 		return color;
 	}
 
@@ -67,24 +54,14 @@ public class ITextUtils {
 	* 0-255 or float values with a '%' sign
 	*/
 	public static Color rgbStringToColor(String rgbString) {
-		String rgb[] = rgbString.split(",");
-
-		if (rgb.length == 3) {
-			return new Color(parseSingleChanel(rgb[0]), parseSingleChanel(rgb[1]), parseSingleChanel(rgb[2]));
-		} else if (rgb.length == 4) {
-			return new Color(parseSingleChanel(rgb[0]), parseSingleChanel(rgb[1]), parseSingleChanel(rgb[2]), parseSingleChanel(rgb[3]));
+		try {
+			return WebColors.getRGBColor(rgbString);
 		}
-
-		throw new RuntimeException("invalid rgb color specification: " + rgbString);
+		catch (IllegalArgumentException e) {
+			return null;
+		}
 	}
 
-	private static int parseSingleChanel(String chanel) {
-		if (chanel.contains("%")) {
-			float percent = Float.parseFloat(chanel.replaceAll("[^0-9\\.]", ""));
-			return (int) (255 * (percent / 100));
-		}
-		return Integer.parseInt(chanel.replaceAll("[^0-9]", ""));
-	}
 
 	public static float[] stringToFloatArray(String text) {
 		String[] parts = text.split("\\s");
