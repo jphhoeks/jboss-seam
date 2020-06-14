@@ -478,7 +478,7 @@
     
             <row>
               <entry>
-                <para><literal>itext.jar</literal></para>
+                <para><literal>openpdf.jar</literal></para>
               </entry>
               <entry align="center">
                 <para>runtime</para>
@@ -488,6 +488,20 @@
               </entry>
               <entry>
                 <para>PDF Library</para>
+              </entry>
+            </row>
+            <row>
+              <entry>
+                <para><literal>openrtf.jar</literal></para>
+              </entry>
+              <entry align="center">
+                <para>runtime</para>
+              </entry>
+              <entry align="center">
+                <para>war</para>
+              </entry>
+              <entry>
+                <para>RTF Library</para>
               </entry>
             </row>
             

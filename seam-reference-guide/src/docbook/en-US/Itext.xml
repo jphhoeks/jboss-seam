@@ -1,18 +1,17 @@
 <chapter id="itext">
-    <title>iText PDF generation</title>
-    <para>Seam now includes a component set for generating documents using iText. The primary focus of Seam's iText
+    <title>OpenPDF PDF generation</title>
+    <para>Seam now includes a component set for generating documents using OpenPDF. The primary focus of Seam's OpenPDF
         document support is for the generation of PDF documents, but Seam also offers basic support for RTF document
         generation.</para>
 
     <section id="itext.intro">
         <title>Using PDF Support</title>
-        <para>iText support is provided by <literal>jboss-seam-pdf.jar</literal>. This JAR contains the iText JSF
+        <para>OpenPDF support is provided by <literal>jboss-seam-pdf.jar</literal>. This JAR contains the OpenPDF JSF
             controls, which are used to construct views that can render to PDF, and the DocumentStore component, which
             serves the rendered documents to the user. To include PDF support in your application, put
                 <literal>jboss-seam-pdf.jar</literal> in your <literal>WEB-INF/lib</literal> directory along with the
-            iText JAR file. There is no further configuration needed to use Seam's iText support. </para>
-        <para> The Seam iText module requires the use of Facelets as the view technology. Future versions of the library
-            may also support the use of JSP. Additionally, it requires the use of the seam-ui package.</para>
+            OpenPDF and OpenRTF JAR file. There is no further configuration needed to use Seam's OpenPDF support. </para>
+        <para> The Seam OpenPDF module requires the use of Facelets as the view technology. Additionally, it requires the use of the seam-ui package.</para>
 
         <para> The <literal>examples/itext</literal> project contains an example of the PDF support in action. It
             demonstrates proper deployment packaging, and it contains a number examples that demonstrate the key PDF
@@ -1368,18 +1367,38 @@
 
             <section id="itext.colors">
                 <title>Color Values</title>
-                <para>Several ways of specifying colors are provided.  A limited number of colors are
-                    supported by name.  They are: <literal>white</literal>, <literal>gray</literal>,
-                    <literal>lightgray</literal>, <literal>darkgray</literal>, <literal>black</literal>,
-                    <literal>red</literal>, <literal>pink</literal>, <literal>yellow</literal>,
-                    <literal>green</literal>, <literal>magenta</literal>, <literal>cyan</literal> and
-                    <literal>blue</literal>. Colors can be specified as an integer value, as 
-                    defined by <literal>java.awt.Color</literal>.  Finally a color value may be specified
-                    as <literal>rgb(r,g,b)</literal> or <literal>rgb(r,g,b,a)</literal> with the red, green, blue 
-                    alpha values specified as an integer between 0 and 255 or as a floating point percentages 
-                    followed by a '%' sign.                
-                </para>
-
+                <para>Several ways of specifying colors are provided:</para>
+                <itemizedlist>
+                	<listitem>
+                    	<para>A color name as defined in CSS4 (<literal>white</literal>, <literal>black</literal>, <literal>purple</literal> ...)</para>
+                    	<para><ulink url="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#colors_table">You can view the complete list in MDN Web Docs</ulink></para>
+                    </listitem>
+                    <listitem>
+                    	<para>An hex CSS color <literal>#RGB</literal>, <literal>#RGBA</literal>, <literal>#RRGGBB</literal> or <literal>#RRGGBBAA</literal>
+                    	</para>
+                    </listitem>
+                    <listitem>
+                    	<para>A <literal>rgb</literal> or <literal>rgba</literal> color as defined in CSS4</para>
+                    	<itemizedlist>
+                    		<listitem><para><literal>rgb(r,g,b)</literal></para></listitem>
+                    		<listitem><para><literal>rgb(r,g,b,a)</literal></para></listitem>
+                    		<listitem><para><literal>rgba(r,g,b)</literal></para></listitem>
+                    		<listitem><para><literal>rgba(r,g,b,a)</literal></para></listitem>
+                    	</itemizedlist>
+                    </listitem>
+                    <listitem>
+                    	<para>A <literal>hsl</literal> or <literal>hsla</literal> color as defined in CSS4</para>
+                    	<itemizedlist>
+                    		<listitem><para><literal>hsl(h,s,l)</literal></para></listitem>
+                    		<listitem><para><literal>hsl(h,s,l,a)</literal></para></listitem>
+                    		<listitem><para><literal>hsla(h,s,l)</literal></para></listitem>
+                    		<listitem><para><literal>hsla(h,s,l,a)</literal></para></listitem>
+                    	</itemizedlist>
+                    </listitem>
+                    <listitem>
+                    	<para>as an integer value, as defined by <literal>java.awt.Color</literal></para>
+                    </listitem>
+               </itemizedlist>
             </section>
 
             <section id="itext.alignment">
@@ -2342,7 +2361,7 @@
 
     <section id="itext.barcodes">
         <title>Bar codes</title>
-        <para>Seam can use iText to generate barcodes in a wide variety of formats.  These barcodes can
+        <para>Seam can use OpenPDF to generate barcodes in a wide variety of formats.  These barcodes can
         be embedded in a PDF document or displayed as an image on a web page. Note that 
         when used with HTML images, barcodes can not currently display barcode text in the barcode. 
         </para>
@@ -2373,7 +2392,7 @@
 
                                 <listitem>
                                     <para>
-                                        <literal>type</literal> &#8212; A barcode type supported by iText. Valid
+                                        <literal>type</literal> &#8212; A barcode type supported by OpenPDF. Valid
                                         values include: <literal>EAN13</literal>, <literal>EAN8</literal>,
                                         <literal>UPCA</literal>, <literal>UPCE</literal>, <literal>SUPP2</literal>,
                                             <literal>SUPP5</literal>, <literal>POSTNET</literal>,
@@ -2634,7 +2653,7 @@
 
 
     <section id="itext.configuration">
-        <title>Configuring iText</title>
+        <title>Configuring OpenPDF</title>
         
         <para>Document generation works out of the box with no additional configuration needed. However, there are a
             few points of configuration that are needed for more serious applications. </para>
@@ -2676,12 +2695,12 @@
     <section id="itext.links">
         <title>Further documentation</title>
 
-        <para>For further information on iText, see:</para>
+        <para>For further information on OpenPDF, see:</para>
         <para>
             <itemizedlist>
                 <listitem>
                     <para>
-                        <ulink url="http://www.lowagie.com/iText/">iText Home Page</ulink>
+                        <ulink url="https://github.com/LibrePDF/OpenPDF/">OpenPDF Home Page</ulink>
                     </para>
                 </listitem>
                 <listitem>
