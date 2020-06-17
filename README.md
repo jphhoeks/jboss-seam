@@ -70,7 +70,7 @@ If you are making changes to source code and want to test quickly without making
 
 Resulting jar files will be in each sub-project target directory.
 
-In some cases dependency check will block you from building because insecure dedendencies, yoy can bypas with
+In some cases dependency check will block you from building because insecure dedendencies, you can bypass with
 
 ```bash
     mvn -Ddependency-check.skip=true clean package install -Pdistribution
