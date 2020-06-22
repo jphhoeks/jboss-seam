@@ -88,8 +88,8 @@ public class RootInterceptor implements Serializable {
 		if (!isSeamComponent || !Lifecycle.isApplicationInitialized()) {
 			//not a Seam component
 			return invocation.proceed();
-		} else if (Contexts.isEventContextActive() || Contexts.isApplicationContextActive()) //not sure about the second bit (only needed at init time!)
-		{
+		} else if (Contexts.isEventContextActive() || Contexts.isApplicationContextActive()) {
+			//not sure about the second bit (only needed at init time!)
 
 			// a Seam component, and Seam contexts exist
 			return createInvocationContext(invocation, invocationType).proceed();
