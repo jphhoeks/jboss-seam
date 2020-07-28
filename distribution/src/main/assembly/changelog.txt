@@ -5,7 +5,7 @@ Unreleased
 
 	* [ ] Prevent NPE when replicating session in some HA scenarios
 	* [ ] Upgrade RichFaces to version 4.6.13.ayg
-	
+	* [ ] Upgrade OpenPDF to version 1.3.20
 
 Release Notes - Seam 2 - Version 2.3.21.ayg 2020-06-11
 
