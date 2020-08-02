@@ -1,7 +1,7 @@
 JBoss Seam Changelog
 ====================
 
-Unreleased
+Release Notes - Seam 2 - Version 2.3.22.ayg 2020-08-02
 
 	* [ ] Prevent NPE when replicating session in some HA scenarios
 	* [ ] Upgrade RichFaces to version 4.6.13.ayg
