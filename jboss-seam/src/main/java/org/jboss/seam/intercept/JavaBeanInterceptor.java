@@ -53,7 +53,7 @@ public class JavaBeanInterceptor extends RootInterceptor implements MethodHandle
 					return getComponent();
 				}
 				else if ("hashCode".equals(methodName) || "toString".equals(methodName)) {
-					return proceed.invoke(bean, params);
+					return method.invoke(bean, params);
 				}
 			} else if (params.length == 1 && (params[0] instanceof HttpSessionEvent)) {
 				String methodName = method.getName();
