@@ -76,9 +76,9 @@
 				</executions>
 				<dependencies>
 					<dependency>
-						<groupId>org.jboss.seam</groupId>
+						<groupId>com.github.albfernandez.seam</groupId>
 						<artifactId>seam-docbook-xslt</artifactId>
-						<version>${seam.docbook.version}</version>
+						<version>${seam.docbook.xslt.version}</version>
 						<exclusions>
 							<exclusion>
 								<groupId>org.eclipse.wst.css</groupId>
