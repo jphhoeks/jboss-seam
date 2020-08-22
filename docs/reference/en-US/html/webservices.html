@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 25. Web Services</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="cache.html" title="Chapter 24. Caching"/><link rel="next" href="remoting.html" title="Chapter 26. Remoting"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="cache.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="remoting.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="webservices"/>Chapter 25. Web Services</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="webservices.html#d0e21984">25.1. Configuration and Packaging</a></span></dt><dt><span class="sect1"><a href="webservices.html#d0e22008">25.2. Conversational Web Services</a></span></dt><dd><dl><dt><span class="sect2"><a href="webservices.html#d0e22038">25.2.1. A Recommended Strategy</a></span></dt></dl></dd><dt><span class="sect1"><a href="webservices.html#d0e22053">25.3. An example web service</a></span></dt><dt><span class="sect1"><a href="webservices.html#d0e22121">25.4. RESTful HTTP webservices with RESTEasy</a></span></dt><dd><dl><dt><span class="sect2"><a href="webservices.html#d0e22136">25.4.1. RESTEasy configuration and request serving</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22324">25.4.2. Resources as Seam components</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22398">25.4.3. Securing resources</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22421">25.4.4. Mapping exceptions to HTTP responses</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22478">25.4.5. Exposing entities via RESTful API</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22646">25.4.6. Testing resources and providers</a></span></dt></dl></dd></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 25. Web Services</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="cache.html" title="Chapter 24. Caching"/><link rel="next" href="remoting.html" title="Chapter 26. Remoting"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="cache.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="remoting.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="webservices"/>Chapter 25. Web Services</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="webservices.html#d0e22019">25.1. Configuration and Packaging</a></span></dt><dt><span class="sect1"><a href="webservices.html#d0e22043">25.2. Conversational Web Services</a></span></dt><dd><dl><dt><span class="sect2"><a href="webservices.html#d0e22073">25.2.1. A Recommended Strategy</a></span></dt></dl></dd><dt><span class="sect1"><a href="webservices.html#d0e22088">25.3. An example web service</a></span></dt><dt><span class="sect1"><a href="webservices.html#d0e22156">25.4. RESTful HTTP webservices with RESTEasy</a></span></dt><dd><dl><dt><span class="sect2"><a href="webservices.html#d0e22171">25.4.1. RESTEasy configuration and request serving</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22359">25.4.2. Resources as Seam components</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22433">25.4.3. Securing resources</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22456">25.4.4. Mapping exceptions to HTTP responses</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22513">25.4.5. Exposing entities via RESTful API</a></span></dt><dt><span class="sect2"><a href="webservices.html#d0e22681">25.4.6. Testing resources and providers</a></span></dt></dl></dd></dl></div><p>
     Seam integrates with JBossWS to allow standard Java EE web services to take full advantage of Seam's contextual framework,
     including support for conversational web services. This chapter walks through the steps required to allow web 
     services to run within a Seam environment.
-  </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e21984"/>25.1. Configuration and Packaging</h2></div></div></div><p>
+  </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e22019"/>25.1. Configuration and Packaging</h2></div></div></div><p>
       To allow Seam to intercept web service requests so that the necessary Seam contexts can be created for the request, 
       a special SOAP handler must be configured; <code class="literal">org.jboss.seam.webservice.SOAPRequestHandler</code>
       is a <code class="literal">SOAPHandler</code> implementation that does the work of managing Seam's lifecycle during the scope
@@ -24,7 +24,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">handler</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">handler-chain</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">handler-chains</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e22008"/>25.2. Conversational Web Services</h2></div></div></div><p>
+</pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e22043"/>25.2. Conversational Web Services</h2></div></div></div><p>
       So how are conversations propagated between web service requests?  Seam uses a SOAP header element present
       in both the SOAP request and response messages to carry the conversation ID from the consumer to the service,
       and back again.  Here's an example of a web service request that contains a conversation ID:
@@ -63,14 +63,14 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 </pre><p>
       As you can see, the response message contains the same <code class="literal">conversationId</code> element as the request.
-    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22038"/>25.2.1. A Recommended Strategy</h3></div></div></div><p>
+    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22073"/>25.2.1. A Recommended Strategy</h3></div></div></div><p>
         As web services must be implemented as either a stateless session bean or POJO, it is recommended that for
         conversational web services, the web service acts as a facade to a conversational Seam component.
       </p><div class="mediaobject" align="center"><img src="images/ws-strategy.png" align="middle"/></div><p>
         If the web service is written as a stateless session bean, then it is also possible to make it a Seam
         component by giving it a <code class="literal">@Name</code>.  Doing this allows Seam's bijection (and other) 
         features to be used in the web service class itself. 
-      </p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e22053"/>25.3. An example web service</h2></div></div></div><p>
+      </p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e22088"/>25.3. An example web service</h2></div></div></div><p>
       Let's walk through an example web service.  The code in this section all comes from the seamBay example
       application in Seam's <code class="literal">/examples</code> directory, and follows the recommended strategy as
       described in the previous section.  Let's first take a look at the web service class and one of its web
@@ -129,7 +129,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span></pre><p>
       From this we can see how web services can participate in long running conversations, by acting as a facade
       and delegating the real work to a conversational Seam component.
-    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e22121"/>25.4. RESTful HTTP webservices with RESTEasy</h2></div></div></div><p>
+    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e22156"/>25.4. RESTful HTTP webservices with RESTEasy</h2></div></div></div><p>
         Seam integrates the RESTEasy implementation of the JAX-RS specification (JSR 311). You can decide how
         "deep" the integration into your Seam application is going to be:
      </p><div class="itemizedlist"><ul><li><p>
@@ -140,7 +140,7 @@
                web.xml required.
             </p></li><li><p>
                Writing resources as Seam components, with full Seam lifecycle management and interception (bijection).
-            </p></li></ul></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22136"/>25.4.1. RESTEasy configuration and request serving</h3></div></div></div><p>
+            </p></li></ul></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22171"/>25.4.1. RESTEasy configuration and request serving</h3></div></div></div><p>
             First, get the RESTEasy libraries and the <code class="literal">jaxrs-api.jar</code>, deploy them with the
             other libraries of your application. Also deploy the integration library,
             <code class="literal">jboss-seam-resteasy.jar</code>. 
@@ -262,7 +262,7 @@
             This definition would map the URI suffix of <code class="literal">.txt.deutsch</code> to
             additional <code class="literal">Accept</code> and <code class="literal">Accept-Language</code> header values
             <code class="literal">text/plain</code> and <code class="literal">de-DE</code>.
-         </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22324"/>25.4.2. Resources as Seam components</h3></div></div></div><p>
+         </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22359"/>25.4.2. Resources as Seam components</h3></div></div></div><p>
             Any resource and provider instances are managed by RESTEasy by default. That means a resource class
             will be instantiated by RESTEasy and serve a single request, after which it will be destroyed. This is
             the default JAX-RS lifecycle. Providers are instantiated once for the whole application and are
@@ -363,7 +363,7 @@
                 by RESTEasy as a singleton with no Seam interception, bijection, etc. The instance will not be
                 a Seam component instance. We plan to support Seam component lifecycle for JAX-RS providers in
                 the future.
-            </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22398"/>25.4.3. Securing resources</h3></div></div></div><p>
+            </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22433"/>25.4.3. Securing resources</h3></div></div></div><p>
             You can enable the Seam authentication filter for HTTP Basic and Digest authentication in
             <code class="literal">components.xml</code>:
          </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -375,7 +375,7 @@
             <code class="literal">@Restrict</code> and <code class="literal">@PermissionCheck</code> annotations are in effect. You can
             also access the client <code class="literal">Identity</code>, work with permission mapping, and so on. All
             regular Seam security features for authorization are available.
-         </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22421"/>25.4.4. Mapping exceptions to HTTP responses</h3></div></div></div><p>
+         </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22456"/>25.4.4. Mapping exceptions to HTTP responses</h3></div></div></div><p>
             Section 3.3.4 of the JAX-RS specification defines how checked or unchecked exceptions are handled by the
             JAX RS implementation. In addition to using an exception mapping provider as defined by JAX-RS, the integration
             of RESTEasy with Seam allows you to map exceptions to HTTP response codes within Seam's <code class="literal">pages.xml</code>
@@ -423,13 +423,13 @@
             Note that the HTTP response still passes through the servlet container, so an additional mapping might apply
             if you have <code class="literal">&lt;error-page&gt;</code> mappings in your <code class="literal">web.xml</code> configuration.
             The HTTP status code would then be mapped to a rendered HTML error page with status <code class="literal">200 OK</code>!
-         </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22478"/>25.4.5. Exposing entities via RESTful API</h3></div></div></div><p>
+         </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22513"/>25.4.5. Exposing entities via RESTful API</h3></div></div></div><p>
             Seam makes it really easy to use a RESTful approach for accessing application data. One of the improvements that
             Seam introduces is the ability to expose parts of your SQL database for remote access via plain HTTP calls.
             For this purpose, the Seam/RESTEasy integration module provides two components: <code class="literal">ResourceHome</code> and
             <code class="literal">ResourceQuery</code>, which benefit from the API provided by the Seam Application Framework
             (<a class="xref" href="framework.html" title="Chapter 14. The Seam Application Framework">Chapter 14, <i>The Seam Application Framework</i></a>). These components allow you to bind domain model entity classes to an HTTP API.
-         </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e22491"/>25.4.5.1. ResourceQuery</h4></div></div></div><p>
+         </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e22526"/>25.4.5.1. ResourceQuery</h4></div></div></div><p>
          		ResourceQuery exposes entity querying capabilities as a RESTful web service. By default, a simple
          		underlying Query component, which returns a list of instances of a given entity class, is created automatically. 
          		Alternatively, the ResourceQuery component can be attached to an existing Query component in more sophisticated 
@@ -471,10 +471,10 @@
                 	RESTEasy uses JAXB to marshall entities. Thus, in order to be able to transfer them over the wire, you
                   need to annotate entity classes with <code class="literal">@XMLRootElement</code>. Consult the JAXB and
                   RESTEasy documentation for more information.
-            	</p></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e22563"/>25.4.5.2. ResourceHome</h4></div></div></div><p>
+            	</p></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e22598"/>25.4.5.2. ResourceHome</h4></div></div></div><p>
          		Just as ResourceQuery makes Query's API available for remote access, so does ResourceHome for the Home
                component. The following table describes how the two APIs (HTTP and Home) are bound together.
-         	</p><div class="table"><a id="d0e22568"/><p class="title"><b>Table 25.1. </b></p><div class="table-contents"><table border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th>HTTP method</th><th>Path</th><th>Function</th><th>ResourceHome method</th></tr></thead><tbody><tr><td>GET</td><td>{path}/{id}</td><td>Read</td><td>getResource()</td></tr><tr><td>POST</td><td>{path}</td><td>Create</td><td>postResource()</td></tr><tr><td>PUT</td><td>{path}/{id}</td><td>Update</td><td>putResource()</td></tr><tr><td>DELETE</td><td>{path}/{id}</td><td>Delete</td><td>deleteResource()</td></tr></tbody></table></div></div><br class="table-break"/><div class="itemizedlist"><ul><li><p>
+         	</p><div class="table"><a id="d0e22603"/><p class="title"><b>Table 25.1. </b></p><div class="table-contents"><table border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th>HTTP method</th><th>Path</th><th>Function</th><th>ResourceHome method</th></tr></thead><tbody><tr><td>GET</td><td>{path}/{id}</td><td>Read</td><td>getResource()</td></tr><tr><td>POST</td><td>{path}</td><td>Create</td><td>postResource()</td></tr><tr><td>PUT</td><td>{path}/{id}</td><td>Update</td><td>putResource()</td></tr><tr><td>DELETE</td><td>{path}/{id}</td><td>Delete</td><td>deleteResource()</td></tr></tbody></table></div></div><br class="table-break"/><div class="itemizedlist"><ul><li><p>
                			You can GET, PUT, and DELETE a particular user instance by sending HTTP requests to /user/{userId}
                		</p></li><li><p>
                			Sending a POST request to <code class="literal">/user</code> creates a new user entity instance and persists it.
@@ -508,7 +508,7 @@
             example application, which demonstrates how Seam/RESTEasy integration can be used together with a jQuery web client.
             In addition, you can find more code example in the <span class="emphasis"><em>Restbay</em></span> example, which is used mainly
             for testing purposes.
-			</p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22646"/>25.4.6. Testing resources and providers</h3></div></div></div><p>
+			</p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e22681"/>25.4.6. Testing resources and providers</h3></div></div></div><p>
             Seam includes a unit testing utility class that helps you create unit tests for a RESTful
             architecture. Extend the <code class="literal">SeamTest</code> class as usual and use the
             <code class="literal">ResourceRequestEnvironment.ResourceRequest</code> to emulate HTTP requests/response cycles:

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 6. Configuring Seam components</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="concepts.html" title="Chapter 5. The contextual component model"/><link rel="next" href="events.html" title="Chapter 7. Events, interceptors and exception handling"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="concepts.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="events.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="xml"/>Chapter 6. Configuring Seam components</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="xml.html#d0e4361">6.1. Configuring components via property settings</a></span></dt><dt><span class="section"><a href="xml.html#xml.descriptor">6.2. Configuring components via components.xml</a></span></dt><dt><span class="section"><a href="xml.html#d0e4576">6.3. Fine-grained configuration files</a></span></dt><dt><span class="section"><a href="xml.html#d0e4614">6.4. Configurable property types</a></span></dt><dt><span class="section"><a href="xml.html#d0e4710">6.5. Using XML Namespaces</a></span></dt></dl></div><p> 
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 6. Configuring Seam components</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="concepts.html" title="Chapter 5. The contextual component model"/><link rel="next" href="events.html" title="Chapter 7. Events, interceptors and exception handling"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="concepts.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="events.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="xml"/>Chapter 6. Configuring Seam components</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="xml.html#d0e4363">6.1. Configuring components via property settings</a></span></dt><dt><span class="section"><a href="xml.html#xml.descriptor">6.2. Configuring components via components.xml</a></span></dt><dt><span class="section"><a href="xml.html#d0e4578">6.3. Fine-grained configuration files</a></span></dt><dt><span class="section"><a href="xml.html#d0e4616">6.4. Configurable property types</a></span></dt><dt><span class="section"><a href="xml.html#d0e4712">6.5. Using XML Namespaces</a></span></dt></dl></div><p> 
             The philosophy of minimizing XML-based configuration is extremely strong in Seam. Nevertheless,
             there are various reasons why we might want to configure a Seam component using XML: to isolate
             deployment-specific information from the Java code, to enable the creation of re-usable frameworks,
             to configure Seam's built-in functionality, etc.
             Seam provides two basic approaches to configuring components: configuration via property settings in a
             properties file or in <code class="literal">web.xml</code>, and configuration via <code class="literal">components.xml</code>. 
-        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4361"/>6.1. Configuring components via property settings</h2></div></div></div><p> 
+        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4363"/>6.1. Configuring components via property settings</h2></div></div></div><p> 
                 Seam components may be provided with configuration properties either via servlet context parameters, via 
                 system properties, or via a properties file named <code class="literal">seam.properties</code> in the root of the classpath. 
             </p><p> 
@@ -175,7 +175,7 @@
                 the <code class="literal">components.xml</code> file which can be replaced either by your Ant build script (at
                 deployment time) or by providing a file named <code class="literal">components.properties</code> in the classpath
                 (at development time). You'll see this approach used in the Seam examples. 
-            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4576"/>6.3. Fine-grained configuration files</h2></div></div></div><p> 
+            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4578"/>6.3. Fine-grained configuration files</h2></div></div></div><p> 
                 If you have a large number of components that need to be configured in XML, it makes much more sense
                 to split up the information in <code class="literal">components.xml</code> into many small files. Seam lets
                 you put configuration for a class named, for example, <code class="literal">com.helloworld.Hello</code> in a
@@ -203,7 +203,7 @@
             </p><p> 
                 Alternatively, you may put configuration for all classes in the <code class="literal">com.helloworld</code>
                 package in <code class="literal">com/helloworld/components.xml</code>. 
-            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4614"/>6.4. Configurable property types</h2></div></div></div><p> 
+            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4616"/>6.4. Configurable property types</h2></div></div></div><p> 
                 Properties of string, primitive or primitive wrapper type may be configured just as you would expect: 
             </p><pre class="programlisting">org.jboss.seam.core.manager.conversationTimeout 60000</pre><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">core:manager</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">conversation-timeout</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;60000&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
@@ -292,7 +292,7 @@
 				<code class="literal">MethodExpression</code>, you can invoke the method using <code class="literal">invoke(Object
 				args...)</code>. Obviously, to assign a value to a <code class="literal">MethodExpression</code> property, the
 				entire initial value must be a single EL expression.
-            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4710"/>6.5. Using XML Namespaces</h2></div></div></div><p> 
+            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4712"/>6.5. Using XML Namespaces</h2></div></div></div><p> 
                 Throughout the examples, there have been two competing ways of declaring components: with and without
                 the use of XML namespaces. The following shows a typical <code class="literal">components.xml</code> file 
                 without namespaces:

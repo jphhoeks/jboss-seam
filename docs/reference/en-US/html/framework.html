@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 14. The Seam Application Framework</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="wicket.html" title="Chapter 13. Writing your presentation layer using Apache Wicket"/><link rel="next" href="drools.html" title="Chapter 15. Seam and JBoss Rules"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="wicket.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="drools.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="framework"/>Chapter 14. The Seam Application Framework</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="framework.html#d0e8085">14.1. Introduction</a></span></dt><dt><span class="section"><a href="framework.html#d0e8142">14.2. Home objects</a></span></dt><dt><span class="section"><a href="framework.html#d0e8310">14.3. Query objects</a></span></dt><dt><span class="section"><a href="framework.html#d0e8368">14.4. Controller objects</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 14. The Seam Application Framework</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="wicket.html" title="Chapter 13. Writing your presentation layer using Apache Wicket"/><link rel="next" href="drools.html" title="Chapter 15. Seam and JBoss Rules"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="wicket.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="drools.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="framework"/>Chapter 14. The Seam Application Framework</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="framework.html#d0e8087">14.1. Introduction</a></span></dt><dt><span class="section"><a href="framework.html#d0e8144">14.2. Home objects</a></span></dt><dt><span class="section"><a href="framework.html#d0e8312">14.3. Query objects</a></span></dt><dt><span class="section"><a href="framework.html#d0e8370">14.4. Controller objects</a></span></dt></dl></div><p>
         Seam makes it really easy to create applications by writing
         plain Java classes with annotations, which don't need to extend
         any special interfaces or superclasses. But we can simplify
@@ -19,7 +19,7 @@
         and extend. The "magic" is in Seam itself — the same magic
         you use when creating any Seam application even without using 
         this framework.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8085"/>14.1. Introduction</h2></div></div></div><p>
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8087"/>14.1. Introduction</h2></div></div></div><p>
             The components provided by the Seam application framework
             may be used in one of two different approaches. The first
             way is to install and configure an instance of the component
@@ -90,7 +90,7 @@
             The Seam Application Framework only works with Seam-managed
             persistence contexts. By default, the components will look
             for a persistence context named <code class="literal">entityManager</code>.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8142"/>14.2. Home objects</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8144"/>14.2. Home objects</h2></div></div></div><p>
             A Home object provides persistence operations for a particular entity
             class. Suppose we have our trusty <code class="literal">Person</code> class:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Entity</span>
@@ -304,7 +304,7 @@ Person_updated=Person #{person.firstName} #{person.lastName} updated</pre><p>
             The final step is to add validation functionality to the page, using
             <code class="literal">&lt;s:validateAll&gt;</code> and <code class="literal">&lt;s:decorate&gt;</code>,
             but I'll leave that for you to figure out.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8310"/>14.3. Query objects</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8312"/>14.3. Query objects</h2></div></div></div><p>
             If we need a list of all <code class="literal">Person</code> instance in the database, we
             can use a Query object. For example:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -419,7 +419,7 @@ Person_updated=Person #{person.firstName} #{person.lastName} updated</pre><p>
       </p><p>
          The examples in this section have all shown reuse by configuration. However,
          reuse by extension is equally possible for Query objects.
-      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8368"/>14.4. Controller objects</h2></div></div></div><p>
+      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8370"/>14.4. Controller objects</h2></div></div></div><p>
             A totally optional part of the Seam Application Framework is the class
             <code class="literal">Controller</code> and its subclasses 
             <code class="literal">EntityController</code>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 29. Guice integration</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="spring.html" title="Chapter 28. Spring Framework integration"/><link rel="next" href="search.html" title="Chapter 30. Hibernate Search"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="spring.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="search.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="guice"/>Chapter 29. Guice integration</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="guice.html#d0e24053">29.1. Creating a hybrid Seam-Guice component</a></span></dt><dt><span class="section"><a href="guice.html#d0e24075">29.2. Configuring an injector</a></span></dt><dt><span class="section"><a href="guice.html#d0e24101">29.3. Using multiple injectors</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 29. Guice integration</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="spring.html" title="Chapter 28. Spring Framework integration"/><link rel="next" href="search.html" title="Chapter 30. Hibernate Search"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="spring.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="search.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="guice"/>Chapter 29. Guice integration</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="guice.html#d0e24083">29.1. Creating a hybrid Seam-Guice component</a></span></dt><dt><span class="section"><a href="guice.html#d0e24105">29.2. Configuring an injector</a></span></dt><dt><span class="section"><a href="guice.html#d0e24131">29.3. Using multiple injectors</a></span></dt></dl></div><p>
       Google Guice is a library that provides lightweight dependency injection through type-safe
       resolution. The Guice integration (part of the Seam IoC module) allows use of Guice injection
       for all Seam components annotated with the <code class="literal">@Guice</code> annotation. In addition
@@ -12,7 +12,7 @@
       The Guice integration is bundled in the jboss-seam-ioc library. This dependency is required
       for all integration techniques covered in this chapter. You will also need the Guice JAR file
       on the classpath.
-   </div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e24053"/>29.1. Creating a hybrid Seam-Guice component</h2></div></div></div><p>
+   </div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e24083"/>29.1. Creating a hybrid Seam-Guice component</h2></div></div></div><p>
          The goal is to create a hybrid Seam-Guice component. The rule for how to do this is very
          simple. If you want to use Guice injection in your Seam component, annotate it with the
          <code class="literal">@Guice</code> annotation (after importing the type
@@ -41,7 +41,7 @@
 <!--  --><br/><span class="java_separator">}</span></pre><p>
           Great, but which Guice injector will be used to inject the dependencies?  Well, you need
           to perform some setup first.
-      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e24075"/>29.2. Configuring an injector</h2></div></div></div><p>
+      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e24105"/>29.2. Configuring an injector</h2></div></div></div><p>
          You tell Seam which Guice injector to use by hooking it into the injection property
          of the Guice initialization component in the Seam component descriptor (components.xml):
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -85,7 +85,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Your</span><span class="java_plain">&nbsp;code&nbsp;that&nbsp;returns&nbsp;injector&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e24101"/>29.3. Using multiple injectors</h2></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e24131"/>29.3. Using multiple injectors</h2></div></div></div><p>
          By default, an injector configured in the Seam component descriptor is used. If you really
          need to use multiple injectors (AFAIK, you should use multiple modules instead), you can
          specify different injector for every Seam component in the <code class="literal">@Guice</code>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 38. Testing Seam applications</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="performance.html" title="Chapter 37. Performance Tuning"/><link rel="next" href="dependencies.html" title="Chapter 39. Dependencies"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="performance.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="dependencies.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="testing"/>Chapter 38. Testing Seam applications</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="testing.html#d0e30309">38.1. Unit testing Seam components</a></span></dt><dt><span class="section"><a href="testing.html#integrationtests">38.2. Integration testing Seam components</a></span></dt><dd><dl><dt><span class="section"><a href="testing.html#d0e30381">38.2.1. Configuration</a></span></dt><dt><span class="section"><a href="testing.html#d0e30395">38.2.2. Using JUnitSeamTest with Arquillian</a></span></dt><dt><span class="section"><a href="testing.html#d0e30463">38.2.3. Integration testing Seam application user interactions</a></span></dt></dl></dd></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 38. Testing Seam applications</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="performance.html" title="Chapter 37. Performance Tuning"/><link rel="next" href="dependencies.html" title="Chapter 39. Dependencies"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="performance.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="dependencies.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="testing"/>Chapter 38. Testing Seam applications</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="testing.html#d0e30333">38.1. Unit testing Seam components</a></span></dt><dt><span class="section"><a href="testing.html#integrationtests">38.2. Integration testing Seam components</a></span></dt><dd><dl><dt><span class="section"><a href="testing.html#d0e30405">38.2.1. Configuration</a></span></dt><dt><span class="section"><a href="testing.html#d0e30419">38.2.2. Using JUnitSeamTest with Arquillian</a></span></dt><dt><span class="section"><a href="testing.html#d0e30487">38.2.3. Integration testing Seam application user interactions</a></span></dt></dl></dd></dl></div><p>
 	    Most Seam applications will need at least two kinds of automated tests:
 	    <span class="emphasis"><em>unit tests</em></span>, which test a particular Seam component
 	    in isolation, and scripted <span class="emphasis"><em>integration tests</em></span> which
@@ -9,7 +9,7 @@
 	    view pages).
 	</p><p>
 	   Both kinds of tests are very easy to write.
-	</p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30309"/>38.1. Unit testing Seam components</h2></div></div></div><p>
+	</p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30333"/>38.1. Unit testing Seam components</h2></div></div></div><p>
 		    All Seam components are POJOs. This is a great place to start if you
 		    want easy unit testing. And since Seam emphasises the use of bijection 
             for inter-component interactions and access to contextual objects, it's 
@@ -83,7 +83,7 @@
             together with the JBoss AS container)
         </p><p>
           Arquillian makes it possible to run integration tests inside a real container, even without <code class="literal">SeamTest</code>.
-        </p><div class="example"><a id="d0e30344"/><p class="title"><b>Example 38.1. RegisterTest.java</b></p><div class="example-contents"><div class="programlistingco"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="co" id="registration-test-runwith"><img src="images/seamframework/docbook/callouts/1.png" alt="(1)"/></span><span class="java_plain">@</span><!-- <br/> --><span class="java_type">RunWith</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">Arquillian</span><!-- <br/> --><span class="java_separator">)</span>
+        </p><div class="example"><a id="d0e30368"/><p class="title"><b>Example 38.1. RegisterTest.java</b></p><div class="example-contents"><div class="programlistingco"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="co" id="registration-test-runwith"><img src="images/seamframework/docbook/callouts/1.png" alt="(1)"/></span><span class="java_plain">@</span><!-- <br/> --><span class="java_type">RunWith</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">Arquillian</span><!-- <br/> --><span class="java_separator">)</span>
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">RegisterTest</span>
 <!--  --><br/><span class="java_separator">{</span>
 <!--  --><br/><span class="co" id="registration-test-deployment"><img src="images/seamframework/docbook/callouts/2.png" alt="(2)"/></span><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Deployment</span>
@@ -130,7 +130,7 @@
                         The "Servlet 3.0" protocol is the recommended protocol for running Seam tests.
                     </p></td></tr><tr><td width="5%" valign="top" align="left"><p><img xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" src="images/seamframework/docbook/callouts/4.png" alt="4" border="0" height="17px" width="17px"/></p></td><td valign="top" align="left"><p> ShrinkWrap can be used to create the deployment archive. In this example, the whole EAR is imported, but we could also use the ShrinkWrap API to create a WAR or an EAR from scratch and put in just the artifacts that we need for the test.
                     </p></td></tr><tr><td width="5%" valign="top" align="left"><p><img xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" src="images/seamframework/docbook/callouts/5.png" alt="5" border="0" height="17px" width="17px"/></p></td><td valign="top" align="left"><p> <code class="literal">Lifecycle.beginCall()</code> is needed to setup Seam contexts.
-                    </p></td></tr></table></div></div></div></div><br class="example-break"/><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30381"/>38.2.1. Configuration</h3></div></div></div><p>
+                    </p></td></tr></table></div></div></div></div><br class="example-break"/><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30405"/>38.2.1. Configuration</h3></div></div></div><p>
             The Arquillian configuration depends on the specific container used. See Arquillian documentation for more information.
           </p><p>
               Assuming you are using Maven as your build tool and want to run your tests on JBoss AS 7, you will need to put these dependencies into your <code class="literal">pom.xml</code>:
@@ -151,7 +151,7 @@
 </pre><p>
             The Arquillian JBoss AS Managed Container will automatically start the application server,
              provided the JBOSS_HOME environment property points to the JBoss AS 7 installation.
-          </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30395"/>38.2.2. Using JUnitSeamTest with Arquillian</h3></div></div></div><p>
+          </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30419"/>38.2.2. Using JUnitSeamTest with Arquillian</h3></div></div></div><p>
             It is also possible to use the simulated JSF environment provided by <code class="literal">SeamTest</code> along with Arquillian. 
             This is useful especially if you are migrating from previous Seam releases and want to keep your existing testsuite mostly unchanged.
           </p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2>SeamTest was primarily designated for TestNG integration tests. Currently, there are some glitches
@@ -159,7 +159,7 @@
           </div><p>
             The following changes must be done to run a JUnitSeamTest with Arquillian:
           </p><div class="itemizedlist"><ul><li><p>Create the <code class="literal">@Deployment</code> method which constructs the test archive using ShrinkWrap. ShrinkWrap Resolver can be used to resolve any required dependencies.</p></li><li><p>Convert the test to JUnit. A <code class="literal">JUnitSeamTest</code>
-                class can now be used instead of the original <code class="literal">SeamTest</code>.</p></li><li><p>Replace the <code class="literal">SeamListener</code> with <code class="literal">org.jboss.seam.mock.MockSeamListener</code> in web.xml.</p></li></ul></div><div class="example"><a id="d0e30432"/><p class="title"><b>Example 38.2. RegisterTest.java</b></p><div class="example-contents"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">RunWith</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">Arquillian</span><!-- <br/> --><span class="java_separator">)</span>
+                class can now be used instead of the original <code class="literal">SeamTest</code>.</p></li><li><p>Replace the <code class="literal">SeamListener</code> with <code class="literal">org.jboss.seam.mock.MockSeamListener</code> in web.xml.</p></li></ul></div><div class="example"><a id="d0e30456"/><p class="title"><b>Example 38.2. RegisterTest.java</b></p><div class="example-contents"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">RunWith</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">Arquillian</span><!-- <br/> --><span class="java_separator">)</span>
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">RegisterTest</span><span class="java_plain">&nbsp;</span><span class="java_keyword">extends</span><span class="java_plain">&nbsp;</span><span class="java_type">JUnitSeamTest</span>
 <!--  --><br/><span class="java_separator">{</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Deployment</span>
@@ -191,7 +191,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
 </span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">...</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div></div><br class="example-break"/><div class="example"><a id="d0e30437"/><p class="title"><b>Example 38.3. Deployments.java</b></p><div class="example-contents"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
+<!--  --><br/><span class="java_separator">}</span></pre></div></div><br class="example-break"/><div class="example"><a id="d0e30461"/><p class="title"><b>Example 38.3. Deployments.java</b></p><div class="example-contents"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">Deployments</span>
 <!--  --><br/><span class="java_separator">{</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">static</span><span class="java_plain">&nbsp;</span><span class="java_type">WebArchive</span><span class="java_plain">&nbsp;registrationDeployment</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span>
@@ -227,7 +227,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">.</span><span class="java_plain">addAsLibraries</span><span class="java_separator">(</span><span class="java_plain">libs</span><span class="java_separator">);</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
 <!--  --><br/><span class="java_separator">}</span>
-</pre></div></div><br class="example-break"/><div class="example"><a id="d0e30442"/><p class="title"><b>Example 38.4. mock-web.xml</b></p><div class="example-contents"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+</pre></div></div><br class="example-break"/><div class="example"><a id="d0e30466"/><p class="title"><b>Example 38.4. mock-web.xml</b></p><div class="example-contents"><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_plain"></span><br />
 <span class="xml_processing_instruction">&lt;?xml&nbsp;version=&quot;1.0&quot;&nbsp;?&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">web-app</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">version</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;3.0&quot;</span><span class="xml_plain"></span><br />
@@ -240,7 +240,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">listener</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">web-app</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div></div><br class="example-break"/><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30447"/>38.2.2.1. Using mocks in integration tests</h4></div></div></div><p>
+</pre></div></div><br class="example-break"/><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30471"/>38.2.2.1. Using mocks in integration tests</h4></div></div></div><p>
                 Occasionally, we need to be able to replace the implementation of some
                 Seam component that depends upon resources which are not available in 
                 the integration test environment. For example, suppose we have some
@@ -262,7 +262,7 @@
                 implementation whenever it is in the classpath. When deployed into 
                 production, the mock implementation is absent, so the real component
                 will be installed.
-            </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30463"/>38.2.3. Integration testing Seam application user interactions</h3></div></div></div><p>
+            </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30487"/>38.2.3. Integration testing Seam application user interactions</h3></div></div></div><p>
             An even harder problem is emulating user interactions. A third problem is where 
             to put our assertions. Some test frameworks let us test the whole application
             by reproducing user interactions with the web browser. These frameworks have
@@ -372,7 +372,7 @@
             You'll find plenty of integration tests for the Seam example applications
             which demonstrate more complex cases. There are instructions for running
             these tests using Maven, or using the JUnit plugin for eclipse:
-        </p><div class="mediaobject" align="center"><img src="images/plugin-junit.png" align="middle"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30508"/>38.2.3.1. Configuration</h4></div></div></div><p>
+        </p><div class="mediaobject" align="center"><img src="images/plugin-junit.png" align="middle"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30532"/>38.2.3.1. Configuration</h4></div></div></div><p>
               If you used seam-gen to create your project you are ready to start
               writing tests. Otherwise you'll need to setup the testing
               environment in your favorite build tool (e.g. ant, maven, 
@@ -391,7 +391,7 @@
               file in it's root. Therefore, if you don't assemble a directory structure 
               that resembles a deployable archive containing your built project, you must 
               put a <code class="literal">seam.properties</code> in each resource.
-           </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30532"/>38.2.3.2. Using SeamTest with another test framework</h4></div></div></div><p>
+           </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30556"/>38.2.3.2. Using SeamTest with another test framework</h4></div></div></div><p>
               Seam provides JUnit support out of the box, but you can also use
               another test framework, if you want.
            </p><p>
@@ -416,7 +416,7 @@
                  </p></li><li><p>
                     Calls <code class="literal">super.stopSeam()</code> to cleanly shut
                     down Seam at the end of integration testing.
-                 </p></li></ul></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30579"/>38.2.3.3. Integration Testing with Mock Data</h4></div></div></div><p>
+                 </p></li></ul></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e30603"/>38.2.3.3. Integration Testing with Mock Data</h4></div></div></div><p>
             If you want to insert or clean data in your database before each
             test you can use Seam's integration with DBUnit.  To do this, extend 
             <code class="literal">DBJUnitSeamTest</code> rather than <code class="literal">JUnitSeamTest</code>.

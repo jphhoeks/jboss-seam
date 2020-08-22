@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 32. Seam annotations</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="configuration.html" title="Chapter 31. Configuring Seam and packaging Seam applications"/><link rel="next" href="components.html" title="Chapter 33. Built-in Seam components"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="configuration.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="components.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="annotations"/>Chapter 32. Seam annotations</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="annotations.html#d0e25187">32.1. Annotations for component definition</a></span></dt><dt><span class="section"><a href="annotations.html#d0e25444">32.2. Annotations for bijection</a></span></dt><dt><span class="section"><a href="annotations.html#d0e25670">32.3. Annotations for component lifecycle methods</a></span></dt><dt><span class="section"><a href="annotations.html#d0e25718">32.4. Annotations for context demarcation</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26039">32.5. Annotations for use with Seam JavaBean components in a J2EE environment</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26129">32.6. Annotations for exceptions</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26204">32.7. Annotations for Seam Remoting</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26226">32.8. Annotations for Seam interceptors</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26257">32.9. Annotations for asynchronicity</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26311">32.10. Annotations for use with JSF</a></span></dt><dd><dl><dt><span class="section"><a href="annotations.html#d0e26361">32.10.1. Annotations for use with dataTable</a></span></dt></dl></dd><dt><span class="section"><a href="annotations.html#d0e26515">32.11. Meta-annotations for databinding</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26549">32.12. Annotations for packaging</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26579">32.13. Annotations for integrating with the servlet container</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 32. Seam annotations</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="configuration.html" title="Chapter 31. Configuring Seam and packaging Seam applications"/><link rel="next" href="components.html" title="Chapter 33. Built-in Seam components"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="configuration.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="components.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="annotations"/>Chapter 32. Seam annotations</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="annotations.html#d0e25211">32.1. Annotations for component definition</a></span></dt><dt><span class="section"><a href="annotations.html#d0e25468">32.2. Annotations for bijection</a></span></dt><dt><span class="section"><a href="annotations.html#d0e25694">32.3. Annotations for component lifecycle methods</a></span></dt><dt><span class="section"><a href="annotations.html#d0e25742">32.4. Annotations for context demarcation</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26063">32.5. Annotations for use with Seam JavaBean components in a J2EE environment</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26153">32.6. Annotations for exceptions</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26228">32.7. Annotations for Seam Remoting</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26250">32.8. Annotations for Seam interceptors</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26281">32.9. Annotations for asynchronicity</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26335">32.10. Annotations for use with JSF</a></span></dt><dd><dl><dt><span class="section"><a href="annotations.html#d0e26385">32.10.1. Annotations for use with dataTable</a></span></dt></dl></dd><dt><span class="section"><a href="annotations.html#d0e26539">32.11. Meta-annotations for databinding</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26573">32.12. Annotations for packaging</a></span></dt><dt><span class="section"><a href="annotations.html#d0e26603">32.13. Annotations for integrating with the servlet container</a></span></dt></dl></div><p>
       When you write a Seam application, you'll use a lot of annotations. Seam 
       lets you use annotations to achieve a declarative style of programming. 
       Most of the annotations you'll use are defined by the EJB 3.0 
@@ -11,7 +11,7 @@
    </p><p>
       All of these annotations are defined in the package 
       <code class="literal">org.jboss.seam.annotations</code>. 
-   </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25187"/>32.1. Annotations for component definition</h2></div></div></div><p>
+   </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25211"/>32.1. Annotations for component definition</h2></div></div></div><p>
          The first group of annotations lets you define a Seam component. These 
          annotations appear on the component class. 
       </p><div class="variablelist"><dl><dt><a id="name-annotation"/><span class="term">
@@ -152,7 +152,7 @@
             </span></dt><dd><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">AutoCreate</span></pre><p>
                   Specifies that a component will be automatically created, even 
                   if the client does not specify <code class="literal">create=true</code>. 
-               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25444"/>32.2. Annotations for bijection</h2></div></div></div><p>
+               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25468"/>32.2. Annotations for bijection</h2></div></div></div><p>
          The next two annotations control bijection. These attributes occur on 
          component instance variables or property accessor methods. 
       </p><div class="variablelist"><dl><dt><a id="in-annotation"/><span class="term">
@@ -296,7 +296,7 @@
                         <code class="literal">value</code> — specifies the name of 
                         the request parameter. Default to the name of the 
                         component attribute.
-                     </p></li></ul></div></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25670"/>32.3. Annotations for component lifecycle methods</h2></div></div></div><p>
+                     </p></li></ul></div></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25694"/>32.3. Annotations for component lifecycle methods</h2></div></div></div><p>
          These annotations allow a component to react to its own lifecycle 
          events. They occur on methods of the component. There may be only one 
          of each per component class. 
@@ -329,7 +329,7 @@
                   created if one doesn't exist.  If an instance does not exist
                   and create is false, the event will not be observed.  The 
                   default value for create is true.
-               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25718"/>32.4. Annotations for context demarcation</h2></div></div></div><p>
+               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e25742"/>32.4. Annotations for context demarcation</h2></div></div></div><p>
          These annotations provide declarative conversation demarcation. They 
          appear on methods of Seam components, usually action listener methods. 
       </p><p>
@@ -518,7 +518,7 @@
                   Marks a method as signaling a transition in the current jBPM 
                   process instance whenever the method returns a non-null 
                   result.
-               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26039"/>32.5. Annotations for use with Seam JavaBean components in a J2EE environment</h2></div></div></div><p>
+               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26063"/>32.5. Annotations for use with Seam JavaBean components in a J2EE environment</h2></div></div></div><p>
          Seam provides an annotation that lets you force a rollback of the JTA 
          transaction for certain action listener outcomes. 
       </p><div class="variablelist"><dl><dt><a id="transactional-annotation"/><span class="term">
@@ -569,7 +569,7 @@
          These annotations are mostly useful for JavaBean Seam components. If 
          you use EJB 3.0 components, you should use the standard Java EE5 
          annotation.
-      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26129"/>32.6. Annotations for exceptions</h2></div></div></div><p>
+      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26153"/>32.6. Annotations for exceptions</h2></div></div></div><p>
          These annotations let you specify how Seam should handle an exception 
          that propagates out of a Seam component. 
       </p><div class="variablelist"><dl><dt><a id="redirect-annotation"/><span class="term">
@@ -602,7 +602,7 @@
                         <code class="literal">end</code> — specifies that the 
                         long-running conversation should end, default to 
                         <code class="literal">false</code>. 
-                     </p></li></ul></div></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26204"/>32.7. Annotations for Seam Remoting</h2></div></div></div><p>
+                     </p></li></ul></div></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26228"/>32.7. Annotations for Seam Remoting</h2></div></div></div><p>
          Seam Remoting requires that the local interface of a session bean be 
          annotated with the following annotation:
       </p><div class="variablelist"><dl><dt><a id="webremote-annotation"/><span class="term">
@@ -613,7 +613,7 @@
                   property is optional and allows objects to be excluded from 
                   the result's object graph (see the <a class="xref" href="remoting.html" title="Chapter 26. Remoting">Chapter 26, <i>Remoting</i></a> chapter for more 
                   details).
-               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26226"/>32.8. Annotations for Seam interceptors</h2></div></div></div><p>
+               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26250"/>32.8. Annotations for Seam interceptors</h2></div></div></div><p>
          The following annotations appear on Seam interceptor classes. 
       </p><p>
          Please refer to the documentation for the EJB 3.0 specification for 
@@ -632,7 +632,7 @@
                </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Interceptor</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_plain">within</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_separator">{</span><!-- <br/> --><span class="java_type">SomeInterceptor</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_keyword">class</span><!-- <br/> --><span class="java_separator">,</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">OtherInterceptor</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_keyword">class</span><!-- <br/> --><span class="java_separator">})</span></pre><p> 
                   Specifies that this interceptor is positioned deeper in 
                   the stack than the given interceptors.
-               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26257"/>32.9. Annotations for asynchronicity</h2></div></div></div><p>
+               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26281"/>32.9. Annotations for asynchronicity</h2></div></div></div><p>
          The following annotations are used to declare an asynchronous method, 
          for example: 
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Asynchronous</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_keyword">public</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">void</span><!-- <br/> --><span class="java_plain">&nbsp;scheduleAlert</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">Alert</span><!-- <br/> --><span class="java_plain">&nbsp;alert</span><!-- <br/> --><span class="java_separator">,</span><!-- <br/> --><span class="java_plain">&nbsp;@</span><!-- <br/> --><span class="java_type">Expiration</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">Date</span><!-- <br/> --><span class="java_plain">&nbsp;date</span><!-- <br/> --><span class="java_separator">)</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_separator">{</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_separator">...</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_separator">}</span></pre><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Asynchronous</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_keyword">public</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">Timer</span><!-- <br/> --><span class="java_plain">&nbsp;scheduleAlerts</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">Alert</span><!-- <br/> --><span class="java_plain">&nbsp;alert</span><!-- <br/> --><span class="java_separator">,</span><!-- <br/> --><span class="java_plain">&nbsp;</span>
@@ -658,7 +658,7 @@
             </span></dt><dd><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">IntervalDuration</span></pre><p>
                   Specifies that an asynchronous method call recurs, and that 
                   the annotation parameter is duration between recurrences. 
-               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26311"/>32.10. Annotations for use with JSF</h2></div></div></div><p> 
+               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26335"/>32.10. Annotations for use with JSF</h2></div></div></div><p> 
             The following annotations make working with JSF easier.
          </p><div class="variablelist"><dl><dt><span class="term">
                   <code class="literal">@Converter</code>
@@ -682,7 +682,7 @@
                   </p><div class="itemizedlist"><ul><li><p>
                            <code class="literal">id</code> — the JSF validator id. 
                            Defaults to the component name.
-                        </p></li></ul></div></dd></dl></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e26361"/>32.10.1. Annotations for use with <code class="literal">dataTable</code></h3></div></div></div><p>
+                        </p></li></ul></div></dd></dl></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e26385"/>32.10.1. Annotations for use with <code class="literal">dataTable</code></h3></div></div></div><p>
                The following annotations make it easy to implement clickable 
                lists backed by a stateful session bean. They appear on 
                attributes. 
@@ -752,7 +752,7 @@
                            conversation context variable. Not needed if there 
                            is exactly one <code class="literal">@DataModel</code> in the 
                            component. 
-                        </p></li></ul></div></dd></dl></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26515"/>32.11. Meta-annotations for databinding</h2></div></div></div><p> 
+                        </p></li></ul></div></dd></dl></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26539"/>32.11. Meta-annotations for databinding</h2></div></div></div><p> 
          These meta-annotations make it possible to implement similar 
          functionality to <code class="literal">@DataModel</code> and 
          <code class="literal">@DataModelSelection</code> for other datastructures apart
@@ -765,7 +765,7 @@
                <code class="literal">@DataSelectorClass</code>
              </span></dt><dd><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">DataSelectorClass</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">DataModelSelector</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_keyword">class</span><!-- <br/> --><span class="java_separator">)</span></pre><p>
                    Specifies that an annotation is a dataselection annotation. 
-                </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26549"/>32.12. Annotations for packaging</h2></div></div></div><p>
+                </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26573"/>32.12. Annotations for packaging</h2></div></div></div><p>
          This annotation provides a mechanism for declaring information about a 
          set of components that are packaged together. It can be applied to any 
          Java package.
@@ -784,7 +784,7 @@
                   associated with this namespace would be understood to actually 
                   refer to a component named 
                   <code class="literal">org.jboss.seam.core.init</code>. 
-               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26579"/>32.13. Annotations for integrating with the servlet container</h2></div></div></div><p>
+               </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26603"/>32.13. Annotations for integrating with the servlet container</h2></div></div></div><p>
          These annotations allow you to integrate your Seam components with the 
          servlet container.
       </p><div class="variablelist"><dl><dt><span class="term">

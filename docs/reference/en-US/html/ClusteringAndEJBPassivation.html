@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 36. Clustering and EJB Passivation</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="elenhancements.html" title="Chapter 35. JBoss EL"/><link rel="next" href="performance.html" title="Chapter 37. Performance Tuning"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="elenhancements.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="performance.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ClusteringAndEJBPassivation"/>Chapter 36. Clustering and EJB Passivation</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="ClusteringAndEJBPassivation.html#d0e30014">36.1. Clustering</a></span></dt><dd><dl><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30028">36.1.1. Programming for clustering</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30058">36.1.2. Deploying a Seam application to a JBoss AS cluster with session replication</a></span></dt></dl></dd><dt><span class="sect1"><a href="ClusteringAndEJBPassivation.html#d0e30202">36.2. EJB Passivation and the ManagedEntityInterceptor</a></span></dt><dd><dl><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30217">36.2.1. The friction between passivation and persistence</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30233">36.2.2. Case #1: Surviving EJB passivation</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30250">36.2.3. Case #2: Surviving HTTP session replication</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30258">36.2.4. ManagedEntityInterceptor wrap-up</a></span></dt></dl></dd></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 36. Clustering and EJB Passivation</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="elenhancements.html" title="Chapter 35. JBoss EL"/><link rel="next" href="performance.html" title="Chapter 37. Performance Tuning"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="elenhancements.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="performance.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="ClusteringAndEJBPassivation"/>Chapter 36. Clustering and EJB Passivation</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="ClusteringAndEJBPassivation.html#d0e30038">36.1. Clustering</a></span></dt><dd><dl><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30052">36.1.1. Programming for clustering</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30082">36.1.2. Deploying a Seam application to a JBoss AS cluster with session replication</a></span></dt></dl></dd><dt><span class="sect1"><a href="ClusteringAndEJBPassivation.html#d0e30226">36.2. EJB Passivation and the ManagedEntityInterceptor</a></span></dt><dd><dl><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30241">36.2.1. The friction between passivation and persistence</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30257">36.2.2. Case #1: Surviving EJB passivation</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30274">36.2.3. Case #2: Surviving HTTP session replication</a></span></dt><dt><span class="sect2"><a href="ClusteringAndEJBPassivation.html#d0e30282">36.2.4. ManagedEntityInterceptor wrap-up</a></span></dt></dl></dd></dl></div><p>
         <span class="emphasis"><em>Please note that this chapter is still being reviewed. Tread carefully.</em></span>
     </p><p>
         This chapter covers two distinct topics that happen share a common solution in Seam, (web) clustering and EJB
@@ -13,7 +13,7 @@
         activate this feature, and how this feature is related to clustering. You will also learn how to deploy a Seam
         application into a cluster and verify that HTTP session replication is working properly. Let's start with a
         little background on clustering and see an example of how you deploy a Seam application to a JBoss AS cluster.
-    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30014"/>36.1. Clustering</h2></div></div></div><p>
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30038"/>36.1. Clustering</h2></div></div></div><p>
             Clustering (more formally web clustering) allows an application to run on two or more parallel servers
             (i.e., nodes) while providing a uniform view of the application to clients. Load is distributed across the
             servers in such a way that if one or more of the servers fails, the application is still accessible via any
@@ -38,7 +38,7 @@
         </p><p>
             Now that you understand what features Seam offers to support a clustered environment, let's look at how you
             program for clustering.
-        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30028"/>36.1.1. Programming for clustering</h3></div></div></div><p>
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30052"/>36.1.1. Programming for clustering</h3></div></div></div><p>
                 Any session- or conversation-scoped mutable JavaBean component that will be used in a clustered
                 environment must implement the <code class="literal">org.jboss.seam.core.Mutable</code> interface from the Seam API. As part of the
                 contract, the component must maintain a dirty flag that is reported and reset by the
@@ -59,7 +59,7 @@
             </p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>
                     Please note that clustering does not work with hot deployable components. But then again, you shouldn't
                     be using hot deployable components in a non-development environment anyway.
-                </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30058"/>36.1.2. Deploying a Seam application to a JBoss AS cluster with session replication</h3></div></div></div><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>The detailed clustering How-To on AS7 is described at <a class="ulink" href="https://docs.jboss.org/author/display/AS71/AS7+Cluster+Howto">AS7 Cluster Howto</a> </p></div><p>
+                </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30082"/>36.1.2. Deploying a Seam application to a JBoss AS cluster with session replication</h3></div></div></div><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>The detailed clustering How-To on AS7 is described at <a class="ulink" href="https://docs.jboss.org/author/display/AS71/AS7+Cluster+Howto">AS7 Cluster Howto</a> </p></div><p>
                 The procedure outlined in this tutorial has been validated with an seam-gen application and the Seam
                 booking example.
             </p><p>
@@ -119,7 +119,7 @@
                     slave you should see a corresponding message acknowledging the deployment to the slave. Note that
                     you may have to wait up to 3 minutes for the deployed archive to be transfered.</p></li></ul></div><p>
                 You're application is now running in a cluster with HTTP session replication!
-            </p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30202"/>36.2. EJB Passivation and the ManagedEntityInterceptor</h2></div></div></div><p>
+            </p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30226"/>36.2. EJB Passivation and the ManagedEntityInterceptor</h2></div></div></div><p>
             The ManagedEntityInterceptor (MEI) is an optional interceptor in Seam that gets applied to
             conversation-scoped components when enabled. Enabling it is simple. You just set the distributable property
             on the org.jboss.seam.init.core component to true. More simply put, you add (or update) the following
@@ -143,7 +143,7 @@
         </p><p>
             I first want to discuss the general problem of passivation and then look at the two challenges cited
             individually.
-        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30217"/>36.2.1. The friction between passivation and persistence</h3></div></div></div><p>
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30241"/>36.2.1. The friction between passivation and persistence</h3></div></div></div><p>
                 The persistence context is where the persistence manager (i.e., JPA EntityManager or Hibernate Session)
                 stores entity instances (i.e., objects) it has loaded from the database (via the object-relational
                 mappings). Within a persistence context, there is no more than one object per unique database record.
@@ -174,7 +174,7 @@
                 either when a SFSB or the HTTP session is passivated. In order to sustain the activity in the
                 application, the persistence manager and the entity instances it manages must weather serialization
                 without losing their relationship. That's the aid that the MEI provides.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30233"/>36.2.2. Case #1: Surviving EJB passivation</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30257"/>36.2.2. Case #1: Surviving EJB passivation</h3></div></div></div><p>
                 Conversations were initially designed with stateful session beans (SFSBs) in mind, primarily because the
                 EJB 3 specification designates SFSBs as hosts of the extended persistence context. Seam introduces a
                 complement to the extended persistence context, known as a Seam-managed persistence context, which works
@@ -209,7 +209,7 @@
                 </p></div><p>
                 It is possible to disable passivation on a SFSB. See the <a class="ulink" href="http://www.jboss.org/community/docs/DOC-9656">Ejb3DisableSfsbPassivation</a> page on the JBoss
                 Wiki for details.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30250"/>36.2.3. Case #2: Surviving HTTP session replication</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30274"/>36.2.3. Case #2: Surviving HTTP session replication</h3></div></div></div><p>
                 Dealing with passivation of a SFSB works by leveraging the HTTP session. But what happens when the HTTP
                 session passivates? This happens in a clustered environment with session replication enabled. This case
                 is much tricker to deal with and is where a bulk of the MEI infrastructure comes into play. In this
@@ -224,7 +224,7 @@
                 the guarantees of optimistic locking are upheld. (why isn't the dirty state transferred?)
             </p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>
                     If you are deploying your application in a cluster and using HTTP session replication, you must use the MEI.
-                </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30258"/>36.2.4. ManagedEntityInterceptor wrap-up</h3></div></div></div><p>
+                </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30282"/>36.2.4. ManagedEntityInterceptor wrap-up</h3></div></div></div><p>
                 The important point of this section is that the MEI is there for a reason. It's there to ensure that the
                 extended persistence context can retain intact in the face of passivation (of either a SFSB or the HTTP
                 session). This matters because the natural design of Seam applications (and conversational state in

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 27. Seam and the Google Web Toolkit</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="remoting.html" title="Chapter 26. Remoting"/><link rel="next" href="spring.html" title="Chapter 28. Spring Framework integration"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="remoting.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="spring.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gwt"/>Chapter 27. Seam and the Google Web Toolkit</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="gwt.html#d0e23503">27.1. Configuration</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23510">27.2. Preparing your component</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23544">27.3. Hooking up a GWT widget to the Seam component</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23579">27.4. GWT Ant Targets</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23609">27.5. GWT Maven plugin</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 27. Seam and the Google Web Toolkit</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="remoting.html" title="Chapter 26. Remoting"/><link rel="next" href="spring.html" title="Chapter 28. Spring Framework integration"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="remoting.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="spring.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="gwt"/>Chapter 27. Seam and the Google Web Toolkit</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="gwt.html#d0e23538">27.1. Configuration</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23545">27.2. Preparing your component</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23579">27.3. Hooking up a GWT widget to the Seam component</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23614">27.4. GWT Ant Targets</a></span></dt><dt><span class="section"><a href="gwt.html#d0e23644">27.5. GWT Maven plugin</a></span></dt></dl></div><p>
     For those that prefer to use the Google Web Toolkit (GWT) to develop dynamic AJAX applications, Seam provides
     an integration layer that allows GWT widgets to interact directly with Seam components.
   </p><p>
     To use GWT, we assume that you are already familiar with the GWT tools - more information can be found at
     <a class="ulink" href="http://code.google.com/webtoolkit/">http://code.google.com/webtoolkit/</a>.  This chapter 
     does not attempt to explain how GWT works or how to use it.
-  </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23503"/>27.1. Configuration</h2></div></div></div><p>
+  </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23538"/>27.1. Configuration</h2></div></div></div><p>
       There is no special configuration required to use GWT in a Seam application, however the Seam resource servlet 
       must be installed.  See <a class="xref" href="configuration.html" title="Chapter 31. Configuring Seam and packaging Seam applications">Chapter 31, <i>Configuring Seam and packaging Seam applications</i></a> for details.
-    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23510"/>27.2. Preparing your component</h2></div></div></div><p>
+    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23545"/>27.2. Preparing your component</h2></div></div></div><p>
       The first step in preparing a Seam component to be called via GWT, is to create both synchronous and
       asynchronous service interfaces for the methods you wish to call.  Both of these interfaces should extend the
       GWT interface <code class="literal">com.google.gwt.user.client.rpc.RemoteService</code>:
@@ -50,7 +50,7 @@
       resource servlet will not be able to find it when a client makes a GWT
       call. The methods that are to be made accessible via GWT also need to be
       annotated with the <code class="literal">@WebRemote</code> annotation.      
-    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23544"/>27.3. Hooking up a GWT widget to the Seam component</h2></div></div></div><p>
+    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23579"/>27.3. Hooking up a GWT widget to the Seam component</h2></div></div></div><p>
       The next step, is to write a method that returns the asynchronous interface to the component.  This method
       can be located inside the widget class, and will be used by the widget to obtain a reference to the
       asynchronous client stub:
@@ -109,7 +109,7 @@
     </p><div class="mediaobject" align="center"><img src="images/gwt-helloworld.png" align="middle"/></div><p>
       The complete code for this example can be found in the Seam distribution in the <code class="literal">examples/remoting/gwt</code>
       directory.
-    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23579"/>27.4. GWT Ant Targets</h2></div></div></div><p>
+    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23614"/>27.4. GWT Ant Targets</h2></div></div></div><p>
       For deployment of GWT apps, there is a compile-to-Javascript step (which compacts and obfuscates the code).  There is an
       ant utility which can be used instead of the command line or GUI utility that GWT provides.  To use this, you will need
       to have the ant task jar in your ant classpath, as well as GWT downloaded (which you will need for hosted mode anyway).
@@ -152,7 +152,7 @@
       aren't using that, and are just compiling it each time, you aren't getting the most out of the toolkit (in fact, if
       you can't or won't use the hosted mode browser, I would go far as to say you should NOT be using GWT at all - it's
       that valuable!).
-    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23609"/>27.5. GWT Maven plugin</h2></div></div></div><p>
+    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e23644"/>27.5. GWT Maven plugin</h2></div></div></div><p>
       For a deployment of GWT apps, there is a set of maven GWT goals which does everything what GWT supports.  The
       maven-gwt-plugin usage is in more
       details at <a class="ulink" href="http://mojo.codehaus.org/gwt-maven-plugin/">GWT </a>.
@@ -186,7 +186,4 @@
         &lt;/plugins&gt;
             [...]
     &lt;/build&gt;
-    </pre><p>
-        More can be seen here 
-        <a class="ulink" href="http://mojo.codehaus.org/gwt-maven-plugin/user-guide/compile.html">http://mojo.codehaus.org/gwt-maven-plugin/user-guide/compile.html</a>
-    </p></div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="remoting.html"><strong>Prev</strong>Chapter 26. Remoting</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="spring.html"><strong>Next</strong>Chapter 28. Spring Framework integration</a></li></ul></body></html>
+    </pre></div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="remoting.html"><strong>Prev</strong>Chapter 26. Remoting</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="spring.html"><strong>Next</strong>Chapter 28. Spring Framework integration</a></li></ul></body></html>

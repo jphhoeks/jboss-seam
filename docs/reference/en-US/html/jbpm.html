@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 9. Pageflows and business processes</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="conversations.html" title="Chapter 8. Conversations and workspace management"/><link rel="next" href="persistence.html" title="Chapter 10. Seam and Object/Relational Mapping"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="conversations.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="persistence.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="jbpm"/>Chapter 9. Pageflows and business processes</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="jbpm.html#d0e6597">9.1. Pageflow in Seam</a></span></dt><dd><dl><dt><span class="section"><a href="jbpm.html#d0e6617">9.1.1. The two navigation models</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6673">9.1.2. Seam and the back button</a></span></dt></dl></dd><dt><span class="section"><a href="jbpm.html#d0e6720">9.2. Using jPDL pageflows</a></span></dt><dd><dl><dt><span class="section"><a href="jbpm.html#d0e6723">9.2.1. Installing pageflows</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6743">9.2.2. Starting pageflows</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6784">9.2.3. Page nodes and transitions</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6842">9.2.4. Controlling the flow</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6854">9.2.5. Ending the flow</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6877">9.2.6. Pageflow composition</a></span></dt></dl></dd><dt><span class="section"><a href="jbpm.html#d0e6898">9.3. Business process management in Seam</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6938">9.4. Using jPDL business process definitions</a></span></dt><dd><dl><dt><span class="section"><a href="jbpm.html#d0e6941">9.4.1. Installing process definitions</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6953">9.4.2. Initializing actor ids</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6969">9.4.3. Initiating a business process</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6983">9.4.4. Task assignment</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6994">9.4.5. Task lists</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e7026">9.4.6. Performing a task</a></span></dt></dl></dd></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 9. Pageflows and business processes</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="conversations.html" title="Chapter 8. Conversations and workspace management"/><link rel="next" href="persistence.html" title="Chapter 10. Seam and Object/Relational Mapping"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="conversations.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="persistence.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="jbpm"/>Chapter 9. Pageflows and business processes</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="jbpm.html#d0e6599">9.1. Pageflow in Seam</a></span></dt><dd><dl><dt><span class="section"><a href="jbpm.html#d0e6619">9.1.1. The two navigation models</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6675">9.1.2. Seam and the back button</a></span></dt></dl></dd><dt><span class="section"><a href="jbpm.html#d0e6722">9.2. Using jPDL pageflows</a></span></dt><dd><dl><dt><span class="section"><a href="jbpm.html#d0e6725">9.2.1. Installing pageflows</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6745">9.2.2. Starting pageflows</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6786">9.2.3. Page nodes and transitions</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6844">9.2.4. Controlling the flow</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6856">9.2.5. Ending the flow</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6879">9.2.6. Pageflow composition</a></span></dt></dl></dd><dt><span class="section"><a href="jbpm.html#d0e6900">9.3. Business process management in Seam</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6940">9.4. Using jPDL business process definitions</a></span></dt><dd><dl><dt><span class="section"><a href="jbpm.html#d0e6943">9.4.1. Installing process definitions</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6955">9.4.2. Initializing actor ids</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6971">9.4.3. Initiating a business process</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6985">9.4.4. Task assignment</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e6996">9.4.5. Task lists</a></span></dt><dt><span class="section"><a href="jbpm.html#d0e7028">9.4.6. Performing a task</a></span></dt></dl></dd></dl></div><p>
         JBoss jBPM is a business process management engine for any Java SE or EE
         environment. jBPM lets you represent a business process or user 
         interaction as a graph of nodes representing wait states, decisions,
@@ -39,7 +39,7 @@
         data-driven that process-driven, you probably don't need jBPM. But we're
         finding that thinking of user interaction in terms of a well-defined graphical 
         representation is helping us build more robust applications.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6597"/>9.1. Pageflow in Seam</h2></div></div></div><p>
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6599"/>9.1. Pageflow in Seam</h2></div></div></div><p>
             There are two ways to define pageflow in Seam:
         </p><div class="itemizedlist"><ul><li><p>
 	            Using JSF or Seam navigation rules - the <span class="emphasis"><em>stateless navigation 
@@ -50,7 +50,7 @@
             Very simple applications will only need the stateless navigation 
             model. Very complex applications will use both models in different 
             places. Each model has its strengths and weaknesses!
-        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6617"/>9.1.1. The two navigation models</h3></div></div></div><p>
+        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6619"/>9.1.1. The two navigation models</h3></div></div></div><p>
             The stateless model defines a mapping from a set of named, logical
             outcomes of an event directly to the resulting page of the view.
             The navigation rules are entirely oblivious to any state held by
@@ -184,7 +184,7 @@
 	    </p><p>
 	        The biggest contrast between the two models is the back-button
 	        behavior.
-	    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6673"/>9.1.2. Seam and the back button</h3></div></div></div><p>
+	    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6675"/>9.1.2. Seam and the back button</h3></div></div></div><p>
 	        When JSF or Seam navigation rules are used, Seam lets the user freely 
 	        navigate via the back, forward and refresh buttons. It is the
 	        responsibility of the application to ensure that conversational
@@ -260,7 +260,7 @@
 </pre><p>
 	        In practice, both navigation models have their place, and you'll 
 	        quickly learn to recognize when to prefer one model over the other.
-	        </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6720"/>9.2. Using jPDL pageflows</h2></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6723"/>9.2.1. Installing pageflows</h3></div></div></div><p>
+	        </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6722"/>9.2. Using jPDL pageflows</h2></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6725"/>9.2.1. Installing pageflows</h3></div></div></div><p>
             We need to install the Seam jBPM-related components, and place the
             pageflow definitions (using the standard <code class="literal">.jpdl.xml</code>
             extension) inside a Seam archive (an archive which 
@@ -276,7 +276,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">pageflow.jpdl.xml</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">value</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bpm:pageflow-definitions</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">bpm:jbpm</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6743"/>9.2.2. Starting pageflows</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6745"/>9.2.2. Starting pageflows</h3></div></div></div><p>
             We "start" a jPDL-based pageflow by specifying the name of the
             process definition using a <code class="literal">@Begin</code>,
             <code class="literal">@BeginTask</code> or <code class="literal">@StartTask</code> 
@@ -318,7 +318,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">pageflow-definition</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6784"/>9.2.3. Page nodes and transitions</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6786"/>9.2.3. Page nodes and transitions</h3></div></div></div><p>
             Each <code class="literal">&lt;page&gt;</code> node represents a state where
             the system is waiting for user input:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -379,7 +379,7 @@
             However, this is considered an inferior style, since it moves responsibility for
             controlling the flow out of the pageflow definition and back into the other
             components. It is much better to centralize this concern in the pageflow itself.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6842"/>9.2.4. Controlling the flow</h3></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6844"/>9.2.4. Controlling the flow</h3></div></div></div><p>
             Usually, we don't need the more powerful features of jPDL when defining pageflows. 
             We do need the <code class="literal">&lt;decision&gt;</code> node, however:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -389,7 +389,7 @@
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">decision</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 </pre><p>
             A decision is made by evaluating a JSF EL expression in the Seam contexts.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6854"/>9.2.5. Ending the flow</h3></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6856"/>9.2.5. Ending the flow</h3></div></div></div><p>
             We end the conversation using <code class="literal">&lt;end-conversation&gt;</code>
             or <code class="literal">@End</code>. (In fact, for readability, use of 
             <span class="emphasis"><em>both</em></span> is encouraged.)
@@ -407,7 +407,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">redirect</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">end-task</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">transition</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;success&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6877"/>9.2.6. Pageflow composition</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6879"/>9.2.6. Pageflow composition</h3></div></div></div><p>
                 It is possible to compose pageflows and have one pageflow pause 
                 pause while another pageflow executes. The <code class="literal">&lt;process-state&gt;</code>
                 node pauses the outer pageflow, and begins execution of a named 
@@ -423,7 +423,7 @@
                 execution of the inner flow ends, and execution of the outer flow
                 resumes with the transition defined by the <code class="literal">&lt;process-state&gt;</code>
                 element.
-            </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6898"/>9.3. Business process management in Seam</h2></div></div></div><p>
+            </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6900"/>9.3. Business process management in Seam</h2></div></div></div><p>
             A business process is a well-defined set of tasks that must
             be performed by users or software systems according to 
             well-defined rules about <span class="emphasis"><em>who</em></span> can perform 
@@ -464,7 +464,7 @@
             a single <code class="literal">&lt;task&gt;</code> in a business process
             corresponds to a whole pageflow 
             <code class="literal">&lt;pageflow-definition&gt;</code>
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6938"/>9.4. Using jPDL business process definitions</h2></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6941"/>9.4.1. Installing process definitions</h3></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6940"/>9.4. Using jPDL business process definitions</h2></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6943"/>9.4.1. Installing process definitions</h3></div></div></div><p>
             We need to install jBPM, and tell it where to find the
             business process definitions:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -481,7 +481,7 @@
             the process to jBPM outside of Seam. In other words, only install
             process definitions from <code class="literal">components.xml</code> when
             developing your application.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6953"/>9.4.2. Initializing actor ids</h3></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6955"/>9.4.2. Initializing actor ids</h3></div></div></div><p>
             We always need to know what user is currently logged in.
             jBPM "knows" users by their <span class="emphasis"><em>actor id</em></span>
             and <span class="emphasis"><em>group actor ids</em></span>. We specify the
@@ -494,7 +494,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;actor</span><span class="java_separator">.</span><span class="java_plain">setId</span><span class="java_separator">(</span><span class="java_plain">&nbsp;user</span><span class="java_separator">.</span><span class="java_plain">getUserName</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_separator">);</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;actor</span><span class="java_separator">.</span><span class="java_plain">getGroupActorIds</span><span class="java_separator">().</span><span class="java_plain">addAll</span><span class="java_separator">(</span><span class="java_plain">&nbsp;user</span><span class="java_separator">.</span><span class="java_plain">getGroupNames</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_separator">);</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">...</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6969"/>9.4.3. Initiating a business process</h3></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6971"/>9.4.3. Initiating a business process</h3></div></div></div><p>
             To initiate a business process instance, we use the 
             <code class="literal">@CreateProcess</code> annotation:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">CreateProcess</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_plain">definition</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_literal">&quot;todo&quot;</span><!-- <br/> --><span class="java_separator">)</span>
@@ -502,7 +502,7 @@
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">create-process</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">definition</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;todo&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6983"/>9.4.4. Task assignment</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6985"/>9.4.4. Task assignment</h3></div></div></div><p>
             When a process reaches a task node, task instances are created. These must be 
             assigned to users or user groups. We can either hardcode our actor ids, or 
             delegate to a Seam component:
@@ -517,7 +517,7 @@
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">task</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;todo&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">description</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{todoList.description}&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">assignment</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">pooled-actors</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;employees&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">task</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6994"/>9.4.5. Task lists</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6996"/>9.4.5. Task lists</h3></div></div></div><p>
             Several built-in Seam components make it easy to display task lists. 
             The <code class="literal">pooledTaskInstanceList</code> is a list of pooled tasks 
             that users may assign to themselves:
@@ -554,7 +554,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">s:link</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">action</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{todoList.start}&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Start&nbsp;Work&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">taskInstance</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{task}&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:column</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:dataTable</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7026"/>9.4.6. Performing a task</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7028"/>9.4.6. Performing a task</h3></div></div></div><p>
             To begin work on a task, we use either <code class="literal">@StartTask</code>
             or <code class="literal">@BeginTask</code> on the listener method:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">StartTask</span>

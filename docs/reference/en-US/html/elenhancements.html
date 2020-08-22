@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 35. JBoss EL</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="controls.html" title="Chapter 34. Seam JSF controls"/><link rel="next" href="ClusteringAndEJBPassivation.html" title="Chapter 36. Clustering and EJB Passivation"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="controls.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ClusteringAndEJBPassivation.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="elenhancements"/>Chapter 35. JBoss EL</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="elenhancements.html#d0e29774">35.1. Parameterized Expressions</a></span></dt><dd><dl><dt><span class="section"><a href="elenhancements.html#d0e29802">35.1.1. Usage</a></span></dt><dt><span class="section"><a href="elenhancements.html#d0e29866">35.1.2. Limitations and Hints</a></span></dt></dl></dd><dt><span class="section"><a href="elenhancements.html#d0e29965">35.2. Projection</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 35. JBoss EL</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="controls.html" title="Chapter 34. Seam JSF controls"/><link rel="next" href="ClusteringAndEJBPassivation.html" title="Chapter 36. Clustering and EJB Passivation"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="controls.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="ClusteringAndEJBPassivation.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="elenhancements"/>Chapter 35. JBoss EL</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="elenhancements.html#d0e29798">35.1. Parameterized Expressions</a></span></dt><dd><dl><dt><span class="section"><a href="elenhancements.html#d0e29826">35.1.1. Usage</a></span></dt><dt><span class="section"><a href="elenhancements.html#d0e29890">35.1.2. Limitations and Hints</a></span></dt></dl></dd><dt><span class="section"><a href="elenhancements.html#d0e29989">35.2. Projection</a></span></dt></dl></div><p>
       Seam uses JBoss EL which provides an extension to the standard Unified 
       Expression Language (EL). JBoss EL provides a number of enhancements that 
       increase the expressiveness and power of EL expressions. 
-   </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e29774"/>35.1. Parameterized Expressions</h2></div></div></div><p>
+   </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e29798"/>35.1. Parameterized Expressions</h2></div></div></div><p>
          Standard EL 2.1 does not allow you to use a method with user defined 
          parameters — of course, JSF listener methods (e.g. a 
          <code class="literal">valueChangeListener</code>) take parameters provided by JSF.
@@ -28,7 +28,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">{</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">Book</span><span class="java_plain">&nbsp;the&nbsp;hotel</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
-<!--  --><br/><span class="java_separator">}</span></pre><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e29802"/>35.1.1. Usage</h3></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e29826"/>35.1.1. Usage</h3></div></div></div><p>
             Just as in calls to method from Java, parameters are surrounded by 
             parentheses, and separated by commas: 
          </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XHTML"><!-- XHTML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -80,7 +80,7 @@
             Parameters are also allowed. The following example calls the
             <code class="literal">productsByColorMethod</code> with a literal string 
             argument: 
-         </p><pre class="programlisting">#{controller.productsByColor('blue')}</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e29866"/>35.1.2. Limitations and Hints</h3></div></div></div><p> 
+         </p><pre class="programlisting">#{controller.productsByColor('blue')}</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e29890"/>35.1.2. Limitations and Hints</h3></div></div></div><p> 
             When using JBoss EL you should keep the following points in mind: 
          </p><div class="itemizedlist"><ul><li><p>
                   <span class="emphasis"><em>Incompatibility with JSP 2.1</em></span> — 
@@ -142,7 +142,7 @@
                   Both of these cases are exceedingly rare and only apply when 
                   you want to invoke the <code class="literal">MethodExpression</code> by 
                   hand in Java code. 
-               </p></li></ul></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e29965"/>35.2. Projection</h2></div></div></div><p>
+               </p></li></ul></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e29989"/>35.2. Projection</h2></div></div></div><p>
          JBoss EL supports a limited projection syntax. A projection expression 
          maps a sub-expression across a multi-valued (list, set, etc...) 
          expression. For instance, the expression: 

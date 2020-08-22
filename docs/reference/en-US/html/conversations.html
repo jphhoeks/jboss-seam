@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 8. Conversations and workspace management</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="events.html" title="Chapter 7. Events, interceptors and exception handling"/><link rel="next" href="jbpm.html" title="Chapter 9. Pageflows and business processes"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="events.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="jbpm.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="conversations"/>Chapter 8. Conversations and workspace management</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="conversations.html#d0e5810">8.1. Seam's conversation model</a></span></dt><dt><span class="section"><a href="conversations.html#d0e5909">8.2. Nested conversations</a></span></dt><dt><span class="section"><a href="conversations.html#d0e5949">8.3. Starting conversations with GET requests</a></span></dt><dt><span class="section"><a href="conversations.html#conversations.required">8.4. Requiring a long-running conversation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6097">8.5. Using &lt;s:link&gt; and &lt;s:button&gt;</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6201">8.6. Success messages</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6229">8.7. Natural conversation ids</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6263">8.8. Creating a natural conversation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6316">8.9. Redirecting to a natural conversation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6359">8.10. Workspace management</a></span></dt><dd><dl><dt><span class="section"><a href="conversations.html#d0e6374">8.10.1. Workspace management and JSF navigation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6395">8.10.2. Workspace management and jPDL pageflow</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6411">8.10.3. The conversation switcher</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6430">8.10.4. The conversation list</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6448">8.10.5. Breadcrumbs</a></span></dt></dl></dd><dt><span class="section"><a href="conversations.html#d0e6460">8.11. Conversational components and JSF component bindings</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6491">8.12. Concurrent calls to conversational components</a></span></dt><dd><dl><dt><span class="section"><a href="conversations.html#d0e6514">8.12.1. How should we design our conversational AJAX application?</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6530">8.12.2. Dealing with errors</a></span></dt></dl></dd></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 8. Conversations and workspace management</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="events.html" title="Chapter 7. Events, interceptors and exception handling"/><link rel="next" href="jbpm.html" title="Chapter 9. Pageflows and business processes"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="events.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="jbpm.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="conversations"/>Chapter 8. Conversations and workspace management</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="conversations.html#d0e5812">8.1. Seam's conversation model</a></span></dt><dt><span class="section"><a href="conversations.html#d0e5911">8.2. Nested conversations</a></span></dt><dt><span class="section"><a href="conversations.html#d0e5951">8.3. Starting conversations with GET requests</a></span></dt><dt><span class="section"><a href="conversations.html#conversations.required">8.4. Requiring a long-running conversation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6099">8.5. Using &lt;s:link&gt; and &lt;s:button&gt;</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6203">8.6. Success messages</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6231">8.7. Natural conversation ids</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6265">8.8. Creating a natural conversation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6318">8.9. Redirecting to a natural conversation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6361">8.10. Workspace management</a></span></dt><dd><dl><dt><span class="section"><a href="conversations.html#d0e6376">8.10.1. Workspace management and JSF navigation</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6397">8.10.2. Workspace management and jPDL pageflow</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6413">8.10.3. The conversation switcher</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6432">8.10.4. The conversation list</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6450">8.10.5. Breadcrumbs</a></span></dt></dl></dd><dt><span class="section"><a href="conversations.html#d0e6462">8.11. Conversational components and JSF component bindings</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6493">8.12. Concurrent calls to conversational components</a></span></dt><dd><dl><dt><span class="section"><a href="conversations.html#d0e6516">8.12.1. How should we design our conversational AJAX application?</a></span></dt><dt><span class="section"><a href="conversations.html#d0e6532">8.12.2. Dealing with errors</a></span></dt></dl></dd></dl></div><p>
         It's time to understand Seam's conversation model in more detail.
     </p><p>
         Historically, the notion of a Seam "conversation" came about as
@@ -30,7 +30,7 @@
         By unifying these ideas and providing deep support in the framework, 
         we have a powerful construct that lets us build richer and more efficient 
         applications with less code than before.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5810"/>8.1. Seam's conversation model</h2></div></div></div><p>
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5812"/>8.1. Seam's conversation model</h2></div></div></div><p>
         The examples we have seen so far make use of a very simple
         conversation model that follows these rules:
     </p><div class="itemizedlist"><ul><li><p>
@@ -149,7 +149,7 @@
             The user is able to switch between many conversations
             within the same browser window. This feature is called
             <span class="emphasis"><em>workspace management</em></span>.
-        </p></li></ul></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5909"/>8.2. Nested conversations</h2></div></div></div><p>
+        </p></li></ul></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5911"/>8.2. Nested conversations</h2></div></div></div><p>
             A nested conversation is created by invoking a method marked
             <code class="literal">@Begin(nested=true)</code> inside the scope of an
             existing conversation. A nested conversation has its own
@@ -204,7 +204,7 @@
             instance that exists in the parent conversation is invisible to
             its child conversations. You can achieve this behavior by 
             annotating the component <code class="literal">@PerNestedConversation</code>.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5949"/>8.3. Starting conversations with GET requests</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5951"/>8.3. Starting conversations with GET requests</h2></div></div></div><p>
             JSF does not define any kind of action listener that is triggered
             when a page is accessed via a non-faces request (for example, a
             HTTP GET request). This can occur if the user bookmarks the page,
@@ -309,7 +309,7 @@
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">pages</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">no-conversation-view-id</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/main.xhtml&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 </pre><p>
             At the moment, you can only define one such page for the entire application.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6097"/>8.5. Using <code class="literal">&lt;s:link&gt;</code> and <code class="literal">&lt;s:button&gt;</code></h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6099"/>8.5. Using <code class="literal">&lt;s:link&gt;</code> and <code class="literal">&lt;s:button&gt;</code></h2></div></div></div><p>
             JSF command links always perform a form submission via JavaScript, 
             which breaks the web browser's "open in new window" or "open in new tab"
             feature. In plain JSF, you need to use an <code class="literal">&lt;h:outputLink&gt;</code>
@@ -379,7 +379,7 @@
             Finally, if you need the "link" to be rendered as a button, use <code class="literal">&lt;s:button&gt;</code>:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XHTML"><!-- XHTML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">s:button</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">action</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{login.logout}&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Logout&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6201"/>8.6. Success messages</h2></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6203"/>8.6. Success messages</h2></div></div></div><p>
             It is quite common to display a message to the user indicating 
             success or failure of an action. It is convenient to use a JSF
             <code class="literal">FacesMessage</code> for this. Unfortunately, a
@@ -413,7 +413,7 @@
             You may display the messages in the usual way, for example:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XHTML"><!-- XHTML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:messages</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">globalOnly</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;true&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6229"/>8.7. Natural conversation ids</h2></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6231"/>8.7. Natural conversation ids</h2></div></div></div><p>
             When working with conversations that deal with persistent objects, it may be 
             desirable to use the natural business key of the object instead of the standard,
             "surrogate" conversation id:
@@ -455,7 +455,7 @@
                   http://seam-hotels/book/BestWesternAntwerpen.
                </p><p>
                   Much better!
-               </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6263"/>8.8. Creating a natural conversation</h2></div></div></div><p>
+               </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6265"/>8.8. Creating a natural conversation</h2></div></div></div><p>
                 Natural conversations are defined in <code class="literal">pages.xml</code>: 
             </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">conversation</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;PlaceBid&quot;</span><span class="xml_plain"></span><br />
@@ -493,7 +493,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">rule</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">navigation</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6316"/>8.9. Redirecting to a natural conversation</h2></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6318"/>8.9. Redirecting to a natural conversation</h2></div></div></div><p>
                 When starting, or redirecting to, a natural conversation there are a number
                 of options for specifying the natural conversation name.  Let's start by looking at
                 the following page definition:
@@ -529,7 +529,7 @@
               using either <code class="literal">s:link</code> or <code class="literal">s:button</code>:
             </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XHTML"><!-- XHTML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">s:link</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Place&nbsp;Bid&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">action</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{bidAction.placeBid}&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">conversationName</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;PlaceBid&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6359"/>8.10. Workspace management</h2></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6361"/>8.10. Workspace management</h2></div></div></div><p>
             Workspace management is the ability to "switch" conversations in
             a single window. Seam makes workspace management completely 
             transparent at the level of the Java code. To enable workspace
@@ -544,7 +544,7 @@
                 or Facelets fragments in your pages. The standard fragments
                 support workspace management via a drop down menu, a list
                 of conversations, or breadcrumbs.
-                </p></li></ul></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6374"/>8.10.1. Workspace management and JSF navigation</h3></div></div></div><p>
+                </p></li></ul></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6376"/>8.10.1. Workspace management and JSF navigation</h3></div></div></div><p>
                 When you use JSF or Seam navigation rules, Seam switches to a
                 conversation by restoring the current <code class="literal">view-id</code>
                 for that conversation. The descriptive text for the
@@ -570,7 +570,7 @@
                Note that if this file is missing, the Seam application will
                continue to work perfectly! The only missing functionality
                will be the ability to switch workspaces.
-           </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6395"/>8.10.2. Workspace management and jPDL pageflow</h3></div></div></div><p>
+           </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6397"/>8.10.2. Workspace management and jPDL pageflow</h3></div></div></div><p>
                 When you use a jPDL pageflow definition, Seam switches
                 to a conversation by restoring the current jBPM process
                 state. This is a more flexible model since it allows the
@@ -603,7 +603,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;</span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">pageflow-definition</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6411"/>8.10.3. The conversation switcher</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6413"/>8.10.3. The conversation switcher</h3></div></div></div><p>
                 Include the following fragment in your JSF page
                 to get a drop-down menu that lets you switch to any
                 current conversation, or to any other page of the application:
@@ -622,7 +622,7 @@
                 Only conversations with a description (specified in 
                 <code class="literal">pages.xml</code>) will be included in the drop-down 
                 menu.
-            </p><div class="mediaobject" align="center"><img src="images/switcher.png" align="middle"/></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6430"/>8.10.4. The conversation list</h3></div></div></div><p>
+            </p><div class="mediaobject" align="center"><img src="images/switcher.png" align="middle"/></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6432"/>8.10.4. The conversation list</h3></div></div></div><p>
                 The conversation list is very similar to the conversation switcher,
                 except that it is displayed as a table:
             </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XHTML"><!-- XHTML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -656,7 +656,7 @@
                 list.
             </p><p>
                 Notice that the conversation list lets the user destroy workspaces.
-            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6448"/>8.10.5. Breadcrumbs</h3></div></div></div><p>
+            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6450"/>8.10.5. Breadcrumbs</h3></div></div></div><p>
                 Breadcrumbs are useful in applications which use a nested conversation
                 model. The breadcrumbs are a list of links to conversations in the
                 current conversation stack:
@@ -665,7 +665,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:outputText</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;&nbsp;|&nbsp;&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain">&nbsp;</span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:commandLink</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{entry.description}&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">action</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{entry.select}&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">ui:repeat</span><span class="xml_plain"></span><br />
-</pre><div class="mediaobject" align="center"><img src="images/breadcrumbs.png" align="middle"/></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6460"/>8.11. Conversational components and JSF component bindings</h2></div></div></div><p>
+</pre><div class="mediaobject" align="center"><img src="images/breadcrumbs.png" align="middle"/></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6462"/>8.11. Conversational components and JSF component bindings</h2></div></div></div><p>
             Conversational components have one minor limitation: they cannot be used to hold bindings 
             to JSF components. (We generally prefer not to use this feature of JSF unless absolutely
             necessary, since it creates a hard dependency from application logic to the view.) On a 
@@ -709,7 +709,7 @@
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:dataTable</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 </pre><p>
           JSF UI components are available with their client identifier in this map.
-       </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6491"/>8.12. Concurrent calls to conversational components</h2></div></div></div><p>
+       </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e6493"/>8.12. Concurrent calls to conversational components</h2></div></div></div><p>
         A general discussion of concurrent calls to Seam components can be 
         found in <a class="xref" href="concepts.html#concurrency" title="5.1.10. Concurrency model">Section 5.1.10, “Concurrency model”</a>. Here we will discuss 
         the most common situation in which you will encounter concurrency 
@@ -761,7 +761,7 @@
         immediate) and the client then polls the server for updates.  This is 
         good approach when you have a long-running action for which it is 
         important that every action executes (you don't want some to timeout).
-      </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6514"/>8.12.1. How should we design our conversational AJAX application?</h3></div></div></div><p>
+      </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6516"/>8.12.1. How should we design our conversational AJAX application?</h3></div></div></div><p>
           Well first, you need to decide whether you want to use the simpler 
           "serial" request or whether you want to use a polling approach.
         </p><p>
@@ -795,7 +795,7 @@
 <!--  --><br/><span class="java_operator">//</span><span class="java_plain">&nbsp;</span><span class="java_type">It</span><span class="java_plain">'s&nbsp;very&nbsp;quick&nbsp;to&nbsp;execute</span>
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">int</span><span class="java_plain">&nbsp;getTotal</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">return</span><span class="java_plain">&nbsp;total</span><span class="java_separator">;</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6530"/>8.12.2. Dealing with errors</h3></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e6532"/>8.12.2. Dealing with errors</h3></div></div></div><p>
           However carefully you design your application to queue concurrent
           requests to your conversational component, there is a risk that the
           server will become overloaded and be unable to process all the

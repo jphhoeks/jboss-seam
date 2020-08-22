@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 16. Security</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="drools.html" title="Chapter 15. Seam and JBoss Rules"/><link rel="next" href="i18n.html" title="Chapter 17. Internationalization, localization and themes"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="drools.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="i18n.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="security"/>Chapter 16. Security</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="security.html#d0e8565">16.1. Overview</a></span></dt><dt><span class="sect1"><a href="security.html#d0e8591">16.2. Disabling Security</a></span></dt><dt><span class="sect1"><a href="security.html#d0e8617">16.3. Authentication</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e8622">16.3.1. Configuring an Authenticator component</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8652">16.3.2. Writing an authentication method</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8748">16.3.3. Writing a login form</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8772">16.3.4. Configuration Summary</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8790">16.3.5. Remember Me</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8869">16.3.6. Handling Security Exceptions</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8905">16.3.7. Login Redirection</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8927">16.3.8. HTTP Authentication</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8977">16.3.9. Advanced Authentication Features</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e9006">16.4. Identity Management</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e9027">16.4.1. Configuring IdentityManager</a></span></dt><dt><span class="sect2"><a href="security.html#d0e9098">16.4.2. JpaIdentityStore</a></span></dt><dt><span class="sect2"><a href="security.html#d0e9463">16.4.3. LdapIdentityStore</a></span></dt><dt><span class="sect2"><a href="security.html#d0e9995">16.4.4. Writing your own IdentityStore</a></span></dt><dt><span class="sect2"><a href="security.html#d0e10008">16.4.5. Authentication with Identity Management</a></span></dt><dt><span class="sect2"><a href="security.html#d0e10028">16.4.6. Using IdentityManager</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e11020">16.5. Error Messages</a></span></dt><dt><span class="sect1"><a href="security.html#d0e11103">16.6. Authorization</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e11111">16.6.1. Core concepts</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11147">16.6.2. Securing components</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11305">16.6.3. Security in the user interface</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11348">16.6.4. Securing pages</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11388">16.6.5. Securing Entities</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11551">16.6.6. Typesafe Permission Annotations</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11616">16.6.7. Typesafe Role Annotations</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11640">16.6.8. The Permission Authorization Model</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11898">16.6.9. RuleBasedPermissionResolver</a></span></dt><dt><span class="sect2"><a href="security.html#d0e12186">16.6.10. PersistentPermissionResolver</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e12987">16.7. Permission Management</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e12995">16.7.1. PermissionManager</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13216">16.7.2. Permission checks for PermissionManager operations</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e13402">16.8. SSL Security</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e13472">16.8.1. Overriding the default ports</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e13491">16.9. CAPTCHA</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e13517">16.9.1. Configuring the CAPTCHA Servlet</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13527">16.9.2. Adding a CAPTCHA to a form</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13542">16.9.3. Customising the CAPTCHA algorithm</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e13549">16.10. Security Events</a></span></dt><dt><span class="sect1"><a href="security.html#d0e13715">16.11. Run As</a></span></dt><dt><span class="sect1"><a href="security.html#d0e13762">16.12. Extending the Identity component</a></span></dt><dt><span class="sect1"><a href="security.html#d0e13790">16.13. OpenID</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e13805">16.13.1. Configuring OpenID</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13837">16.13.2. Presenting an OpenIdDLogin form</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13861">16.13.3. Logging in immediately</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13885">16.13.4. Deferring login</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13899">16.13.5. Logging out</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8565"/>16.1. Overview</h2></div></div></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 16. Security</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="drools.html" title="Chapter 15. Seam and JBoss Rules"/><link rel="next" href="i18n.html" title="Chapter 17. Internationalization, localization and themes"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="drools.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="i18n.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="security"/>Chapter 16. Security</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="security.html#d0e8567">16.1. Overview</a></span></dt><dt><span class="sect1"><a href="security.html#d0e8593">16.2. Disabling Security</a></span></dt><dt><span class="sect1"><a href="security.html#d0e8619">16.3. Authentication</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e8624">16.3.1. Configuring an Authenticator component</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8654">16.3.2. Writing an authentication method</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8750">16.3.3. Writing a login form</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8774">16.3.4. Configuration Summary</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8792">16.3.5. Remember Me</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8871">16.3.6. Handling Security Exceptions</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8907">16.3.7. Login Redirection</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8929">16.3.8. HTTP Authentication</a></span></dt><dt><span class="sect2"><a href="security.html#d0e8979">16.3.9. Advanced Authentication Features</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e9008">16.4. Identity Management</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e9029">16.4.1. Configuring IdentityManager</a></span></dt><dt><span class="sect2"><a href="security.html#d0e9100">16.4.2. JpaIdentityStore</a></span></dt><dt><span class="sect2"><a href="security.html#d0e9465">16.4.3. LdapIdentityStore</a></span></dt><dt><span class="sect2"><a href="security.html#d0e9997">16.4.4. Writing your own IdentityStore</a></span></dt><dt><span class="sect2"><a href="security.html#d0e10010">16.4.5. Authentication with Identity Management</a></span></dt><dt><span class="sect2"><a href="security.html#d0e10030">16.4.6. Using IdentityManager</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e11022">16.5. Error Messages</a></span></dt><dt><span class="sect1"><a href="security.html#d0e11105">16.6. Authorization</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e11113">16.6.1. Core concepts</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11149">16.6.2. Securing components</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11307">16.6.3. Security in the user interface</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11350">16.6.4. Securing pages</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11390">16.6.5. Securing Entities</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11553">16.6.6. Typesafe Permission Annotations</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11618">16.6.7. Typesafe Role Annotations</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11642">16.6.8. The Permission Authorization Model</a></span></dt><dt><span class="sect2"><a href="security.html#d0e11900">16.6.9. RuleBasedPermissionResolver</a></span></dt><dt><span class="sect2"><a href="security.html#d0e12188">16.6.10. PersistentPermissionResolver</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e12989">16.7. Permission Management</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e12997">16.7.1. PermissionManager</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13218">16.7.2. Permission checks for PermissionManager operations</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e13404">16.8. SSL Security</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e13474">16.8.1. Overriding the default ports</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e13493">16.9. CAPTCHA</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e13519">16.9.1. Configuring the CAPTCHA Servlet</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13529">16.9.2. Adding a CAPTCHA to a form</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13544">16.9.3. Customising the CAPTCHA algorithm</a></span></dt></dl></dd><dt><span class="sect1"><a href="security.html#d0e13551">16.10. Security Events</a></span></dt><dt><span class="sect1"><a href="security.html#d0e13717">16.11. Run As</a></span></dt><dt><span class="sect1"><a href="security.html#d0e13764">16.12. Extending the Identity component</a></span></dt><dt><span class="sect1"><a href="security.html#d0e13792">16.13. OpenID</a></span></dt><dd><dl><dt><span class="sect2"><a href="security.html#d0e13807">16.13.1. Configuring OpenID</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13839">16.13.2. Presenting an OpenIdDLogin form</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13863">16.13.3. Logging in immediately</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13887">16.13.4. Deferring login</a></span></dt><dt><span class="sect2"><a href="security.html#d0e13901">16.13.5. Logging out</a></span></dt></dl></dd></dl></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8567"/>16.1. Overview</h2></div></div></div><p>
       The Seam Security API provides a multitude of security-related features for your Seam-based application, covering 
       such areas as:
     </p><div class="itemizedlist"><ul><li><p>
@@ -21,7 +21,7 @@
           And much more
         </p></li></ul></div><p>
       This chapter will cover each of these features in detail.
-    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8591"/>16.2. Disabling Security</h2></div></div></div><p>
+    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8593"/>16.2. Disabling Security</h2></div></div></div><p>
       In some situations it may be necessary to disable Seam Security, for instances during unit tests or because you
       are using a different approach to security, such as native JAAS. Simply call the static method
       <code class="literal">Identity.setSecurityEnabled(false)</code> to disable the security infrastructure. Of course, it's not
@@ -32,11 +32,11 @@
       the plethora of options you have for giving your user an identity in the eyes of the security model
       (authentication) and locking down the application by establishing constraints (authorization). Let's begin with
       the task of authentication since that's the foundation of any security model.
-    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8617"/>16.3. Authentication</h2></div></div></div><p>
+    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e8619"/>16.3. Authentication</h2></div></div></div><p>
       The authentication features provided by Seam Security are built upon JAAS (Java Authentication and Authorization Service),
       and as such provide a robust and highly configurable API for handling user authentication.  However, for less complex
       authentication requirements Seam offers a much more simplified method of authentication that hides the complexity of JAAS.
-    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8622"/>16.3.1. Configuring an Authenticator component</h3></div></div></div><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>
+    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8624"/>16.3.1. Configuring an Authenticator component</h3></div></div></div><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>Note</h2><p>
           If you use Seam's Identity Management features (discussed later in this chapter) then it is not necessary to create
           an authenticator component (and you can skip this section).
         </p></div><p>
@@ -62,7 +62,7 @@
         The EL expression <code class="literal">#{authenticator.authenticate}</code> is a method binding that indicates
         the <code class="literal">authenticate</code> method of the <code class="literal">authenticator</code> component will be used
         to authenticate the user.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8652"/>16.3.2. Writing an authentication method</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8654"/>16.3.2. Writing an authentication method</h3></div></div></div><p>
         The <code class="literal">authenticate-method</code> property specified for <code class="literal">identity</code> in
         <code class="literal">components.xml</code> specifies which method will be used by <code class="literal">SeamLoginModule</code>
         to authenticate users.  This method takes no parameters, and is expected to return a boolean, which indicates
@@ -113,7 +113,7 @@
            failed authentication should be written by implementing an event observer.  See the section on
            Security Events further down in this chapter for more information about which events are
            raised by Seam Security.
-        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8709"/>16.3.2.1. Identity.addRole()</h4></div></div></div><p>
+        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8711"/>16.3.2.1. Identity.addRole()</h4></div></div></div><p>
           The <code class="literal">Identity.addRole()</code> method behaves differently depending on whether the current
           session is authenticated or not.  If the session is not authenticated, then <code class="literal">addRole()</code>
           should <span class="emphasis"><em>only</em></span> be called during the authentication process.  When called here, the
@@ -125,7 +125,7 @@
         </p><div class="mediaobject" align="center"><img src="images/security-addrole.png" align="middle"/></div><p>
           If the current session is already authenticated, then calling <code class="literal">Identity.addRole()</code> will
           have the expected effect of immediately granting the specified role to the current user.
-        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8736"/>16.3.2.2. Writing an event observer for security-related events</h4></div></div></div><p>
+        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8738"/>16.3.2.2. Writing an event observer for security-related events</h4></div></div></div><p>
           Say for example, that upon a successful login that some user statistics must be
           updated.  This would be done by writing an event observer for the
           <code class="literal">org.jboss.seam.security.loginSuccessful</code> event, like this:
@@ -139,7 +139,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span></pre><p>
           This observer method can be placed anywhere, even in the Authenticator component itself.
           You can find more information about security-related events later in this chapter.
-        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8748"/>16.3.3. Writing a login form</h3></div></div></div><p>
+        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8750"/>16.3.3. Writing a login form</h3></div></div></div><p>
         The <code class="literal">credentials</code> component provides both <code class="literal">username</code> and <code class="literal">password</code>
         properties, catering for the most common authentication scenario. These properties can be bound directly to the
         username and password fields on a login form.  Once these properties are set, calling 
@@ -162,7 +162,7 @@
 </pre><p>
         Similarly, logging out the user is done by calling <code class="literal">#{identity.logout}</code>. Calling this
         action will clear the security state of the currently authenticated user, and invalidate the user's session.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8772"/>16.3.4. Configuration Summary</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8774"/>16.3.4. Configuration Summary</h3></div></div></div><p>
         So to sum up, there are the three easy steps to configure authentication:
       </p><div class="itemizedlist"><ul><li><p>
             Configure an authentication method in <code class="literal">components.xml</code>.
@@ -170,7 +170,7 @@
             Write an authentication method.
           </p></li><li><p>
             Write a login form so that the user can authenticate.
-          </p></li></ul></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8790"/>16.3.5. Remember Me</h3></div></div></div><p>
+          </p></li></ul></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8792"/>16.3.5. Remember Me</h3></div></div></div><p>
         Seam Security supports the same kind of "Remember Me" functionality that is commonly encountered in many
         online web-based applications.  It is actually supported in two different "flavours", or modes - the first
         mode allows the username to be stored in the user's browser as a cookie, and leaves the entering of the
@@ -218,7 +218,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:outputLabel</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">for</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;rememberMe&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;Remember&nbsp;me&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:selectBooleanCheckbox</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">id</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;rememberMe&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{rememberMe.enabled}&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">div</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8811"/>16.3.5.1. Token-based Remember-me Authentication</h4></div></div></div><p>
+</pre><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8813"/>16.3.5.1. Token-based Remember-me Authentication</h4></div></div></div><p>
           To use the automatic, token-based mode of the remember me feature, you must first configure a token store.  The
           most common scenario is to store these authentication tokens within a database (which Seam supports), however it 
           is possible to implement your own token store by implementing the <code class="literal">org.jboss.seam.security.TokenStore</code>
@@ -293,7 +293,7 @@
 <span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">event</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">type</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.seam.security.loginSuccessful&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">action</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">execute</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{redirect.returnToCapturedView}&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">event</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8869"/>16.3.6. Handling Security Exceptions</h3></div></div></div><p>
+</pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8871"/>16.3.6. Handling Security Exceptions</h3></div></div></div><p>
         To prevent users from receiving the default error page in response to a security error, it's recommended that
         <code class="literal">pages.xml</code> is configured to redirect security errors to a more "pretty" page.  The two
         main types of exceptions thrown by the security API are:
@@ -331,7 +331,7 @@
 </pre><p>
         Most web applications require even more sophisticated handling of login redirection, so
         Seam includes some special functionality for handling this problem.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8905"/>16.3.7. Login Redirection</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8907"/>16.3.7. Login Redirection</h3></div></div></div><p>
         You can ask Seam to redirect the user to a login screen when an unauthenticated user tries
         to access a particular view (or wildcarded view id) as follows:
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -363,7 +363,7 @@
 </pre><p>
         Note that login redirection is implemented as a conversation-scoped mechanism, so don't end
         the conversation in your <code class="literal">authenticate()</code> method.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8927"/>16.3.8. HTTP Authentication</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8929"/>16.3.8. HTTP Authentication</h3></div></div></div><p>
         Although not recommended for use unless absolutely necessary, Seam provides means for authenticating
         using either HTTP Basic or HTTP Digest (RFC 2617) methods.  To use either form of authentication,
         the <code class="literal">authentication-filter</code> component must be enabled in components.xml:
@@ -382,7 +382,7 @@
 </pre><p>
         The <code class="literal">key</code> can be any String value.  The <code class="literal">realm</code> is the name of the
         authentication realm that is presented to the user when they authenticate.
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8964"/>16.3.8.1. Writing a Digest Authenticator</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8966"/>16.3.8.1. Writing a Digest Authenticator</h4></div></div></div><p>
           If using digest authentication, your authenticator class should extend the abstract class
           <code class="literal">org.jboss.seam.security.digest.DigestAuthenticator</code>, and use the
           <code class="literal">validatePassword()</code> method to validate the user's plain text password
@@ -404,10 +404,10 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">return</span><span class="java_plain">&nbsp;</span><span class="java_literal">false</span><span class="java_separator">;</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
-<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8977"/>16.3.9. Advanced Authentication Features</h3></div></div></div><p>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8979"/>16.3.9. Advanced Authentication Features</h3></div></div></div><p>
         This section explores some of the advanced features provided by the security API for addressing more complex
         security requirements.
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8982"/>16.3.9.1. Using your container's JAAS configuration</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e8984"/>16.3.9.1. Using your container's JAAS configuration</h4></div></div></div><p>
           If you would rather not use the simplified JAAS configuration provided by the Seam Security API, you may
           instead delegate to the default system JAAS configuration by providing a <code class="literal">jaas-config-name</code>
           property in <code class="literal">components.xml</code>.  For example, if you are using JBoss AS and wish to use
@@ -419,7 +419,7 @@
           Please keep in mind that doing this does not mean that your user will be authenticated in whichever
           container your Seam application is deployed in.  It merely instructs Seam Security to authenticate
           itself using the configured JAAS security policy.
-        </p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e9006"/>16.4. Identity Management</h2></div></div></div><p>
+        </p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e9008"/>16.4. Identity Management</h2></div></div></div><p>
       Identity Management provides a standard API for the management of a Seam application's users and roles,
       regardless of which identity store (database, LDAP, etc) is used on the backend.  At the center
       of the Identity Management API is the <code class="literal">identityManager</code> component, which provides 
@@ -429,7 +429,7 @@
       Before it may be used, the <code class="literal">identityManager</code> must first be configured with one or more
       <code class="literal">IdentityStore</code>s.  These components do the actual work of interacting with the backend
       security provider, whether it be a database, LDAP server, or something else.
-    </p><div class="mediaobject" align="center"><img src="images/security-identitymanager.png" align="middle"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9027"/>16.4.1. Configuring IdentityManager</h3></div></div></div><p>    
+    </p><div class="mediaobject" align="center"><img src="images/security-identitymanager.png" align="middle"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9029"/>16.4.1. Configuring IdentityManager</h3></div></div></div><p>    
         The <code class="literal">identityManager</code> component allows for separate identity stores to be configured 
         for authentication and authorization operations.  This means that it is possible for users to
         be authenticated against one identity store, for example an LDAP directory, yet have their roles 
@@ -465,12 +465,12 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 </pre><p>
         The following sections explain both of these identity store implementations in greater detail.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9098"/>16.4.2. JpaIdentityStore</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9100"/>16.4.2. JpaIdentityStore</h3></div></div></div><p>
         This identity store allows for users and roles to be stored inside a relational database.  It is designed 
         to be as unrestrictive as possible in regards to database schema design, allowing a great deal of 
         flexibility in the underlying table structure.  This is achieved through the use of a set of special
         annotations, allowing entity beans to be configured to store user and role records.  
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9103"/>16.4.2.1. Configuring JpaIdentityStore</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9105"/>16.4.2.1. Configuring JpaIdentityStore</h4></div></div></div><p>
           <code class="literal">JpaIdentityStore</code> requires that both the <code class="literal">user-class</code> and 
           <code class="literal">role-class</code> properties are configured.  These properties should refer to the
           entity classes that are to be used to store both user and role records, respectively.  The following
@@ -481,10 +481,10 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">user-class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.seam.example.seamspace.MemberAccount&quot;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">role-class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;org.jboss.seam.example.seamspace.MemberRole&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
-</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9122"/>16.4.2.2. Configuring the Entities</h4></div></div></div><p>
+</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9124"/>16.4.2.2. Configuring the Entities</h4></div></div></div><p>
           As already mentioned, a set of special annotations are used to configure entity beans for storing
           users and roles.  The following table lists each of the annotations, and their descriptions.
-        </p><div class="table"><a id="d0e9127"/><p class="title"><b>Table 16.1. User Entity Annotations</b></p><div class="table-contents"><table summary="User Entity Annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+        </p><div class="table"><a id="d0e9129"/><p class="title"><b>Table 16.1. User Entity Annotations</b></p><div class="table-contents"><table summary="User Entity Annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                   <p>Annotation</p>
                 </th><th align="center">
                   <p>Status</p>
@@ -565,7 +565,7 @@
                     This annotation marks the field or method containing the roles of the user.  This property will be described in 
                     more detail further down.
                   </p>
-                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e9290"/><p class="title"><b>Table 16.2. Role Entity Annotations</b></p><div class="table-contents"><table summary="Role Entity Annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+                </td></tr></tbody></table></div></div><br class="table-break"/><div class="table"><a id="d0e9292"/><p class="title"><b>Table 16.2. Role Entity Annotations</b></p><div class="table-contents"><table summary="Role Entity Annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                   <p>Annotation</p>
                 </th><th align="center">
                   <p>Status</p>
@@ -602,11 +602,11 @@
                     This annotation marks the field or method indicating whether the role is conditional or not.
                     Conditional roles are explained later in this chapter.
                   </p>
-                </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9372"/>16.4.2.3. Entity Bean Examples</h4></div></div></div><p>
+                </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9374"/>16.4.2.3. Entity Bean Examples</h4></div></div></div><p>
           As mentioned previously, <code class="literal">JpaIdentityStore</code> is designed to be as flexible as possible when
           it comes to the database schema design of your user and role tables.  This section looks at a number of
           possible database schemas that can be used to store user and role records.
-        </p><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9380"/>16.4.2.3.1. Minimal schema example</h5></div></div></div><p>
+        </p><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9382"/>16.4.2.3.1. Minimal schema example</h5></div></div></div><p>
             In this bare minimal example, a simple user and role table are linked via a
             many-to-many relationship using a cross-reference table named <code class="literal">UserRoles</code>.
           </p><div class="mediaobject" align="center"><img src="images/security-entities-1.png" align="middle"/></div><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Entity</span>
@@ -647,7 +647,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;@</span><span class="java_type">RoleName</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">String</span><span class="java_plain">&nbsp;getRolename</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_keyword">return</span><span class="java_plain">&nbsp;rolename</span><span class="java_separator">;</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;setRolename</span><span class="java_separator">(</span><span class="java_type">String</span><span class="java_plain">&nbsp;rolename</span><span class="java_separator">)</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_keyword">this</span><span class="java_separator">.</span><span class="java_plain">rolename&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;rolename</span><span class="java_separator">;</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9397"/>16.4.2.3.2. Complex Schema Example</h5></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9399"/>16.4.2.3.2. Complex Schema Example</h5></div></div></div><p>
             This example builds on the above minimal example by including all of the optional fields, and allowing
             group memberships for roles.
           </p><div class="mediaobject" align="center"><img src="images/security-entities-2.png" align="middle"/></div><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Entity</span>
@@ -717,33 +717,33 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">Set</span><span class="java_operator">&lt;</span><span class="java_type">Role</span><span class="java_operator">&gt;</span><span class="java_plain">&nbsp;getGroups</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_keyword">return</span><span class="java_plain">&nbsp;groups</span><span class="java_separator">;</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;setGroups</span><span class="java_separator">(</span><span class="java_type">Set</span><span class="java_operator">&lt;</span><span class="java_type">Role</span><span class="java_operator">&gt;</span><span class="java_plain">&nbsp;groups</span><span class="java_separator">)</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_keyword">this</span><span class="java_separator">.</span><span class="java_plain">groups&nbsp;</span><span class="java_operator">=</span><span class="java_plain">&nbsp;groups</span><span class="java_separator">;</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span><span class="java_plain">&nbsp;&nbsp;</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9411"/>16.4.2.4. JpaIdentityStore Events</h4></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9413"/>16.4.2.4. JpaIdentityStore Events</h4></div></div></div><p>
           When using <code class="literal">JpaIdentityStore</code> as the identity store implementation with <code class="literal">IdentityManager</code>,
           a few events are raised as a result of invoking certain <code class="literal">IdentityManager</code> methods.
-        </p><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9425"/>16.4.2.4.1. JpaIdentityStore.EVENT_PRE_PERSIST_USER</h5></div></div></div><p>
+        </p><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9427"/>16.4.2.4.1. JpaIdentityStore.EVENT_PRE_PERSIST_USER</h5></div></div></div><p>
             This event is raised in response to calling <code class="literal">IdentityManager.createUser()</code>.  Just before the user
             entity is persisted to the database, this event will be raised passing the entity instance as an event parameter.  
             The entity will be an instance of the <code class="literal">user-class</code> configured for <code class="literal">JpaIdentityStore</code>.            
           </p><p>
             Writing an observer for this event may be useful for setting additional field values on the entity, which aren't set
             as part of the standard <code class="literal">createUser()</code> functionality.
-          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9444"/>16.4.2.4.2. JpaIdentityStore.EVENT_USER_CREATED</h5></div></div></div><p>
+          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9446"/>16.4.2.4.2. JpaIdentityStore.EVENT_USER_CREATED</h5></div></div></div><p>
             This event is also raised in response to calling <code class="literal">IdentityManager.createUser()</code>.  However, it is 
             raised after the user entity has already been persisted to the database.  Like the <code class="literal">EVENT_PRE_PERSIST_USER</code>
             event, it also passes the entity instance as an event parameter.  It may be useful to observe this event if you also
             need to persist other entities that reference the user entity, for example contact detail records or other user-specific
             data.
-          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9455"/>16.4.2.4.3. JpaIdentityStore.EVENT_USER_AUTHENTICATED</h5></div></div></div><p>
+          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e9457"/>16.4.2.4.3. JpaIdentityStore.EVENT_USER_AUTHENTICATED</h5></div></div></div><p>
             This event is raised when calling <code class="literal">IdentityManager.authenticate()</code>.  It passes the user entity instance
             as the event parameter, and is useful for reading additional properties from the user entity that is being authenticated.
-          </p></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9463"/>16.4.3. LdapIdentityStore</h3></div></div></div><p>
+          </p></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9465"/>16.4.3. LdapIdentityStore</h3></div></div></div><p>
         This identity store implementation is designed for working with user records stored in an LDAP directory.  It is very
         highly configurable, allowing great flexibility in how both users and roles are stored in the directory.  The following
         sections describe the configuration options for this identity store, and provide some configuration examples.
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9468"/>16.4.3.1. Configuring LdapIdentityStore</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9470"/>16.4.3.1. Configuring LdapIdentityStore</h4></div></div></div><p>
           The following table describes the available properties that can be configured in <code class="literal">components.xml</code> for
           <code class="literal">LdapIdentityStore</code>.
-        </p><div class="table"><a id="d0e9479"/><p class="title"><b>Table 16.3. LdapIdentityStore Configuration Properties</b></p><div class="table-contents"><table summary="LdapIdentityStore Configuration Properties" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+        </p><div class="table"><a id="d0e9481"/><p class="title"><b>Table 16.3. LdapIdentityStore Configuration Properties</b></p><div class="table-contents"><table summary="LdapIdentityStore Configuration Properties" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                   <p>Property</p>
                 </th><th align="center">
                   <p>Default Value</p>
@@ -982,7 +982,7 @@
                   <p>
                     The security level to use.  Possible values are "none", "simple" and "strong".
                   </p>
-                </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9964"/>16.4.3.2. LdapIdentityStore Configuration Example</h4></div></div></div><p>
+                </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e9966"/>16.4.3.2. LdapIdentityStore Configuration Example</h4></div></div></div><p>
           The following configuration example shows how <code class="literal">LdapIdentityStore</code> may be configured for
           an LDAP directory running on fictional host <code class="literal">directory.mycompany.com</code>.  The users are stored
           within this directory under the context <code class="literal">ou=Person,dc=mycompany,dc=com</code>, and are identified
@@ -1008,7 +1008,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">user-object-classes</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;person,uidObject&quot;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">enabled-attribute</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;enabled&quot;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
-</pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9995"/>16.4.4. Writing your own IdentityStore</h3></div></div></div><p>
+</pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e9997"/>16.4.4. Writing your own IdentityStore</h3></div></div></div><p>
         Writing your own identity store implementation allows you to authenticate and perform identity management
         operations against security providers that aren't supported out of the box by Seam.  Only a single class is 
         required to achieve this, and it must implement the
@@ -1016,21 +1016,21 @@
       </p><p>
         Please refer to the JavaDoc for <code class="literal">IdentityStore</code> for a description of the methods that
         must be implemented.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e10008"/>16.4.5. Authentication with Identity Management</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e10010"/>16.4.5. Authentication with Identity Management</h3></div></div></div><p>
         If you are using the Identity Management features in your Seam application, then it is not required
         to provide an authenticator component (see previous Authentication section) to enable authentication.
         Simply omit the <code class="literal">authenticate-method</code> from the <code class="literal">identity</code> configuration
         in <code class="literal">components.xml</code>, and the <code class="literal">SeamLoginModule</code> will by default
         use <code class="literal">IdentityManager</code> to authenticate your application's users, without any special
         configuration required.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e10028"/>16.4.6. Using IdentityManager</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e10030"/>16.4.6. Using IdentityManager</h3></div></div></div><p>
         The <code class="literal">IdentityManager</code> can be accessed either by injecting it into your Seam
         component as follows:
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">&nbsp;&nbsp;@</span><!-- <br/> --><span class="java_type">In</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">IdentityManager</span><!-- <br/> --><span class="java_plain">&nbsp;identityManager</span><!-- <br/> --><span class="java_separator">;</span></pre><p>
         or by accessing it through its static <code class="literal">instance()</code> method:
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">&nbsp;&nbsp;</span><!-- <br/> --><span class="java_type">IdentityManager</span><!-- <br/> --><span class="java_plain">&nbsp;identityManager&nbsp;</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">IdentityManager</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">instance</span><!-- <br/> --><span class="java_separator">();</span></pre><p>
         The following table describes <code class="literal">IdentityManager</code>'s API methods:
-      </p><div class="table"><a id="d0e10050"/><p class="title"><b>Table 16.4. Identity Management API</b></p><div class="table-contents"><table summary="Identity Management API" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e10052"/><p class="title"><b>Table 16.4. Identity Management API</b></p><div class="table-contents"><table summary="Identity Management API" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Method</p>
               </th><th align="center">
                 <p>Returns</p>
@@ -1303,7 +1303,7 @@
         Using the Identity Management API requires that the calling user has the appropriate authorization to invoke
         its methods.  The following table describes the permission requirements for each of the methods in
         <code class="literal">IdentityManager</code>.  The permission targets listed below are literal String values.
-      </p><div class="table"><a id="d0e10613"/><p class="title"><b>Table 16.5. Identity Management Security Permissions</b></p><div class="table-contents"><table summary="Identity Management Security Permissions" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e10615"/><p class="title"><b>Table 16.5. Identity Management Security Permissions</b></p><div class="table-contents"><table summary="Identity Management Security Permissions" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Method</p>
               </th><th align="center">
                 <p>Permission Target</p>
@@ -1511,12 +1511,12 @@ when
 then
   check.grant();
 end
-</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e11020"/>16.5. Error Messages</h2></div></div></div><p>
+</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e11022"/>16.5. Error Messages</h2></div></div></div><p>
       The security API produces a number of default faces messages for various security-related events.
       The following table lists the message keys that can be used to override these messages by specifying
       them in a <code class="literal">message.properties</code> resource file.  To suppress the message, just put the
       key with an empty value in the resource file.
-    </p><div class="table"><a id="d0e11028"/><p class="title"><b>Table 16.6. Security Message Keys</b></p><div class="table-contents"><table summary="Security Message Keys" border="1"><colgroup><col/><col/></colgroup><thead><tr><th align="center">
+    </p><div class="table"><a id="d0e11030"/><p class="title"><b>Table 16.6. Security Message Keys</b></p><div class="table-contents"><table summary="Security Message Keys" border="1"><colgroup><col/><col/></colgroup><thead><tr><th align="center">
               <p>Message Key</p>
             </th><th align="center">
               <p>Description</p>
@@ -1554,23 +1554,23 @@ end
               <p>
                 This message is produced when a user that is already authenticated attempts to log in again.
               </p>
-            </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e11103"/>16.6. Authorization</h2></div></div></div><p>
+            </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e11105"/>16.6. Authorization</h2></div></div></div><p>
       There are a number of authorization mechanisms provided by the Seam Security API for securing access to
       components, component methods, and pages.  This section describes each of these.  An important thing to
       note is that if you wish to use any of the advanced features (such as rule-based permissions) then
       your <code class="literal">components.xml</code> may need to be configured to support this - see the Configuration section
       above.
-    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11111"/>16.6.1. Core concepts</h3></div></div></div><p>
+    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11113"/>16.6.1. Core concepts</h3></div></div></div><p>
         Seam Security is built around the premise of users being granted roles and/or permissions, allowing them to
         perform operations that may not otherwise be permissible for users without the necessary security privileges.
         Each of the authorization mechanisms provided by the Seam Security API are built upon this core concept of roles and
         permissions, with an extensible framework providing multiple ways to secure application resources.
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11116"/>16.6.1.1. What is a role?</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11118"/>16.6.1.1. What is a role?</h4></div></div></div><p>
           A role is a <span class="emphasis"><em>group</em></span>, or <span class="emphasis"><em>type</em></span>, of user that may have been granted certain 
           privileges for performing one or more specific actions within an application.  They are simple constructs, consisting 
           of just a name such as "admin", "user", "customer", etc.  They can be granted either to users (or in some cases to other 
           roles), and are used to create logical groups of users for the convenient assignment of specific application privileges.
-        </p><div class="mediaobject" align="center"><img src="images/security-roleclass.png" align="middle"/></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11132"/>16.6.1.2. What is a permission?</h4></div></div></div><p>
+        </p><div class="mediaobject" align="center"><img src="images/security-roleclass.png" align="middle"/></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11134"/>16.6.1.2. What is a permission?</h4></div></div></div><p>
           A permission is a privilege (sometimes once-off) for performing a single, specific action.  It is entirely possible to 
           build an application using nothing but permissions, however roles offer a higher level of convenience when granting 
           privileges to groups of users.  They are slightly more complex in structure than roles, essentially consisting of three 
@@ -1581,14 +1581,14 @@ end
         </p><div class="mediaobject" align="center"><img src="images/security-permissionclass.png" align="middle"/></div><p>
           Within this documentation, permissions are generally represented in the form <code class="literal">target:action</code> 
           (omitting the recipient, although in reality one is always required).
-        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11147"/>16.6.2. Securing components</h3></div></div></div><p>
+        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11149"/>16.6.2. Securing components</h3></div></div></div><p>
         Let's start by examining the simplest form of authorization, component security, starting with the
         <code class="literal">@Restrict</code> annotation.
       </p><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="note"><h2>@Restrict vs Typesafe security annotations</h2><p>
           While using the <code class="literal">@Restrict</code> annotation provides a powerful and flexible method for security component methods
           due to its ability to support EL expressions, it is recommended that the typesafe equivalent (described later) be
           used, at least for the compile-time safety it provides.
-        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11163"/>16.6.2.1. The @Restrict annotation</h4></div></div></div><p>
+        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11165"/>16.6.2.1. The @Restrict annotation</h4></div></div></div><p>
           Seam components may be secured either at the method or the class level, using the <code class="literal">@Restrict</code>
           annotation.  If both a method and it's declaring class are annotated with <code class="literal">@Restrict</code>,
           the method restriction will take precedence (and the class restriction will not apply).  If a method
@@ -1646,7 +1646,7 @@ end
           looked up from within the Seam context, and passed to the <code class="literal">hasPermission()</code> method
           in <code class="literal">Identity</code>, which in this case can then determine if the user has the required
           permission for modifying the specified <code class="literal">Account</code> object.
-        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11264"/>16.6.2.2. Inline restrictions</h4></div></div></div><p>
+        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11266"/>16.6.2.2. Inline restrictions</h4></div></div></div><p>
           Sometimes it might be desirable to perform a security check in code, without using the
           <code class="literal">@Restrict</code> annotation.  In this situation, simply use
           <code class="literal">Identity.checkRestriction()</code> to evaluate a security expression, like this:
@@ -1667,7 +1667,7 @@ end
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">throw</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">AuthorizationException</span><span class="java_separator">(</span><span class="java_literal">&quot;Must&nbsp;be&nbsp;admin&nbsp;to&nbsp;perform&nbsp;this&nbsp;action&quot;</span><span class="java_separator">);</span>
 </span>
 <!--  --><br/><span class="java_keyword">if</span><span class="java_plain">&nbsp;</span><span class="java_separator">(</span><span class="java_operator">!</span><span class="java_type">Identity</span><span class="java_separator">.</span><span class="java_plain">instance</span><span class="java_separator">().</span><span class="java_plain">hasPermission</span><span class="java_separator">(</span><span class="java_literal">&quot;customer&quot;</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">&quot;create&quot;</span><span class="java_separator">))</span>
-<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">throw</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">AuthorizationException</span><span class="java_separator">(</span><span class="java_literal">&quot;You&nbsp;may&nbsp;not&nbsp;create&nbsp;new&nbsp;customers&quot;</span><span class="java_separator">);</span></pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11305"/>16.6.3. Security in the user interface</h3></div></div></div><p>
+<!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">throw</span><span class="java_plain">&nbsp;</span><span class="java_keyword">new</span><span class="java_plain">&nbsp;</span><span class="java_type">AuthorizationException</span><span class="java_separator">(</span><span class="java_literal">&quot;You&nbsp;may&nbsp;not&nbsp;create&nbsp;new&nbsp;customers&quot;</span><span class="java_separator">);</span></pre></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11307"/>16.6.3. Security in the user interface</h3></div></div></div><p>
         One indication of a well designed user interface is that the user is not presented with options for
         which they don't have the necessary privileges to use.  Seam Security allows conditional rendering of
         either 1) sections of a page or 2) individual controls, based upon the privileges of the user, using
@@ -1715,7 +1715,7 @@ end
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">rendered</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{s:hasPermission(cl,'delete')}&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:column</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:dataTable</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11348"/>16.6.4. Securing pages</h3></div></div></div><p>
+</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11350"/>16.6.4. Securing pages</h3></div></div></div><p>
         Page security requires that the application is using a <code class="literal">pages.xml</code> file, however is
         extremely simple to configure.  Simply include a <code class="literal">&lt;restrict/&gt;</code> element within
         the <code class="literal">page</code> elements that you wish to secure.  If no explicit restriction is specified
@@ -1738,7 +1738,7 @@ end
 </pre><p>
         Both faces and non-faces requests to this page require that the user is a member of the
         <code class="literal">admin</code> role.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11388"/>16.6.5. Securing Entities</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11390"/>16.6.5. Securing Entities</h3></div></div></div><p>
         Seam security also makes it possible to apply security restrictions to read, insert, update and
         delete actions for entities.
       </p><p>
@@ -1817,7 +1817,7 @@ end;</pre><p>
        </p><p>
          Finally, we need to install a listener class that integrates Seam security with
          your JPA provider.
-       </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11527"/>16.6.5.1. Entity security with JPA</h4></div></div></div><p>
+       </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11529"/>16.6.5.1. Entity security with JPA</h4></div></div></div><p>
           Security checks for EJB3 entity beans are performed with an <code class="literal">EntityListener</code>.
           You can install this listener by using the following <code class="literal">META-INF/orm.xml</code> file:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -1836,11 +1836,11 @@ end;</pre><p>
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">persistence-unit-metadata</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">entity-mappings</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11540"/>16.6.5.2. Entity security with a Managed Hibernate Session</h4></div></div></div><p>
+</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11542"/>16.6.5.2. Entity security with a Managed Hibernate Session</h4></div></div></div><p>
           If you are using a Hibernate <code class="literal">SessionFactory</code> configured via Seam,
           and are using annotations, or <code class="literal">orm.xml</code>, then you don't
           need to do anything special to use entity security.
-        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11551"/>16.6.6. Typesafe Permission Annotations</h3></div></div></div><p>
+        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11553"/>16.6.6. Typesafe Permission Annotations</h3></div></div></div><p>
         Seam provides a number of annotations that may be used as an alternative to <code class="literal">@Restrict</code>, which have
         the added advantage of providing compile-time safety as they don't support arbitrary EL expressions in the same way 
         that <code class="literal">@Restrict</code> does.
@@ -1876,7 +1876,7 @@ end;</pre><p>
 <!--  --><br/><span class="java_separator">}</span></pre><p>
         If you wish to override the default permission action name (which is the lower case version of the annotation name) with
         another value, you can specify it within the <code class="literal">@PermissionCheck</code> annotation:
-      </p><pre class="programlisting">@PermissionCheck("upgrade")</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11616"/>16.6.7. Typesafe Role Annotations</h3></div></div></div><p>
+      </p><pre class="programlisting">@PermissionCheck("upgrade")</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11618"/>16.6.7. Typesafe Role Annotations</h3></div></div></div><p>
         In addition to supporting typesafe permission annotation, Seam Security also provides typesafe role annotations that
         allow you to restrict access to component methods based on the role memberships of the currently authenticated user.
         Seam provides one such annotation out of the box, <code class="literal">org.jboss.seam.annotations.security.Admin</code>, used
@@ -1893,23 +1893,23 @@ public @interface User {
         Any methods subsequently annotated with the <code class="literal">@User</code> annotation as shown in the above example
         will be automatically intercepted and the user checked for the membership of the corresponding role name
         (which is the lower case version of the annotation name, in this case <code class="literal">user</code>).
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11640"/>16.6.8. The Permission Authorization Model</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11642"/>16.6.8. The Permission Authorization Model</h3></div></div></div><p>
         Seam Security provides an extensible framework for resolving application permissions.  The following class diagram
         shows an overview of the main components of the permission framework:
       </p><div class="mediaobject" align="center"><img src="images/security-permission-classdiagram.png" align="middle"/></div><p>
         The relevant classes are explained in more detail in the following sections.
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11652"/>16.6.8.1. PermissionResolver</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11654"/>16.6.8.1. PermissionResolver</h4></div></div></div><p>
           This is actually an interface, which provides methods for resolving individual object permissions.  Seam provides
           the following built-in <code class="literal">PermissionResolver</code> implementations, which are described in more detail later
           in the chapter:
         </p><div class="itemizedlist"><ul><li><p><code class="literal">RuleBasedPermissionResolver</code> - This permission resolver uses Drools to resolve rule-based
             permission checks.</p></li><li><p><code class="literal">PersistentPermissionResolver</code> - This permission resolver stores object permissions in a
-            persistent store, such as a relational database.</p></li></ul></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e11671"/>16.6.8.1.1. Writing your own PermissionResolver</h5></div></div></div><p>
+            persistent store, such as a relational database.</p></li></ul></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e11673"/>16.6.8.1.1. Writing your own PermissionResolver</h5></div></div></div><p>
             It is very simple to implement your own permission resolver.  The <code class="literal">PermissionResolver</code>
             interface defines only two methods that must be implemented, as shown by the following table.  By deploying
             your own <code class="literal">PermissionResolver</code> implementation in your Seam project, it will be automatically
             scanned during deployment and registered with the default <code class="literal">ResolverChain</code>.
-          </p><div class="table"><a id="d0e11685"/><p class="title"><b>Table 16.7. PermissionResolver interface</b></p><div class="table-contents"><table summary="PermissionResolver interface" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+          </p><div class="table"><a id="d0e11687"/><p class="title"><b>Table 16.7. PermissionResolver interface</b></p><div class="table-contents"><table summary="PermissionResolver interface" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                     <p>Return type</p>
                   </th><th align="center">
                     <p>Method</p>
@@ -1952,7 +1952,7 @@ public @interface User {
               injection as they may be accessed from multiple threads simultaneously.  In fact, for
               performance reasons it is recommended that they are annotated with 
               <code class="literal">@BypassInterceptors</code> to bypass Seam's interceptor stack altogether.
-            </p></div></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11787"/>16.6.8.2. ResolverChain</h4></div></div></div><p>
+            </p></div></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11789"/>16.6.8.2. ResolverChain</h4></div></div></div><p>
           A <code class="literal">ResolverChain</code> contains an ordered list of <code class="literal">PermissionResolver</code>s, for the
           purpose of resolving object permissions for a particular object class or permission target.
         </p><p>
@@ -1989,16 +1989,16 @@ public @interface User {
               <code class="literal">PermissionMapper</code> also returns <code class="literal">true</code> to <code class="literal">Identity</code>.
               If none of the <code class="literal">PermissionResolver</code>s return true, then the permission check
               has failed.
-            </p></li></ul></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11898"/>16.6.9. RuleBasedPermissionResolver</h3></div></div></div><p>
+            </p></li></ul></div></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e11900"/>16.6.9. RuleBasedPermissionResolver</h3></div></div></div><p>
         One of the built-in permission resolvers provided by Seam, <code class="literal">RuleBasedPermissionResolver</code> 
         allows permissions to be evaluated based on a set of Drools (JBoss Rules) security rules.  A couple of the 
         advantages of using a rule engine are 1) a centralized location for the business logic that is used to
         evaluate user permissions, and 2) speed - Drools uses very efficient algorithms for evaluating large 
         numbers of complex rules involving multiple conditions.        
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11906"/>16.6.9.1. Requirements</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11908"/>16.6.9.1. Requirements</h4></div></div></div><p>
           If using the rule-based permission features provided by Seam Security, the following jar files are required by Drools
           to be distributed with your project:
-        </p><div class="itemizedlist"><ul><li><p>knowledge-api.jar</p></li><li><p>drools-compiler.jar</p></li><li><p>drools-core.jar</p></li><li><p>drools-decisiontables.jar</p></li><li><p>drools-templates.jar</p></li><li><p>janino.jar</p></li><li><p>antlr-runtime.jar</p></li><li><p>mvel2.jar</p></li></ul></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11936"/>16.6.9.2. Configuration</h4></div></div></div><p>
+        </p><div class="itemizedlist"><ul><li><p>knowledge-api.jar</p></li><li><p>drools-compiler.jar</p></li><li><p>drools-core.jar</p></li><li><p>drools-decisiontables.jar</p></li><li><p>drools-templates.jar</p></li><li><p>janino.jar</p></li><li><p>antlr-runtime.jar</p></li><li><p>mvel2.jar</p></li></ul></div></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11938"/>16.6.9.2. Configuration</h4></div></div></div><p>
           The configuration for <code class="literal">RuleBasedPermissionResolver</code> requires that a Drools rule base is first
           configured in <code class="literal">components.xml</code>.  By default, it expects that the rule base is named
           <code class="literal">securityRules</code>, as per the following example:       
@@ -2027,7 +2027,7 @@ public @interface User {
         </p><pre class="programlisting">
   &lt;security:rule-based-permission-resolver security-rules="#{prodSecurityRules}"/&gt;</pre><p>
           Once the <code class="literal">RuleBase</code> component is configured, it's time to write the security rules.
-        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11967"/>16.6.9.3. Writing Security Rules</h4></div></div></div><p>
+        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e11969"/>16.6.9.3. Writing Security Rules</h4></div></div></div><p>
           The first step to writing security rules is to create a new rule file in the <code class="literal">/META-INF</code>
           directory of your application's jar file.  Usually this file would be named something like 
           <code class="literal">security.drl</code>, however you can name it whatever you like as long as it is configured
@@ -2118,7 +2118,7 @@ public @interface User {
           <code class="literal">granted</code> property to <code class="literal">true</code>, which means that the permission
           check was successful, allowing the user to carry out whatever action the permission check was
           intended for.
-        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12149"/>16.6.9.4. Non-String permission targets</h4></div></div></div><p>
+        </p></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12151"/>16.6.9.4. Non-String permission targets</h4></div></div></div><p>
           So far we have only seen permission checks for String-literal permission targets.  It is of course also
           possible to write security rules for permission targets of more complex types.  For example, let's say that you wish
           to write a security rule to allow your users to create blog comments.  The following rule demonstrates
@@ -2135,7 +2135,7 @@ when
 then
   check.grant();
 end
-</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12162"/>16.6.9.5. Wildcard permission checks</h4></div></div></div><p>
+</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12164"/>16.6.9.5. Wildcard permission checks</h4></div></div></div><p>
           It is possible to implement a wildcard permission check (which allows all actions for a given permission
           target), by omitting the <code class="literal">action</code> constraint for the <code class="literal">PermissionCheck</code> in
           your rule, like this:
@@ -2149,26 +2149,26 @@ end;
         </pre><p>
           This rule allows users with the <code class="literal">admin</code> role to perform <span class="emphasis"><em>any</em></span> action for
           any <code class="literal">customer</code> permission check.
-        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e12186"/>16.6.10. PersistentPermissionResolver</h3></div></div></div><p>
+        </p></div></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e12188"/>16.6.10. PersistentPermissionResolver</h3></div></div></div><p>
         Another built-in permission resolver provided by Seam, <code class="literal">PersistentPermissionResolver</code>
         allows permissions to be loaded from persistent storage, such as a relational database.  This permission 
         resolver provides ACL style instance-based security, allowing for specific object permissions to be assigned
         to individual users and roles.  It also allows for persistent, arbitrarily-named permission targets (not 
         necessarily object/class based) to be assigned in the same way.
-      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12194"/>16.6.10.1. Configuration</h4></div></div></div><p>
+      </p><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12196"/>16.6.10.1. Configuration</h4></div></div></div><p>
           Before it can be used, <code class="literal">PersistentPermissionResolver</code> must be configured with a
           valid <code class="literal">PermissionStore</code> in <code class="literal">components.xml</code>.  If not configured,
           it will attempt to use the default permission store, <code class="literal">JpaIdentityStore</code> (see section
           further down for details).  To use a permission store other than the default, configure the
           <code class="literal">permission-store</code> property as follows:
-        </p><pre class="programlisting">  &lt;security:persistent-permission-resolver permission-store="#{myCustomPermissionStore}"/&gt;</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12216"/>16.6.10.2. Permission Stores</h4></div></div></div><p>
+        </p><pre class="programlisting">  &lt;security:persistent-permission-resolver permission-store="#{myCustomPermissionStore}"/&gt;</pre></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12218"/>16.6.10.2. Permission Stores</h4></div></div></div><p>
           A permission store is required for <code class="literal">PersistentPermissionResolver</code> to connect to the
           backend storage where permissions are persisted.  Seam provides one <code class="literal">PermissionStore</code>
           implementation out of the box, <code class="literal">JpaPermissionStore</code>, which is used to store
           permissions inside a relational database.  It is possible to write your own permission store
           by implementing the <code class="literal">PermissionStore</code> interface, which defines the following
           methods:
-        </p><div class="table"><a id="d0e12233"/><p class="title"><b>Table 16.8. PermissionStore interface</b></p><div class="table-contents"><table summary="PermissionStore interface" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+        </p><div class="table"><a id="d0e12235"/><p class="title"><b>Table 16.8. PermissionStore interface</b></p><div class="table-contents"><table summary="PermissionStore interface" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                   <p>Return type</p>
                 </th><th align="center">
                   <p>Method</p>
@@ -2279,7 +2279,7 @@ end;
                     specified target object.  It is used in conjunction with permission management to build the user
                     interface for granting specific class permissions (see section further down).
                   </p>
-                </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12467"/>16.6.10.3. JpaPermissionStore</h4></div></div></div><p>
+                </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect3" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e12469"/>16.6.10.3. JpaPermissionStore</h4></div></div></div><p>
           This is the default <code class="literal">PermissionStore</code> implementation (and the only one provided by Seam), which 
           uses a relational database to store permissions.  Before it can be used it must be configured with either one or 
           two entity classes for storing user and role permissions.  These entity classes must be annotated with a special 
@@ -2295,11 +2295,11 @@ end;
 </pre><p>To configure separate entity classes for storing user and role permissions:</p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">security:jpa-permission-store</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">user-permission-class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;com.acme.model.UserPermission&quot;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">role-permission-class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;com.acme.model.RolePermission&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
-</pre><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12494"/>16.6.10.3.1. Permission annotations</h5></div></div></div><p>
+</pre><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12496"/>16.6.10.3.1. Permission annotations</h5></div></div></div><p>
             As mentioned, the entity classes that contain the user and role permissions must be configured with a
             special set of annotations, contained within the <code class="literal">org.jboss.seam.annotations.security.permission</code> package.
             The following table lists each of these annotations along with a description of how they are used:
-          </p><div class="table"><a id="d0e12502"/><p class="title"><b>Table 16.9. Entity Permission annotations</b></p><div class="table-contents"><table summary="Entity Permission annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+          </p><div class="table"><a id="d0e12504"/><p class="title"><b>Table 16.9. Entity Permission annotations</b></p><div class="table-contents"><table summary="Entity Permission annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                     <p>Annotation</p>
                   </th><th align="center">
                     <p>Target</p>
@@ -2378,7 +2378,7 @@ end;
                     
                     <pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">PermissionDiscriminator</span>
 <!--  --><br/><span class="java_separator">(</span><span class="java_plain">userValue</span><span class="java_operator">=</span><span class="java_literal">&quot;u&quot;</span><span class="java_separator">,</span><span class="java_plain">&nbsp;roleValue</span><span class="java_operator">=</span><span class="java_literal">&quot;r&quot;</span><span class="java_separator">)</span></pre>
-                  </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12676"/>16.6.10.3.2. Example Entity</h5></div></div></div><p>
+                  </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12678"/>16.6.10.3.2. Example Entity</h5></div></div></div><p>
             Here is an example of an entity class that is used to store both user and role permissions.  The following class can be found
             inside the SeamSpace example:
           </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"></span>
@@ -2443,11 +2443,11 @@ end;
             <code class="literal">@PermissionUser</code> and <code class="literal">@PermissionRole</code> annotations.  This is perfectly valid,
             and simply means that the <code class="literal">recipient</code> property of the entity will either contain the name
             of the user or the name of the role, depending on the value of the <code class="literal">discriminator</code> property.
-          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12709"/>16.6.10.3.3. Class-specific Permission Configuration</h5></div></div></div><p>
+          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12711"/>16.6.10.3.3. Class-specific Permission Configuration</h5></div></div></div><p>
             A further set of class-specific annotations can be used to configure a specific set of allowable permissions
             for a target class.  These permissions can be found in the <code class="literal">org.jboss.seam.annotation.security.permission</code>
             package:
-          </p><div class="table"><a id="d0e12717"/><p class="title"><b>Table 16.10. Class Permission Annotations</b></p><div class="table-contents"><table summary="Class Permission Annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+          </p><div class="table"><a id="d0e12719"/><p class="title"><b>Table 16.10. Class Permission Annotations</b></p><div class="table-contents"><table summary="Class Permission Annotations" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                     <p>Annotation</p>
                   </th><th align="center">
                     <p>Target</p>
@@ -2489,7 +2489,7 @@ end;
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">MemberImage</span><span class="java_plain">&nbsp;</span><span class="java_keyword">implements</span><span class="java_plain">&nbsp;</span><span class="java_type">Serializable</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span></pre><p>
             This example demonstrates how two allowable permission actions, <code class="literal">view</code> and <code class="literal">comment</code> 
             can be declared for the entity class <code class="literal">MemberImage</code>.
-          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12810"/>16.6.10.3.4. Permission masks</h5></div></div></div><p>
+          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12812"/>16.6.10.3.4. Permission masks</h5></div></div></div><p>
             By default, multiple permissions for the same target object and recipient will be persisted as a single database record,
             with the <code class="literal">action</code> property/column containing a comma-separated list of the granted actions.  To reduce
             the amount of physical storage required to persist a large number of permissions, it is possible to use a bitmasked
@@ -2510,7 +2510,7 @@ end;
             is greatly reduced by using bitmasked actions.
           </p><p>
             Obviously, it is very important that the <code class="literal">mask</code> values specified are powers of 2.
-          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12847"/>16.6.10.3.5. Identifier Policy</h5></div></div></div><p>
+          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12849"/>16.6.10.3.5. Identifier Policy</h5></div></div></div><p>
             When storing or looking up permissions, <code class="literal">JpaPermissionStore</code> must be able to uniquely identify specific
             object instances to effectively operate on its permissions.  To achieve this, an <span class="emphasis"><em>identifier strategy</em></span> 
             may be assigned to each target class for the generation of unique identifier values.  Each identifier strategy
@@ -2534,7 +2534,7 @@ end;
             a concrete implementation of the <code class="literal">IdentifierStrategy</code> interface.  An optional <code class="literal">name</code>
             property can also be specified, the effect of which is dependent upon the actual <code class="literal">IdentifierStrategy</code>
             implementation used.
-          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12901"/>16.6.10.3.6. ClassIdentifierStrategy</h5></div></div></div><p>
+          </p></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12903"/>16.6.10.3.6. ClassIdentifierStrategy</h5></div></div></div><p>
             This identifier strategy is used to generate unique identifiers for classes, and will use the value of the 
             <code class="literal">name</code> (if specified) in the <code class="literal">@Identifier</code> annotation.  If there is no
             <code class="literal">name</code> property provided, then it will attempt to use the component name of the class
@@ -2547,7 +2547,7 @@ end;
           </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Name</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_literal">&quot;customerAction&quot;</span><!-- <br/> --><span class="java_separator">)</span>
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">CustomerAction</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span></pre><p>
             Finally, the identifier for the following class will be "<code class="literal">Customer</code>":
-          </p><pre class="programlisting">public class Customer { </pre></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12934"/>16.6.10.3.7. EntityIdentifierStrategy</h5></div></div></div><p>
+          </p><pre class="programlisting">public class Customer { </pre></div><div class="sect4" lang="en-US"><div class="titlepage"><div><div><h5 class="title"><a id="d0e12936"/>16.6.10.3.7. EntityIdentifierStrategy</h5></div></div></div><p>
             This identifier strategy is used to generate unique identifiers for entity beans.  It does so by
             concatenating the entity name (or otherwise configured name) with a string representation of the
             primary key value of the entity.  The rules for generating the name section of the identifier are 
@@ -2583,11 +2583,11 @@ end;
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">Customer</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span></pre><p>
             Then a <code class="literal">Customer</code> with an <code class="literal">id</code> value of <code class="literal">123</code>
             would have an identifier value of "<code class="literal">cust:123</code>".
-          </p></div></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e12987"/>16.7. Permission Management</h2></div></div></div><p>
+          </p></div></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e12989"/>16.7. Permission Management</h2></div></div></div><p>
       In much the same way that Seam Security provides an Identity Management API for the management of users and roles,
       it also provides a Permissions Management API for the management of persistent user permissions, via the
       <code class="literal">PermissionManager</code> component.
-    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e12995"/>16.7.1. PermissionManager</h3></div></div></div><p>
+    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e12997"/>16.7.1. PermissionManager</h3></div></div></div><p>
         The <code class="literal">PermissionManager</code> component is an application-scoped Seam component that provides a number of 
         methods for managing permissions.  Before it can be used, it must be configured with a permission store (although by
         default it will attempt to use <code class="literal">JpaPermissionStore</code> if it is available).  To explicitly configure a
@@ -2598,7 +2598,7 @@ end;
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 </pre><p>
         The following table describes each of the available methods provided by <code class="literal">PermissionManager</code>: 
-      </p><div class="table"><a id="d0e13016"/><p class="title"><b>Table 16.11. PermissionManager API methods</b></p><div class="table-contents"><table summary="PermissionManager API methods" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e13018"/><p class="title"><b>Table 16.11. PermissionManager API methods</b></p><div class="table-contents"><table summary="PermissionManager API methods" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Return type</p>
               </th><th align="center">
                 <p>Method</p>
@@ -2696,11 +2696,11 @@ end;
                   method returns are dependent on the <code class="literal">@Permission</code> annotations configured on the 
                   target object's class.
                 </p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13216"/>16.7.2. Permission checks for PermissionManager operations</h3></div></div></div><p>
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13218"/>16.7.2. Permission checks for PermissionManager operations</h3></div></div></div><p>
         Invoking the methods of <code class="literal">PermissionManager</code> requires that the currently-authenticated user
         has the appropriate authorization to perform that management operation.  The following table lists the required
         permissions that the current user must have.
-      </p><div class="table"><a id="d0e13224"/><p class="title"><b>Table 16.12. Permission Management Security Permissions</b></p><div class="table-contents"><table summary="Permission Management Security Permissions" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e13226"/><p class="title"><b>Table 16.12. Permission Management Security Permissions</b></p><div class="table-contents"><table summary="Permission Management Security Permissions" border="1"><colgroup><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Method</p>
               </th><th align="center">
                 <p>Permission Target</p>
@@ -2780,7 +2780,7 @@ end;
                 <p>
                   <code class="literal">seam.revoke-permission</code>
                 </p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13402"/>16.8. SSL Security</h2></div></div></div><p>
+              </td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13404"/>16.8. SSL Security</h2></div></div></div><p>
       Seam includes basic support for serving sensitive pages via the HTTPS protocol.  This is easily
       configured by specifying a <code class="literal">scheme</code> for the page in <code class="literal">pages.xml</code>.
       The following example shows how the view <code class="literal">/login.xhtml</code> is configured to use
@@ -2819,7 +2819,7 @@ end;
 </pre><p>
       This option helps make your system less vulnerable to sniffing of the session id or leakage of
       sensitive data from pages using HTTPS to other pages using HTTP.
-    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13472"/>16.8.1. Overriding the default ports</h3></div></div></div><p>
+    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13474"/>16.8.1. Overriding the default ports</h3></div></div></div><p>
         If you wish to configure the HTTP and HTTPS ports manually, they may be configured in 
         <code class="literal">pages.xml</code> by specifying the <code class="literal">http-port</code> and
         <code class="literal">https-port</code> attributes on the <code class="literal">pages</code> element:
@@ -2833,12 +2833,12 @@ end;
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">http-port</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;8080&quot;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_attribute_name">https-port</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;8443&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
-</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13491"/>16.9. CAPTCHA</h2></div></div></div><p>
+</pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13493"/>16.9. CAPTCHA</h2></div></div></div><p>
       Though strictly not part of the security API, Seam provides a built-in CAPTCHA (<span class="emphasis"><em>C</em></span>ompletely
       <span class="emphasis"><em>A</em></span>utomated <span class="emphasis"><em>P</em></span>ublic <span class="emphasis"><em>T</em></span>uring test to tell
       <span class="emphasis"><em>C</em></span>omputers and <span class="emphasis"><em>H</em></span>umans <span class="emphasis"><em>A</em></span>part) algorithm to
       prevent automated processes from interacting with your application.
-    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13517"/>16.9.1. Configuring the CAPTCHA Servlet</h3></div></div></div><p>
+    </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13519"/>16.9.1. Configuring the CAPTCHA Servlet</h3></div></div></div><p>
         To get up and running, it is necessary to configure the Seam Resource Servlet, which will provide the Captcha
         challenge images to your pages.  This requires the following entry in <code class="literal">web.xml</code>:
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -2851,7 +2851,7 @@ end;
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">servlet-name</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">Seam&nbsp;Resource&nbsp;Servlet</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">servlet-name</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">url-pattern</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">/seam/resource/*</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">url-pattern</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">servlet-mapping</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13527"/>16.9.2. Adding a CAPTCHA to a form</h3></div></div></div><p>
+</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13529"/>16.9.2. Adding a CAPTCHA to a form</h3></div></div></div><p>
         Adding a CAPTCHA challenge to a form is extremely easy. Here's an example:
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XHTML"><!-- XHTML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:graphicImage</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/seam/resource/captcha&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
@@ -2863,7 +2863,7 @@ end;
         That's all there is to it.  The <code class="literal">graphicImage</code> control displays the CAPTCHA challenge,
         and the <code class="literal">inputText</code> receives the user's response. The response is automatically
         validated against the CAPTCHA when the form is submitted.
-      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13542"/>16.9.3. Customising the CAPTCHA algorithm</h3></div></div></div><p>
+      </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13544"/>16.9.3. Customising the CAPTCHA algorithm</h3></div></div></div><p>
         You may customize the CAPTCHA algorithm by overriding the built-in component:
       </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Name</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_literal">&quot;org.jboss.seam.captcha.captcha&quot;</span><!-- <br/> --><span class="java_separator">)</span>
 <!--  --><br/><span class="java_plain">@</span><span class="java_type">Scope</span><span class="java_separator">(</span><span class="java_plain">SESSION</span><span class="java_separator">)</span>
@@ -2883,10 +2883,10 @@ end;
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;img</span><span class="java_separator">.</span><span class="java_plain">getGraphics</span><span class="java_separator">().</span><span class="java_plain">drawOval</span><span class="java_separator">(</span><span class="java_literal">5</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">3</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">60</span><span class="java_separator">,</span><span class="java_plain">&nbsp;</span><span class="java_literal">14</span><span class="java_separator">);</span><span class="java_plain">&nbsp;</span><span class="java_operator">//</span><span class="java_plain">add&nbsp;an&nbsp;obscuring&nbsp;decoration</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">return</span><span class="java_plain">&nbsp;img</span><span class="java_separator">;</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13549"/>16.10. Security Events</h2></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13551"/>16.10. Security Events</h2></div></div></div><p>
       The following table describes a number of events (see <a class="xref" href="events.html" title="Chapter 7. Events, interceptors and exception handling">Chapter 7, <i>Events, interceptors and exception handling</i></a>) raised by Seam Security
       in response to certain security-related events.
-    </p><div class="table"><a id="d0e13556"/><p class="title"><b>Table 16.13. Security Events</b></p><div class="table-contents"><table summary="Security Events" border="1"><colgroup><col/><col/></colgroup><thead><tr><th align="center">
+    </p><div class="table"><a id="d0e13558"/><p class="title"><b>Table 16.13. Security Events</b></p><div class="table-contents"><table summary="Security Events" border="1"><colgroup><col/><col/></colgroup><thead><tr><th align="center">
               <p>Event Key</p>
             </th><th align="center">
               <p>Description</p>
@@ -2970,7 +2970,7 @@ end;
               <p>
                 Raised when the Identity's rememberMe property is changed.
               </p>
-            </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13715"/>16.11. Run As</h2></div></div></div><p>
+            </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13717"/>16.11. Run As</h2></div></div></div><p>
         Sometimes it may be necessary to perform certain operations with elevated privileges, such
         as creating a new user account as an unauthenticated user.  Seam Security supports such a
         mechanism via the <code class="literal">RunAsOperation</code> class.  This class allows either the
@@ -2992,7 +2992,7 @@ end;
         <code class="literal">Subject</code> instances to use for the duration of the operation.
         Finally, the <code class="literal">run()</code> method is used to carry out the 
         <code class="literal">RunAsOperation</code>.
-    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13762"/>16.12. Extending the Identity component</h2></div></div></div><p>
+    </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13764"/>16.12. Extending the Identity component</h2></div></div></div><p>
       Sometimes it might be necessary to extend the Identity component if your application has
       special security requirements.  The following example (contrived, as credentials would normally
       be handled by the <code class="literal">Credentials</code> component instead) shows an extended Identity 
@@ -3029,7 +3029,7 @@ end;
         Note that an <code class="literal">Identity</code> component must be marked <code class="literal">@Startup</code>, so that it is
         available immediately after the <code class="literal">SESSION</code> context begins.  Failing to do this may render
         certain Seam functionality inoperable in your application.
-      </p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13790"/>16.13. OpenID</h2></div></div></div><p>
+      </p></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e13792"/>16.13. OpenID</h2></div></div></div><p>
             OpenID is a community standard for external web-based authentication. The basic
             idea is that any web application can supplement (or replace) its local handling of
             authentication by delegating responsibility to an external OpenID server of the user's
@@ -3049,7 +3049,7 @@ end;
             use that information.  The web application could treat the user as instantly logged in and give full access to the system or
             it could try and map the presented OpenID to a local user account, prompting the user to register if he hasn't already.
             The choice of how to handle the OpenID is left as a design decision for the local application.  
-        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13805"/>16.13.1. Configuring OpenID</h3></div></div></div><p>
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13807"/>16.13.1. Configuring OpenID</h3></div></div></div><p>
                 Seam uses the openid4java package and requires four additional JARs to make use of the Seam integration.  These 
                 are: <code class="literal">htmlparser.jar</code>, <code class="literal">openid4java.jar</code>, <code class="literal">openxri-client.jar</code> 
                 and <code class="literal">openxri-syntax.jar</code>.
@@ -3065,7 +3065,7 @@ end;
                 With this configuration, OpenID support is available to your application.
                 The OpenID support component, <code class="literal">org.jboss.seam.security.openid.openid</code>, is installed automatically if the openid4java
                 classes are on the classpath.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13837"/>16.13.2. Presenting an OpenIdDLogin form</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13839"/>16.13.2. Presenting an OpenIdDLogin form</h3></div></div></div><p>
                  To initiate an OpenID login, you can present a simply form to the user asking for the user's OpenID.  The <code class="literal">#{openid.id}</code> 
                   value 
                  accepts the user's OpenID and the <code class="literal">#{openid.login}</code> action initiates an authentication request.
@@ -3079,7 +3079,7 @@ end;
                 return to your application through the Seam pseudo-view <code class="literal">/openid.xhtml</code>, which is
                 provided by the <code class="literal">OpenIdPhaseListener</code>. Your application can handle the OpenID response by means 
                 of a <code class="literal">pages.xml</code> navigation from that view, just as if the user had never left your application.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13861"/>16.13.3. Logging in immediately</h3></div></div></div><p> The simplest strategy is to simply login the user immediately.  The following navigation rule shows how to handle this using
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13863"/>16.13.3. Logging in immediately</h3></div></div></div><p> The simplest strategy is to simply login the user immediately.  The following navigation rule shows how to handle this using
         the <code class="literal">#{openid.loginImmediately()}</code> action.
     </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">page</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">view-id</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/openid.xhtml&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
@@ -3101,7 +3101,7 @@ end;
             and returns true.  If the OpenID was not validated, the method returns false, and the user re-enters the application un-authenticated.
             If the user's OpenID is valid, it will be accessible using the expression <code class="literal">#{openid.validatedId}</code> and 
             <code class="literal">#{openid.valid}</code> will be true.
-        </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13885"/>16.13.4. Deferring login</h3></div></div></div><p>
+        </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13887"/>16.13.4. Deferring login</h3></div></div></div><p>
                 You may not want the user to be immediately logged in to your application.  In that case, your navigation
                 should check the <code class="literal">#{openid.valid}</code> property and redirect the user to a local registration or processing
                 page.  Actions you might take would be asking for more information and creating a local user account or presenting a captcha 
@@ -3109,7 +3109,7 @@ end;
                 the <code class="literal">loginImmediately</code> method, either through EL as shown previously or by directly interaction with the 
                 <code class="literal">org.jboss.seam.security.openid.OpenId</code> component.  Of course, nothing prevents you from writing custom 
                 code to interact with the Seam identity component on your own for even more customized behaviour.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13899"/>16.13.5. Logging out</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e13901"/>16.13.5. Logging out</h3></div></div></div><p>
                 Logging out (forgetting an OpenID association) is done by calling <code class="literal">#{openid.logout}</code>.  If you
                 are not using Seam security, you can call this method directly.  If you are using Seam security, you should
                 continue to use <code class="literal">#{identity.logout}</code> and install an event handler to capture the logout event, calling 

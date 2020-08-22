@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 18. Seam Text</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="i18n.html" title="Chapter 17. Internationalization, localization and themes"/><link rel="next" href="itext.html" title="Chapter 19. iText PDF generation"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="i18n.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="itext.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="text"/>Chapter 18. Seam Text</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="text.html#d0e14285">18.1. Basic fomatting</a></span></dt><dt><span class="section"><a href="text.html#d0e14328">18.2. Entering code and text with special characters</a></span></dt><dt><span class="section"><a href="text.html#d0e14370">18.3. Links</a></span></dt><dt><span class="section"><a href="text.html#d0e14383">18.4. Entering HTML</a></span></dt><dt><span class="section"><a href="text.html#d0e14396">18.5. Using the SeamTextParser</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 18. Seam Text</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="i18n.html" title="Chapter 17. Internationalization, localization and themes"/><link rel="next" href="itext.html" title="Chapter 19. OpenPDF PDF generation"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="i18n.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="itext.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="text"/>Chapter 18. Seam Text</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="text.html#d0e14287">18.1. Basic fomatting</a></span></dt><dt><span class="section"><a href="text.html#d0e14330">18.2. Entering code and text with special characters</a></span></dt><dt><span class="section"><a href="text.html#d0e14372">18.3. Links</a></span></dt><dt><span class="section"><a href="text.html#d0e14385">18.4. Entering HTML</a></span></dt><dt><span class="section"><a href="text.html#d0e14398">18.5. Using the SeamTextParser</a></span></dt></dl></div><p>
         Collaboration-oriented websites require a human-friendly markup language for easy entry
         of formatted text in forum posts, wiki pages, blogs, comments, etc. Seam provides the
         <code class="literal">&lt;s:formattedText/&gt;</code> control for display of formatted text that
         conforms to the <span class="emphasis"><em>Seam Text</em></span> language. Seam Text is implemented using
         an ANTLR-based parser. You don't need to know anything about ANTLR to use it, however.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14285"/>18.1. Basic fomatting</h2></div></div></div><p>
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14287"/>18.1. Basic fomatting</h2></div></div></div><p>
             Here is a simple example:
         </p><pre class="programlisting">It's easy to make *emphasis*, |monospace|,
 ~deleted text~, super^scripts^ or _underlines_.</pre><p>
@@ -95,7 +95,7 @@ But what do you think he means by "nyeah-nee"?</pre><pre xmlns="" xmlns:rf="java
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">p</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">But&nbsp;what&nbsp;do&nbsp;you&nbsp;think&nbsp;he&nbsp;means&nbsp;by&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">q</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">nyeah-nee</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">q</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">?</span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">p</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14328"/>18.2. Entering code and text with special characters</h2></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14330"/>18.2. Entering code and text with special characters</h2></div></div></div><p>
             Special characters such as <code class="literal">*</code>, <code class="literal">|</code>
             and <code class="literal">#</code>, along with HTML characters such as
             <code class="literal">&lt;</code>, <code class="literal">&gt;</code> and <code class="literal">&amp;</code> 
@@ -134,14 +134,14 @@ Any ideas?</pre><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFa
        </p><pre class="programlisting">This is a |&lt;tag attribute="value"/&gt;| example.</pre><p>
           without escaping any of the characters inside the monospace bars. The downside is that
           you can't format inline monospace text in any other way (italics, underscore, and so on).
-       </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14370"/>18.3. Links</h2></div></div></div><p>
+       </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14372"/>18.3. Links</h2></div></div></div><p>
             A link may be created using the following syntax:
         </p><pre class="programlisting">Go to the Seam website at [=&gt;http://jboss.org/schema/seam].</pre><p>
             Or, if you want to specify the text of the link:
         </p><pre class="programlisting">Go to [the Seam website=&gt;http://jboss.org/schema/seam].</pre><p>
             For advanced users, it is even possible to customize the Seam Text parser to understand
             wikiword links written using this syntax.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14383"/>18.4. Entering HTML</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14385"/>18.4. Entering HTML</h2></div></div></div><p>
             Text may even include a certain limited subset of HTML (don't worry, the subset is chosen
             to be safe from cross-site scripting attacks). This is useful for creating links:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XHTML"><!-- XHTML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -156,7 +156,7 @@ Any ideas?</pre><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFa
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">table</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 </pre><p>
             But you can do much more if you want!
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14396"/>18.5. Using the SeamTextParser</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e14398"/>18.5. Using the SeamTextParser</h2></div></div></div><p>
            The <code class="literal">&lt;s:formattedText/&gt;</code> JSF component internally uses the
            <code class="literal">org.jboss.seam.text.SeamTextParser</code>. You can use that class directly and implement
            your own text parsing, rendering, or HTML sanitation procedure. This is especially useful if you have
@@ -203,4 +203,4 @@ Any ideas?</pre><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFa
        </p><p>
            Also consult the Javadoc of <code class="literal">org.jboss.seam.text.SeamTextParser.DefaultSanitizer</code> for
            more information on what HTML elements, attributes, and attribute values or filtered by default.
-       </p></div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="i18n.html"><strong>Prev</strong>Chapter 17. Internationalization, localization an...</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="itext.html"><strong>Next</strong>Chapter 19. iText PDF generation</a></li></ul></body></html>
+       </p></div></div><ul class="docnav"><li class="previous"><a accesskey="p" href="i18n.html"><strong>Prev</strong>Chapter 17. Internationalization, localization an...</a></li><li class="up"><a accesskey="u" href="#"><strong>Top of page</strong></a></li><li class="home"><a accesskey="h" href="index.html"><strong>Front page</strong></a></li><li class="next"><a accesskey="n" href="itext.html"><strong>Next</strong>Chapter 19. OpenPDF PDF generation</a></li></ul></body></html>

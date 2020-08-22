@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 33. Built-in Seam components</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="annotations.html" title="Chapter 32. Seam annotations"/><link rel="next" href="controls.html" title="Chapter 34. Seam JSF controls"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="annotations.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="controls.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="components"/>Chapter 33. Built-in Seam components</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="components.html#d0e26627">33.1. Context injection components</a></span></dt><dt><span class="section"><a href="components.html#d0e26657">33.2. JSF-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e26790">33.3. Utility components</a></span></dt><dt><span class="section"><a href="components.html#d0e26893">33.4. Components for internationalization and themes</a></span></dt><dt><span class="section"><a href="components.html#d0e27094">33.5. Components for controlling conversations</a></span></dt><dt><span class="section"><a href="components.html#d0e27242">33.6. jBPM-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e27471">33.7. Security-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e27497">33.8. JMS-related components</a></span></dt><dt><span class="section"><a href="components.html#components.mail">33.9. Mail-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e27599">33.10. Infrastructural components</a></span></dt><dt><span class="section"><a href="components.html#d0e27892">33.11. Miscellaneous components</a></span></dt><dt><span class="section"><a href="components.html#d0e27929">33.12. Special components</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 33. Built-in Seam components</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="annotations.html" title="Chapter 32. Seam annotations"/><link rel="next" href="controls.html" title="Chapter 34. Seam JSF controls"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="annotations.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="controls.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="components"/>Chapter 33. Built-in Seam components</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="components.html#d0e26651">33.1. Context injection components</a></span></dt><dt><span class="section"><a href="components.html#d0e26681">33.2. JSF-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e26814">33.3. Utility components</a></span></dt><dt><span class="section"><a href="components.html#d0e26917">33.4. Components for internationalization and themes</a></span></dt><dt><span class="section"><a href="components.html#d0e27118">33.5. Components for controlling conversations</a></span></dt><dt><span class="section"><a href="components.html#d0e27266">33.6. jBPM-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e27495">33.7. Security-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e27521">33.8. JMS-related components</a></span></dt><dt><span class="section"><a href="components.html#components.mail">33.9. Mail-related components</a></span></dt><dt><span class="section"><a href="components.html#d0e27623">33.10. Infrastructural components</a></span></dt><dt><span class="section"><a href="components.html#d0e27916">33.11. Miscellaneous components</a></span></dt><dt><span class="section"><a href="components.html#d0e27953">33.12. Special components</a></span></dt></dl></div><p>
         This chapter describes Seam's built-in components, and their
         configuration properties. The built-in components will be created even if they
         are not listed in your <code class="literal">components.xml</code> file, but if you need to
@@ -12,7 +12,7 @@
         your own implementations simply by specifying the name of one 
         of the built in components on your own class using 
         <code class="literal">@Name</code>.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26627"/>33.1. Context injection components</h2></div></div></div><p>
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26651"/>33.1. Context injection components</h2></div></div></div><p>
             The first set of built in components exist purely to support
             injection of various contextual objects. For example, the
             following component instance variable would have the Seam
@@ -25,7 +25,7 @@
                         object (not a true Seam context)
                     </p></dd></dl></div><p>
             All of these components are always installed.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26657"/>33.2. JSF-related components</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26681"/>33.2. JSF-related components</h2></div></div></div><p>
             The following set of components are provided to supplement JSF.
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.faces.dateConverter</code></span></dt><dd><p>
                         Provides a default JSF converter for properties of type
@@ -110,7 +110,7 @@
                         </p></li></ul></div></dd></dl></div><p>
             These components are installed when the class <code class="literal">javax.faces.context.FacesContext</code>
             is available on the classpath.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26790"/>33.3. Utility components</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26814"/>33.3. Utility components</h2></div></div></div><p>
             These components are merely useful.
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.core.events</code></span></dt><dd><p>
                         An API for raising events that can be observed via
@@ -154,7 +154,7 @@
                             the configuration file. Default to <code class="literal">treecache.xml</code>.
                         </p></li></ul></div></dd></dl></div><p>
             All of these components are always installed.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26893"/>33.4. Components for internationalization and themes</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e26917"/>33.4. Components for internationalization and themes</h2></div></div></div><p>
             The next group of components make it easy to build internationalized user interfaces
             using Seam.
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.core.locale</code></span></dt><dd><p>
@@ -237,7 +237,7 @@
                         A map containing theme entries.
                     </p></dd></dl></div><p>
             All of these components are always installed.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27094"/>33.5. Components for controlling conversations</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27118"/>33.5. Components for controlling conversations</h2></div></div></div><p>
             The next group of components allow control of conversations by the application or 
             user interface.
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.core.conversation</code></span></dt><dd><p>
@@ -302,7 +302,7 @@
                         The conversation switcher.
                     </p></dd></dl></div><p>
             All of these components are always installed.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27242"/>33.6. jBPM-related components</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27266"/>33.6. jBPM-related components</h2></div></div></div><p>
             These components are for use with jBPM.
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.pageflow.pageflow</code></span></dt><dd><p>
                         API control of Seam pageflows.
@@ -390,7 +390,7 @@
                     </p></dd></dl></div><p>
             All of these components are installed whenever the component
             <code class="literal">org.jboss.seam.bpm.jbpm</code> is installed.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27471"/>33.7. Security-related components</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27495"/>33.7. Security-related components</h2></div></div></div><p>
             These components relate to web-tier security.
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.web.userPrincipal</code></span></dt><dd><p>
                         Manager component for the current user <code class="literal">Principal</code>.
@@ -398,7 +398,7 @@
                         Allows JSF pages to choose to render a control, depending upon
                         the roles available to the current principal.
                         <code class="literal">&lt;h:commandButton value="edit" rendered="#{isUserInRole['admin']}"/&gt;</code>.
-                    </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27497"/>33.8. JMS-related components</h2></div></div></div><p>
+                    </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27521"/>33.8. JMS-related components</h2></div></div></div><p>
             These components are for use with managed <code class="literal">TopicPublisher</code>s
             and <code class="literal">QueueSender</code>s (see below).
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.jms.queueSession</code></span></dt><dd><p>
@@ -430,7 +430,7 @@
                         </p></li><li><p>
                             <code class="literal">org.jboss.seam.mail.mailSession.sessionJndiName</code> — name under which a javax.mail.Session is bound to JNDI.
                             If supplied, all other properties will be ignored.
-                        </p></li></ul></div></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27599"/>33.10. Infrastructural components</h2></div></div></div><p>
+                        </p></li></ul></div></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27623"/>33.10. Infrastructural components</h2></div></div></div><p>
             These components provide critical platform infrastructure. You can install a component
             which isn't installed by default by setting <code class="literal">install="true"</code> on the 
             component in <code class="literal">components.xml</code>.
@@ -545,7 +545,7 @@
                     </p></dd><dt><span class="term"><code class="literal">org.jboss.seam.faces.safeActions</code></span></dt><dd><p>
                         Decides if an action expression in an incoming URL is safe.  This 
                         is done by checking that the action expression exists in the view.
-                    </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27892"/>33.11. Miscellaneous components</h2></div></div></div><p>
+                    </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27916"/>33.11. Miscellaneous components</h2></div></div></div><p>
             These components don't fit into 
         </p><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.async.dispatcher</code></span></dt><dd><p>
                         Dispatcher stateless session bean for asynchronous methods.
@@ -555,7 +555,7 @@
                         Manager component for a PojoCache instance.
                     </p></dd></dl></div><div class="variablelist"><dl><dt><span class="term"><code class="literal">org.jboss.seam.core.uiComponent</code></span></dt><dd><p>
                         Manages a map of UIComponents keyed by component id.
-                    </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27929"/>33.12. Special components</h2></div></div></div><p>
+                    </p></dd></dl></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e27953"/>33.12. Special components</h2></div></div></div><p>
             Certain special Seam component classes are installable multiple times under names
             specified in the Seam configuration. For example, the following lines in 
             <code class="literal">components.xml</code> install and configure two Seam components:

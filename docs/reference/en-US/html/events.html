@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 7. Events, interceptors and exception handling</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="xml.html" title="Chapter 6. Configuring Seam components"/><link rel="next" href="conversations.html" title="Chapter 8. Conversations and workspace management"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="xml.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="conversations.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="events"/>Chapter 7. Events, interceptors and exception handling</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="events.html#d0e4855">7.1. Seam events</a></span></dt><dt><span class="section"><a href="events.html#d0e4889">7.2. Page actions</a></span></dt><dt><span class="section"><a href="events.html#d0e4960">7.3. Page parameters</a></span></dt><dd><dl><dt><span class="section"><a href="events.html#d0e4969">7.3.1. Mapping request parameters to the model</a></span></dt></dl></dd><dt><span class="section"><a href="events.html#d0e5023">7.4. Propagating request parameters</a></span></dt><dt><span class="section"><a href="events.html#d0e5056">7.5. URL rewriting with page parameters</a></span></dt><dt><span class="section"><a href="events.html#d0e5123">7.6. Conversion and Validation</a></span></dt><dt><span class="section"><a href="events.html#events.pageaction.navigation">7.7. Navigation</a></span></dt><dt><span class="section"><a href="events.html#d0e5228">7.8. Fine-grained files for definition of navigation, page actions and parameters</a></span></dt><dt><span class="section"><a href="events.html#d0e5244">7.9. Component-driven events</a></span></dt><dt><span class="section"><a href="events.html#d0e5295">7.10. Contextual events</a></span></dt><dt><span class="section"><a href="events.html#d0e5500">7.11. Seam interceptors</a></span></dt><dt><span class="section"><a href="events.html#d0e5576">7.12. Managing exceptions</a></span></dt><dd><dl><dt><span class="section"><a href="events.html#d0e5584">7.12.1. Exceptions and transactions</a></span></dt><dt><span class="section"><a href="events.html#d0e5610">7.12.2. Enabling Seam exception handling</a></span></dt><dt><span class="section"><a href="events.html#d0e5638">7.12.3. Using annotations for exception handling</a></span></dt><dt><span class="section"><a href="events.html#d0e5660">7.12.4. Using XML for exception handling</a></span></dt><dt><span class="section"><a href="events.html#d0e5744">7.12.5. Some common exceptions</a></span></dt></dl></dd></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 7. Events, interceptors and exception handling</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="xml.html" title="Chapter 6. Configuring Seam components"/><link rel="next" href="conversations.html" title="Chapter 8. Conversations and workspace management"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="xml.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="conversations.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="events"/>Chapter 7. Events, interceptors and exception handling</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="events.html#d0e4857">7.1. Seam events</a></span></dt><dt><span class="section"><a href="events.html#d0e4891">7.2. Page actions</a></span></dt><dt><span class="section"><a href="events.html#d0e4962">7.3. Page parameters</a></span></dt><dd><dl><dt><span class="section"><a href="events.html#d0e4971">7.3.1. Mapping request parameters to the model</a></span></dt></dl></dd><dt><span class="section"><a href="events.html#d0e5025">7.4. Propagating request parameters</a></span></dt><dt><span class="section"><a href="events.html#d0e5058">7.5. URL rewriting with page parameters</a></span></dt><dt><span class="section"><a href="events.html#d0e5125">7.6. Conversion and Validation</a></span></dt><dt><span class="section"><a href="events.html#events.pageaction.navigation">7.7. Navigation</a></span></dt><dt><span class="section"><a href="events.html#d0e5230">7.8. Fine-grained files for definition of navigation, page actions and parameters</a></span></dt><dt><span class="section"><a href="events.html#d0e5246">7.9. Component-driven events</a></span></dt><dt><span class="section"><a href="events.html#d0e5297">7.10. Contextual events</a></span></dt><dt><span class="section"><a href="events.html#d0e5502">7.11. Seam interceptors</a></span></dt><dt><span class="section"><a href="events.html#d0e5578">7.12. Managing exceptions</a></span></dt><dd><dl><dt><span class="section"><a href="events.html#d0e5586">7.12.1. Exceptions and transactions</a></span></dt><dt><span class="section"><a href="events.html#d0e5612">7.12.2. Enabling Seam exception handling</a></span></dt><dt><span class="section"><a href="events.html#d0e5640">7.12.3. Using annotations for exception handling</a></span></dt><dt><span class="section"><a href="events.html#d0e5662">7.12.4. Using XML for exception handling</a></span></dt><dt><span class="section"><a href="events.html#d0e5746">7.12.5. Some common exceptions</a></span></dt></dl></dd></dl></div><p>
         Complementing the contextual component model, there are two further basic concepts
         that facilitate the extreme loose-coupling that is the distinctive feature of Seam 
         applications. The first is a strong event model where events may be mapped to event 
         listeners via JSF-like method binding expressions. The second is the pervasive use 
         of annotations and interceptors to apply cross-cutting concerns to components which 
         implement business logic.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4855"/>7.1. Seam events</h2></div></div></div><p>
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4857"/>7.1. Seam events</h2></div></div></div><p>
             The Seam component model was developed for use with <span class="emphasis"><em>event-driven 
             applications</em></span>, specifically to enable the development of fine-grained, 
             loosely-coupled components in a fine-grained eventing model. Events in Seam come
@@ -30,7 +30,7 @@
 </pre><p>
             You can find out more information about JSF events and jBPM events elsewhere. 
             Let's concentrate for now upon the two additional kinds of events defined by Seam.
-    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4889"/>7.2. Page actions</h2></div></div></div><p>
+    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4891"/>7.2. Page actions</h2></div></div></div><p>
             A Seam page action is an event that occurs just before we render a page. 
             We declare page actions in <code class="literal">WEB-INF/pages.xml</code>. We
             can define a page action for either a particular JSF view id:
@@ -102,7 +102,7 @@
 </pre><p>
             For backwards compatibility reasons, the default value of the <code class="literal">on-postback</code> attribute
             is true, though likely you will end up using the opposite setting more often.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4960"/>7.3. Page parameters</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4962"/>7.3. Page parameters</h2></div></div></div><p>
                 A JSF faces request (a form submission) encapsulates both an "action"
                 (a method binding) and "parameters" (input value bindings). A page 
                 action might also needs parameters!
@@ -112,7 +112,7 @@
                 anything but!) 
             </p><p>
                 You can use page parameters with or without an action method.
-            </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e4969"/>7.3.1. Mapping request parameters to the model</h3></div></div></div><p>
+            </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e4971"/>7.3.1. Mapping request parameters to the model</h3></div></div></div><p>
                   Seam lets us provide a value binding that maps a named request parameter 
                   to an attribute of a model object.
               </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -151,7 +151,7 @@
                   the value of the model attribute referred to in the value binding is
                   "remembered", without the need for a conversation (or other server-side
                   state).
-              </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5023"/>7.4. Propagating request parameters</h2></div></div></div><p>
+              </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5025"/>7.4. Propagating request parameters</h2></div></div></div><p>
                     If just the <code class="literal">name</code> attribute is specified then the
                     request parameter is propagated using the <code class="literal">PAGE</code> context
                     (it isn't mapped to model property).
@@ -186,7 +186,7 @@
 	      and GET requests with the same code. Page parameters eliminate repetitive 
 	      listing of request parameters in the view definition and make redirects
 	      much easier to code.
-      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5056"/>7.5. URL rewriting with page parameters</h2></div></div></div><p>
+      </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5058"/>7.5. URL rewriting with page parameters</h2></div></div></div><p>
             Rewriting occurs based on rewrite patterns found for views in <code class="literal">pages.xml</code>. 
             Seam URL rewriting does both incoming and outgoing URL rewriting based on the same pattern.
             Here's a simple pattern:
@@ -236,7 +236,7 @@
         </p><p>
             URL rewriting requires the Seam rewrite filter to be enable.  Rewrite filter 
             configuration is discussed in <a class="xref" href="configuration.html#configuration.filters.rewrite" title="31.1.3.3. URL rewriting">Section 31.1.3.3, “URL rewriting”</a>.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5123"/>7.6. Conversion and Validation</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5125"/>7.6. Conversion and Validation</h2></div></div></div><p>
             You can specify a JSF converter for complex model properties:
          </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">pages</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
@@ -425,7 +425,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">navigation</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5228"/>7.8. Fine-grained files for definition of navigation, page actions and parameters</h2></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5230"/>7.8. Fine-grained files for definition of navigation, page actions and parameters</h2></div></div></div><p>
                 If you have a lot of different page actions and page parameters,
                 or even just a lot of navigation rules,
                 you will almost certainly want to split the declarations up over
@@ -440,7 +440,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">param</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;y&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{calculator.rhs}&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">param</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;op&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">converter</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{operatorConverter}&quot;</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">value</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;#{calculator.op}&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">page</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5244"/>7.9. Component-driven events</h2></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5246"/>7.9. Component-driven events</h2></div></div></div><p>
                 Seam components can interact by simply calling each others methods.
                 Stateful components may even implement the observer/observable pattern.
                 But to enable components to interact in a more loosely-coupled fashion
@@ -514,13 +514,13 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;sayHelloBack</span><span class="java_separator">(</span><span class="java_type">String</span><span class="java_plain">&nbsp;name</span><span class="java_separator">)</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_type">FacesMessages</span><span class="java_separator">.</span><span class="java_plain">instance</span><span class="java_separator">().</span><span class="java_plain">add</span><span class="java_separator">(</span><span class="java_literal">&quot;Hello&nbsp;#0!&quot;</span><span class="java_separator">,</span><span class="java_plain">&nbsp;name</span><span class="java_separator">);</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5295"/>7.10. Contextual events</h2></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5297"/>7.10. Contextual events</h2></div></div></div><p>
                 Seam defines a number of built-in events that the application can use to
                 perform special kinds of framework integration. The events are:
             </p><div class="itemizedlist"><ul><li><p><code class="literal">org.jboss.seam.validationFailed</code> — called when JSF validation fails</p></li><li><p><code class="literal">org.jboss.seam.noConversation</code> — called when there is no long running conversation and a long running conversation is required</p></li><li><p><code class="literal">org.jboss.seam.preSetVariable.&lt;name&gt;</code> — called when the context variable &lt;name&gt; is set</p></li><li><p><code class="literal">org.jboss.seam.postSetVariable.&lt;name&gt;</code> — called when the context variable &lt;name&gt; is set</p></li><li><p><code class="literal">org.jboss.seam.preRemoveVariable.&lt;name&gt;</code> — called when the context variable &lt;name&gt; is unset</p></li><li><p><code class="literal">org.jboss.seam.postRemoveVariable.&lt;name&gt;</code> — called when the context variable &lt;name&gt; is unset</p></li><li><p><code class="literal">org.jboss.seam.preDestroyContext.&lt;SCOPE&gt;</code> — called before the &lt;SCOPE&gt; context is destroyed</p></li><li><p><code class="literal">org.jboss.seam.postDestroyContext.&lt;SCOPE&gt;</code> — called after the &lt;SCOPE&gt; context is destroyed</p></li><li><p><code class="literal">org.jboss.seam.beginConversation </code> — called whenever a long-running conversation begins</p></li><li><p><code class="literal">org.jboss.seam.endConversation </code> — called whenever a long-running conversation ends</p></li><li><p><code class="literal">org.jboss.seam.conversationTimeout</code> — called when a conversation timeout occurs. The conversation id is passed as a parameter.</p></li><li><p><code class="literal">org.jboss.seam.beginPageflow </code> — called when a pageflow begins</p></li><li><p><code class="literal">org.jboss.seam.beginPageflow.&lt;name&gt; </code> — called when the pageflow &lt;name&gt; begins</p></li><li><p><code class="literal">org.jboss.seam.endPageflow </code> — called when a pageflow ends</p></li><li><p><code class="literal">org.jboss.seam.endPageflow.&lt;name&gt; </code> — called when the pageflow &lt;name&gt; ends</p></li><li><p><code class="literal">org.jboss.seam.createProcess.&lt;name&gt; </code> — called when the process &lt;name&gt; is created</p></li><li><p><code class="literal">org.jboss.seam.endProcess.&lt;name&gt; </code> — called when the process &lt;name&gt; ends</p></li><li><p><code class="literal">org.jboss.seam.initProcess.&lt;name&gt; </code> — called when the process &lt;name&gt; is associated with the conversation</p></li><li><p><code class="literal">org.jboss.seam.initTask.&lt;name&gt; </code> — called when the task &lt;name&gt; is associated with the conversation</p></li><li><p><code class="literal">org.jboss.seam.startTask.&lt;name&gt; </code> — called when the task &lt;name&gt; is started</p></li><li><p><code class="literal">org.jboss.seam.endTask.&lt;name&gt; </code> — called when the task &lt;name&gt; is ended</p></li><li><p><code class="literal">org.jboss.seam.postCreate.&lt;name&gt; </code> — called when the component &lt;name&gt; is created</p></li><li><p><code class="literal">org.jboss.seam.preDestroy.&lt;name&gt; </code> — called when the component &lt;name&gt; is destroyed</p></li><li><p><code class="literal">org.jboss.seam.beforePhase </code> — called before the start of a JSF phase</p></li><li><p><code class="literal">org.jboss.seam.afterPhase </code> — called after the end of a JSF phase</p></li><li><p><code class="literal">org.jboss.seam.postInitialization </code> — called when Seam has initialized and started up all components</p></li><li><p><code class="literal">org.jboss.seam.postReInitialization </code> — called when Seam has re-initialized and started up all components after a redeploy</p></li><li><p><code class="literal">org.jboss.seam.exceptionHandled.&lt;type&gt;</code> — called when an uncaught exception is handled by Seam</p></li><li><p><code class="literal">org.jboss.seam.exceptionHandled</code> — called when an uncaught exception is handled by Seam</p></li><li><p><code class="literal">org.jboss.seam.exceptionNotHandled</code> — called when there was no handler for an uncaught exception</p></li><li><p><code class="literal">org.jboss.seam.afterTransactionSuccess</code> — called when a transaction succeeds in the Seam Application Framework</p></li><li><p><code class="literal">org.jboss.seam.afterTransactionSuccess.&lt;name&gt;</code> — called when a transaction succeeds in the Seam Application Framework which manages an entity called <code class="literal">&lt;name&gt;</code></p></li><li><p><code class="literal">org.jboss.seam.security.loggedOut</code> — called when a user logs out</p></li><li><p><code class="literal">org.jboss.seam.security.loginFailed</code> — called when a user authentication attempt fails</p></li><li><p><code class="literal">org.jboss.seam.security.loginSuccessful</code> — called when a user is successfully authenticated</p></li><li><p><code class="literal">org.jboss.seam.security.notAuthorized</code> — called when an authorization check fails</p></li><li><p><code class="literal">org.jboss.seam.security.notLoggedIn</code> — called there is no authenticated user and authentication is required</p></li><li><p><code class="literal">org.jboss.seam.security.postAuthenticate.</code> — called after a user is authenticated</p></li><li><p><code class="literal">org.jboss.seam.security.preAuthenticate</code> — called before attempting to authenticate a user</p></li></ul></div><p>
                  Seam components may observe any of these events in just the same way they
                  observe any other component-driven events.
-             </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5500"/>7.11. Seam interceptors</h2></div></div></div><p>
+             </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5502"/>7.11. Seam interceptors</h2></div></div></div><p>
         EJB 3.0 introduced a standard interceptor model for session bean components. To add an
         interceptor to a bean, you need to write a class with a method annotated 
         <code class="literal">@AroundInvoke</code> and annotate the bean with an
@@ -603,14 +603,14 @@
             lifecycle methods on both component and interceptor not only for EJB3 beans, but also for
             JavaBean components (except <code class="literal">@PreDestroy</code> which is not meaningful for JavaBean
             components).
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5576"/>7.12. Managing exceptions</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e5578"/>7.12. Managing exceptions</h2></div></div></div><p>
             JSF is surprisingly limited when it comes to exception handling. As a partial 
             workaround for this problem, Seam lets you define how a particular class of 
             exception is to be treated by annotating the exception class, or declaring
             the exception class in an XML file. This facility is meant to be combined with 
             the EJB 3.0-standard <code class="literal">@ApplicationException</code> annotation which 
             specifies whether the exception should cause a transaction rollback.
-        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5584"/>7.12.1. Exceptions and transactions</h3></div></div></div><p>
+        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5586"/>7.12.1. Exceptions and transactions</h3></div></div></div><p>
                 EJB specifies well-defined rules that let us control whether an exception 
                 immediately marks the current transaction for rollback when it is thrown by 
                 a business method of the bean: <span class="emphasis"><em>system exceptions</em></span> always 
@@ -635,7 +635,7 @@
                 layer? Well, it is always wrong to leave a dangling transaction open, so Seam
                 rolls back any active transaction when an exception occurs and is uncaught
                 in the Seam component layer.
-            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5610"/>7.12.2. Enabling Seam exception handling</h3></div></div></div><p>
+            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5612"/>7.12.2. Enabling Seam exception handling</h3></div></div></div><p>
             To enable Seam's exception handling, we need to make sure we have the master servlet 
             filter declared in <code class="literal">web.xml</code>:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -655,7 +655,7 @@
             You need to disable Facelets development mode in <code class="literal">web.xml</code> too and
             Seam debug mode in <code class="literal">components.xml</code> if you want your exception handlers
             to fire.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5638"/>7.12.3. Using annotations for exception handling</h3></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5640"/>7.12.3. Using annotations for exception handling</h3></div></div></div><p>
             The following exception results in a HTTP 404 error whenever it propagates out of the
             Seam component layer. It does not roll back the current transaction immediately when 
             thrown, but the transaction will be rolled back if it the exception is not caught by
@@ -678,7 +678,7 @@
             propagates out of the Seam component layer. It also immediately rolls back the 
             current transaction.
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Redirect</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_plain">viewId</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_literal">&quot;/error.xhtml&quot;</span><!-- <br/> --><span class="java_separator">,</span><!-- <br/> --><span class="java_plain">&nbsp;message</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_literal">&quot;Unexpected&nbsp;error&quot;</span><!-- <br/> --><span class="java_separator">)</span>
-<!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">SystemException</span><span class="java_plain">&nbsp;</span><span class="java_keyword">extends</span><span class="java_plain">&nbsp;</span><span class="java_type">RuntimeException</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_separator">...</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5660"/>7.12.4. Using XML for exception handling</h3></div></div></div><p>
+<!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">SystemException</span><span class="java_plain">&nbsp;</span><span class="java_keyword">extends</span><span class="java_plain">&nbsp;</span><span class="java_type">RuntimeException</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span><span class="java_separator">...</span><span class="java_plain">&nbsp;</span><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5662"/>7.12.4. Using XML for exception handling</h3></div></div></div><p>
             Since we can't add annotations to all the exception classes we are interested in,
             Seam also lets us specify this functionality in <code class="literal">pages.xml</code>.
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -730,7 +730,7 @@
            <code class="literal">org.jboss.seam.handledException</code> holds the nested exception that
            was actually handled by an exception handler. The outermost (wrapper) exception is 
            also available, as <code class="literal">org.jboss.seam.caughtException</code>.
-         </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e5695"/>7.12.4.1. Suppressing exception logging</h4></div></div></div><p>
+         </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e5697"/>7.12.4.1. Suppressing exception logging</h4></div></div></div><p>
                  For the exception handlers defined in <code class="literal">pages.xml</code>, it is possible
                  to declare the logging level at which the exception will be logged, or to even
                  suppress the exception being logged altogether.  The attributes <code class="literal">log</code>
@@ -757,7 +757,7 @@
                   The acceptable values for <code class="literal">log-level</code> are: <code class="literal">fatal, error, warn, info, debug</code> 
                   or <code class="literal">trace</code>.  If the <code class="literal">log-level</code> is not specified, or if an invalid value is
                   configured, then it will default to <code class="literal">error</code>.              
-              </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5744"/>7.12.5. Some common exceptions</h3></div></div></div><p>
+              </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e5746"/>7.12.5. Some common exceptions</h3></div></div></div><p>
                 If you are using JPA:
             </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">exception</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">class</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;javax.persistence.EntityNotFoundException&quot;</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 39. Dependencies</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="testing.html" title="Chapter 38. Testing Seam applications"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="testing.html"><strong>Prev</strong></a></li><li class="next"/></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="dependencies"/>Chapter 39. Dependencies</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="dependencies.html#jdk_dependencies">39.1. JDK Dependencies</a></span></dt><dd><dl><dt><span class="section"><a href="dependencies.html#jdk6_dependencies">39.1.1. Oracle's JDK 6 Considerations</a></span></dt></dl></dd><dt><span class="section"><a href="dependencies.html#d0e30686">39.2. Project Dependencies</a></span></dt><dd><dl><dt><span class="section"><a href="dependencies.html#d0e30711">39.2.1. Core</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31015">39.2.2. RichFaces</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31137">39.2.3. Seam Mail</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31241">39.2.4. Seam PDF</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31363">39.2.5. Seam Microsoft Excel</a></span></dt><dt><span class="section"><a href="dependencies.html#dependencies.rss">39.2.6. Seam RSS support</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31668">39.2.7. Drools</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31878">39.2.8. JBPM</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31933">39.2.9. GWT</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31991">39.2.10. Spring</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e32049">39.2.11. Groovy</a></span></dt></dl></dd><dt><span class="section"><a href="dependencies.html#d0e32107">39.3. Dependency Management using Maven</a></span></dt></dl></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="jdk_dependencies"/>39.1. JDK Dependencies</h2></div></div></div><p>
-      Seam does not work with JDK 1.4 and requires JDK 5 or above as it uses 
-      annotations and other JDK 5.0 features. Seam has been thoroughly tested 
-      using Oracle's JDKs and OpenJDKs.  However there are no known issues specific to Seam with
-      other JDKs.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="jdk6_dependencies"/>39.1.1. Oracle's JDK 6 Considerations</h3></div></div></div><p>
-            Earlier versions of Oracle's JDK 6 contained an incompatible 
-            version of JAXB and required overriding it using the "endorsed" 
-            directory.  Oracle's JDK6 Update 4 release upgraded to JAXB 2.1 and 
-            removed this requirement.  When building, testing, or executing be
-            sure to use this version or higher. 
-        </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30686"/>39.2. Project Dependencies</h2></div></div></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 39. Dependencies</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="testing.html" title="Chapter 38. Testing Seam applications"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="testing.html"><strong>Prev</strong></a></li><li class="next"/></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="dependencies"/>Chapter 39. Dependencies</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="dependencies.html#jdk_dependencies">39.1. JDK Dependencies</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e30705">39.2. Project Dependencies</a></span></dt><dd><dl><dt><span class="section"><a href="dependencies.html#d0e30730">39.2.1. Core</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31034">39.2.2. RichFaces</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31156">39.2.3. Seam Mail</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31260">39.2.4. Seam PDF</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31426">39.2.5. Seam Microsoft Excel</a></span></dt><dt><span class="section"><a href="dependencies.html#dependencies.rss">39.2.6. Seam RSS support</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31731">39.2.7. Drools</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31941">39.2.8. JBPM</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e31996">39.2.9. GWT</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e32054">39.2.10. Spring</a></span></dt><dt><span class="section"><a href="dependencies.html#d0e32112">39.2.11. Groovy</a></span></dt></dl></dd><dt><span class="section"><a href="dependencies.html#d0e32170">39.3. Dependency Management using Maven</a></span></dt></dl></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="jdk_dependencies"/>39.1. JDK Dependencies</h2></div></div></div><p>
+      This fork of Seam requires JDK 8 or higher.
+    </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e30705"/>39.2. Project Dependencies</h2></div></div></div><p>
       This section both lists the compile-time and runtime dependencies for Seam.
       Where the type is listed as <code class="literal">ear</code>, the library should be
       included in the /lib directory of your application's ear file. Where the
@@ -26,8 +17,8 @@
       <code class="literal">/dependency-report.txt</code> which is generated from the 
       Maven POMs stored in <code class="literal">/build</code>. You can generate this file
       by running <code class="literal">ant dependencyReport</code>.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30711"/>39.2.1. Core</h3></div></div></div><p>
-      </p><div class="table"><a id="d0e30716"/><p class="title"><b>Table 39.1. </b></p><div class="table-contents"><table summary="" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e30730"/>39.2.1. Core</h3></div></div></div><p>
+      </p><div class="table"><a id="d0e30735"/><p class="title"><b>Table 39.1. </b></p><div class="table-contents"><table summary="" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -132,7 +123,7 @@
               </td><td>
                 <p>Required when you wish to use Quartz with Seam's asynchronous features</p>
               </td></tr></tbody></table></div></div><p><br class="table-break"/>
-</p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31015"/>39.2.2. RichFaces</h3></div></div></div><div class="table"><a id="d0e31018"/><p class="title"><b>Table 39.2. RichFaces dependencies</b></p><div class="table-contents"><table summary="RichFaces dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+</p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31034"/>39.2.2. RichFaces</h3></div></div></div><div class="table"><a id="d0e31037"/><p class="title"><b>Table 39.2. RichFaces dependencies</b></p><div class="table-contents"><table summary="RichFaces dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -175,7 +166,7 @@
                 <p>war</p>
               </td><td>
                 <p>Required to use RichFaces.  Provides all the API for UI components.</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31137"/>39.2.3. Seam Mail</h3></div></div></div><div class="table"><a id="d0e31140"/><p class="title"><b>Table 39.3. Seam Mail Dependencies</b></p><div class="table-contents"><table summary="Seam Mail Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31156"/>39.2.3. Seam Mail</h3></div></div></div><div class="table"><a id="d0e31159"/><p class="title"><b>Table 39.3. Seam Mail Dependencies</b></p><div class="table-contents"><table summary="Seam Mail Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -209,7 +200,7 @@
                 <p>war</p>
               </td><td>
                 <p>Seam Mail</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31241"/>39.2.4. Seam PDF</h3></div></div></div><div class="table"><a id="d0e31244"/><p class="title"><b>Table 39.4. Seam PDF Dependencies</b></p><div class="table-contents"><table summary="Seam PDF Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31260"/>39.2.4. Seam PDF</h3></div></div></div><div class="table"><a id="d0e31263"/><p class="title"><b>Table 39.4. Seam PDF Dependencies</b></p><div class="table-contents"><table summary="Seam PDF Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Type</p>
@@ -218,13 +209,29 @@
               </th><th align="center">
                 <p>Notes</p>
               </th></tr></thead><tbody><tr><td>
-                <p><code class="literal">itext.jar</code></p>
+                <p><code class="literal">openpdf.jar</code></p>
               </td><td align="center">
                 <p>runtime</p>
               </td><td align="center">
                 <p>war</p>
               </td><td>
                 <p>PDF Library</p>
+              </td></tr><tr><td>
+                <p><code class="literal">openrtf.jar</code></p>
+              </td><td align="center">
+                <p>runtime</p>
+              </td><td align="center">
+                <p>war</p>
+              </td><td>
+                <p>RTF Library</p>
+              </td></tr><tr><td>
+                <p><code class="literal">juniversalchardet.jar</code></p>
+              </td><td align="center">
+                <p>runtime</p>
+              </td><td align="center">
+                <p>war</p>
+              </td><td>
+                <p>Detect charsets, required by OpenPDF</p>
               </td></tr><tr><td>
                 <p><code class="literal">jfreechart.jar</code></p>
               </td><td align="center">
@@ -249,7 +256,7 @@
                 <p>war</p>
               </td><td>
                 <p>Seam PDF core library</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31363"/>39.2.5. Seam <span class="trademark">Microsoft</span>® <span class="trademark">Excel</span>®</h3></div></div></div><div class="table"><a id="d0e31371"/><p class="title"><b>Table 39.5. Seam <span class="trademark">Microsoft</span>® <span class="trademark">Excel</span>® Dependencies</b></p><div class="table-contents"><table summary="Seam Microsoft Excel Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31426"/>39.2.5. Seam <span class="trademark">Microsoft</span>® <span class="trademark">Excel</span>®</h3></div></div></div><div class="table"><a id="d0e31434"/><p class="title"><b>Table 39.5. Seam <span class="trademark">Microsoft</span>® <span class="trademark">Excel</span>® Dependencies</b></p><div class="table-contents"><table summary="Seam Microsoft Excel Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Type</p>
@@ -273,7 +280,7 @@
                 <p>war</p>
               </td><td>
                 <p>Seam <span class="trademark">Microsoft</span>® <span class="trademark">Excel</span>® core library</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="dependencies.rss"/>39.2.6. Seam RSS support</h3></div></div></div><div class="table"><a id="d0e31461"/><p class="title"><b>Table 39.6. Seam RSS Dependencies</b></p><div class="table-contents"><table summary="Seam RSS Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="dependencies.rss"/>39.2.6. Seam RSS support</h3></div></div></div><div class="table"><a id="d0e31524"/><p class="title"><b>Table 39.6. Seam RSS Dependencies</b></p><div class="table-contents"><table summary="Seam RSS Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Type</p>
@@ -345,9 +352,9 @@
                 <p>war</p>
               </td><td>
                 <p>Seam RSS core library</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31668"/>39.2.7. Drools</h3></div></div></div><p>
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31731"/>39.2.7. Drools</h3></div></div></div><p>
         The Drools libraries can be found in the <code class="literal">lib</code> directory in Seam.
-      </p><div class="table"><a id="d0e31676"/><p class="title"><b>Table 39.7. Drools Dependencies</b></p><div class="table-contents"><table summary="Drools Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e31739"/><p class="title"><b>Table 39.7. Drools Dependencies</b></p><div class="table-contents"><table summary="Drools Dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -419,7 +426,7 @@
                 <p>ear</p>
               </td><td>
                 <p/>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31878"/>39.2.8. JBPM</h3></div></div></div><div class="table"><a id="d0e31881"/><p class="title"><b>Table 39.8. JBPM dependencies</b></p><div class="table-contents"><table summary="JBPM dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31941"/>39.2.8. JBPM</h3></div></div></div><div class="table"><a id="d0e31944"/><p class="title"><b>Table 39.8. JBPM dependencies</b></p><div class="table-contents"><table summary="JBPM dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -435,9 +442,9 @@
                 <p>ear</p>
               </td><td>
                 <p/>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31933"/>39.2.9. GWT</h3></div></div></div><p>
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31996"/>39.2.9. GWT</h3></div></div></div><p>
         These libraries are required if you with to use the Google Web Toolkit (GWT) with your Seam application.
-      </p><div class="table"><a id="d0e31938"/><p class="title"><b>Table 39.9. GWT dependencies</b></p><div class="table-contents"><table summary="GWT dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e32001"/><p class="title"><b>Table 39.9. GWT dependencies</b></p><div class="table-contents"><table summary="GWT dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -453,9 +460,9 @@
                 <p>war</p>
               </td><td>
                 <p>The GWT Servlet libs</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e31991"/>39.2.10. Spring</h3></div></div></div><p>
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e32054"/>39.2.10. Spring</h3></div></div></div><p>
         These libraries are required if you with to use the Spring Framework with your Seam application.
-      </p><div class="table"><a id="d0e31996"/><p class="title"><b>Table 39.10. Spring Framework dependencies</b></p><div class="table-contents"><table summary="Spring Framework dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e32059"/><p class="title"><b>Table 39.10. Spring Framework dependencies</b></p><div class="table-contents"><table summary="Spring Framework dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -471,9 +478,9 @@
                 <p>ear</p>
               </td><td>
                 <p>The Spring Framework library</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e32049"/>39.2.11. Groovy</h3></div></div></div><p>
+              </td></tr></tbody></table></div></div><br class="table-break"/></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e32112"/>39.2.11. Groovy</h3></div></div></div><p>
         These libraries are required if you with to use Groovy with your Seam application.
-      </p><div class="table"><a id="d0e32054"/><p class="title"><b>Table 39.11. Groovy dependencies</b></p><div class="table-contents"><table summary="Groovy dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
+      </p><div class="table"><a id="d0e32117"/><p class="title"><b>Table 39.11. Groovy dependencies</b></p><div class="table-contents"><table summary="Groovy dependencies" border="1"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th align="center">
                 <p>Name</p>
               </th><th align="center">
                 <p>Scope</p>
@@ -489,7 +496,7 @@
                 <p>ear</p>
               </td><td>
                 <p>The Groovy libs</p>
-              </td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e32107"/>39.3. Dependency Management using Maven</h2></div></div></div><p>
+              </td></tr></tbody></table></div></div><br class="table-break"/></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e32170"/>39.3. Dependency Management using Maven</h2></div></div></div><p>
     We aren't actually going to discuss how to use Maven here, but just run
     over some Seam usage from user/application point of view you could use.
   </p><p>
@@ -581,7 +588,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">dependency</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">groupId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">org.jboss.seam</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">groupId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">artifactId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">bom</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">artifactId</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">version</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">2.3.11.ayg</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">version</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">version</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">2.3.23.ayg</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">version</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">type</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">pom</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">type</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">scope</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">import</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">scope</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">dependency</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />

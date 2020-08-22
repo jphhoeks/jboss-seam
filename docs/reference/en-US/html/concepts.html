@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 5. The contextual component model</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="migration23.html" title="Chapter 4. Migration from 2.2 to 2.3"/><link rel="next" href="xml.html" title="Chapter 6. Configuring Seam components"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="migration23.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="xml.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts"/>Chapter 5. The contextual component model</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="concepts.html#d0e3489">5.1. Seam contexts</a></span></dt><dd><dl><dt><span class="sect2"><a href="concepts.html#d0e3528">5.1.1. Stateless context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3533">5.1.2. Event context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3540">5.1.3. Page context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3545">5.1.4. Conversation context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3578">5.1.5. Session context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3585">5.1.6. Business process context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3593">5.1.7. Application context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3598">5.1.8. Context variables</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3622">5.1.9. Context search priority</a></span></dt><dt><span class="sect2"><a href="concepts.html#concurrency">5.1.10. Concurrency model</a></span></dt></dl></dd><dt><span class="sect1"><a href="concepts.html#d0e3682">5.2. Seam components</a></span></dt><dd><dl><dt><span class="sect2"><a href="concepts.html#d0e3711">5.2.1. Stateless session beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3733">5.2.2. Stateful session beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3758">5.2.3. Entity beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3782">5.2.4. JavaBeans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3804">5.2.5. Message-driven beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3813">5.2.6. Interception</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3827">5.2.7. Component names</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3891">5.2.8. Defining the component scope</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3906">5.2.9. Components with multiple roles</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3929">5.2.10. Built-in components</a></span></dt></dl></dd><dt><span class="sect1"><a href="concepts.html#d0e3944">5.3. Bijection</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4047">5.4. Lifecycle methods</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4099">5.5. Conditional installation</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4185">5.6. Logging</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4236">5.7. The Mutable interface and @ReadOnly</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4289">5.8. Factory and manager components</a></span></dt></dl></div><p> 
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 5. The contextual component model</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="migration23.html" title="Chapter 4. Migration from 2.2 to 2.3"/><link rel="next" href="xml.html" title="Chapter 6. Configuring Seam components"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="migration23.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="xml.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="concepts"/>Chapter 5. The contextual component model</h2></div></div></div><div class="toc"><dl><dt><span class="sect1"><a href="concepts.html#d0e3491">5.1. Seam contexts</a></span></dt><dd><dl><dt><span class="sect2"><a href="concepts.html#d0e3530">5.1.1. Stateless context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3535">5.1.2. Event context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3542">5.1.3. Page context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3547">5.1.4. Conversation context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3580">5.1.5. Session context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3587">5.1.6. Business process context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3595">5.1.7. Application context</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3600">5.1.8. Context variables</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3624">5.1.9. Context search priority</a></span></dt><dt><span class="sect2"><a href="concepts.html#concurrency">5.1.10. Concurrency model</a></span></dt></dl></dd><dt><span class="sect1"><a href="concepts.html#d0e3684">5.2. Seam components</a></span></dt><dd><dl><dt><span class="sect2"><a href="concepts.html#d0e3713">5.2.1. Stateless session beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3735">5.2.2. Stateful session beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3760">5.2.3. Entity beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3784">5.2.4. JavaBeans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3806">5.2.5. Message-driven beans</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3815">5.2.6. Interception</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3829">5.2.7. Component names</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3893">5.2.8. Defining the component scope</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3908">5.2.9. Components with multiple roles</a></span></dt><dt><span class="sect2"><a href="concepts.html#d0e3931">5.2.10. Built-in components</a></span></dt></dl></dd><dt><span class="sect1"><a href="concepts.html#d0e3946">5.3. Bijection</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4049">5.4. Lifecycle methods</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4101">5.5. Conditional installation</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4187">5.6. Logging</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4238">5.7. The Mutable interface and @ReadOnly</a></span></dt><dt><span class="sect1"><a href="concepts.html#d0e4291">5.8. Factory and manager components</a></span></dt></dl></div><p> 
         The two core concepts in Seam are the notion of a <span class="emphasis"><em>context</em></span> and the notion of a
         <span class="emphasis"><em>component</em></span>. Components are stateful objects, usually EJBs, and an instance of a
         component is associated with a context, and given a name in that context. <span class="emphasis"><em>Bijection</em></span>
@@ -9,7 +9,7 @@
         component trees to be dynamically assembled, and reassembled by Seam.
     </p><p>
         Let's start by describing the contexts built in to Seam.
-    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e3489"/>5.1. Seam contexts</h2></div></div></div><p> Seam contexts are created and destroyed by the framework. The application does not control context
+    </p><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e3491"/>5.1. Seam contexts</h2></div></div></div><p> Seam contexts are created and destroyed by the framework. The application does not control context
             demarcation via explicit Java API calls. Context are usually implicit. In some cases, however, contexts are
             demarcated via annotations. </p><p> The basic Seam contexts are: </p><div class="itemizedlist"><ul><li><p> Stateless context </p></li><li><p> Event (i.e., request) context </p></li><li><p> Page context </p></li><li><p> Conversation context </p></li><li><p> Session context </p></li><li><p> Business process context </p></li><li><p> Application context </p></li></ul></div><p> 
             You will recognize some of these contexts from servlet and related specifications. However, two of them
@@ -22,12 +22,12 @@
             application.
         </p><p>
             Let's look at each context in turn.
-        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3528"/>5.1.1. Stateless context</h3></div></div></div><p>
+        </p><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3530"/>5.1.1. Stateless context</h3></div></div></div><p>
                 Components which are truly stateless (stateless session beans, primarily) always live in the stateless
                 context (which is basically the absence of a context since the instance Seam resolves is not stored).
                 Stateless components are not very interesting, and are arguably not very object-oriented. Nevertheless,
                 they do get developed and used and are thus an important part of any Seam application.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3533"/>5.1.2. Event context</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3535"/>5.1.2. Event context</h3></div></div></div><p>
                 The event context is the "narrowest" stateful context, and is a generalization of the notion of the
                 web request context to cover other kinds of events. Nevertheless, the event context associated with the
                 lifecycle of a JSF request is the most important example of an event context, and the one you will work
@@ -36,14 +36,14 @@
             </p><p> 
                 When you invoke a Seam component via RMI, or Seam Remoting, the event context is created and
                 destroyed just for the invocation.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3540"/>5.1.3. Page context</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3542"/>5.1.3. Page context</h3></div></div></div><p>
                 The page context allows you to associate state with a particular instance of a rendered page. You can
                 initialize state in your event listener, or while actually rendering the page, and then have access to
                 it from any event that originates from that page. This is especially useful for functionality like
                 clickable lists, where the list is backed by changing data on the server side. The state is actually
                 serialized to the client, so this construct is extremely robust with respect to multi-window operation
                 and the back button.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3545"/>5.1.4. Conversation context</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3547"/>5.1.4. Conversation context</h3></div></div></div><p>
                 The conversation context is a truly central concept in Seam. A <span class="emphasis"><em>conversation</em></span> is a
                 unit of work from the point of view of the user. It might span several interactions with the user,
                 several requests, and several database transactions. But to the user, a conversation solves a single
@@ -80,24 +80,24 @@
                 conversation context, in the same process.
             </p><p>
                 Alternatively, Seam may be configured to keep conversational state in the client browser.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3578"/>5.1.5. Session context</h3></div></div></div><p>
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3580"/>5.1.5. Session context</h3></div></div></div><p>
                 A session context holds state associated with the user login session. While there are some cases
                 where it is useful to share state between several conversations, we generally frown on the use of
                 session context for holding components other than global information about the logged in user.
             </p><p> 
                 In a JSR-168 portal environment, the session context represents the portlet session. 
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3585"/>5.1.6. Business process context</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3587"/>5.1.6. Business process context</h3></div></div></div><p> 
                 The business process context holds state associated with the long running business process. This
                 state is managed and made persistent by the BPM engine (JBoss jBPM). The business process spans multiple
                 interactions with multiple users, so this state is shared between multiple users, but in a well-defined
                 manner. The current task determines the current business process instance, and the lifecycle of the
                 business process is defined externally using a <span class="emphasis"><em>process definition language</em></span>, so
                 there are no special annotations for business process demarcation. 
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3593"/>5.1.7. Application context</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3595"/>5.1.7. Application context</h3></div></div></div><p> 
                 The application context is the familiar servlet context from the servlet spec. Application context is
                 mainly useful for holding static information such as configuration data, reference data or metamodels.
                 For example, Seam stores its own configuration and metamodel in the application context. 
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3598"/>5.1.8. Context variables</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3600"/>5.1.8. Context variables</h3></div></div></div><p> 
                 A context defines a namespace, a set of <span class="emphasis"><em>context variables</em></span>. These work much the
                 same as session or request attributes in the servlet spec. You may bind any value you like to a context
                 variable, but usually we bind Seam component instances to context variables. 
@@ -111,7 +111,7 @@
             </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_type">Contexts</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">getSessionContext</span><!-- <br/> --><span class="java_separator">().</span><!-- <br/> --><span class="java_plain">set</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_literal">&quot;user&quot;</span><!-- <br/> --><span class="java_separator">,</span><!-- <br/> --><span class="java_plain">&nbsp;user</span><!-- <br/> --><span class="java_separator">);</span></pre><p> 
                 Usually, however, we obtain components from a context via injection, and put component instances into
                 a context via outjection. 
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3622"/>5.1.9. Context search priority</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3624"/>5.1.9. Context search priority</h3></div></div></div><p> 
                 Sometimes, as above, component instances are obtained from a particular known scope. Other times, all
                 stateful scopes are searched, in <span class="emphasis"><em>priority order</em></span>. The order is as follows: 
             </p><div class="itemizedlist"><ul><li><p> Event context </p></li><li><p> Page context </p></li><li><p> Conversation context </p></li><li><p> Session context </p></li><li><p> Business process context </p></li><li><p> Application context </p></li></ul></div><p> 
@@ -155,12 +155,12 @@
                     Serialization of Statefull session beans are controlled by EJB container, 
                     so there is no need for Seam to duplicate that. So @Synchronized annotation
                     is ignored on Statefull session beans. 
-                </p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e3682"/>5.2. Seam components</h2></div></div></div><p> 
+                </p></div></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e3684"/>5.2. Seam components</h2></div></div></div><p> 
             Seam components are POJOs (Plain Old Java Objects). In particular, they are JavaBeans or EJB 3.0
             enterprise beans. While Seam does not require that components be EJBs and can even be used without an EJB
             3.0 compliant container, Seam was designed with EJB 3.0 in mind and includes deep integration with EJB 3.0.
             Seam supports the following <span class="emphasis"><em>component types</em></span>. 
-        </p><div class="itemizedlist"><ul><li><p> EJB 3.0 stateless session beans </p></li><li><p> EJB 3.0 stateful session beans </p></li><li><p> EJB 3.0 entity beans (i.e., JPA entity classes)</p></li><li><p> JavaBeans </p></li><li><p> EJB 3.0 message-driven beans </p></li><li><p> Spring beans (see <a class="xref" href="spring.html" title="Chapter 28. Spring Framework integration">Chapter 28, <i>Spring Framework integration</i></a>)</p></li></ul></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3711"/>5.2.1. Stateless session beans</h3></div></div></div><p> 
+        </p><div class="itemizedlist"><ul><li><p> EJB 3.0 stateless session beans </p></li><li><p> EJB 3.0 stateful session beans </p></li><li><p> EJB 3.0 entity beans (i.e., JPA entity classes)</p></li><li><p> JavaBeans </p></li><li><p> EJB 3.0 message-driven beans </p></li><li><p> Spring beans (see <a class="xref" href="spring.html" title="Chapter 28. Spring Framework integration">Chapter 28, <i>Spring Framework integration</i></a>)</p></li></ul></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3713"/>5.2.1. Stateless session beans</h3></div></div></div><p> 
                 Stateless session bean components are not able to hold state across multiple invocations. Therefore,
                 they usually work by operating upon the state of other components in the various Seam contexts. They may
                 be used as JSF action listeners, but cannot provide properties to JSF components for display. 
@@ -177,7 +177,7 @@
                 Seam stateless session bean components may be instantiated using <code class="literal">Component.getInstance()</code>
                 or <code class="literal">@In(create=true)</code>. They should not be directly instantiated via JNDI lookup
                 or the <code class="literal">new</code> operator.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3733"/>5.2.2. Stateful session beans</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3735"/>5.2.2. Stateful session beans</h3></div></div></div><p> 
                 Stateful session bean components are able to hold state not only across multiple invocations of the
                 bean, but also across multiple requests. Application state that does not belong in the database should
                 usually be held by stateful session beans. This is a major difference between Seam and many other web
@@ -200,7 +200,7 @@
                 Seam stateful session bean components may be instantiated using <code class="literal">Component.getInstance()</code>
                 or <code class="literal">@In(create=true)</code>. They should not be directly instantiated via JNDI lookup
                 or the <code class="literal">new</code> operator.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3758"/>5.2.3. Entity beans</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3760"/>5.2.3. Entity beans</h3></div></div></div><p> 
                 Entity beans may be bound to a context variable and function as a seam component. Because entities
                 have a persistent identity in addition to their contextual identity, entity instances are usually bound
                 explicitly in Java code, rather than being instantiated implicitly by Seam. 
@@ -223,7 +223,7 @@
             </p><p>
                 Seam entity bean components may be instantiated using <code class="literal">Component.getInstance()</code>,
                 <code class="literal">@In(create=true)</code> or directly using the <code class="literal">new</code> operator.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3782"/>5.2.4. JavaBeans</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3784"/>5.2.4. JavaBeans</h3></div></div></div><p> 
                 JavaBeans may be used just like a stateless or stateful session bean. However, they do not provide
                 the functionality of a session bean (declarative transaction demarcation, declarative security,
                 efficient clustered state replication, EJB 3.0 persistence, timeout methods, etc). 
@@ -240,7 +240,7 @@
                 Seam JavaBean components may be instantiated using <code class="literal">Component.getInstance()</code>
                 or <code class="literal">@In(create=true)</code>. They should not be directly instantiated using the 
                 <code class="literal">new</code> operator.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3804"/>5.2.5. Message-driven beans</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3806"/>5.2.5. Message-driven beans</h3></div></div></div><p> 
                 Message-driven beans may function as a seam component. However, message-driven beans are called quite
                 differently to other Seam components - instead of invoking them via the context variable, they listen
                 for messages sent to a JMS queue or topic. 
@@ -251,7 +251,7 @@
             </p><p>
                 Message-driven beans are never instantiated by the application. They are instantiated by the EJB
                 container when a message is received.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3813"/>5.2.6. Interception</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3815"/>5.2.6. Interception</h3></div></div></div><p> 
                 In order to perform its magic (bijection, context demarcation, validation, etc), Seam must intercept
                 component invocations. For JavaBeans, Seam is in full control of instantiation of the component, and no
                 special configuration is needed. For entity beans, interception is not required since bijection and
@@ -276,7 +276,7 @@
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">interceptor-class</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain">org.jboss.seam.ejb.SeamInterceptor</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">interceptor-class</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;</span><span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">interceptor-binding</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">assembly-descriptor</span><span class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3827"/>5.2.7. Component names</h3></div></div></div><p> 
+</pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3829"/>5.2.7. Component names</h3></div></div></div><p> 
                 All seam components need a name. We can assign a name to a component using the
                 <code class="literal">@Name</code> annotation: 
             </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Name</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_literal">&quot;loginAction&quot;</span><!-- <br/> --><span class="java_separator">)</span>
@@ -349,7 +349,7 @@
                 When attempting to resolve an unqualified name, Seam will check each of those namespaces, in order.
                 You can include additional namespaces in your application's <code class="literal">components.xml</code> file
                 for application-specific namespaces.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3891"/>5.2.8. Defining the component scope</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3893"/>5.2.8. Defining the component scope</h3></div></div></div><p> 
                 We can override the default scope (context) of a component using the <code class="literal">@Scope</code>
                 annotation. This lets us define what context a component instance is bound to, when it is instantiated
                 by Seam. 
@@ -360,7 +360,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">...</span><span class="java_plain">&nbsp;</span>
 <!--  --><br/><span class="java_separator">}</span></pre><p>
                 <code class="literal">org.jboss.seam.ScopeType</code> defines an enumeration of possible scopes.
-            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3906"/>5.2.9. Components with multiple roles</h3></div></div></div><p> 
+            </p></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3908"/>5.2.9. Components with multiple roles</h3></div></div></div><p> 
                 Some Seam component classes can fulfill more than one role in the system. For example, we often have
                 a <code class="literal">User</code> class which is usually used as a session-scoped component representing the
                 current user but is used in user administration screens as a conversation-scoped component. The
@@ -383,7 +383,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@</span><span class="java_type">Role</span><span class="java_separator">(</span><span class="java_plain">name</span><span class="java_operator">=</span><span class="java_literal">&quot;tempUser&quot;</span><span class="java_separator">,</span><span class="java_plain">&nbsp;scope</span><span class="java_operator">=</span><span class="java_plain">EVENT</span><span class="java_separator">)})</span>
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_keyword">class</span><span class="java_plain">&nbsp;</span><span class="java_type">User</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span><span class="java_plain">&nbsp;</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">...</span><span class="java_plain">&nbsp;</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3929"/>5.2.10. Built-in components</h3></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="sect2" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e3931"/>5.2.10. Built-in components</h3></div></div></div><p>
                 Like many good frameworks, Seam eats its own dogfood and is implemented mostly as a set of built-in
                 Seam interceptors (see later) and Seam components. This makes it easy for applications to interact with
                 built-in components at runtime or even customize the basic functionality of Seam by replacing the
@@ -392,7 +392,7 @@
             </p><p> 
                 The built-in components may be injected, just like any Seam components, but they also provide
                 convenient static <code class="literal">instance()</code> methods: 
-            </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_type">FacesMessages</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">instance</span><!-- <br/> --><span class="java_separator">().</span><!-- <br/> --><span class="java_plain">add</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_literal">&quot;Welcome&nbsp;back,&nbsp;#{user.name}!&quot;</span><!-- <br/> --><span class="java_separator">);</span></pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e3944"/>5.3. Bijection</h2></div></div></div><p>
+            </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_type">FacesMessages</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">instance</span><!-- <br/> --><span class="java_separator">().</span><!-- <br/> --><span class="java_plain">add</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_literal">&quot;Welcome&nbsp;back,&nbsp;#{user.name}!&quot;</span><!-- <br/> --><span class="java_separator">);</span></pre></div></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e3946"/>5.3. Bijection</h2></div></div></div><p>
             <span class="emphasis"><em>Dependency injection</em></span> or <span class="emphasis"><em>inversion of control</em></span> is by now a familiar
             concept to most Java developers. Dependency injection allows a component to obtain a reference to another
             component by having the container "inject" the other component to a setter method or instance variable. In
@@ -509,7 +509,7 @@
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">}</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">...</span><span class="java_plain">&nbsp;</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4047"/>5.4. Lifecycle methods</h2></div></div></div><p> 
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4049"/>5.4. Lifecycle methods</h2></div></div></div><p> 
             Session bean and entity bean Seam components support all the usual EJB 3.0 lifecycle callback
             (<code class="literal">@PostConstruct</code>, <code class="literal">@PreDestroy</code>, etc). But Seam also supports 
             the use of any of these callbacks with JavaBean components. However, since these annotations are
@@ -530,7 +530,7 @@
             instantiate the component immediately, when the context begins, instead of waiting until it is first
             referenced by a client. It is possible to control the order of instantiation of startup components by
             specifying <code class="literal">@Startup(depends={....})</code>. 
-        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4099"/>5.5. Conditional installation</h2></div></div></div><p>
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4101"/>5.5. Conditional installation</h2></div></div></div><p>
             The <code class="literal">@Install</code> annotation lets you control conditional installation of components that
             are required in some deployment scenarios and not in others. This is useful if:
         </p><div class="itemizedlist"><ul><li><p>
@@ -595,7 +595,7 @@
             controls this functionality. Seam uses this mechanism internally to enable conditional 
             installation of many of the built-in components. However, you probably won't need to
             use it in your application.
-        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4185"/>5.6. Logging</h2></div></div></div><p> 
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4187"/>5.6. Logging</h2></div></div></div><p> 
             Who is not totally fed up with seeing noisy code like this? 
          </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_keyword">private</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_keyword">static</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_keyword">final</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">Log</span><!-- <br/> --><span class="java_plain">&nbsp;log&nbsp;</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">LogFactory</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">getLog</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_type">CreateOrderAction</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_keyword">class</span><!-- <br/> --><span class="java_separator">);</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -644,7 +644,7 @@
 <!--  --><br/><span class="java_separator">}</span></pre><p>
             Seam logging automagically chooses whether to send output to log4j or JDK logging. If log4j is in the
             classpath, Seam with use it. If it is not, Seam will use JDK logging.
-        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4236"/>5.7. The <code class="literal">Mutable</code> interface and <code class="literal">@ReadOnly</code></h2></div></div></div><p> 
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4238"/>5.7. The <code class="literal">Mutable</code> interface and <code class="literal">@ReadOnly</code></h2></div></div></div><p> 
             Many application servers feature an amazingly broken implementation of <code class="literal">HttpSession</code>
             clustering, where changes to the state of mutable objects bound to the session are only replicated when the
             application calls <code class="literal">setAttribute()</code> explicitly. This is a source of bugs that can not
@@ -726,7 +726,7 @@
 <!--  --><br/><span class="java_separator">}</span></pre><p> 
             Note that the <code class="literal">EntityHome</code> class in the Seam Application Framework provides a great example 
             of managing an entity bean instance using a Seam component. 
-        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4289"/>5.8. Factory and manager components</h2></div></div></div><p> 
+        </p></div><div class="sect1" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e4291"/>5.8. Factory and manager components</h2></div></div></div><p> 
             We often need to work with objects that are not Seam components. But we still want to be able to inject
             them into our components using <code class="literal">@In</code> and use them in value and method binding expressions,
             etc. Sometimes, we even need to tie them into the Seam context lifecycle (<code class="literal">@Destroy</code>, for

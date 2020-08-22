@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 13. Writing your presentation layer using Apache Wicket</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="groovy.html" title="Chapter 12. Groovy integration"/><link rel="next" href="framework.html" title="Chapter 14. The Seam Application Framework"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="groovy.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="framework.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="wicket"/>Chapter 13. Writing your presentation layer using Apache Wicket</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="wicket.html#d0e7747">13.1. Adding Seam to your wicket application</a></span></dt><dd><dl><dt><span class="section"><a href="wicket.html#d0e7767">13.1.1. Bijection</a></span></dt><dt><span class="section"><a href="wicket.html#d0e7806">13.1.2. Orchestration</a></span></dt></dl></dd><dt><span class="section"><a href="wicket.html#d0e7889">13.2. Setting up your project</a></span></dt><dd><dl><dt><span class="section"><a href="wicket.html#d0e7894">13.2.1. Runtime instrumentation</a></span></dt><dt><span class="section"><a href="wicket.html#d0e7943">13.2.2. Compile-time instrumentation</a></span></dt><dt><span class="section"><a href="wicket.html#SeamWicketComponent">13.2.3. 
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 13. Writing your presentation layer using Apache Wicket</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="groovy.html" title="Chapter 12. Groovy integration"/><link rel="next" href="framework.html" title="Chapter 14. The Seam Application Framework"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="groovy.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="framework.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="wicket"/>Chapter 13. Writing your presentation layer using Apache Wicket</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="wicket.html#d0e7749">13.1. Adding Seam to your wicket application</a></span></dt><dd><dl><dt><span class="section"><a href="wicket.html#d0e7769">13.1.1. Bijection</a></span></dt><dt><span class="section"><a href="wicket.html#d0e7808">13.1.2. Orchestration</a></span></dt></dl></dd><dt><span class="section"><a href="wicket.html#d0e7891">13.2. Setting up your project</a></span></dt><dd><dl><dt><span class="section"><a href="wicket.html#d0e7896">13.2.1. Runtime instrumentation</a></span></dt><dt><span class="section"><a href="wicket.html#d0e7945">13.2.2. Compile-time instrumentation</a></span></dt><dt><span class="section"><a href="wicket.html#SeamWicketComponent">13.2.3. 
                 The
                 @SeamWicketComponent
                 annotation
-            </a></span></dt><dt><span class="section"><a href="wicket.html#d0e8022">13.2.4. Defining the Application</a></span></dt></dl></dd></dl></div><p>
+            </a></span></dt><dt><span class="section"><a href="wicket.html#d0e8024">13.2.4. Defining the Application</a></span></dt></dl></dd></dl></div><p>
         Seam supports Wicket as an alternative presentation layer to
         JSF. Take a
         look at the
@@ -18,7 +18,7 @@
             (e.g. pageflow). You'll also notice that the documentation is
             very JSF-centric and needs reorganization to reflect the first
             class support for Wicket.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7747"/>13.1. Adding Seam to your wicket application</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7749"/>13.1. Adding Seam to your wicket application</h2></div></div></div><p>
             The features added to your Wicket application can be split into two
             categories: bijection and orchestration; these are discussed
             in detail
@@ -42,7 +42,7 @@
             When a method is called in an inner class, bijection occurs for any
             class which encloses it. This allows you to place your bijected
             variables in the outer class, and refer to them in any inner class.
-        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7767"/>13.1.1. Bijection</h3></div></div></div><p>
+        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7769"/>13.1.1. Bijection</h3></div></div></div><p>
                 A Seam enabled Wicket application has full access to the
                 all the
                 standard Seam contexts (
@@ -75,7 +75,7 @@
             </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">Out</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_plain">scope</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_type">ScopeType</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">EVENT</span><!-- <br/> --><span class="java_separator">,</span><!-- <br/> --><span class="java_plain">&nbsp;required</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_literal">false</span><!-- <br/> --><span class="java_separator">)</span>
 <!--  --><br/><span class="java_keyword">private</span><span class="java_plain">&nbsp;</span><span class="java_type">String</span><span class="java_plain">&nbsp;verify</span><span class="java_separator">;</span></pre><p>
                 TODO Make this more use case driven
-            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7806"/>13.1.2. Orchestration</h3></div></div></div><p>
+            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7808"/>13.1.2. Orchestration</h3></div></div></div><p>
                 You can secure a Wicket component by using the
                 <code class="code">@Restrict</code>
                 annotation. This can be placed on the outer
@@ -162,7 +162,7 @@
                 and
                 <code class="code">@Transition</code>
                 .
-            </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7889"/>13.2. Setting up your project</h2></div></div></div><p>
+            </p></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7891"/>13.2. Setting up your project</h2></div></div></div><p>
             Seam needs to instrument the bytecode of your Wicket classes to be able
             to intercept the annotations you use. The first decision to
             make is: do
@@ -172,7 +172,7 @@
             each
             instrumented class for the first time. The latter is faster, but requires
             you to integrate this instrumentation into your build environment.
-        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7894"/>13.2.1. Runtime instrumentation</h3></div></div></div><p>
+        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7896"/>13.2.1. Runtime instrumentation</h3></div></div></div><p>
                 There are two ways to achieve runtime instrumentation. One relies on
                 placing wicket components to be instrumented in a
                 special folder in your WAR
@@ -180,7 +180,7 @@
                 instrumentation "agent," which you specify in the
                 command line for launching
                 your container.
-            </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7899"/>13.2.1.1. Location-specific instrumentation</h4></div></div></div><p>
+            </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7901"/>13.2.1.1. Location-specific instrumentation</h4></div></div></div><p>
                     Any classes placed in the
                     <code class="literal">WEB-INF/wicket</code>
                     folder within your
@@ -191,7 +191,7 @@
                     a separate output folder for those classes in your IDE, or through
                     the use of
                     ant scripts.
-                </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7907"/>13.2.1.2. Runtime instrumentation agent</h4></div></div></div><p>
+                </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7909"/>13.2.1.2. Runtime instrumentation agent</h4></div></div></div><p>
                     The jar file
                     <code class="literal">jboss-seam-wicket.jar</code>
                     can be used as an instrumentation
@@ -233,10 +233,10 @@
                 annotation
             ”</a>
                             .
-                        </p></li></ul></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7943"/>13.2.2. Compile-time instrumentation</h3></div></div></div><p>
+                        </p></li></ul></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7945"/>13.2.2. Compile-time instrumentation</h3></div></div></div><p>
                 Seam supports instrumentation at compile time through either Apache Ant
                 or Apache Maven.
-            </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7948"/>13.2.2.1.  Instrumenting with ant</h4></div></div></div><p>
+            </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7950"/>13.2.2.1.  Instrumenting with ant</h4></div></div></div><p>
                     Seam provides an ant task in the
                     <code class="literal">jboss-seam-wicket-ant.jar </code>
                     . This is used
@@ -289,7 +289,7 @@
                 annotation
             ”</a>
                     .
-                </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7983"/>13.2.2.2. Instrumenting with maven</h4></div></div></div><p>
+                </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h4 class="title"><a id="d0e7985"/>13.2.2.2. Instrumenting with maven</h4></div></div></div><p>
                     The jboss maven repository
                     <code class="literal">repository.jboss.org</code>
                     provides a plugin named
@@ -358,7 +358,7 @@ public class MyPage extends WebPage
  ...
 }
 </pre><p>
-            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8022"/>13.2.4. Defining the Application</h3></div></div></div><p>
+            </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e8024"/>13.2.4. Defining the Application</h3></div></div></div><p>
                 A Wicket web application which uses Seam should use
                 <code class="code">SeamWebApplication</code>
                 as the base class; this creates hooks

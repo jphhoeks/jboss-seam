@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html
   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 10. Seam and Object/Relational Mapping</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="jbpm.html" title="Chapter 9. Pageflows and business processes"/><link rel="next" href="validation.html" title="Chapter 11. JSF form validation in Seam"/></head><body><p id="title"><a href="http://www.seamframework.org" class="site_href"><strong>SeamFramework.org</strong></a><a href="http://www.seamframework.org/Documentation" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="jbpm.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="validation.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="persistence"/>Chapter 10. Seam and Object/Relational Mapping</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="persistence.html#d0e7067">10.1. Introduction</a></span></dt><dt><span class="section"><a href="persistence.html#persistence.seam-managed-transactions">10.2. Seam managed transactions</a></span></dt><dd><dl><dt><span class="section"><a href="persistence.html#d0e7133">10.2.1. Disabling Seam-managed transactions</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7146">10.2.2. Configuring a Seam transaction manager</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7239">10.2.3. Transaction synchronization</a></span></dt></dl></dd><dt><span class="section"><a href="persistence.html#persistence.seam-managed-persistence-contexts">10.3. Seam-managed persistence contexts</a></span></dt><dd><dl><dt><span class="section"><a href="persistence.html#d0e7280">10.3.1. Using a Seam-managed persistence context with JPA</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7332">10.3.2. Using a Seam-managed Hibernate session</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7364">10.3.3. Seam-managed persistence contexts and atomic conversations</a></span></dt></dl></dd><dt><span class="section"><a href="persistence.html#d0e7423">10.4. Using the JPA "delegate"</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7455">10.5. Using EL in EJB-QL/HQL</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7481">10.6. Using Hibernate filters</a></span></dt></dl></div><p>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory">Chapter 10. Seam and Object/Relational Mapping</title><link rel="stylesheet" href="css/seamframework.css" type="text/css"/><meta xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" name="generator" content="DocBook XSL Stylesheets V1.74.0"/><link rel="home" href="index.html" title="Seam - Contextual Components"/><link rel="up" href="index.html" title="Seam - Contextual Components"/><link rel="prev" href="jbpm.html" title="Chapter 9. Pageflows and business processes"/><link rel="next" href="validation.html" title="Chapter 11. JSF form validation in Seam"/></head><body><p id="title"><a href="https://github.com/albfernandez/jboss-seam" class="site_href"><strong>Seam Framework</strong></a><a href="https://albfernandez.github.io/jboss-seam/" class="doc_href"><strong>Community Documentation</strong></a></p><ul class="docnav"><li class="previous"><a accesskey="p" href="jbpm.html"><strong>Prev</strong></a></li><li class="next"><a accesskey="n" href="validation.html"><strong>Next</strong></a></li></ul><div class="chapter" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="persistence"/>Chapter 10. Seam and Object/Relational Mapping</h2></div></div></div><div class="toc"><dl><dt><span class="section"><a href="persistence.html#d0e7069">10.1. Introduction</a></span></dt><dt><span class="section"><a href="persistence.html#persistence.seam-managed-transactions">10.2. Seam managed transactions</a></span></dt><dd><dl><dt><span class="section"><a href="persistence.html#d0e7135">10.2.1. Disabling Seam-managed transactions</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7148">10.2.2. Configuring a Seam transaction manager</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7241">10.2.3. Transaction synchronization</a></span></dt></dl></dd><dt><span class="section"><a href="persistence.html#persistence.seam-managed-persistence-contexts">10.3. Seam-managed persistence contexts</a></span></dt><dd><dl><dt><span class="section"><a href="persistence.html#d0e7282">10.3.1. Using a Seam-managed persistence context with JPA</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7334">10.3.2. Using a Seam-managed Hibernate session</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7366">10.3.3. Seam-managed persistence contexts and atomic conversations</a></span></dt></dl></dd><dt><span class="section"><a href="persistence.html#d0e7425">10.4. Using the JPA "delegate"</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7457">10.5. Using EL in EJB-QL/HQL</a></span></dt><dt><span class="section"><a href="persistence.html#d0e7483">10.6. Using Hibernate filters</a></span></dt></dl></div><p>
         Seam provides extensive support for the two most popular persistence
         architectures for Java: Hibernate, and the Java Persistence API 2.0
         introduced with EJB 3.1. Seam's unique state-management architecture
         allows the most sophisticated ORM integration of any web application 
         framework.
-    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7067"/>10.1. Introduction</h2></div></div></div><p>
+    </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7069"/>10.1. Introduction</h2></div></div></div><p>
         Seam grew out of the frustration of the Hibernate team with the 
         statelessness typical of the previous generation of Java application 
         architectures. The state management architecture of Seam was originally
@@ -109,7 +109,7 @@
             container-managed persistence contexts. But it is especially useful
             if you use Seam outside a Java EE environment, or in any other
             case where you would use a Seam-managed persistence context.
-    	</p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7133"/>10.2.1. Disabling Seam-managed transactions</h3></div></div></div><p>
+    	</p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7135"/>10.2.1. Disabling Seam-managed transactions</h3></div></div></div><p>
                 Seam transaction management is enabled by default for all JSF requests.
                 If you want to <span class="emphasis"><em>disable</em></span> this feature, you can do it
                 in <code class="literal">components.xml</code>:
@@ -117,7 +117,7 @@
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">core:init</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">transaction-management-enabled</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;false&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
 <span class="xml_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><br />
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">transaction:no-transaction</span><span class="xml_plain">&nbsp;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
-</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7146"/>10.2.2. Configuring a Seam transaction manager</h3></div></div></div><p>
+</pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7148"/>10.2.2. Configuring a Seam transaction manager</h3></div></div></div><p>
     			Seam provides a transaction management abstraction for beginning, committing, rolling back, and
     			synchronizing with a transaction. By default Seam uses a JTA transaction component that integrates with
     			Container Managed and programmatic EJB transactions. If you are working in a Java EE environment, you
@@ -176,7 +176,7 @@
     			For configuring Spring managed transactions see
     			<a class="link" href="spring.html#spring-transactions" title="28.5. Using Spring PlatformTransactionManagement">using Spring PlatformTransactionManagement</a>
     			.
-    		</p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7239"/>10.2.3. Transaction synchronization</h3></div></div></div><p>
+    		</p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7241"/>10.2.3. Transaction synchronization</h3></div></div></div><p>
     			Transaction synchronization provides callbacks for transaction related events
     			such as <code class="literal">beforeCompletion()</code> and <code class="literal">afterCompletion()</code>.
                 By default, Seam uses it's own transaction synchronization component which requires explicit use of the
@@ -205,7 +205,7 @@
             transparent failover of extended persistence contexts, without the need to replicate
             any persistence context state between nodes. (We hope to fix this oversight in the
             next revision of the EJB spec.)
-        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7280"/>10.3.1. Using a Seam-managed persistence context with JPA</h3></div></div></div><p>
+        </p><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7282"/>10.3.1. Using a Seam-managed persistence context with JPA</h3></div></div></div><p>
             Configuring a managed persistence context is easy. In <code class="literal">components.xml</code>, 
             we can write:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
@@ -235,7 +235,7 @@
             will be propagated to methods marked <code class="literal">REQUIRES_NEW</code>.
             Therefore, if you mark a method <code class="literal">REQUIRES_NEW</code> then
             you should access the entity manager using @PersistenceContext.
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7332"/>10.3.2. Using a Seam-managed Hibernate session</h3></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7334"/>10.3.2. Using a Seam-managed Hibernate session</h3></div></div></div><p>
             Seam-managed Hibernate sessions are similar. In <code class="literal">components.xml</code>:
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="XML"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
 <span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">persistence:hibernate-session-factory</span><span class="xml_plain">&nbsp;</span><span class="xml_attribute_name">name</span><span class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;hibernateSessionFactory&quot;</span><span class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
@@ -263,7 +263,7 @@
         </p><p>
             We can now have a managed Hibernate <code class="literal">Session</code> injected into our
             JavaBean components using the following code:
-        </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">In</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">Session</span><!-- <br/> --><span class="java_plain">&nbsp;bookingDatabase</span><!-- <br/> --><span class="java_separator">;</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7364"/>10.3.3. Seam-managed persistence contexts and atomic conversations</h3></div></div></div><p>
+        </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_plain">@</span><!-- <br/> --><span class="java_type">In</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_type">Session</span><!-- <br/> --><span class="java_plain">&nbsp;bookingDatabase</span><!-- <br/> --><span class="java_separator">;</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h3 class="title"><a id="d0e7366"/>10.3.3. Seam-managed persistence contexts and atomic conversations</h3></div></div></div><p>
             Persistence contexts scoped to the conversation allows you to program optimistic 
             transactions that span multiple requests to the server without the need to use the 
             <code class="literal">merge()</code> operation , without the need to re-load 
@@ -320,7 +320,7 @@
    xmlns:core="http://jboss.org/schema/seam/core"&gt;
    &lt;core:manager conversation-timeout="120000" default-flush-mode="manual" /&gt;
 &lt;/components&gt;</pre><div xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="warning"><h2>Warning</h2><p> if you use SMPC in your Stateful bean, manual flush mode is ignored as this mode is specific Hibernate extension to JPA specification.
-    Seam can’t control the flush mode of the persistence context on an SFSB - that means no manual flushing on SFSB! </p></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7423"/>10.4. Using the JPA "delegate"</h2></div></div></div><p>
+    Seam can’t control the flush mode of the persistence context on an SFSB - that means no manual flushing on SFSB! </p></div></div></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7425"/>10.4. Using the JPA "delegate"</h2></div></div></div><p>
             The <code class="literal">EntityManager</code> interface lets you access a vendor-specific
             API via the <code class="literal">getDelegate()</code> method. Naturally, the most interesting
             vendor is Hibernate, and the most powerful delegate interface is
@@ -353,7 +353,7 @@
 <!--  --><br/><span class="java_plain">@</span><span class="java_type">Create</span>
 <!--  --><br/><span class="java_keyword">public</span><span class="java_plain">&nbsp;</span><span class="java_type">void</span><span class="java_plain">&nbsp;init</span><span class="java_separator">()</span><span class="java_plain">&nbsp;</span><span class="java_separator">{</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;session</span><span class="java_separator">.</span><span class="java_plain">enableFilter</span><span class="java_separator">(</span><span class="java_literal">&quot;currentVersions&quot;</span><span class="java_separator">);</span>
-<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7455"/>10.5. Using EL in EJB-QL/HQL</h2></div></div></div><p>
+<!--  --><br/><span class="java_separator">}</span></pre></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7457"/>10.5. Using EL in EJB-QL/HQL</h2></div></div></div><p>
             Seam proxies the <code class="literal">EntityManager</code> or <code class="literal">Session</code>
             object whenever you use a Seam-managed persistence context or inject a container
             managed persistence context using <code class="literal">@PersistenceContext</code>. This
@@ -367,7 +367,7 @@
         </p><pre xmlns="" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span class="java_type">User</span><!-- <br/> --><span class="java_plain">&nbsp;user&nbsp;</span><!-- <br/> --><span class="java_operator">=</span><!-- <br/> --><span class="java_plain">&nbsp;em</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">createQuery</span><!-- <br/> --><span class="java_separator">(</span><!-- <br/> --><span class="java_literal">&quot;from&nbsp;User&nbsp;where&nbsp;username=&quot;</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_operator">+</span><!-- <br/> --><span class="java_plain">&nbsp;user</span><!-- <br/> --><span class="java_separator">.</span><!-- <br/> --><span class="java_plain">getUsername</span><!-- <br/> --><span class="java_separator">())</span><!-- <br/> --><span class="java_plain">&nbsp;</span><!-- <br/> --><span class="java_operator">//</span><!-- <br/> --><span class="java_plain">BAD</span><!-- <br/> --><span class="java_operator">!</span>
 <!--  --><br/><span class="java_plain">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="java_separator">.</span><span class="java_plain">getSingleResult</span><span class="java_separator">();</span></pre><p>
             (It is inefficient and vulnerable to SQL injection attacks.)
-        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7481"/>10.6. Using Hibernate filters</h2></div></div></div><p>
+        </p></div><div class="section" lang="en-US"><div class="titlepage"><div><div><h2 class="title"><a id="d0e7483"/>10.6. Using Hibernate filters</h2></div></div></div><p>
             The coolest, and most unique, feature of Hibernate is <span class="emphasis"><em>filters</em></span>.
             Filters let you provide a restricted view of the data in the database. You can find 
             out more about filters in the Hibernate documentation. But we thought we'd mention
