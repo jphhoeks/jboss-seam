@@ -214,7 +214,6 @@ to the updated Seam examples in Seam distribution.</para>
            </dependencies>
      </deployment>  
    </jboss-deployment-structure>]]></programlisting>
-   <para>More details are described in <ulink url="https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7">JBoss AS 7 documentation</ulink>.</para>
    </section>
    
    <section id="AS7ds">
@@ -338,7 +337,7 @@ public static Archive<?> createDeployment()
    
    <section id="_bill_of_materials">
    <title>Seam Bill of Materials</title>
-   <para>A Bill of materials is a set of dependeny elements in <literal>&lt;dependencyManagement&gt;</literal> section that can be used to import into your application maven build and be able to declare which dependencies and their versions that you wish to use in your application. The nice thing about the Seam BOM is that the dependencies and their versions are there recommended dependencies that would work well with Seam 2.3. The usage of Seam BOM is shown in <xref linkend="bomusage"/>. The Seam BOM is deployed in <ulink url="https://repository.jboss.org/nexus/index.html#nexus-search;gav~org.jboss.seam~bom~~~">JBoss Maven repository</ulink>.</para>
+   <para>A Bill of materials is a set of dependeny elements in <literal>&lt;dependencyManagement&gt;</literal> section that can be used to import into your application maven build and be able to declare which dependencies and their versions that you wish to use in your application. The nice thing about the Seam BOM is that the dependencies and their versions are there recommended dependencies that would work well with Seam 2.3. The usage of Seam BOM is shown in <xref linkend="bomusage"/>. </para>
 
    <example id="bomusage">
    <title>Seam BOM usage</title>

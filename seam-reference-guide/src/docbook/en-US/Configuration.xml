@@ -67,11 +67,7 @@
                 using server side state saving with the JSF-RI and you want a PAGE scoped bean to keep its exact value
                 for a given view of a page you will need to specify the following context-param. Otherwise if a user
                 uses the "back" button a PAGE scoped component will have the latest value if it has changed not the
-                value of the "back" page. (see
-                <ulink url="http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1127">
-                    Spec Issue
-                </ulink>
-                ). This setting is not enabled by default because of the performance hit of serializing the JSF view
+                value of the "back" page. This setting is not enabled by default because of the performance hit of serializing the JSF view
                 with every request.
             </para>
 
@@ -987,8 +983,6 @@ Authenticator authenticator;
   </deployment>  
 </jboss-deployment-structure>]]></programlisting> 
         </example>    
-            More details about new AS 7 classloading can be found at 
-            <ulink url="https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-ClassloadinginJBossAS7">https://docs.jboss.org/author/display/AS7/Developer+Guide#DeveloperGuide-ClassloadinginJBossAS7</ulink> 
         </para>
 
    <warning>
@@ -1117,7 +1111,7 @@ Authenticator authenticator;
            If you want to run your Seam application in a portlet, take a look at
            the JBoss Portlet Bridge, an implementation of JSR-301 that supports
            JSF within a portlet, with extensions for Seam and RichFaces. See
-           <ulink url="http://labs.jboss.com/portletbridge">http://labs.jboss.com/portletbridge</ulink>
+           <ulink url="https://portletbridge.jboss.org/">http://labs.jboss.com/portletbridge</ulink>
            for more.
         </para>
 

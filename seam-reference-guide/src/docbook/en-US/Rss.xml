@@ -256,14 +256,5 @@
          which can be found on <ulink url="http://yarfraw.sourceforge.net/">http://yarfraw.sourceforge.net/</ulink> and most 
          features and possible limitations are inherited from here.
       </para>
-      <para>
-        For details on the ATOM 1.0 format, have a look at 
-        <ulink url="http://atompub.org/2005/07/11/draft-ietf-atompub-format-10.html">
-        the specs</ulink>
-      </para>
-      <para>
-        For details on the RSS 2.0 format, have a look at 
-        <ulink url="http://cyber.law.harvard.edu/rss/rss.html">the specs</ulink>
-	  </para>
    </section>
 </chapter>

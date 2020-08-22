@@ -8,22 +8,10 @@
     <title>JDK Dependencies</title>
     
     <para>
-      Seam does not work with JDK 1.4 and requires JDK 5 or above as it uses 
-      annotations and other JDK 5.0 features. Seam has been thoroughly tested 
-      using Oracle's JDKs and OpenJDKs.  However there are no known issues specific to Seam with
-      other JDKs.
+      This fork of Seam requires JDK 8 or higher.
     </para>
     
-    <section id="jdk6_dependencies">
-        <title>Oracle's JDK 6 Considerations</title>
-        <para>
-            Earlier versions of Oracle's JDK 6 contained an incompatible 
-            version of JAXB and required overriding it using the "endorsed" 
-            directory.  Oracle's JDK6 Update 4 release upgraded to JAXB 2.1 and 
-            removed this requirement.  When building, testing, or executing be
-            sure to use this version or higher. 
-        </para>        
-    </section>    
+    
   </section>
   
   <section>
@@ -502,6 +490,21 @@
               </entry>
               <entry>
                 <para>RTF Library</para>
+              </entry>
+            </row>
+            
+            <row>
+              <entry>
+                <para><literal>juniversalchardet.jar</literal></para>
+              </entry>
+              <entry align="center">
+                <para>runtime</para>
+              </entry>
+              <entry align="center">
+                <para>war</para>
+              </entry>
+              <entry>
+                <para>Detect charsets, required by OpenPDF</para>
               </entry>
             </row>
             

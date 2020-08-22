@@ -17,7 +17,7 @@
    </para>
    
    <para>Please read the latest JBoss Tools documentation at 
-   <ulink url="http://docs.jboss.org/tools/latest/en/seam_tools_ref_guide/html/index.html">http://docs.jboss.org/tools/latest/en/seam_tools_ref_guide/html/index.html</ulink>.
+   <ulink url="https://tools.jboss.org/documentation/">https://tools.jboss.org/documentation/</ulink>.
    </para>
 
    <para>
@@ -39,7 +39,7 @@
 
       <para>
          Please see the official <ulink
-         url="http://docs.jboss.org/tools/latest/en/GettingStartedGuide/html_single/index.html">JBoss Tools
+         url="https://tools.jboss.org/documentation/faq/">JBoss Tools
          Getting started</ulink> page for the quickest way to get JBoss Tools setup
          in Eclipse.
       </para>

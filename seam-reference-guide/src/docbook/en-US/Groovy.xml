@@ -9,7 +9,7 @@
         required choosing a completely different development platform (a development platform with a set of APIs and a
         runtime so great that you would no longer want to use you old legacy Java [sic] APIs anymore, which would be
         lucky because you would be forced to use those proprietary APIs anyway). Dynamic languages built on top of the
-        Java Virtual Machine, and <ulink url="http://groovy.codehaus.org">Groovy</ulink> in particular broke this
+        Java Virtual Machine, and <ulink url="http://www.groovy-lang.org/">Groovy</ulink> in particular broke this
         approach in silos.</para>
 
     <para>JBoss Seam now unites the dynamic language world with the Java EE world by seamlessly integrating both static
@@ -162,7 +162,7 @@ class BookingListAction implements Serializable
 
             <para>A Groovy class <emphasis>is</emphasis> a Java class, with a bytecode representation just like a Java
                 class. To deploy, a Groovy entity, a Groovy Session bean or a Groovy Seam component, a compilation step
-                is necessary. A common approach is to use the <ulink url="http://docs.codehaus.org/display/GMAVEN/Home">gmaven-plugin</ulink>
+                is necessary. A common approach is to use the <ulink url="https://groovy.github.io/gmaven/">gmaven-plugin</ulink>
                  maven plugin. Once compiles, a Groovy class is in no way different than a Java class and the application server will treat them
                 equally. Note that this allow a seamless mix of Groovy and Java code.</para>
         </section>
