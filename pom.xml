@@ -7,7 +7,7 @@
         <version>10</version>
     </parent>
     
-	<groupId>org.jboss.seam</groupId>
+	<groupId>com.github.albfernandez.seam</groupId>
 	<artifactId>jboss-seam-parent</artifactId>
 	<name>Seam Parent</name>
 	<version>2.3.24-SNAPSHOT</version>
@@ -109,7 +109,7 @@
 			    <version>3.2.2</version>
 			</dependency>
 			<dependency>
-				<groupId>org.jboss.seam</groupId>
+				<groupId>com.github.albfernandez.seam</groupId>
 				<artifactId>bom</artifactId>
 				<version>${version.seam}</version>
 				<type>pom</type>
@@ -359,7 +359,7 @@
 							<manifestEntries>
 								<Seam-Version>${project.version}</Seam-Version>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<Automatic-Module-Name>org.jboss.seam.${project.artifactId}</Automatic-Module-Name>
+								<Automatic-Module-Name>com.github.albfernandez.seam.${project.artifactId}</Automatic-Module-Name>
 							</manifestEntries>
 						</archive>
 					</configuration>
@@ -414,7 +414,7 @@
                     <artifactId>maven-checkstyle-plugin</artifactId><version>${version.maven-checkstyle-plugin}</version>
                     <dependencies>
                         <dependency>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>build-tools</artifactId>
                             <version>1.0-SNAPSHOT</version>
                         </dependency>
@@ -437,7 +437,7 @@
                     <version>${version.spotbugs-maven-plugin}</version>
                     <dependencies>
                         <dependency>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>build-tools</artifactId>
                             <version>1.0-SNAPSHOT</version>
                         </dependency>
@@ -470,7 +470,7 @@
                     <version>${version.maven-pmd-plugin}</version>
                     <dependencies>
                         <dependency>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>build-tools</artifactId>
                             <version>1.0-SNAPSHOT</version>
                         </dependency>
@@ -513,7 +513,7 @@
                     <version>${version.org.owasp.dependency-check-maven}</version>
                     <dependencies>
                         <dependency>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>build-tools</artifactId>
                             <version>1.0-SNAPSHOT</version>
                         </dependency>
@@ -582,7 +582,7 @@
                        <manifestEntries>
                          <Seam-Version>${project.version}</Seam-Version>
                          <Build-Time>${maven.build.timestamp}</Build-Time>
-                         <Automatic-Module-Name>org.jboss.seam.${project.artifactId}</Automatic-Module-Name>
+                         <Automatic-Module-Name>com.github.albfernandez.seam.${project.artifactId}</Automatic-Module-Name>
                        </manifestEntries>
                    </archive>
                </configuration>

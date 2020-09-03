@@ -3,35 +3,35 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>guice</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.guice</groupId>
+    <groupId>com.github.albfernandez.seam.examples.guice</groupId>
     <artifactId>guice-ear</artifactId>
     <packaging>ear</packaging>
     <name>Guice EAR Module (EE6)</name>
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.guice</groupId>
+            <groupId>com.github.albfernandez.seam.examples.guice</groupId>
             <artifactId>guice-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.examples.guice</groupId>
+            <groupId>com.github.albfernandez.seam.examples.guice</groupId>
             <artifactId>guice-ejb</artifactId>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ioc</artifactId>
             <scope>compile</scope>
         </dependency>
@@ -49,18 +49,18 @@
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
                         <webModule>
-                            <groupId>org.jboss.seam.examples.guice</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.guice</groupId>
                             <artifactId>guice-web</artifactId>
                             <contextRoot>/seam-guice</contextRoot>
                             <bundleFileName>guice-web.war</bundleFileName>
                         </webModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam.examples.guice</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.guice</groupId>
                             <artifactId>guice-ejb</artifactId>
                             <bundleFileName>guice-ejb.jar</bundleFileName>
                         </ejbModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>jboss-seam</artifactId>
                             <bundleFileName>jboss-seam.jar</bundleFileName>
                         </ejbModule> 

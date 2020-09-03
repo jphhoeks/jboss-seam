@@ -3,19 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>tasks</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.tasks</groupId>
+    <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
     <artifactId>tasks-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>Tasks EJB Module (EE6)</name>
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <scope>provided</scope>
             <type>ejb</type>
@@ -61,7 +61,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-resteasy</artifactId>
             <exclusions>
                 <exclusion>

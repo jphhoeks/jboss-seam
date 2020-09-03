@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <artifactId>booking</artifactId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.jboss.seam.examples.booking</groupId>
+    <groupId>com.github.albfernandez.seam.examples.booking</groupId>
     <artifactId>booking-web</artifactId>
     <packaging>war</packaging>
     <name>Booking Web Module (EE6)</name>
@@ -21,24 +21,24 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.booking</groupId>
+            <groupId>com.github.albfernandez.seam.examples.booking</groupId>
             <artifactId>booking-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ui</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-debug</artifactId>
             <scope>provided</scope>
         </dependency>

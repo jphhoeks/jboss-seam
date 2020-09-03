@@ -3,31 +3,31 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>icefaces</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.icefaces</groupId>
+    <groupId>com.github.albfernandez.seam.examples.icefaces</groupId>
     <artifactId>icefaces-ear</artifactId>
     <packaging>ear</packaging>
     <name>Icefaces EAR Module (EE6)</name>
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.icefaces</groupId>
+            <groupId>com.github.albfernandez.seam.examples.icefaces</groupId>
             <artifactId>icefaces-web</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.examples.icefaces</groupId>
+            <groupId>com.github.albfernandez.seam.examples.icefaces</groupId>
             <artifactId>icefaces-ejb</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
         <dependency>
-           <groupId>org.jboss.seam</groupId>
+           <groupId>com.github.albfernandez.seam</groupId>
            <artifactId>jboss-seam</artifactId>
            <scope>runtime</scope>
            <type>ejb</type>
@@ -61,18 +61,18 @@
                     <filtering>true</filtering>
                     <modules>
                         <webModule>
-                            <groupId>org.jboss.seam.examples.icefaces</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.icefaces</groupId>
                             <artifactId>icefaces-web</artifactId>
                             <contextRoot>/seam-icefaces</contextRoot>
                             <bundleFileName>icefaces-web.war</bundleFileName>
                         </webModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam.examples.icefaces</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.icefaces</groupId>
                             <artifactId>icefaces-ejb</artifactId>
                             <bundleFileName>icefaces-ejb.jar</bundleFileName>
                         </ejbModule>
                        <ejbModule>
-                          <groupId>org.jboss.seam</groupId>
+                          <groupId>com.github.albfernandez.seam</groupId>
                           <artifactId>jboss-seam</artifactId>
                           <bundleFileName>jboss-seam.jar</bundleFileName>
                        </ejbModule>

@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-	   <groupId>org.jboss.seam</groupId>
+	   <groupId>com.github.albfernandez.seam</groupId>
        <artifactId>jboss-seam-parent</artifactId>		
 		<version>2.3.24-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -59,14 +59,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>seam-integration-tests</artifactId>
             <version>${project.version}</version>
             <type>war</type>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <version>${project.version}</version>
@@ -74,165 +74,165 @@
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-excel</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-flex</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ioc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-mail</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-pdf</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-remoting</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-resteasy</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-rss</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-wicket</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>seam-reference-guide</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-debug</artifactId>
             <classifier>sources</classifier>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-excel</artifactId>
             <classifier>sources</classifier>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-flex</artifactId>
             <classifier>sources</classifier>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ioc</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-mail</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-pdf</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-remoting</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-resteasy</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-rss</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ui</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-wicket</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ui</artifactId>
             <version>${project.version}</version>
             <classifier>javadoc</classifier>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <version>${project.version}</version>
             <type>ejb</type>
             <classifier>javadoc</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-gen</artifactId>
             <version>${project.version}</version>
             <classifier>distribution</classifier>
             <type>zip</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-gen</artifactId>
             <version>${project.version}</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-gen</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>functional-tests</artifactId>
             <version>${project.version}</version>
         </dependency>
 
        <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
        </dependency>
        <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-debug</artifactId>
        </dependency>
        <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ui</artifactId>
        </dependency>
 

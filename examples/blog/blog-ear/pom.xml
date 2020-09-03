@@ -3,29 +3,29 @@
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <artifactId>blog</artifactId>
-      <groupId>org.jboss.seam.examples</groupId>
+      <groupId>com.github.albfernandez.seam.examples</groupId>
       <version>2.3.24-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-    <groupId>org.jboss.seam.examples.blog</groupId>
+    <groupId>com.github.albfernandez.seam.examples.blog</groupId>
     <artifactId>blog-ear</artifactId>
     <packaging>ear</packaging>
     <name>Blog EAR Module (EE6)</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.blog</groupId>
+            <groupId>com.github.albfernandez.seam.examples.blog</groupId>
             <artifactId>blog-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.examples.blog</groupId>
+            <groupId>com.github.albfernandez.seam.examples.blog</groupId>
             <artifactId>blog-ejb</artifactId>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>compile</scope>
@@ -57,20 +57,20 @@
                     <modules>
 
                         <ejbModule>
-                            <groupId>org.jboss.seam.examples.blog</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.blog</groupId>
                             <artifactId>blog-ejb</artifactId>
                             <bundleFileName>blog-ejb.jar</bundleFileName>
                         </ejbModule>
 
                         <webModule>
-                            <groupId>org.jboss.seam.examples.blog</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.blog</groupId>
                             <artifactId>blog-web</artifactId>
                             <contextRoot>/seam-blog</contextRoot>
                             <bundleFileName>blog-web.war</bundleFileName>
                         </webModule>
 
                         <ejbModule>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>jboss-seam</artifactId>
                             <bundleFileName>jboss-seam.jar</bundleFileName>
                         </ejbModule>
@@ -101,7 +101,7 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.blog</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.blog</groupId>
                                             <artifactId>blog-ear</artifactId>
                                             <type>ear</type>
                                             <overWrite>true</overWrite>
@@ -109,7 +109,7 @@
                                             </outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.blog</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.blog</groupId>
                                             <artifactId>blog-web</artifactId>
                                             <type>war</type>
                                             <overWrite>true</overWrite>
@@ -118,7 +118,7 @@
                                             </outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.blog</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.blog</groupId>
                                             <artifactId>blog-ejb</artifactId>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>

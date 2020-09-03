@@ -2,7 +2,7 @@
 
 	<parent>
 		<artifactId>jboss-seam-parent</artifactId>
-		<groupId>org.jboss.seam</groupId>
+		<groupId>com.github.albfernandez.seam</groupId>
 		<version>2.3.24-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
         </dependency>
@@ -123,7 +123,7 @@
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>
-                                    <excludeGroupIds>org.jboss.seam</excludeGroupIds>
+                                    <excludeGroupIds>com.github.albfernandez.seam</excludeGroupIds>
                                     <excludeClassifiers>sources, project, distribution</excludeClassifiers>
                                     <outputDirectory>../jar-dependencies</outputDirectory>
                                     <stripVersion>true</stripVersion>

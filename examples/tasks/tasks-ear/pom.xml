@@ -3,29 +3,29 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>tasks</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.tasks</groupId>
+    <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
     <artifactId>tasks-ear</artifactId>
     <packaging>ear</packaging>
     <name>Tasks EAR Module (EE6)</name>
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.tasks</groupId>
+            <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
             <artifactId>tasks-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.examples.tasks</groupId>
+            <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
             <artifactId>tasks-ejb</artifactId>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>compile</scope>
@@ -70,18 +70,18 @@
                     <initializeInOrder>true</initializeInOrder>
                     <modules>
                         <ejbModule>
-                            <groupId>org.jboss.seam.examples.tasks</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
                             <artifactId>tasks-ejb</artifactId>
                             <bundleFileName>tasks-ejb.jar</bundleFileName>
                         </ejbModule>
                         <webModule>
-                            <groupId>org.jboss.seam.examples.tasks</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
                             <artifactId>tasks-web</artifactId>
                             <contextRoot>/seam-tasks</contextRoot>
                             <bundleFileName>tasks-web.war</bundleFileName>
                         </webModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>jboss-seam</artifactId>
                             <bundleFileName>jboss-seam.jar</bundleFileName>
                         </ejbModule>
@@ -112,21 +112,21 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.tasks</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
                                             <artifactId>tasks-ear</artifactId>
                                             <type>ear</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${project.build.directory}/${project.build.finalName}-exploded/${project.build.finalName}.ear</outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.tasks</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
                                             <artifactId>tasks-web</artifactId>
                                             <type>war</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${project.build.directory}/${project.build.finalName}-exploded/${project.build.finalName}.ear/${example.name}-web.war</outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.tasks</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.tasks</groupId>
                                             <artifactId>tasks-ejb</artifactId>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>

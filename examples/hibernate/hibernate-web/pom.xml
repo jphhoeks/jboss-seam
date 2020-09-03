@@ -4,29 +4,29 @@
 
    <parent>
       <artifactId>hibernate</artifactId>
-      <groupId>org.jboss.seam.examples</groupId>
+      <groupId>com.github.albfernandez.seam.examples</groupId>
       <version>2.3.24-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-    <groupId>org.jboss.seam.examples.hibernate</groupId>
+    <groupId>com.github.albfernandez.seam.examples.hibernate</groupId>
     <artifactId>hibernate-web</artifactId>
     <packaging>war</packaging>
     <name>Hibernate Web Module (EE6)</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-ui</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-debug</artifactId>
         </dependency>
         <dependency>

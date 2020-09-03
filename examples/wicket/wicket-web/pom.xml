@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>wicket</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.wicket</groupId>
+    <groupId>com.github.albfernandez.seam.examples.wicket</groupId>
     <artifactId>wicket-web</artifactId>
     <packaging>war</packaging>
     <name>Wicket Booking Web Module (EE6)</name>
@@ -20,19 +20,19 @@
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.wicket</groupId>
+            <groupId>com.github.albfernandez.seam.examples.wicket</groupId>
             <artifactId>wicket-ejb</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-debug</artifactId>
         </dependency>
         <dependency>

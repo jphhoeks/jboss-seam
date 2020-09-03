@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jboss.seam.examples.remoting</groupId>
+    <groupId>com.github.albfernandez.seam.examples.remoting</groupId>
     <artifactId>progressbar</artifactId>
     <version>2.3.24-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -36,26 +36,26 @@
         <dependencies>
             <!-- Modules -->
             <dependency>
-                <groupId>org.jboss.seam.examples.remoting.progressbar</groupId>
+                <groupId>com.github.albfernandez.seam.examples.remoting.progressbar</groupId>
                 <artifactId>progressbar-ejb</artifactId>
                 <version>${project.version}</version>
                 <type>ejb</type>
             </dependency>
             <dependency>
-                <groupId>org.jboss.seam.examples.remoting.progressbar</groupId>
+                <groupId>com.github.albfernandez.seam.examples.remoting.progressbar</groupId>
                 <artifactId>progressbar-web</artifactId>
                 <version>${project.version}</version>
                 <type>war</type>
             </dependency>
             <dependency>
-                <groupId>org.jboss.seam.examples.remoting.progressbar</groupId>
+                <groupId>com.github.albfernandez.seam.examples.remoting.progressbar</groupId>
                 <artifactId>progressbar-ear</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- BOMs -->
             <dependency>
-                <groupId>org.jboss.seam</groupId>
+                <groupId>com.github.albfernandez.seam</groupId>
                 <artifactId>bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -72,7 +72,7 @@
 
             <!-- TestNG is not necessary -->
             <dependency>
-                <groupId>org.jboss.seam</groupId>
+                <groupId>com.github.albfernandez.seam</groupId>
                 <artifactId>jboss-seam</artifactId>
                 <version>${project.version}</version>
                 <exclusions>

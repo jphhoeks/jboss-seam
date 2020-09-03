@@ -5,7 +5,7 @@
 		<artifactId>jboss-parent</artifactId>
 		<version>10</version>
 	</parent>
-	<groupId>org.jboss.seam</groupId>
+	<groupId>com.github.albfernandez.seam</groupId>
 	<artifactId>seam-cdk-helper</artifactId>
 	<version>1.0.1</version>
 	<packaging>maven-plugin</packaging>

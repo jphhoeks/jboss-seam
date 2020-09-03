@@ -3,12 +3,12 @@
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <artifactId>guice</artifactId>
-      <groupId>org.jboss.seam.examples</groupId>
+      <groupId>com.github.albfernandez.seam.examples</groupId>
       <version>2.3.24-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <groupId>org.jboss.seam.examples.guice</groupId>
+   <groupId>com.github.albfernandez.seam.examples.guice</groupId>
    <artifactId>guice-web</artifactId>
    <packaging>war</packaging>
    <name>Guice Web Module (EE6)</name>
@@ -20,23 +20,23 @@
 
    <dependencies>
       <dependency>
-         <groupId>org.jboss.seam.examples.guice</groupId>
+         <groupId>com.github.albfernandez.seam.examples.guice</groupId>
          <artifactId>guice-ejb</artifactId>
          <type>ejb</type>
          <scope>provided</scope>
       </dependency>
       <dependency>
-         <groupId>org.jboss.seam</groupId>
+         <groupId>com.github.albfernandez.seam</groupId>
          <artifactId>jboss-seam</artifactId>
          <type>ejb</type>
          <scope>provided</scope>
       </dependency>
       <dependency>
-         <groupId>org.jboss.seam</groupId>
+         <groupId>com.github.albfernandez.seam</groupId>
          <artifactId>jboss-seam-debug</artifactId>
       </dependency>
       <dependency>
-         <groupId>org.jboss.seam</groupId>
+         <groupId>com.github.albfernandez.seam</groupId>
          <artifactId>jboss-seam-ui</artifactId>
       </dependency>
    </dependencies>

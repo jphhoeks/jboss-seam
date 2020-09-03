@@ -3,11 +3,11 @@
    <modelVersion>4.0.0</modelVersion>
    <parent>
       <artifactId>numberguess</artifactId>
-      <groupId>org.jboss.seam.examples</groupId>
+      <groupId>com.github.albfernandez.seam.examples</groupId>
       <version>2.3.24-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
-    <groupId>org.jboss.seam.examples.numberguess</groupId>
+    <groupId>com.github.albfernandez.seam.examples.numberguess</groupId>
     <artifactId>numberguess-ear</artifactId>
     <packaging>ear</packaging>
     <name>Numberguess EAR Module (EE6)</name>
@@ -19,17 +19,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.numberguess</groupId>
+            <groupId>com.github.albfernandez.seam.examples.numberguess</groupId>
             <artifactId>numberguess-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.examples.numberguess</groupId>
+            <groupId>com.github.albfernandez.seam.examples.numberguess</groupId>
             <artifactId>numberguess-ejb</artifactId>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
         </dependency>
@@ -48,18 +48,18 @@
                     <filtering>true</filtering>
                     <modules>
                         <webModule>
-                            <groupId>org.jboss.seam.examples.numberguess</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.numberguess</groupId>
                             <artifactId>numberguess-web</artifactId>
                             <contextRoot>/seam-numberguess</contextRoot>
                             <bundleFileName>numberguess-web.war</bundleFileName>
                         </webModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam.examples.numberguess</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.numberguess</groupId>
                             <artifactId>numberguess-ejb</artifactId>
                             <bundleFileName>numberguess-ejb.jar</bundleFileName>
                         </ejbModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>jboss-seam</artifactId>
                             <bundleFileName>jboss-seam.jar</bundleFileName>
                         </ejbModule>

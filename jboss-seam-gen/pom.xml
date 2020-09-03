@@ -5,7 +5,7 @@
    <name>Seam Generator</name>
    <packaging>jar</packaging>
    <parent>
-      <groupId>org.jboss.seam</groupId>
+      <groupId>com.github.albfernandez.seam</groupId>
       <artifactId>jboss-seam-parent</artifactId>
       <version>2.3.24-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>

@@ -101,7 +101,7 @@
          <useProjectArtifact>false</useProjectArtifact>
          <useStrictFiltering>true</useStrictFiltering>
          <includes>
-            <include>org.jboss.seam:*:*:sources</include>
+            <include>com.github.albfernandez.seam:*:*:sources</include>
          </includes>     
          <outputFileNameMapping>${artifact.artifactId}-sources.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
@@ -112,19 +112,19 @@
          <useProjectArtifact>false</useProjectArtifact>                  
          <useStrictFiltering>true</useStrictFiltering>         
          <includes>
-            <include>org.jboss.seam:jboss-seam:ejb</include>
-            <include>org.jboss.seam:jboss-seam-debug:jar</include>
-            <include>org.jboss.seam:jboss-seam-gen:jar</include>
-            <include>org.jboss.seam:jboss-seam-ui:jar</include>
-            <include>org.jboss.seam:jboss-seam-excel:jar</include>
-            <include>org.jboss.seam:jboss-seam-pdf:jar</include>
-            <include>org.jboss.seam:jboss-seam-mail:jar</include>
-            <include>org.jboss.seam:jboss-seam-rss:jar</include>
-            <include>org.jboss.seam:jboss-seam-resteasy:jar</include>
-            <include>org.jboss.seam:jboss-seam-wicket:jar</include>
-            <include>org.jboss.seam:jboss-seam-remoting:jar</include>
-            <include>org.jboss.seam:jboss-seam-flex:jar</include>
-            <include>org.jboss.seam:jboss-seam-ioc:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam:ejb</include>
+            <include>com.github.albfernandez.seam:jboss-seam-debug:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-gen:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-ui:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-excel:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-pdf:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-mail:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-rss:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-resteasy:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-wicket:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-remoting:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-flex:jar</include>
+            <include>com.github.albfernandez.seam:jboss-seam-ioc:jar</include>
          </includes>
          <excludes>
             <exclude>*:*:ejb:sources</exclude>
@@ -168,7 +168,7 @@
             </excludes>
          </unpackOptions>
          <includes>
-            <include>org.jboss.seam:jboss-seam-gen:zip:distribution</include>
+            <include>com.github.albfernandez.seam:jboss-seam-gen:zip:distribution</include>
          </includes>
       </dependencySet>
       
@@ -178,7 +178,7 @@
          <unpack>true</unpack>
          <useProjectArtifact>false</useProjectArtifact>
          <includes>
-            <include>org.jboss.seam:seam-reference-guide</include>
+            <include>com.github.albfernandez.seam:seam-reference-guide</include>
          </includes>
          <unpackOptions>
             <excludes>
@@ -203,7 +203,7 @@
          <directoryMode>755</directoryMode>
          <fileMode>755</fileMode>
          <includes>
-            <include>org.jboss.seam:jboss-seam:*:javadoc</include>
+            <include>com.github.albfernandez.seam:jboss-seam:*:javadoc</include>
          </includes>
          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>
@@ -220,7 +220,7 @@
          <directoryMode>755</directoryMode>
          <fileMode>755</fileMode>
          <includes>
-            <include>org.jboss.seam:jboss-seam-ui:*:javadoc</include>
+            <include>com.github.albfernandez.seam:jboss-seam-ui:*:javadoc</include>
          </includes>
          <outputFileNameMapping>${artifact.artifactId}-${artifact.version}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
       </dependencySet>

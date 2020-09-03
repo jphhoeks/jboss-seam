@@ -3,29 +3,29 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>openid</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.openid</groupId>
+    <groupId>com.github.albfernandez.seam.examples.openid</groupId>
     <artifactId>openid-ear</artifactId>
     <packaging>ear</packaging>
     <name>Openid EAR Module (EE6)</name>
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.openid</groupId>
+            <groupId>com.github.albfernandez.seam.examples.openid</groupId>
             <artifactId>openid-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.examples.openid</groupId>
+            <groupId>com.github.albfernandez.seam.examples.openid</groupId>
             <artifactId>openid-ejb</artifactId>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>compile</scope>
@@ -72,18 +72,18 @@
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <modules>
                         <webModule>
-                            <groupId>org.jboss.seam.examples.openid</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.openid</groupId>
                             <artifactId>openid-web</artifactId>
                             <contextRoot>/seam-openid</contextRoot>
                             <bundleFileName>openid-web.war</bundleFileName>
                         </webModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam.examples.openid</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.openid</groupId>
                             <artifactId>openid-ejb</artifactId>
                             <bundleFileName>openid-ejb.jar</bundleFileName>
                         </ejbModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>jboss-seam</artifactId>
                             <bundleFileName>jboss-seam.jar</bundleFileName>
                         </ejbModule>
@@ -114,21 +114,21 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.openid</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.openid</groupId>
                                             <artifactId>openid-ear</artifactId>
                                             <type>ear</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${project.build.directory}/${project.build.finalName}-exploded/${project.build.finalName}.ear</outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.openid</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.openid</groupId>
                                             <artifactId>openid-web</artifactId>
                                             <type>war</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${project.build.directory}/${project.build.finalName}-exploded/${project.build.finalName}.ear/${example.name}-web.war</outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.openid</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.openid</groupId>
                                             <artifactId>openid-ejb</artifactId>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>

@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jboss.seam.examples</groupId>
+	<groupId>com.github.albfernandez.seam.examples</groupId>
 	<artifactId>contactlist</artifactId>
 	<version>2.3.24-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -45,28 +45,28 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.jboss.seam.examples.contactlist</groupId>
+				<groupId>com.github.albfernandez.seam.examples.contactlist</groupId>
 				<artifactId>contactlist-ejb</artifactId>
 				<version>${project.version}</version>
 				<type>ejb</type>
 			</dependency>
 
 			<dependency>
-				<groupId>org.jboss.seam.examples.contactlist</groupId>
+				<groupId>com.github.albfernandez.seam.examples.contactlist</groupId>
 				<artifactId>contactlist-web</artifactId>
 				<version>${project.version}</version>
 				<type>war</type>
 			</dependency>
 
 			<dependency>
-				<groupId>org.jboss.seam.examples.contactlist</groupId>
+				<groupId>com.github.albfernandez.seam.examples.contactlist</groupId>
 				<artifactId>contactlist-ear</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
 			<!-- BOMs -->
 			<dependency>
-				<groupId>org.jboss.seam</groupId>
+				<groupId>com.github.albfernandez.seam</groupId>
 				<artifactId>bom</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
@@ -81,7 +81,7 @@
 			</dependency>
 			
 			 <dependency>
-             <groupId>org.jboss.seam</groupId>
+             <groupId>com.github.albfernandez.seam</groupId>
              <artifactId>jboss-seam</artifactId>
              <version>${project.version}</version>
              <exclusions>

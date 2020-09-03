@@ -3,24 +3,24 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>dvdstore</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.dvdstore</groupId>
+    <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
     <artifactId>dvdstore-ear</artifactId>
     <packaging>ear</packaging>
     <name>Dvdstore EAR Module (EE6)</name>
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam.examples.dvdstore</groupId>
+            <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
             <artifactId>dvdstore-web</artifactId>
             <type>war</type>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam.examples.dvdstore</groupId>
+            <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
             <artifactId>dvdstore-ejb</artifactId>
             <type>ejb</type>
             <exclusions>
@@ -35,7 +35,7 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>compile</scope>
@@ -65,18 +65,18 @@
                     <filtering>true</filtering>
                     <modules>
                         <webModule>
-                            <groupId>org.jboss.seam.examples.dvdstore</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
                             <artifactId>dvdstore-web</artifactId>
                             <contextRoot>/seam-dvdstore</contextRoot>
                             <bundleFileName>dvdstore-web.war</bundleFileName>
                         </webModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam.examples.dvdstore</groupId>
+                            <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
                             <artifactId>dvdstore-ejb</artifactId>
                             <bundleFileName>dvdstore-ejb.jar</bundleFileName>
                         </ejbModule>
                         <ejbModule>
-                            <groupId>org.jboss.seam</groupId>
+                            <groupId>com.github.albfernandez.seam</groupId>
                             <artifactId>jboss-seam</artifactId>
                             <bundleFileName>jboss-seam.jar</bundleFileName>
                         </ejbModule>
@@ -104,21 +104,21 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.dvdstore</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
                                             <artifactId>dvdstore-ear</artifactId>
                                             <type>ear</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${project.build.directory}/${project.build.finalName}-exploded/${project.build.finalName}.ear</outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.dvdstore</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
                                             <artifactId>dvdstore-web</artifactId>
                                             <type>war</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${project.build.directory}/${project.build.finalName}-exploded/${project.build.finalName}.ear/${example.name}-web.war</outputDirectory>
                                         </artifactItem>
                                         <artifactItem>
-                                            <groupId>org.jboss.seam.examples.dvdstore</groupId>
+                                            <groupId>com.github.albfernandez.seam.examples.dvdstore</groupId>
                                             <artifactId>dvdstore-ejb</artifactId>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>

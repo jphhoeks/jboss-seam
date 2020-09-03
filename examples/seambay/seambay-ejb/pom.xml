@@ -3,19 +3,19 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>seambay</artifactId>
-        <groupId>org.jboss.seam.examples</groupId>
+        <groupId>com.github.albfernandez.seam.examples</groupId>
         <version>2.3.24-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <groupId>org.jboss.seam.examples.seambay</groupId>
+    <groupId>com.github.albfernandez.seam.examples.seambay</groupId>
     <artifactId>seambay-ejb</artifactId>
     <packaging>ejb</packaging>
     <name>Seambay EJB Module (EE6)</name>
     
     <dependencies>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>
             <scope>provided</scope>
@@ -51,7 +51,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jboss.seam</groupId>
+            <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam-remoting</artifactId>
         </dependency>
         <dependency>
