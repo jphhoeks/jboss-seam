@@ -83,7 +83,7 @@
         <version.pmd>6.27.0</version.pmd>
         <version.jacoco-maven-plugin>0.8.5</version.jacoco-maven-plugin>
         <version.maven-checkstyle-plugin>3.0.0</version.maven-checkstyle-plugin>
-        <version.org.owasp.dependency-check-maven>5.2.2</version.org.owasp.dependency-check-maven>
+        <version.org.owasp.dependency-check-maven>6.0.1</version.org.owasp.dependency-check-maven>
 
 
         <maven.compiler.target>1.8</maven.compiler.target>
