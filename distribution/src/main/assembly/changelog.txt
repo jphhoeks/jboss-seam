@@ -1,6 +1,11 @@
 JBoss Seam Changelog
 ====================
 
+Release Notes - Seam 2 - Unreleased
+
+	* [ ] Upgrade OpenPDF to 1.3.21
+
+
 Release Notes - Seam 2 - Version 2.3.23.ayg 2020-08-10
 
 	* [ ] Prevent NPE when replicating session in some HA scenarios
