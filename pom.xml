@@ -448,11 +448,19 @@
                         <threshold>Medium</threshold>
                         <includeTests>false</includeTests>
                         <failOnError>false</failOnError>
-                        <!-- really useful but makes my laptop sad -->
-<!--                        <plugins>-->
-<!--                            <plugin><groupId>com.h3xstream.findsecbugs</groupId><artifactId>findsecbugs-plugin</artifactId><version>${version.findsecbugs-plugin}</version></plugin>-->
-<!--                            <plugin><groupId>com.mebigfatguy.sb-contrib</groupId><artifactId>sb-contrib</artifactId><version>${version.sb-contrib}</version></plugin>-->
-<!--                        </plugins>-->
+                        
+                       <plugins>
+                          	<plugin>
+	                           	<groupId>com.h3xstream.findsecbugs</groupId>
+	                           	<artifactId>findsecbugs-plugin</artifactId>
+	                           	<version>${version.findsecbugs-plugin}</version>
+                           	</plugin>
+                           	<plugin>
+                           		<groupId>com.mebigfatguy.sb-contrib</groupId>
+                           		<artifactId>sb-contrib</artifactId>
+                           		<version>${version.sb-contrib}</version>
+                           	</plugin>
+                       </plugins>
                     </configuration>
                     <executions>
                         <execution>
