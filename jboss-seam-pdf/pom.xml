@@ -15,6 +15,10 @@
 	        <groupId>com.github.librepdf</groupId>
 	        <artifactId>openpdf</artifactId>
 	    </dependency>
+	    <dependency>
+	        <groupId>com.github.librepdf</groupId>
+	        <artifactId>openpdf-fonts-extra</artifactId>
+	    </dependency>
 		<dependency>
 		    <groupId>com.github.librepdf</groupId>
 		    <artifactId>openrtf</artifactId>

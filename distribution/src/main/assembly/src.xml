@@ -23,10 +23,16 @@
             <exclude>**/.settings/**</exclude>
             <exclude>**/.idea/**</exclude>
             <exclude>**/.project</exclude>
+            <exclude>**/.eclipse-code-formatter-profile.xml</exclude>
             <exclude>**/.classpath</exclude>
+            <exclude>**/.checkstyle</exclude>
+            <exclude>**/.dbeaver</exclude>
+             <exclude>**/.circleci</exclude>
             <exclude>**/*.iml</exclude>
+            <exclude>**/.travis.yml</exclude>
             <exclude>.gitignore</exclude>
             <exclude>release-process.txt</exclude>
+            <exclude>release-process.md</exclude>
         </excludes>
       </fileSet>
       
