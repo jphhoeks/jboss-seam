@@ -25,19 +25,23 @@ public class NaturalConversationIdParameter implements ConversationIdParameter {
 		this.vb = expression != null ? Expressions.instance().createValueExpression(expression) : null;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public String getParameterName() {
 		return parameterName;
 	}
 
+	@Override
 	public String getInitialConversationId(Map parameters) {
 		String id = getRequestConversationId(parameters);
 		return id == null ? getConversationId() : id;
 	}
 
+	@Override
 	public String getRequestConversationId(Map parameters) {
 		String value = ConversationPropagation.getRequestParameterValue(parameters, parameterName);
 		if (value == null) {
@@ -47,10 +51,12 @@ public class NaturalConversationIdParameter implements ConversationIdParameter {
 		}
 	}
 
+	@Override
 	public String getConversationId() {
 		return name + ':' + getParameterValue();
 	}
 
+	@Override
 	public String getParameterValue() {
 		Object value = vb.getValue();
 		if (value == null) {
@@ -61,6 +67,7 @@ public class NaturalConversationIdParameter implements ConversationIdParameter {
 		}
 	}
 
+	@Override
 	public String getParameterValue(String value) {
 		return value.startsWith(name + ":") ? value.substring(name.length() + 1) : value;
 	}

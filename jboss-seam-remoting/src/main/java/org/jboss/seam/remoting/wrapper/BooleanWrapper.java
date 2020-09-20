@@ -11,12 +11,14 @@ public class BooleanWrapper extends BaseWrapper implements Wrapper {
 	private static final byte[] BOOL_TAG_OPEN = "<bool>".getBytes();
 	private static final byte[] BOOL_TAG_CLOSE = "</bool>".getBytes();
 
+	@Override
 	public void marshal(OutputStream out) throws IOException {
 		out.write(BOOL_TAG_OPEN);
 		out.write(((Boolean) value).toString().getBytes());
 		out.write(BOOL_TAG_CLOSE);
 	}
 
+	@Override
 	public Object convert(Type type) throws ConversionException {
 		if (type.equals(Boolean.class) || type.equals(Object.class))
 			value = Boolean.valueOf(element.getStringValue());
@@ -29,6 +31,7 @@ public class BooleanWrapper extends BaseWrapper implements Wrapper {
 		return value;
 	}
 
+	@Override
 	public ConversionScore conversionScore(Class cls) {
 		if (cls.equals(Boolean.class) || cls.equals(Boolean.TYPE))
 			return ConversionScore.exact;

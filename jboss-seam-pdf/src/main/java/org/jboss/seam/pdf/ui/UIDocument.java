@@ -138,9 +138,9 @@ public class UIDocument extends ITextComponent {
 
 		orientation = (String) valueBinding(context, "orientation", orientation);
 		if (orientation != null) {
-			if (orientation.equalsIgnoreCase("portrait")) {
+			if ("portrait".equalsIgnoreCase(orientation)) {
 				// do nothing
-			} else if (orientation.equalsIgnoreCase("landscape")) {
+			} else if ("landscape".equalsIgnoreCase(orientation)) {
 				Rectangle currentSize = document.getPageSize();
 				document.setPageSize(new Rectangle(currentSize.getHeight(), currentSize.getWidth()));
 			} else {
@@ -252,7 +252,7 @@ public class UIDocument extends ITextComponent {
 		document.close();
 
 		byte[] bytes = stream.toByteArray();
-		if (documentType == PDF) {
+		if (PDF.equals(documentType)) {
 			bytes = compressPDF(bytes);
 			if (signatureField != null) {
 				bytes = signatureField.sign(bytes);
@@ -332,28 +332,26 @@ public class UIDocument extends ITextComponent {
 	}
 
 	private DocumentType documentTypeForName(String typeName) {
-		if (typeName != null) {
-			if (typeName.equalsIgnoreCase("pdf")) {
-				return PDF;
-			} else if (typeName.equalsIgnoreCase("rtf")) {
-				return RTF;
-			} else if (typeName.equalsIgnoreCase("html")) {
-				return HTML;
-			}
+		if ("pdf".equalsIgnoreCase(typeName)) {
+			return PDF;
+		} else if ("rtf".equalsIgnoreCase(typeName)) {
+			return RTF;
+		} else if ("html".equalsIgnoreCase(typeName)) {
+			return HTML;
 		}
 		return PDF;
 	}
 
 	protected DocWriter createWriterForStream(OutputStream stream) throws DocumentException {
-		if (documentType == PDF) {
+		if (PDF.equals(documentType)) {
 			PdfWriter writer = PdfWriter.getInstance(document, stream);
 			writer.setPdfVersion(PdfWriter.PDF_VERSION_1_5);
 			writer.setCompressionLevel(PdfStream.BEST_COMPRESSION);
 			writer.setFullCompression();
 			return writer;
-		} else if (documentType == RTF) {
+		} else if (RTF.equals(documentType)) {
 			return RtfWriter2.getInstance(document, stream);
-		} else if (documentType == HTML) {
+		} else if (HTML.equals(documentType)) {
 			return HtmlWriter.getInstance(document, stream);
 		}
 

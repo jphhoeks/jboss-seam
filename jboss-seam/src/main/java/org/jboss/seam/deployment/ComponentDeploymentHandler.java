@@ -21,10 +21,12 @@ public class ComponentDeploymentHandler extends AbstractClassDeploymentHandler {
 
 	public static ClassDeploymentMetadata NAME_ANNOTATED_CLASS_METADATA = new ClassDeploymentMetadata() {
 
+		@Override
 		public Set<Class<? extends Annotation>> getClassAnnotatedWith() {
 			return ANNOTATION_TYPES;
 		}
 
+		@Override
 		public String getFileNameSuffix() {
 			return null;
 		}
@@ -36,10 +38,12 @@ public class ComponentDeploymentHandler extends AbstractClassDeploymentHandler {
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.ComponentDeploymentHandler";
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
 
+	@Override
 	public ClassDeploymentMetadata getMetadata() {
 		return NAME_ANNOTATED_CLASS_METADATA;
 	}

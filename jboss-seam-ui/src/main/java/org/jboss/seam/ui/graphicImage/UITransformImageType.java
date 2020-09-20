@@ -18,6 +18,7 @@ import org.richfaces.cdk.annotations.Tag;
 @JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.graphicImage.TransformImageType", value = "Nested in a s:graphicImage. Transform an image by changing it's type."), family = "org.jboss.seam.ui.graphicImage.TransformImageType", type = "org.jboss.seam.ui.graphicImage.TransformImageType", generate = "org.jboss.seam.ui.component.html.HtmlTransformImageType", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "transformImageType"))
 public abstract class UITransformImageType extends UIComponentBase implements ImageTransform {
 
+	@Override
 	public void applyTransform(Image image) throws IOException {
 		if (!isRendered()) {
 			return;

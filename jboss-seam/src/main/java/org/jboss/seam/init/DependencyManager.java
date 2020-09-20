@@ -29,6 +29,7 @@ public class DependencyManager {
 	}
 
 	private static final Comparator<ComponentDescriptor> ORDER = new Comparator<ComponentDescriptor>() {
+		@Override
 		public int compare(ComponentDescriptor x, ComponentDescriptor y) {
 			return x.getName().compareTo(y.getName());
 		}

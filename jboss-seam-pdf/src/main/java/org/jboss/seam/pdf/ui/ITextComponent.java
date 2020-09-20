@@ -192,16 +192,14 @@ public abstract class ITextComponent extends UIComponentBase {
 	public void encodeChildren(FacesContext context) throws IOException {
 		for (UIComponent child : this.getChildren()) {
 			// ugly hack to be able to capture facelets text
-			if (child.getFamily().equals("facelets.LiteralText")) {
+			if ("facelets.LiteralText".equals(child.getFamily())) {
 				String text = EntitiesToUnicode.decodeString(extractText(context, child));
 				Font font = getFont();
-				Chunk chunk = null;
-				if (font == null) {
-					chunk = new Chunk(text);
+				if (font != null) {
+					add(new Chunk(text, font));
 				} else {
-					chunk = new Chunk(text, getFont());
+					add(new Chunk(text));
 				}
-				add(chunk);
 			} else {
 				encode(context, child);
 			}

@@ -21,6 +21,7 @@ public class SynchronizationInterceptor extends AbstractInterceptor {
 
 	private ReentrantLock lock = new ReentrantLock(true);
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		if (lock.tryLock(getComponent().getTimeout(), TimeUnit.MILLISECONDS)) {
@@ -34,6 +35,7 @@ public class SynchronizationInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().isSynchronize();
 	}

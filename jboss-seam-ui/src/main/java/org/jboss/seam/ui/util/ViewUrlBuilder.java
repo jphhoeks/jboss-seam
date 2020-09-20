@@ -63,7 +63,7 @@ public class ViewUrlBuilder extends UrlBuilder {
 		for (Map.Entry<String, String> entry : params.entrySet()) {
 			List<String> list = new ArrayList<String>();
 			list.add(entry.getValue());
-			parameters.put(((String) entry.getKey()), list);
+			parameters.put((entry.getKey()), list);
 		}
 
 		return parameters;

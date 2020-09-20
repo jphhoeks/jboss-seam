@@ -19,6 +19,7 @@ public class PageflowDeploymentHandler extends AbstractDeploymentHandler {
 
 	private static DeploymentMetadata NAMESPACE_METADATA = new DeploymentMetadata() {
 
+		@Override
 		public String getFileNameSuffix() {
 			return ".jpdl.xml";
 		}
@@ -29,6 +30,7 @@ public class PageflowDeploymentHandler extends AbstractDeploymentHandler {
 
 	public static final String NAME = "org.jboss.seam.bpm.PageflowDeploymentHandler";
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
@@ -58,6 +60,7 @@ public class PageflowDeploymentHandler extends AbstractDeploymentHandler {
 		setResources(files);
 	}
 
+	@Override
 	public DeploymentMetadata getMetadata() {
 		return NAMESPACE_METADATA;
 	}

@@ -35,7 +35,7 @@ public class CallContext {
 			if (inRefs.containsKey(element.attributeValue("id")))
 				return inRefs.get(element.attributeValue("id"));
 			else {
-				Element value = (Element) element.elements().get(0);
+				Element value = element.elements().get(0);
 
 				Wrapper w = WrapperFactory.getInstance().createWrapper(value.getQualifiedName());
 				w.setElement(value);

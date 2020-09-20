@@ -15,6 +15,7 @@ import org.jboss.seam.international.StatusMessages;
  *
  */
 public class SeamEnforceConversationListener implements IComponentOnBeforeRenderListener {
+	@Override
 	public void onBeforeRender(Component component) {
 		if (!Manager.instance().isLongRunningConversation()) {
 			WicketComponent<?> wicketComponent = WicketComponent.getInstance(component.getClass());

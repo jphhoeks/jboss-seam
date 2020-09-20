@@ -58,7 +58,7 @@ public class DeploymentDescriptor {
 
 		Element beans = root.element("enterprise-beans");
 		if (beans != null) {
-			for (Element bean : (List<Element>) beans.elements("session")) {
+			for (Element bean : beans.elements("session")) {
 				EjbDescriptor info = new EjbDescriptor();
 				info.setEjbName(bean.element("ejb-name").getTextTrim());
 				Element ejbClass = bean.element("ejb-class");
@@ -73,7 +73,7 @@ public class DeploymentDescriptor {
 					add(info);
 				}
 			}
-			for (Element bean : (List<Element>) beans.elements("message-driven")) {
+			for (Element bean : beans.elements("message-driven")) {
 				EjbDescriptor info = new EjbDescriptor();
 				info.setEjbName(bean.element("ejb-name").getTextTrim());
 				info.setEjbClassName(bean.element("ejb-class").getTextTrim());
@@ -92,7 +92,7 @@ public class DeploymentDescriptor {
 			packagePrefix = pkg.getTextTrim() + ".";
 		}
 
-		for (Element entity : (List<Element>) root.elements("entity")) {
+		for (Element entity : root.elements("entity")) {
 			String className = packagePrefix + entity.attribute("class").getText();
 			EjbDescriptor info = new EjbDescriptor();
 			info.setBeanType(ComponentType.ENTITY_BEAN);

@@ -114,6 +114,7 @@ public class Expressions implements Serializable {
 			private javax.el.ValueExpression facesValueExpression;
 			private javax.el.ValueExpression seamValueExpression;
 
+			@Override
 			public javax.el.ValueExpression toUnifiedValueExpression() {
 				if (isFacesContextActive()) {
 					if (facesValueExpression == null) {
@@ -132,19 +133,23 @@ public class Expressions implements Serializable {
 				return getExpressionFactory().createValueExpression(getELContext(), expression, type);
 			}
 
+			@Override
 			@SuppressWarnings("unchecked")
 			public T getValue() {
 				return (T) toUnifiedValueExpression().getValue(getELContext());
 			}
 
+			@Override
 			public void setValue(T value) {
 				toUnifiedValueExpression().setValue(getELContext(), value);
 			}
 
+			@Override
 			public String getExpressionString() {
 				return expression;
 			}
 
+			@Override
 			@SuppressWarnings("unchecked")
 			public Class<T> getType() {
 				// QUESTION shouldn't we use the type provided in the constructor?
@@ -169,6 +174,7 @@ public class Expressions implements Serializable {
 			private javax.el.MethodExpression facesMethodExpression;
 			private javax.el.MethodExpression seamMethodExpression;
 
+			@Override
 			public javax.el.MethodExpression toUnifiedMethodExpression() {
 				if (isFacesContextActive()) {
 					if (facesMethodExpression == null) {
@@ -187,11 +193,13 @@ public class Expressions implements Serializable {
 				return getExpressionFactory().createMethodExpression(getELContext(), expression, type, argTypes);
 			}
 
+			@Override
 			@SuppressWarnings("unchecked")
 			public T invoke(Object... args) {
 				return (T) toUnifiedMethodExpression().invoke(getELContext(), args);
 			}
 
+			@Override
 			public String getExpressionString() {
 				return expression;
 			}

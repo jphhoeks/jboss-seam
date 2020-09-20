@@ -22,9 +22,11 @@ public abstract class UIGraphicImage extends HtmlGraphicImage {
 	@Attribute(description = @Description("File name for the generated URL - allows a stable file name and thus browser caching"))
 	public abstract String getFileName();
 
+	@Override
 	@Attribute
 	public abstract String getStyle();
 
+	@Override
 	@Attribute
 	public abstract Object getValue();
 

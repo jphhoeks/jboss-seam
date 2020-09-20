@@ -30,6 +30,7 @@ public class SeamAuthorizationStrategy implements IAuthorizationStrategy {
 	}
 
 	// TODO Use permission schemes for this?
+	@Override
 	public boolean isActionAuthorized(Component component, Action action) {
 		return isInstantiationAuthorized(component.getClass());
 	}
@@ -39,6 +40,7 @@ public class SeamAuthorizationStrategy implements IAuthorizationStrategy {
 	* 
 	* Uses the @Restrict annotation to control access
 	*/
+	@Override
 	public boolean isInstantiationAuthorized(Class componentClass) {
 		try {
 			WicketComponent instance = WicketComponent.getInstance(componentClass);

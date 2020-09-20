@@ -79,6 +79,7 @@ public class Redirect extends AbstractMutable implements Serializable {
 	* 
 	* @deprecated use captureCurrentView()
 	*/
+	@Deprecated
 	public void captureCurrentRequest() {
 		parameters.clear();
 		FacesContext context = FacesContext.getCurrentInstance();

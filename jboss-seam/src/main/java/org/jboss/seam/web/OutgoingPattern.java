@@ -64,6 +64,7 @@ public class OutgoingPattern {
 			}
 		}
 
+		@Override
 		public boolean isMatch() {
 			if (isMatch == null) {
 				isMatch = match();
@@ -105,6 +106,7 @@ public class OutgoingPattern {
 			return null;
 		}
 
+		@Override
 		public String rewrite() {
 			StringBuffer res = new StringBuffer();
 

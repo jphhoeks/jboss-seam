@@ -157,6 +157,7 @@ public class IdentityManager implements Serializable {
 		List<String> users = identityStore.listUsers();
 
 		Collections.sort(users, new Comparator<String>() {
+			@Override
 			public int compare(String value1, String value2) {
 				return value1.compareTo(value2);
 			}
@@ -170,6 +171,7 @@ public class IdentityManager implements Serializable {
 		List<String> users = identityStore.listUsers(filter);
 
 		Collections.sort(users, new Comparator<String>() {
+			@Override
 			public int compare(String value1, String value2) {
 				return value1.compareTo(value2);
 			}
@@ -183,6 +185,7 @@ public class IdentityManager implements Serializable {
 		List<String> roles = roleIdentityStore.listRoles();
 
 		Collections.sort(roles, new Comparator<String>() {
+			@Override
 			public int compare(String value1, String value2) {
 				return value1.compareTo(value2);
 			}
@@ -195,6 +198,7 @@ public class IdentityManager implements Serializable {
 		List<String> roles = roleIdentityStore.listGrantableRoles();
 
 		Collections.sort(roles, new Comparator<String>() {
+			@Override
 			public int compare(String value1, String value2) {
 				return value1.compareTo(value2);
 			}

@@ -22,6 +22,7 @@ public class DroolsDecisionHandler extends DroolsHandler implements DecisionHand
 	public String workingMemoryName;
 	public String startProcessId;
 
+	@Override
 	public String decide(ExecutionContext executionContext) throws Exception {
 		WorkingMemory workingMemory = getWorkingMemory(workingMemoryName, assertObjects, retractObjects, executionContext);
 		workingMemory.setGlobal("decision", new Decision());

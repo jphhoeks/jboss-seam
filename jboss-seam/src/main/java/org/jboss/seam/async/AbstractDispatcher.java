@@ -78,11 +78,11 @@ public abstract class AbstractDispatcher<T, S extends Schedule> implements Dispa
 		}
 		return (Dispatcher) Component.getInstance("org.jboss.seam.async.dispatcher");
 	}
-
+	@Override
 	public void scheduleTransactionSuccessEvent(String type, Object... parameters) {
 		Transaction.instance().registerSynchronization(new TransactionSuccessEvent(type, parameters));
 	}
-
+	@Override
 	public void scheduleTransactionCompletionEvent(String type, Object... parameters) {
 		Transaction.instance().registerSynchronization(new TransactionCompletionEvent(type, parameters));
 	}

@@ -21,11 +21,13 @@ public abstract class BijectedField<T extends Annotation> extends InjectedField<
 		}
 	}
 
+	@Override
 	public Object get(Object bean) {
 		field.setAccessible(true);
 		return Reflections.getAndWrap(field, bean);
 	}
 
+	@Override
 	public String getContextVariableName() {
 		return contextVariableName;
 	}

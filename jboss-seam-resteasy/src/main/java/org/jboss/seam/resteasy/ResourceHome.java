@@ -344,10 +344,12 @@ public class ResourceHome<T, T2> extends AbstractResource<T> {
 	*/
 	static class PathParamAnnotation implements PathParam {
 
+		@Override
 		public String value() {
 			return "id";
 		}
 
+		@Override
 		public Class<? extends Annotation> annotationType() {
 			return PathParam.class;
 		}

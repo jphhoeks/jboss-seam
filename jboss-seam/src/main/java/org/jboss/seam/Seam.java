@@ -295,7 +295,8 @@ public class Seam
     * 
     * @deprecated use Session.instance().invalidate()
     */
-   public static void invalidateSession()
+   @Deprecated
+public static void invalidateSession()
    {
       Session.instance().invalidate();
    }
@@ -305,7 +306,8 @@ public class Seam
     * 
     * @deprecated use Session.instance().isInvalidated()
     */
-   public static boolean isSessionInvalid()
+   @Deprecated
+public static boolean isSessionInvalid()
    {
       return Session.instance().isInvalid();
    }

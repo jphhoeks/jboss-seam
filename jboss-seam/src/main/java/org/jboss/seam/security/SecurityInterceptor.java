@@ -123,6 +123,7 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 		}
 	}
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		Method interfaceMethod = invocation.getMethod();
@@ -237,6 +238,7 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().isSecure() && !getComponent().beanClassHasAnnotation("javax.jws.WebService");
 	}

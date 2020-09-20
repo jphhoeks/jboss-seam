@@ -18,6 +18,7 @@ import org.richfaces.cdk.annotations.Tag;
 @JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.graphicImage.TransformImageBlur", value = "Nested in a s:graphicImage. Transform an image by applying a blur."), family = "org.jboss.seam.ui.graphicImage.TransformImageBlur", type = "org.jboss.seam.ui.graphicImage.TransformImageBlur", generate = "org.jboss.seam.ui.component.html.HtmlTransformImageBlur", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "transformImageBlur"))
 public abstract class UITransformImageBlur extends UIComponentBase implements ImageTransform {
 
+	@Override
 	public void applyTransform(Image image) throws IOException {
 		if (!isRendered()) {
 			return;

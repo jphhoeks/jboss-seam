@@ -55,6 +55,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 		getSynchronizations().registerSynchronization(sync);
 	}
 
+	@Override
 	public void begin() throws NotSupportedException, SystemException {
 		log.debug("beginning Spring transaction");
 		if (TransactionSynchronizationManager.isActualTransactionActive()) {
@@ -104,6 +105,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 		return WebApplicationContextUtils.getWebApplicationContext(ServletLifecycle.getServletContext());
 	}
 
+	@Override
 	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
 			IllegalStateException, SystemException {
 		log.debug("committing Spring transaction");
@@ -120,6 +122,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public int getStatus() throws SystemException {
 		PlatformTransactionManager ptm = getPlatformTransactionManager();
 		if (ptm == null) {
@@ -159,6 +162,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 		return Status.STATUS_NO_TRANSACTION;
 	}
 
+	@Override
 	public void rollback() throws IllegalStateException, SecurityException, SystemException {
 		log.debug("rolling back Spring transaction");
 		assertActive();
@@ -180,6 +184,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void setRollbackOnly() throws IllegalStateException, SystemException {
 		if (!TransactionSynchronizationManager.isActualTransactionActive()) {
 			throw new IllegalStateException("No Spring Transaction is currently available.");
@@ -200,6 +205,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void setTransactionTimeout(int timeout) throws SystemException {
 		if (TransactionSynchronizationManager.isActualTransactionActive()) {
 			// cannot set timeout on already running transaction

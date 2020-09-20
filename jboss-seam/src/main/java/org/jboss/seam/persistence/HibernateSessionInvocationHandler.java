@@ -80,6 +80,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 		this.delegate = paramDelegate;
 	}
 
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		try {
 			if ("createQuery".equals(method.getName()) && method.getParameterTypes().length > 0
@@ -328,6 +329,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 		((SessionImplementor) delegate).afterScrollOperation();
 	}
 
+	@Override
 	public boolean isClosed() {
 		return ((SessionImplementor) delegate).isClosed();
 	}
@@ -347,6 +349,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 		return delegate.getSessionFactory();
 	}
 
+	@Override
 	public void close() throws HibernateException {
 		delegate.close();
 	}
@@ -552,6 +555,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 		return ((SessionImplementor) delegate).createQuery(namedQueryDefinition);
 	}
 
+	@Override
 	public SQLQuery createSQLQuery(String paramString) throws HibernateException {
 		return delegate.createSQLQuery(paramString);
 	}
@@ -561,6 +565,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 		return ((SessionImplementor) delegate).createSQLQuery(namedQueryDefinition);
 	}
 
+	@Override
 	public Query createFilter(Object paramObject, String paramString) throws HibernateException {
 		return delegate.createFilter(paramObject, paramString);
 	}

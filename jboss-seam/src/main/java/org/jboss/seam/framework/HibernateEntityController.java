@@ -66,11 +66,11 @@ public class HibernateEntityController extends PersistenceController<Session> {
 	}
 
 	protected <T> T get(Class<T> clazz, Serializable id, LockOptions lockOptions) throws HibernateException {
-		return (T) getSession().get(clazz, id, lockOptions);
+		return getSession().get(clazz, id, lockOptions);
 	}
 
 	protected <T> T get(Class<T> clazz, Serializable id) throws HibernateException {
-		return (T) getSession().get(clazz, id);
+		return getSession().get(clazz, id);
 	}
 
 	protected Query getNamedQuery(String name) throws HibernateException {
@@ -82,11 +82,11 @@ public class HibernateEntityController extends PersistenceController<Session> {
 	}
 
 	protected <T> T load(Class<T> clazz, Serializable id, LockOptions lockOptions) throws HibernateException {
-		return (T) getSession().load(clazz, id, lockOptions);
+		return getSession().load(clazz, id, lockOptions);
 	}
 
 	protected <T> T load(Class<T> clazz, Serializable id) throws HibernateException {
-		return (T) getSession().load(clazz, id);
+		return getSession().load(clazz, id);
 	}
 
 	protected void lock(Object entity, LockMode lockMode) throws HibernateException {

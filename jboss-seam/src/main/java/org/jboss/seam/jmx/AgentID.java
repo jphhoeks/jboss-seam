@@ -43,6 +43,7 @@ public class AgentID implements ServerConstants {
 
 		try {
 			ipAddress = (String) AccessController.doPrivileged(new PrivilegedExceptionAction() {
+				@Override
 				public Object run() throws Exception {
 					return InetAddress.getLocalHost().getHostAddress();
 				}

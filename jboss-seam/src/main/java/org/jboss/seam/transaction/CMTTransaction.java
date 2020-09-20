@@ -32,11 +32,13 @@ public class CMTTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void begin() throws NotSupportedException, SystemException {
 		ejbContext.getUserTransaction().begin();
 		getSynchronizations().afterTransactionBegin();
 	}
 
+	@Override
 	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
 			IllegalStateException, SystemException {
 		UserTransaction userTransaction = ejbContext.getUserTransaction();
@@ -51,6 +53,7 @@ public class CMTTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void rollback() throws IllegalStateException, SecurityException, SystemException {
 		UserTransaction userTransaction = ejbContext.getUserTransaction();
 		try {
@@ -60,6 +63,7 @@ public class CMTTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public int getStatus() throws SystemException {
 		try {
 			//TODO: not correct for SUPPORTS or NEVER!
@@ -77,10 +81,12 @@ public class CMTTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void setRollbackOnly() throws IllegalStateException, SystemException {
 		ejbContext.setRollbackOnly();
 	}
 
+	@Override
 	public void setTransactionTimeout(int timeout) throws SystemException {
 		ejbContext.getUserTransaction().setTransactionTimeout(timeout);
 	}

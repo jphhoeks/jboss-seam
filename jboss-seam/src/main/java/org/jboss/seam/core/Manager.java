@@ -738,6 +738,7 @@ public class Manager {
 	* 
 	* @deprecated use encodeConversationId(String url, String viewId)
 	*/
+	@Deprecated
 	public String encodeConversationId(String url) {
 		//DONT BREAK, icefaces uses this
 		return encodeConversationIdParameter(url, getConversationIdParameter(), getCurrentConversationId());

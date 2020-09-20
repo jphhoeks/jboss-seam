@@ -81,22 +81,27 @@ public class UIOutputText extends ITextComponent implements ValueHolder
 
 	// -- ValueHolder methods
 
+	@Override
 	public Converter getConverter() {
 		return converter;
 	}
 
+	@Override
 	public void setConverter(Converter converter) {
 		this.converter = converter;
 	}
 
+	@Override
 	public Object getValue() {
 		return valueBinding(FacesContext.getCurrentInstance(), "value", localValue);
 	}
 
+	@Override
 	public void setValue(Object value) {
 		this.localValue = value;
 	}
 
+	@Override
 	public Object getLocalValue() {
 		return localValue;
 	}

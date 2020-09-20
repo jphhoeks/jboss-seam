@@ -23,6 +23,7 @@ import javax.validation.ConstraintViolation;
  */
 public class ModelValidator implements Validator {
 
+	@Override
 	public void validate(FacesContext facesContext, UIComponent component, Object value) throws ValidatorException {
 		ValueExpression valueExpression = component.getValueExpression("value");
 		if (valueExpression != null) {

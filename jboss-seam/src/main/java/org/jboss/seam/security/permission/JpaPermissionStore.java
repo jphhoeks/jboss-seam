@@ -228,10 +228,12 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		return query;
 	}
 
+	@Override
 	public boolean grantPermission(Permission permission) {
 		return updatePermissionActions(permission.getTarget(), permission.getRecipient(), new String[] { permission.getAction() }, true);
 	}
 
+	@Override
 	public boolean revokePermission(Permission permission) {
 		return updatePermissionActions(permission.getTarget(), permission.getRecipient(), new String[] { permission.getAction() }, false);
 	}
@@ -380,6 +382,7 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean grantPermissions(List<Permission> permissions) {
 		// Target/Recipient/Action map
 		Map<Object, Map<Principal, List<Permission>>> groupedPermissions = groupPermissions(permissions);
@@ -399,6 +402,7 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean revokePermissions(List<Permission> permissions) {
 		// Target/Recipient/Action map
 		Map<Object, Map<Principal, List<Permission>>> groupedPermissions = groupPermissions(permissions);
@@ -504,6 +508,7 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 	/**
 	* Returns a list of all user and role permissions for the specified action for all specified target objects
 	*/
+	@Override
 	public List<Permission> listPermissions(Set<Object> targets, String action) {
 		// TODO limit the number of targets passed at a single time to 25
 		return listPermissions(null, targets, action);
@@ -512,6 +517,7 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 	/**
 	* Returns a list of all user and role permissions for a specific permission target and action.
 	*/
+	@Override
 	public List<Permission> listPermissions(Object target, String action) {
 		return listPermissions(target, null, action);
 	}
@@ -627,10 +633,12 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		return principal;
 	}
 
+	@Override
 	public List<Permission> listPermissions(Object target) {
 		return listPermissions(target, null);
 	}
 
+	@Override
 	public List<String> listAvailableActions(Object target) {
 		return metadata.listAllowableActions(target.getClass());
 	}
@@ -663,6 +671,7 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		this.rolePermissionClass = rolePermissionClass;
 	}
 
+	@Override
 	public void clearPermissions(Object target) {
 		EntityManager em = lookupEntityManager();
 		String identifier = identifierPolicy.getIdentifier(target);

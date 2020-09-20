@@ -130,7 +130,7 @@ public class AnnotatedBeanProperty<T extends Annotation> implements Serializable
 	}
 
 	public T getAnnotation() {
-		return (T) annotation;
+		return annotation;
 	}
 
 	public Type getPropertyType() {

@@ -55,9 +55,11 @@ public class EclipseClasspathTask extends Task {
 				eclipsepaths += eclipsepath;
 			}
 		}
+		BufferedReader reader = null;
+		BufferedWriter writer = null;
 		try {
-			BufferedReader reader = Files.newBufferedReader(new File(file).toPath(), StandardCharsets.UTF_8);
-			BufferedWriter writer = Files.newBufferedWriter(new File(toFile).toPath(), StandardCharsets.UTF_8, StandardOpenOption.CREATE,
+			reader = Files.newBufferedReader(new File(file).toPath(), StandardCharsets.UTF_8);
+			writer = Files.newBufferedWriter(new File(toFile).toPath(), StandardCharsets.UTF_8, StandardOpenOption.CREATE,
 					StandardOpenOption.TRUNCATE_EXISTING);
 			while (reader.ready()) {
 				String line = reader.readLine();
@@ -67,10 +69,24 @@ public class EclipseClasspathTask extends Task {
 				writer.write(line + "\r\n");
 			}
 			writer.flush();
-			writer.close();
-			reader.close();
 		} catch (IOException e) {
 			throw new BuildException(e);
+		}
+		finally {
+			if (reader != null) {
+				try {
+					reader.close();
+				} catch (IOException ignored) {
+					//
+				}
+			}
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (IOException ignored) {
+					//
+				}
+			}
 		}
 	}
 

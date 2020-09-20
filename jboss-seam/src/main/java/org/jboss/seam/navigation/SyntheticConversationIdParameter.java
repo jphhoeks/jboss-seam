@@ -12,30 +12,37 @@ import org.jboss.seam.core.Manager;
  *
  */
 public class SyntheticConversationIdParameter implements ConversationIdParameter {
+	@Override
 	public String getName() {
 		return null;
 	}
 
+	@Override
 	public String getParameterName() {
 		return Manager.instance().getConversationIdParameter();
 	}
 
+	@Override
 	public String getParameterValue() {
 		return Manager.instance().getCurrentConversationId();
 	}
 
+	@Override
 	public String getParameterValue(String value) {
 		return value;
 	}
 
+	@Override
 	public String getInitialConversationId(Map parameters) {
 		return ConversationIdGenerator.instance().getNextId();
 	}
 
+	@Override
 	public String getConversationId() {
 		return ConversationIdGenerator.instance().getNextId();
 	}
 
+	@Override
 	public String getRequestConversationId(Map parameters) {
 		return ConversationPropagation.getRequestParameterValue(parameters, getParameterName());
 	}

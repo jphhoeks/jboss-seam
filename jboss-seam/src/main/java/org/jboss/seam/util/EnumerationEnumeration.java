@@ -11,6 +11,7 @@ public class EnumerationEnumeration<T> implements Enumeration<T> {
 		this.enumerations = enumerations;
 	}
 
+	@Override
 	public boolean hasMoreElements() {
 		for (int i = loc; i < enumerations.length; i++) {
 			if (enumerations[i].hasMoreElements()) {
@@ -20,6 +21,7 @@ public class EnumerationEnumeration<T> implements Enumeration<T> {
 		return false;
 	}
 
+	@Override
 	public T nextElement() {
 		while (isCurrentEnumerationAvailable()) {
 			if (currentHasMoreElements()) {

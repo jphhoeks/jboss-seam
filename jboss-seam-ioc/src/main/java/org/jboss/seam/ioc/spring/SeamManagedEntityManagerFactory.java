@@ -44,6 +44,7 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
 		this.persistenceContextName = seamPersistenceContextName;
 	}
 
+	@Override
 	public void close() {
 		closed = true;
 	}
@@ -52,6 +53,7 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
 	* Wraps the Seam ManagedPersistenceContext in a close suppressing proxy and
 	* returns.
 	*/
+	@Override
 	public EntityManager createEntityManager() {
 		if (closed) {
 			throw new IllegalStateException("EntityManagerFactory is closed");
@@ -64,12 +66,14 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
 				new SeamManagedPersistenceContextHandler(em));
 	}
 
+	@Override
 	public EntityManager createEntityManager(Map properties) {
 		// Not really sure if I should throw an exception here or just ignore the Map
 		throw new UnsupportedOperationException("Cannot change properties of a Seam ManagedPersistenceContext this way.  "
 				+ "This must be done on the ManagedPersistenceContext seam component.");
 	}
 
+	@Override
 	public boolean isOpen() {
 		return !closed;
 	}
@@ -96,6 +100,7 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
 			this.delegate = delegate;
 		}
 
+		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			if (method.getName().equals("equals")) {
 				// Only consider equal when proxies are identical.
@@ -133,26 +138,31 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
 		}
 	}
 
+	@Override
 	public CriteriaBuilder getCriteriaBuilder() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public Metamodel getMetamodel() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public Map<String, Object> getProperties() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public Cache getCache() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public PersistenceUnitUtil getPersistenceUnitUtil() {
 		// TODO Auto-generated method stub
 		return null;

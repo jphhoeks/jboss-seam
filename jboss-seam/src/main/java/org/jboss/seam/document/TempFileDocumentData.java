@@ -14,6 +14,7 @@ public class TempFileDocumentData extends FileDocumentData {
 		super(baseName, documentType, data);
 	}
 
+	@Override
 	public void cleanup() {
 		File file = getData();
 		if (file != null && file.exists()) {

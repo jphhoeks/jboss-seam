@@ -39,10 +39,12 @@ public class SeamLoginModule implements LoginModule {
 
 	protected String username;
 
+	@Override
 	public boolean abort() throws LoginException {
 		return true;
 	}
 
+	@Override
 	public boolean commit() throws LoginException {
 		subject.getPrincipals().add(new SimplePrincipal(username));
 
@@ -67,12 +69,14 @@ public class SeamLoginModule implements LoginModule {
 		return true;
 	}
 
+	@Override
 	public void initialize(Subject subject, CallbackHandler callbackHandler, Map<String, ?> sharedState, Map<String, ?> options) {
 		this.subject = subject;
 		this.options = options;
 		this.callbackHandler = callbackHandler;
 	}
 
+	@Override
 	public boolean login() throws LoginException {
 		try {
 			NameCallback cbName = new NameCallback("Enter username");
@@ -130,6 +134,7 @@ public class SeamLoginModule implements LoginModule {
 
 	}
 
+	@Override
 	public boolean logout() throws LoginException {
 		return true;
 	}

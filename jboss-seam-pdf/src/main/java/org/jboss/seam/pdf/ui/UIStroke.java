@@ -65,22 +65,22 @@ public class UIStroke extends UIComponentBase {
 	}
 
 	public int capValue(String cap) {
-		if (cap == null || cap.equalsIgnoreCase("butt")) {
+		if (cap == null || "butt".equalsIgnoreCase(cap)) {
 			return BasicStroke.CAP_BUTT;
-		} else if (cap.equalsIgnoreCase("round")) {
+		} else if ("round".equalsIgnoreCase(cap)) {
 			return BasicStroke.CAP_ROUND;
-		} else if (cap.equalsIgnoreCase("square")) {
+		} else if ("square".equalsIgnoreCase(cap)) {
 			return BasicStroke.CAP_SQUARE;
 		}
 		throw new RuntimeException("invalid cap value: " + cap);
 	}
 
 	public int joinValue(String join) {
-		if (join == null || join.equalsIgnoreCase("miter")) {
+		if (join == null || "miter".equalsIgnoreCase(join)) {
 			return BasicStroke.JOIN_MITER;
-		} else if (join.equalsIgnoreCase("round")) {
+		} else if ("round".equalsIgnoreCase(join)) {
 			return BasicStroke.JOIN_ROUND;
-		} else if (join.equalsIgnoreCase("bevel")) {
+		} else if ("bevel".equalsIgnoreCase(join)) {
 			return BasicStroke.JOIN_BEVEL;
 		}
 		throw new RuntimeException("invalid join value: " + join);

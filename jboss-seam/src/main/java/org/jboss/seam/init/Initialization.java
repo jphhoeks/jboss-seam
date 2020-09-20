@@ -275,7 +275,7 @@ public class Initialization {
 			installEventListenerFromXmlElement(event);
 		}
 
-		for (Element elem : (List<Element>) rootElement.elements()) {
+		for (Element elem : rootElement.elements()) {
 			String ns = elem.getNamespace().getURI();
 			NamespaceDescriptor nsInfo = resolveNamespace(ns);
 			if (nsInfo == null) {
@@ -491,7 +491,7 @@ public class Initialization {
 			}
 		}
 
-		for (Element prop : (List<Element>) component.elements()) {
+		for (Element prop : component.elements()) {
 			String propName = prop.attributeValue("name");
 			if (propName == null) {
 				propName = prop.getQName().getName();
@@ -506,7 +506,7 @@ public class Initialization {
 			}
 		}
 
-		for (Attribute prop : (List<Attribute>) component.attributes()) {
+		for (Attribute prop : component.attributes()) {
 			String attributeName = prop.getName();
 			if (isProperty(prop.getNamespaceURI(), attributeName)) {
 				String qualifiedPropName = name + '.' + toCamelCase(prop.getQName().getName(), false);

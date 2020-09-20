@@ -47,6 +47,7 @@ public class XML {
 	public static class NullEntityResolver implements EntityResolver {
 		private static final byte[] empty = new byte[0];
 
+		@Override
 		public InputSource resolveEntity(String systemId, String publicId) throws SAXException, IOException {
 			return new InputSource(new ByteArrayInputStream(empty));
 		}

@@ -1,7 +1,6 @@
 package org.jboss.seam.pdf.ui;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.FacesException;
@@ -19,7 +18,7 @@ import com.lowagie.text.pdf.PdfStamper;
 
 public class UIField extends FormComponent {
 	public static final String COMPONENT_FAMILY = "org.jboss.seam.pdf.UIField";
-	private static Log log = Logging.getLog(FormComponent.class);
+	private static final Log log = Logging.getLog(UIField.class);
 
 	private String name;
 	private Object value;
@@ -68,11 +67,11 @@ public class UIField extends FormComponent {
 	private void warnNotFound(AcroFields fields, String theName, Object theValue) {
 		if (log.isWarnEnabled()) { 
 			log.warn("Could not set field '#0' to '#1'", theName, theValue);
-			Map<String, Item> fieldMap = fields.getFields();
+			Map<String, Item> fieldMap = fields.getAllFields();
 			if (!fieldMap.containsKey(theName)) {
 				log.warn("Could not find field '#0'. Found fields are", theName);
-				for (Iterator<String> i = fieldMap.keySet().iterator(); i.hasNext();) {
-					log.warn(i.next());
+				for (String key:  fieldMap.keySet()) {
+					log.warn(key);
 				}
 				return;
 			}

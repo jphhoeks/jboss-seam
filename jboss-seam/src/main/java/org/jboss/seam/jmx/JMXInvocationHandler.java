@@ -135,6 +135,7 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 
 	// InvocationHandler implementation ---------------------------
 
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Exception {
 		Class declaringClass = method.getDeclaringClass();
 
@@ -262,14 +263,17 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 	// invocation (with context, client side interceptors, RPC), exception
 	// handling, act as an access point to MBean server interface and so on.
 
+	@Override
 	public void setExceptionHandler(ProxyExceptionHandler handler) {
 		this.handler = handler;
 	}
 
+	@Override
 	public MBeanServer getMBeanServer() {
 		return server;
 	}
 
+	@Override
 	public ObjectName getObjectName() {
 		return objectName;
 	}

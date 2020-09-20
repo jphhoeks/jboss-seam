@@ -67,6 +67,7 @@ public class HibernateTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void begin() throws NotSupportedException, SystemException {
 		log.debug("beginning Hibernate transaction");
 		assertNotActive();
@@ -79,6 +80,7 @@ public class HibernateTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
 			IllegalStateException, SystemException {
 		log.debug("committing Hibernate transaction");
@@ -95,6 +97,7 @@ public class HibernateTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void rollback() throws IllegalStateException, SecurityException, SystemException {
 		log.debug("rolling back Hibernate transaction");
 		//TODO: translate exceptions that occur into the correct JTA exception
@@ -105,12 +108,14 @@ public class HibernateTransaction extends AbstractUserTransaction {
 		delegate.rollback();
 	}
 
+	@Override
 	public void setRollbackOnly() throws IllegalStateException, SystemException {
 		log.debug("marking Hibernate transaction for rollback");
 		assertActive();
 		rollbackOnly = true;
 	}
 
+	@Override
 	public int getStatus() throws SystemException {
 		if (rollbackOnly) {
 			return Status.STATUS_MARKED_ROLLBACK;
@@ -121,6 +126,7 @@ public class HibernateTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void setTransactionTimeout(int timeout) throws SystemException {
 		assertActive();
 		getDelegate().setTimeout(timeout);

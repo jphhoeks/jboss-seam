@@ -11,10 +11,12 @@ public abstract class AbstractClassDeploymentHandler extends AbstractDeploymentH
 		classes = new HashSet<ClassDescriptor>();
 	}
 
+	@Override
 	public Set<ClassDescriptor> getClasses() {
 		return classes;
 	}
 
+	@Override
 	public void setClasses(Set<ClassDescriptor> classes) {
 		this.classes = classes;
 	}

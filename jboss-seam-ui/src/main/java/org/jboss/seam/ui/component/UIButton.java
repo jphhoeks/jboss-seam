@@ -51,9 +51,11 @@ public abstract class UIButton extends UISeamCommandBase {
 	@Attribute
 	public abstract String getImage();
 
+	@Override
 	@Attribute(defaultValue = "true", description = @Description("Include page parameters defined in pages.xml when rendering the button"))
 	public abstract boolean isIncludePageParams();
 
+	@Override
 	@Attribute(description = @Description("The name of the conversation for natural conversations"))
 	public abstract String getConversationName();
 
@@ -63,15 +65,19 @@ public abstract class UIButton extends UISeamCommandBase {
 	@Attribute
 	public abstract String getOutcome();
 
+	@Override
 	@Attribute(description = @Description("the fragment identifier to link to."))
 	public abstract String getFragment();
 
+	@Override
 	@Attribute(defaultValue = "default", description = @Description("determines the conversation propagation style: begin, join, nest, none, end or endRoot."))
 	public abstract String getPropagation();
 
+	@Override
 	@Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
 	public abstract String getPageflow();
 
+	@Override
 	@Attribute(description = @Description("the JSF view id to link to."))
 	public abstract String getView();
 

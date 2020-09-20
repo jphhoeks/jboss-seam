@@ -1,15 +1,6 @@
 package org.jboss.seam.jsf;
 
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.el.ELContext;
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.FacesMessage.Severity;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.*;
-import javax.faces.render.RenderKit;
 
 /**
  * Implementation of FacesContext that delegates all calls.
@@ -28,6 +19,7 @@ public class DelegatingFacesContext extends FacesContextWrapper {
 		this.wrapped = wrapped;
 	}
 
+	@Override
 	public FacesContext getWrapped() {
 		return wrapped;
 	}

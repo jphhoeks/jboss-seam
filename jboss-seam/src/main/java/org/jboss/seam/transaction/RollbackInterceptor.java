@@ -19,6 +19,7 @@ import org.jboss.seam.intercept.InvocationContext;
 public class RollbackInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 5551801508325093417L;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		try {
@@ -34,6 +35,7 @@ public class RollbackInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		// Just here for consistency
 		return true;

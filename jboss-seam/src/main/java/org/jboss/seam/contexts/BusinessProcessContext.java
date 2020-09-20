@@ -36,6 +36,7 @@ public class BusinessProcessContext implements Context {
 	private final Set<String> removals = new HashSet<String>();
 	private final boolean enabled;
 
+	@Override
 	public ScopeType getType() {
 		return ScopeType.BUSINESS_PROCESS;
 	}
@@ -49,6 +50,7 @@ public class BusinessProcessContext implements Context {
 		}
 	}
 
+	@Override
 	public Object get(String name) {
 
 		Object result = additions.get(name);
@@ -67,6 +69,7 @@ public class BusinessProcessContext implements Context {
 
 	}
 
+	@Override
 	public void set(String name, Object value) {
 		if (Events.exists())
 			Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
@@ -81,10 +84,12 @@ public class BusinessProcessContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
 	}
 
+	@Override
 	public boolean isSet(String name) {
 		return get(name) != null;
 	}
 
+	@Override
 	public void remove(String name) {
 		if (Events.exists())
 			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
@@ -94,6 +99,7 @@ public class BusinessProcessContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
 	}
 
+	@Override
 	public String[] getNames() {
 		Set<String> results = getNamesFromContext();
 		results.removeAll(removals);
@@ -122,6 +128,7 @@ public class BusinessProcessContext implements Context {
 		return results;
 	}
 
+	@Override
 	public Object get(Class<?> clazz) {
 		return get(Component.getComponentName(clazz));
 	}
@@ -136,6 +143,7 @@ public class BusinessProcessContext implements Context {
 	* there is a current process instance, or do nothing if there
 	* is no current process instance.
 	*/
+	@Override
 	public void flush() {
 		if (!additions.isEmpty() || !removals.isEmpty()) {
 

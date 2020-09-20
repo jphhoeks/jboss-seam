@@ -42,6 +42,7 @@ public class UINumericValidation extends ExcelComponent implements Validation {
 		this.condition = condition;
 	}
 
+	@Override
 	public ValidationType getType() {
 		return ValidationType.numeric;
 	}

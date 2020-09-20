@@ -64,6 +64,7 @@ public class EntityTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void begin() throws NotSupportedException, SystemException {
 		log.debug("beginning JPA resource-local transaction");
 		//TODO: translate exceptions that occur into the correct JTA exception
@@ -78,6 +79,7 @@ public class EntityTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
 			IllegalStateException, SystemException {
 		log.debug("committing JPA resource-local transaction");
@@ -99,6 +101,7 @@ public class EntityTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void rollback() throws IllegalStateException, SecurityException, SystemException {
 		log.debug("rolling back JPA resource-local transaction");
 		//TODO: translate exceptions that occur into the correct JTA exception
@@ -112,12 +115,14 @@ public class EntityTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void setRollbackOnly() throws IllegalStateException, SystemException {
 		log.debug("marking JPA resource-local transaction for rollback");
 		assertActive();
 		getDelegate().setRollbackOnly();
 	}
 
+	@Override
 	public int getStatus() throws SystemException {
 		if (isEntityManagerSet() && getDelegate().getRollbackOnly()) {
 			return Status.STATUS_MARKED_ROLLBACK;
@@ -128,6 +133,7 @@ public class EntityTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void setTransactionTimeout(int timeout) throws SystemException {
 		throw new UnsupportedOperationException();
 	}

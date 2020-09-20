@@ -15,18 +15,22 @@ public class InjectedField<T extends Annotation> implements InjectedAttribute<T>
 		this.annotation = annotation;
 	}
 
+	@Override
 	public Field getMember() {
 		return field;
 	}
 
+	@Override
 	public T getAnnotation() {
 		return annotation;
 	}
 
+	@Override
 	public Class getType() {
 		return field.getType();
 	}
 
+	@Override
 	public void set(Object bean, Object value) {
 		field.setAccessible(true);
 		Reflections.setAndWrap(field, bean, value);

@@ -67,6 +67,7 @@ public class SeamTargetSource implements TargetSource, Serializable {
 	* 
 	* @see org.springframework.aop.TargetSource#getTarget()
 	*/
+	@Override
 	public Object getTarget() throws Exception {
 		if (valueExpression != null) {
 			return valueExpression.getValue();
@@ -89,6 +90,7 @@ public class SeamTargetSource implements TargetSource, Serializable {
 	* 
 	* @see org.springframework.aop.TargetSource#getTargetClass()
 	*/
+	@Override
 	public Class getTargetClass() {
 		if (type != null) {
 			return type;
@@ -153,6 +155,7 @@ public class SeamTargetSource implements TargetSource, Serializable {
 	/**
 	* @see org.springframework.aop.TargetSource#isStatic()
 	*/
+	@Override
 	public boolean isStatic() {
 		return false;
 	}
@@ -162,6 +165,7 @@ public class SeamTargetSource implements TargetSource, Serializable {
 	* 
 	* @see org.springframework.aop.TargetSource#releaseTarget(java.lang.Object)
 	*/
+	@Override
 	public void releaseTarget(Object target) throws Exception {
 		// Do Nothing
 	}

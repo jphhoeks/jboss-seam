@@ -288,13 +288,13 @@ public abstract class UICategoryChartBase extends UIChart {
 	private CategoryLabelPositions categoryLabelPosition(String position) {
 		if (position == null) {
 			return CategoryLabelPositions.STANDARD;
-		} else if (position.equals("UP_45")) {
+		} else if ("UP_45".equals(position)) {
 			return CategoryLabelPositions.UP_45;
-		} else if (position.equals("UP_90")) {
+		} else if ("UP_90".equals(position)) {
 			return CategoryLabelPositions.UP_90;
-		} else if (position.equals("DOWN_45")) {
+		} else if ("DOWN_45".equals(position)) {
 			return CategoryLabelPositions.DOWN_45;
-		} else if (position.equals("DOWN_90")) {
+		} else if ("DOWN_90".equals(position)) {
 			return CategoryLabelPositions.DOWN_90;
 		}
 

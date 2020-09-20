@@ -17,6 +17,7 @@ public class SimplePrincipal implements Principal, Serializable {
 		this.name = name;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}

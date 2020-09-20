@@ -33,6 +33,7 @@ public class CharacterEncodingFilter extends AbstractFilter {
 	private String encoding;
 	private boolean overrideClient;
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		if (encoding != null && (overrideClient || request.getCharacterEncoding() == null)) {
 			request.setCharacterEncoding(encoding);

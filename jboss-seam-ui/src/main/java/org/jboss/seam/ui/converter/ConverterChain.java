@@ -88,6 +88,7 @@ public class ConverterChain implements Converter, StateHolder {
 		}
 	}
 
+	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
 		Object output = value;
 		for (Converter converter : getConverters()) {
@@ -100,6 +101,7 @@ public class ConverterChain implements Converter, StateHolder {
 		return output;
 	}
 
+	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
 		String output = value == null ? null : value.toString();
 		for (Converter converter : getConverters()) {
@@ -152,22 +154,26 @@ public class ConverterChain implements Converter, StateHolder {
 
 	private boolean _transient;
 
+	@Override
 	public boolean isTransient() {
 		return _transient;
 	}
 
+	@Override
 	public void restoreState(FacesContext context, Object state) {
 		Object[] values = (Object[]) state;
 		converters = (List<PrioritizableConverter>) UIComponentBase.restoreAttachedState(context, values[0]);
 		dirty = true;
 	}
 
+	@Override
 	public Object saveState(FacesContext context) {
 		Object[] values = new Object[1];
 		values[0] = UIComponentBase.saveAttachedState(context, converters);
 		return values;
 	}
 
+	@Override
 	public void setTransient(boolean newTransientValue) {
 		this._transient = newTransientValue;
 

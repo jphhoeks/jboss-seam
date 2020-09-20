@@ -71,6 +71,7 @@ public abstract class StatusMessages implements Serializable {
 			messages.add(message);
 			getTasks().add(new Runnable() {
 
+				@Override
 				public void run() {
 					message.interpolate(params);
 				}
@@ -103,6 +104,7 @@ public abstract class StatusMessages implements Serializable {
 			}
 			getTasks().add(new Runnable() {
 
+				@Override
 				public void run() {
 					message.interpolate(params);
 				}

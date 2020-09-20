@@ -49,14 +49,17 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 		((Asynchronous) timer.getInfo()).execute(timer);
 	}
 
+	@Override
 	public Timer scheduleTimedEvent(String type, TimerSchedule schedule, Object... parameters) {
 		return new TimerProxy(scheduleWithTimerService(schedule, new AsynchronousEvent(type, parameters)));
 	}
 
+	@Override
 	public Timer scheduleAsynchronousEvent(String type, Object... parameters) {
 		return new TimerProxy(timerService.createTimer(0l, new AsynchronousEvent(type, parameters)));
 	}
 
+	@Override
 	public Timer scheduleInvocation(InvocationContext invocation, Component component) {
 		return new TimerProxy(scheduleWithTimerService(createTimerSchedule(invocation), new AsynchronousInvocation(invocation, component)));
 
@@ -87,8 +90,10 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 			this.timer = timer;
 		}
 
+		@Override
 		public void cancel() throws IllegalStateException, NoSuchObjectLocalException, EJBException {
 			instance().call(new Callable() {
+				@Override
 				public Object call() {
 					timer.cancel();
 					return null;
@@ -96,8 +101,10 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 			});
 		}
 
+		@Override
 		public TimerHandle getHandle() throws IllegalStateException, NoSuchObjectLocalException, EJBException {
 			TimerHandle handle = (TimerHandle) instance().call(new Callable() {
+				@Override
 				public Object call() {
 					return timer.getHandle();
 				}
@@ -105,24 +112,30 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 			return new TimerHandleProxy(handle);
 		}
 
+		@Override
 		public Serializable getInfo() throws IllegalStateException, NoSuchObjectLocalException, EJBException {
 			return (Serializable) instance().call(new Callable() {
+				@Override
 				public Object call() {
 					return timer.getInfo();
 				}
 			});
 		}
 
+		@Override
 		public Date getNextTimeout() throws IllegalStateException, NoSuchObjectLocalException, EJBException {
 			return (Date) instance().call(new Callable() {
+				@Override
 				public Object call() {
 					return timer.getNextTimeout();
 				}
 			});
 		}
 
+		@Override
 		public long getTimeRemaining() throws IllegalStateException, NoSuchObjectLocalException, EJBException {
 			return (Long) instance().call(new Callable() {
+				@Override
 				public Object call() {
 					return timer.getTimeRemaining();
 				}
@@ -154,8 +167,10 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 			this.handle = handle;
 		}
 
+		@Override
 		public Timer getTimer() throws IllegalStateException, NoSuchObjectLocalException, EJBException {
 			Timer timer = (Timer) instance().call(new Callable() {
+				@Override
 				public Object call() {
 					try {
 						return handle.getTimer();
@@ -172,6 +187,7 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 		}
 	}
 
+	@Override
 	public Object call(Callable task) {
 		try {
 			return task.call();

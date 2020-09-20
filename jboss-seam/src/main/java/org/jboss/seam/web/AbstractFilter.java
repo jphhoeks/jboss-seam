@@ -33,6 +33,7 @@ public abstract class AbstractFilter implements Filter {
 
 	private boolean disabled;
 
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		servletContext = filterConfig.getServletContext();
 	}
@@ -153,6 +154,7 @@ public abstract class AbstractFilter implements Filter {
 		return false;
 	}
 
+	@Override
 	public void destroy() {
 	}
 

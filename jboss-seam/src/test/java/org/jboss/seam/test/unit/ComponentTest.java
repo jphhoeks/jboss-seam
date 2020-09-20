@@ -12,6 +12,11 @@ import org.jboss.seam.persistence.ManagedPersistenceContext;
 import org.testng.annotations.Test;
 
 public class ComponentTest {
+	
+	public ComponentTest() {
+		super();
+	}
+	
 	@Test
 	public void testStaticMethods() {
 		assert Seam.getComponentName(Bar.class).equals("bar");
@@ -74,9 +79,10 @@ public class ComponentTest {
 		assert c.getOutAttributes().size() == 0;
 		assert c.getRemoveMethods().size() == 1;
 		assert c.isInstance(new Ejb() {
+			@Override
 			public void destroy() {
 			}
-
+			@Override
 			public void foo() {
 			}
 		});

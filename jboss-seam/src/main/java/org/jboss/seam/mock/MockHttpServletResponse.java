@@ -72,6 +72,7 @@ public class MockHttpServletResponse implements HttpServletResponse {
 		return arg0;
 	}
 
+	@Override
 	@Deprecated
 	public String encodeUrl(String arg0) {
 		return encodeURL(arg0);

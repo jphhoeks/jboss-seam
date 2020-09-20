@@ -33,11 +33,13 @@ public class SpringTaskExecutorDispatcher<T, S extends Schedule> extends Abstrac
 	private ValueExpression<Dispatcher<T, S>> scheduleDispatcher;
 	private ValueExpression<TaskExecutor> taskExecutor;
 
+	@Override
 	public T scheduleAsynchronousEvent(String type, Object... parameters) {
 		taskExecutor.getValue().execute(new RunnableAsynchronous(new AsynchronousEvent(type, parameters)));
 		return null;
 	}
 
+	@Override
 	public T scheduleInvocation(InvocationContext invocation, Component component) {
 		Schedule schedule = createSchedule(invocation);
 		if (!TimerSchedule.ONCE_IMMEDIATELY.equals(schedule)) {
@@ -47,6 +49,7 @@ public class SpringTaskExecutorDispatcher<T, S extends Schedule> extends Abstrac
 		return null;
 	}
 
+	@Override
 	public T scheduleTimedEvent(String type, S schedule, Object... parameters) {
 		return getScheduleDispatcher().scheduleTimedEvent(type, schedule, parameters);
 	}
@@ -88,6 +91,7 @@ public class SpringTaskExecutorDispatcher<T, S extends Schedule> extends Abstrac
 			this.async = async;
 		}
 
+		@Override
 		public void run() {
 			async.execute(null);
 		}

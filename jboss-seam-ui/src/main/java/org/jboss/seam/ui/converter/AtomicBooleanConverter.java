@@ -16,10 +16,12 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "org.jboss.seam.ui.AtomicBooleanConverter")
 public class AtomicBooleanConverter implements Converter {
 
+	@Override
 	public Object getAsObject(FacesContext ctx, UIComponent ui, String string) {
 		return string != null && string.trim().length() > 0 ? new AtomicBoolean(Boolean.parseBoolean(string.trim())) : null;
 	}
 
+	@Override
 	public String getAsString(FacesContext ctx, UIComponent ui, Object object) {
 		String string = "";
 		if (object != null) {

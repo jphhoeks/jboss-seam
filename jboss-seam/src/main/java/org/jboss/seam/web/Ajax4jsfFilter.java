@@ -44,6 +44,7 @@ public class Ajax4jsfFilter extends AbstractFilter {
 	private String enableCache;
 	private String log4jInitFile;
 
+	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
 			throws IOException, ServletException {
 		if (delegate == null) {

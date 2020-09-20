@@ -412,7 +412,7 @@ public class Image implements Serializable {
 
 		ImageReader reader = null;
 		try {
-			reader = (ImageReader) iter.next();
+			reader = iter.next();
 			ImageReadParam param = reader.getDefaultReadParam();
 			reader.setInput(imageInputStream, true, true);
 			String type = reader.getFormatName();

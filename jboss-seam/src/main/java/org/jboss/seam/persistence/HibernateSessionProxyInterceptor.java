@@ -25,6 +25,7 @@ public class HibernateSessionProxyInterceptor extends AbstractInterceptor {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ic) throws Exception {
 		return ic.proceed();
@@ -53,6 +54,7 @@ public class HibernateSessionProxyInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return (getComponent().getType() == STATEFUL_SESSION_BEAN || getComponent().getType() == STATELESS_SESSION_BEAN)
 				&& Reflections.isClassAvailable("org.hibernate.Session");

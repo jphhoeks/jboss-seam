@@ -47,6 +47,7 @@ public class UIMergeCells extends ExcelComponent implements Command {
 		return COMPONENT_TYPE;
 	}
 
+	@Override
 	public CommandType getCommandType() {
 		return CommandType.merge_cells;
 	}

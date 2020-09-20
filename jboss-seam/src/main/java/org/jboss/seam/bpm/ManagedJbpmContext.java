@@ -88,6 +88,7 @@ public class ManagedJbpmContext implements Synchronization {
 		}
 	}
 
+	@Override
 	public void beforeCompletion() {
 		log.debug("flushing seam managed jBPM context");
 		/*org.jbpm.graph.exe.ProcessInstance processInstance = ProcessInstance.instance();
@@ -105,6 +106,7 @@ public class ManagedJbpmContext implements Synchronization {
 		log.debug("done flushing seam managed jBPM context");
 	}
 
+	@Override
 	public void afterCompletion(int status) {
 		synchronizationRegistered = false;
 		if (!Contexts.isEventContextActive()) {

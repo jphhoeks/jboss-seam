@@ -102,6 +102,7 @@ public class PageParamTest extends AbstractPageTest {
 	}
 
 	public static class TestValidator implements Validator {
+		@Override
 		public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		}
 	}

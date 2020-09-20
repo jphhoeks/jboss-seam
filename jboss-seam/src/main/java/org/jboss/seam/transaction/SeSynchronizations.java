@@ -27,28 +27,33 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 public class SeSynchronizations implements Synchronizations {
 	protected Stack<SynchronizationRegistry> synchronizations = new Stack<SynchronizationRegistry>();
 
+	@Override
 	public void afterTransactionBegin() {
 		synchronizations.push(new SynchronizationRegistry());
 	}
 
+	@Override
 	public void afterTransactionCommit(boolean success) {
 		if (!synchronizations.isEmpty()) {
 			synchronizations.pop().afterTransactionCompletion(success);
 		}
 	}
 
+	@Override
 	public void afterTransactionRollback() {
 		if (!synchronizations.isEmpty()) {
 			synchronizations.pop().afterTransactionCompletion(false);
 		}
 	}
 
+	@Override
 	public void beforeTransactionCommit() {
 		if (!synchronizations.isEmpty()) {
 			synchronizations.peek().beforeTransactionCompletion();
 		}
 	}
 
+	@Override
 	public void registerSynchronization(Synchronization sync) {
 		if (synchronizations.isEmpty()) {
 			throw new IllegalStateException("Transaction begin not detected, try installing transaction:ejb-transaction in components.xml");
@@ -57,6 +62,7 @@ public class SeSynchronizations implements Synchronizations {
 		}
 	}
 
+	@Override
 	public boolean isAwareOfContainerTransactions() {
 		return false;
 	}

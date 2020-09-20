@@ -91,6 +91,7 @@ public class QueryTest {
 		}
 
 		/** Making setter method accessible for reproducing JBSEAM-4694. */
+		@Override
 		public void setUseWildcardAsCountQuerySubject(boolean useCompliantCountQuerySubject) {
 			super.setUseWildcardAsCountQuerySubject(useCompliantCountQuerySubject);
 		}

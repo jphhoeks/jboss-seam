@@ -19,15 +19,18 @@ public class FlexSeamFactory implements FlexFactory {
 		this.destinationName = destinationName;
 	}
 
+	@Override
 	public void initialize(String id, ConfigMap configMap) {
 		log.info("!FSF init " + id + " props=" + configMap);
 	}
 
+	@Override
 	public FactoryInstance createFactoryInstance(String id, ConfigMap properties) {
 		log.info("!FSF create factory " + id + " props=" + properties);
 		return new FactoryInstance(this, id, properties);
 	}
 
+	@Override
 	public Object lookup(FactoryInstance factory) {
 		log.info("!FSF lookup " + factory);
 

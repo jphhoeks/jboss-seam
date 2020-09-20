@@ -69,72 +69,84 @@ public class Conversions {
 	}
 
 	public static class BooleanConverter implements Converter<Boolean> {
+		@Override
 		public Boolean toObject(PropertyValue value, Type type) {
 			return Boolean.valueOf(value.getSingleValue());
 		}
 	}
 
 	public static class IntegerConverter implements Converter<Integer> {
+		@Override
 		public Integer toObject(PropertyValue value, Type type) {
 			return Integer.valueOf(value.getSingleValue());
 		}
 	}
 
 	public static class LongConverter implements Converter<Long> {
+		@Override
 		public Long toObject(PropertyValue value, Type type) {
 			return Long.valueOf(value.getSingleValue());
 		}
 	}
 
 	public static class FloatConverter implements Converter<Float> {
+		@Override
 		public Float toObject(PropertyValue value, Type type) {
 			return Float.valueOf(value.getSingleValue());
 		}
 	}
 
 	public static class DoubleConverter implements Converter<Double> {
+		@Override
 		public Double toObject(PropertyValue value, Type type) {
 			return Double.valueOf(value.getSingleValue());
 		}
 	}
 
 	public static class CharacterConverter implements Converter<Character> {
+		@Override
 		public Character toObject(PropertyValue value, Type type) {
 			return value.getSingleValue().charAt(0);
 		}
 	}
 
 	public static class StringConverter implements Converter<String> {
+		@Override
 		public String toObject(PropertyValue value, Type type) {
 			return value.getSingleValue();
 		}
 	}
 
 	public static class BigDecimalConverter implements Converter<BigDecimal> {
+		@Override
 		public BigDecimal toObject(PropertyValue value, Type type) {
 			return new BigDecimal(value.getSingleValue());
 		}
 	}
 
 	public static class BigIntegerConverter implements Converter<BigInteger> {
+		@Override
 		public BigInteger toObject(PropertyValue value, Type type) {
 			return new BigInteger(value.getSingleValue());
 		}
 	}
 
 	public static class EnumConverter implements Converter<Enum<?>> {
+		@Override
 		public Enum<?> toObject(PropertyValue value, Type type) {
 			return Enum.valueOf((Class<Enum>) type, value.getSingleValue());
 		}
 	}
 
 	public static class StringArrayConverter implements Converter<String[]> {
+		@Override
 		public String[] toObject(PropertyValue values, Type type) {
 			return values.getMultiValues();
 		}
 	}
 
 	public static class ArrayConverter implements Converter {
+		@Override
 		public Object toObject(PropertyValue values, Type type) {
 			String[] strings = values.getMultiValues();
 			Class elementType = ((Class) type).getComponentType();
@@ -149,6 +161,7 @@ public class Conversions {
 	}
 
 	public static class SetConverter implements Converter<Set> {
+		@Override
 		public Set toObject(PropertyValue values, Type type) {
 			String[] strings = values.getMultiValues();
 			Class elementType = Reflections.getCollectionElementType(type);
@@ -163,6 +176,7 @@ public class Conversions {
 	}
 
 	public static class ListConverter implements Converter<List> {
+		@Override
 		public List toObject(PropertyValue values, Type type) {
 			String[] strings = values.getMultiValues();
 			Class elementType = Reflections.getCollectionElementType(type);
@@ -188,6 +202,7 @@ public class Conversions {
 	}
 
 	public static class MapConverter implements Converter<Map> {
+		@Override
 		public Map toObject(PropertyValue values, Type type) {
 			Map<String, String> keyedValues = values.getKeyedValues();
 			Class elementType = Reflections.getCollectionElementType(type);
@@ -201,6 +216,7 @@ public class Conversions {
 	}
 
 	public static class PropertiesConverter implements Converter<Properties> {
+		@Override
 		public Properties toObject(PropertyValue values, Type type) {
 			Map<String, String> keyedValues = values.getKeyedValues();
 			Properties map = new Properties();
@@ -215,6 +231,7 @@ public class Conversions {
 	}
 
 	public static class ClassConverter implements Converter<Class> {
+		@Override
 		public Class toObject(PropertyValue value, Type type) {
 			try {
 				return Reflections.classForName(value.getSingleValue());
@@ -251,14 +268,17 @@ public class Conversions {
 			this.string = string;
 		}
 
+		@Override
 		public String[] getMultiValues() {
 			return Strings.split(string, ", \r\n\f\t");
 		}
 
+		@Override
 		public String getSingleValue() {
 			return string;
 		}
 
+		@Override
 		public boolean isExpression() {
 			boolean containsExpr = false;
 			int idx = string.indexOf(EXPRESSION_MARKER);
@@ -277,14 +297,17 @@ public class Conversions {
 			return containsExpr;
 		}
 
+		@Override
 		public boolean isMultiValued() {
 			return false;
 		}
 
+		@Override
 		public boolean isAssociativeValued() {
 			return false;
 		}
 
+		@Override
 		public Map<String, String> getKeyedValues() {
 			throw new UnsupportedOperationException("not a keyed property value");
 		}
@@ -294,6 +317,7 @@ public class Conversions {
 			return string;
 		}
 
+		@Override
 		public Class getType() {
 			return null;
 		}
@@ -312,26 +336,32 @@ public class Conversions {
 			this.type = type;
 		}
 
+		@Override
 		public String[] getMultiValues() {
 			return strings;
 		}
 
+		@Override
 		public String getSingleValue() {
 			throw new UnsupportedOperationException("not a flat property value");
 		}
 
+		@Override
 		public Map<String, String> getKeyedValues() {
 			throw new UnsupportedOperationException("not a keyed property value");
 		}
 
+		@Override
 		public boolean isMultiValued() {
 			return true;
 		}
 
+		@Override
 		public boolean isAssociativeValued() {
 			return false;
 		}
 
+		@Override
 		public boolean isExpression() {
 			return false;
 		}
@@ -341,6 +371,7 @@ public class Conversions {
 			return Strings.toString(", ", (Object[]) strings);
 		}
 
+		@Override
 		public Class getType() {
 			return type;
 		}
@@ -358,26 +389,32 @@ public class Conversions {
 			this.type = type;
 		}
 
+		@Override
 		public String[] getMultiValues() {
 			throw new UnsupportedOperationException("not a multi-valued property value");
 		}
 
+		@Override
 		public String getSingleValue() {
 			throw new UnsupportedOperationException("not a flat property value");
 		}
 
+		@Override
 		public Map<String, String> getKeyedValues() {
 			return keyedValues;
 		}
 
+		@Override
 		public boolean isExpression() {
 			return false;
 		}
 
+		@Override
 		public boolean isMultiValued() {
 			return false;
 		}
 
+		@Override
 		public boolean isAssociativeValued() {
 			return true;
 		}
@@ -387,6 +424,7 @@ public class Conversions {
 			return keyedValues.toString();
 		}
 
+		@Override
 		public Class getType() {
 			return type;
 		}

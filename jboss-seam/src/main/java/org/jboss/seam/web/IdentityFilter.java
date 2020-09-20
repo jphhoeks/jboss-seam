@@ -30,6 +30,7 @@ import org.jboss.seam.annotations.web.Filter;
 @Filter(within = { "org.jboss.seam.web.multipartFilter" })
 public class IdentityFilter extends AbstractFilter {
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if (!(request instanceof HttpServletRequest)) {
 			throw new ServletException("This filter can only process HttpServletRequest requests");

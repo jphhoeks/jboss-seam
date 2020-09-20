@@ -9,6 +9,7 @@ import org.jboss.seam.international.StatusMessage;
 
 public class SeamStatusMessagesListener implements IComponentOnBeforeRenderListener {
 
+	@Override
 	public void onBeforeRender(Component component) {
 
 		WicketStatusMessages wicketStatusMessages = WicketStatusMessages.instance();

@@ -60,6 +60,7 @@ public class JpaTokenStore implements TokenStore, Serializable {
 		}
 	}
 
+	@Override
 	public void createToken(String username, String value) {
 		if (tokenClass == null) {
 			throw new IllegalStateException("Could not create token, tokenClass not set");
@@ -81,10 +82,12 @@ public class JpaTokenStore implements TokenStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean validateToken(String username, String value) {
 		return lookupToken(username, value) != null;
 	}
 
+	@Override
 	public void invalidateToken(String username, String value) {
 		Object token = lookupToken(username, value);
 		if (token != null) {
@@ -92,6 +95,7 @@ public class JpaTokenStore implements TokenStore, Serializable {
 		}
 	}
 
+	@Override
 	public void invalidateAll(String username) {
 		Query query = lookupEntityManager()
 				.createQuery("select t from " + tokenClass.getName() + " t where " + tokenUsernameProperty.getName() + " = :username")

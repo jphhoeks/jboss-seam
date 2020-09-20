@@ -27,6 +27,7 @@ import org.jboss.seam.intercept.InvocationContext;
 public class ConversationalInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 1127583515811479385L;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		Method method = invocation.getMethod();
@@ -63,6 +64,7 @@ public class ConversationalInterceptor extends AbstractInterceptor {
 		return getComponent().getBeanClass().isAnnotationPresent(Conversational.class);
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().beanClassHasAnnotation(Conversational.class);
 	}

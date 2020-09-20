@@ -18,6 +18,7 @@ public class NamespaceDeploymentHandler extends AbstractDeploymentHandler {
 
 	private static DeploymentMetadata NAMESPACE_METADATA = new DeploymentMetadata() {
 
+		@Override
 		public String getFileNameSuffix() {
 			return "/package-info.class";
 		}
@@ -70,10 +71,12 @@ public class NamespaceDeploymentHandler extends AbstractDeploymentHandler {
 		}
 	}
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
 
+	@Override
 	public DeploymentMetadata getMetadata() {
 		return NAMESPACE_METADATA;
 	}

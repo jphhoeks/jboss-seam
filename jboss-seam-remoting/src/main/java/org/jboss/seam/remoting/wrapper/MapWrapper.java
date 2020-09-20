@@ -26,6 +26,7 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 	private static final byte[] VALUE_TAG_OPEN = "<v>".getBytes();
 	private static final byte[] VALUE_TAG_CLOSE = "</v>".getBytes();
 
+	@Override
 	public void marshal(OutputStream out) throws IOException {
 		out.write(MAP_TAG_OPEN);
 
@@ -48,6 +49,7 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 		out.write(MAP_TAG_CLOSE);
 	}
 
+	@Override
 	public Object convert(Type type) throws ConversionException {
 		if (context == null) {
 			throw new IllegalStateException("No call context has been set");
@@ -97,9 +99,9 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 			}
 		}
 
-		for (Element e : (List<Element>) element.elements("element")) {
-			Element keyElement = (Element) e.element("k").elementIterator().next();
-			Element valueElement = (Element) e.element("v").elementIterator().next();
+		for (Element e : element.elements("element")) {
+			Element keyElement = e.element("k").elementIterator().next();
+			Element valueElement = e.element("v").elementIterator().next();
 
 			((Map) value).put(context.createWrapperFromElement(keyElement).convert(keyType),
 					context.createWrapperFromElement(valueElement).convert(valueType));
@@ -108,6 +110,7 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 		return value;
 	}
 
+	@Override
 	public ConversionScore conversionScore(Class cls) {
 		if (Map.class.isAssignableFrom(cls))
 			return ConversionScore.exact;

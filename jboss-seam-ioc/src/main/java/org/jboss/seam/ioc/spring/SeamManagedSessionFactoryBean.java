@@ -115,6 +115,7 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 			return (Session) Component.getInstance(sessionName);
 		}
 
+		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			if (method.getName().equals("equals")) {
 				// Only consider equal when proxies are identical.
@@ -210,6 +211,7 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 			this.sessionFactory = sessionFactory;
 		}
 
+		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			if (method.getName().equals("getSessionFactory")) {
 				return sessionFactory;

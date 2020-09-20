@@ -39,6 +39,7 @@ public class DelegatingInvocationHandler<T> implements InvocationHandler {
 		return delegate;
 	}
 
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		MethodTarget target = methodCache.get(method);
 

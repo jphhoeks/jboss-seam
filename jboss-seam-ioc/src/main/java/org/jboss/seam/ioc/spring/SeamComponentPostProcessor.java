@@ -22,6 +22,7 @@ public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered {
 	 * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessAfterInitialization(java.lang.Object,
 	 *      java.lang.String)
 	 */
+	@Override
 	public Object postProcessAfterInitialization(final Object bean, String beanName) throws BeansException {
 		// Check to see if this bean is a component.
 		SpringComponent component = SpringComponent.forSpringBeanName(beanName);
@@ -36,6 +37,7 @@ public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered {
 		}
 		// Wrap our bean instance in an object factory for the SpringComponent to use
 		SpringComponent.setObjectFactory(new ObjectFactory() {
+			@Override
 			public Object getObject() throws BeansException {
 				return bean;
 			}
@@ -48,6 +50,7 @@ public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered {
 	 * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessBeforeInitialization(java.lang.Object,
 	 *      java.lang.String)
 	 */
+	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		return bean;
 	}
@@ -57,6 +60,7 @@ public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered {
 	 *
 	 * @see org.springframework.core.Ordered#getOrder()
 	 */
+	@Override
 	public int getOrder() {
 		return order;
 	}

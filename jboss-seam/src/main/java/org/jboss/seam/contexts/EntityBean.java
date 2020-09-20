@@ -24,6 +24,7 @@ class EntityBean implements Wrapper {
 	}
 
 	//TODO: use @Unwrap
+	@Override
 	public Object getInstance() {
 		if (!initialized && passivatedEntity != null) {
 			//non-versioned entities can be lazily unpassivated 
@@ -33,6 +34,7 @@ class EntityBean implements Wrapper {
 		return instance;
 	}
 
+	@Override
 	public boolean passivate() {
 		if (passivatedEntity == null || passivatedEntity.isVersioned()) //and the version number changed!
 		{
@@ -48,6 +50,7 @@ class EntityBean implements Wrapper {
 		}
 	}
 
+	@Override
 	public void activate() {
 		//versioned entities must be unpassivated at the beginning 
 		//of the request 

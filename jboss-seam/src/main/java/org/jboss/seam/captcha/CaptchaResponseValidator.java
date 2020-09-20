@@ -24,10 +24,12 @@ public class CaptchaResponseValidator implements ConstraintValidator<CaptchaResp
 		super();
 	}
 
+	@Override
 	public void initialize(CaptchaResponse constraintAnnotation) {
 		annotation = constraintAnnotation;
 	}
 
+	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		boolean result = Captcha.instance().validateResponse(value);
 		if (!result) {

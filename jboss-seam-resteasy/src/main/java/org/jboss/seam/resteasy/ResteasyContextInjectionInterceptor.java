@@ -48,6 +48,7 @@ public class ResteasyContextInjectionInterceptor extends AbstractInterceptor {
 		this.propertyInjector = propertyInjector;
 	}
 
+	@Override
 	public Object aroundInvoke(InvocationContext ic) throws Exception {
 		HttpRequest request = (HttpRequest) Component.getInstance(RE_HTTP_REQUEST_VAR);
 		HttpResponse response = (HttpResponse) Component.getInstance(RE_HTTP_RESPONSE_VAR);
@@ -57,6 +58,7 @@ public class ResteasyContextInjectionInterceptor extends AbstractInterceptor {
 		return ic.proceed();
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return true;
 	}

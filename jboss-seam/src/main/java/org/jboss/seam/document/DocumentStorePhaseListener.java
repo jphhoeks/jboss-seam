@@ -22,14 +22,17 @@ public class DocumentStorePhaseListener implements PhaseListener {
 
 	private static final LogProvider log = Logging.getLogProvider(DocumentStorePhaseListener.class);
 
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
 	}
 
+	@Override
 	public void afterPhase(PhaseEvent phaseEvent) {
 		// ...
 	}
 
+	@Override
 	public void beforePhase(PhaseEvent phaseEvent) {
 		// Skip non-seam applications
 		if (!SeamApplication.isSeamApplication(phaseEvent.getFacesContext())) {

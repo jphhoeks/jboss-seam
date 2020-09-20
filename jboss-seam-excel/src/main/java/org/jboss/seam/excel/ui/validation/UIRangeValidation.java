@@ -47,6 +47,7 @@ public class UIRangeValidation extends ExcelComponent implements Validation {
 		return COMPONENT_TYPE;
 	}
 
+	@Override
 	public ValidationType getType() {
 		return ValidationType.range;
 	}

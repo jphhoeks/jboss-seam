@@ -435,6 +435,7 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	* This is the implementation of the ClassFileTransformer interface.  
 	* @see java.lang.instrument.ClassFileTransformer
 	*/
+	@Override
 	public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain,
 			byte[] classfileBuffer) throws IllegalClassFormatException {
 		int index = className.lastIndexOf("/");

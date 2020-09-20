@@ -40,6 +40,10 @@ public class SOAPRequestHandler implements SOAPHandler {
 	private Set<QName> headers = new HashSet<QName>();
 
 	private String handlerName;
+	
+	public SOAPRequestHandler() {
+		super();
+	}
 
 	/**
 	* Handle inbound and outbound messages
@@ -47,6 +51,7 @@ public class SOAPRequestHandler implements SOAPHandler {
 	* @param msgContext The message context
 	* @return boolean true if processing should continue
 	*/
+	@Override
 	public boolean handleMessage(MessageContext msgContext) {
 		Boolean outbound = (Boolean) msgContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 		if (outbound == null)
@@ -143,10 +148,11 @@ public class SOAPRequestHandler implements SOAPHandler {
 	* Called just prior to dispatching a message, fault or exception. The 
 	* Seam request lifecycle is ended here
 	*/
+	@Override
 	public void close(MessageContext messageContext) {
 		Lifecycle.endRequest();
 	}
-
+	@Override
 	public Set<QName> getHeaders() {
 		return headers;
 	}
@@ -162,7 +168,7 @@ public class SOAPRequestHandler implements SOAPHandler {
 	public void setHandlerName(String handlerName) {
 		this.handlerName = handlerName;
 	}
-
+	@Override
 	public boolean handleFault(MessageContext messagecontext) {
 		return true;
 	}

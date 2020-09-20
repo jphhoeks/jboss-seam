@@ -36,6 +36,7 @@ import org.jboss.seam.log.Logging;
  */
 public class EnumDeploymentHandler extends AbstractDeploymentHandler {
 	private static DeploymentMetadata ENUM_METADATA = new DeploymentMetadata() {
+		@Override
 		public String getFileNameSuffix() {
 			return ".class";
 		}
@@ -99,10 +100,12 @@ public class EnumDeploymentHandler extends AbstractDeploymentHandler {
 		return filename.substring(0, filename.lastIndexOf(".class")).replace('/', '.').replace('\\', '.');
 	}
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
 
+	@Override
 	public DeploymentMetadata getMetadata() {
 		return ENUM_METADATA;
 	}

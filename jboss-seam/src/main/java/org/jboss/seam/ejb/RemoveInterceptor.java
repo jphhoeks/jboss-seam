@@ -30,6 +30,7 @@ public class RemoveInterceptor extends AbstractInterceptor {
 
 	private static final LogProvider log = Logging.getLogProvider(RemoveInterceptor.class);
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		//we have the method from the local interface, get the corresponding one
@@ -72,6 +73,7 @@ public class RemoveInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().getType() == STATEFUL_SESSION_BEAN;
 	}

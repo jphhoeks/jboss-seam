@@ -106,18 +106,22 @@ public class ResourceRequestEnvironment {
 		resourceServlet = new SeamResourceServlet();
 		try {
 			resourceServlet.init(new ServletConfig() {
+				@Override
 				public String getServletName() {
 					return "Seam Resource Servlet";
 				}
 
+				@Override
 				public ServletContext getServletContext() {
 					return ResourceRequestEnvironment.this.seamTest.servletContext;
 				}
 
+				@Override
 				public String getInitParameter(String s) {
 					return null;
 				}
 
+				@Override
 				public Enumeration<String> getInitParameterNames() {
 					return null;
 				}
@@ -145,6 +149,7 @@ public class ResourceRequestEnvironment {
 			init();
 			prepareRequest(request);
 			environment.seamTest.seamFilter.doFilter(request, response, new FilterChain() {
+				@Override
 				public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
 					environment.resourceServlet.service(request, response);
 				}
@@ -169,6 +174,7 @@ public class ResourceRequestEnvironment {
 			}
 
 			request.setUserPrincipal(new Principal() {
+				@Override
 				public String getName() {
 					return getPrincipalName();
 				}

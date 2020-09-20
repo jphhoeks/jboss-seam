@@ -33,6 +33,7 @@ public class SubscriptionHandler extends BaseRequestHandler implements RequestHa
 	 * @param response HttpServletResponse
 	 * @throws Exception
 	 */
+	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// We're sending an XML response, so set the response content type to text/xml
 		response.setContentType("text/xml");

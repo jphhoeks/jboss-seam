@@ -18,6 +18,7 @@ import org.jboss.seam.util.Strings;
  */
 @FacesConverter(value = "org.jboss.seam.ui.EnumConverter")
 public class EnumConverter implements javax.faces.convert.Converter {
+	@Override
 	public Object getAsObject(FacesContext context, UIComponent comp, String value) throws ConverterException {
 		if (value == null) {
 			return null;
@@ -61,6 +62,7 @@ public class EnumConverter implements javax.faces.convert.Converter {
 		throw new ConverterException("Unable to find selectItems with enum values.");
 	}
 
+	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object object) throws ConverterException {
 		if (object == null) {
 			return null;

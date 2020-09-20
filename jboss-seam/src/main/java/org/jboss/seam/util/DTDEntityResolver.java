@@ -36,6 +36,7 @@ public class DTDEntityResolver implements EntityResolver, Serializable {
 	private static final String SEAM_NAMESPACE = "http://jboss.org/schema/seam/";
 	private static final String USER_NAMESPACE = "classpath://";
 
+	@Override
 	public InputSource resolveEntity(String publicId, String systemId) {
 		if (systemId != null) {
 			log.trace("trying to resolve system-id [" + systemId + "]");

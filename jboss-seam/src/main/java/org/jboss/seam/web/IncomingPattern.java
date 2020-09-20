@@ -97,6 +97,7 @@ public class IncomingPattern {
 		//            return text;
 		//        }
 
+		@Override
 		public boolean isMatch() {
 			if (isMatch == null) {
 				isMatch = match();
@@ -119,6 +120,7 @@ public class IncomingPattern {
 			return false;
 		}
 
+		@Override
 		public String rewrite() {
 			StringBuffer result = new StringBuffer();
 

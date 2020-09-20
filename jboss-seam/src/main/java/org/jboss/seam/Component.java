@@ -52,11 +52,6 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javassist.util.proxy.MethodFilter;
-import javassist.util.proxy.MethodHandler;
-import javassist.util.proxy.ProxyFactory;
-import javassist.util.proxy.ProxyObject;
-
 import javax.naming.NamingException;
 import javax.servlet.http.HttpSessionActivationListener;
 
@@ -112,7 +107,13 @@ import org.jboss.seam.util.Naming;
 import org.jboss.seam.util.Reflections;
 import org.jboss.seam.util.SortItem;
 import org.jboss.seam.util.Sorter;
+import org.jboss.seam.util.Strings;
 import org.jboss.seam.web.Parameters;
+
+import javassist.util.proxy.MethodFilter;
+import javassist.util.proxy.MethodHandler;
+import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
 
 /**
  * Metamodel class for component classes.
@@ -323,7 +324,7 @@ public class Component extends Model {
 					if (converter.forClass() != void.class) {
 						init.getConvertersByClass().put(converter.forClass(), getName());
 					}
-					String id = converter.id().equals("") ? getName() : converter.id();
+					String id = Strings.isEmpty(converter.id()) ? getName() : converter.id();
 					init.getConverters().put(id, getName());
 				}
 				if (getBeanClass().isAnnotationPresent(Validator.class)) {
@@ -332,7 +333,7 @@ public class Component extends Model {
 								"Validator " + getBeanClass().getName() + " must be annotated with @BypassInterceptors");
 
 					Validator validator = getBeanClass().getAnnotation(Validator.class);
-					String id = validator.id().equals("") ? getName() : validator.id();
+					String id = Strings.isEmpty(validator.id()) ? getName() : validator.id();
 					init.getValidators().put(id, getName());
 				}
 			}
@@ -1624,7 +1625,7 @@ public class Component extends Model {
 	}
 
 	private static boolean isExcludedLocalInterfaceName(String name) {
-		return name.equals("java.io.Serializable") || name.equals("java.io.Externalizable") || name.startsWith("javax.ejb.");
+		return "java.io.Serializable".equals(name) || "java.io.Externalizable".equals(name) || name.startsWith("javax.ejb.");  
 	}
 
 	private Object getFieldValue(Object bean, Field field, String name) {
@@ -2116,9 +2117,10 @@ public class Component extends Model {
 	}
 
 	private static final MethodFilter FINALIZE_FILTER = new MethodFilter() {
+		@Override
 		public boolean isHandled(Method method) {
 			// skip finalize methods
-			return method.getParameterTypes().length != 0 || !method.getName().equals("finalize");
+			return method.getParameterTypes().length != 0 || !"finalize".equals(method.getName());
 		}
 	};
 
@@ -2158,7 +2160,7 @@ public class Component extends Model {
 		public ConstantInitialValue(PropertyValue propertyValue, Class parameterClass, Type parameterType) {
 			this.value = Conversions.getConverter(parameterClass).toObject(propertyValue, parameterType);
 		}
-
+		@Override
 		public Object getValue(Class type) {
 			return value;
 		}
@@ -2187,7 +2189,7 @@ public class Component extends Model {
 			// vb =
 			// FacesContext.getCurrentInstance().getApplication().createValueBinding(expression);
 		}
-
+		@Override
 		public Object getValue(Class type) {
 			Object value;
 			if (type.equals(ValueExpression.class)) {
@@ -2241,7 +2243,7 @@ public class Component extends Model {
 				initialValues[i] = getInitialValue(elementValue, elementType, elementType);
 			}
 		}
-
+		@Override
 		public Object getValue(Class type) {
 			Set set;
 			// if no configuration has been specified then we first see if
@@ -2305,7 +2307,7 @@ public class Component extends Model {
 				initialValues[i] = getInitialValue(elementValue, elementType, elementType);
 			}
 		}
-
+		@Override
 		public Object getValue(Class type) {
 			if (isArray) {
 				Object array = Array.newInstance(elementType, initialValues.length);
@@ -2376,7 +2378,7 @@ public class Component extends Model {
 				initialValues.put(getInitialValue(keyValue, keyType, keyType), getInitialValue(elementValue, elementType, elementType));
 			}
 		}
-
+		@Override
 		public Object getValue(Class type) {
 			Map result;
 			if (Modifier.isAbstract(collectionClass.getModifiers()) || Modifier.isInterface(collectionClass.getModifiers())) {
@@ -2440,7 +2442,7 @@ public class Component extends Model {
 			this.method = method;
 			this.annotation = annotation;
 		}
-
+		@Override
 		public String getName() {
 			return name;
 		}
@@ -2448,19 +2450,19 @@ public class Component extends Model {
 		public Method getMethod() {
 			return method;
 		}
-
+		@Override
 		public T getAnnotation() {
 			return annotation;
 		}
-
+		@Override
 		public void set(Object bean, Object value) {
 			setPropertyValue(bean, method, name, value);
 		}
-
+		@Override
 		public Object get(Object bean) {
 			return getPropertyValue(bean, method, name);
 		}
-
+		@Override
 		public Class getType() {
 			return method.getParameterTypes()[0];
 		}
@@ -2489,23 +2491,23 @@ public class Component extends Model {
 			} catch (IllegalArgumentException e) {
 			}
 		}
-
+		@Override
 		public Object get(Object bean) {
 			return getter.get(bean);
 		}
-
+		@Override
 		public T getAnnotation() {
 			return getter.getAnnotation();
 		}
-
+		@Override
 		public String getName() {
 			return getter.getName();
 		}
-
+		@Override
 		public Class getType() {
 			return getter.getType();
 		}
-
+		@Override
 		public void set(Object bean, Object value) {
 			if (setter == null) {
 				throw new IllegalArgumentException("Component must have a setter for " + name);
@@ -2525,7 +2527,7 @@ public class Component extends Model {
 			this.field = field;
 			this.annotation = annotation;
 		}
-
+		@Override
 		public String getName() {
 			return name;
 		}
@@ -2533,19 +2535,19 @@ public class Component extends Model {
 		public Field getField() {
 			return field;
 		}
-
+		@Override
 		public T getAnnotation() {
 			return annotation;
 		}
-
+		@Override
 		public Class getType() {
 			return field.getType();
 		}
-
+		@Override
 		public void set(Object bean, Object value) {
 			setFieldValue(bean, field, name, value);
 		}
-
+		@Override
 		public Object get(Object bean) {
 			return getFieldValue(bean, field, name);
 		}

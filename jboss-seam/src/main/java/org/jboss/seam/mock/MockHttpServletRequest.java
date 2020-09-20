@@ -144,181 +144,225 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		return attributes;
 	}
 
+	@Override
 	public String getAuthType() {
 		return authType;
 	}
 
+	@Override
 	public Cookie[] getCookies() {
 		return cookies;
 	}
 
+	@Override
 	public long getDateHeader(String arg0) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public String getHeader(String header) {
 		String[] values = headers.get(header);
 		return values == null || values.length == 0 ? null : values[0];
 	}
 
+	@Override
 	public Enumeration<String> getHeaders(String header) {
 		return new IteratorEnumeration<String>(Arrays.asList(headers.get(header)).iterator());
 	}
 
+	@Override
 	public Enumeration<String> getHeaderNames() {
 		return new IteratorEnumeration<String>(headers.keySet().iterator());
 	}
 
+	@Override
 	public int getIntHeader(String header) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public String getMethod() {
 		return method;
 	}
 
+	@Override
 	public String getPathInfo() {
 		return pathInfo;
 	}
 
+	@Override
 	public String getPathTranslated() {
 		return pathTranslated;
 	}
 
+	@Override
 	public String getContextPath() {
 		return (contextPath != null ? contextPath : "/project");
 	}
 
+	@Override
 	public String getQueryString() {
 		return queryString;
 	}
 
+	@Override
 	public String getRemoteUser() {
 		return principalName;
 	}
 
+	@Override
 	public boolean isUserInRole(String role) {
 		return principalRoles.contains(role);
 	}
 
+	@Override
 	public Principal getUserPrincipal() {
 		return principalName == null ? null : new Principal() {
+			@Override
 			public String getName() {
 				return principalName;
 			}
 		};
 	}
 
+	@Override
 	public String getRequestedSessionId() {
 		return requestedSessionId;
 	}
 
+	@Override
 	public String getRequestURI() {
 		return (requestURI != null ? requestURI : "http://localhost:8080/myproject/page.seam");
 	}
 
+	@Override
 	public StringBuffer getRequestURL() {
 		return (requestURL != null ? requestURL : new StringBuffer(getRequestURI()));
 	}
 
+	@Override
 	public String getServletPath() {
 		return (servletPath != null ? servletPath : "/page.seam");
 	}
 
+	@Override
 	public HttpSession getSession(boolean create) {
 		return session;
 	}
 
+	@Override
 	public HttpSession getSession() {
 		return getSession(true);
 	}
 
+	@Override
 	public boolean isRequestedSessionIdValid() {
 		return true;
 	}
 
+	@Override
 	public boolean isRequestedSessionIdFromCookie() {
 		return true;
 	}
 
+	@Override
 	public boolean isRequestedSessionIdFromURL() {
 		return false;
 	}
 
+	@Override
 	public Object getAttribute(String att) {
 		return attributes.get(att);
 	}
 
+	@Override
 	public Enumeration<String> getAttributeNames() {
 		return new IteratorEnumeration<String>(attributes.keySet().iterator());
 	}
 
+	@Override
 	public String getCharacterEncoding() {
 		return characterEncoding;
 	}
 
+	@Override
 	public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
 		// TODO
 
 	}
 
+	@Override
 	public int getContentLength() {
 		return contentLength;
 	}
 
+	@Override
 	public String getContentType() {
 		return contentType;
 	}
 
+	@Override
 	public ServletInputStream getInputStream() throws IOException {
 		return inputStream;
 	}
 
+	@Override
 	public String getParameter(String param) {
 		String[] values = parameters.get(param);
 		return values == null || values.length == 0 ? null : values[0];
 	}
 
+	@Override
 	public Enumeration<String> getParameterNames() {
 		return new IteratorEnumeration<String>(parameters.keySet().iterator());
 	}
 
+	@Override
 	public String[] getParameterValues(String param) {
 		return parameters.get(param);
 	}
 
+	@Override
 	public Map<String, String[]> getParameterMap() {
 		return parameters;
 	}
 
+	@Override
 	public String getProtocol() {
 		return protocol;
 	}
 
+	@Override
 	public String getScheme() {
 		return scheme;
 	}
 
+	@Override
 	public String getServerName() {
 		return serverName;
 	}
 
+	@Override
 	public int getServerPort() {
 		return serverPort;
 	}
 
+	@Override
 	public BufferedReader getReader() throws IOException {
 		return reader;
 	}
 
+	@Override
 	public String getRemoteAddr() {
 		return remoteAddr;
 	}
 
+	@Override
 	public String getRemoteHost() {
 		return remoteHost;
 	}
 
+	@Override
 	public void setAttribute(String att, Object value) {
 		if (value == null) {
 			attributes.remove(value);
@@ -327,22 +371,27 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		}
 	}
 
+	@Override
 	public void removeAttribute(String att) {
 		attributes.remove(att);
 	}
 
+	@Override
 	public Locale getLocale() {
 		return locale;
 	}
 
+	@Override
 	public Enumeration<Locale> getLocales() {
 		return locales;
 	}
 
+	@Override
 	public boolean isSecure() {
 		return isSecure;
 	}
 
+	@Override
 	public RequestDispatcher getRequestDispatcher(String path) {
 		if (httpServletRequest != null) {
 			return httpServletRequest.getRequestDispatcher(path);
@@ -350,6 +399,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		return null;
 	}
 
+	@Override
 	@Deprecated
 	public String getRealPath(String path) {
 		if (httpServletRequest != null) {
@@ -358,18 +408,22 @@ public class MockHttpServletRequest implements HttpServletRequest {
 		return null;
 	}
 
+	@Override
 	public int getRemotePort() {
 		return remotePort;
 	}
 
+	@Override
 	public String getLocalName() {
 		return localName;
 	}
 
+	@Override
 	public String getLocalAddr() {
 		return localAddr;
 	}
 
+	@Override
 	public int getLocalPort() {
 		return localPort;
 	}

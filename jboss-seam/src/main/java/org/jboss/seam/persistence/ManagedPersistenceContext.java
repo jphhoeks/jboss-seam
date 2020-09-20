@@ -56,6 +56,7 @@ public class ManagedPersistenceContext
 	private transient boolean synchronizationRegistered;
 	private transient boolean destroyed;
 
+	@Override
 	public boolean clearDirty() {
 		return true;
 	}
@@ -129,6 +130,7 @@ public class ManagedPersistenceContext
 	* {@link HttpSessionActivationListener} interface rather than
 	* <code>@PrePassivate</code> since interceptors are disabled on this component.
 	*/
+	@Override
 	public void sessionWillPassivate(HttpSessionEvent event) {
 		if (synchronizationRegistered) {
 			throw new IllegalStateException("cannot passivate persistence context with active transaction");
@@ -140,6 +142,7 @@ public class ManagedPersistenceContext
 	* interface rather than @PostActivate since interceptors are disabled
 	* on this component.
 	*/
+	@Override
 	public void sessionDidActivate(HttpSessionEvent event) {
 	}
 
@@ -160,6 +163,7 @@ public class ManagedPersistenceContext
 		PersistenceContexts.instance().untouch(componentName);
 	}
 
+	@Override
 	public void afterCompletion(int status) {
 		synchronizationRegistered = false;
 		//if ( !Contexts.isConversationContextActive() )
@@ -174,6 +178,7 @@ public class ManagedPersistenceContext
 		}
 	}
 
+	@Override
 	public void beforeCompletion() {
 	}
 
@@ -266,6 +271,7 @@ public class ManagedPersistenceContext
 		this.filters = filters;
 	}
 
+	@Override
 	public void changeFlushMode(FlushModeType flushMode) {
 		if (entityManager != null && entityManager.isOpen()) {
 			setEntityManagerFlushMode(flushMode);

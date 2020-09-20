@@ -51,6 +51,7 @@ public class MockRequestDispatcher implements RequestDispatcher {
 		this.url = url;
 	}
 
+	@Override
 	public void forward(ServletRequest request, ServletResponse response) {
 		if (response.isCommitted()) {
 			throw new IllegalStateException("Cannot perform forward - response is already committed");
@@ -61,6 +62,7 @@ public class MockRequestDispatcher implements RequestDispatcher {
 		}
 	}
 
+	@Override
 	public void include(ServletRequest request, ServletResponse response) {
 		getMockHttpServletResponse(response).setIncludedUrl(this.url);
 		if (logger.isDebugEnabled()) {

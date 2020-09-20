@@ -78,6 +78,7 @@ public class SubscriptionRegistry {
 					topicConnection = org.jboss.seam.jms.TopicConnection.instance();
 
 					topicConnection.setExceptionListener(new ExceptionListener() {
+						@Override
 						public void onException(JMSException ex) {
 							// swallow the exception for now - do we need to try and reconnect???
 						}

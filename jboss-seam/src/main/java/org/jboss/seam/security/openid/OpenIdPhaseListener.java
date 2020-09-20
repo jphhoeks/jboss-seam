@@ -18,6 +18,7 @@ import org.jboss.seam.log.*;
 public class OpenIdPhaseListener implements PhaseListener {
 	private transient LogProvider log = Logging.getLogProvider(OpenIdPhaseListener.class);
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void beforePhase(PhaseEvent event) {
 		String viewId = Pages.getCurrentViewId();
@@ -60,9 +61,11 @@ public class OpenIdPhaseListener implements PhaseListener {
 		context.responseComplete();
 	}
 
+	@Override
 	public void afterPhase(PhaseEvent event) {
 	}
 
+	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
 	}

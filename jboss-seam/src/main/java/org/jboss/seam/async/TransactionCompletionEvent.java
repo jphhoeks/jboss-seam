@@ -15,10 +15,12 @@ public class TransactionCompletionEvent extends AsynchronousEvent implements Syn
 		super(type, params);
 	}
 
+	@Override
 	public void afterCompletion(int status) {
 		execute(null);
 	}
 
+	@Override
 	public void beforeCompletion() {
 	}
 

@@ -71,7 +71,7 @@ public class HibernateEntityHome<E> extends Home<Session, E> {
 	}
 
 	protected E loadInstance() {
-		return (E) getSession().get(getEntityClass(), (Serializable) getId());
+		return getSession().get(getEntityClass(), (Serializable) getId());
 	}
 
 	@Override

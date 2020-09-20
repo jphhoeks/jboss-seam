@@ -47,6 +47,10 @@ public class WicketFilter extends AbstractFilter {
 
 	private ClassLoader hotDeployClassLoader;
 
+	public WicketFilter() {
+		super();
+	}
+	
 	/*
 	* Upon initialization and re-initialization, lookup the hot deployment strategy and grab its classloader, if it exists.
 	*/
@@ -59,7 +63,7 @@ public class WicketFilter extends AbstractFilter {
 			hotDeployClassLoader = null;
 		}
 	}
-
+	@Override
 	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain chain)
 			throws IOException, ServletException {
 		/* If there is no delegate, we are a no-op filter */

@@ -49,6 +49,7 @@ public class PollHandler extends BaseRequestHandler implements RequestHandler {
 	private static final byte[] VALUE_TAG_OPEN = "<value>".getBytes();
 	private static final byte[] VALUE_TAG_CLOSE = "</value>".getBytes();
 
+	@Override
 	public void handle(HttpServletRequest request, final HttpServletResponse response) throws Exception {
 		// We're sending an XML response, so set the response content type to text/xml
 		response.setContentType("text/xml");

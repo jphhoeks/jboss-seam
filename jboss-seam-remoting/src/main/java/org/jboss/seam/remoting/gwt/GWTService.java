@@ -538,6 +538,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 		return RPCServletUtils.readContentAsUtf8(request, true);
 	}
 
+	@Override
 	public final SerializationPolicy getSerializationPolicy(String moduleBaseURL, String strongName) {
 
 		SerializationPolicy serializationPolicy = getCachedSerializationPolicy(moduleBaseURL, strongName);

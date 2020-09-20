@@ -445,6 +445,7 @@ public class AbstractSeamTest {
 				beforeRequest();
 				setStandardJspVariables();
 				seamFilter.doFilter(request, response, new FilterChain() {
+					@Override
 					public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
 						try {
 							if (emulateJsfLifecycle()) {
@@ -507,7 +508,7 @@ public class AbstractSeamTest {
 			// TODO: looks like we should also set request, session, application,
 			// page...
 			Map<String, String> params = new HashMap<String, String>();
-			for (Map.Entry<String, String[]> e : ((Map<String, String[]>) request.getParameterMap()).entrySet()) {
+			for (Map.Entry<String, String[]> e : request.getParameterMap().entrySet()) {
 				if (e.getValue().length == 1) {
 					params.put(e.getKey(), e.getValue()[0]);
 				}

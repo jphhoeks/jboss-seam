@@ -210,16 +210,19 @@ public class ContextTest {
 		testContext(new EventContext(requestAdaptor));
 		testContext(new ServerConversationContext(sessionAdaptor, "1"));
 		testEquivalence(new ContextCreator() {
+			@Override
 			public Context createContext() {
 				return new ServerConversationContext(sessionAdaptor, "1");
 			}
 		});
 		testEquivalence(new ContextCreator() {
+			@Override
 			public Context createContext() {
 				return new SessionContext(sessionAdaptor);
 			}
 		});
 		testEquivalence(new ContextCreator() {
+			@Override
 			public Context createContext() {
 				return new ApplicationContext(externalContext.getApplicationMap());
 			}

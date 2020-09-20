@@ -27,30 +27,37 @@ public class ServletSessionMap implements Map<String, Object> {
 		this.session = session;
 	}
 
+	@Override
 	public void clear() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public boolean containsKey(Object key) {
 		return session.getAttribute((String) key) != null;
 	}
 
+	@Override
 	public boolean containsValue(Object value) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Set<java.util.Map.Entry<String, Object>> entrySet() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Object get(Object key) {
 		return session.getAttribute((String) key);
 	}
 
+	@Override
 	public boolean isEmpty() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Set<String> keySet() {
 		Set<String> keys = new HashSet<String>();
 		Enumeration<String> names = session.getAttributeNames();
@@ -60,26 +67,31 @@ public class ServletSessionMap implements Map<String, Object> {
 		return keys;
 	}
 
+	@Override
 	public Object put(String key, Object value) {
 		Object result = session.getAttribute(key);
 		session.setAttribute(key, value);
 		return result;
 	}
 
+	@Override
 	public void putAll(Map<? extends String, ? extends Object> t) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Object remove(Object key) {
 		Object result = session.getAttribute((String) key);
 		session.removeAttribute((String) key);
 		return result;
 	}
 
+	@Override
 	public int size() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Collection<Object> values() {
 		throw new UnsupportedOperationException();
 	}

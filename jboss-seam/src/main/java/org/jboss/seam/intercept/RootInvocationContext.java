@@ -24,27 +24,33 @@ class RootInvocationContext implements InvocationContext {
 		this.params = params;
 	}
 
+	@Override
 	public Object proceed() throws Exception {
 		method.setAccessible(true);
 		return Reflections.invoke(method, bean, params);
 	}
 
+	@Override
 	public Object getTarget() {
 		return bean;
 	}
 
+	@Override
 	public Map getContextData() {
 		return contextData;
 	}
 
+	@Override
 	public Method getMethod() {
 		return method;
 	}
 
+	@Override
 	public Object[] getParameters() {
 		return params;
 	}
 
+	@Override
 	public void setParameters(Object[] newParams) {
 		params = newParams;
 	}

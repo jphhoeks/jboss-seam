@@ -322,6 +322,7 @@ public class Jbpm {
 	class SeamSubProcessResolver implements SubProcessResolver {
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public ProcessDefinition findSubProcess(Element element) {
 			String subProcessName = element.attributeValue("name");
 			ProcessDefinition pageflow = pageflowProcessDefinitions.get(subProcessName);

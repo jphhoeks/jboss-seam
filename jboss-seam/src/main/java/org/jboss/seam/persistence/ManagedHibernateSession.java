@@ -59,6 +59,7 @@ public class ManagedHibernateSession
 	private transient boolean synchronizationRegistered;
 	private transient boolean destroyed;
 
+	@Override
 	public boolean clearDirty() {
 		return true;
 	}
@@ -128,6 +129,7 @@ public class ManagedHibernateSession
 	}
 
 	//we can't use @PrePassivate because it is intercept NEVER
+	@Override
 	public void sessionWillPassivate(HttpSessionEvent event) {
 		if (synchronizationRegistered) {
 			throw new IllegalStateException("cannot passivate persistence context with active transaction");
@@ -139,6 +141,7 @@ public class ManagedHibernateSession
 	}
 
 	//we can't use @PostActivate because it is intercept NEVER
+	@Override
 	public void sessionDidActivate(HttpSessionEvent event) {
 	}
 
@@ -159,6 +162,7 @@ public class ManagedHibernateSession
 		PersistenceContexts.instance().untouch(componentName);
 	}
 
+	@Override
 	public void afterCompletion(int status) {
 		synchronizationRegistered = false;
 		//if ( !Contexts.isConversationContextActive() )
@@ -173,6 +177,7 @@ public class ManagedHibernateSession
 		}
 	}
 
+	@Override
 	public void beforeCompletion() {
 	}
 
@@ -218,6 +223,7 @@ public class ManagedHibernateSession
 		return componentName;
 	}
 
+	@Override
 	public void changeFlushMode(FlushModeType flushMode) {
 		if (session != null && session.isOpen()) {
 			setSessionFlushMode(flushMode);

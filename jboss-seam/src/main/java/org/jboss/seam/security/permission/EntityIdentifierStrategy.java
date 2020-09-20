@@ -45,10 +45,12 @@ public class EntityIdentifierStrategy implements IdentifierStrategy, Serializabl
 		init();
 	}
 
+	@Override
 	public boolean canIdentify(Class<?> targetClass) {
 		return targetClass.isAnnotationPresent(Entity.class);
 	}
 
+	@Override
 	public String getIdentifier(Object target) {
 		if (persistenceProvider == null)
 			init();

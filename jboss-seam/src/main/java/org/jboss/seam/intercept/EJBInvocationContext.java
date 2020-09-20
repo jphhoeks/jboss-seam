@@ -18,26 +18,32 @@ class EJBInvocationContext implements InvocationContext, javax.interceptor.Invoc
 		this.context = context;
 	}
 
+	@Override
 	public Map getContextData() {
 		return context.getContextData();
 	}
 
+	@Override
 	public Method getMethod() {
 		return context.getMethod();
 	}
 
+	@Override
 	public Object[] getParameters() {
 		return context.getParameters();
 	}
 
+	@Override
 	public Object getTarget() {
 		return context.getTarget();
 	}
 
+	@Override
 	public Object proceed() throws Exception {
 		return context.proceed();
 	}
 
+	@Override
 	public void setParameters(Object[] params) {
 		context.setParameters(params);
 	}

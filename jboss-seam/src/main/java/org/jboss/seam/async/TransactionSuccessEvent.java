@@ -17,12 +17,14 @@ public class TransactionSuccessEvent extends AsynchronousEvent implements Synchr
 		super(type, params);
 	}
 
+	@Override
 	public void afterCompletion(int status) {
 		if (status == Status.STATUS_COMMITTED) {
 			execute(null);
 		}
 	}
 
+	@Override
 	public void beforeCompletion() {
 	}
 

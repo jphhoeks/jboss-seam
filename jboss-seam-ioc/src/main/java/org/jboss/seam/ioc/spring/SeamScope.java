@@ -32,6 +32,7 @@ public class SeamScope implements Scope {
 	 * @see org.springframework.beans.factory.config.Scope#get(java.lang.String,
 	 *      org.springframework.beans.factory.ObjectFactory)
 	 */
+	@Override
 	public Object get(String name, ObjectFactory objectFactory) {
 		try {
 			SpringComponent.setObjectFactory(objectFactory);
@@ -47,6 +48,7 @@ public class SeamScope implements Scope {
 	 *
 	 * @see org.springframework.beans.factory.config.Scope#getConversationId()
 	 */
+	@Override
 	public String getConversationId() {
 		return null;
 	}
@@ -55,6 +57,7 @@ public class SeamScope implements Scope {
 	 * @see org.springframework.beans.factory.config.Scope#registerDestructionCallback(java.lang.String,
 	 *      java.lang.Runnable)
 	 */
+	@Override
 	public void registerDestructionCallback(String name, Runnable callback) {
 		SpringComponent.forSpringBeanName(name).registerDestroyCallback(name, callback);
 	}
@@ -64,6 +67,7 @@ public class SeamScope implements Scope {
 	 *
 	 * @see org.springframework.beans.factory.config.Scope#remove(java.lang.String)
 	 */
+	@Override
 	public Object remove(String name) {
 		// copied from Component.callDestory should be able to reuse. Needed because if remove is called then for some
 		// reason spring doesn't use the destroy callback.
@@ -90,6 +94,7 @@ public class SeamScope implements Scope {
 		return bean;
 	}
 
+	@Override
 	public Object resolveContextualObject(String key) {
 		return null;
 	}

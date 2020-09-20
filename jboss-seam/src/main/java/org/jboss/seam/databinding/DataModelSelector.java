@@ -13,10 +13,12 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
  */
 public class DataModelSelector implements DataSelector<DataModelSelection, DataModel> {
 
+	@Override
 	public String getVariableName(DataModelSelection in) {
 		return in.value();
 	}
 
+	@Override
 	public Object getSelection(DataModelSelection in, DataModel wrapper) {
 		if (wrapper.getRowCount() == 0 || wrapper.getRowIndex() < 0) {
 			return null;

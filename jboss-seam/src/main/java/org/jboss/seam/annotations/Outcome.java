@@ -9,5 +9,6 @@ public class Outcome {
 	 * 
 	 * @deprecated
 	 */
+	@Deprecated
 	public static final String REDISPLAY = "org.jboss.seam.outcome.null";
 }

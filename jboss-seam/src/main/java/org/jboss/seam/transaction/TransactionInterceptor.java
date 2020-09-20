@@ -76,6 +76,7 @@ public class TransactionInterceptor extends AbstractInterceptor {
 		return transactionMetadata.get(element);
 	}
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(final InvocationContext invocation) throws Exception {
 		return new Work() {
@@ -103,6 +104,7 @@ public class TransactionInterceptor extends AbstractInterceptor {
 		}.workInTransaction();
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().getType() == JAVA_BEAN && getComponent().beanClassHasAnnotation(Transactional.class);
 	}

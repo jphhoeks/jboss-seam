@@ -32,6 +32,7 @@ public class SeamNamespaceHandler extends NamespaceHandlerSupport {
 	/**
 	* @see org.springframework.beans.factory.xml.NamespaceHandler#init()
 	*/
+	@Override
 	public void init() {
 		registerBeanDefinitionParser("configure-scopes", new SeamConfigureScopeParser());
 		registerBeanDefinitionParser("instance", new SeamInstanceBeanDefinitionParser());
@@ -108,6 +109,7 @@ public class SeamNamespaceHandler extends NamespaceHandlerSupport {
 		 *      org.springframework.beans.factory.config.BeanDefinitionHolder,
 		 *      org.springframework.beans.factory.xml.ParserContext)
 		 */
+		@Override
 		public BeanDefinitionHolder decorate(Node node, BeanDefinitionHolder definition, ParserContext parserContext) {
 			// Add the Seam Component Post Processor to the bean factory if it
 			// doesn't already exist

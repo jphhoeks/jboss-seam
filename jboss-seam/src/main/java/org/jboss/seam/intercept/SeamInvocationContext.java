@@ -25,22 +25,27 @@ class SeamInvocationContext implements InvocationContext {
 		this.eventType = type;
 	}
 
+	@Override
 	public Object getTarget() {
 		return context.getTarget();
 	}
 
+	@Override
 	public Map getContextData() {
 		return context.getContextData();
 	}
 
+	@Override
 	public Method getMethod() {
 		return context.getMethod();
 	}
 
+	@Override
 	public Object[] getParameters() {
 		return context.getParameters();
 	}
 
+	@Override
 	public Object proceed() throws Exception {
 		if (location == interceptors.size()) {
 			return context.proceed();
@@ -71,6 +76,7 @@ class SeamInvocationContext implements InvocationContext {
 		}
 	}
 
+	@Override
 	public void setParameters(Object[] params) {
 		context.setParameters(params);
 	}

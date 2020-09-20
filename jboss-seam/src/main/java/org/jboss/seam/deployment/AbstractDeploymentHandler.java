@@ -22,14 +22,17 @@ public abstract class AbstractDeploymentHandler implements DeploymentHandler {
 		return getName();
 	}
 
+	@Override
 	public void setResources(Set<FileDescriptor> resources) {
 		this.resources = resources;
 	}
 
+	@Override
 	public Set<FileDescriptor> getResources() {
 		return resources;
 	}
 
+	@Override
 	public void postProcess(ClassLoader classLoader) {
 	}
 

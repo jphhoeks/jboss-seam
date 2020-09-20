@@ -12,6 +12,7 @@ public class DotPageDotXmlDeploymentHandler extends AbstractDeploymentHandler {
 
 	private static DeploymentMetadata DOTPAGEDOTXML_SUFFIX_FILE_METADATA = new DeploymentMetadata() {
 
+		@Override
 		public String getFileNameSuffix() {
 			return ".page.xml";
 		}
@@ -23,6 +24,7 @@ public class DotPageDotXmlDeploymentHandler extends AbstractDeploymentHandler {
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.DotPageDotXmlDeploymentHandler";
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
@@ -42,6 +44,7 @@ public class DotPageDotXmlDeploymentHandler extends AbstractDeploymentHandler {
 		}
 	}
 
+	@Override
 	public DeploymentMetadata getMetadata() {
 		return DOTPAGEDOTXML_SUFFIX_FILE_METADATA;
 	}

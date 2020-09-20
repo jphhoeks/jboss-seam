@@ -29,7 +29,7 @@ public class PermissionMetadata implements Serializable {
 
 			boolean useMask = false;
 
-			Permissions p = (Permissions) cls.getAnnotation(Permissions.class);
+			Permissions p = cls.getAnnotation(Permissions.class);
 			if (p != null) {
 				org.jboss.seam.annotations.security.permission.Permission[] permissions = p.value();
 				if (permissions != null) {

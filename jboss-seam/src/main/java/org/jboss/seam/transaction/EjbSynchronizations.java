@@ -46,11 +46,13 @@ public class EjbSynchronizations implements LocalEjbSynchronizations, SessionSyn
 	protected LinkedList<SynchronizationRegistry> synchronizations = new LinkedList<SynchronizationRegistry>();
 	protected LinkedList<SynchronizationRegistry> committing = new LinkedList<SynchronizationRegistry>();
 
+	@Override
 	public void afterBegin() {
 		log.debug("afterBegin");
 		synchronizations.addLast(new SynchronizationRegistry());
 	}
 
+	@Override
 	public void beforeCompletion() throws EJBException, RemoteException {
 		log.debug("beforeCompletion");
 		SynchronizationRegistry sync = synchronizations.removeLast();
@@ -58,6 +60,7 @@ public class EjbSynchronizations implements LocalEjbSynchronizations, SessionSyn
 		committing.addLast(sync);
 	}
 
+	@Override
 	public void afterCompletion(boolean success) throws EJBException, RemoteException {
 		log.debug("afterCompletion");
 		if (committing.isEmpty()) {
@@ -71,30 +74,37 @@ public class EjbSynchronizations implements LocalEjbSynchronizations, SessionSyn
 		}
 	}
 
+	@Override
 	public boolean isAwareOfContainerTransactions() {
 		return true;
 	}
 
+	@Override
 	public void afterTransactionBegin() {
 		//noop, let JTA notify us
 	}
 
+	@Override
 	public void afterTransactionCommit(boolean success) {
 		//noop, let JTA notify us
 	}
 
+	@Override
 	public void afterTransactionRollback() {
 		//noop, let JTA notify us
 	}
 
+	@Override
 	public void beforeTransactionCommit() {
 		//noop, let JTA notify us
 	}
 
+	@Override
 	public void registerSynchronization(Synchronization sync) {
 		synchronizations.getLast().registerSynchronization(sync);
 	}
 
+	@Override
 	@Remove
 	public void destroy() {
 	}

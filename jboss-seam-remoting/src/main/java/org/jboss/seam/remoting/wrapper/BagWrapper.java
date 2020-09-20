@@ -28,6 +28,7 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 	private static final byte[] ELEMENT_TAG_OPEN = "<element>".getBytes();
 	private static final byte[] ELEMENT_TAG_CLOSE = "</element>".getBytes();
 
+	@Override
 	public void marshal(OutputStream out) throws IOException {
 		out.write(BAG_TAG_OPEN);
 
@@ -60,13 +61,14 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 		out.write(BAG_TAG_CLOSE);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Object convert(Type type) throws ConversionException {
 		// First convert the elements in the bag to a List of Wrappers
 		List<Wrapper> vals = new ArrayList<Wrapper>();
 
-		for (Element e : (List<Element>) element.elements("element"))
-			vals.add(context.createWrapperFromElement((Element) e.elements().get(0)));
+		for (Element e : element.elements("element"))
+			vals.add(context.createWrapperFromElement(e.elements().get(0)));
 
 		if (type instanceof Class && ((Class) type).isArray()) {
 			Class arrayType = ((Class) type).getComponentType();
@@ -122,6 +124,7 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 	 * @param cls Class
 	 * @return ConversionScore
 	 */
+	@Override
 	public ConversionScore conversionScore(Class cls) {
 		// There's no such thing as an exact match for a bag, so we'll just look for
 		// a compatible match

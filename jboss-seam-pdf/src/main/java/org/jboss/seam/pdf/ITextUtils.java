@@ -33,14 +33,14 @@ public class ITextUtils {
 			return null;
 		}
 		
-		colorName = colorName.trim().toLowerCase();
+		String name = colorName.trim().toLowerCase();
 		Color color = null;
-		if (colorName.startsWith("rgb") || colorName.startsWith("hsl") || colorName.startsWith("#")) {
-			color = rgbStringToColor(colorName);
+		if (name.startsWith("rgb") || name.startsWith("hsl") || name.startsWith("#")) {
+			color = rgbStringToColor(name);
 		}
 		if (color == null) {
 			try {
-				color = Color.decode(colorName);
+				color = Color.decode(name);
 			}
 			catch (NumberFormatException e) {
 				return null;
@@ -84,13 +84,13 @@ public class ITextUtils {
 	}
 
 	public static int runDirection(String direction) {
-		if (direction == null || direction.equalsIgnoreCase("default")) {
+		if (direction == null || "default".equalsIgnoreCase(direction)) {
 			return PdfWriter.RUN_DIRECTION_DEFAULT;
-		} else if (direction.equalsIgnoreCase("rtl")) {
+		} else if ("rtl".equalsIgnoreCase(direction)) {
 			return PdfWriter.RUN_DIRECTION_RTL;
-		} else if (direction.equalsIgnoreCase("ltr")) {
+		} else if ("ltr".equalsIgnoreCase(direction)) {
 			return PdfWriter.RUN_DIRECTION_LTR;
-		} else if (direction.equalsIgnoreCase("no-bidi")) {
+		} else if ("no-bidi".equalsIgnoreCase(direction)) {
 			return PdfWriter.RUN_DIRECTION_NO_BIDI;
 		} else {
 			throw new RuntimeException("unknown run direction " + direction);

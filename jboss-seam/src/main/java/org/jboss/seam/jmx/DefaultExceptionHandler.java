@@ -25,19 +25,23 @@ public class DefaultExceptionHandler implements ProxyExceptionHandler {
 	// must be rethrown as runtime exceptions to avoid UndeclaredThrowable
 	// exceptions on the client
 
+	@Override
 	public Object handleInstanceNotFound(ProxyContext ctx, InstanceNotFoundException e, Method m, Object[] args) throws Exception {
 		throw new RuntimeProxyException("Instance not found: " + e.toString());
 	}
 
+	@Override
 	public Object handleAttributeNotFound(ProxyContext ctx, AttributeNotFoundException e, Method m, Object[] args) throws Exception {
 		throw new RuntimeProxyException("Attribute not found: " + e.toString());
 	}
 
+	@Override
 	public Object handleInvalidAttributeValue(ProxyContext ctx, InvalidAttributeValueException e, Method m, Object[] args)
 			throws Exception {
 		throw new RuntimeProxyException("Invalid attribute value: " + e.toString());
 	}
 
+	@Override
 	public Object handleMBeanException(ProxyContext ctx, MBeanException e, Method m, Object[] args) throws Exception {
 		// assuming MBeanException only wraps mgmt interface "application" 
 		// exceptions therefore we can safely rethrow the target exception
@@ -45,6 +49,7 @@ public class DefaultExceptionHandler implements ProxyExceptionHandler {
 		throw e.getTargetException();
 	}
 
+	@Override
 	public Object handleReflectionException(ProxyContext ctx, ReflectionException e, Method m, Object[] args) throws Exception {
 		// use of reflection exception is inconsistent in the API so the 
 		// safest bet is to rethrow a runtime exception
@@ -56,17 +61,20 @@ public class DefaultExceptionHandler implements ProxyExceptionHandler {
 			throw new RuntimeProxyException(target.toString());
 	}
 
+	@Override
 	public Object handleRuntimeOperationsException(ProxyContext ctx, RuntimeOperationsException e, Method m, Object[] args)
 			throws Exception {
 		// target is always a runtime exception, so its ok to throw it from here
 		throw e.getTargetException();
 	}
 
+	@Override
 	public Object handleRuntimeMBeanException(ProxyContext ctx, RuntimeMBeanException e, Method m, Object[] args) throws Exception {
 		// target is always a runtime exception, so its ok to throw it from here
 		throw e.getTargetException();
 	}
 
+	@Override
 	public Object handleRuntimeError(ProxyContext ctx, RuntimeErrorException e, Method m, Object[] args) throws Exception {
 		// just unwrap and throw the actual error
 		throw e.getTargetError();

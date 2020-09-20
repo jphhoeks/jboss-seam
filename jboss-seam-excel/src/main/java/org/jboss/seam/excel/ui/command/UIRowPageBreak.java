@@ -15,6 +15,7 @@ public class UIRowPageBreak extends ExcelComponent implements Command {
 		this.row = row;
 	}
 
+	@Override
 	public CommandType getCommandType() {
 		return CommandType.add_row_pagebreak;
 	}

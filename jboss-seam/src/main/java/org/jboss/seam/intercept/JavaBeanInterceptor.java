@@ -35,6 +35,7 @@ public class JavaBeanInterceptor extends RootInterceptor implements MethodHandle
 		init(component);
 	}
 
+	@Override
 	public Object invoke(final Object proxy, final Method method, final Method proceed, final Object[] params) throws Throwable {
 
 		if (params != null) {

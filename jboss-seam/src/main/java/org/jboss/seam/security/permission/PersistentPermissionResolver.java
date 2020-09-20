@@ -64,6 +64,7 @@ public class PersistentPermissionResolver implements PermissionResolver, Seriali
 		this.permissionStore = permissionStore;
 	}
 
+	@Override
 	public boolean hasPermission(Object target, String action) {
 		if (permissionStore == null)
 			return false;
@@ -99,6 +100,7 @@ public class PersistentPermissionResolver implements PermissionResolver, Seriali
 		return false;
 	}
 
+	@Override
 	public void filterSetByAction(Set<Object> targets, String action) {
 		if (permissionStore == null)
 			return;

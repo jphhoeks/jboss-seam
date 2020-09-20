@@ -160,6 +160,7 @@ public class ComponentDescriptor implements Comparable<ComponentDescriptor> {
 		return install.precedence();
 	}
 
+	@Override
 	public int compareTo(ComponentDescriptor other) {
 		return other.getPrecedence() - getPrecedence();
 	}
@@ -189,6 +190,7 @@ public class ComponentDescriptor implements Comparable<ComponentDescriptor> {
 	}
 
 	public static class PrecedenceComparator implements Comparator<ComponentDescriptor> {
+		@Override
 		public int compare(ComponentDescriptor obj1, ComponentDescriptor obj2) {
 			return obj2.getPrecedence() - obj1.getPrecedence();
 		}

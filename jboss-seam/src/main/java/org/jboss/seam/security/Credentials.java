@@ -100,6 +100,7 @@ public class Credentials implements Serializable {
 	*/
 	public CallbackHandler createCallbackHandler() {
 		return new CallbackHandler() {
+			@Override
 			public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
 				for (int i = 0; i < callbacks.length; i++) {
 					if (callbacks[i] instanceof NameCallback) {

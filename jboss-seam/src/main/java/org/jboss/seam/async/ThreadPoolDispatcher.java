@@ -37,6 +37,7 @@ public class ThreadPoolDispatcher extends AbstractDispatcher<Future, TimerSchedu
 		executor = Executors.newScheduledThreadPool(threadPoolSize);
 	}
 
+	@Override
 	public Future scheduleAsynchronousEvent(String type, Object... parameters) {
 		RunnableAsynchronous runnableAsynchronous = new RunnableAsynchronous(new AsynchronousEvent(type, parameters));
 		Future future = executor.submit(runnableAsynchronous);
@@ -44,10 +45,12 @@ public class ThreadPoolDispatcher extends AbstractDispatcher<Future, TimerSchedu
 		return future;
 	}
 
+	@Override
 	public Future scheduleTimedEvent(String type, TimerSchedule schedule, Object... parameters) {
 		return scheduleWithExecutorService(schedule, new RunnableAsynchronous(new AsynchronousEvent(type, parameters)));
 	}
 
+	@Override
 	public Future scheduleInvocation(InvocationContext invocation, Component component) {
 		return scheduleWithExecutorService(createTimerSchedule(invocation),
 				new RunnableAsynchronous(new AsynchronousInvocation(invocation, component)));
@@ -99,6 +102,7 @@ public class ThreadPoolDispatcher extends AbstractDispatcher<Future, TimerSchedu
 			this.async = async;
 		}
 
+		@Override
 		public void run() {
 			try {
 				async.execute(future);

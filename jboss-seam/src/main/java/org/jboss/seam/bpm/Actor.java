@@ -60,14 +60,17 @@ public class Actor extends AbstractMutable implements Serializable {
 			final Iterator<String> it = super.iterator();
 			return new Iterator<String>() {
 
+				@Override
 				public boolean hasNext() {
 					return it.hasNext();
 				}
 
+				@Override
 				public String next() {
 					return it.next();
 				}
 
+				@Override
 				public void remove() {
 					setDirty();
 					it.remove();

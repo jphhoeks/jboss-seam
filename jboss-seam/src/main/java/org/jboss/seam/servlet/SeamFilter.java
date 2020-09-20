@@ -51,6 +51,7 @@ public class SeamFilter implements Filter {
 			index = -1;
 		}
 
+		@Override
 		public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
 			if (++index < filters.size()) {
 				Filter filter = filters.get(index);
@@ -71,6 +72,7 @@ public class SeamFilter implements Filter {
 		}
 	}
 
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Lifecycle.setupApplication(new ServletApplicationMap(filterConfig.getServletContext()));
 		try {
@@ -128,10 +130,12 @@ public class SeamFilter implements Filter {
 		return sorted;
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		new FilterChainImpl(chain).doFilter(request, response);
 	}
 
+	@Override
 	public void destroy() {
 		for (Filter filter : filters) {
 			filter.destroy();

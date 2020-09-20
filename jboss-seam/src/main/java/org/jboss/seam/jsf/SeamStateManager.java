@@ -24,6 +24,7 @@ public class SeamStateManager extends StateManagerWrapper {
 		this.stateManager = sm;
 	}
 
+	@Override
 	public StateManager getWrapped() {
 		return stateManager;
 	}

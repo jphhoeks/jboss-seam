@@ -30,6 +30,7 @@ import org.jboss.seam.persistence.PersistenceContexts;
 public class ConversationInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = -5405533438107796414L;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		try {
@@ -223,6 +224,7 @@ public class ConversationInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().hasConversationManagementMethods();
 	}

@@ -84,6 +84,7 @@ public class RuleBasedPermissionResolver implements PermissionResolver, Serializ
 	* @param action String The action to be performed on the target
 	* @return boolean True if the user has the specified permission
 	*/
+	@Override
 	public boolean hasPermission(Object target, String action) {
 		StatefulSession securityContext = getSecurityContext();
 
@@ -120,6 +121,7 @@ public class RuleBasedPermissionResolver implements PermissionResolver, Serializ
 		return check.isGranted();
 	}
 
+	@Override
 	public void filterSetByAction(Set<Object> targets, String action) {
 		Iterator iter = targets.iterator();
 		while (iter.hasNext()) {

@@ -319,6 +319,7 @@ public class InterceptorTest {
 		final WrappedException thread3Exception = new WrappedException();
 
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					FacesLifecycle.beginRequest(externalContext);
@@ -338,6 +339,7 @@ public class InterceptorTest {
 		}).start();
 
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					FacesLifecycle.beginRequest(externalContext);
@@ -358,6 +360,7 @@ public class InterceptorTest {
 		}).start();
 
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					FacesLifecycle.beginRequest(externalContext);

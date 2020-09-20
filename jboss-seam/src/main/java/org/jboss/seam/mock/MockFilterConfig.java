@@ -19,18 +19,22 @@ public class MockFilterConfig implements FilterConfig {
 		this.servletContext = servletContext;
 	}
 
+	@Override
 	public String getFilterName() {
 		return "Seam Filter";
 	}
 
+	@Override
 	public ServletContext getServletContext() {
 		return servletContext;
 	}
 
+	@Override
 	public String getInitParameter(String name) {
 		return null;
 	}
 
+	@Override
 	public Enumeration<String> getInitParameterNames() {
 		List<String> list = Collections.emptyList();
 		return new IteratorEnumeration<String>(list.iterator());

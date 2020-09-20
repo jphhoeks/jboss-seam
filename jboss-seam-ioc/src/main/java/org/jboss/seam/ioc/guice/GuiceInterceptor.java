@@ -36,6 +36,7 @@ public class GuiceInterceptor extends AbstractInterceptor {
 
 	private transient Injector defaultInjector = null;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocationContext) throws Exception {
 		inject(invocationContext.getTarget());
@@ -136,6 +137,7 @@ public class GuiceInterceptor extends AbstractInterceptor {
 		return (Map<Class, Collection<Field>>) Contexts.getApplicationContext().get(GUICE_COMPONENT_FIELDS_MAP);
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return true;
 	}

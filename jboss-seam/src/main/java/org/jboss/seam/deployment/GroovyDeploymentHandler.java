@@ -31,6 +31,7 @@ public class GroovyDeploymentHandler extends AbstractDeploymentHandler {
 			this.groovyExtension = groovyExtension;
 		}
 
+		@Override
 		public String getFileNameSuffix() {
 			return groovyExtension;
 		}
@@ -124,10 +125,12 @@ public class GroovyDeploymentHandler extends AbstractDeploymentHandler {
 		return name.substring(0, name.lastIndexOf(groovyFileExtension)) + ".component.xml";
 	}
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
 
+	@Override
 	public DeploymentMetadata getMetadata() {
 		return metadata;
 	}

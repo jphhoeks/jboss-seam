@@ -22,6 +22,7 @@ public class UICell extends UICellBase implements WorksheetItem {
 	private Integer column;
 	private Integer row;
 
+	@Override
 	public Integer getColumn() {
 		return (Integer) valueOf("column", column);
 	}
@@ -30,6 +31,7 @@ public class UICell extends UICellBase implements WorksheetItem {
 		this.column = column;
 	}
 
+	@Override
 	public Integer getRow() {
 		return (Integer) valueOf("row", row);
 	}
@@ -38,6 +40,7 @@ public class UICell extends UICellBase implements WorksheetItem {
 		this.row = row;
 	}
 
+	@Override
 	public Object getValue() {
 		Object theValue = valueOf("value", value);
 		if (theValue == null) {
@@ -86,6 +89,7 @@ public class UICell extends UICellBase implements WorksheetItem {
 		return CellType.general;
 	}
 
+	@Override
 	public ItemType getItemType() {
 		return ItemType.cell;
 	}

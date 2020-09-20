@@ -65,6 +65,7 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 		scheduler.start();
 	}
 
+	@Override
 	public QuartzTriggerHandle scheduleAsynchronousEvent(String type, Object... parameters) {
 		String jobName = nextUniqueName();
 		String triggerName = nextUniqueName();
@@ -82,10 +83,12 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 		}
 	}
 
+	@Override
 	public QuartzTriggerHandle scheduleTimedEvent(String type, Schedule schedule, Object... parameters) {
 		return scheduleWithQuartzServiceAndWrapExceptions(schedule, new AsynchronousEvent(type, parameters));
 	}
 
+	@Override
 	public QuartzTriggerHandle scheduleInvocation(InvocationContext invocation, Component component) {
 		return scheduleWithQuartzServiceAndWrapExceptions(createSchedule(invocation), new AsynchronousInvocation(invocation, component));
 	}
@@ -182,6 +185,7 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 		public QuartzJob() {
 		}
 
+		@Override
 		public void execute(JobExecutionContext context) throws JobExecutionException {
 			JobDataMap dataMap = context.getJobDetail().getJobDataMap();
 			async = (Asynchronous) dataMap.get("async");

@@ -17,10 +17,12 @@ public class ClassIdentifierStrategy implements IdentifierStrategy, Serializable
 
 	private Map<Class<?>, String> identifierNames = new ConcurrentHashMap<Class<?>, String>();
 
+	@Override
 	public boolean canIdentify(Class<?> targetClass) {
 		return Class.class.equals(targetClass);
 	}
 
+	@Override
 	public String getIdentifier(Object target) {
 		if (!(target instanceof Class)) {
 			throw new IllegalArgumentException("Target [" + target + "] must be instance of Class");
@@ -34,7 +36,7 @@ public class ClassIdentifierStrategy implements IdentifierStrategy, Serializable
 			String name = null;
 
 			if (cls.isAnnotationPresent(Identifier.class)) {
-				Identifier identifier = (Identifier) cls.getAnnotation(Identifier.class);
+				Identifier identifier = cls.getAnnotation(Identifier.class);
 				if (identifier.name() != null && !"".equals(identifier.name().trim())) {
 					name = identifier.name();
 				}

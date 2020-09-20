@@ -25,6 +25,7 @@ public class AsynchronousInterceptor extends AbstractInterceptor {
 	private static final String REENTRANT = "org.jboss.seam.async.AsynchronousIntercepter.REENTRANT";
 
 	@AroundInvoke
+	@Override
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		boolean scheduleAsync = invocation.getMethod().isAnnotationPresent(Asynchronous.class)
 				&& (!isExecutingAsynchronousCall() || Contexts.getEventContext().isSet(REENTRANT));
@@ -58,6 +59,7 @@ public class AsynchronousInterceptor extends AbstractInterceptor {
 		return Contexts.getEventContext().isSet(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL);
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return (getComponent().getType().isEjb() && getComponent().businessInterfaceHasAnnotation(Asynchronous.class))
 				|| (getComponent().getType() == JAVA_BEAN && getComponent().beanClassHasAnnotation(Asynchronous.class));

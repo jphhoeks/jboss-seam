@@ -7,6 +7,7 @@ public class EventInterceptor<T> implements StatelessInterceptor<T> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public Object afterInvoke(InvocationContext<T> invocationContext, Object result) {
 		if (result != null || invocationContext.getConstructor() != null
 				|| (invocationContext.getMethod() != null && invocationContext.getMethod().getReturnType().equals(void.class))) {
@@ -24,10 +25,12 @@ public class EventInterceptor<T> implements StatelessInterceptor<T> {
 		return result;
 	}
 
+	@Override
 	public void beforeInvoke(InvocationContext<T> invocationContext) {
 
 	}
 
+	@Override
 	public Exception handleException(InvocationContext<T> invocationContext, Exception exception) {
 		return exception;
 	}

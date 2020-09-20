@@ -80,6 +80,7 @@ public class EqualityValidator implements Validator, StateHolder {
 		return buff.toString();
 	}
 
+	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if (getFor() == null) {
 			throw new FacesException("Must specify a component to validate equality against");
@@ -201,10 +202,12 @@ public class EqualityValidator implements Validator, StateHolder {
 		this.messageId = messageId;
 	}
 
+	@Override
 	public boolean isTransient() {
 		return false;
 	}
 
+	@Override
 	public void restoreState(FacesContext context, Object state) {
 		Object[] fields = (Object[]) state;
 		forId = (String) fields[0];
@@ -213,6 +216,7 @@ public class EqualityValidator implements Validator, StateHolder {
 		operator = ValidOperation.valueOf((String) fields[3]);
 	}
 
+	@Override
 	public Object saveState(FacesContext context) {
 		Object[] state = new Object[4];
 		state[0] = forId;
@@ -222,6 +226,7 @@ public class EqualityValidator implements Validator, StateHolder {
 		return state;
 	}
 
+	@Override
 	public void setTransient(boolean newTransientValue) {
 		// No-op
 	}

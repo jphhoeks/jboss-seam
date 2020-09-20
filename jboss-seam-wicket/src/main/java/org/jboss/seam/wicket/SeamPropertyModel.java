@@ -15,10 +15,12 @@ public abstract class SeamPropertyModel implements IModel {
 
 	public abstract Object getTarget();
 
+	@Override
 	public Object getObject() {
 		return getModel().getObject();
 	}
 
+	@Override
 	public void setObject(Object object) {
 		getModel().setObject(object);
 	}
@@ -30,6 +32,7 @@ public abstract class SeamPropertyModel implements IModel {
 		return model;
 	}
 
+	@Override
 	public void detach() {
 		model = null;
 	}

@@ -30,12 +30,14 @@ public class UTTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void begin() throws NotSupportedException, SystemException {
 		log.debug("beginning JTA transaction");
 		delegate.begin();
 		getSynchronizations().afterTransactionBegin();
 	}
 
+	@Override
 	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
 			IllegalStateException, SystemException {
 		log.debug("committing JTA transaction");
@@ -50,6 +52,7 @@ public class UTTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public void rollback() throws IllegalStateException, SecurityException, SystemException {
 		log.debug("rolling back JTA transaction");
 		try {
@@ -59,14 +62,17 @@ public class UTTransaction extends AbstractUserTransaction {
 		}
 	}
 
+	@Override
 	public int getStatus() throws SystemException {
 		return delegate.getStatus();
 	}
 
+	@Override
 	public void setRollbackOnly() throws IllegalStateException, SystemException {
 		delegate.setRollbackOnly();
 	}
 
+	@Override
 	public void setTransactionTimeout(int timeout) throws SystemException {
 		delegate.setTransactionTimeout(timeout);
 	}

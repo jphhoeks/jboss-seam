@@ -20,6 +20,7 @@ public class MailExternalContextImpl extends ExternalContextWrapper {
 		this.urlBase = urlBase;
 	}
 
+	@Override
 	public ExternalContext getWrapped() {
 		return delegate;
 	}

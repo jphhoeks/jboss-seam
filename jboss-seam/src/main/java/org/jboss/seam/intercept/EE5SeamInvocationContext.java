@@ -18,6 +18,7 @@ class EE5SeamInvocationContext extends SeamInvocationContext implements javax.in
 		super(context, type, userInterceptors, interceptors);
 	}
 
+	@Override
 	public Object getTimer() {
 		// not supported method
 		return null;

@@ -329,6 +329,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		featureSet = new FeatureSet(features);
 	}
 
+	@Override
 	public boolean supportsFeature(Feature feature) {
 		return featureSet.supports(feature);
 	}
@@ -361,6 +362,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		return String.format("%s%s%s", getRoleDNPrefix(), role, getRoleDNSuffix());
 	}
 
+	@Override
 	public boolean authenticate(String username, String password) {
 		final String securityPrincipal = getUserDN(username);
 
@@ -389,6 +391,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean changePassword(String name, String password) {
 		InitialLdapContext ctx = null;
 		try {
@@ -406,6 +409,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean createRole(String role) {
 		InitialLdapContext ctx = null;
 		try {
@@ -432,6 +436,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean createUser(String username, String password, String firstname, String lastname) {
 		InitialLdapContext ctx = null;
 		try {
@@ -475,10 +480,12 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean createUser(String username, String password) {
 		return createUser(username, password, null, null);
 	}
 
+	@Override
 	public boolean deleteRole(String role) {
 		InitialLdapContext ctx = null;
 		try {
@@ -537,6 +544,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean roleExists(String role) {
 		InitialLdapContext ctx = null;
 		try {
@@ -577,6 +585,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean deleteUser(String name) {
 		InitialLdapContext ctx = null;
 		try {
@@ -592,6 +601,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean isUserEnabled(String name) {
 		if (getEnabledAttribute() == null)
 			return true;
@@ -619,6 +629,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean disableUser(String name) {
 		if (getEnabledAttribute() == null)
 			return false;
@@ -640,6 +651,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean enableUser(String name) {
 		if (getEnabledAttribute() == null)
 			return false;
@@ -661,6 +673,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public List<String> getGrantedRoles(String name) {
 		Set<String> userRoles = new HashSet<String>();
 
@@ -719,10 +732,12 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public List<String> getImpliedRoles(String name) {
 		return getGrantedRoles(name);
 	}
 
+	@Override
 	public boolean grantRole(String name, String role) {
 		InitialLdapContext ctx = null;
 		try {
@@ -742,6 +757,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean revokeRole(String name, String role) {
 		InitialLdapContext ctx = null;
 		try {
@@ -782,6 +798,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		return false;
 	}
 
+	@Override
 	public List<String> listRoles() {
 		List<String> roles = new ArrayList<String>();
 
@@ -828,15 +845,18 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public List<String> listGrantableRoles() {
 		// TODO should we support conditional roles with LDAP?
 		return listRoles();
 	}
 
+	@Override
 	public List<String> listUsers() {
 		return listUsers(null);
 	}
 
+	@Override
 	public List<String> listUsers(String filter) {
 		List<String> users = new ArrayList<String>();
 
@@ -892,6 +912,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean userExists(String name) {
 		InitialLdapContext ctx = null;
 		try {
@@ -939,21 +960,25 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public List<String> getRoleGroups(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public List<Principal> listMembers(String role) {
 		// TODO implement
 		return null;
 	}
 
+	@Override
 	public boolean addRoleToGroup(String role, String group) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	@Override
 	public boolean removeRoleFromGroup(String role, String group) {
 		// TODO Auto-generated method stub
 		return false;

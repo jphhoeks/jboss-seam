@@ -32,6 +32,7 @@ public class BijectionInterceptor extends AbstractInterceptor {
 	private ReentrantLock lock = new ReentrantLock();
 
 
+	@Override
 	@AroundInvoke
 	@AroundTimeout
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
@@ -108,6 +109,7 @@ public class BijectionInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().needsInjection() || getComponent().needsOutjection();
 	}

@@ -17,6 +17,7 @@ public abstract class MutableController<T> extends PersistenceController<T> impl
 	private static final long serialVersionUID = 1L;
 	private transient boolean dirty;
 
+	@Override
 	public boolean clearDirty() {
 		boolean result = dirty;
 		dirty = false;

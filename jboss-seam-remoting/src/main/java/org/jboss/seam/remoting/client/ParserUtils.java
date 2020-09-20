@@ -23,7 +23,7 @@ public class ParserUtils {
 			ctx.createWrapperFromElement((Element) iter.next());
 		}
 
-		Wrapper resultWrapper = ctx.createWrapperFromElement((Element) valueElement.elementIterator().next());
+		Wrapper resultWrapper = ctx.createWrapperFromElement(valueElement.elementIterator().next());
 
 		// Now unmarshal the ref values
 		for (Wrapper w : ctx.getInRefs().values())

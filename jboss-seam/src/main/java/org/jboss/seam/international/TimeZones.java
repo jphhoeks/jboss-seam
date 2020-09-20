@@ -48,6 +48,7 @@ public class TimeZones {
 			}
 		}
 		Collections.sort(timeZones, new Comparator<TimeZone>() {
+			@Override
 			public int compare(final TimeZone a, final TimeZone b) {
 				return a.getID().compareTo(b.getID());
 			}

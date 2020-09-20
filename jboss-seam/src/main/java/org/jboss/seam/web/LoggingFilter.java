@@ -34,6 +34,7 @@ import org.jboss.seam.security.Credentials;
 @Install(classDependencies = "org.apache.log4j.Logger", dependencies = "org.jboss.seam.security.identity", precedence = Install.BUILT_IN)
 public class LoggingFilter extends AbstractFilter {
 
+	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 

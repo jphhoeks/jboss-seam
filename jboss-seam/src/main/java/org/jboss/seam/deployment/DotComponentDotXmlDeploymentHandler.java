@@ -10,6 +10,7 @@ public class DotComponentDotXmlDeploymentHandler extends AbstractDeploymentHandl
 
 	private static DeploymentMetadata DOTCOMPONENTDOTXML_SUFFIX_FILE_METADATA = new DeploymentMetadata() {
 
+		@Override
 		public String getFileNameSuffix() {
 			return ".component.xml";
 		}
@@ -21,10 +22,12 @@ public class DotComponentDotXmlDeploymentHandler extends AbstractDeploymentHandl
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.DotComponentDotXmlDeploymentHandler";
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
 
+	@Override
 	public DeploymentMetadata getMetadata() {
 		return DOTCOMPONENTDOTXML_SUFFIX_FILE_METADATA;
 	}

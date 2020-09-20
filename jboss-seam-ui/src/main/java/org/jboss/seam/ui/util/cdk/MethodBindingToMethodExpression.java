@@ -83,6 +83,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 			final FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
 			if (facesContext != null) {
 				methodInfo = invoke(new Invoker<MethodInfo>() {
+					@Override
 					public MethodInfo invoke() {
 						return new MethodInfo(null, methodBinding.getType(facesContext), null);
 					}
@@ -99,6 +100,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 		final FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
 		if (facesContext != null) {
 			return invoke(new Invoker<Object>() {
+				@Override
 				public Object invoke() {
 					return methodBinding.invoke(facesContext, params);
 				}
@@ -120,6 +122,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 		return methodBinding.getExpressionString();
 	}
 
+	@Override
 	public Object saveState(FacesContext context) {
 		if (!isTransient()) {
 			if (methodBinding instanceof StateHolder) {
@@ -134,6 +137,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 		return null;
 	}
 
+	@Override
 	public void restoreState(FacesContext context, Object state) {
 		if (state instanceof javax.faces.el.MethodBinding) {
 			methodBinding = (javax.faces.el.MethodBinding) state;
@@ -146,10 +150,12 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 		}
 	}
 
+	@Override
 	public void setTransient(boolean transientFlag) {
 		_transientFlag = transientFlag;
 	}
 
+	@Override
 	public boolean isTransient() {
 		return _transientFlag;
 	}

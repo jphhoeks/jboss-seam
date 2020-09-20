@@ -13,6 +13,7 @@ public class PagesDotXmlDeploymentHandler extends AbstractDeploymentHandler {
 
 	private static DeploymentMetadata PAGESDOTXML_SUFFIX_FILE_METADATA = new DeploymentMetadata() {
 
+		@Override
 		public String getFileNameSuffix() {
 			return "WEB-INF/pages.xml";
 		}
@@ -24,6 +25,7 @@ public class PagesDotXmlDeploymentHandler extends AbstractDeploymentHandler {
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.PagesDotXmlDeploymentHandler";
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
@@ -43,6 +45,7 @@ public class PagesDotXmlDeploymentHandler extends AbstractDeploymentHandler {
 		}
 	}
 
+	@Override
 	public DeploymentMetadata getMetadata() {
 		return PAGESDOTXML_SUFFIX_FILE_METADATA;
 	}

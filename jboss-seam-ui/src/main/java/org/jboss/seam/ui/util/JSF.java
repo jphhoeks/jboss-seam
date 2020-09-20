@@ -75,6 +75,7 @@ public class JSF {
 
 	// Common Command Attributes
 	/** @deprecated */
+	@Deprecated
 	public static final String COMMAND_CLASS_ATTR = "commandClass";
 
 	public static final String LABEL_ATTR = "label";
@@ -90,6 +91,7 @@ public class JSF {
 
 	// Common Panel Attributes
 	/** @deprecated */
+	@Deprecated
 	public static final String PANEL_CLASS_ATTR = "panelClass";
 
 	public static final String FOOTER_CLASS_ATTR = "footerClass";

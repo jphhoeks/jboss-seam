@@ -66,6 +66,7 @@ public class FlexFilter extends AbstractFilter {
 		messageBrokerManager.addDestinations(scanned);
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if (isMappedToCurrentRequestPath(request)) {
 			messageBrokerManager.service((HttpServletRequest) request, (HttpServletResponse) response);
@@ -87,14 +88,17 @@ public class FlexFilter extends AbstractFilter {
 			this.params = (params != null) ? params : new HashMap<String, String>();
 		}
 
+		@Override
 		public ServletContext getServletContext() {
 			return context;
 		}
 
+		@Override
 		public String getServletName() {
 			return "FlexServlet";
 		}
 
+		@Override
 		public String getInitParameter(String param) {
 			String result = params.get(param);
 
@@ -102,6 +106,7 @@ public class FlexFilter extends AbstractFilter {
 			return result;
 		}
 
+		@Override
 		public Enumeration<String> getInitParameterNames() {
 			return Collections.enumeration(params.keySet());
 		}

@@ -31,6 +31,7 @@ public class ManagedEntityInterceptor extends AbstractInterceptor {
 
 	private boolean reentrant;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ctx) throws Exception {
 		if (reentrant) {
@@ -53,6 +54,7 @@ public class ManagedEntityInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().getScope() == CONVERSATION;
 	}

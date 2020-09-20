@@ -29,26 +29,32 @@ public class BasicContext implements Context {
 		this.map = Objects.requireNonNull(map, "map can not be null");
 	}
 
+	@Override
 	public ScopeType getType() {
 		return scope;
 	}
 
+	@Override
 	public Object get(Class<?> clazz) {
 		return get(Component.getComponentName(clazz));
 	}
 
+	@Override
 	public Object get(String name) {
 		return map.get(name);
 	}
 
+	@Override
 	public String[] getNames() {
 		return map.keySet().toArray(new String[0]);
 	}
 
+	@Override
 	public boolean isSet(String name) {
 		return map.containsKey(name);
 	}
 
+	@Override
 	public void remove(String name) {
 		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
@@ -59,6 +65,7 @@ public class BasicContext implements Context {
 		}
 	}
 
+	@Override
 	public void set(String name, Object value) {
 		// We can't raise a preSetVariable event for Events itself because it doesn't
 		// exist yet...
@@ -70,6 +77,7 @@ public class BasicContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
 	}
 
+	@Override
 	public void flush() {
 	}
 

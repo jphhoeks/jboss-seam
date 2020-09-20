@@ -184,10 +184,12 @@ public abstract class AbstractScanner implements Scanner {
 		}
 	}
 
+	@Override
 	public DeploymentStrategy getDeploymentStrategy() {
 		return deploymentStrategy;
 	}
 
+	@Override
 	public long getTimestamp() {
 		return Long.MAX_VALUE;
 	}
@@ -236,6 +238,7 @@ public abstract class AbstractScanner implements Scanner {
 		return handled;
 	}
 
+	@Override
 	public void scanDirectories(File[] directories, File[] excludedDirectories) {
 		scanDirectories(directories);
 	}

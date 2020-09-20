@@ -48,6 +48,7 @@ public class FormattedTextValidator implements javax.faces.validator.Validator, 
 	 * Validate the given value as well-formed Seam Text. If there are parse
 	 * errors, throw a ValidatorException including the first parse error.
 	 */
+	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		firstError = null;
 		firstErrorDetail = null;

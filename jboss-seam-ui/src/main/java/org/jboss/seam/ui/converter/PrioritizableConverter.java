@@ -47,24 +47,29 @@ public class PrioritizableConverter implements Converter, Comparable<Prioritizab
 		return priority;
 	}
 
+	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
 		return getDelegate().getAsObject(context, component, value);
 	}
 
+	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
 		return getDelegate().getAsString(context, component, value);
 	}
 
+	@Override
 	public int compareTo(PrioritizableConverter o) {
 		return this.getPriority() - o.getPriority();
 	}
 
 	private boolean _transient;
 
+	@Override
 	public boolean isTransient() {
 		return _transient;
 	}
 
+	@Override
 	public void restoreState(FacesContext context, Object state) {
 		Object[] values = (Object[]) state;
 		delegate = (Converter) UIComponentBase.restoreAttachedState(context, values[0]);
@@ -72,6 +77,7 @@ public class PrioritizableConverter implements Converter, Comparable<Prioritizab
 		valueExpression = (ValueExpression) values[2];
 	}
 
+	@Override
 	public Object saveState(FacesContext context) {
 		Object[] values = new Object[3];
 		values[0] = UIComponentBase.saveAttachedState(context, delegate);
@@ -80,6 +86,7 @@ public class PrioritizableConverter implements Converter, Comparable<Prioritizab
 		return values;
 	}
 
+	@Override
 	public void setTransient(boolean newTransientValue) {
 		this._transient = newTransientValue;
 

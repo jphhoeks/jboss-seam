@@ -55,7 +55,7 @@ class EntityBeanMap extends AbstractEntityBeanCollection {
 	protected void passivateAll() {
 		HashMap<Object, PassivatedEntity> newPassivatedMap = new HashMap<Object, PassivatedEntity>(map.size());
 		boolean found = false;
-		for (Map.Entry<Object, Object> me : (Set<Map.Entry<Object, Object>>) map.entrySet()) {
+		for (Map.Entry<Object, Object> me : map.entrySet()) {
 			Object value = me.getValue();
 			if (value != null) {
 				PassivatedEntity passivatedEntity = PassivatedEntity.passivateEntity(value);

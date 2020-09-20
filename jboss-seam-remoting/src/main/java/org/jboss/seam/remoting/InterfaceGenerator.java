@@ -59,6 +59,7 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 	 * @param response HttpServletResponse
 	 * @throws Exception
 	 */
+	@Override
 	public void handle(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
 		new ContextualHttpServletRequest(request) {
 			@Override

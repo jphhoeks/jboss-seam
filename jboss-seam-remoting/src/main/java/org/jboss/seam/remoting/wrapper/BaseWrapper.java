@@ -37,6 +37,7 @@ public abstract class BaseWrapper implements Wrapper {
 	 *
 	 * @param path String
 	 */
+	@Override
 	public void setPath(String path) {
 		this.path = path;
 	}
@@ -46,6 +47,7 @@ public abstract class BaseWrapper implements Wrapper {
 	 *
 	 * @param value Object
 	 */
+	@Override
 	public void setValue(Object value) {
 		this.value = value;
 	}
@@ -55,6 +57,7 @@ public abstract class BaseWrapper implements Wrapper {
 	 *
 	 * @return Object
 	 */
+	@Override
 	public Object getValue() {
 		return value;
 	}
@@ -62,6 +65,7 @@ public abstract class BaseWrapper implements Wrapper {
 	/**
 	 * Sets the call context
 	 */
+	@Override
 	public void setCallContext(CallContext context) {
 		this.context = context;
 	}
@@ -71,6 +75,7 @@ public abstract class BaseWrapper implements Wrapper {
 	 *
 	 * @param element Element
 	 */
+	@Override
 	public void setElement(Element element) {
 		this.element = element;
 	}
@@ -78,6 +83,7 @@ public abstract class BaseWrapper implements Wrapper {
 	/**
 	 * Default implementation does nothing
 	 */
+	@Override
 	public void unmarshal() {
 	}
 
@@ -87,6 +93,7 @@ public abstract class BaseWrapper implements Wrapper {
 	 * @param out OutputStream
 	 * @throws IOException
 	 */
+	@Override
 	public void serialize(OutputStream out) throws IOException {
 	}
 }

@@ -46,6 +46,7 @@ public class PageContext implements Context {
 		nextPageMap = new HashMap<String, Object>();
 	}
 
+	@Override
 	public ScopeType getType() {
 		return ScopeType.PAGE;
 	}
@@ -58,10 +59,12 @@ public class PageContext implements Context {
 		return PAGE_CONTEXT_PREFIX;
 	}
 
+	@Override
 	public Object get(String name) {
 		return getCurrentReadableMap().get(getKey(name));
 	}
 
+	@Override
 	public boolean isSet(String name) {
 		return getCurrentReadableMap().containsKey(getKey(name));
 	}
@@ -78,6 +81,7 @@ public class PageContext implements Context {
 		return isBeforeInvokeApplicationPhase() ? previousPageMap : nextPageMap;
 	}
 
+	@Override
 	public void set(String name, Object value) {
 		if (Events.exists())
 			Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
@@ -86,6 +90,7 @@ public class PageContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
 	}
 
+	@Override
 	public void remove(String name) {
 		if (Events.exists())
 			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
@@ -94,6 +99,7 @@ public class PageContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
 	}
 
+	@Override
 	public String[] getNames() {
 		Set<String> keys = getCurrentReadableMap().keySet();
 		List<String> names = new ArrayList<String>(keys.size());
@@ -111,6 +117,7 @@ public class PageContext implements Context {
 		return "PageContext";
 	}
 
+	@Override
 	public Object get(Class<?> clazz) {
 		return get(Component.getComponentName(clazz));
 	}
@@ -119,6 +126,7 @@ public class PageContext implements Context {
 	* Put the buffered context variables in the faces view root, 
 	* at the beginning of the render phase.
 	*/
+	@Override
 	public void flush() {
 		Map<String, Object> viewMap = getOrCreateViewMap();
 		viewMap.putAll(nextPageMap);

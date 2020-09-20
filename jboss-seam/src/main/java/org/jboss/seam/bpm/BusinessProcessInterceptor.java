@@ -38,6 +38,7 @@ public class BusinessProcessInterceptor extends AbstractInterceptor {
 
 	private static final LogProvider log = Logging.getLogProvider(BusinessProcessInterceptor.class);
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
 		if (!beforeInvocation(invocation)) {
@@ -137,6 +138,7 @@ public class BusinessProcessInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return Contexts.isApplicationContextActive() && Init.instance().isJbpmInstalled();
 	}

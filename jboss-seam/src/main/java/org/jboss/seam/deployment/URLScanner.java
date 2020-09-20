@@ -33,6 +33,7 @@ public class URLScanner extends AbstractScanner {
 		super(deploymentStrategy);
 	}
 
+	@Override
 	public void scanDirectories(File[] directories) {
 		scanDirectories(directories, new File[0]);
 	}
@@ -44,6 +45,7 @@ public class URLScanner extends AbstractScanner {
 		}
 	}
 
+	@Override
 	public void scanResources(String[] resources) {
 		long startTime = System.currentTimeMillis();
 		Set<String> paths = new HashSet<String>();

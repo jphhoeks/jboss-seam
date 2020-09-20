@@ -65,18 +65,22 @@ public class UIHyperlink extends UICellBase implements WorksheetItem {
 		this.endRow = endRow;
 	}
 
+	@Override
 	public ItemType getItemType() {
 		return ItemType.hyperlink;
 	}
 
+	@Override
 	public Integer getColumn() {
 		return getStartColumn();
 	}
 
+	@Override
 	public Integer getRow() {
 		return getStartRow();
 	}
 
+	@Override
 	public Object getValue() {
 		return getURL();
 	}

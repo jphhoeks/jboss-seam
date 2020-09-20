@@ -443,26 +443,31 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 		return Collections.enumeration(parameters.keySet());
 	}
 
+	@Override
 	public byte[] getFileBytes(String name) {
 		Param p = getParam(name);
 		return (p != null && p instanceof FileParam) ? ((FileParam) p).getData() : null;
 	}
 
+	@Override
 	public InputStream getFileInputStream(String name) {
 		Param p = getParam(name);
 		return (p != null && p instanceof FileParam) ? ((FileParam) p).getInputStream() : null;
 	}
 
+	@Override
 	public String getFileContentType(String name) {
 		Param p = getParam(name);
 		return (p != null && p instanceof FileParam) ? ((FileParam) p).getContentType() : null;
 	}
 
+	@Override
 	public String getFileName(String name) {
 		Param p = getParam(name);
 		return (p != null && p instanceof FileParam) ? ((FileParam) p).getFilename() : null;
 	}
 
+	@Override
 	public int getFileSize(String name) {
 		Param p = getParam(name);
 		return (p != null && p instanceof FileParam) ? ((FileParam) p).getFileSize() : -1;

@@ -44,6 +44,7 @@ public class ServerConversationContext implements Context {
 		return id == null ? Manager.instance().getCurrentConversationId() : id;
 	}
 
+	@Override
 	public ScopeType getType() {
 		return ScopeType.CONVERSATION;
 	}
@@ -73,6 +74,7 @@ public class ServerConversationContext implements Context {
 		idStack.add(id);
 	}
 
+	@Override
 	public Object get(String name) {
 		Object result = additions.get(name);
 		if (result != null) {
@@ -119,6 +121,7 @@ public class ServerConversationContext implements Context {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void set(String name, Object value) {
 		if (Events.exists())
@@ -143,10 +146,12 @@ public class ServerConversationContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
 	}
 
+	@Override
 	public boolean isSet(String name) {
 		return get(name) != null;
 	}
 
+	@Override
 	public void remove(String name) {
 		if (Events.exists())
 			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
@@ -156,6 +161,7 @@ public class ServerConversationContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
 	}
 
+	@Override
 	public String[] getNames() {
 		Set<String> results = getNamesFromSession();
 		results.addAll(additions.keySet()); //after, to override
@@ -200,6 +206,7 @@ public class ServerConversationContext implements Context {
 		return results;
 	}
 
+	@Override
 	public Object get(Class<?> clazz) {
 		return get(Component.getComponentName(clazz));
 	}
@@ -225,6 +232,7 @@ public class ServerConversationContext implements Context {
 	* may only be done at the end of the request, since we
 	* don't know for sure the conversation id until then.
 	*/
+	@Override
 	public void flush() {
 		boolean longRunning = !isCurrent() || Manager.instance().isLongRunningConversation();
 

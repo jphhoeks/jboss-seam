@@ -55,7 +55,7 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 		for (Element member : (List<Element>) members) {
 			String name = member.attributeValue("name");
 
-			Wrapper w = context.createWrapperFromElement((Element) member.elementIterator().next());
+			Wrapper w = context.createWrapperFromElement(member.elementIterator().next());
 
 			Class cls = value.getClass();
 
@@ -126,6 +126,7 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 		}
 	}
 
+	@Override
 	public Object convert(Type type) throws ConversionException {
 		if (type instanceof Class && ((Class) type).isAssignableFrom(value.getClass()))
 			return value;
@@ -133,6 +134,7 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 			throw new ConversionException(String.format("Value [%s] cannot be converted to type [%s].", value, type));
 	}
 
+	@Override
 	public void marshal(OutputStream out) throws IOException {
 		context.addOutRef(this);
 
@@ -233,6 +235,7 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 		out.write(BEAN_CLOSE_TAG);
 	}
 
+	@Override
 	public ConversionScore conversionScore(Class cls) {
 		if (cls.equals(value.getClass()))
 			return ConversionScore.exact;

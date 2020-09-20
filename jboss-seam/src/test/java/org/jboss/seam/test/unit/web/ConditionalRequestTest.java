@@ -31,12 +31,13 @@ public class ConditionalRequestTest {
 		request.addHeader(ConditionalAbstractResource.HEADER_IF_NONE_MATCH, "\"1234\", \"5678\"");
 
 		ConditionalAbstractResource resource = new ConditionalAbstractResource() {
+			@Override
 			public void getResource(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				if (!sendConditional(request, response, "\"5678\"", null)) {
 					response.sendError(HttpServletResponse.SC_OK);
 				}
 			}
-
+			@Override
 			public String getResourcePath() {
 				return null;
 			}
@@ -59,12 +60,13 @@ public class ConditionalRequestTest {
 		request.addHeader(ConditionalAbstractResource.HEADER_IF_NONE_MATCH, "\"123\", \"456\"");
 
 		ConditionalAbstractResource resource = new ConditionalAbstractResource() {
+			@Override
 			public void getResource(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				if (!sendConditional(request, response, "\"5678\"", null)) {
 					response.sendError(HttpServletResponse.SC_OK);
 				}
 			}
-
+			@Override
 			public String getResourcePath() {
 				return null;
 			}
@@ -87,12 +89,13 @@ public class ConditionalRequestTest {
 		request.addHeader(ConditionalAbstractResource.HEADER_IF_MODIFIED_SINCE, currentTime);
 
 		ConditionalAbstractResource resource = new ConditionalAbstractResource() {
+			@Override
 			public void getResource(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				if (!sendConditional(request, response, null, currentTime)) {
 					response.sendError(HttpServletResponse.SC_OK);
 				}
 			}
-
+			@Override
 			public String getResourcePath() {
 				return null;
 			}
@@ -116,12 +119,13 @@ public class ConditionalRequestTest {
 		request.addHeader(ConditionalAbstractResource.HEADER_IF_MODIFIED_SINCE, currentTime);
 
 		ConditionalAbstractResource resource = new ConditionalAbstractResource() {
+			@Override
 			public void getResource(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				if (!sendConditional(request, response, null, currentTime + 5000)) {
 					response.sendError(HttpServletResponse.SC_OK);
 				}
 			}
-
+			@Override
 			public String getResourcePath() {
 				return null;
 			}
@@ -146,12 +150,13 @@ public class ConditionalRequestTest {
 		request.addHeader(ConditionalAbstractResource.HEADER_IF_NONE_MATCH, "\"1234\", \"5678\"");
 
 		ConditionalAbstractResource resource = new ConditionalAbstractResource() {
+			@Override
 			public void getResource(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				if (!sendConditional(request, response, "\"5678\"", currentTime)) {
 					response.sendError(HttpServletResponse.SC_OK);
 				}
 			}
-
+			@Override
 			public String getResourcePath() {
 				return null;
 			}
@@ -177,12 +182,13 @@ public class ConditionalRequestTest {
 		request.addHeader(ConditionalAbstractResource.HEADER_IF_NONE_MATCH, "\"1234\", \"5678\"");
 
 		ConditionalAbstractResource resource = new ConditionalAbstractResource() {
+			@Override
 			public void getResource(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				if (!sendConditional(request, response, "\"5678\"", currentTime + 5000)) {
 					response.sendError(HttpServletResponse.SC_OK);
 				}
 			}
-
+			@Override
 			public String getResourcePath() {
 				return null;
 			}

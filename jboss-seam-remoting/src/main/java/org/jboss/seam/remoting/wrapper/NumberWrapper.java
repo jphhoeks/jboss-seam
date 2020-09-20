@@ -13,6 +13,7 @@ public class NumberWrapper extends BaseWrapper implements Wrapper {
 	private static final byte[] NUMBER_TAG_OPEN = "<number>".getBytes();
 	private static final byte[] NUMBER_TAG_CLOSE = "</number>".getBytes();
 
+	@Override
 	public Object convert(Type type) throws ConversionException {
 		String val = element.getStringValue().trim();
 
@@ -54,6 +55,7 @@ public class NumberWrapper extends BaseWrapper implements Wrapper {
 	* @param out OutputStream
 	* @throws IOException
 	*/
+	@Override
 	public void marshal(OutputStream out) throws IOException {
 		out.write(NUMBER_TAG_OPEN);
 		out.write(value.toString().getBytes());
@@ -66,6 +68,7 @@ public class NumberWrapper extends BaseWrapper implements Wrapper {
 	* @param cls Class
 	* @return ConversionScore
 	*/
+	@Override
 	public ConversionScore conversionScore(Class cls) {
 		if (cls.equals(Integer.class) || cls.equals(Integer.TYPE) || cls.equals(Long.class) || cls.equals(Long.TYPE)
 				|| cls.equals(Short.class) || cls.equals(Short.TYPE) || cls.equals(Double.class) || cls.equals(Double.TYPE)

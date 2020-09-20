@@ -21,10 +21,12 @@ public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler 
 			this.annotations = annotations;
 		}
 
+		@Override
 		public Set<Class<? extends Annotation>> getClassAnnotatedWith() {
 			return annotations;
 		}
 
+		@Override
 		public String getFileNameSuffix() {
 			return null;
 		}
@@ -68,10 +70,12 @@ public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler 
 		return Collections.unmodifiableMap(classes);
 	}
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
 
+	@Override
 	public ClassDeploymentMetadata getMetadata() {
 		return metadata;
 	}

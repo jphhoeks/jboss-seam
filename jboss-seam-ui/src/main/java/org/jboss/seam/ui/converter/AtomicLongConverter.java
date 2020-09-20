@@ -16,6 +16,7 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "org.jboss.seam.ui.AtomicLongConverter")
 public class AtomicLongConverter implements Converter {
 
+	@Override
 	public Object getAsObject(FacesContext ctx, UIComponent ui, String value) {
 		Object object = null;
 		if (value != null && value.trim().length() > 0) {
@@ -28,6 +29,7 @@ public class AtomicLongConverter implements Converter {
 		return object;
 	}
 
+	@Override
 	public String getAsString(FacesContext ctx, UIComponent ui, Object object) {
 		String string = "";
 		if (object != null) {

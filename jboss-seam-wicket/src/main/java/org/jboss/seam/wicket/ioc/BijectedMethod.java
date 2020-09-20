@@ -30,24 +30,29 @@ public abstract class BijectedMethod<T extends Annotation> implements BijectedAt
 		}
 	}
 
+	@Override
 	public Method getMember() {
 		return method;
 	}
 
+	@Override
 	public T getAnnotation() {
 		return annotation;
 	}
 
+	@Override
 	public void set(Object bean, Object value) {
 		method.setAccessible(true);
 		invokeAndWrap(method, bean, value);
 	}
 
+	@Override
 	public Object get(Object bean) {
 		method.setAccessible(true);
 		return invokeAndWrap(method, bean);
 	}
 
+	@Override
 	public Class getType() {
 		return method.getParameterTypes()[0];
 	}
@@ -59,6 +64,7 @@ public abstract class BijectedMethod<T extends Annotation> implements BijectedAt
 
 	protected abstract String getSpecifiedContextVariableName();
 
+	@Override
 	public String getContextVariableName() {
 		return contextVariableName;
 	}

@@ -24,9 +24,11 @@ public class ScanResultsCache {
 				cache = instance;
 			} else {
 				cache = new ScanResultsCache() {
+					@Override
 					public void addHit(String hit) {
 					};
 
+					@Override
 					public void addMiss(String hit) {
 					};
 				};

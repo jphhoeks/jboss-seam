@@ -49,6 +49,7 @@ class SeamUserCodeInterceptor implements UserCodeInterceptor {
 		}
 	}
 
+	@Override
 	public void executeAction(final Action action, final ExecutionContext context) throws Exception {
 		if (isPageflow(context)) {
 			action.execute(context);
@@ -68,6 +69,7 @@ class SeamUserCodeInterceptor implements UserCodeInterceptor {
 				&& Jbpm.instance().isPageflowProcessDefinition(context.getProcessDefinition().getName());
 	}
 
+	@Override
 	public void executeAssignment(final AssignmentHandler handler, final Assignable assignable, final ExecutionContext context)
 			throws Exception {
 		new ContextualCall() {
@@ -79,6 +81,7 @@ class SeamUserCodeInterceptor implements UserCodeInterceptor {
 		}.run();
 	}
 
+	@Override
 	public void executeTaskControllerInitialization(final TaskControllerHandler handler, final TaskInstance task,
 			final ContextInstance context, final Token token) {
 		new ContextualCall() {
@@ -90,6 +93,7 @@ class SeamUserCodeInterceptor implements UserCodeInterceptor {
 		}.runAndWrap();
 	}
 
+	@Override
 	public void executeTaskControllerSubmission(final TaskControllerHandler handler, final TaskInstance task, final ContextInstance context,
 			final Token token) {
 		new ContextualCall() {

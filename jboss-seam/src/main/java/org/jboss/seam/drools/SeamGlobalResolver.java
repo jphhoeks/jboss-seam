@@ -18,12 +18,14 @@ public class SeamGlobalResolver implements GlobalResolver {
 		this.delegate = delegate;
 	}
 
+	@Override
 	public void setGlobal(String name, Object value) {
 		//TODO: is this the right thing to do??
 		//or: Contexts.getConversationContext().set(name, value);
 		delegate.setGlobal(name, value);
 	}
 
+	@Override
 	public Object resolveGlobal(String name) {
 		if (!Contexts.isApplicationContextActive()) {
 			return delegate.resolveGlobal(name);

@@ -32,9 +32,6 @@ public class MessageBrokerManager {
 
 	private static final LogProvider log = Logging.getLogProvider(MessageBrokerManager.class);
 
-	private static String WAR_CONFIG_PREFIX = "/WEB-INF/flex/";
-	private static String EAR_CONFIG_PREFIX = "/META-INF/flex/seam-default-";
-
 	private flex.messaging.MessageBroker broker;
 
 	private ServletConfig servletConfig;
@@ -158,7 +155,7 @@ public class MessageBrokerManager {
 			if (!res.isCommitted()) {
 				try {
 					res.sendError(HttpServletResponse.SC_NOT_FOUND);
-				} catch (IOException ignore) {
+				} catch (IOException ignored) {
 					// ignore
 				}
 			}
@@ -182,9 +179,7 @@ public class MessageBrokerManager {
 	}
 
 	private RemotingService createRemotingService() {
-		RemotingService remotingService = null;
-
-		remotingService = new RemotingService();
+		RemotingService remotingService = new RemotingService();
 		remotingService.setId("remoting-service");
 
 		broker.addService(remotingService);

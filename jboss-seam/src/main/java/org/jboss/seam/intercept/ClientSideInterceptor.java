@@ -30,6 +30,7 @@ public class ClientSideInterceptor extends RootInterceptor implements MethodHand
 		init(component);
 	}
 
+	@Override
 	public Object invoke(final Object proxy, final Method method, final Method proceed, final Object[] params) throws Throwable {
 		String methodName = method.getName();
 		if (params != null && params.length == 0) {

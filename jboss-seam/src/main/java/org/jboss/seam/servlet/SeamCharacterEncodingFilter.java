@@ -14,6 +14,7 @@ import org.jboss.seam.web.CharacterEncodingFilter;
  * @author Gavin King
  * 
  */
+@Deprecated
 public class SeamCharacterEncodingFilter extends CharacterEncodingFilter {
 
 	@Override

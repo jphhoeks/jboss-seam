@@ -27,10 +27,12 @@ public abstract class ForwardingAbstractScanner extends AbstractScanner {
 		return delegate().getTimestamp();
 	}
 
+	@Override
 	public void scanDirectories(File[] directories) {
 		delegate().scanDirectories(directories);
 	}
 
+	@Override
 	public void scanResources(String[] resources) {
 		delegate().scanResources(resources);
 	}

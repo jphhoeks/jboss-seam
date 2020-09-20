@@ -71,14 +71,17 @@ public class Messages {
 
 					entrySet.add(new Map.Entry<String, String>() {
 
+						@Override
 						public String getKey() {
 							return key;
 						}
 
+						@Override
 						public String getValue() {
 							return get(key);
 						}
 
+						@Override
 						public String setValue(String arg0) {
 							throw new UnsupportedOperationException("not implemented");
 						}

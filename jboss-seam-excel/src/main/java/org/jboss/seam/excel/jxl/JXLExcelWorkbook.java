@@ -137,6 +137,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * indexes etc.
 	 * 
 	 */
+	@Override
 	public void nextColumn() {
 		if (log.isTraceEnabled()) {
 			log.trace("Moving from column #0 to #1", currentColumnIndex, currentColumnIndex + 1);
@@ -187,6 +188,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @param uiWorksheet
 	 *            The worksheet to create or select in the workbook
 	 */
+	@Override
 	public void createOrSelectWorksheet(UIWorksheet uiWorksheet) {
 		if (workbook == null) {
 			throw new ExcelWorkbookException("You cannot create a worksheet before creating a workbook");
@@ -263,6 +265,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @throws ExcelWorkbookException
 	 *             If there is a problem producing the binary data
 	 */
+	@Override
 	public byte[] getBytes() {
 		if (log.isTraceEnabled()) {
 			log.trace("Returning bytes from workbook");
@@ -301,6 +304,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @throws ExcelWorkbookException
 	 *             if there were any errors creating the workbook
 	 */
+	@Override
 	public void createWorkbook(UIWorkbook uiWorkbook) {
 		String urlString = uiWorkbook.getTemplateURI();
 		InputStream templateStream = null;
@@ -352,6 +356,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * 
 	 * @return the document type (Excel workbook)
 	 */
+	@Override
 	public DocumentType getDocumentType() {
 		return new DocumentData.DocumentType("xls", "application/vnd.ms-excel");
 	}
@@ -362,6 +367,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @param uiColumn
 	 *            the UI column to inspect for settings
 	 */
+	@Override
 	public void applyColumnSettings(UIColumn uiColumn) {
 		if (worksheet == null) {
 			throw new ExcelWorkbookException("You can't set column settings before creating a worksheet");
@@ -445,6 +451,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @param item
 	 *            The item to add
 	 */
+	@Override
 	public void addItem(WorksheetItem item) {
 		if (!((UIComponent) item).isRendered()) {
 			return;
@@ -476,6 +483,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @param command
 	 *            The command to execute
 	 */
+	@Override
 	public void executeCommand(Command command) {
 		switch (command.getCommandType()) {
 		case merge_cells:
@@ -596,6 +604,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @param colspan
 	 *            The number of columns to span
 	 */
+	@Override
 	public void addWorksheetFooter(WorksheetItem item, int colspan) {
 		currentColumnIndex = startColumnIndex;
 		currentRowIndex = maxRowIndex;
@@ -616,6 +625,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @param colspan
 	 *            The number of columns to span
 	 */
+	@Override
 	public void addWorksheetHeader(WorksheetItem item, int colspan) {
 		UIMergeCells mergeCommand = new UIMergeCells();
 		mergeCommand.setStartColumn(currentColumnIndex);
@@ -633,6 +643,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	 * @param stylesheets
 	 *            The stylesheet to register
 	 */
+	@Override
 	public void setStylesheets(List<UILink> stylesheets) {
 		try {
 			jxlHelper.setStylesheets(stylesheets);

@@ -35,6 +35,11 @@ public class RewriteFilter extends AbstractFilter {
 
 	private String viewMapping;
 
+	public RewriteFilter() {
+		super();
+	}
+	
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		List<Pattern> allPatterns = getAllPatterns();
 

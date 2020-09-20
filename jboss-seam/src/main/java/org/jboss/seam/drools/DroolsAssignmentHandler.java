@@ -23,6 +23,7 @@ public class DroolsAssignmentHandler extends DroolsHandler implements Assignment
 	public List<String> retractObjects;
 	public String startProcessId;
 
+	@Override
 	public void assign(Assignable assignable, ExecutionContext executionContext) throws Exception {
 		WorkingMemory workingMemory = getWorkingMemory(workingMemoryName, assertObjects, retractObjects, executionContext);
 		workingMemory.setGlobal("assignable", assignable);

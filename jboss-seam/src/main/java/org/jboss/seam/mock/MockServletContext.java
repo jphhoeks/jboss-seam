@@ -71,7 +71,7 @@ public class MockServletContext implements ServletContext {
 	private void processContextParameters(URL webXML) {
 		try {
 			Element root = XML.getRootElementSafely(webXML.openStream());
-			for (Element element : (List<Element>) root.elements("context-param")) {
+			for (Element element : root.elements("context-param")) {
 				getInitParameters().put(element.elementText("param-name"), element.elementText("param-value"));
 			}
 		} catch (IOException e) {
@@ -90,18 +90,22 @@ public class MockServletContext implements ServletContext {
 		return attributes;
 	}
 
+	@Override
 	public ServletContext getContext(String name) {
 		return this;
 	}
 
+	@Override
 	public int getMajorVersion() {
 		return 2;
 	}
 
+	@Override
 	public int getMinorVersion() {
 		return 4;
 	}
 
+	@Override
 	public String getMimeType(String arg0) {
 		return null;
 	}
@@ -148,6 +152,7 @@ public class MockServletContext implements ServletContext {
 	 * @throws MalformedURLException
 	 *             If the URL is invalid
 	 */
+	@Override
 	public URL getResource(String name) throws MalformedURLException {
 		File file = getFile(name, webappRoot);
 
@@ -183,46 +188,56 @@ public class MockServletContext implements ServletContext {
 		}
 	}
 
+	@Override
 	public InputStream getResourceAsStream(String name) {
 		return getClass().getResourceAsStream(name);
 	}
 
+	@Override
 	public RequestDispatcher getRequestDispatcher(String url) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public RequestDispatcher getNamedDispatcher(String name) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	@Deprecated
 	public Servlet getServlet(String name) throws ServletException {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	@Deprecated
 	public Enumeration<Servlet> getServlets() {
 		return null;
 	}
 
+	@Override
 	@Deprecated
 	public Enumeration<String> getServletNames() {
 		return null;
 	}
 
+	@Override
 	public void log(String msg) {
 
 	}
 
+	@Override
 	@Deprecated
 	public void log(Exception ex, String msg) {
 
 	}
 
+	@Override
 	public void log(String msg, Throwable ex) {
 
 	}
 
+	@Override
 	public String getRealPath(String relativePath) {
 		if (webappRoot != null) {
 			return webappRoot.getAbsolutePath() + relativePath;
@@ -231,26 +246,32 @@ public class MockServletContext implements ServletContext {
 		}
 	}
 
+	@Override
 	public String getServerInfo() {
 		return null;
 	}
 
+	@Override
 	public String getInitParameter(String param) {
 		return initParameters.get(param);
 	}
 
+	@Override
 	public Enumeration<String> getInitParameterNames() {
 		return new IteratorEnumeration<String>(initParameters.keySet().iterator());
 	}
 
+	@Override
 	public Object getAttribute(String att) {
 		return attributes.get(att);
 	}
 
+	@Override
 	public Enumeration<String> getAttributeNames() {
 		return new IteratorEnumeration<String>(attributes.keySet().iterator());
 	}
 
+	@Override
 	public void setAttribute(String att, Object value) {
 		if (value == null) {
 			attributes.remove(value);
@@ -259,14 +280,17 @@ public class MockServletContext implements ServletContext {
 		}
 	}
 
+	@Override
 	public void removeAttribute(String att) {
 		attributes.remove(att);
 	}
 
+	@Override
 	public String getServletContextName() {
 		return "Mock";
 	}
 
+	@Override
 	public String getContextPath() {
 		return null;
 	}

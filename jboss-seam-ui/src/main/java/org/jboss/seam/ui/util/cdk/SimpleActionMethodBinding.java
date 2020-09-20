@@ -66,18 +66,22 @@ public class SimpleActionMethodBinding extends MethodBinding implements StateHol
 		_outcome = null;
 	}
 
+	@Override
 	public Object saveState(FacesContext facescontext) {
 		return _outcome;
 	}
 
+	@Override
 	public void restoreState(FacesContext facescontext, Object obj) {
 		_outcome = (String) obj;
 	}
 
+	@Override
 	public boolean isTransient() {
 		return _transient;
 	}
 
+	@Override
 	public void setTransient(boolean flag) {
 		_transient = flag;
 	}

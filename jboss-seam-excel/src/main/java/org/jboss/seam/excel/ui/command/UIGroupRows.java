@@ -38,6 +38,7 @@ public class UIGroupRows extends ExcelComponent implements Command {
 		return COMPONENT_TYPE;
 	}
 
+	@Override
 	public CommandType getCommandType() {
 		return CommandType.group_rows;
 	}

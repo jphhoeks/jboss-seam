@@ -92,14 +92,17 @@ public class ResourceQuery<T> extends AbstractResource<T> {
 		// create a proper response type
 		Type responseType = new ParameterizedType() {
 
+			@Override
 			public Type getRawType() {
 				return result.getClass();
 			}
 
+			@Override
 			public Type getOwnerType() {
 				return null;
 			}
 
+			@Override
 			public Type[] getActualTypeArguments() {
 				return new Type[] { getEntityClass() };
 			}

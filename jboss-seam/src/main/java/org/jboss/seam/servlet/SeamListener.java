@@ -27,6 +27,7 @@ import org.jboss.seam.log.Logging;
 public class SeamListener implements ServletContextListener, HttpSessionListener {
 	private static final LogProvider log = Logging.getLogProvider(ServletContextListener.class);
 
+	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		log.info("Welcome to Seam " + Seam.getVersion());
 		event.getServletContext().setAttribute(Seam.VERSION, Seam.getVersion());
@@ -34,14 +35,17 @@ public class SeamListener implements ServletContextListener, HttpSessionListener
 		new Initialization(event.getServletContext()).create().init();
 	}
 
+	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		ServletLifecycle.endApplication(event.getServletContext());
 	}
 
+	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		ServletLifecycle.beginSession(event.getSession());
 	}
 
+	@Override
 	public void sessionDestroyed(HttpSessionEvent event) {
 		JBossClusterMonitor monitor = JBossClusterMonitor.getInstance(event.getSession().getServletContext());
 		if (monitor != null && monitor.failover()) {

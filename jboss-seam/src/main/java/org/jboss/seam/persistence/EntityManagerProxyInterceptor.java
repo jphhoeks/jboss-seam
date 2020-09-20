@@ -24,6 +24,7 @@ public class EntityManagerProxyInterceptor extends AbstractInterceptor {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ic) throws Exception {
 		return ic.proceed();
@@ -53,6 +54,7 @@ public class EntityManagerProxyInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().getType() == STATEFUL_SESSION_BEAN || getComponent().getType() == STATELESS_SESSION_BEAN;
 	}

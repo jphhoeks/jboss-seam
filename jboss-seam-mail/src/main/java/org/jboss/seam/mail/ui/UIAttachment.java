@@ -50,6 +50,7 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 
 	private String disposition = "attachment";
 
+	@Override
 	public Object getValue() {
 		if (value != null) {
 			return value;
@@ -58,6 +59,7 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 		}
 	}
 
+	@Override
 	public void setValue(Object value) {
 		this.value = value;
 	}
@@ -191,14 +193,17 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 		}
 	}
 
+	@Override
 	public Converter getConverter() {
 		return null;
 	}
 
+	@Override
 	public Object getLocalValue() {
 		return value;
 	}
 
+	@Override
 	public void setConverter(Converter converter) {
 		throw new UnsupportedOperationException("Cannot attach a converter to an attachment");
 	}

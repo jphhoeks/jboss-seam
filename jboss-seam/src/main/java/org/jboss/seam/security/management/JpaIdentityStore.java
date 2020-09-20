@@ -98,6 +98,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		featureSet = new FeatureSet(features);
 	}
 
+	@Override
 	public boolean supportsFeature(Feature feature) {
 		return featureSet.supports(feature);
 	}
@@ -180,6 +181,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean createUser(String username, String password, String firstname, String lastname) {
 		try {
 			if (userClass == null) {
@@ -252,10 +254,12 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return PasswordHash.instance().generateRandomSalt();
 	}
 
+	@Override
 	public boolean createUser(String username, String password) {
 		return createUser(username, password, null, null);
 	}
 
+	@Override
 	public boolean deleteUser(String name) {
 		Object user = lookupUser(name);
 		if (user == null) {
@@ -266,6 +270,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean grantRole(String username, String role) {
 		if (roleClass == null)
 			return false;
@@ -339,6 +344,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean revokeRole(String username, String role) {
 		Object user = lookupUser(username);
 		if (user == null) {
@@ -368,6 +374,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return success;
 	}
 
+	@Override
 	public boolean addRoleToGroup(String role, String group) {
 		if (!roleGroupsProperty.isSet())
 			return false;
@@ -408,6 +415,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean removeRoleFromGroup(String role, String group) {
 		if (!roleGroupsProperty.isSet())
 			return false;
@@ -426,6 +434,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return success;
 	}
 
+	@Override
 	public boolean createRole(String role) {
 		try {
 			if (roleClass == null) {
@@ -450,6 +459,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean deleteRole(String role) {
 		Object roleToDelete = lookupRole(role);
 		if (roleToDelete == null) {
@@ -475,6 +485,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean enableUser(String name) {
 		if (!userEnabledProperty.isSet()) {
 			log.debug("Can not enable user, no @UserEnabled property configured in userClass " + userClass.getName());
@@ -495,6 +506,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean disableUser(String name) {
 		if (!userEnabledProperty.isSet()) {
 			log.debug("Can not disable user, no @UserEnabled property configured in userClass " + userClass.getName());
@@ -515,6 +527,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean changePassword(String username, String password) {
 		Object user = lookupUser(username);
 		if (user == null) {
@@ -526,19 +539,23 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return true;
 	}
 
+	@Override
 	public boolean userExists(String name) {
 		return lookupUser(name) != null;
 	}
 
+	@Override
 	public boolean roleExists(String name) {
 		return lookupRole(name) != null;
 	}
 
+	@Override
 	public boolean isUserEnabled(String name) {
 		Object user = lookupUser(name);
 		return user != null && (!userEnabledProperty.isSet() || (((Boolean) userEnabledProperty.getValue(user))) == true);
 	}
 
+	@Override
 	public List<String> getGrantedRoles(String name) {
 		Object user = lookupUser(name);
 		if (user == null) {
@@ -563,6 +580,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return roles;
 	}
 
+	@Override
 	public List<String> getRoleGroups(String name) {
 		Object role = lookupRole(name);
 		if (role == null) {
@@ -583,6 +601,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return groups;
 	}
 
+	@Override
 	public List<String> getImpliedRoles(String name) {
 		Object user = lookupUser(name);
 		if (user == null) {
@@ -654,6 +673,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public boolean authenticate(String username, String password) {
 		Object user = lookupUser(username);
 		if (user == null || (userEnabledProperty.isSet() && ((Boolean) userEnabledProperty.getValue(user) == false))) {
@@ -730,11 +750,13 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		}
 	}
 
+	@Override
 	public List<String> listUsers() {
 		return lookupEntityManager().createQuery("select u." + userPrincipalProperty.getName() + " from " + userClass.getName() + " u")
 				.getResultList();
 	}
 
+	@Override
 	public List<String> listUsers(String filter) {
 		return lookupEntityManager()
 				.createQuery("select u." + userPrincipalProperty.getName() + " from " + userClass.getName() + " u where lower("
@@ -742,11 +764,13 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 				.setParameter("username", "%" + (filter != null ? filter.toLowerCase() : "") + "%").getResultList();
 	}
 
+	@Override
 	public List<String> listRoles() {
 		return lookupEntityManager().createQuery("select r." + roleNameProperty.getName() + " from " + roleClass.getName() + " r")
 				.getResultList();
 	}
 
+	@Override
 	public List<Principal> listMembers(String role) {
 		List<Principal> members = new ArrayList<Principal>();
 
@@ -796,6 +820,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		return new ArrayList<String>();
 	}
 
+	@Override
 	public List<String> listGrantableRoles() {
 		StringBuilder roleQuery = new StringBuilder();
 

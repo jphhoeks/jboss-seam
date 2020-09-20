@@ -8,6 +8,7 @@ abstract class AbstractEntityBeanCollection implements Wrapper {
 		initialized = true;
 	}
 
+	@Override
 	public final void activate() {
 		if (isPassivatedEntitiesInitialized() && isAnyVersioned()) {
 			activateAll();
@@ -17,6 +18,7 @@ abstract class AbstractEntityBeanCollection implements Wrapper {
 		}
 	}
 
+	@Override
 	public final Object getInstance() {
 		if (!initialized && isPassivatedEntitiesInitialized()) {
 			activateAll();
@@ -25,6 +27,7 @@ abstract class AbstractEntityBeanCollection implements Wrapper {
 		return getEntityCollection();
 	}
 
+	@Override
 	public final boolean passivate() {
 		if (PassivatedEntity.isTransactionRolledBackOrMarkedRollback()) {
 			clearPassivatedEntities();

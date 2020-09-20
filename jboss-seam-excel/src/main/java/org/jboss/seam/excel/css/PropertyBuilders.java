@@ -18,6 +18,7 @@ public class PropertyBuilders {
 	}
 
 	public static class ColumnWidths implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			for (int i = 0; i < values.length; i++) {
@@ -55,6 +56,7 @@ public class PropertyBuilders {
 	}
 
 	public static class BorderBottomShorthand implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			for (int i = 0; i < values.length; i++) {
@@ -78,6 +80,7 @@ public class PropertyBuilders {
 	}
 
 	public static class BorderRightShorthand implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			for (int i = 0; i < values.length; i++) {
@@ -101,6 +104,7 @@ public class PropertyBuilders {
 	}
 
 	public static class BorderTopShorthand implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			for (int i = 0; i < values.length; i++) {
@@ -124,6 +128,7 @@ public class PropertyBuilders {
 	}
 
 	public static class BorderLeftShorthand implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			for (int i = 0; i < values.length; i++) {
@@ -141,6 +146,7 @@ public class PropertyBuilders {
 	}
 
 	public static class BorderShorthand implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			for (int i = 0; i < values.length; i++) {
@@ -170,6 +176,7 @@ public class PropertyBuilders {
 	}
 
 	public static class BackgroundShorthand implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			for (int i = 0; i < values.length; i++) {
@@ -231,6 +238,7 @@ public class PropertyBuilders {
 
 	// "12 'Times New Roman'"
 	public static class FontShorthand implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 
@@ -309,6 +317,7 @@ public class PropertyBuilders {
 	}
 
 	private static class StringPropertyBuilder implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
 			styleMap.put(key, values[0]);
@@ -317,6 +326,7 @@ public class PropertyBuilders {
 	}
 
 	private static class IntegerPropertyBuilder implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			String value = values[0];
 			if (!isNumeric(value)) {
@@ -330,6 +340,7 @@ public class PropertyBuilders {
 	}
 
 	private static class BooleanPropertyBuilder implements PropertyBuilder {
+		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			String value = values[0];
 			if (!isBoolean(value)) {

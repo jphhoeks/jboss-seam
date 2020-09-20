@@ -30,10 +30,12 @@ public class SimpleGroup implements Group, Serializable {
 		this.name = name;
 	}
 
+	@Override
 	public boolean addMember(Principal user) {
 		return members.add(user);
 	}
 
+	@Override
 	public boolean isMember(Principal member) {
 		if (members.contains(member)) {
 			return true;
@@ -47,14 +49,17 @@ public class SimpleGroup implements Group, Serializable {
 		return false;
 	}
 
+	@Override
 	public Enumeration<? extends Principal> members() {
 		return Collections.enumeration(members);
 	}
 
+	@Override
 	public boolean removeMember(Principal user) {
 		return members.remove(user);
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}

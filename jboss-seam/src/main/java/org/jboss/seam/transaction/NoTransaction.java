@@ -30,27 +30,33 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @BypassInterceptors
 public class NoTransaction extends AbstractUserTransaction {
 
+	@Override
 	public void begin() throws NotSupportedException, SystemException {
 		throw new UnsupportedOperationException("no transaction");
 	}
 
+	@Override
 	public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, SecurityException,
 			IllegalStateException, SystemException {
 		throw new UnsupportedOperationException("no transaction");
 	}
 
+	@Override
 	public int getStatus() throws SystemException {
 		return Status.STATUS_NO_TRANSACTION;
 	}
 
+	@Override
 	public void rollback() throws IllegalStateException, SecurityException, SystemException {
 		throw new UnsupportedOperationException("no transaction");
 	}
 
+	@Override
 	public void setRollbackOnly() throws IllegalStateException, SystemException {
 		throw new UnsupportedOperationException("no transaction");
 	}
 
+	@Override
 	public void setTransactionTimeout(int timeout) throws SystemException {
 		throw new UnsupportedOperationException("no transaction");
 	}

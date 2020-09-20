@@ -348,16 +348,19 @@ public class MockExternalContext extends ExternalContext {
 
 		public abstract Enumeration<K> keys();
 
+		@Override
 		public V get(Object key) {
 			return getAttribute((String) key);
 		}
 
+		@Override
 		public V put(Object key, Object value) {
 			V result = get(key);
 			setAttribute((String) key, value);
 			return result;
 		}
 
+		@Override
 		public void clear() {
 			Enumeration<K> e = keys();
 			while (e.hasMoreElements()) {
@@ -365,6 +368,7 @@ public class MockExternalContext extends ExternalContext {
 			}
 		}
 
+		@Override
 		public boolean containsKey(Object key) {
 			Enumeration<K> e = keys();
 			while (e.hasMoreElements()) {
@@ -375,6 +379,7 @@ public class MockExternalContext extends ExternalContext {
 			return false;
 		}
 
+		@Override
 		public boolean containsValue(Object value) {
 			Enumeration<K> e = keys();
 			while (e.hasMoreElements()) {
@@ -384,16 +389,19 @@ public class MockExternalContext extends ExternalContext {
 			return false;
 		}
 
+		@Override
 		public Set<Map.Entry<K, V>> entrySet() {
 			throw new UnsupportedOperationException();
 		}
 
 		public abstract V getAttribute(String key);
 
+		@Override
 		public boolean isEmpty() {
 			return size() == 0;
 		}
 
+		@Override
 		public Set<K> keySet() {
 			return new AbstractSet<K>() {
 
@@ -414,18 +422,21 @@ public class MockExternalContext extends ExternalContext {
 
 		public abstract void removeAttribute(String key);
 
+		@Override
 		public void putAll(Map<? extends K, ? extends V> t) {
 			for (Map.Entry<? extends K, ? extends V> me : t.entrySet()) {
 				put(me.getKey(), me.getValue());
 			}
 		}
 
+		@Override
 		public V remove(Object key) {
 			V result = getAttribute((String) key);
 			removeAttribute((String) key);
 			return result;
 		}
 
+		@Override
 		public int size() {
 			int i = 0;
 			Enumeration<K> e = keys();
@@ -436,6 +447,7 @@ public class MockExternalContext extends ExternalContext {
 			return i;
 		}
 
+		@Override
 		public Collection<V> values() {
 			throw new UnsupportedOperationException();
 		}

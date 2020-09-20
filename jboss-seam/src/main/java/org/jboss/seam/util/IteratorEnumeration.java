@@ -12,10 +12,12 @@ public class IteratorEnumeration<T> implements Enumeration<T> {
 		this.iterator = iterator;
 	}
 
+	@Override
 	public boolean hasMoreElements() {
 		return iterator.hasNext();
 	}
 
+	@Override
 	public T nextElement() {
 		return iterator.next();
 	}

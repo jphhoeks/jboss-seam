@@ -159,7 +159,7 @@ public abstract class CacheProvider<T> {
 
 	@SuppressWarnings("unchecked")
 	public static <T> CacheProvider<T> instance(Class<? extends T> type) {
-		return (CacheProvider<T>) instance();
+		return instance();
 	}
 
 }

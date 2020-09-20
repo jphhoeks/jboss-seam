@@ -24,6 +24,7 @@ public class DateWrapper extends BaseWrapper implements Wrapper {
 		return new SimpleDateFormat(DATE_FORMAT);
 	}
 
+	@Override
 	public void marshal(OutputStream out) throws IOException {
 		out.write(DATE_TAG_OPEN);
 		if (Date.class.isAssignableFrom(value.getClass())) {
@@ -34,6 +35,7 @@ public class DateWrapper extends BaseWrapper implements Wrapper {
 		out.write(DATE_TAG_CLOSE);
 	}
 
+	@Override
 	public Object convert(Type type) throws ConversionException {
 		if ((type instanceof Class && Date.class.isAssignableFrom((Class) type)) || type.equals(Object.class)) {
 			try {
@@ -56,6 +58,7 @@ public class DateWrapper extends BaseWrapper implements Wrapper {
 		return value;
 	}
 
+	@Override
 	public ConversionScore conversionScore(Class cls) {
 		if (Date.class.isAssignableFrom(cls) || Calendar.class.isAssignableFrom(cls)) {
 			return ConversionScore.exact;

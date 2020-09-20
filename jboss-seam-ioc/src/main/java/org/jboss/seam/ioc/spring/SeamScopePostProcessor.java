@@ -38,6 +38,7 @@ public class SeamScopePostProcessor implements BeanFactoryPostProcessor, Initial
 	 *
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
 	 */
+	@Override
 	public void afterPropertiesSet() throws Exception {
 		if (prefix == null || "".equals(prefix)) {
 			prefix = DEFAULT_SCOPE_PREFIX;
@@ -49,6 +50,7 @@ public class SeamScopePostProcessor implements BeanFactoryPostProcessor, Initial
 	 *
 	 * @see org.springframework.beans.factory.config.BeanFactoryPostProcessor#postProcessBeanFactory(org.springframework.beans.factory.config.ConfigurableListableBeanFactory)
 	 */
+	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		for (ScopeType scope : ScopeType.values()) {
 			// Don't create a scope for Unspecified

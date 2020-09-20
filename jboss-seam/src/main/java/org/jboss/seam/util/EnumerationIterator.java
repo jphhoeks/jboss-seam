@@ -10,14 +10,17 @@ public class EnumerationIterator<T> implements Iterator<T> {
 		this.e = e;
 	}
 
+	@Override
 	public boolean hasNext() {
 		return e.hasMoreElements();
 	}
 
+	@Override
 	public T next() {
-		return (T) e.nextElement();
+		return e.nextElement();
 	}
 
+	@Override
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}

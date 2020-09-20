@@ -43,6 +43,7 @@ public class EventInterceptor extends AbstractInterceptor {
 	{
 	  Events.instance().raiseEvent("org.jboss.seam.postActivate." + component.getName());
 	}*/
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ctx) throws Exception {
 		Object result = ctx.proceed();
@@ -62,6 +63,7 @@ public class EventInterceptor extends AbstractInterceptor {
 		return result;
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().beanClassHasAnnotation(RaiseEvent.class);
 	}

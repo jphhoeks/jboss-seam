@@ -560,13 +560,16 @@ public class RemotingTest {
 	@Test
 	public void testBaseWrapper() {
 		BaseWrapper wrapper = new BaseWrapper() {
+			@Override
 			public ConversionScore conversionScore(Class cls) {
 				return ConversionScore.nomatch;
 			}
 
+			@Override
 			public void marshal(OutputStream out) {
 			}
 
+			@Override
 			public Object convert(Type type) {
 				return null;
 			}

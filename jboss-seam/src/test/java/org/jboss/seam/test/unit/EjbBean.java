@@ -15,11 +15,18 @@ import org.jboss.seam.annotations.Scope;
 @Scope(ScopeType.EVENT)
 @JndiName("x")
 public class EjbBean implements Ejb {
+	
+	public EjbBean () {
+		super();
+	}
+	
+	@Override
 	public void foo() {
 	}
 
 	@Remove
 	@Destroy
+	@Override
 	public void destroy() {
 	}
 }

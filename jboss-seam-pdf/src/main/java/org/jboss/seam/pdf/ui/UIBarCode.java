@@ -13,14 +13,21 @@ import javax.imageio.ImageIO;
 
 import org.jboss.seam.core.Manager;
 import org.jboss.seam.pdf.ITextUtils;
-import org.jboss.seam.pdf.ui.ITextComponent;
 import org.jboss.seam.ui.graphicImage.GraphicImageResource;
 import org.jboss.seam.ui.graphicImage.GraphicImageStore;
 import org.jboss.seam.ui.graphicImage.GraphicImageStore.ImageWrapper;
 import org.jboss.seam.ui.graphicImage.Image.Type;
 
 import com.lowagie.text.Image;
-import com.lowagie.text.pdf.*;
+import com.lowagie.text.pdf.Barcode;
+import com.lowagie.text.pdf.Barcode128;
+import com.lowagie.text.pdf.Barcode39;
+import com.lowagie.text.pdf.BarcodeCodabar;
+import com.lowagie.text.pdf.BarcodeEAN;
+import com.lowagie.text.pdf.BarcodeInter25;
+import com.lowagie.text.pdf.BarcodePostnet;
+import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfWriter;
 
 /**
  * based on JBSEAM-1155 submission by user ivan
@@ -267,17 +274,17 @@ public class UIBarCode extends ITextComponent {
 			return new Barcode128();
 		}
 
-		if (barcodeType.equalsIgnoreCase("code128")) {
+		if ("code128".equalsIgnoreCase(barcodeType)) {
 			return new Barcode128();
-		} else if (barcodeType.equalsIgnoreCase("code39")) {
+		} else if ("code39".equalsIgnoreCase(barcodeType)) {
 			return new Barcode39();
-		} else if (barcodeType.equalsIgnoreCase("codabar")) {
+		} else if ("codabar".equalsIgnoreCase(barcodeType)) {
 			return new BarcodeCodabar();
-		} else if (barcodeType.equalsIgnoreCase("ean")) {
+		} else if ("ean".equalsIgnoreCase(barcodeType)) {
 			return new BarcodeEAN();
-		} else if (barcodeType.equalsIgnoreCase("inter25")) {
+		} else if ("inter25".equalsIgnoreCase(barcodeType)) {
 			return new BarcodeInter25();
-		} else if (barcodeType.equalsIgnoreCase("postnet")) {
+		} else if ("postnet".equalsIgnoreCase(barcodeType)) {
 			return new BarcodePostnet();
 		}
 		throw new RuntimeException("Unknown barcode type " + barcodeType);

@@ -86,7 +86,7 @@ public class UIHtmlText extends ITextComponent implements ValueHolder {
 		if (value != null) {
 			try {
 				return ctx.getApplication().createConverter(value.getClass());
-			} catch (FacesException e) {
+			} catch (FacesException ignored) {
 				// no converter defined - no problem
 			}
 		}
@@ -113,22 +113,27 @@ public class UIHtmlText extends ITextComponent implements ValueHolder {
 		throw new RuntimeException("illegal child element");
 	}
 
+	@Override
 	public Converter getConverter() {
 		return converter;
 	}
 
+	@Override
 	public void setConverter(Converter converter) {
 		this.converter = converter;
 	}
 
+	@Override
 	public Object getValue() {
 		return valueBinding(FacesContext.getCurrentInstance(), "value", localValue);
 	}
 
+	@Override
 	public void setValue(Object value) {
 		this.localValue = value;
 	}
 
+	@Override
 	public Object getLocalValue() {
 		return localValue;
 	}

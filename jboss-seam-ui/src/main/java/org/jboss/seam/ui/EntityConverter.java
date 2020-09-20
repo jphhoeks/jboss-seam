@@ -46,6 +46,7 @@ public class EntityConverter implements javax.faces.convert.Converter, Serializa
 		this.entityLoader = entityLoader;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public String getAsString(FacesContext facesContext, UIComponent cmp, Object value) throws ConverterException {
@@ -58,6 +59,7 @@ public class EntityConverter implements javax.faces.convert.Converter, Serializa
 		return getEntityLoader().put(value);
 	}
 
+	@Override
 	@Transactional
 	public Object getAsObject(FacesContext facesContext, UIComponent cmp, String value) throws ConverterException {
 		if (value == null || value.length() == 0) {

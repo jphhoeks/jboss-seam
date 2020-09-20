@@ -94,6 +94,7 @@ public class AuthenticationFilter extends AbstractFilter {
 		this.nonceValiditySeconds = value;
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, final FilterChain chain) throws IOException, ServletException {
 		if (!(request instanceof HttpServletRequest)) {
 			throw new ServletException("This filter can only process HttpServletRequest requests");

@@ -38,6 +38,7 @@ public class ManagedWorkingMemory implements Mutable, Serializable {
 	private StatefulSession statefulSession;
 	private ValueExpression<RuleBase> ruleBase;
 
+	@Override
 	public boolean clearDirty() {
 		return true;
 	}
@@ -49,6 +50,7 @@ public class ManagedWorkingMemory implements Mutable, Serializable {
 	* @return a context variable name
 	* @deprecated
 	*/
+	@Deprecated
 	public String getRuleBaseName() {
 		return ruleBaseName;
 	}
@@ -60,6 +62,7 @@ public class ManagedWorkingMemory implements Mutable, Serializable {
 	* @param ruleBaseName a context variable name
 	* @deprecated
 	*/
+	@Deprecated
 	public void setRuleBaseName(String ruleBaseName) {
 		this.ruleBaseName = ruleBaseName;
 	}

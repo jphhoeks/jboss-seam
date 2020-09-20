@@ -43,6 +43,7 @@ public class ModelValidator implements IValidator {
 	/**
 	* Do the validation, normally called by Wicket
 	*/
+	@Override
 	public void validate(IValidatable validatable) {
 		ClassValidator<?> classValidator = Validators.instance().getValidator(clazz);
 		Set<?> invalidValues = classValidator.getPotentialInvalidValues(property, validatable.getValue());

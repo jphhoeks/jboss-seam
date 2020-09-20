@@ -29,32 +29,39 @@ public class ServletRequestSessionMap implements Map<String, Object> {
 		this.request = request;
 	}
 
+	@Override
 	public void clear() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public boolean containsKey(Object key) {
 		HttpSession session = request.getSession(false);
 		return session == null ? false : session.getAttribute((String) key) != null;
 	}
 
+	@Override
 	public boolean containsValue(Object value) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Set<java.util.Map.Entry<String, Object>> entrySet() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Object get(Object key) {
 		HttpSession session = request.getSession(false);
 		return session == null ? null : session.getAttribute((String) key);
 	}
 
+	@Override
 	public boolean isEmpty() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Set<String> keySet() {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
@@ -69,6 +76,7 @@ public class ServletRequestSessionMap implements Map<String, Object> {
 		}
 	}
 
+	@Override
 	public Object put(String key, Object value) {
 		HttpSession session = request.getSession(true);
 		Object result = session.getAttribute(key);
@@ -76,10 +84,12 @@ public class ServletRequestSessionMap implements Map<String, Object> {
 		return result;
 	}
 
+	@Override
 	public void putAll(Map<? extends String, ? extends Object> t) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Object remove(Object key) {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
@@ -91,10 +101,12 @@ public class ServletRequestSessionMap implements Map<String, Object> {
 		}
 	}
 
+	@Override
 	public int size() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Collection<Object> values() {
 		throw new UnsupportedOperationException();
 	}

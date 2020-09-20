@@ -78,21 +78,25 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
 
 	// -------- StateHolder methods -------------------------------------------    
 
+	@Override
 	public void restoreState(FacesContext context, Object state) {
 		if (state != null)
 			methodExpression = (MethodExpression) state;
 	}
 
+	@Override
 	public Object saveState(FacesContext context) {
 		if (!isTransient)
 			return methodExpression;
 		return null;
 	}
 
+	@Override
 	public void setTransient(boolean newTransientValue) {
 		isTransient = newTransientValue;
 	}
 
+	@Override
 	public boolean isTransient() {
 		return isTransient;
 	}

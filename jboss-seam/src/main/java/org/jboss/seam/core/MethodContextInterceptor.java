@@ -25,6 +25,7 @@ import org.jboss.seam.security.SecurityInterceptor;
 public class MethodContextInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 6833040683938889232L;
 
+	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ctx) throws Exception {
 		Component comp = getComponent();
@@ -45,6 +46,7 @@ public class MethodContextInterceptor extends AbstractInterceptor {
 		}
 	}
 
+	@Override
 	public boolean isInterceptorEnabled() {
 		return getComponent().getType() != ENTITY_BEAN;
 	}

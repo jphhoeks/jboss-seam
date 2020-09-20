@@ -47,6 +47,7 @@ public class ExecutionHandler extends BaseRequestHandler implements RequestHandl
 	 * @param response HttpServletResponse
 	 * @throws Exception
 	 */
+	@Override
 	public void handle(HttpServletRequest request, final HttpServletResponse response) throws Exception {
 		// We're sending an XML response, so set the response content type to text/xml
 		response.setContentType("text/xml");
@@ -162,7 +163,7 @@ public class ExecutionHandler extends BaseRequestHandler implements RequestHandl
 				while (iter.hasNext()) {
 					Element param = (Element) iter.next();
 
-					call.addParameter(call.getContext().createWrapperFromElement((Element) param.elementIterator().next()));
+					call.addParameter(call.getContext().createWrapperFromElement(param.elementIterator().next()));
 				}
 
 				calls.add(call);

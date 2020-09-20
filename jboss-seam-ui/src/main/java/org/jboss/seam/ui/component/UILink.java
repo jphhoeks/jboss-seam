@@ -52,15 +52,19 @@ public abstract class UILink extends UISeamCommandBase {
 
 	public abstract void setDisabled(boolean disabled);
 
+	@Override
 	@Attribute(description = @Description("the JSF view id to link to."))
 	public abstract String getView();
 
+	@Override
 	@Attribute(description = @Description("a pageflow definition to begin. (This is only useful when propagation=\"begin\" or propagation=\"join\".)"))
 	public abstract String getPageflow();
 
+	@Override
 	@Attribute(defaultValue = "default", description = @Description("determines the conversation propagation style: begin, join, nest, none, end or endRoot."))
 	public abstract String getPropagation();
 
+	@Override
 	@Attribute(description = @Description("the fragment identifier to link to."))
 	public abstract String getFragment();
 
@@ -73,9 +77,11 @@ public abstract class UILink extends UISeamCommandBase {
 	@Attribute(description = @Description("Specify the task to operate on (e.g. for @StartTask)"))
 	public abstract Object getTaskInstance();
 
+	@Override
 	@Attribute(description = @Description("The name of the conversation for natural conversations"))
 	public abstract String getConversationName();
 
+	@Override
 	@Attribute(defaultValue = "true", description = @Description("Include page parameters defined in pages.xml when rendering the button"))
 	public abstract boolean isIncludePageParams();
 }

@@ -7,5 +7,6 @@ package org.jboss.seam.web;
  * @author Shane Bryzak
  *
  */
+@Deprecated
 public class SeamFilter extends org.jboss.seam.servlet.SeamFilter {
 }

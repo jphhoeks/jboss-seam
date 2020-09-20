@@ -32,6 +32,7 @@ public class ConversationInterceptor<T> implements StatelessInterceptor<T> {
 
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void beforeInvoke(InvocationContext<T> invocationContext) {
 		if (invocationContext.getComponent().isConversationManagementMethod(invocationContext.getAccessibleObject())) {
 			if (isMissingJoin(invocationContext)) {
@@ -44,6 +45,7 @@ public class ConversationInterceptor<T> implements StatelessInterceptor<T> {
 		}
 	}
 
+	@Override
 	public Object afterInvoke(InvocationContext<T> invocationContext, Object result) {
 		if (invocationContext.getComponent().isConversationManagementMethod(invocationContext.getAccessibleObject())) {
 			beginConversationIfNecessary(invocationContext, result);
@@ -52,6 +54,7 @@ public class ConversationInterceptor<T> implements StatelessInterceptor<T> {
 		return result;
 	}
 
+	@Override
 	public Exception handleException(InvocationContext<T> invocationContext, Exception exception) {
 		if (isEndConversationRequired(exception)) {
 			endConversation(false);

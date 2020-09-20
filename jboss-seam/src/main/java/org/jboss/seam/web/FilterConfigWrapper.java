@@ -22,10 +22,12 @@ public class FilterConfigWrapper implements FilterConfig {
 		this.parameters = parameters;
 	}
 
+	@Override
 	public String getFilterName() {
 		return delegate.getFilterName();
 	}
 
+	@Override
 	public String getInitParameter(String name) {
 		if (parameters.containsKey(name)) {
 			return parameters.get(name);
@@ -34,12 +36,14 @@ public class FilterConfigWrapper implements FilterConfig {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Enumeration<String> getInitParameterNames() {
 		Enumeration[] enumerations = { delegate.getInitParameterNames(), Collections.enumeration(parameters.keySet()) };
 		return new EnumerationEnumeration<String>(enumerations);
 	}
 
+	@Override
 	public ServletContext getServletContext() {
 		return delegate.getServletContext();
 	}
