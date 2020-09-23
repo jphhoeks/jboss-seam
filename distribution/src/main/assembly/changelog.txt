@@ -3,7 +3,7 @@ JBoss Seam Changelog
 
 Release Notes - Seam 2 - Unreleased
 
-	* [ ] Upgrade OpenPDF to 1.3.21
+	* [ ] Upgrade OpenPDF to 1.3.22
 
 
 Release Notes - Seam 2 - Version 2.3.23.ayg 2020-08-10
