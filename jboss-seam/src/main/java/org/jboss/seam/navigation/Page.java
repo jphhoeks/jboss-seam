@@ -294,7 +294,7 @@ public final class Page {
 		}
 
 		if (expires != null) {
-			Header.sendHeader(response, "Expires", rfc1123Date(new Date(System.currentTimeMillis() + expires * 1000)));
+			Header.sendHeader(response, "Expires", rfc1123Date(new Date(System.currentTimeMillis() + (long) expires * 1000L)));
 		}
 	}
 

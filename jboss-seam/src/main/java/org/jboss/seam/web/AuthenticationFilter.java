@@ -246,7 +246,7 @@ public class AuthenticationFilter extends AbstractFilter {
 		}
 
 		if ((requireAuth && !identity.isLoggedIn())) {
-			long expiryTime = System.currentTimeMillis() + (nonceValiditySeconds * 1000);
+			long expiryTime = System.currentTimeMillis() + ((long)nonceValiditySeconds * 1000L);
 
 			String signatureValue = DigestUtils.md5Hex(expiryTime + ":" + key);
 			String nonceValue = expiryTime + ":" + signatureValue;
