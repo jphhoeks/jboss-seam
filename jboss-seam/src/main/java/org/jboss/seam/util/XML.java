@@ -21,7 +21,7 @@ public class XML {
 			saxReader.setMergeAdjacentText(true);
 			return saxReader.read(stream).getRootElement();
 		} catch (DocumentException e) {
-			Throwable nested = e.getNestedException();
+			Throwable nested = e.getCause();
 			if (nested != null) {
 				if (nested instanceof FileNotFoundException) {
 					throw new RuntimeException("Can't find schema/DTD reference: " + nested.getMessage(), e);
