@@ -69,7 +69,7 @@
 
         <!-- Test frameworks -->
 
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13.1</version.junit>
         <version.org.testng>6.14.3</version.org.testng>
         
         <!-- Versions of Arquillian and Shrinkwrap -->
