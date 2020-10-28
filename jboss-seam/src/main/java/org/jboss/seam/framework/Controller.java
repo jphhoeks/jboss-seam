@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.Component;
@@ -15,9 +16,9 @@ import org.jboss.seam.core.ClassValidator;
 import org.jboss.seam.core.Conversation;
 import org.jboss.seam.core.Events;
 import org.jboss.seam.core.Expressions;
+import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.core.Interpolator;
 import org.jboss.seam.core.Validators;
-import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.faces.HttpError;
 import org.jboss.seam.faces.Redirect;
@@ -87,6 +88,10 @@ public abstract class Controller implements Serializable {
 	}
 
 	protected void addCookie(Cookie cookie) {
+		boolean isSecure = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).isSecure();
+		if (isSecure) {
+			cookie.setSecure(true);
+		}
 		((HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse()).addCookie(cookie);
 	}
 

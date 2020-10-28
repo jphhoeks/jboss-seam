@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.core.AbstractMutable;
@@ -86,6 +87,7 @@ public abstract class Selector extends AbstractMutable implements Serializable {
 			cookie.setValue(null);
 			cookie.setPath(cookiePath);
 			cookie.setMaxAge(0);
+			cookie.setSecure(isSecure());
 			response.addCookie(cookie);
 		}
 	}
@@ -101,7 +103,12 @@ public abstract class Selector extends AbstractMutable implements Serializable {
 			Cookie cookie = new Cookie(getCookieName(), value);
 			cookie.setMaxAge(getCookieMaxAge());
 			cookie.setPath(cookiePath);
+			cookie.setSecure(isSecure());
 			response.addCookie(cookie);
 		}
+	}
+	
+	private boolean isSecure() {
+		return ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).isSecure();
 	}
 }
