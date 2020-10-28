@@ -152,12 +152,8 @@ public final class Param {
 			}
 			return null;
 		}
-
-		if (parameterValues.length > 1) {
-			throw new IllegalArgumentException("page parameter may not be multi-valued: " + getName());
-		}
-
-		String value = parameterValues[0];
+		
+		String value = getValue(parameterValues);
 
 		// if the length is zero and the parameter is required, treat the value as
 		// missing (and report it as null); this differs from how JSF handles inputs
@@ -169,6 +165,16 @@ public final class Param {
 		}
 
 		return value;
+	}
+
+	private String getValue(String[] parameterValues) {
+		String firstValue = parameterValues[0];
+		for (int i = 1; i < parameterValues.length; i++) {
+			if (!firstValue.equals(parameterValues[i])) {
+				throw new IllegalArgumentException("page parameter may not be multi-valued: " + getName());
+			}
+		}
+		return firstValue;
 	}
 
 	/**

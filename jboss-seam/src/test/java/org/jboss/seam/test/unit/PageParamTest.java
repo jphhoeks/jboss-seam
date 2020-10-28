@@ -1,14 +1,16 @@
 package org.jboss.seam.test.unit;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.IntegerConverter;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-
 import javax.validation.constraints.Size;
+
 import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.core.Expressions;
 import org.jboss.seam.core.Validators;
@@ -23,6 +25,11 @@ import org.testng.annotations.Test;
  * @author Dan Allen
  */
 public class PageParamTest extends AbstractPageTest {
+	
+	public PageParamTest() {
+		super();
+	}
+	
 	@Test
 	public void testGetConverterById() {
 		String converterId = "javax.faces.Integer";
@@ -75,6 +82,32 @@ public class PageParamTest extends AbstractPageTest {
 	@Test
 	public void testValidateModelDisabled() {
 		setupParamToValidate(true).validateConvertedValue(FacesContext.getCurrentInstance(), "a");
+	}
+	
+	@Test
+	public void testSingleParametersValues() {
+		Param param = new Param("param");
+		Map<String, String[]> requestParams = new HashMap<>();
+		requestParams.put("param", new String[] {"0"});		
+		String result = param.getStringValueFromRequest(FacesContext.getCurrentInstance(), requestParams);
+		assert "0".equals(result);
+	}
+	
+	@Test
+	public void testMultipleEqualsParametersValues() {
+		Param param = new Param("param");
+		Map<String, String[]> requestParams = new HashMap<>();
+		requestParams.put("param", new String[] {"0", "0"});		
+		String result = param.getStringValueFromRequest(FacesContext.getCurrentInstance(), requestParams);
+		assert "0".equals(result);
+	}
+	
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void testMultipleDistinctParameters() {
+		Param param = new Param("param");
+		Map<String, String[]> requestParams = new HashMap<>();
+		requestParams.put("param", new String[] {"0", "1"});		
+		param.getStringValueFromRequest(FacesContext.getCurrentInstance(), requestParams);
 	}
 
 	protected Param setupParamToValidate(boolean disableModelValidator) {
