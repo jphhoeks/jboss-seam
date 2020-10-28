@@ -221,7 +221,7 @@ public abstract class ConditionalAbstractResource extends AbstractResource {
 	protected String createEntityTag(byte[] hashSource, boolean weak) {
 		if (hashSource == null)
 			return null;
-		return (weak ? "W/\"" : "\"") + hash(hashSource, "MD5") + "\"";
+		return (weak ? "W/\"" : "\"") + hash(hashSource, "SHA-256") + "\"";
 	}
 
 	protected String hash(String text, String charset, String algorithm) {
