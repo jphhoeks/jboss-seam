@@ -128,7 +128,7 @@ public class Exceptions {
 			exceptionHandlers.add(handler);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	private ExceptionHandler parse(String fileName) throws DocumentException, ClassNotFoundException {
 		ExceptionHandler anyhandler = null;
 		InputStream stream = ResourceLoader.instance().getResourceAsStream(fileName);

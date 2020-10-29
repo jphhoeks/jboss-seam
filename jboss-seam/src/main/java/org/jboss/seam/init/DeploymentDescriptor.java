@@ -2,7 +2,6 @@ package org.jboss.seam.init;
 
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.dom4j.DocumentException;
@@ -53,7 +52,7 @@ public class DeploymentDescriptor {
 		return ejbDescriptors;
 	}
 
-	@SuppressWarnings("unchecked")
+
 	private void parseEjbJarXml(Element root) {
 
 		Element beans = root.element("enterprise-beans");
@@ -83,7 +82,7 @@ public class DeploymentDescriptor {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+
 	private void parseOrmXml(Element root) {
 		String packagePrefix = "";
 

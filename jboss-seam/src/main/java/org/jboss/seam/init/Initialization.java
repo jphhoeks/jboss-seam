@@ -240,7 +240,6 @@ public class Initialization {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Element> elements(Element rootElement, String name) {
 		return rootElement.elements(name);
 	}
@@ -380,7 +379,6 @@ public class Initialization {
 		return descriptor;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void installEventListenerFromXmlElement(Element event) {
 		String type = event.attributeValue("type");
 		if (type == null) {
@@ -432,7 +430,6 @@ public class Initialization {
 		return value;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void installComponentFromXmlElement(Element component, String name1, String className, Properties replacements)
 			throws ClassNotFoundException {
 		String name = name1;
@@ -597,7 +594,6 @@ public class Initialization {
 		return new Conversions.FlatPropertyValue(trimmedText(prop, replacements));
 	}
 
-	@SuppressWarnings("unchecked")
 	private Conversions.PropertyValue getPropertyValue(Element prop, String propName, Properties replacements) {
 		String typeName = prop.attributeValue("type");
 		Class<?> type = null;
