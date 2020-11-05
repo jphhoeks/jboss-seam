@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>jboss-seam-parent</artifactId>
@@ -6,23 +8,24 @@
 		<version>2.3.24-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	
+
 	<artifactId>seam-reference-guide</artifactId>
 	<name>Seam Reference Guide</name>
 	<packaging>jar</packaging>
 
 	<build>
 		<defaultGoal>process-classes</defaultGoal>
-        <!-- this filters docbook xml files to replace project.version with real Seam version -->
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/docbook</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-        </resources>
+		<!-- this filters docbook xml files to replace project.version with real 
+			Seam version -->
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/docbook</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -102,13 +105,14 @@
 						<version>${jbossorg.docbook.version}</version>
 						<type>jdocbook-style</type>
 					</dependency>
-					 <dependency>
-			            <!-- DocBook (this is the version used, unless user project imports one...) -->
-			            <groupId>net.sf.docbook</groupId>
-			            <artifactId>docbook</artifactId>
-			            <version>1.74.0</version>
-			        </dependency>
-					
+					<dependency>
+						<!-- DocBook (this is the version used, unless user project imports 
+							one...) -->
+						<groupId>net.sf.docbook</groupId>
+						<artifactId>docbook</artifactId>
+						<version>1.74.0</version>
+					</dependency>
+
 				</dependencies>
 				<configuration>
 					<sourceDirectory>${project.build.outputDirectory}</sourceDirectory>
@@ -139,22 +143,37 @@
 						</format>
 					</formats>
 					<options>
-	                  <xincludeSupported>true</xincludeSupported>
-	                  <xmlTransformerType>saxon</xmlTransformerType>
-	                  <applyStandardInjectionValues>false</applyStandardInjectionValues>
-	                  <docbookVersion>1.72.0</docbookVersion>
-	                  <transformerParameters>
-	                     <property>
-	                        <name>javax.xml.parsers.DocumentBuilderFactory</name>
-	                        <value>org.apache.xerces.jaxp.DocumentBuilderFactoryImpl</value>
-	                     </property>
-	                     <property>
-	                        <name>javax.xml.parsers.SAXParserFactory</name>
-	                        <value>org.apache.xerces.jaxp.SAXParserFactoryImpl</value>
-	                     </property>
-	                  </transformerParameters>
-	                  <localeSeparator>-</localeSeparator>
-                    </options>
+						<xincludeSupported>true</xincludeSupported>
+						<xmlTransformerType>saxon</xmlTransformerType>
+						<applyStandardInjectionValues>false</applyStandardInjectionValues>
+						<docbookVersion>1.72.0</docbookVersion>
+						<transformerParameters>
+							<property>
+								<name>javax.xml.parsers.DocumentBuilderFactory</name>
+								<value>org.apache.xerces.jaxp.DocumentBuilderFactoryImpl</value>
+							</property>
+							<property>
+								<name>javax.xml.parsers.SAXParserFactory</name>
+								<value>org.apache.xerces.jaxp.SAXParserFactoryImpl</value>
+							</property>
+						</transformerParameters>
+						<localeSeparator>-</localeSeparator>
+					</options>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 		</plugins>

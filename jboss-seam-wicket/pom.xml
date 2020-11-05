@@ -67,18 +67,6 @@
 	<build>
     	<plugins>
             <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
-                    <!-- this is false by default, forces the plugin to generate the git.properties file -->
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                    <!-- The path for the properties file to be generated. See Super Pom for default variable reference https://maven.apache.org/guides/introduction/introduction-to-the-pom.html -->
-                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
