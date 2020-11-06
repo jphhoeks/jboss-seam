@@ -11,7 +11,7 @@
 	<groupId>com.github.albfernandez.seam</groupId>
 	<artifactId>jboss-seam-parent</artifactId>
 	<name>Seam Parent</name>
-	<version>2.3.24-SNAPSHOT</version>
+	<version>2.3.24.ayg</version>
 	<packaging>pom</packaging>
 
 	<licenses>
@@ -71,7 +71,7 @@
 		<pdf.name>${project.artifactId}.pdf</pdf.name>
 
 		<!-- Version string properties -->
-        <version.seam>2.3.24-SNAPSHOT</version.seam>
+        <version.seam>2.3.24.ayg</version.seam>
 		<version.jbossas7>7.2.0.Final</version.jbossas7>
 		<version.wildfly>10.1.0.Final</version.wildfly>
 		<version.emma>2.0.5312</version.emma>
@@ -337,24 +337,21 @@
 		<finalName>${project.artifactId}</finalName>
 		<pluginManagement>
 			<plugins>
-                <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                        <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                        <!-- this is false by default, forces the plugin to generate the git.properties file -->
-                        <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                        <!-- The path for the properties file to be generated. See Super Pom for default variable reference https://maven.apache.org/guides/introduction/introduction-to-the-pom.html -->
-                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
-                    </configuration>
-                </plugin>
                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <configuration>
                     	<source>7</source>
-                       <additionalparam>${javadoc.opts}</additionalparam>
+						<links>
+	                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
+	                    </links>
+                        <keywords>true</keywords>
+                        <quiet>true</quiet>
+                        <!-- Solves issues related to link lookups for all
+                        modules, even those that do not need it, that
+                        was slowing builds down.  If removed review
+                        full build. -->
+                        <detectOfflineLinks>false</detectOfflineLinks>
                     </configuration>
                 </plugin>
 				<!-- just for jboss-seam core as it is EJB type not jar -->
@@ -586,7 +583,23 @@
                     </execution>
                 </executions>
             </plugin>
-
+			<plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                    	<source>7</source>
+						<links>
+	                        <link>https://docs.oracle.com/javase/7/docs/api/</link>
+	                    </links>
+                        <keywords>true</keywords>
+                        <quiet>true</quiet>
+                        <!-- Solves issues related to link lookups for all
+                        modules, even those that do not need it, that
+                        was slowing builds down.  If removed review
+                        full build. -->
+                        <detectOfflineLinks>false</detectOfflineLinks>
+                    </configuration>
+                </plugin>
             <!-- Packaging -->
             <plugin>
                <artifactId>maven-jar-plugin</artifactId>

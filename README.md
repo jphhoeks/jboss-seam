@@ -33,6 +33,45 @@ nd very little XML.
 Seam's unique support for conversations and declarative state management can introduce a more sophisticated user 
 experience while at the same time eliminating common bugs found in traditional web applications. 
 
+## Maven import
+
+To use seam in your application via maven simply add the following dependency to your ``pom.xml`` file:
+
+```xml
+
+<dependency>
+    <groupId>com.github.albfernandez.seam</groupId>
+    <artifactId>jboss-seam</artifactId>
+    <version>2.3.14.ayg</version>
+</dependency>
+<dependency>
+    <groupId>com.github.albfernandez.seam</groupId>
+    <artifactId>jboss-seam-ui</artifactId>
+    <version>2.3.14.ayg</version>
+</dependency>
+
+<!-- 
+
+Add more modules if you need them: 
+
+jboss-seam
+jboss-seam-ui
+jboss-seam-debug
+jboss-seam-excel
+jboss-seam-flex
+jboss-seam-mail
+jboss-seam-pdf
+jboss-seam-remoting
+jboss-seam-resteasy
+jboss-seam-rss
+jboss-seam-wicket
+jboss-seam-ioc
+
+-->
+```
+
+
+
 ## Get Up And Running Quick
 
 1. Install JBoss AS 7.1.1.Final  
