@@ -32,7 +32,7 @@ git push --tags
 ```bash
 # change release in poms and distribution/src/assembly/changelog.txt
 git add -A
-git commit -m 'Next release cycle'
+git commit -S -m 'Next release cycle'
 git push
 ```
 
