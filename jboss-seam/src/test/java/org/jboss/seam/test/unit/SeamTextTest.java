@@ -12,6 +12,5 @@ public class SeamTextTest {
 		SeamTextLexer lexer = new SeamTextLexer(r);
 		SeamTextParser parser = new SeamTextParser(lexer);
 		parser.startRule();
-		System.out.println(parser);
 	}
 }

@@ -439,22 +439,25 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain,
 			byte[] classfileBuffer) throws IllegalClassFormatException {
 		int index = className.lastIndexOf("/");
-		if (index < 1)
+		if (index < 1) {
 			return null;
+		}
 		String packageName = className.substring(0, index);
 		do {
 			if (packagesToInstrument.contains(packageName) && !className.contains("_javassist_")) {
 				try {
 					CtClass clazz = classPool.get(className);
-					if (clazz.isModified())
+					if (clazz.isModified()) {
 						return clazz.toBytecode();
+					}
 					clazz = instrumentClass(classfileBuffer);
-					if (clazz == null)
+					if (clazz == null) {
 						return null;
-					else
+					}
+					else {
 						return clazz.toBytecode();
+					}
 				} catch (Exception e) {
-					e.printStackTrace();
 					throw new RuntimeException(e);
 				}
 			}
@@ -494,8 +497,9 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 		String list = System.getProperty("org.jboss.seam.wicket.instrumented-packages");
 		String scanAnnotationsProperty = System.getProperty("org.jboss.seam.wicket.scanAnnotations");
 		boolean scanAnnotations = scanAnnotationsProperty == null ? false : scanAnnotationsProperty.equals("true");
-		if (list == null)
+		if (list == null) {
 			return;
+		}
 		for (String packageName : list.split(",")) {
 			packagesToInstrument.add(packageName.replaceAll("\\.", "/"));
 		}

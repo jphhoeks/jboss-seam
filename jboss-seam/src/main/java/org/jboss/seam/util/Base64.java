@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -344,40 +345,8 @@ public class Base64 {
 	private Base64() {
 	}
 
-	/**
-	 * Encodes or decodes two files from the command line;
-	 * <strong>feel free to delete this method (in fact you probably should)
-	 * if you're embedding this code into a larger program.</strong>
-	 */
-	public final static void main(String[] args) {
-		if (args.length < 3) {
-			usage("Not enough arguments.");
-		} // end if: args.length < 3
-		else {
-			String flag = args[0];
-			String infile = args[1];
-			String outfile = args[2];
-			if (flag.equals("-e")) {
-				Base64.encodeFileToFile(infile, outfile);
-			} // end if: encode
-			else if (flag.equals("-d")) {
-				Base64.decodeFileToFile(infile, outfile);
-			} // end else if: decode    
-			else {
-				usage("Unknown flag: " + flag);
-			} // end else    
-		} // end else
-	} // end main
 
-	/**
-	 * Prints command line usage.
-	 *
-	 * @param msg A message to include with usage info.
-	 */
-	private static void usage(String msg) {
-		System.err.println(msg);
-		System.err.println("Usage: java Base64 -e|-d inputfile outputfile");
-	} // end usage
+
 
 	/* ********  E N C O D I N G   M E T H O D S  ******** */
 
@@ -534,8 +503,7 @@ public class Base64 {
 			oos.writeObject(serializableObject);
 		} // end try
 		catch (IOException e) {
-			e.printStackTrace();
-			return null;
+			throw new UncheckedIOException(e);
 		} // end catch
 		finally {
 			Resources.close(oos, gzos, b64os, baos);
@@ -641,8 +609,7 @@ public class Base64 {
 				gzos.write(source, off, len);
 			} // end try
 			catch (IOException e) {
-				e.printStackTrace();
-				return null;
+				throw new UncheckedIOException(e);
 			} // end catch
 			finally {
 				Resources.close(gzos, b64os, baos);
@@ -924,12 +891,10 @@ public class Base64 {
 			obj = ois.readObject();
 		} // end try
 		catch (IOException e) {
-			e.printStackTrace();
-			obj = null;
+			throw new UncheckedIOException(e);
 		} // end catch
 		catch (java.lang.ClassNotFoundException e) {
-			e.printStackTrace();
-			obj = null;
+			throw new RuntimeException(e);
 		} // end catch
 		finally {
 			Resources.close(bais, ois);
@@ -948,24 +913,21 @@ public class Base64 {
 	 * @since 2.1
 	 */
 	public static boolean encodeToFile(byte[] dataToEncode, String filename) {
-		boolean success = false;
 		Base64.OutputStream bos = null;
 		try {
 			java.io.OutputStream os = new BufferedOutputStream(
 					Files.newOutputStream(new File(filename).toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
 			bos = new Base64.OutputStream(os, Base64.ENCODE);
 			bos.write(dataToEncode);
-			success = true;
 		} // end try
 		catch (IOException e) {
-
-			success = false;
+			throw new UncheckedIOException(e);
 		} // end catch: IOException
 		finally {
 			Resources.close(bos);
 		} // end finally
 
-		return success;
+		return true;
 	} // end encodeToFile
 
 	/**
@@ -978,21 +940,19 @@ public class Base64 {
 	 * @since 2.1
 	 */
 	public static boolean decodeToFile(String dataToDecode, String filename) {
-		boolean success = false;
 		Base64.OutputStream bos = null;
 		try {
 			bos = new Base64.OutputStream(new BufferedOutputStream(Files.newOutputStream(Paths.get(filename))), Base64.DECODE);
 			bos.write(dataToDecode.getBytes(PREFERRED_ENCODING));
-			success = true;
 		} // end try
 		catch (IOException e) {
-			success = false;
-		} // end catch: IOException
+			throw new UncheckedIOException(e);
+		}
 		finally {
 			Resources.close(bos);
 		} // end finally
 
-		return success;
+		return true;
 	} // end decodeToFile
 
 	/**
@@ -1016,8 +976,7 @@ public class Base64 {
 
 			// Check for size of file
 			if (file.length() > Integer.MAX_VALUE) {
-				System.err.println("File is too big for this convenience method (" + file.length() + " bytes).");
-				return null;
+				throw new IllegalArgumentException("File is too big for this convenience method (" + file.length() + " bytes).");
 			} // end if: file too big for int index
 			buffer = new byte[(int) file.length()];
 
@@ -1034,7 +993,7 @@ public class Base64 {
 
 		} // end try
 		catch (IOException e) {
-			System.err.println("Error decoding from file " + filename);
+			throw new UncheckedIOException("Error decoding from file " + filename, e);
 		} // end catch: IOException
 		finally {
 			Resources.close(bis);
@@ -1066,15 +1025,16 @@ public class Base64 {
 			bis = new Base64.InputStream(new java.io.BufferedInputStream(Files.newInputStream(file.toPath())), Base64.ENCODE);
 
 			// Read until done
-			while ((numBytes = bis.read(buffer, length, 4096)) >= 0)
+			while ((numBytes = bis.read(buffer, length, 4096)) >= 0) {
 				length += numBytes;
+			}
 
 			// Save in a variable to return
 			encodedData = new String(buffer, 0, length, Base64.PREFERRED_ENCODING);
 
 		} // end try
 		catch (IOException e) {
-			System.err.println("Error encoding from file " + filename);
+			throw new UncheckedIOException("Error encoding from file " + filename, e);
 		} // end catch: IOException
 		finally {
 			Resources.close(bis);
@@ -1098,7 +1058,7 @@ public class Base64 {
 			out.write(encoded.getBytes("US-ASCII")); // Strict, 7-bit output.
 		} // end try
 		catch (IOException ex) {
-			ex.printStackTrace();
+			throw new UncheckedIOException(ex);
 		} // end catch
 		finally {
 			Resources.close(out);
@@ -1121,7 +1081,7 @@ public class Base64 {
 			out.write(decoded);
 		} // end try
 		catch (IOException ex) {
-			ex.printStackTrace();
+			throw new UncheckedIOException(ex);
 		} // end catch
 		finally {
 			Resources.close(out);
@@ -1240,10 +1200,10 @@ public class Base64 {
 				// Else decoding
 				else {
 					byte[] b4 = new byte[4];
-					int i = 0;
+					int i;
 					for (i = 0; i < 4; i++) {
 						// Read four "meaningful" bytes:
-						int b = 0;
+						int b;
 						do {
 							b = in.read();
 						} while (b >= 0 && decodabet[b & 0x7f] <= WHITE_SPACE_ENC);

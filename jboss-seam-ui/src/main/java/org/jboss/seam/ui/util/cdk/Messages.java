@@ -306,9 +306,5 @@ public class Messages {
 	public static final String INVALID_VALUE = "INVALID_VALUE";
 	public static final String DATASCROLLER_PAGE_MISSING = "DATASCROLLER_PAGE_MISSING";
 
-	public static void main(String[] args) {
-		String m = getMessage(INVALID_ATTRIBUTE_VALUE, "A", "B");
-		System.out.println(m);
-	}
 
 }

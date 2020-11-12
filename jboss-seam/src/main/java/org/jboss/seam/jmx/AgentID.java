@@ -39,23 +39,25 @@ public class AgentID implements ServerConstants {
 	* @return Agent ID string
 	*/
 	public static String create() {
-		String ipAddress = null;
-
-		try {
-			ipAddress = (String) AccessController.doPrivileged(new PrivilegedExceptionAction() {
-				@Override
-				public Object run() throws Exception {
-					return InetAddress.getLocalHost().getHostAddress();
-				}
-			});
-		} catch (PrivilegedActionException e) {
-			ipAddress = "127.0.0.1";
-		}
+		String ipAddress = getIP();
 		// use the VMID to create a more unique ID that can be used to guarantee that this
 		// MBeanServerID is unique across multiple JVMs, even on the same host
 		String vmid = new java.rmi.dgc.VMID().toString().replace(':', 'x').replace('-', 'X') + rand.nextInt(100);
 
 		return ipAddress + "/" + System.currentTimeMillis() + "/" + vmid + "/" + (id.increment());
+	}
+
+	private static String getIP() {
+		try {
+			return AccessController.doPrivileged(new PrivilegedExceptionAction<String>() {
+				@Override
+				public String run() throws Exception {
+					return InetAddress.getLocalHost().getHostAddress();
+				}
+			});
+		} catch (PrivilegedActionException e) {
+			return "127.0.0.1";
+		}
 	}
 
 	/**

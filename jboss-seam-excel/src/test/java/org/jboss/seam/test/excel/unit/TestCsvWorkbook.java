@@ -75,8 +75,6 @@ public class TestCsvWorkbook {
 		byte[] correct = new String("\"A1\",\"\",\"\"\n\"\",\"\",\"C2\"\n").getBytes();
 		byte[] created = wb.getBytes();
 
-		System.out.println(new String(created));
-
 		for (int i = 0; i < created.length; i++) {
 			assert correct[i] == created[i];
 		}
