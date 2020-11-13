@@ -29,11 +29,16 @@ import org.jboss.seam.util.Work;
 @BypassInterceptors
 @Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
 public class ProcessInstance {
+	
+	public ProcessInstance() {
+		super();
+	}
 
 	@Unwrap
 	public org.jbpm.graph.exe.ProcessInstance getProcessInstance() throws Exception {
-		if (!Contexts.isConversationContextActive())
+		if (!Contexts.isConversationContextActive()) {
 			return null;
+		}
 
 		return new Work<org.jbpm.graph.exe.ProcessInstance>() {
 
@@ -56,7 +61,9 @@ public class ProcessInstance {
 
 	public static org.jbpm.graph.exe.ProcessInstance instance() {
 		if (!Contexts.isConversationContextActive() || !BusinessProcess.instance().hasCurrentProcess())
+		 {
 			return null; //so we don't start a txn
+		}
 
 		return (org.jbpm.graph.exe.ProcessInstance) Component.getInstance(ProcessInstance.class, ScopeType.STATELESS);
 	}

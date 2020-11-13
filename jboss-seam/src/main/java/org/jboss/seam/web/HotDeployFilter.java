@@ -30,6 +30,10 @@ import org.jboss.seam.log.Logging;
 public class HotDeployFilter extends AbstractFilter {
 
 	private static LogProvider log = Logging.getLogProvider(HotDeployFilter.class);
+	
+	public HotDeployFilter() {
+		super();
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

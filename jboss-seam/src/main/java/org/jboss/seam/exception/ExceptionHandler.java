@@ -17,6 +17,10 @@ public abstract class ExceptionHandler extends Navigator {
 	private boolean logEnabled;
 	private LogLevel logLevel;
 
+	protected ExceptionHandler() {
+		super();
+	}
+	
 	public abstract void handle(Exception e) throws Exception;
 
 	public abstract boolean isHandler(Exception e);

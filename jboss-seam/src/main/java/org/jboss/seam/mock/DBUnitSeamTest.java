@@ -113,12 +113,20 @@ public abstract class DBUnitSeamTest extends SeamTest {
 
 	private boolean prepared = false;
 
+	protected DBUnitSeamTest() {
+		super();
+	}
+	
+	
 	@BeforeClass
 	@Parameters("datasourceJndiName")
 	public void setDatasourceJndiName(@Optional String datasourceJndiName) {
-		if (datasourceJndiName == null)
+		if (datasourceJndiName == null) {
 			return;
-		log.debug("Setting datasource name: " + datasourceJndiName);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Setting datasource name: " + datasourceJndiName);
+		}
 		this.datasourceJndiName = datasourceJndiName;
 	}
 
@@ -129,9 +137,12 @@ public abstract class DBUnitSeamTest extends SeamTest {
 	@BeforeClass
 	@Parameters("binaryDir")
 	public void setBinaryDir(@Optional String binaryDir) {
-		if (binaryDir == null)
+		if (binaryDir == null) {
 			return;
-		log.debug("Setting binary directory: " + binaryDir);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Setting binary directory: " + binaryDir);
+		}
 		this.binaryDir = binaryDir;
 	}
 
@@ -142,9 +153,12 @@ public abstract class DBUnitSeamTest extends SeamTest {
 	@BeforeClass
 	@Parameters("database")
 	public void setDatabase(@Optional String database) {
-		if (database == null)
+		if (database == null) {
 			return;
-		log.debug("Setting database: " + database);
+		}
+		if (log.isDebugEnabled())  {
+			log.debug("Setting database: " + database);
+		}
 		this.database = Database.valueOf(database.toUpperCase());
 	}
 
@@ -153,9 +167,12 @@ public abstract class DBUnitSeamTest extends SeamTest {
 	@BeforeClass
 	@Parameters("replaceNull")
 	public void setReplaceNull(@Optional Boolean replaceNull) {
-		if (replaceNull == null)
+		if (replaceNull == null) {
 			return;
-		log.debug("Setting replace null: " + replaceNull);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Setting replace null: " + replaceNull);
+		}
 		this.replaceNull = replaceNull;
 	}
 
@@ -189,7 +206,9 @@ public abstract class DBUnitSeamTest extends SeamTest {
 	}
 
 	private void executeOperations(List<DataSetOperation> list) {
-		log.debug("Executing DataSetOperations: " + list.size());
+		if (log.isDebugEnabled()) {
+			log.debug("Executing DataSetOperations: " + list.size());
+		}
 		IDatabaseConnection con = null;
 		try {
 			con = getConnection();
@@ -284,8 +303,9 @@ public abstract class DBUnitSeamTest extends SeamTest {
 		}
 
 		public void prepare(DBUnitSeamTest test) {
-			if (dataSet == null)
+			if (dataSet == null) {
 				return;
+			}
 			log.debug("Preparing DataSetOperation replacement values");
 
 			if (test.isReplaceNull()) {
@@ -293,16 +313,21 @@ public abstract class DBUnitSeamTest extends SeamTest {
 				dataSet.addReplacementObject("[NULL]", null);
 			}
 			if (test.getBinaryDir() != null) {
-				log.debug("Replacing [BINARY_DIR] placeholder with path: " + test.getBinaryDirFullpath().toString());
+				if (log.isDebugEnabled()) {
+					log.debug("Replacing [BINARY_DIR] placeholder with path: " + test.getBinaryDirFullpath().toString());
+				}
 				dataSet.addReplacementSubstring("[BINARY_DIR]", test.getBinaryDirFullpath().toString());
 			}
 		}
 
 		public void execute(IDatabaseConnection connection) {
-			if (dataSet == null || operation == null)
+			if (dataSet == null || operation == null) {
 				return;
+			}
 			try {
-				log.debug("Executing: " + this);
+				if (log.isDebugEnabled()) {
+					log.debug("Executing: " + this);
+				}
 				this.operation.execute(connection, dataSet);
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
@@ -413,6 +438,7 @@ public abstract class DBUnitSeamTest extends SeamTest {
 	* @param operation The operation to be executed, call <tt>getDataSet()</tt> to access the data.
 	*/
 	protected void prepareExecution(IDatabaseConnection con, DataSetOperation operation) {
+		//
 	}
 
 	/**
@@ -422,6 +448,7 @@ public abstract class DBUnitSeamTest extends SeamTest {
 	* @param operation The operation that was executed, call <tt>getDataSet()</tt> to access the data.
 	*/
 	protected void afterExecution(IDatabaseConnection con, DataSetOperation operation) {
+		//
 	}
 
 	/**
@@ -464,6 +491,7 @@ public abstract class DBUnitSeamTest extends SeamTest {
 
 		if (length > Integer.MAX_VALUE) {
 			// File is too large
+			throw new IllegalArgumentException("File is too large: " + file.getName() + " " + length);
 		}
 		return Files.readAllBytes(file.toPath());
 	}

@@ -44,6 +44,7 @@ public class DelegatingServletOutputStream extends ServletOutputStream {
 	 *            the target stream (never <code>null</code>)
 	 */
 	public DelegatingServletOutputStream(OutputStream targetStream) {
+		super();
 		this.targetStream = targetStream;
 	}
 

@@ -20,6 +20,10 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
 @Scope(ScopeType.APPLICATION)
 @Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
 public class PooledTask {
+	
+	public PooledTask() {
+		super();
+	}
 
 	/**
 	* Assign the TaskInstance with the id passed

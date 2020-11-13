@@ -13,6 +13,10 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
  */
 public class DataModelSelector implements DataSelector<DataModelSelection, DataModel> {
 
+	public DataModelSelector() {
+		super();
+	}
+	
 	@Override
 	public String getVariableName(DataModelSelection in) {
 		return in.value();

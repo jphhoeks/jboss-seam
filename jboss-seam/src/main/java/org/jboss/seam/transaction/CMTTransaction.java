@@ -26,6 +26,7 @@ public class CMTTransaction extends AbstractUserTransaction {
 	private final EJBContext ejbContext;
 
 	public CMTTransaction(EJBContext ejbContext) {
+		super();
 		this.ejbContext = ejbContext;
 		if (ejbContext == null) {
 			throw new IllegalArgumentException("null EJBContext");

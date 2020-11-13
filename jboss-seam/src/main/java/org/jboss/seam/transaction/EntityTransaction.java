@@ -42,6 +42,10 @@ public class EntityTransaction extends AbstractUserTransaction {
 	private ValueExpression<EntityManager> entityManager;
 	private EntityManager currentEntityManager;
 
+	public EntityTransaction() {
+		super();
+	}
+	
 	@Create
 	public void validate() {
 		if (entityManager == null) {

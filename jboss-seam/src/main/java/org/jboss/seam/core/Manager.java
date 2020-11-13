@@ -11,10 +11,10 @@ import static org.jboss.seam.annotations.Install.BUILT_IN;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ConcurrentRequestTimeoutException;
@@ -66,7 +66,7 @@ public class Manager {
 
 	private boolean destroyBeforeRedirect;
 
-	private int conversationTimeout = 600000; //10 mins
+	private int conversationTimeout = 600_000; //10 mins
 	private int concurrentRequestTimeout = 1000; //one second
 
 	private String conversationIdParameter = "conversationId";
@@ -75,7 +75,15 @@ public class Manager {
 	private String URIEncoding = DEFAULT_ENCODING;
 
 	private FlushModeType defaultFlushMode;
+	
+	// two reasons for this: 
+	// (1) a cache
+	// (2) so we can unlock() it after destruction of the session context 
+	private ConversationEntry currentConversationEntry;
 
+	public Manager() {
+		super();
+	}
 	/**
 	* Kills all conversations except the current one 
 	*/
@@ -91,7 +99,9 @@ public class Manager {
 				// current conversation entry will be null if , kill-all is called
 				// inside a new @Begin
 				if (getCurrentConversationEntry() == null || !getCurrentConversationIdStack().contains(conversationEntry.getId())) {
-					log.debug("Kill all other conversations, executed: kill conversation id = " + conversationEntry.getId());
+					if (log.isDebugEnabled()) {
+						log.debug("Kill all other conversations, executed: kill conversation id = " + conversationEntry.getId());
+					}
 
 					boolean locked = conversationEntry.lockNoWait(); // we had better
 					// not wait for it, or we would be waiting for ALL other requests
@@ -118,7 +128,9 @@ public class Manager {
 							// and that request will get an
 							// IllegalMonitorStateException when it tries to
 							// unlock() the CE
-							log.debug("kill conversation with garbage lock: " + conversationEntry.getId());
+							if (log.isDebugEnabled()) {
+								log.debug("kill conversation with garbage lock: " + conversationEntry.getId());
+							}
 						}
 						if (events != null) {
 							events.raiseEvent(EVENT_CONVERSATION_DESTROYED, conversationEntry);
@@ -139,7 +151,7 @@ public class Manager {
 	*/
 	private Map<String, Object> getSessionMap() {
 		// this method could be moved to a utility class
-		Map<String, Object> session = new HashMap<String, Object>();
+		Map<String, Object> session = new ConcurrentHashMap<String, Object>();
 		String[] sessionAttributeNames = Contexts.getSessionContext().getNames();
 
 		for (String attributeName : sessionAttributeNames) {
@@ -245,29 +257,33 @@ public class Manager {
 
 	public String getCurrentConversationDescription() {
 		ConversationEntry ce = getCurrentConversationEntry();
-		if (ce == null)
+		if (ce == null) {
 			return null;
+		}
 		return ce.getDescription();
 	}
 
 	public Integer getCurrentConversationTimeout() {
 		ConversationEntry ce = getCurrentConversationEntry();
-		if (ce == null)
+		if (ce == null) {
 			return null;
+		}
 		return ce.getTimeout();
 	}
 
 	public Integer getCurrentConversationConcurrentRequestTimeout() {
 		ConversationEntry ce = getCurrentConversationEntry();
-		if (ce == null)
+		if (ce == null) {
 			return null;
+		}
 		return ce.getConcurrentRequestTimeout();
 	}
 
 	public String getCurrentConversationViewId() {
 		ConversationEntry ce = getCurrentConversationEntry();
-		if (ce == null)
+		if (ce == null) {
 			return null;
+		}
 		return ce.getViewId();
 	}
 
@@ -281,7 +297,7 @@ public class Manager {
 	}
 
 	public String getRootConversationId() {
-		return currentConversationIdStack == null || currentConversationIdStack.size() < 1 ? null
+		return currentConversationIdStack == null || currentConversationIdStack.isEmpty() ? null
 				: currentConversationIdStack.get(currentConversationIdStack.size() - 1);
 	}
 
@@ -345,7 +361,9 @@ public class Manager {
 							//      after we check the timeout - but in practice this would be extremely rare, 
 							//      and that request will get an IllegalMonitorStateException when it tries to 
 							//      unlock() the CE
-							log.debug("destroying conversation with garbage lock: " + conversationEntry.getId());
+							if (log.isDebugEnabled()) {
+								log.debug("destroying conversation with garbage lock: " + conversationEntry.getId());
+							}
 						}
 						if (Events.exists()) {
 							Events.instance().raiseEvent(EVENT_CONVERSATION_TIMEOUT, conversationEntry.getId());
@@ -353,8 +371,9 @@ public class Manager {
 						destroyConversation(conversationEntry, session);
 					}
 				} finally {
-					if (locked)
+					if (locked) {
 						conversationEntry.unlock();
+					}
 				}
 			}
 		}
@@ -423,7 +442,9 @@ public class Manager {
 		for (ConversationEntry ce : entries) {
 			if (ce.getConversationIdStack().contains(conversationId)) {
 				String entryConversationId = ce.getId();
-				log.debug("destroying nested conversation: " + entryConversationId);
+				if (log.isDebugEnabled()) {
+					log.debug("destroying nested conversation: " + entryConversationId);
+				}
 				destroyConversation(ce, session);
 			}
 		}
@@ -528,7 +549,9 @@ public class Manager {
 			touchConversationStack(ce.getConversationIdStack());
 
 			//we found an id and obtained the lock, so restore the long-running conversation
-			log.debug("Restoring conversation with id: " + ce.getId());
+			if (log.isDebugEnabled()) {
+				log.debug("Restoring conversation with id: " + ce.getId());
+			}
 			setLongRunningConversation(true);
 			setCurrentConversationId(ce.getId());
 			setCurrentConversationIdStack(ce.getConversationIdStack());
@@ -589,8 +612,9 @@ public class Manager {
 			createConversationEntry();
 			Conversation.instance(); //force instantiation of the Conversation in the outer (non-nested) conversation
 			storeConversationToViewRootIfNecessary();
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_CONVERSATION_BEGIN);
+			}
 		}
 	}
 
@@ -609,8 +633,9 @@ public class Manager {
 		createCurrentConversationIdStack(id).addAll(oldStack);
 		createConversationEntry();
 		storeConversationToViewRootIfNecessary();
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent(EVENT_CONVERSATION_BEGIN);
+		}
 	}
 
 	/**
@@ -619,8 +644,9 @@ public class Manager {
 	public void endConversation(boolean beforeRedirect) {
 		if (isLongRunningConversation()) {
 			log.debug("Ending long-running conversation");
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_CONVERSATION_END);
+			}
 			setLongRunningConversation(false);
 			destroyBeforeRedirect = beforeRedirect;
 			endNestedConversations(getCurrentConversationId());
@@ -641,12 +667,10 @@ public class Manager {
 	}
 
 	protected void storeConversationToViewRootIfNecessary() {
+		// 
 	}
 
-	// two reasons for this: 
-	// (1) a cache
-	// (2) so we can unlock() it after destruction of the session context 
-	private ConversationEntry currentConversationEntry;
+
 
 	public ConversationEntry getCurrentConversationEntry() {
 		if (currentConversationEntry == null) {
@@ -786,8 +810,9 @@ public class Manager {
 	* Add the parameters to a URL
 	*/
 	public String encodeParameters(String url, Map<String, Object> parameters) {
-		if (parameters.isEmpty())
+		if (parameters.isEmpty()) {
 			return url;
+		}
 
 		StringBuilder builder = new StringBuilder(url);
 		for (Map.Entry<String, Object> param : parameters.entrySet()) {

@@ -22,6 +22,10 @@ import org.testng.annotations.BeforeSuite;
  * @author <a href="http://community.jboss.org/people/jharting">Jozef Hartinger</a>
  */
 public class SeamTest extends AbstractSeamTest {
+	
+	public SeamTest() {
+		super();
+	}
 
 	@BeforeMethod
 	@Override

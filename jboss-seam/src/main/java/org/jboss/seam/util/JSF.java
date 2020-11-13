@@ -45,8 +45,9 @@ public class JSF {
 	}
 
 	private static Method methodForName(Class clazz, String name, Class... paramTypes) {
-		if (clazz.equals(Dummy.class))
+		if (clazz.equals(Dummy.class)) {
 			return null;
+		}
 		try {
 			return clazz.getDeclaredMethod(name, paramTypes);
 		} catch (Exception e) {
@@ -55,8 +56,9 @@ public class JSF {
 	}
 
 	private static Object constantValueForName(Class clazz, String name) {
-		if (clazz.equals(Dummy.class))
+		if (clazz.equals(Dummy.class)) {
 			return null;
+		}
 		try {
 			return clazz.getField(name).get(null);
 		} catch (Exception e) {

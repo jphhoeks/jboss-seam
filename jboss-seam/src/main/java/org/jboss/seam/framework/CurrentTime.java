@@ -22,6 +22,9 @@ import org.jboss.seam.annotations.Unwrap;
 @Scope(ScopeType.STATELESS)
 @AutoCreate
 public class CurrentTime {
+	public CurrentTime() {
+		super();
+	}
 	@Unwrap
 	public Date getCurrentTime() {
 		return new java.sql.Time(System.currentTimeMillis());

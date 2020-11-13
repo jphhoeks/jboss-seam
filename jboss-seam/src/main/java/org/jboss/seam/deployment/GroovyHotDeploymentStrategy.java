@@ -54,7 +54,9 @@ public class GroovyHotDeploymentStrategy extends HotDeploymentStrategy {
 			return false;
 		} else {
 			if (super.isFromHotDeployClassLoader(componentClass))
+			 {
 				return true; //Java
+			}
 			ClassLoader classClassLoader = componentClass.getClassLoader().getParent(); //Groovy use an Inner Delegate CL
 			return classClassLoader == getClassLoader() || classClassLoader == getClassLoader().getParent();
 		}

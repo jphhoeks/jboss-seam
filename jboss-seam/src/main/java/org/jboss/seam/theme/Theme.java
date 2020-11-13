@@ -25,6 +25,10 @@ import org.jboss.seam.core.Interpolator;
 @Name("org.jboss.seam.theme.themeFactory")
 @Install(precedence = BUILT_IN)
 public class Theme {
+	
+	public Theme() {
+		super();
+	}
 
 	protected Map<String, String> createMap() {
 		final java.util.ResourceBundle bundle = ThemeSelector.instance().getThemeResourceBundle();

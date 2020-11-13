@@ -26,6 +26,10 @@ import org.jboss.seam.international.StatusMessage.Severity;
 @Startup
 public class FacesTransactionEvents {
 	private boolean transactionFailedMessageEnabled = true;
+	
+	public FacesTransactionEvents() {
+		super();
+	}
 
 	@Observer(Transaction.TRANSACTION_FAILED)
 	public void addTransactionFailedMessage(int status) {

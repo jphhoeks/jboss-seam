@@ -40,6 +40,10 @@ public class PermissionManager implements Serializable {
 	private static final LogProvider log = Logging.getLogProvider(PermissionManager.class);
 
 	private PermissionStore permissionStore;
+	
+	public PermissionManager() {
+		super();
+	}
 
 	@Create
 	public void create() {
@@ -48,8 +52,10 @@ public class PermissionManager implements Serializable {
 		}
 
 		if (permissionStore == null) {
-			log.debug("no permission store available - please install a PermissionStore with the name '" + PERMISSION_STORE_COMPONENT_NAME
+			if (log.isDebugEnabled()) {
+				log.debug("no permission store available - please install a PermissionStore with the name '" + PERMISSION_STORE_COMPONENT_NAME
 					+ "' if permission management is required.");
+			}
 		}
 	}
 
@@ -76,15 +82,17 @@ public class PermissionManager implements Serializable {
 	}
 
 	public List<Permission> listPermissions(Object target, String action) {
-		if (target == null)
+		if (target == null) {
 			return null;
+		}
 		Identity.instance().checkPermission(target, PERMISSION_READ);
 		return permissionStore.listPermissions(target, action);
 	}
 
 	public List<Permission> listPermissions(Object target) {
-		if (target == null)
+		if (target == null) {
 			return null;
+		}
 		Identity.instance().checkPermission(target, PERMISSION_READ);
 		return permissionStore.listPermissions(target);
 	}

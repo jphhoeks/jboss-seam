@@ -133,7 +133,7 @@ public class UISignature extends ITextComponent {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
-			Resources.closeStream(is);
+			Resources.close(is);
 		}
 
 	}

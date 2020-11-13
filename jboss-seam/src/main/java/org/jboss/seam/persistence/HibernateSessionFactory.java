@@ -68,6 +68,10 @@ public class HibernateSessionFactory {
 	private ImplicitNamingStrategy implicitNamingStrategy;
 	private PhysicalNamingStrategy physicalNamingStrategy;
 
+	public HibernateSessionFactory() {
+		super();
+	}
+	
 	@Unwrap
 	public SessionFactory getSessionFactory() throws Exception {
 		return sessionFactory;
@@ -103,7 +107,7 @@ public class HibernateSessionFactory {
 			configuration.setProperties(props);
 		}
 		@SuppressWarnings("unchecked")
-		Hashtable<String, String> jndiProperties = Naming.getInitialContextProperties();
+		Map<String, String> jndiProperties = Naming.getInitialContextProperties();
 		if (jndiProperties != null) {
 			// Prefix regular JNDI properties for Hibernate
 			for (Map.Entry<String, String> entry : jndiProperties.entrySet()) {

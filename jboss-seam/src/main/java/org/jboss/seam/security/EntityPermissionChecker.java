@@ -32,6 +32,10 @@ import org.jboss.seam.util.Strings;
 public class EntityPermissionChecker {
 	private String entityManagerName = "entityManager";
 
+	public EntityPermissionChecker() {
+		super();
+	}
+	
 	private EntityManager getEntityManager() {
 		return (EntityManager) Component.getInstance(entityManagerName);
 	}
@@ -60,11 +64,13 @@ public class EntityPermissionChecker {
 	}
 
 	public void checkEntityPermission(Object entity, EntityAction action) {
-		if (!Identity.isSecurityEnabled())
+		if (!Identity.isSecurityEnabled()) {
 			return;
+		}
 
-		if (!Contexts.isSessionContextActive())
+		if (!Contexts.isSessionContextActive()) {
 			return;
+		}
 
 		Identity identity = Identity.instance();
 
@@ -87,6 +93,7 @@ public class EntityPermissionChecker {
 				break;
 			case DELETE:
 				m = provider.getPreRemoveMethod(entity, getEntityManager());
+				break;
 			}
 
 			Restrict restrict = null;

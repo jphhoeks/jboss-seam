@@ -13,6 +13,10 @@ public class Hex {
 	*/
 	private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 
+	public Hex() {
+		super();
+	}
+	
 	/**
 	* Converts an array of characters representing hexidecimal values into an
 	* array of bytes of those same values. The returned array will be half the
@@ -125,7 +129,7 @@ public class Hex {
 			char[] charArray = object instanceof String ? ((String) object).toCharArray() : (char[]) object;
 			return decodeHex(charArray);
 		} catch (ClassCastException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
 
@@ -159,7 +163,7 @@ public class Hex {
 			byte[] byteArray = object instanceof String ? ((String) object).getBytes() : (byte[]) object;
 			return encodeHex(byteArray);
 		} catch (ClassCastException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
 

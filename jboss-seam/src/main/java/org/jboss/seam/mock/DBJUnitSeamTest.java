@@ -108,11 +108,18 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 	protected List<DataSetOperation> afterTestOperations = new ArrayList<DataSetOperation>();
 
 	private boolean prepared = false;
+	
+	protected DBJUnitSeamTest() {
+		super();
+	}
 
 	public void setDatasourceJndiName(String datasourceJndiName) {
-		if (datasourceJndiName == null)
+		if (datasourceJndiName == null) {
 			return;
-		log.debug("Setting datasource name: " + datasourceJndiName);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Setting datasource name: " + datasourceJndiName);
+		}
 		this.datasourceJndiName = datasourceJndiName;
 	}
 
@@ -121,9 +128,12 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 	}
 
 	public void setBinaryDir(String binaryDir) {
-		if (binaryDir == null)
+		if (binaryDir == null) {
 			return;
-		log.debug("Setting binary directory: " + binaryDir);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Setting binary directory: " + binaryDir);
+		}
 		this.binaryDir = binaryDir;
 	}
 
@@ -132,18 +142,24 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 	}
 
 	public void setDatabase(String database) {
-		if (database == null)
+		if (database == null) {
 			return;
-		log.debug("Setting database: " + database);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Setting database: " + database);
+		}
 		this.database = Database.valueOf(database.toUpperCase());
 	}
 
 	// We don't have a getDatabase() getter because subclasses might use a different Enum!
 
 	public void setReplaceNull(Boolean replaceNull) {
-		if (replaceNull == null)
+		if (replaceNull == null) {
 			return;
-		log.debug("Setting replace null: " + replaceNull);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Setting replace null: " + replaceNull);
+		}
 		this.replaceNull = replaceNull;
 	}
 
@@ -177,7 +193,9 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 	}
 
 	private void executeOperations(List<DataSetOperation> list) {
-		log.debug("Executing DataSetOperations: " + list.size());
+		if (log.isDebugEnabled()) {
+			log.debug("Executing DataSetOperations: " + list.size());
+		}
 		IDatabaseConnection con = null;
 		try {
 			con = getConnection();
@@ -193,7 +211,9 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 				try {
 					con.close();
 				} catch (Exception ex) {
-					log.error("Error closing", ex);
+					if (log.isErrorEnabled()) {
+						log.error("Error closing", ex);
+					}
 				}
 			}
 		}
@@ -272,8 +292,9 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 		}
 
 		public void prepare(DBJUnitSeamTest test) {
-			if (dataSet == null)
+			if (dataSet == null) {
 				return;
+			}
 			log.debug("Preparing DataSetOperation replacement values");
 
 			if (test.isReplaceNull()) {
@@ -281,16 +302,21 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 				dataSet.addReplacementObject("[NULL]", null);
 			}
 			if (test.getBinaryDir() != null) {
-				log.debug("Replacing [BINARY_DIR] placeholder with path: " + test.getBinaryDirFullpath().toString());
+				if (log.isDebugEnabled()) {
+					log.debug("Replacing [BINARY_DIR] placeholder with path: " + test.getBinaryDirFullpath().toString());
+				}
 				dataSet.addReplacementSubstring("[BINARY_DIR]", test.getBinaryDirFullpath().toString());
 			}
 		}
 
 		public void execute(IDatabaseConnection connection) {
-			if (dataSet == null || operation == null)
+			if (dataSet == null || operation == null) {
 				return;
+			}
 			try {
-				log.debug("Executing: " + this);
+				if (log.isDebugEnabled()) {
+					log.debug("Executing: " + this);
+				}
 				this.operation.execute(connection, dataSet);
 			} catch (Exception ex) {
 				throw new RuntimeException(ex);
@@ -322,8 +348,7 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 			DataSource datasource = ((DataSource) getInitialContext().lookup(getDatasourceJndiName()));
 
 			// Get a JDBC connection from JNDI datasource
-			Connection con = datasource.getConnection();
-			IDatabaseConnection dbUnitCon = new DatabaseConnection(con);
+			IDatabaseConnection dbUnitCon = new DatabaseConnection(datasource.getConnection());
 			editConfig(dbUnitCon.getConfig());
 			return dbUnitCon;
 		} catch (Exception ex) {
@@ -401,6 +426,7 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 	* @param operation The operation to be executed, call <tt>getDataSet()</tt> to access the data.
 	*/
 	protected void prepareExecution(IDatabaseConnection con, DataSetOperation operation) {
+		//
 	}
 
 	/**
@@ -410,6 +436,7 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 	* @param operation The operation that was executed, call <tt>getDataSet()</tt> to access the data.
 	*/
 	protected void afterExecution(IDatabaseConnection con, DataSetOperation operation) {
+		//
 	}
 
 	/**
@@ -451,7 +478,7 @@ public abstract class DBJUnitSeamTest extends JUnitSeamTest {
 		long length = file.length();
 
 		if (length > Integer.MAX_VALUE) {
-			// File is too large
+			throw new IllegalArgumentException("File is too large: " + filename + " " + length);
 		}
 
 		return Files.readAllBytes(file.toPath());

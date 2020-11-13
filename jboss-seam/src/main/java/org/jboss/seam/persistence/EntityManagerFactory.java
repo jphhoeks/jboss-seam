@@ -37,6 +37,10 @@ public class EntityManagerFactory {
 
 	private static final LogProvider log = Logging.getLogProvider(EntityManagerFactory.class);
 
+	public EntityManagerFactory() {
+		super();
+	}
+	
 	@Unwrap
 	public javax.persistence.EntityManagerFactory getEntityManagerFactory() {
 		return entityManagerFactory;
@@ -59,9 +63,11 @@ public class EntityManagerFactory {
 
 	protected javax.persistence.EntityManagerFactory createEntityManagerFactory() {
 		long startTime = System.currentTimeMillis();
-		log.info("Creating EntityManagerFactory with name:" + persistenceUnitName);
-		Map properties = new HashMap();
-		Hashtable<String, String> jndiProperties = Naming.getInitialContextProperties();
+		if (log.isInfoEnabled()) {
+			log.info("Creating EntityManagerFactory with name:" + persistenceUnitName);
+		}
+		Map<String, String> properties = new HashMap<String, String>();
+		Map<String, String> jndiProperties = Naming.getInitialContextProperties();
 		if (jndiProperties != null) {
 			// Prefix regular JNDI properties for Hibernate
 			for (Map.Entry<String, String> entry : jndiProperties.entrySet()) {
@@ -79,7 +85,9 @@ public class EntityManagerFactory {
 			retVal = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
 		}
 		long finishTime = System.currentTimeMillis();
-		log.info("EntityManagerFactory " + persistenceUnitName + " created in " + (finishTime - startTime) + " ms");
+		if (log.isInfoEnabled()) {
+			log.info("EntityManagerFactory " + persistenceUnitName + " created in " + (finishTime - startTime) + " ms");
+		}
 
 		return retVal;
 	}

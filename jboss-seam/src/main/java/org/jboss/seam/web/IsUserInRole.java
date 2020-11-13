@@ -28,6 +28,11 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Name("org.jboss.seam.web.isUserInRole")
 @Install(precedence = BUILT_IN)
 public class IsUserInRole {
+	
+	public IsUserInRole() {
+		super();
+	}
+	
 	@Unwrap
 	public Map<String, Boolean> getMap() {
 		return new AbstractMap<String, Boolean>() {
@@ -38,8 +43,9 @@ public class IsUserInRole {
 
 			@Override
 			public Boolean get(Object key) {
-				if (!(key instanceof String))
+				if (!(key instanceof String)) {
 					return false;
+				}
 				String role = (String) key;
 				return isUserInRole(role);
 			}

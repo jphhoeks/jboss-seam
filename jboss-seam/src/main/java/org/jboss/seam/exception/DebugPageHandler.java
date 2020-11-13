@@ -16,6 +16,10 @@ public class DebugPageHandler extends ExceptionHandler {
 
 	private static final LogProvider log = Logging.getLogProvider(DebugPageHandler.class);
 
+	public DebugPageHandler() {
+		super();
+	}
+	
 	@Override
 	public void handle(Exception e) throws Exception {
 		log.debug("redirecting to debug page", e); //no need to be noisy, ExceptionFilter already logs it

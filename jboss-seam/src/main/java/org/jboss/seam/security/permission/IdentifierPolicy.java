@@ -33,6 +33,10 @@ public class IdentifierPolicy implements Serializable {
 	private Map<Class<?>, IdentifierStrategy> strategies = new ConcurrentHashMap<Class<?>, IdentifierStrategy>();
 
 	private Set<IdentifierStrategy> registeredStrategies = new HashSet<IdentifierStrategy>();
+	
+	public IdentifierPolicy() {
+		super();
+	}
 
 	@Create
 	public void create() {

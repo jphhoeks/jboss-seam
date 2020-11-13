@@ -12,7 +12,9 @@ public final class ConfigErrorHandler extends ErrorHandler {
 	private final Class<?> clazz;
 	private final int code;
 
+	
 	public ConfigErrorHandler(String message, boolean conversation, Class<?> clazz, int code) {
+		super();
 		this.message = message;
 		this.conversation = conversation;
 		this.clazz = clazz;

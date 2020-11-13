@@ -38,6 +38,10 @@ public class BusinessProcessInterceptor extends AbstractInterceptor {
 
 	private static final LogProvider log = Logging.getLogProvider(BusinessProcessInterceptor.class);
 
+	public BusinessProcessInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
@@ -63,7 +67,7 @@ public class BusinessProcessInterceptor extends AbstractInterceptor {
 		} else if (method.isAnnotationPresent(ResumeProcess.class)) {
 			log.trace("encountered @ResumeProcess");
 			ResumeProcess tag = method.getAnnotation(ResumeProcess.class);
-			if (tag.processKey().equals("")) {
+			if ("".equals(tag.processKey())) {
 				Long processId = getProcessOrTaskId(tag.processIdParameter(), tag.processId());
 				return BusinessProcess.instance().resumeProcess(processId);
 			} else {
@@ -85,7 +89,7 @@ public class BusinessProcessInterceptor extends AbstractInterceptor {
 			if (method.isAnnotationPresent(CreateProcess.class)) {
 				log.trace("encountered @CreateProcess");
 				CreateProcess tag = method.getAnnotation(CreateProcess.class);
-				if (tag.processKey().equals("")) {
+				if ("".equals(tag.processKey())) {
 					BusinessProcess.instance().createProcess(tag.definition());
 				} else {
 					BusinessProcess.instance().createProcess(tag.definition(), getProcessKey(tag.processKey()));
@@ -102,8 +106,9 @@ public class BusinessProcessInterceptor extends AbstractInterceptor {
 			if (method.isAnnotationPresent(org.jboss.seam.annotations.bpm.Transition.class)) {
 				log.trace("encountered @Transition");
 				String transitionName = method.getAnnotation(org.jboss.seam.annotations.bpm.Transition.class).value();
-				if ("".equals(transitionName))
+				if ("".equals(transitionName)) {
 					transitionName = method.getName();
+				}
 				BusinessProcess.instance().transition(transitionName);
 			}
 		}

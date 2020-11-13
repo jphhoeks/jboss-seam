@@ -21,6 +21,10 @@ import org.jboss.seam.jsf.SeamApplication;
  */
 public class MockApplicationFactory extends ApplicationFactory {
 	private Application application;
+	
+	public MockApplicationFactory() {
+		super();
+	}
 
 	@Override
 	public Application getApplication() {

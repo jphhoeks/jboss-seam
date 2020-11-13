@@ -29,6 +29,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 public class TopicSession {
 
 	private javax.jms.TopicSession topicSession;
+	
+	public TopicSession() {
+		super();
+	}
 
 	@Create
 	public void create() throws JMSException, NamingException {

@@ -16,6 +16,7 @@ public class SeamApplicationFactory extends ApplicationFactory {
 	private final ApplicationFactory delegate;
 
 	public SeamApplicationFactory(ApplicationFactory af) {
+		super();
 		delegate = af;
 	}
 

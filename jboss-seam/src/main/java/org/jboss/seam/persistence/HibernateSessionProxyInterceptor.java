@@ -25,6 +25,10 @@ public class HibernateSessionProxyInterceptor extends AbstractInterceptor {
 
 	private static final long serialVersionUID = 1L;
 
+	public HibernateSessionProxyInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ic) throws Exception {

@@ -10,6 +10,11 @@ import org.jboss.seam.annotations.exception.HttpError;
  *
  */
 public class AnnotationErrorHandler extends ErrorHandler {
+	
+	public AnnotationErrorHandler() {
+		super();
+	}
+	
 	@Override
 	public boolean isHandler(Exception e) {
 		return e.getClass().isAnnotationPresent(HttpError.class);

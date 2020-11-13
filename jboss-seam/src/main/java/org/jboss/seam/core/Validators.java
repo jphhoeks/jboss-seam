@@ -35,6 +35,10 @@ import org.jboss.seam.el.EL;
 @Scope(ScopeType.APPLICATION)
 @Install(precedence = BUILT_IN, classDependencies = "org.jboss.seam.core.ClassValidator")
 public class Validators {
+	
+	public Validators() {
+		super();
+	}
 
 	/**
 	* Get the cached ClassValidator instance. If the argument is an instance of
@@ -90,6 +94,7 @@ public class Validators {
 		private Set<ConstraintViolation<Object>> invalidValues;
 
 		public ValidatingResolver(ELResolver delegate) {
+			super();
 			this.delegate = delegate;
 		}
 

@@ -8,6 +8,10 @@ import javax.faces.lifecycle.Lifecycle;
 public class MockFacesContextFactory extends FacesContextFactory {
 
 	private static FacesContext facesContext;
+	
+	public MockFacesContextFactory() {
+		super();
+	}
 
 	@Override
 	public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle) throws FacesException {

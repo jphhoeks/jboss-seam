@@ -20,9 +20,9 @@ package org.jboss.seam.web.fileupload;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Utility class to decode MIME texts.
@@ -64,7 +64,7 @@ public final class MimeUtility {
 	/**
 	 * Mappings between MIME and Java charset.
 	 */
-	private static final Map<String, String> MIME2JAVA = new HashMap<String, String>();
+	private static final Map<String, String> MIME2JAVA = new ConcurrentHashMap<String, String>();
 
 	static {
 		MIME2JAVA.put("iso-2022-cn", "ISO2022CN");
@@ -254,7 +254,9 @@ public final class MimeUtility {
 			byte[] decodedData = out.toByteArray();
 			return new String(decodedData, javaCharset(charset));
 		} catch (IOException e) {
-			throw new UnsupportedEncodingException("Invalid RFC 2047 encoding");
+			UnsupportedEncodingException uee = new UnsupportedEncodingException("Invalid RFC 2047 encoding");
+			uee.initCause(e);
+			throw uee;
 		}
 	}
 

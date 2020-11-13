@@ -31,6 +31,10 @@ public class TopicConnection {
 	private String topicConnectionFactoryJndiName = "UIL2ConnectionFactory";
 	private javax.jms.TopicConnection topicConnection;
 
+	public TopicConnection() {
+		super();
+	}
+	
 	/**
 	* The JNDI name of the TopicConnectionFactory
 	*/

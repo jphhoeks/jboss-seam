@@ -12,6 +12,9 @@ import org.jboss.seam.core.Manager;
  *
  */
 public class SyntheticConversationIdParameter implements ConversationIdParameter {
+	public SyntheticConversationIdParameter() {
+		super();
+	}
 	@Override
 	public String getName() {
 		return null;

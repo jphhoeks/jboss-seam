@@ -62,6 +62,10 @@ public class AuthenticationFilter extends AbstractFilter {
 
 	private String authType = AUTH_TYPE_BASIC;
 
+	public AuthenticationFilter() {
+		super();
+	}
+	
 	public void setRealm(String realm) {
 		this.realm = realm;
 	}
@@ -109,12 +113,13 @@ public class AuthenticationFilter extends AbstractFilter {
 		new ContextualHttpServletRequest(httpRequest) {
 			@Override
 			public void process() throws ServletException, IOException, LoginException {
-				if (AUTH_TYPE_BASIC.equals(authType))
+				if (AUTH_TYPE_BASIC.equals(authType)) {
 					processBasicAuth(httpRequest, httpResponse, chain);
-				else if (AUTH_TYPE_DIGEST.equals(authType))
+				} else if (AUTH_TYPE_DIGEST.equals(authType)) {
 					processDigestAuth(httpRequest, httpResponse, chain);
-				else
+				} else {
 					throw new ServletException("Invalid authentication type");
+				}
 			}
 		}.run();
 	}
@@ -224,8 +229,9 @@ public class AuthenticationFilter extends AbstractFilter {
 				log.warn("Digest validation failed, header [#0]: #1", section212response, ex.getMessage());
 				requireAuth = true;
 
-				if (ex.isNonceExpired())
+				if (ex.isNonceExpired()) {
 					nonceExpired = true;
+				}
 			} catch (Exception ex) {
 				log.warn("Error authenticating: #0", ex.getMessage());
 				requireAuth = true;
@@ -246,7 +252,7 @@ public class AuthenticationFilter extends AbstractFilter {
 		}
 
 		if ((requireAuth && !identity.isLoggedIn())) {
-			long expiryTime = System.currentTimeMillis() + ((long)nonceValiditySeconds * 1000L);
+			long expiryTime = System.currentTimeMillis() + (nonceValiditySeconds * 1000L);
 
 			String signatureValue = DigestUtils.md5Hex(expiryTime + ":" + key);
 			String nonceValue = expiryTime + ":" + signatureValue;
@@ -257,8 +263,9 @@ public class AuthenticationFilter extends AbstractFilter {
 			// representing opaque on subsequent requests in same session.
 			String authenticateHeader = "Digest realm=\"" + realm + "\", " + "qop=\"auth\", nonce=\"" + nonceValueBase64 + "\"";
 
-			if (nonceExpired)
+			if (nonceExpired) {
 				authenticateHeader = authenticateHeader + ", stale=\"true\"";
+			}
 
 			response.addHeader("WWW-Authenticate", authenticateHeader);
 			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);

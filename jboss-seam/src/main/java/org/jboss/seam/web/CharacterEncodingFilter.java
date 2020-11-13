@@ -32,6 +32,10 @@ import org.jboss.seam.annotations.web.Filter;
 public class CharacterEncodingFilter extends AbstractFilter {
 	private String encoding;
 	private boolean overrideClient;
+	
+	public CharacterEncodingFilter() {
+		super();
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws ServletException, IOException {

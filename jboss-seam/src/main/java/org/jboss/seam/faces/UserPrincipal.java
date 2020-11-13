@@ -26,6 +26,11 @@ import org.jboss.seam.contexts.Contexts;
 @Name("org.jboss.seam.web.userPrincipal")
 @Install(precedence = FRAMEWORK, classDependencies = "javax.faces.context.FacesContext")
 public class UserPrincipal extends org.jboss.seam.web.UserPrincipal {
+	
+	public UserPrincipal() {
+		super();
+	}
+	
 	@Unwrap
 	@Override
 	public Principal getUserPrincipal() {

@@ -51,6 +51,10 @@ public class LocaleConfig {
 
 	private static final LogProvider log = Logging.getLogProvider(LocaleConfig.class);
 
+	public LocaleConfig() {
+		super();
+	}
+	
 	@Create
 	public void initLocaleConfig() {
 		Application application = getApplication();
@@ -81,7 +85,9 @@ public class LocaleConfig {
 
 	public void setDefaultLocale(String defaultLocale) {
 		this.defaultLocale = defaultLocale;
-		log.debug("Default locale was set to " + this.defaultLocale);
+		if (log.isDebugEnabled()) {
+			log.debug("Default locale was set to " + this.defaultLocale);
+		}
 	}
 
 	public List<String> getSupportedLocales() {
@@ -90,7 +96,9 @@ public class LocaleConfig {
 
 	public void setSupportedLocales(List<String> supportedLocales) {
 		this.supportedLocales = supportedLocales;
-		log.debug("Supported locales are " + this.supportedLocales);
+		if (log.isDebugEnabled()) {
+			log.debug("Supported locales are " + this.supportedLocales);
+		}
 	}
 
 	public static LocaleConfig instance() {

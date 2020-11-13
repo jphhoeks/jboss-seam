@@ -55,6 +55,10 @@ public abstract class ConditionalAbstractResource extends AbstractResource {
 
 	private static final LogProvider log = Logging.getLogProvider(ConditionalAbstractResource.class);
 
+	protected ConditionalAbstractResource() {
+		super();
+	}
+	
 	/**
 	* Validates the request headers <tt>If-Modified-Since</tt> and <tt>If-None-Match</tt> to determine
 	* if a <tt>304 NOT MODIFIED</tt> response can be send. If that is the case, this method will automatically
@@ -117,27 +121,38 @@ public abstract class ConditionalAbstractResource extends AbstractResource {
 		}
 
 		if (noneMatchHeader != null && modifiedSinceHeader != -1) {
-			log.debug(HEADER_IF_NONE_MATCH + " and " + HEADER_IF_MODIFIED_SINCE + " must match");
+			if (log.isDebugEnabled()) {
+				log.debug(HEADER_IF_NONE_MATCH + " and " + HEADER_IF_MODIFIED_SINCE + " must match");
+			}
 
 			// If both are received, we must not return 304 unless doing so is consistent with both header fields in the request!
 			if (noneMatchValid && modifiedSinceValid) {
-				log.debug(HEADER_IF_NONE_MATCH + " and " + HEADER_IF_MODIFIED_SINCE + " conditions match, sending 304");
+				if (log.isDebugEnabled()) {
+					log.debug(HEADER_IF_NONE_MATCH + " and " + HEADER_IF_MODIFIED_SINCE + " conditions match, sending 304");
+				}
 				response.sendError(HttpServletResponse.SC_NOT_MODIFIED);
 				return true;
 			} else {
-				log.debug(HEADER_IF_NONE_MATCH + " and " + HEADER_IF_MODIFIED_SINCE + " conditions do not match, not sending 304");
+				if (log.isDebugEnabled()) {
+					log.debug(HEADER_IF_NONE_MATCH + " and " + HEADER_IF_MODIFIED_SINCE + " conditions do not match, not sending 304");
+				}
 				return false;
 			}
 		}
 
 		if (noneMatchHeader != null && noneMatchValid) {
-			log.debug(HEADER_IF_NONE_MATCH + " condition matches, sending 304");
+			if (log.isDebugEnabled()) {
+				log.debug(HEADER_IF_NONE_MATCH + " condition matches, sending 304");
+			}
 			response.sendError(HttpServletResponse.SC_NOT_MODIFIED);
 			return true;
 		}
 
 		if (modifiedSinceHeader != -1 && modifiedSinceValid) {
-			log.debug(HEADER_IF_MODIFIED_SINCE + " condition matches, sending 304");
+			
+			if (log.isDebugEnabled()) {
+				log.debug(HEADER_IF_MODIFIED_SINCE + " condition matches, sending 304");
+			}
 			response.sendError(HttpServletResponse.SC_NOT_MODIFIED);
 			return true;
 		}
@@ -147,7 +162,7 @@ public abstract class ConditionalAbstractResource extends AbstractResource {
 	}
 
 	protected boolean isNoneMatchConditionValid(String noneMatchHeader, String entityTag) {
-		if (noneMatchHeader.trim().equals("*")) {
+		if ("*".equals(noneMatchHeader.trim())) {
 			log.debug("Found * conditional request, hence current entity tag matches");
 			return true;
 		}
@@ -204,8 +219,9 @@ public abstract class ConditionalAbstractResource extends AbstractResource {
 	* @return The hashed and formatted entity tag result.
 	*/
 	protected String createEntityTag(String hashSource, boolean weak) {
-		if (hashSource == null)
+		if (hashSource == null) {
 			return null;
+		}
 		return (weak ? "W/\"" : "\"") + hash(hashSource, "UTF-8", "MD5") + "\"";
 	}
 
@@ -219,8 +235,9 @@ public abstract class ConditionalAbstractResource extends AbstractResource {
 	* @return The hashed and formatted entity tag result.
 	*/
 	protected String createEntityTag(byte[] hashSource, boolean weak) {
-		if (hashSource == null)
+		if (hashSource == null) {
 			return null;
+		}
 		return (weak ? "W/\"" : "\"") + hash(hashSource, "SHA-256") + "\"";
 	}
 

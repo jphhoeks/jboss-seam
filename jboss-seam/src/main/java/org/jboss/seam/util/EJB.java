@@ -10,8 +10,7 @@ public class EJB {
 	public static String ejbContextName = "java:comp.ejb3/EJBContext";
 	public static final String STANDARD_EJB_CONTEXT_NAME = "java:comp/EJBContext";
 
-	public @interface Dummy {
-	}
+
 
 	public static final Class<Annotation> STATELESS;
 	public static final Class<Annotation> STATEFUL;
@@ -32,6 +31,9 @@ public class EJB {
 	public static final Class<Annotation> EJB_EXCEPTION;
 	public static final boolean INVOCATION_CONTEXT_AVAILABLE;
 
+	
+	public @interface Dummy {
+	}
 	private static Class classForName(String name) {
 		try {
 			return Reflections.classForName(name);

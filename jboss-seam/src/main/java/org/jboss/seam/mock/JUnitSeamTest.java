@@ -20,6 +20,10 @@ import org.junit.Before;
  */
 public class JUnitSeamTest extends AbstractSeamTest {
 	private boolean seamStarted = false;
+	
+	public JUnitSeamTest() {
+		super();
+	}
 
 	@Before
 	@Override

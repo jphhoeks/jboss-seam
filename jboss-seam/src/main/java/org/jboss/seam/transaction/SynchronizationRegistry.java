@@ -23,6 +23,10 @@ class SynchronizationRegistry {
 
 	private List<Synchronization> synchronizations = new ArrayList<Synchronization>();
 
+	public SynchronizationRegistry() {
+		super();
+	}
+	
 	void registerSynchronization(Synchronization sync) {
 		synchronizations.add(sync);
 	}

@@ -20,6 +20,10 @@ public class NamespacePackageResolver {
 
 	@SuppressWarnings("unused")
 	private static final LogProvider log = Logging.getLogProvider(NamespacePackageResolver.class);
+	
+	public NamespacePackageResolver() {
+		super();
+	}
 
 	/**
 	 * <p>Converts an XML namespace, <code>ns</code>, to a Stringified package name
@@ -59,13 +63,12 @@ public class NamespacePackageResolver {
 	}
 
 	private String parseHierarchicalURI(URI uri) {
-		String scheme = uri.getScheme().toLowerCase();
-		if (!scheme.equals("http") && !scheme.equals("https")) {
+		String scheme = uri.getScheme();
+		if (!"http".equalsIgnoreCase(scheme) && !"https".equalsIgnoreCase(scheme)) {
 			throw new IllegalArgumentException("Hierarchical URLs must use http or https scheme " + uri);
 		}
 
 		StringBuffer buf = new StringBuffer();
-
 		appendToPackageName(buf, hostnameToPackage(uri.getHost()));
 		appendToPackageName(buf, pathToPackage(uri.getPath()));
 
@@ -96,7 +99,7 @@ public class NamespacePackageResolver {
 		//Iterate through the subdomains in reverse converting each to a package name. 
 		for (int i = subdomains.length - 1; i >= 0; i--) {
 			String subdomain = subdomains[i];
-			if (i > 0 || !subdomain.equalsIgnoreCase("www")) {
+			if (i > 0 || !"www".equalsIgnoreCase(subdomain)) {
 				appendToPackageName(result, subdomain);
 			}
 		}

@@ -40,7 +40,9 @@ public class RewritingResponse extends HttpServletResponseWrapper {
 	@Override
 	public String encodeRedirectURL(String url) {
 		String result = rewriteURL(url);
-		log.debug("encodeRedirectURL " + url + " -> " + result);
+		if (log.isDebugEnabled()) {
+			log.debug("encodeRedirectURL " + url + " -> " + result);
+		}
 		return wrappedEncodeRedirectURL(result);
 	}
 
@@ -55,7 +57,9 @@ public class RewritingResponse extends HttpServletResponseWrapper {
 	@Override
 	public String encodeURL(String url) {
 		String result = super.encodeURL(rewriteURL(url));
-		log.debug("encodeURL " + url + " -> " + result);
+		if (log.isDebugEnabled()) {
+			log.debug("encodeURL " + url + " -> " + result);
+		}
 		return wrappedEncodeURL(result);
 	}
 

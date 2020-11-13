@@ -71,17 +71,14 @@ public class MacBasedPRF implements PRF {
 		try {
 			mac = Mac.getInstance(macAlgorithm, provider);
 			hLen = mac.getMacLength();
-		} catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException | NoSuchProviderException e) {
 			throw new RuntimeException(e);
-		} catch (NoSuchProviderException e) {
-			throw new RuntimeException(e);
-		}
+		} 
 	}
 
 	@Override
 	public byte[] doFinal(byte[] M) {
-		byte[] r = mac.doFinal(M);
-		return r;
+		return mac.doFinal(M);
 	}
 
 	@Override

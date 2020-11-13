@@ -42,10 +42,12 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
 	public ConversationEntry(String id, List<String> stack, ConversationEntries entries) {
 		this.id = id;
 
-		if (stack == null)
+		if (stack == null) {
 			throw new IllegalArgumentException("Stack must not be null");
-		if (id == null)
+		}
+		if (id == null) {
 			throw new IllegalArgumentException("id must not be null");
+		}
 
 		this.conversationIdStack = stack;
 
@@ -91,8 +93,9 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
 
 	public void destroy() {
 		boolean success = Manager.instance().switchConversation(getId());
-		if (success)
+		if (success) {
 			Manager.instance().endConversation(false);
+		}
 	}
 
 	public void select() {

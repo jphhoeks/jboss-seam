@@ -59,6 +59,10 @@ public class ManagedHibernateSession
 	private transient boolean synchronizationRegistered;
 	private transient boolean destroyed;
 
+	public ManagedHibernateSession() {
+		super();
+	}
+	
 	@Override
 	public boolean clearDirty() {
 		return true;
@@ -105,8 +109,9 @@ public class ManagedHibernateSession
 
 	@Unwrap
 	public Session getSession() throws Exception {
-		if (session == null)
+		if (session == null) {
 			initSession();
+		}
 
 		if (!synchronizationRegistered && !Lifecycle.isDestroying()) {
 			joinTransaction();
@@ -143,6 +148,7 @@ public class ManagedHibernateSession
 	//we can't use @PostActivate because it is intercept NEVER
 	@Override
 	public void sessionDidActivate(HttpSessionEvent event) {
+		//
 	}
 
 	@Destroy
@@ -179,6 +185,7 @@ public class ManagedHibernateSession
 
 	@Override
 	public void beforeCompletion() {
+		//
 	}
 
 	private void close() {

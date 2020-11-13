@@ -22,7 +22,7 @@ public class DroolsHandler {
 			ExecutionContext executionContext) throws ELException {
 		WorkingMemory workingMemory = (WorkingMemory) Component.getInstance(workingMemoryName, true);
 
-		if (expressions != null && expressions.size() > 0) {
+		if (expressions != null && !expressions.isEmpty()) {
 			for (String objectName : expressions) {
 				Object object = Expressions.instance().createValueExpression(objectName).getValue();
 				//Object object = new SeamVariableResolver().resolveVariable(objectName);
@@ -37,7 +37,7 @@ public class DroolsHandler {
 			}
 		}
 
-		if (retractions != null && retractions.size() > 0) {
+		if (retractions != null && !retractions.isEmpty()) {
 			for (String objectName : retractions) {
 				Object object = Expressions.instance().createValueExpression(objectName).getValue();
 				//Object object = new SeamVariableResolver().resolveVariable(objectName);
@@ -56,6 +56,10 @@ public class DroolsHandler {
 		workingMemory.insert(Actor.instance());
 
 		return workingMemory;
+	}
+	
+	public DroolsHandler()  {
+		super();
 	}
 
 	private void assertObject(WorkingMemory workingMemory, Object element) {

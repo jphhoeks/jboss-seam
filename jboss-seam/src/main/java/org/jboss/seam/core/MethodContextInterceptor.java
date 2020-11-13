@@ -25,6 +25,10 @@ import org.jboss.seam.security.SecurityInterceptor;
 public class MethodContextInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 6833040683938889232L;
 
+	public MethodContextInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ctx) throws Exception {

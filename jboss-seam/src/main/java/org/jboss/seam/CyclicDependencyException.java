@@ -24,6 +24,10 @@ public class CyclicDependencyException extends IllegalStateException {
 	private final List<String> invocations = new ArrayList<String>();
 	private String tailComponentName;
 	private boolean cycleComplete;
+	
+	public CyclicDependencyException() {
+		super();
+	}
 
 	/**
 	 * Records this invocation's component name and method to be displayed in
@@ -53,17 +57,18 @@ public class CyclicDependencyException extends IllegalStateException {
 	 * returns e.g. "foo.doSomething()"
 	 */
 	private String createInvocationLabel(String componentName, Method method) {
-		String invocationLabel = componentName + "." + method.getName() + "(";
+		StringBuilder invocationLabel = new StringBuilder(); 
+		invocationLabel.append(componentName).append(".").append(method.getName()).append("(");
 		int i = 1;
 		for (Class<?> parameterType : method.getParameterTypes()) {
-			invocationLabel += parameterType.getSimpleName();
+			invocationLabel.append(parameterType.getSimpleName());
 			if (i < method.getParameterTypes().length) {
-				invocationLabel += ", ";
+				invocationLabel.append(", ");
 			}
 			i++;
 		}
-		invocationLabel += ")";
-		return invocationLabel;
+		invocationLabel.append(")");
+		return invocationLabel.toString();
 	}
 
 	@Override
@@ -71,14 +76,19 @@ public class CyclicDependencyException extends IllegalStateException {
 		if (!cycleComplete) {
 			return "Cyclic dependency found";
 		} else {
-			String message = "Injection into " + tailComponentName + " resulted in a dependency cycle, requiring the invocation of "
-					+ invocations.get(0) + ".  The complete cycle: ";
+			StringBuilder message = new StringBuilder();
+			message.append("Injection into ") 
+			.append(tailComponentName) 
+			.append(" resulted in a dependency cycle, requiring the invocation of ")
+			.append(invocations.get(0)) 
+			.append(".  The complete cycle: ");
 			for (int i = invocations.size() - 1; i >= 0; i--) {
-				message += invocations.get(i);
-				if (i != 0)
-					message += " -> ";
+				message.append(invocations.get(i));
+				if (i != 0) {
+					message.append(" -> ");
+				}
 			}
-			return message;
+			return message.toString();
 		}
 	}
 

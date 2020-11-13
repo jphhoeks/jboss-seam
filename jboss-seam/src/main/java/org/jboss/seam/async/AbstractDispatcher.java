@@ -21,6 +21,7 @@ import org.jboss.seam.transaction.Transaction;
  */
 public abstract class AbstractDispatcher<T, S extends Schedule> implements Dispatcher<T, S> {
 
+	public static final String EXECUTING_ASYNCHRONOUS_CALL = "org.jboss.seam.core.executingAsynchronousCall";
 	public class DispatcherParameters {
 		private Date expiration;
 		private Date finalExpiration;
@@ -28,6 +29,10 @@ public abstract class AbstractDispatcher<T, S extends Schedule> implements Dispa
 		private Long intervalDuration;
 		private String intervalCron;
 
+		public DispatcherParameters() {
+			super();
+		}
+		
 		public String getIntervalCron() {
 			return intervalCron;
 		}
@@ -70,7 +75,10 @@ public abstract class AbstractDispatcher<T, S extends Schedule> implements Dispa
 
 	}
 
-	public static final String EXECUTING_ASYNCHRONOUS_CALL = "org.jboss.seam.core.executingAsynchronousCall";
+	
+	protected AbstractDispatcher() {
+		super();
+	}
 
 	public static Dispatcher instance() {
 		if (!Contexts.isApplicationContextActive()) {

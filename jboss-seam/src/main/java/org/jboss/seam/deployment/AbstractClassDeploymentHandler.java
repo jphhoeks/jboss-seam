@@ -8,6 +8,7 @@ public abstract class AbstractClassDeploymentHandler extends AbstractDeploymentH
 	private Set<ClassDescriptor> classes;
 
 	public AbstractClassDeploymentHandler() {
+		super();
 		classes = new HashSet<ClassDescriptor>();
 	}
 

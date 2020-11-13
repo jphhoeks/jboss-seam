@@ -32,6 +32,10 @@ public class RoleAction implements Serializable {
 		groups = new ArrayList<String>();
 	}
 
+	public RoleAction() {
+		super();
+	}
+	
 	@Begin
 	public void editRole(String role) {
 		this.originalRole = role;
@@ -70,14 +74,16 @@ public class RoleAction implements Serializable {
 
 		if (grantedRoles != null) {
 			for (String r : grantedRoles) {
-				if (!groups.contains(r))
+				if (!groups.contains(r)) {
 					identityManager.removeRoleFromGroup(role, r);
+				}
 			}
 		}
 
 		for (String r : groups) {
-			if (grantedRoles == null || !grantedRoles.contains(r))
+			if (grantedRoles == null || !grantedRoles.contains(r)) {
 				identityManager.addRoleToGroup(role, r);
+			}
 		}
 
 		Conversation.instance().end();

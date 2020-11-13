@@ -57,6 +57,7 @@ public class StandardDeploymentStrategy extends DeploymentStrategy {
 	* @param classLoader The classloader used to load and handle resources
 	*/
 	public StandardDeploymentStrategy(ClassLoader classLoader, ServletContext servletContext) {
+		super();
 		this.classLoader = Thread.currentThread().getContextClassLoader();
 		this.servletContext = servletContext;
 		componentDeploymentHandler = new ComponentDeploymentHandler();

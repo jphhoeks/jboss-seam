@@ -19,6 +19,7 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.intercept.InvocationContext;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
@@ -47,18 +48,28 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 
 	private Scheduler scheduler;
 
+	public QuartzDispatcher() {
+		super();
+	}
+	
 	@Create
 	public void initScheduler() throws SchedulerException {
 		StdSchedulerFactory schedulerFactory = new StdSchedulerFactory();
 
 		//TODO: magical properties files are *not* the way to config Seam apps!
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("seam.quartz.properties");
-		if (is != null) {
-			schedulerFactory.initialize(is);
-			log.debug("Found seam.quartz.properties file. Using it for Quartz config.");
-		} else {
-			schedulerFactory.initialize();
-			log.warn("No seam.quartz.properties file. Using in-memory job store.");
+		InputStream is = null;
+		try {
+			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("seam.quartz.properties");
+			if (is != null) {
+				schedulerFactory.initialize(is);
+				log.debug("Found seam.quartz.properties file. Using it for Quartz config.");
+			} else {
+				schedulerFactory.initialize();
+				log.warn("No seam.quartz.properties file. Using in-memory job store.");
+			}
+		}
+		finally {
+			Resources.close(is);
 		}
 
 		scheduler = schedulerFactory.getScheduler();
@@ -102,11 +113,9 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 	private QuartzTriggerHandle scheduleWithQuartzServiceAndWrapExceptions(Schedule schedule, Asynchronous async) {
 		try {
 			return scheduleWithQuartzService(schedule, async);
-		} catch (ParseException pe) {
+		} catch (ParseException | SchedulerException pe) {
 			throw new RuntimeException(pe);
-		} catch (SchedulerException se) {
-			throw new RuntimeException(se);
-		}
+		} 
 	}
 
 	private QuartzTriggerHandle scheduleWithQuartzService(Schedule schedule, Asynchronous async) throws SchedulerException, ParseException {
@@ -183,6 +192,7 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 		private Asynchronous async;
 
 		public QuartzJob() {
+			//
 		}
 
 		@Override

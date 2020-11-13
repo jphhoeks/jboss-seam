@@ -33,6 +33,10 @@ public abstract class RedirectHandler extends ExceptionHandler {
 
 	protected abstract boolean isEndBeforeRedirect(Exception e);
 
+	protected RedirectHandler() {
+		super();
+	}
+	
 	@Override
 	public void handle(Exception e) throws Exception {
 		String viewId = getViewId(e);

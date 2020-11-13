@@ -3,12 +3,15 @@ package org.jboss.seam.cache;
 import org.infinispan.tree.Fqn;
 
 public abstract class AbstractInfinispanCacheProvider<T> extends CacheProvider<T> {
-
+	private Fqn defaultFqn;
+	
+	
 	public AbstractInfinispanCacheProvider() {
+		super();
 		super.setConfiguration("infinispan.xml");
 	}
 
-	private Fqn defaultFqn;
+
 
 	protected Fqn getFqn(String region) {
 		if (region != null) {

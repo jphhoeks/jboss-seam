@@ -26,6 +26,10 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
 @Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
 public class TaskInstancePriorityList {
 
+	public TaskInstancePriorityList() {
+		super();
+	}
+	
 	//TODO: we really need to cache the list in the event context,
 	//      but then we would need some events to refresh it
 	//      when tasks end, which is non-trivial to do....
@@ -37,8 +41,9 @@ public class TaskInstancePriorityList {
 	}
 
 	private List<TaskInstance> getTaskInstanceList(String actorId) {
-		if (actorId == null)
+		if (actorId == null) {
 			return null;
+		}
 
 		return ManagedJbpmContext.instance().getSession().createCriteria(TaskInstance.class).add(Restrictions.eq("actorId", actorId))
 				.add(Restrictions.eq("isOpen", true)).add(Restrictions.ne("isSuspended", true)).addOrder(Order.asc("priority"))

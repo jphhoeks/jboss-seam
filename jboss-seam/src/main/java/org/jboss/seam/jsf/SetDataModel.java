@@ -26,9 +26,11 @@ public class SetDataModel extends javax.faces.model.DataModel implements Seriali
 	private List entries;
 
 	public SetDataModel() {
+		super();
 	}
 
 	public SetDataModel(Set set) {
+		super();
 		if (set == null) {
 			throw new IllegalArgumentException("null set data");
 		}

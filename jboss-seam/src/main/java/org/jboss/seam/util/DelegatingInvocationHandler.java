@@ -18,6 +18,8 @@ import org.jboss.seam.log.Logging;
 public class DelegatingInvocationHandler<T> implements InvocationHandler {
 	private static Log log = Logging.getLog(DelegatingInvocationHandler.class);
 
+	private Map<Method, MethodTarget> methodCache = new HashMap<Method, MethodTarget>();
+	private T delegate;
 	private class MethodTarget {
 		public Method method;
 		public Object target;
@@ -28,8 +30,6 @@ public class DelegatingInvocationHandler<T> implements InvocationHandler {
 		}
 	}
 
-	private Map<Method, MethodTarget> methodCache = new HashMap<Method, MethodTarget>();
-	private T delegate;
 
 	public DelegatingInvocationHandler(T delegate) {
 		this.delegate = delegate;
@@ -48,7 +48,7 @@ public class DelegatingInvocationHandler<T> implements InvocationHandler {
 				if (!methodCache.containsKey(method)) {
 					try {
 						target = new MethodTarget(this, getClass().getMethod(method.getName(), method.getParameterTypes()));
-					} catch (NoSuchMethodException ex) {
+					} catch (NoSuchMethodException ignored) {
 						// Swallow this, we'll try to find a matching method on the delegate
 					}
 
@@ -56,7 +56,7 @@ public class DelegatingInvocationHandler<T> implements InvocationHandler {
 						try {
 							target = new MethodTarget(delegate,
 									delegate.getClass().getMethod(method.getName(), method.getParameterTypes()));
-						} catch (NoSuchMethodException ex) {
+						} catch (NoSuchMethodException ignored) {
 							// Swallow this, put a null entry in methodCache
 						}
 					}

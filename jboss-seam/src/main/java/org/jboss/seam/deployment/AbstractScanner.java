@@ -17,6 +17,7 @@ import javax.servlet.ServletContext;
 import org.jboss.seam.contexts.ServletLifecycle;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 
 /**
  * Abstract base class for {@link Scanner} providing common functionality
@@ -32,6 +33,10 @@ public abstract class AbstractScanner implements Scanner {
 	protected OmitPackageHelper omitPackage;
 	protected ScanResultsCache scanCache;
 	private boolean timestampScan = false;
+	
+	private static final LogProvider log = Logging.getLogProvider(Scanner.class);
+
+	protected DeploymentStrategy deploymentStrategy;
 
 	private static class Handler {
 
@@ -68,12 +73,16 @@ public abstract class AbstractScanner implements Scanner {
 					if (this.scanCache.isHit(name)
 							|| hasAnnotations(getClassFile(), classDeploymentHandler.getMetadata().getClassAnnotatedWith())) {
 						if (getClassDescriptor().getClazz() != null) {
-							log.trace("adding class to deployable list " + name + " for deployment handler " + deploymentHandler.getName());
+							if (log.isTraceEnabled()) {
+								log.trace("adding class to deployable list " + name + " for deployment handler " + deploymentHandler.getName());
+							}
 							classDeploymentHandler.getClasses().add(getClassDescriptor());
 							handled = true;
 						} else {
-							log.debug("skipping class " + name
+							if (log.isDebugEnabled()) {
+								log.debug("skipping class " + name							
 									+ " because it cannot be loaded (may reference a type which is not available on the classpath)");
+							}
 						}
 					}
 				}
@@ -87,7 +96,9 @@ public abstract class AbstractScanner implements Scanner {
 		}
 
 		protected boolean handle() {
-			log.trace("found " + name);
+			if (log.isTraceEnabled()) {
+				log.trace("found " + name);
+			}
 			boolean handled = false;
 			for (Entry<String, DeploymentHandler> entry : deploymentHandlers) {
 				if (handle(entry.getValue())) {
@@ -123,9 +134,7 @@ public abstract class AbstractScanner implements Scanner {
 		}
 	}
 
-	private static final LogProvider log = Logging.getLogProvider(Scanner.class);
 
-	protected DeploymentStrategy deploymentStrategy;
 
 	public AbstractScanner(DeploymentStrategy deploymentStrategy) {
 		this.deploymentStrategy = deploymentStrategy;
@@ -149,7 +158,7 @@ public abstract class AbstractScanner implements Scanner {
 	}
 
 	protected static boolean hasAnnotations(ClassFile classFile, Set<Class<? extends Annotation>> annotationTypes) {
-		if (annotationTypes.size() > 0) {
+		if (!annotationTypes.isEmpty()) {
 			AnnotationsAttribute visible = (AnnotationsAttribute) classFile.getAttribute(AnnotationsAttribute.visibleTag);
 			if (visible != null) {
 				for (Class<? extends Annotation> annotationType : annotationTypes) {
@@ -169,18 +178,19 @@ public abstract class AbstractScanner implements Scanner {
 		if (name == null) {
 			throw new NullPointerException("name cannot be null");
 		}
-		InputStream stream = classLoader.getResourceAsStream(name);
-		if (stream == null) {
-			throw new IllegalStateException(
-					"Cannot load " + name + " from " + classLoader + " (using getResourceAsStream() returned null)");
-		}
-		DataInputStream dstream = new DataInputStream(new BufferedInputStream(stream));
-
+		InputStream stream = null;
+		DataInputStream dstream = null;
 		try {
+			stream = classLoader.getResourceAsStream(name);
+			if (stream == null) {
+				throw new IllegalStateException(
+						"Cannot load " + name + " from " + classLoader + " (using getResourceAsStream() returned null)");
+			}
+			dstream = new DataInputStream(new BufferedInputStream(stream));
+
 			return new ClassFile(dstream);
 		} finally {
-			dstream.close();
-			stream.close();
+			Resources.close(dstream, stream);
 		}
 	}
 

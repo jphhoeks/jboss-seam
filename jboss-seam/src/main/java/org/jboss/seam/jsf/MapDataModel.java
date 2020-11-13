@@ -31,9 +31,11 @@ public class MapDataModel extends javax.faces.model.DataModel implements Seriali
 	private transient List<Map.Entry> entries;
 
 	public MapDataModel() {
+		super();
 	}
 
 	public MapDataModel(Map map) {
+		super();
 		if (map == null) {
 			throw new IllegalArgumentException("null map data");
 		}

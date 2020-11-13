@@ -66,16 +66,11 @@ public abstract class ContextualHttpServletRequest {
 				Manager.instance().endRequest(new ServletRequestSessionMap(request));
 				ServletLifecycle.endRequest(request);
 			}
-		} catch (IOException ioe) {
+		} catch (IOException | ServletException ioe) {
 			removeCounter();
 			Lifecycle.endRequest();
 			log.debug("ended request due to exception");
 			throw ioe;
-		} catch (ServletException se) {
-			removeCounter();
-			Lifecycle.endRequest();
-			log.debug("ended request due to exception");
-			throw se;
 		} catch (Exception e) {
 			removeCounter();
 			Lifecycle.endRequest();
@@ -103,7 +98,9 @@ public abstract class ContextualHttpServletRequest {
 			log.trace("Getting 0");
 			return 0;
 		} else {
-			log.trace("Getting " + i.intValue());
+			if (log.isTraceEnabled()) {
+				log.trace("Getting " + i.intValue());
+			}
 			return i.intValue();
 		}
 	}
@@ -118,7 +115,9 @@ public abstract class ContextualHttpServletRequest {
 			count.set(i);
 		}
 		i.incrementAndGet();
-		log.trace("Incrementing to " + count.get());
+		if (log.isTraceEnabled()) {
+			log.trace("Incrementing to " + count.get());
+		}
 	}
 
 	/*
@@ -133,7 +132,9 @@ public abstract class ContextualHttpServletRequest {
 		}
 		if (i.intValue() > 0) {
 			i.decrementAndGet();
-			log.trace("Decrementing to " + count.get());
+			if (log.isTraceEnabled()) {
+				log.trace("Decrementing to " + count.get());
+			}
 		}
 	}
 

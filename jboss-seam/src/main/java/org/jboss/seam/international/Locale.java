@@ -21,6 +21,10 @@ import org.jboss.seam.contexts.Contexts;
 @Install(precedence = FRAMEWORK, dependencies = "org.jboss.seam.international.localeSelector")
 @BypassInterceptors
 public class Locale extends org.jboss.seam.core.Locale {
+	
+	public Locale() {
+		super();
+	}
 
 	@Unwrap
 	@Override

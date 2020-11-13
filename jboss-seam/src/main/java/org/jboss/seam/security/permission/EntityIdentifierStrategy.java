@@ -52,8 +52,9 @@ public class EntityIdentifierStrategy implements IdentifierStrategy, Serializabl
 
 	@Override
 	public String getIdentifier(Object target) {
-		if (persistenceProvider == null)
+		if (persistenceProvider == null) {
 			init();
+		}
 		Object persProviderId = persistenceProvider.getId(target, lookupEntityManager()).toString();
 		return String.format("%s:%s", getIdentifierName(target.getClass()), persProviderId);
 	}
@@ -85,8 +86,9 @@ public class EntityIdentifierStrategy implements IdentifierStrategy, Serializabl
 	}
 
 	private EntityManager lookupEntityManager() {
-		if (entityManager == null)
+		if (entityManager == null) {
 			init();
+		}
 		return entityManager.getValue();
 	}
 }

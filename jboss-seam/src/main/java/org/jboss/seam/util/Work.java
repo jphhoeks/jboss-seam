@@ -20,6 +20,10 @@ public abstract class Work<T> {
 	private static final LogProvider log = Logging.getLogProvider(Work.class);
 
 	protected abstract T work() throws Exception;
+	
+	protected Work() {
+		super();
+	}
 
 	protected boolean isNewTransactionRequired(boolean transactionActive) {
 		return !transactionActive;

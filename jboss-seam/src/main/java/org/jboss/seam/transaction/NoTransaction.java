@@ -29,6 +29,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Install(value = false, precedence = FRAMEWORK)
 @BypassInterceptors
 public class NoTransaction extends AbstractUserTransaction {
+	
+	public NoTransaction() {
+		super();
+	}
 
 	@Override
 	public void begin() throws NotSupportedException, SystemException {

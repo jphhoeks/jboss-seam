@@ -106,6 +106,7 @@ public class HibernatePersistenceProvider extends PersistenceProvider {
 	}
 
 	public HibernatePersistenceProvider() {
+		super();
 		super.init();
 		featureSet.add(Feature.WILDCARD_AS_COUNT_QUERY_SUBJECT);
 	}
@@ -252,11 +253,9 @@ public class HibernatePersistenceProvider extends PersistenceProvider {
 	public String getName(Object bean, EntityManager entityManager) throws IllegalArgumentException {
 		try {
 			return getSession(entityManager).getEntityName(bean);
-		} catch (NotHibernateException nhe) {
+		} catch (NotHibernateException | TransientObjectException nhe) {
 			return super.getName(bean, entityManager);
-		} catch (TransientObjectException e) {
-			return super.getName(bean, entityManager);
-		}
+		} 
 	}
 
 	@Override

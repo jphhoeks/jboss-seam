@@ -28,13 +28,16 @@ import org.jboss.seam.contexts.Contexts;
 @Install(precedence = BUILT_IN, classDependencies = "org.drools.decisiontable.SpreadsheetCompiler")
 public class SpreadsheetCompiler {
 
+	public SpreadsheetCompiler() {
+		super();
+	}
+	
 	public InputStreamReader compile(InputStream stream) {
 		org.drools.decisiontable.SpreadsheetCompiler compiler = new org.drools.decisiontable.SpreadsheetCompiler();
 		String drl = compiler.compile(stream, InputType.XLS);
 
 		byte currentXMLBytes[] = drl.getBytes();
-		InputStreamReader source = new InputStreamReader(new ByteArrayInputStream(currentXMLBytes));
-		return source;
+		return new InputStreamReader(new ByteArrayInputStream(currentXMLBytes));
 	}
 
 	public static SpreadsheetCompiler instance() {

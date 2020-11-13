@@ -27,6 +27,11 @@ import org.jboss.seam.contexts.Contexts;
 @Name("org.jboss.seam.web.userPrincipal")
 @Install(precedence = BUILT_IN)
 public class UserPrincipal {
+	
+	public UserPrincipal() {
+		super();
+	}
+	
 	@Unwrap
 	public Principal getUserPrincipal() {
 		ServletRequest servletRequest = ServletContexts.instance().getRequest();

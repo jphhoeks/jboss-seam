@@ -41,12 +41,17 @@ public class LocaleSelector extends Selector {
 	private String language;
 	private String country;
 	private String variant;
+	
+	public LocaleSelector() {
+		super();
+	}
 
 	@Create
 	public void initLocale() {
 		String localeString = getCookieValueIfEnabled();
-		if (localeString != null)
+		if (localeString != null) {
 			setLocaleString(localeString);
+		}
 	}
 
 	@Override
@@ -154,8 +159,9 @@ public class LocaleSelector extends Selector {
 	}
 
 	public String getCountry() {
-		if (country == null)
+		if (country == null) {
 			return getLocale().getCountry();
+		}
 		return country;
 	}
 
@@ -165,8 +171,9 @@ public class LocaleSelector extends Selector {
 	}
 
 	public String getLanguage() {
-		if (language == null)
+		if (language == null) {
 			return getLocale().getLanguage();
+		}
 		return language;
 	}
 
@@ -176,8 +183,9 @@ public class LocaleSelector extends Selector {
 	}
 
 	public String getVariant() {
-		if (variant == null)
+		if (variant == null) {
 			return getLocale().getVariant();
+		}
 		return variant;
 	}
 

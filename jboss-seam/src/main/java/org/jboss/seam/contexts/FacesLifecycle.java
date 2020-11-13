@@ -44,7 +44,9 @@ public class FacesLifecycle {
 	}
 
 	public static void beginRequest(ExternalContext externalContext) {
-		log.debug(">>> Begin JSF request for " + getRequestPath(externalContext));
+		if (log.isDebugEnabled()) {
+			log.debug(">>> Begin JSF request for " + getRequestPath(externalContext));
+		}
 		Contexts.eventContext.set(new EventContext(externalContext.getRequestMap()));
 		Contexts.applicationContext.set(new ApplicationContext(externalContext.getApplicationMap()));
 		Contexts.sessionContext.set(new SessionContext(externalContext.getSessionMap()));
@@ -104,8 +106,9 @@ public class FacesLifecycle {
 		boolean conversationContextFlushed = !Contexts.isConversationContextActive();
 		ServerConversationContext conversationContext = new ServerConversationContext(externalContext.getSessionMap());
 		Contexts.conversationContext.set(conversationContext);
-		if (conversationContextFlushed)
+		if (conversationContextFlushed) {
 			conversationContext.unflush();
+		}
 	}
 
 	public static void endRequest(ExternalContext externalContext) {
@@ -124,7 +127,9 @@ public class FacesLifecycle {
 			}
 		} finally {
 			Contexts.clearThreadlocals();
-			log.debug("<<< End JSF request for " + getRequestPath(externalContext));
+			if (log.isDebugEnabled()) {
+				log.debug("<<< End JSF request for " + getRequestPath(externalContext));
+			}
 		}
 	}
 

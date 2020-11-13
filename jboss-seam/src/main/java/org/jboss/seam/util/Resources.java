@@ -22,10 +22,10 @@ public class Resources {
 		if (servletContext != null) {
 			try {
 				stream = servletContext.getResourceAsStream(resource);
-				if (stream != null) {
+				if (stream != null && log.isDebugEnabled()) {
 					log.debug("Loaded resource from servlet context: " + resource);
 				}
-			} catch (Exception e) {
+			} catch (Exception ignored) {
 				//
 			}
 		}
@@ -49,8 +49,10 @@ public class Resources {
 		if (servletContext != null) {
 			try {
 				url = servletContext.getResource(resource);
-				log.debug("Loaded resource from servlet context: " + url);
-			} catch (Exception e) {
+				if (log.isDebugEnabled()) {
+					log.debug("Loaded resource from servlet context: " + url);
+				}
+			} catch (Exception ignored) {
 				//
 			}
 		}
@@ -68,20 +70,24 @@ public class Resources {
 		if (classLoader != null) {
 			stream = classLoader.getResourceAsStream(stripped);
 			if (stream != null) {
-				log.debug("Loaded resource from context classloader: " + stripped);
+				if (log.isDebugEnabled()) {
+					log.debug("Loaded resource from context classloader: " + stripped);
+				}
 			}
 		}
 
 		if (stream == null) {
 			stream = Seam.class.getResourceAsStream(resource);
 			if (stream != null) {
-				log.debug("Loaded resource from Seam classloader: " + resource);
+				if (log.isDebugEnabled()) {
+					log.debug("Loaded resource from Seam classloader: " + resource);
+				}
 			}
 		}
 
 		if (stream == null) {
 			stream = Seam.class.getClassLoader().getResourceAsStream(stripped);
-			if (stream != null) {
+			if (stream != null && log.isDebugEnabled()) {
 				log.debug("Loaded resource from Seam classloader: " + stripped);
 			}
 		}
@@ -94,21 +100,21 @@ public class Resources {
 		URL url = null;
 		if (classLoader != null) {
 			url = classLoader.getResource(stripped);
-			if (url != null) {
+			if (url != null && log.isDebugEnabled()) {
 				log.debug("Loaded resource from context classloader: " + url);
 			}
 		}
 
 		if (url == null) {
 			url = Seam.class.getResource(resource);
-			if (url != null) {
+			if (url != null && log.isDebugEnabled()) {
 				log.debug("Loaded resource from Seam classloader: " + url);
 			}
 		}
 
 		if (url == null) {
 			url = Seam.class.getClassLoader().getResource(stripped);
-			if (url != null) {
+			if (url != null && log.isDebugEnabled()) {
 				log.debug("Loaded resource from Seam classloader: " + url);
 			}
 		}
@@ -127,7 +133,7 @@ public class Resources {
 			if (closeable != null) {
 				closeable.close();
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 			//
 		}
 	}
@@ -149,10 +155,14 @@ public class Resources {
 				if ((resourcePath != null) && (resourcePath.getProtocol().equals("file"))) {
 					realPath = resourcePath.getPath();
 				} else {
-					log.info("Unable to determine real path from servlet context for \"" + path + "\" path does not exist.");
+					if (log.isInfoEnabled()) {
+						log.info("Unable to determine real path from servlet context for \"" + path + "\" path does not exist.");
+					}
 				}
 			} catch (MalformedURLException e) {
-				log.warn("Unable to determine real path from servlet context for : " + path);
+				if (log.isWarnEnabled()) {
+					log.warn("Unable to determine real path from servlet context for : " + path);
+				}
 				log.debug("Caused by MalformedURLException", e);
 			}
 

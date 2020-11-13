@@ -28,6 +28,9 @@ public abstract class CacheProvider<T> {
 	*/
 	public abstract T getDelegate();
 
+	protected CacheProvider() {
+		super();
+	}
 	/**
 	* Get the configuration file used by the cache
 	* 

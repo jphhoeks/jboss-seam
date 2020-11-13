@@ -45,6 +45,10 @@ public class HibernateTransaction extends AbstractUserTransaction {
 	private Session currentSession;
 	private boolean rollbackOnly; //Hibernate Transaction doesn't have a "rollback only" state
 
+	public HibernateTransaction() {
+		super();
+	}
+	
 	@Create
 	public void validate() {
 		if (session == null) {

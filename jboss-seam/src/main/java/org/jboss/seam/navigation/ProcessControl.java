@@ -14,6 +14,10 @@ public class ProcessControl {
 	private String definition;
 	private ValueExpression<Long> processId;
 
+	public ProcessControl() {
+		super();
+	}
+	
 	public void createOrResumeProcess() {
 		if (createProcess()) {
 			BusinessProcess.instance().createProcess(definition);

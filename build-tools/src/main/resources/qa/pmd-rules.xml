@@ -9,15 +9,15 @@
     </description>
     <!-- FIXME: reduce the amout of supressions and custom configuration here -->
     <rule ref="category/java/bestpractices.xml">
-        <exclude name="ArrayIsStoredDirectly"/>
-        <exclude name="GuardLogStatement"/>
         <exclude name="AccessorMethodGeneration"/>
-        <exclude name="PreserveStackTrace"/>
         <exclude name="JUnitTestContainsTooManyAsserts"/>
         <exclude name="JUnitTestsShouldIncludeAssert"/>
         <exclude name="JUnitUseExpected"/>
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
-        <exclude name="MethodReturnsInternalArray"/>
+    	<exclude name="UseTryWithResources" />   
+    	<exclude name="UnusedFormalParameter" /> 
+    	<exclude name="UseVarargs"/>
+    	<exclude name="ReplaceEnumerationWithIterator" />
     </rule>
 
     <rule ref="category/java/errorprone.xml">
@@ -25,6 +25,12 @@
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="BeanMembersShouldSerialize"/>
         <exclude name="UseLocaleWithCaseConversions"/>
+        <exclude name="NullAssignment" />
+        <exclude name="AvoidLiteralsInIfCondition"/>
+        <exclude name="AvoidDuplicateLiterals"/>
+    </rule>
+    <rule ref="category/java/design.xml">
+    	<exclude name="CollapsibleIfStatement"/>
     </rule>
     <!--<rule ref="category/java/multithreading.xml"></rule>-->
     <!--<rule ref="category/java/security.xml"></rule>-->

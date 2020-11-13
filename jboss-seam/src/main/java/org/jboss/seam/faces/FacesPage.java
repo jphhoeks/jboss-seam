@@ -37,8 +37,11 @@ public class FacesPage implements Serializable {
 	private String conversationId;
 	private boolean conversationIsLongRunning;
 
-	//private Map<String, Object> pageParameters;
 
+	public FacesPage() {
+		super();
+	}
+	
 	public String getConversationId() {
 		return conversationId;
 	}

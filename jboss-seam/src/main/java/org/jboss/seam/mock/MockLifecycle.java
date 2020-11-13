@@ -12,6 +12,7 @@ public class MockLifecycle extends Lifecycle {
 	public static final Lifecycle INSTANCE = new MockLifecycle();
 
 	public MockLifecycle() {
+		super();
 		MockLifecycleFactory.setLifecycle(this);
 		FactoryFinder.setFactory(FactoryFinder.LIFECYCLE_FACTORY, MockLifecycleFactory.class.getName());
 	}

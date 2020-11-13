@@ -12,7 +12,20 @@ import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 
 public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler {
+	/**
+	* Name under which this {@link DeploymentHandler} is registered
+	*/
+	public static final String NAME = "org.jboss.seam.deployment.AnnotationDeploymentHandler";
 
+	public static final String ANNOTATIONS_KEY = "org.jboss.seam.deployment.annotationTypes";
+
+	private static final LogProvider log = Logging.getLogProvider(AnnotationDeploymentHandler.class);
+
+	private ClassDeploymentMetadata metadata;
+
+	private Map<String, Set<Class<?>>> classes;
+	private Set<Class<? extends Annotation>> annotations;
+	
 	private class AnnotationDeploymentHandlerMetadata implements ClassDeploymentMetadata {
 
 		private Set<Class<? extends Annotation>> annotations;
@@ -33,31 +46,26 @@ public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler 
 
 	}
 
-	/**
-	* Name under which this {@link DeploymentHandler} is registered
-	*/
-	public static final String NAME = "org.jboss.seam.deployment.AnnotationDeploymentHandler";
 
-	public static final String ANNOTATIONS_KEY = "org.jboss.seam.deployment.annotationTypes";
-
-	private static final LogProvider log = Logging.getLogProvider(AnnotationDeploymentHandler.class);
-
-	private ClassDeploymentMetadata metadata;
-
-	private Map<String, Set<Class<?>>> classes;
-	private Set<Class<? extends Annotation>> annotations;
 
 	public AnnotationDeploymentHandler(List<String> annotationTypes, ClassLoader classLoader) {
+		super();
 		this.annotations = new HashSet<Class<? extends Annotation>>();
 		for (String classname : annotationTypes) {
 			try {
 				annotations.add((Class<? extends Annotation>) classLoader.loadClass(classname));
 			} catch (ClassNotFoundException cnfe) {
-				log.warn("could not load annotation class: " + classname, cnfe);
+				if (log.isWarnEnabled()) { 
+					log.warn("could not load annotation class: " + classname, cnfe);
+				}
 			} catch (LinkageError ncdfe) {
-				log.warn("could not load annotation class (missing dependency): " + classname, ncdfe);
+				if (log.isWarnEnabled()) { 
+					log.warn("could not load annotation class (missing dependency): " + classname, ncdfe);
+				}
 			} catch (ClassCastException cce) {
-				log.warn("could not load annotation class (not an annotation): " + classname, cce);
+				if (log.isWarnEnabled()) { 
+					log.warn("could not load annotation class (not an annotation): " + classname, cce);
+				}
 			}
 		}
 		metadata = new AnnotationDeploymentHandlerMetadata(annotations);

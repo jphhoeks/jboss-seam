@@ -29,6 +29,10 @@ import org.jboss.seam.servlet.ContextualHttpServletRequest;
 @BypassInterceptors
 @Filter(within = "org.jboss.seam.web.ajax4jsfFilter")
 public class ContextFilter extends AbstractFilter {
+	
+	public ContextFilter() {
+		super();
+	}
 
 	@Override
 	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)

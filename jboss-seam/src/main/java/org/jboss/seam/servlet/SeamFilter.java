@@ -3,9 +3,9 @@ package org.jboss.seam.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -72,13 +72,19 @@ public class SeamFilter implements Filter {
 		}
 	}
 
+	public SeamFilter() {
+		super();
+	}
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		Lifecycle.setupApplication(new ServletApplicationMap(filterConfig.getServletContext()));
 		try {
 			filters = getSortedFilters();
 			for (Filter filter : filters) {
-				log.debug("Initializing filter: " + Component.getComponentName(filter.getClass()));
+				if (log.isDebugEnabled()) {
+					log.debug("Initializing filter: " + Component.getComponentName(filter.getClass()));
+				}
 				filter.init(filterConfig);
 			}
 		} finally {
@@ -88,7 +94,7 @@ public class SeamFilter implements Filter {
 
 	private List<Filter> getSortedFilters() {
 		//retrieve the Filter instances from the application context
-		Map<String, SortItem<Filter>> sortItemsMap = new HashMap<String, SortItem<Filter>>();
+		Map<String, SortItem<Filter>> sortItemsMap = new ConcurrentHashMap<String, SortItem<Filter>>();
 		List<SortItem<Filter>> sortItems = new ArrayList<SortItem<Filter>>();
 
 		for (String filterName : Init.instance().getInstalledFilters()) {
@@ -110,13 +116,15 @@ public class SeamFilter implements Filter {
 			if (filterAnn != null) {
 				for (String s : Arrays.asList(filterAnn.around())) {
 					SortItem<Filter> aroundSortItem = sortItemsMap.get(s);
-					if (sortItem != null && aroundSortItem != null)
+					if (sortItem != null && aroundSortItem != null) {
 						sortItem.getAround().add(aroundSortItem);
+					}
 				}
 				for (String s : Arrays.asList(filterAnn.within())) {
 					SortItem<Filter> withinSortItem = sortItemsMap.get(s);
-					if (sortItem != null && withinSortItem != null)
+					if (sortItem != null && withinSortItem != null) {
 						sortItem.getWithin().add(withinSortItem);
+					}
 				}
 			}
 		}
@@ -125,8 +133,9 @@ public class SeamFilter implements Filter {
 		Sorter<Filter> sList = new Sorter<Filter>();
 		sortItems = sList.sort(sortItems);
 		List<Filter> sorted = new ArrayList<Filter>();
-		for (SortItem<Filter> si : sortItems)
+		for (SortItem<Filter> si : sortItems) {
 			sorted.add(si.getObj());
+		}
 		return sorted;
 	}
 

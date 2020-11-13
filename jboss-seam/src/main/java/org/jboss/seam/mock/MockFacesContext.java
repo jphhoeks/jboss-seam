@@ -45,8 +45,14 @@ public class MockFacesContext extends FacesContext {
 	private RenderKitFactory renderKitFactory;
 
 	private ELContext elContext;
+	
+	private Application application;
 
+	private boolean renderResponse;
+	private boolean responseComplete;
+	
 	public MockFacesContext(ExternalContext externalContext, Application application) {
+		super();
 		this.externalContext = externalContext;
 		this.application = application;
 	}
@@ -54,12 +60,13 @@ public class MockFacesContext extends FacesContext {
 	// Create a MockFacesContext using a ApplicationFactory to get the
 	// Application
 	public MockFacesContext(ExternalContext externalContext) {
+		super();
 		application = ((ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY)).getApplication();
 		renderKitFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
 		this.externalContext = externalContext;
 	}
 
-	private Application application;
+
 
 	@Override
 	public Application getApplication() {
@@ -117,14 +124,13 @@ public class MockFacesContext extends FacesContext {
 		}
 	}
 
-	private boolean renderResponse;
 
 	@Override
 	public boolean getRenderResponse() {
 		return renderResponse;
 	}
 
-	private boolean responseComplete;
+
 
 	@Override
 	public boolean getResponseComplete() {

@@ -8,6 +8,10 @@ public class Put {
 	private ScopeType scope;
 	private ValueExpression value;
 
+	public Put() {
+		super();
+	}
+	
 	public String getName() {
 		return name;
 	}

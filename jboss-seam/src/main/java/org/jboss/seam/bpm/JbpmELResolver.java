@@ -18,6 +18,7 @@ final class JbpmELResolver extends ELResolver {
 	private final VariableResolver resolver;
 
 	JbpmELResolver(VariableResolver resolver) {
+		super();
 		this.resolver = resolver;
 	}
 

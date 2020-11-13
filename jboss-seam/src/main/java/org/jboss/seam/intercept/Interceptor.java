@@ -80,6 +80,7 @@ public final class Interceptor extends Reflections {
 	}
 
 	public Interceptor(Object interceptor, Component component) {
+		super();
 		userInterceptorClass = interceptor.getClass();
 		statelessUserInterceptorInstance = interceptor;
 		this.component = component;
@@ -87,6 +88,7 @@ public final class Interceptor extends Reflections {
 	}
 
 	public Interceptor(Class[] classes, Annotation annotation, Component component) {
+		super();
 		if (classes.length != 1) {
 			//TODO: remove this silly restriction!
 			throw new IllegalArgumentException("Must be exactly one interceptor when used as a meta-annotation");
@@ -107,8 +109,9 @@ public final class Interceptor extends Reflections {
 
 	private void init() {
 		for (Method method : userInterceptorClass.getMethods()) {
-			if (!method.isAccessible())
+			if (!method.isAccessible()) {
 				method.setAccessible(true);
+			}
 			if (method.isAnnotationPresent(AROUND_INVOKE) || method.isAnnotationPresent(AroundInvoke.class)) {
 				aroundInvokeMethod = method;
 			}

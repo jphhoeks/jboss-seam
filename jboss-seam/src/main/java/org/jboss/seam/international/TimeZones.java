@@ -37,6 +37,10 @@ public class TimeZones {
 	private boolean wrap = true;
 
 	private List<TimeZone> timeZones = null;
+	
+	public TimeZones() {
+		super();
+	}
 
 	@Create
 	public void init() {

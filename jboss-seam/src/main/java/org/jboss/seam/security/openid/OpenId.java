@@ -44,6 +44,10 @@ public class OpenId implements Serializable {
 	ConsumerManager manager;
 	DiscoveryInformation discovered;
 
+	public OpenId() {
+		super();
+	}
+	
 	@Create
 	public void init() throws ConsumerException {
 		manager = new ConsumerManager();
@@ -161,8 +165,9 @@ public class OpenId implements Serializable {
 			// extract the receiving URL from the HTTP request
 			StringBuffer receivingURL = httpReq.getRequestURL();
 			String queryString = httpReq.getQueryString();
-			if (queryString != null && queryString.length() > 0)
+			if (queryString != null && queryString.length() > 0) {
 				receivingURL.append("?").append(httpReq.getQueryString());
+			}
 
 			// verify the response; ConsumerManager needs to be the same
 			// (static) instance used to place the authentication request

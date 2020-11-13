@@ -2,9 +2,9 @@ package org.jboss.seam.el;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.el.FunctionMapper;
 
@@ -20,13 +20,14 @@ import org.jboss.seam.security.SecurityFunctions;
  * @author Shane Bryzak
  */
 public class SeamFunctionMapper extends ExtendedFunctionMapper {
-	private static Map<String, List<Method>> methodCache = new HashMap<String, List<Method>>();
+	private static Map<String, List<Method>> methodCache = new ConcurrentHashMap<String, List<Method>>();
 
 	private static final LogProvider log = Logging.getLogProvider(SeamFunctionMapper.class);
 
 	private FunctionMapper functionMapper;
 
 	public SeamFunctionMapper(FunctionMapper functionMapper) {
+		super();
 		this.functionMapper = functionMapper;
 	}
 
@@ -54,8 +55,9 @@ public class SeamFunctionMapper extends ExtendedFunctionMapper {
 			List<Method> methods = methodCache.get(localName);
 			if (methods != null) {
 				for (Method m : methods) {
-					if (m.getParameterTypes().length == paramCount)
+					if (m.getParameterTypes().length == paramCount) {
 						return m;
+					}
 				}
 			}
 

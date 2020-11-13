@@ -14,6 +14,7 @@ public class MockPartialViewContext extends PartialViewContext {
 	Boolean ajaxRequest;
 
 	public MockPartialViewContext() {
+		super();
 		partialRequest = true;
 		ajaxRequest = true;
 		renderAll = false;
@@ -56,7 +57,7 @@ public class MockPartialViewContext extends PartialViewContext {
 
 	@Override
 	public void processPartial(PhaseId arg0) {
-
+		//
 	}
 
 	@Override

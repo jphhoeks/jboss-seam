@@ -5,10 +5,10 @@ import static org.jboss.seam.annotations.Install.BUILT_IN;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -36,12 +36,16 @@ public class PermissionMapper implements Serializable {
 
 	public static final String DEFAULT_RESOLVER_CHAIN_CREATED = "org.jboss.seam.security.defaultResolverChainCreated";
 
-	private Map<Class, Map<String, String>> resolverChains = new HashMap<Class, Map<String, String>>();
+	private Map<Class, Map<String, String>> resolverChains = new ConcurrentHashMap<Class, Map<String, String>>();
 
 	private String defaultResolverChain;
 
 	private static final String DEFAULT_RESOLVER_CHAIN = "org.jboss.seam.security.defaultResolverChain";
 
+	public PermissionMapper() {
+		super();
+	}
+	
 	private ResolverChain getResolverChain(Object target, String action) {
 		Class targetClass = null;
 
@@ -83,8 +87,9 @@ public class PermissionMapper implements Serializable {
 
 		Class targetClass = null;
 		for (Object target : collection) {
-			if (targetClass == null)
+			if (targetClass == null) {
 				targetClass = target.getClass();
+			}
 			if (!targetClass.equals(target.getClass())) {
 				homogenous = false;
 				break;
@@ -102,7 +107,7 @@ public class PermissionMapper implements Serializable {
 				collection.remove(target);
 			}
 		} else {
-			Map<Class, Set<Object>> deniedByClass = new HashMap<Class, Set<Object>>();
+			Map<Class, Set<Object>> deniedByClass = new ConcurrentHashMap<Class, Set<Object>>();
 			for (Object obj : collection) {
 				if (!deniedByClass.containsKey(obj.getClass())) {
 					Set<Object> denied = new HashSet<Object>();
@@ -138,8 +143,9 @@ public class PermissionMapper implements Serializable {
 			}
 
 			Contexts.getSessionContext().set(DEFAULT_RESOLVER_CHAIN, chain);
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(DEFAULT_RESOLVER_CHAIN_CREATED, chain);
+			}
 		}
 
 		return chain;

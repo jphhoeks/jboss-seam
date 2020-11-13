@@ -54,8 +54,9 @@ public class SOAPRequestHandler implements SOAPHandler {
 	@Override
 	public boolean handleMessage(MessageContext msgContext) {
 		Boolean outbound = (Boolean) msgContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-		if (outbound == null)
+		if (outbound == null) {
 			throw new IllegalStateException("Cannot obtain required property: " + MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+		}
 
 		return outbound ? handleOutbound(msgContext) : handleInbound(msgContext);
 	}

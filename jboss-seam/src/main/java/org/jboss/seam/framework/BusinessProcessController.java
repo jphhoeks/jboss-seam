@@ -18,6 +18,10 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
 public class BusinessProcessController extends Controller {
 	private static final long serialVersionUID = 8997804429715719508L;
 
+	public BusinessProcessController() {
+		super();
+	}
+	
 	protected BusinessProcess getBusinessProcess() {
 		return BusinessProcess.instance();
 	}

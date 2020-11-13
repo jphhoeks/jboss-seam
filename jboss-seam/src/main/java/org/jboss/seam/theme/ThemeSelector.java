@@ -49,6 +49,10 @@ public class ThemeSelector extends Selector {
 	private String theme;
 	private String[] availableThemes;
 
+	public ThemeSelector() {
+		super();
+	}
+	
 	@Create
 	public void initDefaultTheme() {
 		String themeName = getCookieValueIfEnabled();
@@ -132,10 +136,14 @@ public class ThemeSelector extends Selector {
 		try {
 			java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle(theme, Locale.instance(),
 					Thread.currentThread().getContextClassLoader());
-			log.trace("loaded resource bundle: " + theme);
+			if (log.isTraceEnabled()) {
+				log.trace("loaded resource bundle: " + theme);
+			}
 			return bundle;
 		} catch (MissingResourceException mre) {
-			log.debug("resource bundle missing: " + theme);
+			if (log.isDebugEnabled()) {
+				log.debug("resource bundle missing: " + theme);
+			}
 			return new ResourceBundle() {
 				@Override
 				public Enumeration<String> getKeys() {

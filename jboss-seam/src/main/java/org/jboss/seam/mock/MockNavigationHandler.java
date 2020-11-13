@@ -8,13 +8,14 @@ import javax.faces.application.NavigationCase;
 import javax.faces.context.FacesContext;
 
 public class MockNavigationHandler extends ConfigurableNavigationHandler {
+	
 	public MockNavigationHandler() {
 		super();
 	}
 
 	@Override
 	public void handleNavigation(FacesContext context, String action, String outcome) {
-
+		//
 	}
 
 	@Override

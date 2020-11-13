@@ -45,6 +45,10 @@ public abstract class Controller implements Serializable {
 	private static final long serialVersionUID = 839840486566115237L;
 	@Logger
 	Log log;
+	
+	protected Controller() {
+		super();
+	}
 
 	protected Context getApplicationContext() {
 		return Contexts.getApplicationContext();

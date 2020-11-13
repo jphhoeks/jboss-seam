@@ -37,6 +37,10 @@ public class Credentials implements Serializable {
 	private boolean invalid = false;
 
 	private boolean initialized;
+	
+	public Credentials() {
+		super();
+	}
 
 	public boolean isInitialized() {
 		return initialized;
@@ -59,8 +63,9 @@ public class Credentials implements Serializable {
 		if (this.username != username && (this.username == null || !this.username.equals(username))) {
 			this.username = username;
 			invalid = false;
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_CREDENTIALS_UPDATED);
+			}
 		}
 	}
 
@@ -72,8 +77,9 @@ public class Credentials implements Serializable {
 		if (this.password != password && (this.password == null || !this.password.equals(password))) {
 			this.password = password;
 			invalid = false;
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_CREDENTIALS_UPDATED);
+			}
 		}
 	}
 

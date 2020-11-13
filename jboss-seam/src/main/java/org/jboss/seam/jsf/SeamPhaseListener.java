@@ -106,7 +106,9 @@ public class SeamPhaseListener implements PhaseListener {
 		if (!SeamApplication.isSeamApplication(event.getFacesContext())) {
 			return;
 		}
-		log.trace("before phase: " + event.getPhaseId());
+		if (log.isTraceEnabled()) {
+			log.trace("before phase: " + event.getPhaseId());
+		}
 
 		FacesLifecycle.setPhaseId(event.getPhaseId());
 
@@ -172,7 +174,9 @@ public class SeamPhaseListener implements PhaseListener {
 		if (!SeamApplication.isSeamApplication(event.getFacesContext())) {
 			return;
 		}
-		log.trace("after phase: " + event.getPhaseId());
+		if (log.isTraceEnabled()) {
+			log.trace("after phase: " + event.getPhaseId());
+		}
 
 		try {
 			raiseEventsAfterPhase(event);
@@ -323,9 +327,7 @@ public class SeamPhaseListener implements PhaseListener {
 	* Restore the page and conversation contexts during a JSF request
 	*/
 	protected void afterRestoreView(FacesContext facesContext) {
-		boolean conversationFound = Contexts.isPageContextActive()
-				? Contexts.getPageContext().isSet("org.jboss.seam.jsf.SeamPhaseListener.conversationFound")
-				: false;
+		boolean conversationFound = Contexts.isPageContextActive() && Contexts.getPageContext().isSet("org.jboss.seam.jsf.SeamPhaseListener.conversationFound");
 		FacesLifecycle.resumePage();
 		Map<String, String> parameters = facesContext.getExternalContext().getRequestParameterMap();
 		if (!conversationFound) {
@@ -362,7 +364,7 @@ public class SeamPhaseListener implements PhaseListener {
 					Events.instance().raiseEvent(TRANSACTION_FAILED, tx.getStatus());
 				}
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 			// swallow silently, not important
 		}
 	}
@@ -480,7 +482,9 @@ public class SeamPhaseListener implements PhaseListener {
 	void begin(String phaseString) {
 		try {
 			if (!Transaction.instance().isActiveOrMarkedRollback()) {
-				log.debug("beginning transaction " + phaseString);
+				if (log.isDebugEnabled()) {
+					log.debug("beginning transaction " + phaseString);
+				}
 				Transaction.instance().begin();
 			}
 		} catch (Exception e) {
@@ -496,15 +500,18 @@ public class SeamPhaseListener implements PhaseListener {
 		try {
 			if (Transaction.instance().isActive()) {
 				try {
-					log.debug("committing transaction " + phaseString);
+					if (log.isDebugEnabled()) {
+						log.debug("committing transaction " + phaseString);
+					}
 					Transaction.instance().commit();
 
 				} catch (IllegalStateException e) {
-					log.warn("TX commit failed with illegal state exception. This may be "
-							+ "because the tx timed out and was rolled back in the background.", e);
+					log.warn("TX commit failed with illegal state exception. This may be because the tx timed out and was rolled back in the background.", e);
 				}
 			} else if (Transaction.instance().isRolledBackOrMarkedRollback()) {
-				log.debug("rolling back transaction " + phaseString);
+				if (log.isDebugEnabled()) {
+					log.debug("rolling back transaction " + phaseString);
+				}
 				Transaction.instance().rollback();
 			}
 

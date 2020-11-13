@@ -2,7 +2,6 @@ package org.jboss.seam.contexts;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Swizzles entities held in the conversation context at
@@ -20,6 +19,7 @@ class EntityBeanMap extends AbstractEntityBeanCollection {
 	private Map<Object, PassivatedEntity> passivatedEntityMap;
 
 	public EntityBeanMap(Map<Object, Object> instance) {
+		super();
 		this.map = instance;
 	}
 

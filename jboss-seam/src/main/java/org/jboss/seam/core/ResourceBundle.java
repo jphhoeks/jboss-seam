@@ -22,6 +22,11 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Name("org.jboss.seam.core.resourceBundle")
 @Install(precedence = BUILT_IN)
 public class ResourceBundle {
+	
+	public ResourceBundle() {
+		super();
+	}
+	
 	@Unwrap
 	public java.util.ResourceBundle getResourceBundle() {
 		return SeamResourceBundle.getBundle();

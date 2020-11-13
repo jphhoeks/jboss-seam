@@ -24,6 +24,10 @@ public class HibernateEntityQuery<E> extends Query<Session, E> {
 	private String cacheRegion;
 	private Integer fetchSize;
 
+	public HibernateEntityQuery() {
+		super();
+	}
+	
 	@Override
 	public void validate() {
 		super.validate();
@@ -120,16 +124,22 @@ public class HibernateEntityQuery<E> extends Query<Session, E> {
 		org.hibernate.Query query = getSession().createQuery(getRenderedEjbql());
 		setParameters(query, getQueryParameterValues(), 0);
 		setParameters(query, getRestrictionParameterValues(), getQueryParameterValues().size());
-		if (getFirstResult() != null)
+		if (getFirstResult() != null) {
 			query.setFirstResult(getFirstResult());
+		}
 		if (getMaxResults() != null)
+		 {
 			query.setMaxResults(getMaxResults() + 1); //add one, so we can tell if there is another page
-		if (getCacheable() != null)
+		}
+		if (getCacheable() != null) {
 			query.setCacheable(getCacheable());
-		if (getCacheRegion() != null)
+		}
+		if (getCacheRegion() != null) {
 			query.setCacheRegion(getCacheRegion());
-		if (getFetchSize() != null)
+		}
+		if (getFetchSize() != null) {
 			query.setFetchSize(getFetchSize());
+		}
 		return query;
 	}
 

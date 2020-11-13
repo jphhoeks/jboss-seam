@@ -17,6 +17,11 @@ import org.jboss.seam.transaction.Transaction;
 public class EntityHome<E> extends Home<EntityManager, E> {
 	private static final long serialVersionUID = -3140094990727574632L;
 
+	
+	public EntityHome() {
+		super();
+	}
+	
 	/**
 	* Run on {@link EntityHome} instantiation.
 	* <br />

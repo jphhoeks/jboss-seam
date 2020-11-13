@@ -39,8 +39,9 @@ abstract class AbstractEntityBeanCollection implements Wrapper {
 
 	private boolean isAnyVersioned() {
 		for (PassivatedEntity passivatedEntity : getPassivatedEntities()) {
-			if (passivatedEntity != null && passivatedEntity.isVersioned())
+			if (passivatedEntity != null && passivatedEntity.isVersioned()) {
 				return true;
+			}
 		}
 		return false;
 	}

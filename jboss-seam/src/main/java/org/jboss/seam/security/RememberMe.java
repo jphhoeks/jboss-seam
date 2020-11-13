@@ -38,10 +38,33 @@ import org.jboss.seam.util.Base64;
 @BypassInterceptors
 public class RememberMe implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private UsernameSelector usernameSelector;
+
+	private TokenSelector tokenSelector;
+	private TokenStore tokenStore;
+
+	private boolean enabled;
+
+	private int cookieMaxAge = Selector.DEFAULT_MAX_AGE;
+
+	private boolean autoLoggedIn;
+
+	private Random random = new Random(System.currentTimeMillis());
+
+	public enum Mode {
+		disabled, usernameOnly, autoLogin
+	}
+
+	private Mode mode = Mode.usernameOnly;
 
 	class UsernameSelector extends Selector {
 		private static final long serialVersionUID = -7699533920709160899L;
 
+		public UsernameSelector() {
+			super();
+		}
+		
 		@Override
 		public String getCookieName() {
 			return "org.jboss.seam.security.username";
@@ -70,6 +93,10 @@ public class RememberMe implements Serializable {
 	class TokenSelector extends UsernameSelector {
 		private static final long serialVersionUID = -53960797022227292L;
 
+		public TokenSelector() {
+			super();
+		}
+		
 		@Override
 		public String getCookieName() {
 			return "org.jboss.seam.security.authtoken";
@@ -101,24 +128,11 @@ public class RememberMe implements Serializable {
 		}
 	}
 
-	private UsernameSelector usernameSelector;
 
-	private TokenSelector tokenSelector;
-	private TokenStore tokenStore;
-
-	private boolean enabled;
-
-	private int cookieMaxAge = Selector.DEFAULT_MAX_AGE;
-
-	private boolean autoLoggedIn;
-
-	private Random random = new Random(System.currentTimeMillis());
-
-	public enum Mode {
-		disabled, usernameOnly, autoLogin
+	
+	public RememberMe() {
+		super();
 	}
-
-	private Mode mode = Mode.usernameOnly;
 
 	public Mode getMode() {
 		return mode;
@@ -190,9 +204,9 @@ public class RememberMe implements Serializable {
 
 	protected String encodeToken(String username, String value) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(username);
-		sb.append(":");
-		sb.append(value);
+		sb.append(username)
+		.append(":")
+		.append(value);
 		return Base64.encodeBytes(sb.toString().getBytes(), Base64.DONT_BREAK_LINES);
 	}
 
@@ -244,6 +258,9 @@ public class RememberMe implements Serializable {
 	*/
 	private class BoolWrapper {
 		boolean value;
+		private BoolWrapper() {
+			super();
+		}
 	}
 
 	@Observer(Identity.EVENT_QUIET_LOGIN)

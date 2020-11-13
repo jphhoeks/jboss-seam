@@ -37,6 +37,10 @@ public class Switcher implements Serializable {
 	private List<SelectItem> selectItems;
 	private String conversationIdOrOutcome;
 	private String resultingConversationIdOrOutcome;
+	
+	public Switcher() {
+		super();
+	}
 
 	@Create
 	public void createSelectItems() {

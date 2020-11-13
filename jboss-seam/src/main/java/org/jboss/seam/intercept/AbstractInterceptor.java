@@ -15,6 +15,10 @@ public abstract class AbstractInterceptor implements Serializable, OptimizedInte
 	private transient Component component; //a cache of the Component reference
 	private String componentName;
 
+	protected AbstractInterceptor() {
+		super();
+	}
+	
 	public void setComponent(Component component) {
 		componentName = component.getName();
 		this.component = component;

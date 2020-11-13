@@ -6,6 +6,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.annotations.TransactionPropagationType;
 import org.jboss.seam.annotations.Transactional;
@@ -29,7 +30,7 @@ import org.jboss.seam.util.Work;
 public class TransactionInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = -4364203056333738988L;
 
-	transient private Map<AnnotatedElement, TransactionMetadata> transactionMetadata = new HashMap<AnnotatedElement, TransactionMetadata>();
+	transient private Map<AnnotatedElement, TransactionMetadata> transactionMetadata = new ConcurrentHashMap<AnnotatedElement, TransactionMetadata>();
 
 	private class TransactionMetadata {
 		private boolean annotationPresent;
@@ -50,6 +51,10 @@ public class TransactionInterceptor extends AbstractInterceptor {
 		public boolean isNewTransactionRequired(boolean transactionActive) {
 			return propType != null && propType.isNewTransactionRequired(transactionActive);
 		}
+	}
+	
+	public TransactionInterceptor() {
+		super();
 	}
 
 	private TransactionMetadata lookupTransactionMetadata(AnnotatedElement element) {

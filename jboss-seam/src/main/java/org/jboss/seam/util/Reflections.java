@@ -51,13 +51,17 @@ public class Reflections {
 			field.set(target, value);
 		} catch (IllegalArgumentException iae) {
 			// target may be null if field is static so use field.getDeclaringClass() instead
-			String message = "Could not set field value by reflection: " + toString(field) + " on: " + field.getDeclaringClass().getName();
+			StringBuilder message = new StringBuilder(); 
+			message.append("Could not set field value by reflection: ")
+			.append(toString(field))
+			.append(" on: ")
+			.append(field.getDeclaringClass().getName());
 			if (value == null) {
-				message += " with null value";
+				message.append(" with null value");
 			} else {
-				message += " with value: " + value.getClass();
+				message.append(" with value: ").append(value.getClass());
 			}
-			throw new IllegalArgumentException(message, iae);
+			throw new IllegalArgumentException(message.toString(), iae);
 		}
 	}
 
@@ -217,7 +221,8 @@ public class Reflections {
 		for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
 			try {
 				return superClass.getDeclaredField(name);
-			} catch (NoSuchFieldException nsfe) {
+			} catch (NoSuchFieldException ignored) {
+				// 
 			}
 		}
 		throw new IllegalArgumentException("no such field: " + clazz.getName() + '.' + name);
@@ -251,7 +256,8 @@ public class Reflections {
 		for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
 			try {
 				return superClass.getDeclaredMethod(name);
-			} catch (NoSuchMethodException nsme) {
+			} catch (NoSuchMethodException ignored) {
+				//
 			}
 		}
 		throw new IllegalArgumentException("no such method: " + clazz.getName() + '.' + name);

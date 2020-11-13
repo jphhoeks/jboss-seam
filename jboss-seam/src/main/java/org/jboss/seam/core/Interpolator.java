@@ -29,6 +29,10 @@ public class Interpolator {
 
 	private static final LogProvider log = Logging.getLogProvider(Interpolator.class);
 
+	public Interpolator() {
+		super();
+	}
+	
 	public static Interpolator instance() {
 		if (Contexts.isApplicationContextActive()) {
 			return (Interpolator) Component.getInstance(Interpolator.class, ScopeType.APPLICATION);
@@ -74,7 +78,7 @@ public class Interpolator {
 			if ("#".equals(tok) && tokens.hasMoreTokens()) {
 				String nextTok = tokens.nextToken();
 
-				while (nextTok.equals("#") && tokens.hasMoreTokens()) {
+				while ("#".equals(nextTok) && tokens.hasMoreTokens()) {
 					builder.append(tok);
 					nextTok = tokens.nextToken();
 				}
@@ -83,14 +87,17 @@ public class Interpolator {
 					String expression = "#{" + tokens.nextToken() + "}";
 					try {
 						Object value = Expressions.instance().createValueExpression(expression).getValue();
-						if (value != null)
+						if (value != null) {
 							builder.append(value);
+						}
 					} catch (Exception e) {
-						log.debug("exception interpolating string: " + string, e);
+						if (log.isDebugEnabled()) {
+							log.debug("exception interpolating string: " + string, e);
+						}
 					}
 					tokens.nextToken(); // the trailing "}"
 
-				} else if (nextTok.equals("#")) {
+				} else if ("#".equals(nextTok)) {
 					// could be trailing #
 					builder.append("#");
 
@@ -119,9 +126,9 @@ public class Interpolator {
 					String nextTok = tokens.nextToken();
 					expr.append(nextTok);
 
-					if (nextTok.equals("{")) {
+					if ("{".equals(nextTok)) {
 						++level;
-					} else if (nextTok.equals("}")) {
+					} else if ("}".equals(nextTok)) {
 						if (--level == 0) {
 							try {
 								if (params.length == 0) {

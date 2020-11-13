@@ -30,6 +30,10 @@ import org.jboss.seam.security.jaas.SeamLoginModule;
 @Install(precedence = BUILT_IN)
 public class Configuration {
 	static final String DEFAULT_JAAS_CONFIG_NAME = "default";
+	
+	public Configuration() {
+		super();
+	}
 
 	protected javax.security.auth.login.Configuration createConfiguration() {
 		return new javax.security.auth.login.Configuration() {
@@ -42,6 +46,7 @@ public class Configuration {
 
 			@Override
 			public void refresh() {
+				//
 			}
 		};
 	}

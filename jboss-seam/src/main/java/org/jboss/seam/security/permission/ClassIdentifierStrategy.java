@@ -16,6 +16,10 @@ public class ClassIdentifierStrategy implements IdentifierStrategy, Serializable
 	private static final long serialVersionUID = 3338883246522630571L;
 
 	private Map<Class<?>, String> identifierNames = new ConcurrentHashMap<Class<?>, String>();
+	
+	public ClassIdentifierStrategy() {
+		super();
+	}
 
 	@Override
 	public boolean canIdentify(Class<?> targetClass) {

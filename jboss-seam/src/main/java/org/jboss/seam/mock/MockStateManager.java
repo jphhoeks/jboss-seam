@@ -20,6 +20,7 @@ public class MockStateManager extends StateManager {
 
 	@Override
 	public void writeState(FacesContext ctx, Object state) throws IOException {
+		//
 	}
 
 	@Override
@@ -39,6 +40,7 @@ public class MockStateManager extends StateManager {
 
 	@Override
 	public void writeState(FacesContext ctx, SerializedView sv) throws IOException {
+		//
 	}
 
 	@Override
@@ -53,6 +55,7 @@ public class MockStateManager extends StateManager {
 
 	@Override
 	protected void restoreComponentState(FacesContext ctx, UIViewRoot viewRoot, String x) {
+		//
 	}
 
 }

@@ -60,16 +60,7 @@ public class AgentID implements ServerConstants {
 		}
 	}
 
-	/**
-	 * test
-	 *
-	 * @param args
-	 */
-	public static void main(String args[]) {
-		for (int c = 0; c < 10; c++) {
-			System.out.println(AgentID.create());
-		}
-	}
+
 
 	/**
 	* Returns the agent identifier string of a given MBean server instance.
@@ -79,11 +70,9 @@ public class AgentID implements ServerConstants {
 	public static String get(MBeanServer server) {
 		try {
 			ObjectName name = new ObjectName(MBEAN_SERVER_DELEGATE);
-			String agentID = (String) server.getAttribute(name, "MBeanServerId");
-
-			return agentID;
+			return (String) server.getAttribute(name, "MBeanServerId");
 		} catch (Throwable t) {
-			throw new Error("Cannot find the MBean server delegate: " + t.toString());
+			throw new Error("Cannot find the MBean server delegate: " + t.toString(), t);
 		}
 	}
 }

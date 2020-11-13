@@ -24,6 +24,10 @@ public final class Rule {
 	private ProcessControl processControl = new ProcessControl();
 	private List<NavigationHandler> navigationHandlers = new ArrayList<NavigationHandler>();
 	private List<String> eventTypes = new ArrayList<String>();
+	
+	public Rule() {
+		super();
+	}
 
 	public boolean matches(String actualValue) {
 		return (actualValue != null || condition != null) && (outcomeValue == null || outcomeValue.equals(actualValue))
@@ -81,8 +85,9 @@ public final class Rule {
 			Events.instance().raiseEvent(eventType);
 		}
 		for (NavigationHandler nh : getNavigationHandlers()) {
-			if (nh.navigate(context))
+			if (nh.navigate(context)) {
 				return true;
+			}
 		}
 		return false;
 	}

@@ -12,6 +12,10 @@ import org.jboss.seam.annotations.datamodel.DataModelSelectionIndex;
  * @author Gavin King
  */
 public class DataModelIndexSelector implements DataSelector<DataModelSelectionIndex, DataModel> {
+	
+	public DataModelIndexSelector() {
+		super();
+	}
 
 	@Override
 	public String getVariableName(DataModelSelectionIndex in) {

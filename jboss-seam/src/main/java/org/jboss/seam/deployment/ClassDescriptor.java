@@ -21,19 +21,27 @@ public class ClassDescriptor extends FileDescriptor {
 	public ClassDescriptor(String name, ClassLoader classLoader, ServletContext servletContext) {
 		super(name, classLoader, servletContext);
 		String classname = filenameToClassname(name);
-		log.trace("Trying to load class " + classname);
+		if (log.isTraceEnabled()) {
+			log.trace("Trying to load class " + classname);
+		}
 		try {
 			clazz = classLoader.loadClass(classname);
 			// IBM JVM will throw a TypeNotPresentException if any annotation on the class is not on
 			// the classpath, rendering the class virtually unusable (given Seam's heavy use of annotations)
 			clazz.getAnnotations();
 		} catch (ClassNotFoundException cnfe) {
-			log.debug("could not load class: " + classname, cnfe);
+			if (log.isDebugEnabled()) {
+				log.debug("could not load class: " + classname, cnfe);
+			}
 		} catch (LinkageError ncdfe) {
-			log.debug("could not load class (missing dependency): " + classname, ncdfe);
+			if (log.isDebugEnabled()) {
+				log.debug("could not load class (missing dependency): " + classname, ncdfe);
+			}
 		} catch (TypeNotPresentException tnpe) {
 			clazz = null;
-			log.debug("could not load class (annotation missing dependency): " + classname, tnpe);
+			if (log.isDebugEnabled()) {
+				log.debug("could not load class (annotation missing dependency): " + classname, tnpe);
+			}
 		}
 	}
 

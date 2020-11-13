@@ -3,19 +3,19 @@ package org.jboss.seam.navigation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.core.Events;
+import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.core.Interpolator;
 import org.jboss.seam.core.ResourceLoader;
-import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.util.Strings;
 import org.jboss.seam.web.Pattern;
@@ -38,7 +38,7 @@ public final class Page {
 	private List<Param> parameters = new ArrayList<Param>();
 	private List<Input> inputs = new ArrayList<Input>();
 	private List<Action> actions = new ArrayList<Action>();
-	private Map<String, Navigation> navigations = new HashMap<String, Navigation>();
+	private Map<String, Navigation> navigations = new ConcurrentHashMap<String, Navigation>();
 	private Navigation defaultNavigation;
 	private boolean conversationRequired;
 	private boolean loginRequired;
@@ -72,7 +72,7 @@ public final class Page {
 	public Page(String viewId) {
 		this.viewId = viewId;
 		if (viewId != null) {
-			if (viewId.equals("/debug.xhtml")) {
+			if ("/debug.xhtml".equals(viewId)) {
 				switchEnabled = false;
 			}
 			int loc = viewId.lastIndexOf('.');
@@ -247,8 +247,9 @@ public final class Page {
 		getTaskControl().beginOrEndTask();
 		getProcessControl().createOrResumeProcess();
 
-		for (Input in : getInputs())
+		for (Input in : getInputs()) {
 			in.in();
+		}
 
 		for (String eventType : eventTypes) {
 			Events.instance().raiseEvent(eventType);
@@ -284,18 +285,17 @@ public final class Page {
 	private void sendHeaders(FacesContext facesContext) {
 		Object value = facesContext.getExternalContext().getResponse();
 
-		if (value == null || !(value instanceof HttpServletResponse)) {
-			return;
+		if (value instanceof HttpServletResponse) {
+			HttpServletResponse response = (HttpServletResponse) value;
+			for (Header header : httpHeaders) {
+				header.sendHeader(response);
+			}
+			
+			if (expires != null) {
+				Header.sendHeader(response, "Expires", rfc1123Date(new Date(System.currentTimeMillis() + (long) expires * 1000L)));
+			}
 		}
 
-		HttpServletResponse response = (HttpServletResponse) value;
-		for (Header header : httpHeaders) {
-			header.sendHeader(response);
-		}
-
-		if (expires != null) {
-			Header.sendHeader(response, "Expires", rfc1123Date(new Date(System.currentTimeMillis() + (long) expires * 1000L)));
-		}
 	}
 
 	private String rfc1123Date(Date when) {

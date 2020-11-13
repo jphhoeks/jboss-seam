@@ -77,6 +77,10 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 
 	private PermissionMetadata metadata;
 
+	public JpaPermissionStore() {
+		super();
+	}
+	
 	@Create
 	public void init() {
 		metadata = new PermissionMetadata();
@@ -169,36 +173,36 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 			boolean conditionsAdded = false;
 
 			StringBuilder q = new StringBuilder();
-			q.append("select p from ");
-			q.append(useRoleTable ? rolePermissionClass.getName() : userPermissionClass.getName());
-			q.append(" p");
+			q.append("select p from ")
+			.append(useRoleTable ? rolePermissionClass.getName() : userPermissionClass.getName())
+			.append(" p");
 
 			if (target != null) {
-				q.append(" where p.");
-				q.append(useRoleTable ? roleTargetProperty.getName() : targetProperty.getName());
-				q.append(" = :target");
+				q.append(" where p.")
+				.append(useRoleTable ? roleTargetProperty.getName() : targetProperty.getName())
+				.append(" = :target");
 				conditionsAdded = true;
 			}
 
 			if (targets != null) {
-				q.append(" where p.");
-				q.append(useRoleTable ? roleTargetProperty.getName() : targetProperty.getName());
-				q.append(" in (:targets)");
+				q.append(" where p.")
+				.append(useRoleTable ? roleTargetProperty.getName() : targetProperty.getName())
+				.append(" in (:targets)");
 				conditionsAdded = true;
 			}
 
 			if (recipient != null) {
-				q.append(conditionsAdded ? " and p." : " where p.");
-				q.append(isRole ? roleProperty.getName() : userProperty.getName());
-				q.append(" = :recipient");
+				q.append(conditionsAdded ? " and p." : " where p.")
+				.append(isRole ? roleProperty.getName() : userProperty.getName())
+				.append(" = :recipient");
 				conditionsAdded = true;
 			}
 
 			// If there is no discrimination, then don't add such a condition to the query
 			if (!discrimination.equals(Discrimination.either) && discriminatorProperty != null) {
-				q.append(conditionsAdded ? " and p." : " where p.");
-				q.append(discriminatorProperty.getName());
-				q.append(" = :discriminator");
+				q.append(conditionsAdded ? " and p." : " where p.")
+				.append(discriminatorProperty.getName())
+				.append(" = :discriminator");
 				conditionsAdded = true;
 			}
 
@@ -207,8 +211,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 
 		Query query = lookupEntityManager().createQuery(queryCache.get(queryKey));
 
-		if (target != null)
+		if (target != null) {
 			query.setParameter("target", identifierPolicy.getIdentifier(target));
+		}
 
 		if (targets != null) {
 			Set<String> identifiers = new HashSet<String>();
@@ -218,8 +223,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 			query.setParameter("targets", identifiers);
 		}
 
-		if (recipient != null)
+		if (recipient != null) {
 			query.setParameter("recipient", resolvePrincipalEntity(recipient));
+		}
 
 		if (!discrimination.equals(Discrimination.either) && discriminatorProperty != null) {
 			query.setParameter("discriminator", getDiscriminatorValue(discrimination.equals(Discrimination.role)));
@@ -256,8 +262,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 					List permissions = createPermissionQuery(target, null, recipient, Discrimination.role).getResultList();
 
 					if (permissions.isEmpty()) {
-						if (!set)
+						if (!set) {
 							return true;
+						}
 
 						ActionSet actionSet = metadata.createActionSet(target.getClass(), null);
 						for (String action : actions) {
@@ -319,8 +326,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 					.getResultList();
 
 			if (permissions.isEmpty()) {
-				if (!set)
+				if (!set) {
 					return true;
+				}
 
 				ActionSet actionSet = metadata.createActionSet(target.getClass(), null);
 				for (String action : actions) {
@@ -393,8 +401,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 			for (Principal recipient : recipientPermissions.keySet()) {
 				List<Permission> ps = recipientPermissions.get(recipient);
 				String[] actions = new String[ps.size()];
-				for (int i = 0; i < ps.size(); i++)
+				for (int i = 0; i < ps.size(); i++) {
 					actions[i] = ps.get(i).getAction();
+				}
 				updatePermissionActions(target, recipient, actions, true);
 			}
 		}
@@ -413,8 +422,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 			for (Principal recipient : recipientPermissions.keySet()) {
 				List<Permission> ps = recipientPermissions.get(recipient);
 				String[] actions = new String[ps.size()];
-				for (int i = 0; i < ps.size(); i++)
+				for (int i = 0; i < ps.size(); i++) {
 					actions[i] = ps.get(i).getAction();
+				}
 				updatePermissionActions(target, recipient, actions, false);
 			}
 		}
@@ -483,8 +493,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		IdentityStore ids = IdentityManager.instance().getRoleIdentityStore();
 		JpaIdentityStore identityStore = null;
 
-		if (ids instanceof JpaIdentityStore)
+		if (ids instanceof JpaIdentityStore) {
 			identityStore = (JpaIdentityStore) ids;
+		}
 
 		if (principal instanceof String) {
 			return isUser ? new SimplePrincipal((String) principal)
@@ -529,8 +540,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 
 		List<Permission> permissions = new ArrayList<Permission>();
 
-		if (targets != null && targets.isEmpty())
+		if (targets != null && targets.isEmpty()) {
 			return permissions;
+		}
 
 		// First query for user permissions
 		Query permissionQuery = targets != null ? createPermissionQuery(null, targets, null, Discrimination.either)

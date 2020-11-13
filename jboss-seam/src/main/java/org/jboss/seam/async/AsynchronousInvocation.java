@@ -25,6 +25,7 @@ public class AsynchronousInvocation extends Asynchronous {
 	private String componentName;
 
 	public AsynchronousInvocation(Method method, String componentName, Object[] args) {
+		super();
 		this.methodName = method.getName();
 		this.argTypes = method.getParameterTypes();
 		this.args = args == null ? new Object[0] : args;
@@ -70,7 +71,9 @@ public class AsynchronousInvocation extends Asynchronous {
 				Object target = Component.getInstance(componentName);
 				try {
 					Method method = target.getClass().getMethod("handleAsynchronousException", Exception.class);
-					log.trace("Using asynchronous exception handler " + componentName + ".handleAsynchronsException;");
+					if (log.isTraceEnabled()) {
+						log.trace("Using asynchronous exception handler " + componentName + ".handleAsynchronsException;");
+					}
 					method.invoke(target, exception);
 				} catch (Exception e) {
 					log.trace("Using default asynchronous exception handler");

@@ -35,16 +35,13 @@ public class DigestUtils {
 			throw new IllegalArgumentException("This method does not support a qop: '" + qop + "'");
 		}
 
-		String digestMd5 = new String(DigestUtils.md5Hex(digest));
-
-		return digestMd5;
+		return new String(DigestUtils.md5Hex(digest));
 	}
 
 	public static String encodePasswordInA1Format(String username, String realm, String password) {
 		String a1 = username + ":" + realm + ":" + password;
-		String a1Md5 = new String(DigestUtils.md5Hex(a1));
+		return new String(DigestUtils.md5Hex(a1));
 
-		return a1Md5;
 	}
 
 	public static String md5Hex(String value) {
@@ -52,7 +49,7 @@ public class DigestUtils {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			return new String(Hex.encodeHex(md.digest(value.getBytes())));
 		} catch (NoSuchAlgorithmException ex) {
-			throw new RuntimeException("Invalid algorithm");
+			throw new RuntimeException("Invalid algorithm", ex);
 		}
 	}
 }

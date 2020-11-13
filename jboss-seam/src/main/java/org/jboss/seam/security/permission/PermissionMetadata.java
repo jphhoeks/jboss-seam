@@ -22,6 +22,10 @@ public class PermissionMetadata implements Serializable {
 	private static final long serialVersionUID = 7407543457388705950L;
 	private Map<Class<?>, Boolean> usesActionMask = new HashMap<Class<?>, Boolean>();
 	private Map<Class<?>, Map<String, Long>> classActions = new HashMap<Class<?>, Map<String, Long>>();
+	
+	public PermissionMetadata() {
+		super();
+	}
 
 	private synchronized void initClassActions(Class<?> cls) {
 		if (!classActions.containsKey(cls)) {
@@ -83,8 +87,9 @@ public class PermissionMetadata implements Serializable {
 		}
 
 		public void addMembers(String members) {
-			if (members == null)
+			if (members == null) {
 				return;
+			}
 
 			if (usesActionMask.get(targetClass)) {
 				// bit mask-based actions
@@ -142,8 +147,9 @@ public class PermissionMetadata implements Serializable {
 			} else {
 				StringBuilder sb = new StringBuilder();
 				for (String member : members) {
-					if (sb.length() > 0)
+					if (sb.length() > 0) {
 						sb.append(',');
+					}
 					sb.append(member);
 				}
 				return sb.toString();
@@ -152,15 +158,17 @@ public class PermissionMetadata implements Serializable {
 	}
 
 	public ActionSet createActionSet(Class<?> targetClass, String members) {
-		if (!classActions.containsKey(targetClass))
+		if (!classActions.containsKey(targetClass)) {
 			initClassActions(targetClass);
+		}
 
 		return new ActionSet(targetClass, members);
 	}
 
 	public List<String> listAllowableActions(Class<?> targetClass) {
-		if (!classActions.containsKey(targetClass))
+		if (!classActions.containsKey(targetClass)) {
 			initClassActions(targetClass);
+		}
 
 		List<String> actions = new ArrayList<String>();
 		for (String action : classActions.get(targetClass).keySet()) {

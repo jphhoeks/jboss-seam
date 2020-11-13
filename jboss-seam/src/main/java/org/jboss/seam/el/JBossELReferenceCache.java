@@ -12,6 +12,10 @@ import org.jboss.seam.annotations.Startup;
 @Scope(ScopeType.APPLICATION)
 @Startup
 public class JBossELReferenceCache {
+	
+	public JBossELReferenceCache() {
+		super();
+	}
 	@Create
 	public void start() {
 		ReflectionUtil.startup();

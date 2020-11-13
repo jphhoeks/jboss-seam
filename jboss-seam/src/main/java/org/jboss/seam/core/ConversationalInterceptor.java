@@ -26,6 +26,10 @@ import org.jboss.seam.intercept.InvocationContext;
 @Interceptor(stateless = true, around = { BijectionInterceptor.class, BusinessProcessInterceptor.class })
 public class ConversationalInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = 1127583515811479385L;
+	
+	public ConversationalInterceptor() {
+		super();
+	}
 
 	@Override
 	@AroundInvoke
@@ -47,12 +51,11 @@ public class ConversationalInterceptor extends AbstractInterceptor {
 				&& !method.isAnnotationPresent(BeginTask.class) && !method.isAnnotationPresent(Destroy.class)
 				&& !method.isAnnotationPresent(Create.class); //probably superfluous
 
-		if (classlevelViolation)
+		if (classlevelViolation) {
 			return true;
+		}
 
-		boolean methodlevelViolation = methodIsConversational(method) && !Manager.instance().isLongRunningOrNestedConversation();
-
-		return methodlevelViolation;
+		return methodIsConversational(method) && !Manager.instance().isLongRunningOrNestedConversation();
 
 	}
 

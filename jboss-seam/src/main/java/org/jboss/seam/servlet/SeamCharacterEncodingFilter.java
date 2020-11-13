@@ -16,6 +16,10 @@ import org.jboss.seam.web.CharacterEncodingFilter;
  */
 @Deprecated
 public class SeamCharacterEncodingFilter extends CharacterEncodingFilter {
+	
+	public SeamCharacterEncodingFilter() {
+		super();
+	}
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {

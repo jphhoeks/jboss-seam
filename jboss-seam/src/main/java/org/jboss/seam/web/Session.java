@@ -33,6 +33,9 @@ public class Session extends AbstractMutable {
 	private boolean invalidateOnSchemeChange;
 	private String currentScheme;
 
+	public Session() {
+		super();
+	}
 	/**
 	* Is HttpSession invalidation scheduled
 	* for the end of this request?

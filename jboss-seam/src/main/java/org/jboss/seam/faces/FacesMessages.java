@@ -35,6 +35,10 @@ import org.jboss.seam.util.Strings;
 public class FacesMessages extends StatusMessages {
 
 	private static final long serialVersionUID = 8278797423661699405L;
+	
+	public FacesMessages() {
+		super();
+	}
 
 	/**
 	* Called by Seam to transfer messages from FacesMessages to JSF
@@ -130,8 +134,9 @@ public class FacesMessages extends StatusMessages {
 		while (iter.hasNext()) {
 			UIComponent child = iter.next();
 			String clientId = getClientId(child, id, facesContext);
-			if (clientId != null)
+			if (clientId != null) {
 				return clientId;
+			}
 		}
 		return null;
 	}

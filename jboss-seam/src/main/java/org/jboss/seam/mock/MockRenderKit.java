@@ -12,6 +12,10 @@ import javax.faces.render.ResponseStateManager;
 public class MockRenderKit extends RenderKit {
 
 	public static final MockRenderKit INSTANCE = new MockRenderKit();
+	
+	public MockRenderKit() {
+		super();
+	}
 
 	@Override
 	public void addRenderer(String x, String y, Renderer renderer) {

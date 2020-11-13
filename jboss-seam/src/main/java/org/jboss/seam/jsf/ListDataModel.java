@@ -17,6 +17,15 @@ import java.util.List;
 public class ListDataModel extends javax.faces.model.ListDataModel implements Serializable {
 	private static final long serialVersionUID = 5156131434571541698L;
 
+	public ListDataModel() {
+		super();
+	}
+
+	public ListDataModel(List list) {
+		super(list);
+	}
+
+	
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		oos.writeObject(getWrappedData());
 		oos.writeInt(getRowIndex());
@@ -27,11 +36,5 @@ public class ListDataModel extends javax.faces.model.ListDataModel implements Se
 		this.setRowIndex(ois.readInt());
 	}
 
-	public ListDataModel() {
-	}
-
-	public ListDataModel(List list) {
-		super(list);
-	}
 
 }

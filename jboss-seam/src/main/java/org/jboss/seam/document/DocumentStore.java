@@ -1,8 +1,8 @@
 package org.jboss.seam.document;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PreDestroy;
 import javax.faces.application.ViewHandler;
@@ -23,13 +23,17 @@ public class DocumentStore implements Serializable {
 
 	private static final long serialVersionUID = -357154201942127711L;
 
-	Map<String, DocumentData> dataStore = new HashMap<String, DocumentData>();
+	Map<String, DocumentData> dataStore = new ConcurrentHashMap<String, DocumentData>();
 
 	long nextId = 1;
 
 	boolean useExtensions = false;
 	String errorPage = null;
 
+	public DocumentStore() {
+		super();
+	}
+	
 	public void setUseExtensions(boolean useExtensions) {
 		this.useExtensions = useExtensions;
 	}

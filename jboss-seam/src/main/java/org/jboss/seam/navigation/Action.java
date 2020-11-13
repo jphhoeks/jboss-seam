@@ -15,6 +15,10 @@ public class Action {
 	private String outcome;
 	private boolean onPostback = true;
 
+	public Action() {
+		super();
+	}
+	
 	public boolean isExecutable(boolean postback) {
 		return (!postback || (postback && onPostback)) && (valueExpression == null || Boolean.TRUE.equals(valueExpression.getValue()));
 	}

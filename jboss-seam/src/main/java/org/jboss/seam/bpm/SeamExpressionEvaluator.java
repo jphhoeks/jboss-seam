@@ -35,6 +35,10 @@ public class SeamExpressionEvaluator extends ExpressionEvaluator {
 
 	private static LogProvider log = Logging.getLogProvider(SeamExpressionEvaluator.class);
 
+	public SeamExpressionEvaluator()  {
+		super();
+	}
+	
 	@Override
 	public Object evaluate(String expression, Class returnType, final VariableResolver resolver, FunctionMapper mapper) throws ELException {
 		return createExpression(expression, returnType, mapper).evaluate(resolver);
@@ -97,13 +101,17 @@ public class SeamExpressionEvaluator extends ExpressionEvaluator {
 				if (exceptions.size() == 1) {
 					throw new ELException("Error evaluating " + expression, exceptions.get(0));
 				} else if (exceptions.size() > 1) {
-					log.debug("Exceptions occurred when parsing " + expression);
+					if (log.isDebugEnabled()) {
+						log.debug("Exceptions occurred when parsing " + expression);
+					}
 					for (javax.el.ELException e : exceptions) {
 						log.debug("Possible cause", e);
 					}
 				}
 				if (me == null && ve == null) {
-					log.debug("Error parsing " + expression);
+					if (log.isDebugEnabled()) {
+						log.debug("Error parsing " + expression);
+					}
 					throw new ELException("Error parsing " + expression + "; not a valid EL expression");
 				}
 				throw new ELException("Error evaluating " + expression + "; possible causes are logged at debug level");

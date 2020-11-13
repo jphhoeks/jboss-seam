@@ -21,6 +21,10 @@ import org.jboss.seam.ScopeType;
  */
 public abstract class AbstractUserTransaction implements UserTransaction {
 
+	protected AbstractUserTransaction() {
+		super();
+	}
+	
 	@Override
 	public boolean isActive() throws SystemException {
 		return getStatus() == STATUS_ACTIVE;

@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.el.ELResolver;
 import javax.el.ValueExpression;
@@ -69,9 +70,8 @@ import org.jboss.seam.util.Reflections;
  * @author <a href="mailto:theute@jboss.org">Thomas Heute</a>
  */
 public class AbstractSeamTest {
-
+	
 	private Application application;
-	private ApplicationFactory applicationFactory;
 	protected ServletContext servletContext;
 	private static SeamPhaseListener phases;
 	protected MockHttpSession session;
@@ -82,6 +82,10 @@ public class AbstractSeamTest {
 
 	static {
 		phases = new SeamPhaseListener();
+	}
+	
+	public AbstractSeamTest() {
+		super();
 	}
 
 	protected boolean isSessionInvalid() {
@@ -125,6 +129,9 @@ public class AbstractSeamTest {
 	}
 
 	public abstract class ComponentTest {
+		protected ComponentTest() {
+			super();
+		}
 		/**
 		 * Call a method binding
 		 */
@@ -180,7 +187,7 @@ public class AbstractSeamTest {
 		private HttpServletResponse response;
 		private MockFacesContext facesContext;
 		private MockExternalContext externalContext;
-		private Map<String, Object> pageParameters = new HashMap<String, Object>();
+		private Map<String, Object> pageParameters = new ConcurrentHashMap<String, Object>();
 
 		protected void setPageParameter(String name, Object value) {
 			pageParameters.put(name, value);
@@ -240,6 +247,7 @@ public class AbstractSeamTest {
 		 * conversation.
 		 */
 		protected Request() {
+			super();
 		}
 
 		/**
@@ -247,6 +255,7 @@ public class AbstractSeamTest {
 		 * conversation.
 		 */
 		protected Request(String conversationId) {
+			super();
 			this.conversationId = conversationId;
 		}
 
@@ -277,6 +286,7 @@ public class AbstractSeamTest {
 		 * but must happen before the rest of the JSF lifecycle.
 		 */
 		protected void afterRestoreViewPhase() throws Exception {
+			//
 		}
 
 		/**
@@ -284,6 +294,7 @@ public class AbstractSeamTest {
 		 * components that occurs during the apply request values phase.
 		 */
 		protected void applyRequestValues() throws Exception {
+			//
 		}
 
 		/**
@@ -291,6 +302,7 @@ public class AbstractSeamTest {
 		 * components that occurs during the process validations phase.
 		 */
 		protected void processValidations() throws Exception {
+			//
 		}
 
 		/**
@@ -298,6 +310,7 @@ public class AbstractSeamTest {
 		 * components that occurs during the update model values phase.
 		 */
 		protected void updateModelValues() throws Exception {
+			//
 		}
 
 		/**
@@ -305,6 +318,7 @@ public class AbstractSeamTest {
 		 * components that occurs during the invoke application phase.
 		 */
 		protected void invokeApplication() throws Exception {
+			//
 		}
 
 		/**
@@ -333,12 +347,14 @@ public class AbstractSeamTest {
 		 * components that occurs during the render response phase.
 		 */
 		protected void renderResponse() throws Exception {
+			//
 		}
 
 		/**
 		 * Make some assertions, after the end of the request.
 		 */
 		protected void afterRequest() {
+			//
 		}
 
 		/**
@@ -346,6 +362,7 @@ public class AbstractSeamTest {
 		 * up any request parameters for the request.
 		 */
 		protected void beforeRequest() {
+			//
 		}
 
 		/**
@@ -400,7 +417,7 @@ public class AbstractSeamTest {
 			ValueExpression ve = application.getExpressionFactory().createValueExpression(facesContext.getELContext(), valueExpression,
 					Object.class);
 			Set<ConstraintViolation<Object>> ivs = Validators.instance().validate(ve, facesContext.getELContext(), value);
-			if (ivs.size() > 0) {
+			if (!ivs.isEmpty()) {
 				validationFailed = true;
 				String message = ivs.iterator().next().getMessage();
 				facesContext.addMessage(null, FacesMessages.createFacesMessage(FacesMessage.SEVERITY_ERROR, message));
@@ -472,7 +489,7 @@ public class AbstractSeamTest {
 		private void saveConversationViewRoot() {
 			Map renderedViewRootAttributes = facesContext.getViewRoot().getViewMap();
 			if (renderedViewRootAttributes != null && conversationId != null) {
-				Map conversationState = new HashMap();
+				Map conversationState = new ConcurrentHashMap();
 				conversationState.putAll(renderedViewRootAttributes);
 				conversationViewRootAttributes.put(conversationId, conversationState);
 			}
@@ -507,7 +524,7 @@ public class AbstractSeamTest {
 		private void setStandardJspVariables() {
 			// TODO: looks like we should also set request, session, application,
 			// page...
-			Map<String, String> params = new HashMap<String, String>();
+			Map<String, String> params = new ConcurrentHashMap<String, String>();
 			for (Map.Entry<String, String[]> e : request.getParameterMap().entrySet()) {
 				if (e.getValue().length == 1) {
 					params.put(e.getKey(), e.getValue()[0]);
@@ -702,12 +719,14 @@ public class AbstractSeamTest {
 
 	public class NonFacesRequest extends Request {
 		public NonFacesRequest() {
+			super();
 		}
 
 		/**
 		 * @param viewId the view id to be rendered
 		 */
 		public NonFacesRequest(String viewId) {
+			super();
 			setViewId(viewId);
 		}
 
@@ -750,12 +769,14 @@ public class AbstractSeamTest {
 	public class FacesRequest extends Request {
 
 		public FacesRequest() {
+			super();
 		}
 
 		/**
 		 * @param viewId the view id of the form that was submitted
 		 */
 		public FacesRequest(String viewId) {
+			super();
 			setViewId(viewId);
 		}
 
@@ -839,7 +860,7 @@ public class AbstractSeamTest {
 		servletContext = ServletLifecycle.getServletContext();
 
 		// FactoryFinder cannot be reliably used, as something could have called getFactory sooner
-		applicationFactory = (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+		ApplicationFactory applicationFactory = (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
 		//applicationFactory = new MockApplicationFactory();
 
 		application = applicationFactory.getApplication();
@@ -872,6 +893,7 @@ public class AbstractSeamTest {
 	* Override to set up any servlet context attributes.
 	*/
 	public void initServletContext(Map initParams) {
+		//
 	}
 
 	protected InitialContext getInitialContext() throws NamingException {
@@ -887,8 +909,9 @@ public class AbstractSeamTest {
 	*/
 	protected Object getField(Object object, String fieldName) {
 		Field field = Reflections.getField(object.getClass(), fieldName);
-		if (!field.isAccessible())
+		if (!field.isAccessible()) {
 			field.setAccessible(true);
+		}
 		return Reflections.getAndWrap(field, object);
 	}
 
@@ -897,12 +920,13 @@ public class AbstractSeamTest {
 	*/
 	protected void setField(Object object, String fieldName, Object value) {
 		Field field = Reflections.getField(object.getClass(), fieldName);
-		if (!field.isAccessible())
+		if (!field.isAccessible()) {
 			field.setAccessible(true);
+		}
 		Reflections.setAndWrap(field, object, value);
 	}
 
-	private static boolean started;
+
 
 	protected ELResolver[] getELResolvers() {
 		return new ELResolver[0];

@@ -35,23 +35,26 @@ public class Actor extends AbstractMutable implements Serializable {
 		@Override
 		public boolean add(String o) {
 			boolean dirty = super.add(o);
-			if (dirty)
+			if (dirty) {
 				setDirty();
+			}
 			return dirty;
 		}
 
 		@Override
 		public void clear() {
-			if (size() > 0)
+			if (size() > 0) {
 				setDirty();
+			}
 			super.clear();
 		}
 
 		@Override
 		public boolean remove(Object o) {
 			boolean dirty = super.remove(o);
-			if (dirty)
+			if (dirty) {
 				setDirty();
+			}
 			return dirty;
 		}
 
@@ -80,6 +83,10 @@ public class Actor extends AbstractMutable implements Serializable {
 		}
 	};
 
+	public Actor () {
+		super();
+	}
+	
 	public String getId() {
 		return id;
 	}

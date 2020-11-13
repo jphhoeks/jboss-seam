@@ -33,6 +33,10 @@ public class ResourceLoader {
 	private static final LogProvider log = Logging.getLogProvider(ResourceLoader.class);
 
 	private String[] bundleNames = { "messages" };
+	
+	public ResourceLoader() {
+		super();
+	}
 
 	/**
 	* The configurable list of delegate resource bundle names
@@ -72,10 +76,14 @@ public class ResourceLoader {
 				bundle = java.util.ResourceBundle.getBundle(bundleName, Locale.instance(),
 						ServletLifecycle.getCurrentServletContext().getClass().getClassLoader());
 			}
-			log.debug("loaded resource bundle: " + bundleName);
+			if (log.isDebugEnabled()) {
+				log.debug("loaded resource bundle: " + bundleName);
+			}
 			return bundle;
 		} catch (MissingResourceException mre) {
-			log.debug("resource bundle missing: " + bundleName);
+			if (log.isDebugEnabled()) {
+				log.debug("resource bundle missing: " + bundleName);
+			}
 			return null;
 		}
 	}

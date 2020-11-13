@@ -28,6 +28,12 @@ import org.jboss.seam.web.AbstractResource;
 @BypassInterceptors
 @Install(precedence = BUILT_IN)
 public class CaptchaImage extends AbstractResource {
+	
+	
+	public CaptchaImage() {
+		super();
+	}
+	
 	public static CaptchaImage instance() {
 		if (!Contexts.isApplicationContextActive()) {
 			throw new IllegalStateException("No application context active");

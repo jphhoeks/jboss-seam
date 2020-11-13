@@ -21,6 +21,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.international.timeZoneSelector")
 public class TimeZone {
 
+	public TimeZone() {
+		super();
+	}
+	
 	@Unwrap
 	public java.util.TimeZone getTimeZone() {
 		return TimeZoneSelector.instance().getTimeZone();

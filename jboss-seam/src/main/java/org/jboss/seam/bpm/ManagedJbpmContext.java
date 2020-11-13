@@ -48,6 +48,10 @@ public class ManagedJbpmContext implements Synchronization {
 	private JbpmContext jbpmContext;
 	private boolean synchronizationRegistered;
 
+	public ManagedJbpmContext() {
+		super();
+	}
+	
 	@Create
 	public void create() throws NamingException, RollbackException, SystemException {
 		jbpmContext = Jbpm.instance().getJbpmConfiguration().createJbpmContext();

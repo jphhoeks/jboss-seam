@@ -21,6 +21,7 @@ class EntityBeanSet extends AbstractEntityBeanCollection {
 	private List<PassivatedEntity> passivatedEntityList;
 
 	public EntityBeanSet(Set<Object> instance) {
+		super();
 		this.set = instance;
 	}
 

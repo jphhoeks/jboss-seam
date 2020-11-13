@@ -9,4 +9,7 @@ package org.jboss.seam.web;
  */
 @Deprecated
 public class SeamFilter extends org.jboss.seam.servlet.SeamFilter {
+	public SeamFilter() {
+		super();
+	}
 }

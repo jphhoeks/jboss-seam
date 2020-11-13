@@ -10,6 +10,10 @@ public abstract class AbstractMutable implements Mutable {
 	private static final long serialVersionUID = 4978458147189809027L;
 	private transient boolean dirty;
 
+	protected AbstractMutable() {
+		super();
+	}
+	
 	@Override
 	public boolean clearDirty() {
 		boolean result = dirty;

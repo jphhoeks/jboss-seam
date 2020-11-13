@@ -2,7 +2,6 @@ package org.jboss.seam.navigation;
 
 import static org.jboss.seam.annotations.Install.BUILT_IN;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,6 +16,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -89,13 +89,19 @@ public class Pages {
 
 	private String[] resources = { "/WEB-INF/pages.xml" };
 
+	public Pages() {
+		super();
+	}
+	
 	private SortedSet<String> wildcardViewIds = new TreeSet<String>(new Comparator<String>() {
 		@Override
 		public int compare(String x, String y) {
-			if (x.length() < y.length())
+			if (x.length() < y.length()) {
 				return -1;
-			if (x.length() > y.length())
+			}
+			if (x.length() > y.length()) {
 				return 1;
+			}
 			return x.compareTo(y);
 		}
 	});
@@ -119,16 +125,22 @@ public class Pages {
 		conversations = Collections.synchronizedMap(new HashMap<String, ConversationIdParameter>());
 
 		for (String resource : resources) {
-			InputStream stream = ResourceLoader.instance().getResourceAsStream(resource);
-			if (stream == null) {
-				log.debug("no pages.xml file found: " + resource);
-			} else {
-				log.debug("reading pages.xml file: " + resource);
-				try {
+			InputStream stream = null;
+			try {
+				stream = ResourceLoader.instance().getResourceAsStream(resource);
+				if (stream == null) {
+					if (log.isDebugEnabled()) {
+						log.debug("no pages.xml file found: " + resource);
+					}
+				} else {
+					if (log.isDebugEnabled()) {
+						log.debug("reading pages.xml file: " + resource);
+					}
 					parse(stream);
-				} finally {
-					Resources.closeStream(stream);
 				}
+
+			} finally {
+				Resources.close(stream);
 			}
 		}
 
@@ -146,18 +158,16 @@ public class Pages {
 			InputStream stream = null;
 			try {
 				stream = file.getUrl().openStream();
-			} catch (IOException exception) {
-				// No-op
-			}
-			if (stream != null) {
-				log.debug("reading pages.xml file: " + fileName);
-				try {
+				if (stream != null) {
+					if (log.isDebugEnabled()) {
+						log.debug("reading pages.xml file: " + fileName);
+					}
 					parse(stream, viewId);
-				} catch (RuntimeException e) {
-					throw new RuntimeException("Error parsing page.xml file: " + fileName + ": " + e.getMessage(), e);
-				} finally {
-					Resources.closeStream(stream);
 				}
+			} catch (Exception e) {
+				throw new RuntimeException("Error parsing page.xml file: " + fileName + ": " + e.getMessage(), e);
+			} finally {
+				Resources.close(stream);
 			}
 		}
 	}
@@ -180,8 +190,9 @@ public class Pages {
 					navigation = page.getDefaultNavigation();
 				}
 
-				if (navigation != null && navigation.navigate(context, actionOutcomeValue))
+				if (navigation != null && navigation.navigate(context, actionOutcomeValue)) {
 					return true;
+				}
 
 			}
 		}
@@ -248,8 +259,9 @@ public class Pages {
 			}
 		}
 		Page page = getPage(viewId);
-		if (page != null)
+		if (page != null) {
 			stack.add(page);
+		}
 		return stack;
 	}
 
@@ -396,8 +408,9 @@ public class Pages {
 	public boolean isLoginRedirectRequired(FacesContext facesContext) {
 		String viewId = getViewId(facesContext);
 		for (Page page : getPageStack(viewId)) {
-			if (isLoginRedirectRequired(viewId, page))
+			if (isLoginRedirectRequired(viewId, page)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -429,23 +442,21 @@ public class Pages {
 					URL serverUrl = new URL(requestUrl);
 
 					StringBuilder sb = new StringBuilder();
-					sb.append(scheme);
-					sb.append("://");
-					sb.append(serverUrl.getHost());
+					sb.append(scheme)
+					.append("://")
+					.append(serverUrl.getHost());
 
 					if ("http".equals(scheme) && httpPort != null) {
-						sb.append(":");
-						sb.append(httpPort);
+						sb.append(":").append(httpPort);
 					} else if ("https".equals(scheme) && httpsPort != null) {
-						sb.append(":");
-						sb.append(httpsPort);
+						sb.append(":").append(httpsPort);
 					} else if (serverUrl.getPort() != -1) {
-						sb.append(":");
-						sb.append(serverUrl.getPort());
+						sb.append(":").append(serverUrl.getPort());
 					}
 
-					if (!url.startsWith("/"))
+					if (!url.startsWith("/")) {
 						sb.append("/");
+					}
 
 					sb.append(url);
 
@@ -503,8 +514,9 @@ public class Pages {
 		List<Page> stack = getPageStack(viewId);
 		for (int i = stack.size() - 1; i >= 0; i--) {
 			Page page = stack.get(i);
-			if (page.getScheme() != null)
+			if (page.getScheme() != null) {
 				return page.getScheme();
+			}
 		}
 		return null;
 	}
@@ -517,8 +529,9 @@ public class Pages {
 		List<Page> stack = getPageStack(viewId);
 		for (int i = stack.size() - 1; i >= 0; i--) {
 			Page page = stack.get(i);
-			if (page.hasDescription())
+			if (page.hasDescription()) {
 				return page.getDescription();
+			}
 		}
 		return null;
 	}
@@ -579,8 +592,9 @@ public class Pages {
 		for (int i = stack.size() - 1; i >= 0; i--) {
 			Page page = stack.get(i);
 			ResourceBundle bundle = page.getResourceBundle();
-			if (bundle != null)
+			if (bundle != null) {
 				result.add(bundle);
+			}
 		}
 		return result;
 	}
@@ -594,7 +608,7 @@ public class Pages {
 	* @return a map of page parameter name to String value
 	*/
 	public Map<String, Object> getStringValuesFromModel(FacesContext facesContext, String viewId, Set<String> overridden) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		Map<String, Object> parameters = new ConcurrentHashMap<String, Object>();
 		for (Page page : getPageStack(viewId)) {
 			for (Param pageParameter : page.getParameters()) {
 				if (!overridden.contains(pageParameter.getName())) {
@@ -691,7 +705,7 @@ public class Pages {
 	* the PAGE context
 	*/
 	public Map<String, Object> getStringValuesFromPageContext(FacesContext facesContext) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		Map<String, Object> parameters = new ConcurrentHashMap<String, Object>();
 		String viewId = getViewId(facesContext);
 		for (Page page : getPageStack(viewId)) {
 			for (Param pageParameter : page.getParameters()) {
@@ -831,7 +845,7 @@ public class Pages {
 					httpPort = Integer.parseInt(value);
 				}
 			} catch (NumberFormatException ex) {
-				throw new IllegalStateException("Invalid value specified for http-port attribute in pages.xml");
+				throw new IllegalStateException("Invalid value specified for http-port attribute in pages.xml", ex);
 			}
 		}
 
@@ -842,7 +856,7 @@ public class Pages {
 					httpsPort = Integer.parseInt(value);
 				}
 			} catch (NumberFormatException ex) {
-				throw new IllegalStateException("Invalid valid specified for https-port attribute in pages.xml");
+				throw new IllegalStateException("Invalid valid specified for https-port attribute in pages.xml", ex);
 			}
 		}
 
@@ -922,8 +936,9 @@ public class Pages {
 		if (restrict != null) {
 			page.setRestricted(true);
 			String expr = restrict.getTextTrim();
-			if (!Strings.isEmpty(expr))
+			if (!Strings.isEmpty(expr)) {
 				page.setRestriction(expr);
+			}
 		}
 
 		List<Element> headers = element.elements("header");
@@ -973,8 +988,9 @@ public class Pages {
 		}
 
 		ConversationIdParameter param = conversations.get(element.attributeValue("conversation"));
-		if (param != null)
+		if (param != null) {
 			page.setConversationIdParameter(param);
+		}
 
 		List<Element> patterns = element.elements("rewrite");
 		for (Element pattern : patterns) {
@@ -987,8 +1003,9 @@ public class Pages {
 		}
 
 		Action action = parseAction(element, "action", false);
-		if (action != null)
+		if (action != null) {
 			page.getActions().add(action);
+		}
 		List<Element> childElements = element.elements("action");
 		for (Element childElement : childElements) {
 			page.getActions().add(parseAction(childElement, "execute", true));
@@ -1022,8 +1039,9 @@ public class Pages {
 	private static Action parseAction(Element element, String actionAtt, boolean conditionalsAllowed) {
 		Action action = new Action();
 		String methodExpression = element.attributeValue(actionAtt);
-		if (methodExpression == null)
+		if (methodExpression == null) {
 			return null;
+		}
 		if (methodExpression.startsWith("#{")) {
 			action.setMethodExpression(Expressions.instance().createMethodExpression(methodExpression));
 		} else {
@@ -1321,7 +1339,7 @@ public class Pages {
 	}
 
 	public static Map<String, Severity> getFacesMessageValuesMap() {
-		Map<String, Severity> result = new HashMap<String, Severity>();
+		Map<String, Severity> result = new ConcurrentHashMap<String, Severity>();
 		for (Map.Entry<String, Severity> me : (Set<Map.Entry<String, Severity>>) FacesMessage.VALUES_MAP.entrySet()) {
 			result.put(me.getKey().toUpperCase(), me.getValue());
 		}
@@ -1377,8 +1395,9 @@ public class Pages {
 	public static String getViewId(FacesContext facesContext) {
 		if (facesContext != null) {
 			UIViewRoot viewRoot = facesContext.getViewRoot();
-			if (viewRoot != null)
+			if (viewRoot != null) {
 				return viewRoot.getViewId();
+			}
 		}
 		return null;
 	}

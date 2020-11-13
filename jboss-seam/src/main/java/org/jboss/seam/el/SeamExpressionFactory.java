@@ -44,6 +44,7 @@ public class SeamExpressionFactory extends ExpressionFactory {
 	private final ExpressionFactory expressionFactory;
 
 	SeamExpressionFactory(ExpressionFactory expressionFactory) {
+		super();
 		this.expressionFactory = expressionFactory;
 	}
 

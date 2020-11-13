@@ -66,7 +66,9 @@ public abstract class Asynchronous implements Serializable {
 				Contexts.getEventContext().set("timer", timer);
 			}
 
-			log.debug("executing: " + this);
+			if (log.isDebugEnabled()) {
+				log.debug("executing: " + this);
+			}
 		}
 
 		protected abstract void process();

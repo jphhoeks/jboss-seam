@@ -29,6 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class AbstractResource {
 	private ServletContext context;
 
+	protected AbstractResource() {
+		super();
+	}
+	
 	protected ServletContext getServletContext() {
 		return context;
 	}

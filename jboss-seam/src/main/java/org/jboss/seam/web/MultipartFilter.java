@@ -42,6 +42,11 @@ public class MultipartFilter extends AbstractFilter {
 	* The maximum size of a file upload request.  0 means no limit.
 	*/
 	private int maxRequestSize = 0;
+	
+	public MultipartFilter() {
+		super();
+	}
+	
 
 	public boolean getCreateTempFiles() {
 		return createTempFiles;
@@ -81,7 +86,7 @@ public class MultipartFilter extends AbstractFilter {
 	}
 
 	private boolean isMultipartRequest(HttpServletRequest request) {
-		if (!"post".equals(request.getMethod().toLowerCase())) {
+		if (!"post".equalsIgnoreCase(request.getMethod())) {
 			return false;
 		}
 
@@ -90,10 +95,6 @@ public class MultipartFilter extends AbstractFilter {
 			return false;
 		}
 
-		if (contentType.toLowerCase().startsWith(MULTIPART)) {
-			return true;
-		}
-
-		return false;
+		return contentType.toLowerCase().startsWith(MULTIPART);
 	}
 }

@@ -9,6 +9,7 @@ import org.dom4j.Element;
 import org.jboss.seam.ComponentType;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 import org.jboss.seam.util.XML;
 
 /**
@@ -28,23 +29,29 @@ public class DeploymentDescriptor {
 		if (clazz.getClassLoader() == null) {
 			return;
 		}
-
+		InputStream ejbJarXml = null;
 		try {
-			InputStream ejbJarXml = clazz.getClassLoader().getResourceAsStream("META-INF/ejb-jar.xml");
+			ejbJarXml = clazz.getClassLoader().getResourceAsStream("META-INF/ejb-jar.xml");
 			if (ejbJarXml != null) {
 				parseEjbJarXml(XML.getRootElementSafely(ejbJarXml));
 			}
 		} catch (DocumentException e) {
-			log.warn("Couldn't parse META-INF/ejb-jar.xml for component types " + e.getMessage());
+			log.warn("Couldn't parse META-INF/ejb-jar.xml for component types ", e);
 		}
-
+		finally {
+			Resources.close(ejbJarXml);
+		}
+		InputStream ormXml = null;
 		try {
-			InputStream ormXml = clazz.getClassLoader().getResourceAsStream("META-INF/orm.xml");
+			ormXml = clazz.getClassLoader().getResourceAsStream("META-INF/orm.xml");
 			if (ormXml != null) {
 				parseOrmXml(XML.getRootElementSafely(ormXml));
 			}
 		} catch (DocumentException e) {
-			log.warn("Couldn't parse META-INF/orm.xml for component types " + e.getMessage());
+			log.warn("Couldn't parse META-INF/orm.xml for component types ", e);
+		}
+		finally {
+			Resources.close(ejbJarXml);
 		}
 	}
 
@@ -105,7 +112,9 @@ public class DeploymentDescriptor {
 			Class<?> ejbClass = componentClass.getClassLoader().loadClass(descriptor.getEjbClassName());
 			ejbDescriptors.put(ejbClass, descriptor);
 		} catch (ClassNotFoundException cnfe) {
-			log.warn("Could not load EJB class: " + descriptor.getEjbClassName());
+			if (log.isWarnEnabled()) {
+				log.warn("Could not load EJB class: " + descriptor.getEjbClassName(), cnfe);
+			}
 		}
 	}
 }

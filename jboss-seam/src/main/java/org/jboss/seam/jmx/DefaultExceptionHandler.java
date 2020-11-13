@@ -20,6 +20,10 @@ import javax.management.RuntimeErrorException;
  */
 public class DefaultExceptionHandler implements ProxyExceptionHandler {
 
+	public DefaultExceptionHandler() {
+		super();
+	}
+	
 	// InstanceNotFound, AttributeNotFound and InvalidAttributeValue
 	// are not exceptions declared in the mgmt interface and therefore
 	// must be rethrown as runtime exceptions to avoid UndeclaredThrowable
@@ -55,10 +59,11 @@ public class DefaultExceptionHandler implements ProxyExceptionHandler {
 		// safest bet is to rethrow a runtime exception
 
 		Exception target = e.getTargetException();
-		if (target instanceof RuntimeException)
+		if (target instanceof RuntimeException) {
 			throw target;
-		else
+		} else {
 			throw new RuntimeProxyException(target.toString());
+		}
 	}
 
 	@Override

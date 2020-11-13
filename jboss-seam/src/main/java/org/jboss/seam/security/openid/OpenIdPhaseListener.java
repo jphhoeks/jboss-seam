@@ -11,15 +11,20 @@ import javax.faces.event.PhaseListener;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.Component;
+import org.jboss.seam.log.LogProvider;
+import org.jboss.seam.log.Logging;
 import org.jboss.seam.navigation.Pages;
-import org.jboss.seam.log.*;
+import org.jboss.seam.util.Resources;
 
 @SuppressWarnings("serial")
 public class OpenIdPhaseListener implements PhaseListener {
 	private transient LogProvider log = Logging.getLogProvider(OpenIdPhaseListener.class);
 
+	public OpenIdPhaseListener() {
+		super();
+	}
+	
 	@Override
-	@SuppressWarnings("unchecked")
 	public void beforePhase(PhaseEvent event) {
 		String viewId = Pages.getCurrentViewId();
 
@@ -50,19 +55,26 @@ public class OpenIdPhaseListener implements PhaseListener {
 		HttpServletResponse response = (HttpServletResponse) extContext.getResponse();
 
 		response.setContentType("application/xrds+xml");
-		PrintWriter out = response.getWriter();
+		PrintWriter out = null;
+		
+		try {
+			out = response.getWriter();
+			// XXX ENCODE THE URL!
+			OpenId open = (OpenId) Component.getInstance(OpenId.class);
+	
+			out.println("<XRDS xmlns=\"xri://$xrd*($v*2.0)\"><XRD><Service>" + "<Type>http://specs.openid.net/auth/2.0/return_to</Type><URI>"
+					+ open.returnToUrl() + "</URI></Service></XRD></XRDS>");
+		}
+		finally {
+			Resources.close(out);
+			context.responseComplete();
+		}
 
-		// XXX ENCODE THE URL!
-		OpenId open = (OpenId) Component.getInstance(OpenId.class);
-
-		out.println("<XRDS xmlns=\"xri://$xrd*($v*2.0)\"><XRD><Service>" + "<Type>http://specs.openid.net/auth/2.0/return_to</Type><URI>"
-				+ open.returnToUrl() + "</URI></Service></XRD></XRDS>");
-
-		context.responseComplete();
 	}
 
 	@Override
 	public void afterPhase(PhaseEvent event) {
+		//
 	}
 
 	@Override

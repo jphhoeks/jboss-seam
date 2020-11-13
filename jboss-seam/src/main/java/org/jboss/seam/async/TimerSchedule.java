@@ -15,9 +15,7 @@ public class TimerSchedule extends Schedule {
 	private static final long serialVersionUID = 2692435281183854378L;
 	private Long intervalDuration;
 
-	public Long getIntervalDuration() {
-		return intervalDuration;
-	}
+	public static final TimerSchedule ONCE_IMMEDIATELY = new TimerSchedule();
 
 	/**
 	* @param duration the delay before the event occurs
@@ -62,9 +60,13 @@ public class TimerSchedule extends Schedule {
 	}
 
 	private TimerSchedule() {
+		super();
 	}
 
-	public static final TimerSchedule ONCE_IMMEDIATELY = new TimerSchedule();
+
+	public Long getIntervalDuration() {
+		return intervalDuration;
+	}
 
 	@Override
 	public int hashCode() {
@@ -76,14 +78,17 @@ public class TimerSchedule extends Schedule {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!super.equals(obj))
+		if (!super.equals(obj)) {
 			return false;
+		}
 		final TimerSchedule other = (TimerSchedule) obj;
 		if (intervalDuration == null) {
-			if (other.intervalDuration != null)
+			if (other.intervalDuration != null) {
 				return false;
-		} else if (!intervalDuration.equals(other.intervalDuration))
+			}
+		} else if (!intervalDuration.equals(other.intervalDuration)) {
 			return false;
+		}
 		return true;
 	}
 }

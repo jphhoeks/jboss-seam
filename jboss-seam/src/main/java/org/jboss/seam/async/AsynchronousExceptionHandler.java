@@ -18,6 +18,10 @@ import org.jboss.seam.log.Logging;
 public class AsynchronousExceptionHandler {
 
 	private LogProvider log = Logging.getLogProvider(AsynchronousExceptionHandler.class);
+	
+	public AsynchronousExceptionHandler() {
+		super();
+	}
 
 	public void handleException(Exception throwable) {
 		log.error("Exception thrown whilst executing asynchronous call", throwable);

@@ -15,6 +15,10 @@ import org.jboss.seam.annotations.Transactional;
 public class HibernateEntityHome<E> extends Home<Session, E> {
 
 	private static final long serialVersionUID = 6071072408602519385L;
+	
+	public HibernateEntityHome() {
+		super();
+	}
 
 	@Override
 	public void create() {

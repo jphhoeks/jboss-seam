@@ -34,6 +34,10 @@ public class JbossCacheProvider extends AbstractJBossCacheProvider<TreeCache> {
 	private TreeCache cache;
 
 	private static final LogProvider log = Logging.getLogProvider(JbossCacheProvider.class);
+	
+	public JbossCacheProvider() {
+		super();
+	}
 
 	@Create
 	public void create() {

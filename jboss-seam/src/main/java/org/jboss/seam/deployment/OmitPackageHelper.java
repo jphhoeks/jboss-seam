@@ -4,10 +4,12 @@ import javax.servlet.ServletContext;
 
 import org.jboss.seam.util.Strings;
 
-public class OmitPackageHelper {
+public final class OmitPackageHelper {
 
 	public static final String KEY_OMIT_PACKAGES = "org.jboss.seam.deployment.OMIT_PACKAGES";
+	private String[] ignoredPackages;
 
+	
 	public static OmitPackageHelper getInstance(ServletContext ctx) {
 
 		if (ctx.getAttribute(KEY_OMIT_PACKAGES) == null) {
@@ -27,7 +29,6 @@ public class OmitPackageHelper {
 
 	}
 
-	private String[] ignoredPackages;
 
 	private OmitPackageHelper(String[] ignored) {
 		super();

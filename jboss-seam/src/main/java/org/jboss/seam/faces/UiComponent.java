@@ -29,6 +29,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 public class UiComponent {
 
+	public UiComponent() {
+		super();
+	}
+	
 	@Unwrap
 	public Map<String, UIComponent> getViewComponents() {
 		return new AbstractMap<String, UIComponent>() {
@@ -45,8 +49,9 @@ public class UiComponent {
 
 			@Override
 			public UIComponent get(Object key) {
-				if (!(key instanceof String))
+				if (!(key instanceof String)) {
 					return null;
+				}
 				try {
 					FacesContext context = FacesContext.getCurrentInstance();
 

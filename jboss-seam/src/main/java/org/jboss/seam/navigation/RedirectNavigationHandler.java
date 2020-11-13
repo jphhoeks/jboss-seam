@@ -26,6 +26,7 @@ public final class RedirectNavigationHandler extends NavigationHandler {
 
 	public RedirectNavigationHandler(ValueExpression<String> viewId, ValueExpression<String> url, List<Param> params, String message,
 			Severity severity, String control, boolean includePageParams) {
+		super();
 		this.viewId = viewId;
 		this.url = url;
 		this.params = params;

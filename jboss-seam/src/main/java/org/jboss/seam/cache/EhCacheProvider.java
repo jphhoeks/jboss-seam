@@ -34,6 +34,10 @@ public class EhCacheProvider extends CacheProvider<CacheManager> {
 
 	private static final LogProvider log = Logging.getLogProvider(EhCacheProvider.class);
 
+	public EhCacheProvider() {
+		super();
+	}
+	
 	@Override
 	public CacheManager getDelegate() {
 		return cacheManager;
@@ -72,10 +76,14 @@ public class EhCacheProvider extends CacheProvider<CacheManager> {
 		}
 		Cache result = cacheManager.getCache(regionName);
 		if (result == null) {
-			log.debug("Could not find configuration for region [" + regionName + "]; using defaults.");
+			if (log.isDebugEnabled()) {
+				log.debug("Could not find configuration for region [" + regionName + "]; using defaults.");
+			}
 			cacheManager.addCacheIfAbsent(regionName);
 			result = cacheManager.getCache(regionName);
-			log.debug("EHCache region created: " + regionName);
+			if (log.isDebugEnabled()) {
+				log.debug("EHCache region created: " + regionName);
+			}
 		}
 		return result;
 	}

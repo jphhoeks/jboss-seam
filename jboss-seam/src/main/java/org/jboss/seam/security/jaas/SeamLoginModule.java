@@ -38,6 +38,10 @@ public class SeamLoginModule implements LoginModule {
 	protected CallbackHandler callbackHandler;
 
 	protected String username;
+	
+	public SeamLoginModule() {
+		super();
+	}
 
 	@Override
 	public boolean abort() throws LoginException {
@@ -57,8 +61,9 @@ public class SeamLoginModule implements LoginModule {
 			}
 		}
 
-		if (roleGroup == null)
+		if (roleGroup == null) {
 			roleGroup = new SimpleGroup(ROLES_GROUP);
+		}
 
 		for (String role : roles) {
 			roleGroup.addMember(new SimplePrincipal(role));
@@ -127,8 +132,10 @@ public class SeamLoginModule implements LoginModule {
 				throw le;
 			}
 		} else {
-			log.error(
+			if (log.isErrorEnabled()) {
+				log.error(
 					"No authentication method defined - " + "please define authenticate-method for <security:identity/> in components.xml");
+			}
 			throw new LoginException("No authentication method defined");
 		}
 

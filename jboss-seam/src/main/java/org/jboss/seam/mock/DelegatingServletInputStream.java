@@ -44,6 +44,7 @@ public class DelegatingServletInputStream extends ServletInputStream {
 	 *            the source stream (never <code>null</code>)
 	 */
 	public DelegatingServletInputStream(InputStream sourceStream) {
+		super();
 		this.sourceStream = sourceStream;
 	}
 
@@ -94,7 +95,7 @@ public class DelegatingServletInputStream extends ServletInputStream {
 	 */
 	@Override
 	public void setReadListener(ReadListener readListener) {
-
+		//
 	}
 
 }

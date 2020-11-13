@@ -24,6 +24,10 @@ public class HibernateEntityController extends PersistenceController<Session> {
 
 	private static final long serialVersionUID = 1L;
 
+	public HibernateEntityController() {
+		super();
+	}
+	
 	public Session getSession() {
 		return getPersistenceContext();
 	}

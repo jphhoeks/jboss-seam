@@ -33,6 +33,11 @@ import org.jboss.seam.core.SeamResourceBundle;
 @Name("org.jboss.seam.international.messagesFactory")
 @Install(precedence = BUILT_IN)
 public class Messages {
+	
+	public Messages() {
+		super();
+	}
+	
 	protected Map<String, String> createMap() {
 		final java.util.ResourceBundle bundle = SeamResourceBundle.getBundle();
 

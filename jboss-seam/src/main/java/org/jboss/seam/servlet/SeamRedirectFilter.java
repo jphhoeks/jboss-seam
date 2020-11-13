@@ -10,5 +10,8 @@ import org.jboss.seam.web.RedirectFilter;
  */
 @Deprecated
 public class SeamRedirectFilter extends RedirectFilter {
+	public SeamRedirectFilter() {
+		super();
+	}
 
 }

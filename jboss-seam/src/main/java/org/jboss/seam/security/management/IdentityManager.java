@@ -45,6 +45,10 @@ public class IdentityManager implements Serializable {
 	private IdentityStore identityStore;
 	private IdentityStore roleIdentityStore;
 
+	public IdentityManager() {
+		super();
+	}
+	
 	@Create
 	public void create() {
 		initIdentityStore();
@@ -61,7 +65,7 @@ public class IdentityManager implements Serializable {
 		}
 
 		if (identityStore == null || roleIdentityStore == null) {
-			log.warn("no identity store available - please configure an identityStore if identity " + "management is required.");
+			log.warn("no identity store available - please configure an identityStore if identity management is required.");
 		}
 	}
 
@@ -237,8 +241,9 @@ public class IdentityManager implements Serializable {
 	}
 
 	public boolean authenticate(String username, String password) {
-		if (Strings.isEmpty(username))
+		if (Strings.isEmpty(username)) {
 			return false;
+		}
 		return identityStore.authenticate(username, password);
 	}
 

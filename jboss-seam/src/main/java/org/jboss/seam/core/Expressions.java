@@ -26,6 +26,7 @@ import org.jboss.seam.el.EL;
 import org.jboss.seam.el.SeamExpressionFactory;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 
 /**
  * Factory for EL method and value expressions.
@@ -42,7 +43,9 @@ public class Expressions implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final LogProvider log = Logging.getLogProvider(Expressions.class);
 	private static List<String> blacklist = new ArrayList<String>();
-
+	// optimalization of REGEX
+	final static String WHITESPACE_REGEX_STRING = "\\s";
+	final static Pattern WHITESPACE_REGEX_PATTERN = Pattern.compile(WHITESPACE_REGEX_STRING);
 	// loading blacklisted patterns of non-valid EL expressions
 	static {
 		BufferedReader reader = null;
@@ -56,14 +59,13 @@ public class Expressions implements Serializable {
 		} catch (IOException e) {
 			log.warn("Black list of non-valid EL expressions was not found!");
 		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e) {
-				}
-			}
+			Resources.close(reader);
 		}
 
+	}
+	
+	public Expressions() {
+		super();
 	}
 
 	/**
@@ -284,9 +286,7 @@ public class Expressions implements Serializable {
 		}
 	}
 
-	// optimalization of REGEX
-	final static String WHITESPACE_REGEX_STRING = "\\s";
-	final static Pattern WHITESPACE_REGEX_PATTERN = Pattern.compile(WHITESPACE_REGEX_STRING);
+
 
 	private static void checkELExpression(final String expression) {
 		if (expression == null) {

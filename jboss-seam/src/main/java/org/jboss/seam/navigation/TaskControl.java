@@ -15,6 +15,9 @@ public class TaskControl {
 
 	private ValueExpression<String> transition;
 
+	public TaskControl() {
+		super();
+	}
 	public void beginOrEndTask() {
 		if (endTask()) {
 			BusinessProcess.instance().validateTask();

@@ -21,6 +21,7 @@ import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.core.ResourceLoader;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 
 import javassist.util.proxy.ProxyFactory;
 
@@ -41,6 +42,10 @@ public class RuleBase {
 	private ValueExpression<ConsequenceExceptionHandler> consequenceExceptionHandler;
 	private org.drools.RuleBase ruleBase;
 
+	public RuleBase() {
+		super();
+	}
+	
 	@Create
 	public void compileRuleBase() throws Exception {
 		PackageBuilderConfiguration conf = new PackageBuilderConfiguration();
@@ -48,45 +53,68 @@ public class RuleBase {
 
 		if (ruleFiles != null) {
 			for (String ruleFile : ruleFiles) {
-				log.debug("parsing rules: " + ruleFile);
-				InputStream stream = ResourceLoader.instance().getResourceAsStream(ruleFile);
-				if (stream == null) {
-					throw new IllegalStateException("could not locate rule file: " + ruleFile);
+				if (log.isDebugEnabled()) {
+					log.debug("parsing rules: " + ruleFile);
 				}
-
-				if (isDecisionTable(ruleFile)) {
-					if (SpreadsheetCompiler.instance() != null) {
-						builder.addPackageFromDrl(SpreadsheetCompiler.instance().compile(stream));
-					} else {
-						throw new UnsupportedOperationException(
-								"Unable to compile decision table. You need drools-decisiontables.jar in your classpath");
-
+				InputStream stream = null;
+				try {
+					stream = ResourceLoader.instance().getResourceAsStream(ruleFile);
+					if (stream == null) {
+						throw new IllegalStateException("could not locate rule file: " + ruleFile);
 					}
-				} else if (isRuleFlow(ruleFile)) {
-					log.debug("adding ruleflow: " + ruleFile);
-					builder.addRuleFlow(new InputStreamReader(stream));
-				} else {
-					// read in the source
-					Reader drlReader = new InputStreamReader(stream);
-
-					if (dslFile == null) {
-						builder.addPackageFromDrl(drlReader);
-					} else {
-						Reader dslReader = new InputStreamReader(ResourceLoader.instance().getResourceAsStream(dslFile));
-						builder.addPackageFromDrl(drlReader, dslReader);
-					}
-				}
-
-				if (builder.hasErrors()) {
-					log.error("errors parsing rules in: " + ruleFile);
-					for (DroolsError error : builder.getErrors().getErrors()) {
-						if (error instanceof RuleBuildError) {
-							RuleBuildError ruleError = (RuleBuildError) error;
-							log.error(ruleError.getMessage() + " (" + ruleFile + ':' + ruleError.getLine() + ')');
+	
+					if (isDecisionTable(ruleFile)) {
+						if (SpreadsheetCompiler.instance() != null) {
+							builder.addPackageFromDrl(SpreadsheetCompiler.instance().compile(stream));
 						} else {
-							log.error(error.getMessage() + " (" + ruleFile + ')');
+							throw new UnsupportedOperationException(
+									"Unable to compile decision table. You need drools-decisiontables.jar in your classpath");
+	
+						}
+					} else if (isRuleFlow(ruleFile)) {
+						if (log.isDebugEnabled()) {
+							log.debug("adding ruleflow: " + ruleFile);
+						}
+						builder.addRuleFlow(new InputStreamReader(stream));
+					} else {
+						// read in the source
+						Reader drlReader = null;
+						Reader dslReader = null;
+						try {
+							drlReader = new InputStreamReader(stream);
+		
+							if (dslFile == null) {
+								builder.addPackageFromDrl(drlReader);
+							} else {
+								dslReader = new InputStreamReader(ResourceLoader.instance().getResourceAsStream(dslFile));
+								builder.addPackageFromDrl(drlReader, dslReader);
+							}
+						}
+						finally {
+							Resources.close(dslReader, dslReader);
 						}
 					}
+	
+					if (builder.hasErrors()) {
+						if (log.isErrorEnabled()) {
+							log.error("errors parsing rules in: " + ruleFile);
+						}
+						for (DroolsError error : builder.getErrors().getErrors()) {
+							if (error instanceof RuleBuildError) {
+								RuleBuildError ruleError = (RuleBuildError) error;
+								if (log.isErrorEnabled()) {
+									log.error(ruleError.getMessage() + " (" + ruleFile + ':' + ruleError.getLine() + ')');
+								}
+							} else {
+								if (log.isErrorEnabled()) {
+									log.error(error.getMessage() + " (" + ruleFile + ')');
+								}
+							}
+						}
+					}
+				}
+				finally {
+					Resources.close(stream);
 				}
 			}
 		}

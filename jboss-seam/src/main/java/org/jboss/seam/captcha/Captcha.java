@@ -35,6 +35,10 @@ public class Captcha implements Serializable {
 	private String challenge;
 	private String response;
 
+	public Captcha() {
+		super();
+	}
+	
 	/**
 	* Initialize the challenge and correct response.
 	* May be overridden and customized by a subclass.

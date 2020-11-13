@@ -31,6 +31,10 @@ public class RuleAgent {
 	private String poll;
 	private String configName;
 
+	public RuleAgent() {
+		super();
+	}
+	
 	@Create
 	public void createAgent() throws Exception {
 		Properties properties = new Properties();

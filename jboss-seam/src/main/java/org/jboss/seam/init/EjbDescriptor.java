@@ -14,6 +14,10 @@ public class EjbDescriptor {
 	private String ejbClassName;
 	private ComponentType beanType;
 
+	public EjbDescriptor()  {
+		super();
+	}
+	
 	public ComponentType getBeanType() {
 		return beanType;
 	}

@@ -3,6 +3,7 @@ package org.jboss.seam.drools;
 import java.util.List;
 
 import org.drools.WorkingMemory;
+import org.jboss.seam.util.Strings;
 import org.jbpm.graph.def.ActionHandler;
 import org.jbpm.graph.exe.ExecutionContext;
 
@@ -23,10 +24,14 @@ public class DroolsActionHandler extends DroolsHandler implements ActionHandler 
 	public String workingMemoryName;
 	public String startProcessId;
 
+	public DroolsActionHandler() {
+		super();
+	}
+	
 	@Override
 	public void execute(ExecutionContext executionContext) throws Exception {
 		WorkingMemory workingMemory = getWorkingMemory(workingMemoryName, assertObjects, retractObjects, executionContext);
-		if (startProcessId != null && startProcessId.trim().length() > 0) {
+		if (!Strings.isEmpty(startProcessId)) {
 			workingMemory.startProcess(startProcessId);
 		}
 		workingMemory.fireAllRules();

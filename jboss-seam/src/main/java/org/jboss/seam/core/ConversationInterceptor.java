@@ -30,6 +30,10 @@ import org.jboss.seam.persistence.PersistenceContexts;
 public class ConversationInterceptor extends AbstractInterceptor {
 	private static final long serialVersionUID = -5405533438107796414L;
 
+	public ConversationInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
@@ -176,7 +180,7 @@ public class ConversationInterceptor extends AbstractInterceptor {
 	}
 
 	private void beginNavigation(String pageflowName) {
-		if (!pageflowName.equals("")) {
+		if (!"".equals(pageflowName)) {
 			if (!Init.instance().isJbpmInstalled()) {
 				throw new IllegalArgumentException(
 						"attempting to begin pageflow but required org.jboss.seam.bpm.jbpm component is not installed");

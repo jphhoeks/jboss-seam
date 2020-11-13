@@ -40,6 +40,10 @@ public class JpaTokenStore implements TokenStore, Serializable {
 	private AnnotatedBeanProperty<TokenUsername> tokenUsernameProperty;
 	private AnnotatedBeanProperty<TokenValue> tokenValueProperty;
 
+	public JpaTokenStore() {
+		super();
+	}
+	
 	@Create
 	public void create() {
 		if (entityManager == null) {

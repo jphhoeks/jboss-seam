@@ -23,7 +23,7 @@ import org.jboss.seam.transaction.Transaction;
  * @author Gavin King
  *
  */
-class PassivatedEntity implements Serializable {
+final class PassivatedEntity implements Serializable {
 	private static final long serialVersionUID = 6565440294007267788L;
 
 	private Object id;

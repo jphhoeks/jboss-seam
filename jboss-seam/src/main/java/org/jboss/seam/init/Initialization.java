@@ -14,7 +14,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -25,6 +24,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -83,17 +83,17 @@ public class Initialization {
 	private static final LogProvider log = Logging.getLogProvider(Initialization.class);
 
 	private ServletContext servletContext;
-	private Map<String, Conversions.PropertyValue> properties = new HashMap<String, Conversions.PropertyValue>();
-	private Map<String, Set<ComponentDescriptor>> componentDescriptors = new HashMap<String, Set<ComponentDescriptor>>();
+	private Map<String, Conversions.PropertyValue> properties = new ConcurrentHashMap<String, Conversions.PropertyValue>();
+	private Map<String, Set<ComponentDescriptor>> componentDescriptors = new ConcurrentHashMap<String, Set<ComponentDescriptor>>();
 	private List<FactoryDescriptor> factoryDescriptors = new ArrayList<FactoryDescriptor>();
 	@SuppressWarnings("rawtypes")
 	private Set<Class> installedComponentClasses = new HashSet<Class>();
 	//private Set<String> importedPackages = new HashSet<String>();
-	private Map<String, NamespaceDescriptor> namespaceMap = new HashMap<String, NamespaceDescriptor>();
+	private Map<String, NamespaceDescriptor> namespaceMap = new ConcurrentHashMap<String, NamespaceDescriptor>();
 	private NamespacePackageResolver namespacePackageResolver = new NamespacePackageResolver();
-	private Map<String, EventListenerDescriptor> eventListenerDescriptors = new HashMap<String, EventListenerDescriptor>();
+	private Map<String, EventListenerDescriptor> eventListenerDescriptors = new ConcurrentHashMap<String, EventListenerDescriptor>();
 	private Collection<String> globalImports = new ArrayList<String>();
-	private Map<String, Class<? extends Enum<?>>> enums = new HashMap<String, Class<? extends Enum<?>>>();
+	private Map<String, Class<? extends Enum<?>>> enums = new ConcurrentHashMap<String, Class<? extends Enum<?>>>();
 
 	private StandardDeploymentStrategy standardDeploymentStrategy;
 	private HotDeploymentStrategy hotDeploymentStrategy;
@@ -192,36 +192,43 @@ public class Initialization {
 
 			if (!skip) {
 				try {
-					InputStream stream = url.openStream();
-					if (log.isDebugEnabled()) {
-						log.debug("reading " + url);
-					}
+					InputStream stream = null;
 					try {
+						stream = url.openStream();
+						if (log.isDebugEnabled()) {
+							log.debug("reading " + url);
+						}
 						installComponentsFromXmlElements(XML.getRootElement(stream), replacements);
 					} finally {
-						Resources.closeStream(stream);
+						Resources.close(stream);
 					}
 				} catch (Exception e) {
 					throw new RuntimeException("error while reading " + url, e);
 				}
 			} else {
-				log.trace("skipping read of duplicate components.xml " + url);
+				if (log.isTraceEnabled()) {
+					log.trace("skipping read of duplicate components.xml " + url);
+				}
 			}
 		}
 	}
 
 	private void initComponentsFromXmlDocument(String resource) {
-		InputStream stream = Resources.getResourceAsStream(resource, this.servletContext);
-		if (stream != null) {
-			log.info("reading " + resource);
-			try {
+		InputStream stream = null; 
+		try {
+			stream = Resources.getResourceAsStream(resource, this.servletContext);
+			if (stream != null) {
+				if (log.isInfoEnabled()) {
+					log.info("reading " + resource);
+				}
 				installComponentsFromXmlElements(XML.getRootElement(stream), getReplacements());
-			} catch (Exception e) {
-				throw new RuntimeException("error while reading /WEB-INF/components.xml", e);
-			} finally {
-				Resources.closeStream(stream);
 			}
+		} catch (Exception e) {
+			throw new RuntimeException("error while reading /WEB-INF/components.xml", e);
+		} finally {
+			Resources.close(stream);
 		}
+		
 	}
 
 	private Properties getReplacements() {
@@ -236,7 +243,7 @@ public class Initialization {
 		} catch (IOException ioe) {
 			throw new RuntimeException("error reading components.properties", ioe);
 		} finally {
-			Resources.closeStream(replaceStream);
+			Resources.close(replaceStream);
 		}
 	}
 
@@ -279,7 +286,9 @@ public class Initialization {
 			NamespaceDescriptor nsInfo = resolveNamespace(ns);
 			if (nsInfo == null) {
 				if (!ns.equals(COMPONENT_NAMESPACE)) {
-					log.warn("namespace declared in components.xml does not resolve to a package: " + ns);
+					if (log.isWarnEnabled()) {
+						log.warn("namespace declared in components.xml does not resolve to a package: " + ns);
+					}
 				}
 			} else {
 				String name = elem.attributeValue("name");
@@ -372,7 +381,9 @@ public class Initialization {
 				descriptor = new NamespaceDescriptor(namespace, packageName);
 				this.namespaceMap.put(namespace, descriptor);
 			} catch (Exception e) {
-				log.warn("Could not determine java package for namespace: " + namespace, e);
+				if (log.isWarnEnabled()) {
+					log.warn("Could not determine java package for namespace: " + namespace, e);
+				}
 			}
 		}
 
@@ -396,8 +407,10 @@ public class Initialization {
 			if (execute == null) {
 				String actionExpression = action.attributeValue("expression");
 				if (actionExpression != null) {
-					log.warn("<action expression=\"" + actionExpression + "\" /> has been deprecated, use <action execute=\""
+					if (log.isWarnEnabled()) {
+						log.warn("<action expression=\"" + actionExpression + "\" /> has been deprecated, use <action execute=\""
 							+ actionExpression + "\" /> instead");
+					}
 					execute = actionExpression;
 				} else {
 					throw new IllegalArgumentException("must specify execute for <action/> declaration");
@@ -567,7 +580,9 @@ public class Initialization {
 			this.componentDescriptors.put(name, set);
 		}
 		if (!set.isEmpty()) {
-			log.debug("two components with same name, higher precedence wins: " + name);
+			if (log.isDebugEnabled()) {
+				log.debug("two components with same name, higher precedence wins: " + name);
+			}
 		}
 		if (!set.add(descriptor)) {
 			ComponentDescriptor other = null;
@@ -680,7 +695,9 @@ public class Initialization {
 		Contexts.getEventContext().set(WarRootDeploymentStrategy.NAME, warRootDeploymentStrategy);
 		warRootDeploymentStrategy.scan();
 		init.setWarTimestamp(System.currentTimeMillis());
-		log.info("War scanned in " + (init.getWarTimestamp() - init.getTimestamp()) + " ms");
+		if (log.isInfoEnabled()) {
+			log.info("War scanned in " + (init.getWarTimestamp() - init.getTimestamp()) + " ms");
+		}
 		this.hotDeploymentStrategy = createHotDeployment(Thread.currentThread().getContextClassLoader(), isHotDeployEnabled(init));
 		Contexts.getEventContext().set(HotDeploymentStrategy.NAME, this.hotDeploymentStrategy);
 		init.setHotDeployPaths(this.hotDeploymentStrategy.getHotDeploymentPaths());
@@ -721,7 +738,7 @@ public class Initialization {
 
 		this.hotDeploymentStrategy = createHotDeployment(Thread.currentThread().getContextClassLoader(), isHotDeployEnabled(init));
 
-		boolean changed = new TimestampCheckForwardingDeploymentStrategy(Initialization.this.hotDeploymentStrategy)
+		boolean changed = new TimestampCheckForwardingDeploymentStrategy(this.hotDeploymentStrategy)
 				.changedSince(init.getTimestamp());
 
 		if (this.hotDeploymentStrategy.available() && changed) {
@@ -840,25 +857,22 @@ public class Initialization {
 		InputStream stream = null;
 		try {
 			stream = fileDescriptor.getUrl().openStream();
-		} catch (IOException ignored) {
-			// No-op
-		}
-		if (stream != null) {
-			try {
+			if (stream != null) {
 				Properties replacements = getReplacements();
 				Element root = XML.getRootElement(stream);
-				if (root.getName().equals("components")) {
+				if ("components".equals(root.getName())) {
 					installComponentsFromXmlElements(root, replacements);
 				} else {
 					installComponentFromXmlElement(root, root.attributeValue("name"), classFilenameFromDescriptor(fileDescriptor.getName()),
 							replacements);
 				}
-			} catch (Exception e) {
-				throw new RuntimeException("error while reading " + fileDescriptor.getName(), e);
-			} finally {
-				Resources.closeStream(stream);
 			}
+		} catch (Exception e) {
+			throw new RuntimeException("error while reading " + fileDescriptor.getName(), e);
+		} finally {
+			Resources.close(stream);
 		}
+		
 	}
 
 	private void installScannedComponentAndRoles(Class<?> scannedClass) {
@@ -876,7 +890,9 @@ public class Initialization {
 				}
 			}
 		} catch (TypeNotPresentException e) {
-			log.info("Failed to install " + scannedClass.getName() + ": " + e.getMessage());
+			if (log.isInfoEnabled()) {
+				log.info("Failed to install " + scannedClass.getName() + ": " + e.getMessage(), e);
+			}
 		}
 	}
 
@@ -958,21 +974,32 @@ public class Initialization {
 
 	private Properties loadFromResource(String resource) {
 		Properties props = new Properties();
-		InputStream stream = Resources.getResourceAsStream(resource, this.servletContext);
-		if (stream != null) {
-			try {
-				log.info("reading properties from: " + resource);
+		
+		InputStream stream = null;
+		try {
+			stream = Resources.getResourceAsStream(resource, this.servletContext);
+			if (stream != null) {
+				if (log.isInfoEnabled()) {
+					log.info("reading properties from: " + resource);
+				}
 				try {
 					props.load(stream);
 				} catch (IOException ioe) {
-					log.error("could not read " + resource, ioe);
+					if (log.isErrorEnabled()) {
+						log.error("could not read " + resource, ioe);
+					}
 				}
-			} finally {
-				Resources.closeStream(stream);
 			}
-		} else if (log.isDebugEnabled()) {
-			log.debug("not found: " + resource);
+			else {
+				if (log.isDebugEnabled()) {
+					log.debug("not found: " + resource);
+				}
+			}
 		}
+		finally {
+			Resources.close(stream);
+		}
+		
 		return props;
 	}
 
@@ -1040,7 +1067,9 @@ public class Initialization {
 			}
 		}
 		long finishTime = System.currentTimeMillis();
-		log.info("Installed components in " + (finishTime - startTime) + " ms");
+		if (log.isInfoEnabled()) {
+			log.info("Installed components in " + (finishTime - startTime) + " ms");
+		}
 	}
 
 	/**

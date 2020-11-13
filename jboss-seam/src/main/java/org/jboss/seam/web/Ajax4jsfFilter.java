@@ -43,6 +43,10 @@ public class Ajax4jsfFilter extends AbstractFilter {
 	private String forceParser;
 	private String enableCache;
 	private String log4jInitFile;
+	
+	public Ajax4jsfFilter() {
+		super();
+	}
 
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)

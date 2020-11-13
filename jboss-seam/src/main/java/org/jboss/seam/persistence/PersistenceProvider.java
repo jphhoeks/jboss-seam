@@ -71,9 +71,14 @@ public class PersistenceProvider {
 
 	protected Set<Feature> featureSet = new HashSet<Feature>();
 
+	public PersistenceProvider() {
+		super();
+	}
+	
 	@PostConstruct
 	// @Create method not called on stateless components
 	public void init() {
+		//
 	}
 
 	/**

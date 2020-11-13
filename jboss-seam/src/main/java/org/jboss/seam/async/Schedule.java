@@ -35,6 +35,7 @@ public class Schedule implements Serializable {
 	* @param expiration the datetime at which the event occurs
 	*/
 	public Schedule(Long duration, Date expiration) {
+		super();
 		this.duration = duration;
 		this.expiration = expiration;
 	}
@@ -45,6 +46,7 @@ public class Schedule implements Serializable {
 	* @param finalExpiration the datetime at which the event ends
 	*/
 	public Schedule(Long duration, Date expiration, Date finalExpiration) {
+		super();
 		this.duration = duration;
 		this.expiration = expiration;
 		this.finalExpiration = finalExpiration;
@@ -54,6 +56,7 @@ public class Schedule implements Serializable {
 	* @param duration the delay before the event occurs
 	*/
 	public Schedule(Long duration) {
+		super();
 		this.duration = duration;
 	}
 
@@ -61,10 +64,12 @@ public class Schedule implements Serializable {
 	* @param expiration the datetime at which the event occurs
 	*/
 	public Schedule(Date expiration) {
+		super();
 		this.expiration = expiration;
 	}
 
 	public Schedule() {
+		super();
 	}
 
 	@Override
@@ -78,23 +83,30 @@ public class Schedule implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		final Schedule other = (Schedule) obj;
 		if (duration == null) {
-			if (other.duration != null)
+			if (other.duration != null) {
 				return false;
-		} else if (!duration.equals(other.duration))
+			}
+		} else if (!duration.equals(other.duration)) {
 			return false;
+		}
 		if (expiration == null) {
-			if (other.expiration != null)
+			if (other.expiration != null) {
 				return false;
-		} else if (!expiration.equals(other.expiration))
+			}
+		} else if (!expiration.equals(other.expiration)) {
 			return false;
+		}
 		return true;
 	}
 

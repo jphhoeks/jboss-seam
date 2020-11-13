@@ -11,10 +11,19 @@ public class ScanResultsCache {
 	public static final String KEY_CACHE_SCAN_RESULTS = "org.jboss.seam.deployment.CACHE_SCAN_RESULTS";
 	private static ScanResultsCache instance = new ScanResultsCache();
 
+	private Set<String> hits = Collections.synchronizedSet(new HashSet<String>());
+	private Set<String> misses = Collections.synchronizedSet(new HashSet<String>());
+	
 	public static ScanResultsCache getInstance() {
 		return instance;
 	}
 
+	
+
+	private ScanResultsCache() {
+		super();
+	}
+	
 	public static ScanResultsCache getInstance(ServletContext context) {
 
 		if (context.getAttribute(KEY_CACHE_SCAN_RESULTS) == null) {
@@ -26,11 +35,13 @@ public class ScanResultsCache {
 				cache = new ScanResultsCache() {
 					@Override
 					public void addHit(String hit) {
-					};
+						//
+					}
 
 					@Override
 					public void addMiss(String hit) {
-					};
+						//
+					}
 				};
 			}
 			context.setAttribute(KEY_CACHE_SCAN_RESULTS, cache);
@@ -40,13 +51,6 @@ public class ScanResultsCache {
 		}
 
 		return (ScanResultsCache) context.getAttribute(KEY_CACHE_SCAN_RESULTS);
-	}
-
-	private Set<String> hits = Collections.synchronizedSet(new HashSet<String>());
-	private Set<String> misses = Collections.synchronizedSet(new HashSet<String>());
-
-	private ScanResultsCache() {
-		super();
 	}
 
 	public void addHit(String hit) {

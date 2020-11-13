@@ -106,13 +106,15 @@ public class WicketFilter extends AbstractFilter {
 				//and reset that afterwards
 
 				ClassLoader previousClassLoader = Thread.currentThread().getContextClassLoader();
-				if (hotDeployClassLoader != null)
+				if (hotDeployClassLoader != null) {
 					Thread.currentThread().setContextClassLoader(hotDeployClassLoader);
+				}
 				try {
 					delegate.init(new FilterConfigWrapper(savedConfig, parameters));
 				} finally {
-					if (hotDeployClassLoader != null)
+					if (hotDeployClassLoader != null) {
 						Thread.currentThread().setContextClassLoader(previousClassLoader);
+					}
 				}
 				lastInitTime = init.getTimestamp();
 			}

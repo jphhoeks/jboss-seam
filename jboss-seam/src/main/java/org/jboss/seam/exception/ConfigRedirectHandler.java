@@ -25,6 +25,7 @@ public final class ConfigRedirectHandler extends RedirectHandler {
 	*/
 	public ConfigRedirectHandler(ValueExpression<String> id, Class clazz, boolean conversation, boolean conversationBeforeRedirect,
 			String message, Severity messageSeverity) {
+		super();
 		this.id = id;
 		this.clazz = clazz;
 		this.conversation = conversation;

@@ -1,12 +1,11 @@
 package org.jboss.seam.jmx;
 
 import java.io.Serializable;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.management.Attribute;
 import javax.management.AttributeList;
@@ -56,7 +55,7 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 	/**
 	* MBean attribute meta data.
 	*/
-	private HashMap attributeMap = new HashMap();
+	private Map<String, MBeanAttributeInfo> attributeMap = new HashMap<String, MBeanAttributeInfo> ();
 
 	/**
 	* Indicates whether Object.toString() should be delegated to the resource
@@ -89,8 +88,9 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 	*/
 	public JMXInvocationHandler(MBeanServer server, ObjectName name) throws MBeanProxyCreationException {
 		try {
-			if (server == null)
+			if (server == null) {
 				throw new MBeanProxyCreationException("null agent reference");
+			}
 
 			this.server = server;
 			this.objectName = name;
@@ -108,28 +108,26 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 			// Dynamic Proxy will delegate these methods automatically to the
 			// invoke() implementation.
 			for (int i = 0; i < operations.length; ++i) {
-				if (operations[i].getName().equals("toString") && operations[i].getReturnType().equals("java.lang.String")
+				if ("toString".equals(operations[i].getName()) && "java.lang.String".equals(operations[i].getReturnType())
 						&& operations[i].getSignature().length == 0) {
 					delegateToStringToResource = true;
 				}
 
-				else if (operations[i].getName().equals("equals") && operations[i].getReturnType().equals(Boolean.TYPE.getName())
+				else if ("equals".equals(operations[i].getName()) && operations[i].getReturnType().equals(Boolean.TYPE.getName())
 						&& operations[i].getSignature().length == 1
-						&& operations[i].getSignature()[0].getType().equals("java.lang.Object")) {
+						&& "java.lang.Object".equals(operations[i].getSignature()[0].getType())) {
 					delegateEqualsToResource = true;
 				}
 
-				else if (operations[i].getName().equals("hashCode") && operations[i].getReturnType().equals(Integer.TYPE.getName())
+				else if ("hashCode".equals(operations[i].getName()) && operations[i].getReturnType().equals(Integer.TYPE.getName())
 						&& operations[i].getSignature().length == 0) {
 					delegateHashCodeToResource = true;
 				}
 			}
 		} catch (InstanceNotFoundException e) {
-			throw new MBeanProxyCreationException("Object name " + name + " not found: " + e.toString());
-		} catch (IntrospectionException e) {
-			throw new MBeanProxyCreationException(e.toString());
-		} catch (ReflectionException e) {
-			throw new MBeanProxyCreationException(e.toString());
+			throw MBeanProxy.createMBeanProxyCreationExceptionWithCause("Object name " + name + " not found: " + e.toString(), e);
+		} catch (IntrospectionException | ReflectionException e) {
+			throw MBeanProxy.createMBeanProxyCreationExceptionWithCause(e.toString(), e);
 		}
 	}
 
@@ -143,19 +141,22 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 		// operation metadata with same signature then the invocations will be
 		// delegated to the target. Otherwise this instance of invocation handler
 		// will execute them.
-		if (declaringClass == Object.class)
+		if (declaringClass == Object.class) {
 			return handleObjectMethods(method, args);
+		}
 
 		// Check methods from ProxyContext interface. If invoked, delegate
 		// to the context implementation part of this invocation handler.
-		if (declaringClass == ProxyContext.class)
+		if (declaringClass == ProxyContext.class) {
 			return method.invoke(this, args);
+		}
 
 		// Check methods from DynamicMBean interface. This allows the proxy
 		// to be used in cases where the underlying metadata has changed (a la
 		// Dynamic MBean).
-		if (declaringClass == DynamicMBean.class)
+		if (declaringClass == DynamicMBean.class) {
 			return handleDynamicMBeanInvocation(method, args);
+		}
 
 		try {
 			String methodName = method.getName();
@@ -171,7 +172,7 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 				String attrName = methodName.substring(3, methodName.length());
 
 				// check that the metadata exists
-				MBeanAttributeInfo info = (MBeanAttributeInfo) attributeMap.get(attrName);
+				MBeanAttributeInfo info = attributeMap.get(attrName);
 				if (info != null) {
 					String retType = method.getReturnType().getName();
 
@@ -187,7 +188,7 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 				String attrName = methodName.substring(2, methodName.length());
 
 				// check that the metadata exists
-				MBeanAttributeInfo info = (MBeanAttributeInfo) attributeMap.get(attrName);
+				MBeanAttributeInfo info = attributeMap.get(attrName);
 				if (info != null && info.isIs()) {
 					Class retType = method.getReturnType();
 
@@ -203,17 +204,18 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 				String attrName = methodName.substring(3, methodName.length());
 
 				// check that the metadata exists
-				MBeanAttributeInfo info = (MBeanAttributeInfo) attributeMap.get(attrName);
+				MBeanAttributeInfo info = attributeMap.get(attrName);
 				if (info != null && method.getReturnType().equals(Void.TYPE)) {
 					ClassLoader cl = Thread.currentThread().getContextClassLoader();
 
 					Class signatureClass = null;
 					String classType = info.getType();
 
-					if (isPrimitive(classType))
+					if (isPrimitive(classType)) {
 						signatureClass = getPrimitiveClass(classType);
-					else
+					} else {
 						signatureClass = cl.loadClass(info.getType());
+					}
 
 					if (signatureClass.isAssignableFrom(args[0].getClass())) {
 						server.setAttribute(objectName, new Attribute(attrName, args[0]));
@@ -228,8 +230,9 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 				signature = new String[args.length];
 				Class[] sign = method.getParameterTypes();
 
-				for (int i = 0; i < sign.length; ++i)
+				for (int i = 0; i < sign.length; ++i) {
 					signature[i] = sign[i].getName();
+				}
 			}
 
 			return server.invoke(objectName, methodName, args, signature);
@@ -288,14 +291,15 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 
 	private Object handleObjectMethods(Method method, Object[] args)
 			throws InstanceNotFoundException, ReflectionException, IntrospectionException, MBeanException {
-		if (method.getName().equals("toString")) {
-			if (delegateToStringToResource)
+		if ("toString".equals(method.getName())) {
+			if (delegateToStringToResource) {
 				return server.invoke(objectName, "toString", null, null);
-			else
+			} else {
 				return toString();
+			}
 		}
 
-		else if (method.getName().equals("equals")) {
+		else if ("equals".equals(method.getName())) {
 			if (delegateEqualsToResource) {
 				return server.invoke(objectName, "equals", new Object[] { args[0] }, new String[] { "java.lang.Object" });
 			} else if (Proxy.isProxyClass(args[0].getClass())) {
@@ -306,82 +310,96 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 			}
 		}
 
-		else if (method.getName().equals("hashCode")) {
+		else if ("hashCode".equals(method.getName())) {
 			if (delegateHashCodeToResource) {
 				return server.invoke(objectName, "hashCode", null, null);
 			} else {
 				return Integer.valueOf(this.hashCode());
 			}
-		}
-
-		else
+		} else {
 			throw new Error("Unexpected method invocation!");
+		}
 	}
 
 	private Object handleDynamicMBeanInvocation(Method method, Object[] args) throws InstanceNotFoundException, ReflectionException,
 			IntrospectionException, MBeanException, AttributeNotFoundException, InvalidAttributeValueException {
 		String methodName = method.getName();
 
-		if (methodName.equals("setAttribute")) {
+		if ("setAttribute".equals(methodName)) {
 			server.setAttribute(objectName, (Attribute) args[0]);
 			return null;
-		} else if (methodName.equals("setAttributes"))
+		} else if ("setAttributes".equals(methodName)) {
 			return server.setAttributes(objectName, (AttributeList) args[0]);
-		else if (methodName.equals("getAttribute"))
+		} else if ("getAttribute".equals(methodName)) {
 			return server.getAttribute(objectName, (String) args[0]);
-		else if (methodName.equals("getAttributes"))
+		} else if ("getAttributes".equals(methodName)) {
 			return server.getAttributes(objectName, (String[]) args[0]);
-		else if (methodName.equals("invoke"))
+		} else if ("invoke".equals(methodName)) {
 			return server.invoke(objectName, (String) args[0], (Object[]) args[1], (String[]) args[2]);
-		else if (methodName.equals("getMBeanInfo"))
+		} else if ("getMBeanInfo".equals(methodName)) {
 			return server.getMBeanInfo(objectName);
-
-		else
+		} else {
 			throw new Error("Unexpected method invocation!");
+		}
 	}
 
 	private boolean isPrimitive(String type) {
-		if (type.equals(Integer.TYPE.getName()))
+		if (type.equals(Integer.TYPE.getName())) {
 			return true;
-		if (type.equals(Long.TYPE.getName()))
+		}
+		if (type.equals(Long.TYPE.getName())) {
 			return true;
-		if (type.equals(Boolean.TYPE.getName()))
+		}
+		if (type.equals(Boolean.TYPE.getName())) {
 			return true;
-		if (type.equals(Byte.TYPE.getName()))
+		}
+		if (type.equals(Byte.TYPE.getName())) {
 			return true;
-		if (type.equals(Character.TYPE.getName()))
+		}
+		if (type.equals(Character.TYPE.getName())) {
 			return true;
-		if (type.equals(Short.TYPE.getName()))
+		}
+		if (type.equals(Short.TYPE.getName())) {
 			return true;
-		if (type.equals(Float.TYPE.getName()))
+		}
+		if (type.equals(Float.TYPE.getName())) {
 			return true;
-		if (type.equals(Double.TYPE.getName()))
+		}
+		if (type.equals(Double.TYPE.getName())) {
 			return true;
-		if (type.equals(Void.TYPE.getName()))
-			return true;
-
-		return false;
+		}
+		
+		return type.equals(Void.TYPE.getName());
 	}
 
 	private Class getPrimitiveClass(String type) {
-		if (type.equals(Integer.TYPE.getName()))
+		if (type.equals(Integer.TYPE.getName())) {
 			return Integer.TYPE;
-		if (type.equals(Long.TYPE.getName()))
+		}
+		if (type.equals(Long.TYPE.getName())) {
 			return Long.TYPE;
-		if (type.equals(Boolean.TYPE.getName()))
+		}
+		if (type.equals(Boolean.TYPE.getName())) {
 			return Boolean.TYPE;
-		if (type.equals(Byte.TYPE.getName()))
+		}
+		if (type.equals(Byte.TYPE.getName())) {
 			return Byte.TYPE;
-		if (type.equals(Character.TYPE.getName()))
+		}
+		if (type.equals(Character.TYPE.getName())) {
 			return Character.TYPE;
-		if (type.equals(Short.TYPE.getName()))
+		}
+		if (type.equals(Short.TYPE.getName())) {
 			return Short.TYPE;
-		if (type.equals(Float.TYPE.getName()))
+		}
+		if (type.equals(Float.TYPE.getName())) {
 			return Float.TYPE;
-		if (type.equals(Double.TYPE.getName()))
+		}
+		if (type.equals(Double.TYPE.getName())) {
 			return Double.TYPE;
-		if (type.equals(Void.TYPE.getName()))
+		}
+		if (type.equals(Void.TYPE.getName())) {
 			return Void.TYPE;
+		}
 
 		return null;
 	}

@@ -40,6 +40,9 @@ public class PersistenceContexts extends AbstractMutable implements Serializable
 	// the real flush mode is a backup of the flush mode when doing a temporary switch (such as during render)
 	private FlushModeType realFlushMode;
 
+	public PersistenceContexts() {
+		super();
+	}
 	@Create
 	public void create() {
 		FlushModeType defaultFlushMode = Manager.instance().getDefaultFlushMode();
@@ -59,13 +62,15 @@ public class PersistenceContexts extends AbstractMutable implements Serializable
 	}
 
 	public void touch(String context) {
-		if (set.add(context))
+		if (set.add(context)) {
 			setDirty();
+		}
 	}
 
 	public void untouch(String context) {
-		if (set.remove(context))
+		if (set.remove(context)) {
 			setDirty();
+		}
 	}
 
 	public static PersistenceContexts instance() {

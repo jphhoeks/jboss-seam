@@ -14,6 +14,9 @@ import org.jboss.seam.annotations.Scope;
 public class ConversationIdGenerator {
 	private static AtomicInteger uniqueId = new AtomicInteger(0);
 
+	public ConversationIdGenerator() {
+		super();
+	}
 	public String getNextId() {
 		//TODO: this is not cluster safe!!!!!
 		return Integer.toString(uniqueId.incrementAndGet());

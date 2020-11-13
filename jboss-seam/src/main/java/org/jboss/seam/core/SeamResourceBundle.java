@@ -28,6 +28,10 @@ import org.jboss.seam.util.EnumerationEnumeration;
 public class SeamResourceBundle extends java.util.ResourceBundle {
 	private Map<Init, Map<Locale, List<ResourceBundle>>> bundleCache = new ConcurrentHashMap<Init, Map<Locale, List<ResourceBundle>>>();
 
+	public SeamResourceBundle() {
+		super();
+	}
+	
 	private Map<Locale, List<ResourceBundle>> getCachedBundle() {
 		Init init;
 		if (Contexts.isApplicationContextActive()) {
@@ -73,19 +77,22 @@ public class SeamResourceBundle extends java.util.ResourceBundle {
 		ResourceLoader resourceLoader = ResourceLoader.instance();
 		for (String bundleName : resourceLoader.getBundleNames()) {
 			ResourceBundle bundle = resourceLoader.loadBundle(bundleName);
-			if (bundle != null)
+			if (bundle != null) {
 				bundles.add(bundle);
+			}
 		}
 		ResourceBundle bundle = resourceLoader.loadBundle("ValidatorMessages");
 		if (bundle != null) {
 			bundles.add(bundle);
 		}
 		bundle = resourceLoader.loadBundle("org/hibernate/validator/ValidationMessages");
-		if (bundle != null)
+		if (bundle != null) {
 			bundles.add(bundle);
+		}
 		bundle = resourceLoader.loadBundle("javax.faces.Messages");
-		if (bundle != null)
+		if (bundle != null) {
 			bundles.add(bundle);
+		}
 		return Collections.unmodifiableList(bundles);
 	}
 

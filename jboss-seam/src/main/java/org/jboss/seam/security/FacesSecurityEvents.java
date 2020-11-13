@@ -26,6 +26,11 @@ import org.jboss.seam.international.StatusMessage.Severity;
 @BypassInterceptors
 @Startup
 public class FacesSecurityEvents {
+	
+	public FacesSecurityEvents() {
+		super();
+	}
+	
 	@Observer(Identity.EVENT_POST_AUTHENTICATE)
 	public void postAuthenticate(Identity identity) {
 		//org.jboss.security.saml.SSOManager.processManualLoginNotification(

@@ -15,6 +15,14 @@ import java.io.Serializable;
 public class ArrayDataModel extends javax.faces.model.ArrayDataModel implements Serializable {
 	private static final long serialVersionUID = -1369792328129853864L;
 
+	public ArrayDataModel() {
+		super();
+	}
+	
+	public ArrayDataModel(Object[] array) {
+		super(array);
+	}
+	
 	private void writeObject(ObjectOutputStream oos) throws IOException {
 		oos.writeObject(getWrappedData());
 		oos.writeInt(getRowIndex());
@@ -25,11 +33,7 @@ public class ArrayDataModel extends javax.faces.model.ArrayDataModel implements 
 		this.setRowIndex(ois.readInt());
 	}
 
-	public ArrayDataModel() {
-	}
 
-	public ArrayDataModel(Object[] array) {
-		super(array);
-	}
+
 
 }

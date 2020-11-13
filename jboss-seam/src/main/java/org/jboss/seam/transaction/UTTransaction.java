@@ -24,6 +24,7 @@ public class UTTransaction extends AbstractUserTransaction {
 	private final javax.transaction.UserTransaction delegate;
 
 	UTTransaction(javax.transaction.UserTransaction delegate) {
+		super();
 		this.delegate = delegate;
 		if (delegate == null) {
 			throw new IllegalArgumentException("null UserTransaction");

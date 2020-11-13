@@ -26,10 +26,15 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Install(precedence = FRAMEWORK, classDependencies = "javax.faces.context.FacesContext")
 public class Parameters extends org.jboss.seam.web.Parameters {
 
+	public Parameters() {
+		super();
+	}
+	
 	@Override
 	protected Object convertRequestParameter(String requestParameter, Class<?> type) {
-		if (String.class.equals(type))
+		if (String.class.equals(type)) {
 			return requestParameter;
+		}
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		if (facesContext == null) {

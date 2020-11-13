@@ -27,6 +27,10 @@ import org.jboss.seam.web.Session;
 @Install(precedence = BUILT_IN)
 @BypassInterceptors
 public class ConversationList {
+	
+	public ConversationList() {
+		super();
+	}
 
 	protected List<ConversationEntry> createConversationEntryList() {
 		ConversationEntries conversationEntries = ConversationEntries.getInstance();

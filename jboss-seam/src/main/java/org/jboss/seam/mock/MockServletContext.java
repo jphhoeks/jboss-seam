@@ -11,9 +11,9 @@ import java.util.Enumeration;
 import java.util.EventListener;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
@@ -38,8 +38,8 @@ public class MockServletContext implements ServletContext {
 
 	private transient LogProvider log = Logging.getLogProvider(MockServletContext.class);
 
-	private Map<String, String> initParameters = new HashMap<String, String>();
-	private Map<String, Object> attributes = new HashMap<String, Object>();
+	private Map<String, String> initParameters = new ConcurrentHashMap<String, String>();
+	private Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
 
 	private File webappRoot;
 	private File webInfRoot;
@@ -67,19 +67,15 @@ public class MockServletContext implements ServletContext {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void processContextParameters(URL webXML) {
 		try {
 			Element root = XML.getRootElementSafely(webXML.openStream());
 			for (Element element : root.elements("context-param")) {
 				getInitParameters().put(element.elementText("param-name"), element.elementText("param-value"));
 			}
-		} catch (IOException e) {
+		} catch (IOException | DocumentException e) {
 			throw new RuntimeException("Error parsing web.xml", e);
-		} catch (DocumentException e) {
-			throw new RuntimeException("Error parsing web.xml", e);
-		}
-
+		} 
 	}
 
 	public Map<String, String> getInitParameters() {
@@ -223,18 +219,18 @@ public class MockServletContext implements ServletContext {
 
 	@Override
 	public void log(String msg) {
-
+		//
 	}
 
 	@Override
 	@Deprecated
 	public void log(Exception ex, String msg) {
-
+		//
 	}
 
 	@Override
 	public void log(String msg, Throwable ex) {
-
+		//
 	}
 
 	@Override

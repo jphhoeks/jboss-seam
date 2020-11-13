@@ -31,6 +31,9 @@ public class HttpError {
 
 	private static final LogProvider log = Logging.getLogProvider(HttpError.class);
 
+	public HttpError() {
+		super();
+	}
 	/**
 	 * Send a HTTP error as the response
 	 */
@@ -53,7 +56,9 @@ public class HttpError {
 				log.warn("Cannot send error because response is already commited");
 			}
 		} catch (Exception e) {
-			log.warn("Cannot send error because and exception ocurred:" + e.getMessage());
+			if (log.isWarnEnabled()) {
+				log.warn("Cannot send error because and exception ocurred:" + e.getMessage(), e);
+			}
 		}
 		FacesContext.getCurrentInstance().responseComplete();
 	}

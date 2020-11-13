@@ -11,6 +11,11 @@ import org.jboss.seam.faces.Navigator;
  *
  */
 public abstract class NavigationHandler extends Navigator {
+	
+	protected NavigationHandler() {
+		super();
+	}
+	
 	/**
 	* Go ahead and execute the navigation rule. 
 	*/

@@ -48,10 +48,12 @@ public class MailSession extends AbstractMutable implements Serializable {
 	private String transport;
 
 	public MailSession() {
+		super();
 	}
 
 	// Only used for tests
 	public MailSession(String transport) {
+		super();
 		this.transport = transport;
 	}
 
@@ -82,8 +84,10 @@ public class MailSession extends AbstractMutable implements Serializable {
 
 	private void createSession() {
 		if (getPort() != null) {
-			log.debug("Creating JavaMail Session (" + getHost() + ':' + getPort() + ")");
-		} else {
+			if (log.isDebugEnabled()) {
+				log.debug("Creating JavaMail Session (" + getHost() + ':' + getPort() + ")");
+			}
+		} else if (log.isDebugEnabled()){
 			log.debug("Creating JavaMail Session (" + getHost() + ")");
 		}
 

@@ -35,20 +35,30 @@ public class DTDEntityResolver implements EntityResolver, Serializable {
 
 	private static final String SEAM_NAMESPACE = "http://jboss.org/schema/seam/";
 	private static final String USER_NAMESPACE = "classpath://";
+	
+	public DTDEntityResolver() {
+		super();
+	}
 
 	@Override
 	public InputSource resolveEntity(String publicId, String systemId) {
 		if (systemId != null) {
-			log.trace("trying to resolve system-id [" + systemId + "]");
+			if (log.isTraceEnabled()) {
+				log.trace("trying to resolve system-id [" + systemId + "]");
+			}
 			if (systemId.startsWith(SEAM_NAMESPACE)) {
 				log.trace("recognized Seam namespace; attempting to resolve on classpath under org/jboss/seam/");
 				String path = "org/jboss/seam/" + systemId.substring(SEAM_NAMESPACE.length());
 
 				InputStream dtdStream = resolveInSeamNamespace(path);
 				if (dtdStream == null) {
-					log.warn("unable to locate [" + systemId + "] on classpath");
+					if (log.isWarnEnabled()) {
+						log.warn("unable to locate [" + systemId + "] on classpath");
+					}
 				} else {
-					log.debug("located [" + systemId + "] in classpath");
+					if (log.isDebugEnabled()) {
+						log.debug("located [" + systemId + "] in classpath");
+					}
 					InputSource source = new InputSource(dtdStream);
 					source.setPublicId(publicId);
 					source.setSystemId(systemId);
@@ -60,9 +70,13 @@ public class DTDEntityResolver implements EntityResolver, Serializable {
 
 				InputStream stream = resolveInLocalNamespace(path);
 				if (stream == null) {
-					log.warn("unable to locate [" + systemId + "] on classpath");
+					if (log.isWarnEnabled()) {
+						log.warn("unable to locate [" + systemId + "] on classpath");
+					}
 				} else {
-					log.debug("located [" + systemId + "] in classpath");
+					if (log.isDebugEnabled()) {
+						log.debug("located [" + systemId + "] in classpath");
+					}
 					InputSource source = new InputSource(stream);
 					source.setPublicId(publicId);
 					source.setSystemId(systemId);

@@ -36,6 +36,10 @@ public class BusinessProcess extends AbstractMutable implements Serializable {
 	private Long processId;
 	private Long taskId;
 
+	public BusinessProcess() {
+		super();
+	}
+	
 	public static BusinessProcess instance() {
 		if (!Contexts.isConversationContextActive()) {
 			throw new IllegalStateException("No active conversation context");
@@ -259,8 +263,9 @@ public class BusinessProcess extends AbstractMutable implements Serializable {
 	public boolean resumeProcess(String processDefinition, String key) {
 		ProcessDefinition definition = ManagedJbpmContext.instance().getGraphSession().findLatestProcessDefinition(processDefinition);
 		ProcessInstance process = definition == null ? null : ManagedJbpmContext.instance().getProcessInstanceForUpdate(definition, key);
-		if (process != null)
+		if (process != null) {
 			setProcessId(process.getId());
+		}
 		return afterResumeProcess(key, process);
 	}
 

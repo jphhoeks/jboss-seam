@@ -131,7 +131,9 @@ public final class Param {
 				converter = getConverter();
 			} catch (RuntimeException re) {
 				//YUCK! due to bad JSF/MyFaces error handling
-				log.warn("could not create converter for: " + name, re);
+				if (log.isWarnEnabled()) {
+					log.warn("could not create converter for: " + name, re);
+				}
 				return null;
 			}
 
@@ -186,7 +188,9 @@ public final class Param {
 			converter = getConverter();
 		} catch (RuntimeException re) {
 			//YUCK! due to bad JSF/MyFaces error handling
-			log.warn("could not create converter for: " + name, re);
+			if (log.isWarnEnabled()) {
+				log.warn("could not create converter for: " + name, re);
+			}
 			return null;
 		}
 
@@ -212,12 +216,13 @@ public final class Param {
 				invalidValues = Validators.instance().validate(valueExpression.toUnifiedValueExpression(), elContext, value);
 			} catch (ELException ele) {
 				Throwable cause = ele.getCause();
-				if (cause == null)
+				if (cause == null) {
 					cause = ele;
-				throw new ValidatorException(createMessage(cause), cause);
+				}
+				throw new ValidatorException(createMessage(cause), ele);
 			}
 
-			if (invalidValues.size() > 0) {
+			if (!invalidValues.isEmpty()) {
 				throw new ValidatorException(createMessage(invalidValues));
 			}
 		}

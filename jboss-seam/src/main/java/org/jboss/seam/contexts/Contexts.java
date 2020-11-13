@@ -128,7 +128,9 @@ public class Contexts {
 	 * Remove the named component from all contexts.
 	 */
 	public static void removeFromAllContexts(String name) {
-		log.debug("removing from all contexts: " + name);
+		if (log.isDebugEnabled()) {
+			log.debug("removing from all contexts: " + name);
+		}
 		if (isMethodContextActive()) {
 			getMethodContext().remove(name);
 		}
@@ -163,8 +165,9 @@ public class Contexts {
 		if (isMethodContextActive()) {
 			Object result = getMethodContext().get(name);
 			if (result != null) {
-				if (log.isTraceEnabled())
+				if (log.isTraceEnabled()) {
 					log.trace("found in method context: " + name);
+				}
 				return result;
 			}
 		}
@@ -172,8 +175,9 @@ public class Contexts {
 		if (isEventContextActive()) {
 			Object result = getEventContext().get(name);
 			if (result != null) {
-				if (log.isTraceEnabled())
+				if (log.isTraceEnabled()) {
 					log.trace("found in event context: " + name);
+				}
 				return result;
 			}
 		}
@@ -181,8 +185,9 @@ public class Contexts {
 		if (isPageContextActive()) {
 			Object result = getPageContext().get(name);
 			if (result != null) {
-				if (log.isTraceEnabled())
+				if (log.isTraceEnabled()) {
 					log.trace("found in page context: " + name);
+				}
 				return result;
 			}
 		}
@@ -190,8 +195,9 @@ public class Contexts {
 		if (isConversationContextActive()) {
 			Object result = getConversationContext().get(name);
 			if (result != null) {
-				if (log.isTraceEnabled())
+				if (log.isTraceEnabled()) {
 					log.trace("found in conversation context: " + name);
+				}
 				return result;
 			}
 		}
@@ -199,8 +205,9 @@ public class Contexts {
 		if (isSessionContextActive()) {
 			Object result = getSessionContext().get(name);
 			if (result != null) {
-				if (log.isTraceEnabled())
+				if (log.isTraceEnabled()) {
 					log.trace("found in session context: " + name);
+				}
 				return result;
 			}
 		}
@@ -208,8 +215,9 @@ public class Contexts {
 		if (isBusinessProcessContextActive()) {
 			Object result = getBusinessProcessContext().get(name);
 			if (result != null) {
-				if (log.isTraceEnabled())
+				if (log.isTraceEnabled()) {
 					log.trace("found in business process context: " + name);
+				}
 				return result;
 			}
 		}
@@ -217,8 +225,9 @@ public class Contexts {
 		if (isApplicationContextActive()) {
 			Object result = getApplicationContext().get(name);
 			if (result != null) {
-				if (log.isTraceEnabled())
+				if (log.isTraceEnabled()) {
 					log.trace("found in application context: " + name);
+				}
 				return result;
 			}
 		}
@@ -231,20 +240,24 @@ public class Contexts {
 	* Destroy all components in the given context
 	*/
 	static void destroy(Context context) {
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preDestroyContext." + context.getType().toString());
+		}
 
 		Lifecycle.startDestroying();
 		try {
 			for (String name : context.getNames()) {
 				Component component = Component.forName(name);
-				log.debug("destroying: " + name);
+				if (log.isDebugEnabled()) {
+					log.debug("destroying: " + name);
+				}
 				if (component != null) {
 					Object object = context.get(name);
 					if (object != null) //in a portal environment, this is possible
 					{
-						if (Events.exists())
+						if (Events.exists()) {
 							Events.instance().raiseEvent("org.jboss.seam.preDestroy." + name);
+						}
 						component.destroy(object);
 					}
 				}
@@ -253,8 +266,9 @@ public class Contexts {
 			Lifecycle.stopDestroying();
 		}
 
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postDestroyContext." + context.getType().toString());
+		}
 	}
 
 	/**
@@ -287,7 +301,9 @@ public class Contexts {
 		}
 
 		if (!component.getScope().getContext().isSet(component.getName())) {
-			log.debug("starting up: " + component.getName());
+			if (log.isDebugEnabled()) {
+				log.debug("starting up: " + component.getName());
+			}
 			component.newInstance();
 		}
 	}

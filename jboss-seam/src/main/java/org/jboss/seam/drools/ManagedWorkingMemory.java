@@ -38,6 +38,11 @@ public class ManagedWorkingMemory implements Mutable, Serializable {
 	private StatefulSession statefulSession;
 	private ValueExpression<RuleBase> ruleBase;
 
+
+	public ManagedWorkingMemory() {
+		super();
+	}
+	
 	@Override
 	public boolean clearDirty() {
 		return true;
@@ -82,7 +87,9 @@ public class ManagedWorkingMemory implements Mutable, Serializable {
 	private void setEventListeners(StatefulSession statefulSession) {
 		if (eventListeners != null) {
 			for (String eventListener : eventListeners) {
-				log.debug("adding eventListener: " + eventListener);
+				if (log.isDebugEnabled()) {
+					log.debug("adding eventListener: " + eventListener);
+				}
 				try {
 					Class eventListenerClass = Class.forName(eventListener);
 					Object eventListenerObject = eventListenerClass.getDeclaredConstructor().newInstance();
@@ -93,10 +100,14 @@ public class ManagedWorkingMemory implements Mutable, Serializable {
 					} else if (eventListenerObject instanceof ProcessEventListener) {
 						statefulSession.addEventListener((WorkingMemoryEventListener) eventListenerObject);
 					} else {
-						log.debug("event Listener " + eventListener + " is not of valid type - bypassing.");
+						if (log.isDebugEnabled()) {
+							log.debug("event Listener " + eventListener + " is not of valid type - bypassing.");
+						}
 					}
 				} catch (Exception e) {
-					log.error("error adding event listener " + eventListener + " - bypassing.");
+					if (log.isErrorEnabled()) {
+						log.error("error adding event listener " + eventListener + " - bypassing.", e);
+					}
 				}
 			}
 		}

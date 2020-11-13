@@ -36,6 +36,10 @@ public class QueueConnection {
 
 	private String queueConnectionFactoryJndiName = "UIL2ConnectionFactory";
 	private javax.jms.QueueConnection queueConnection;
+	
+	public QueueConnection() {
+		super();
+	}
 
 	/**
 	* The JNDI name of the QueueConnectionFactory

@@ -16,6 +16,7 @@ public class DelegatingFacesContext extends FacesContextWrapper {
 	FacesContext wrapped;
 
 	public DelegatingFacesContext(FacesContext wrapped) {
+		super();
 		this.wrapped = wrapped;
 	}
 

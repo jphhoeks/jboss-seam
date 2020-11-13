@@ -21,6 +21,10 @@ public class DotComponentDotXmlDeploymentHandler extends AbstractDeploymentHandl
 	* Name under which this {@link DeploymentHandler} is registered
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.DotComponentDotXmlDeploymentHandler";
+	
+	public DotComponentDotXmlDeploymentHandler() {
+		super();
+	}
 
 	@Override
 	public String getName() {

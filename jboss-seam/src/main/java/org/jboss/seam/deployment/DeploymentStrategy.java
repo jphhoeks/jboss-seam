@@ -49,6 +49,10 @@ public abstract class DeploymentStrategy {
 	*/
 	public abstract void scan();
 
+	public DeploymentStrategy() {
+		super();
+	}
+	
 	/**
 	* Get the scanner being used
 	* 
@@ -115,24 +119,26 @@ public abstract class DeploymentStrategy {
 			Constructor<Scanner> constructor = scannerClass.getConstructor(new Class[] { DeploymentStrategy.class });
 			return constructor.newInstance(new Object[] { this });
 		} catch (ClassNotFoundException e) {
-			log.trace("Unable to use " + className + " as scanner (class not found)", e);
+			if (log.isTraceEnabled()) {
+				log.trace("Unable to use " + className + " as scanner (class not found)", e);
+			}
 		} catch (LinkageError e) {
-			log.trace("Unable to use " + className + " as scanner (dependency not found)", e);
+			if (log.isTraceEnabled()) {
+				log.trace("Unable to use " + className + " as scanner (dependency not found)", e);
+			}
 		} catch (ClassCastException e) {
-			log.trace("Unable to use " + className + " as scanner (class does not implement org.jboss.seam.deployment.Scanner)");
-		} catch (InstantiationException e) {
-			log.trace("Unable to instantiate scanner " + className, e);
-		} catch (IllegalAccessException e) {
-			log.trace("Unable to instantiate scanner " + className, e);
-		} catch (SecurityException e) {
-			log.trace(className + " must declare public " + className + "( ClassLoader classLoader, String ... resourceNames )", e);
-		} catch (NoSuchMethodException e) {
-			log.trace(className + " must declare public " + className + "( ClassLoader classLoader, String ... resourceNames )", e);
-		} catch (IllegalArgumentException e) {
-			log.trace(className + " must declare public " + className + "( ClassLoader classLoader, String ... resourceNames )", e);
-		} catch (InvocationTargetException e) {
-			log.trace(className + " must declare public " + className + "( ClassLoader classLoader, String ... resourceNames )", e);
-		}
+			if (log.isTraceEnabled()) {
+				log.trace("Unable to use " + className + " as scanner (class does not implement org.jboss.seam.deployment.Scanner)");
+			}
+		} catch (InstantiationException | IllegalAccessException e) {
+			if (log.isTraceEnabled()) {
+				log.trace("Unable to instantiate scanner " + className, e);
+			}
+		} catch (SecurityException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException e) {
+			if (log.isTraceEnabled()) {
+				log.trace(className + " must declare public " + className + "( ClassLoader classLoader, String ... resourceNames )", e);
+			}
+		}  
 		return null;
 	}
 
@@ -158,12 +164,18 @@ public abstract class DeploymentStrategy {
 			Class<DeploymentHandler> clazz = (Class<DeploymentHandler>) getClassLoader().loadClass(className);
 			return clazz.getDeclaredConstructor().newInstance();
 		} catch (ClassNotFoundException e) {
-			log.trace("Unable to use " + className + " as a deployment handler (class not found)", e);
+			if (log.isTraceEnabled()) {
+				log.trace("Unable to use " + className + " as a deployment handler (class not found)", e);
+			}
 		} catch (LinkageError e) {
-			log.trace("Unable to use " + className + " as a deployment handler (dependency not found)", e);
+			if (log.isTraceEnabled()) {
+				log.trace("Unable to use " + className + " as a deployment handler (dependency not found)", e);
+			}
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | SecurityException
 				| IllegalArgumentException e) {
-			log.trace("Unable to instantiate deployment handler " + className, e);
+			if (log.isTraceEnabled()) {
+				log.trace("Unable to instantiate deployment handler " + className, e);
+			}
 		}
 
 		return null;

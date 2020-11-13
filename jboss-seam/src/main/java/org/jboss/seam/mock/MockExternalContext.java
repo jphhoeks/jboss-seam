@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -48,42 +49,48 @@ public class MockExternalContext extends ExternalContext {
 	private HttpServletResponse response;
 
 	public MockExternalContext() {
+		super();
 		this.context = new MockServletContext();
 		this.request = new MockHttpServletRequest(new MockHttpSession(context));
 		this.response = new MockHttpServletResponse();
 	}
 
 	public MockExternalContext(ServletContext context) {
+		super();
 		this.context = context;
 		this.request = new MockHttpServletRequest(new MockHttpSession(context));
 		this.response = new MockHttpServletResponse();
 	}
 
 	public MockExternalContext(ServletContext context, HttpSession session) {
+		super();
 		this.context = context;
 		this.request = new MockHttpServletRequest(session);
 		this.response = new MockHttpServletResponse();
 	}
 
 	public MockExternalContext(ServletContext context, HttpServletRequest request) {
+		super();
 		this.context = context;
 		this.request = request;
 		this.response = new MockHttpServletResponse();
 	}
 
 	public MockExternalContext(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+		super();
 		this.context = context;
 		this.request = request;
 		this.response = response;
 	}
 
 	public MockExternalContext(HttpServletRequest request) {
+		super();
 		this.request = request;
 	}
 
 	@Override
 	public void dispatch(String url) throws IOException {
-
+		//
 	}
 
 	@Override
@@ -153,7 +160,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map getInitParameterMap() {
-		Map result = new HashMap();
+		Map<String, String> result = new ConcurrentHashMap<String, String>();
 		Enumeration e = context.getInitParameterNames();
 		while (e.hasMoreElements()) {
 			String name = (String) e.nextElement();
@@ -186,7 +193,7 @@ public class MockExternalContext extends ExternalContext {
 	@Override
 	public Map<String, Object> getRequestCookieMap() {
 
-		Map<String, Object> cookieMap = new HashMap<String, Object>();
+		Map<String, Object> cookieMap = new ConcurrentHashMap<String, Object>();
 
 		if (request != null && request.getCookies() != null) {
 			for (Cookie cookie : request.getCookies()) {
@@ -199,7 +206,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map<String, String> getRequestHeaderMap() {
-		Map<String, String> result = new HashMap<String, String>();
+		Map<String, String> result = new ConcurrentHashMap<String, String>();
 		Enumeration<String> names = request.getHeaderNames();
 		while (names.hasMoreElements()) {
 			String name = names.nextElement();
@@ -210,7 +217,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map<String, String[]> getRequestHeaderValuesMap() {
-		Map<String, String[]> result = new HashMap<String, String[]>();
+		Map<String, String[]> result = new ConcurrentHashMap<String, String[]>();
 		Enumeration<String> en = request.getHeaderNames();
 		while (en.hasMoreElements()) {
 			String header = en.nextElement();
@@ -261,7 +268,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map<String, String> getRequestParameterMap() {
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new ConcurrentHashMap<String, String>();
 		Enumeration<String> names = request.getParameterNames();
 		while (names.hasMoreElements()) {
 			String name = names.nextElement();
@@ -383,8 +390,9 @@ public class MockExternalContext extends ExternalContext {
 		public boolean containsValue(Object value) {
 			Enumeration<K> e = keys();
 			while (e.hasMoreElements()) {
-				if (value.equals(get(e.nextElement())))
+				if (value.equals(get(e.nextElement()))) {
 					return true;
+				}
 			}
 			return false;
 		}
@@ -466,11 +474,12 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public void log(String message, Throwable t) {
-
+		//
 	}
 
 	@Override
 	public void log(String t) {
+		//
 	}
 
 	@Override

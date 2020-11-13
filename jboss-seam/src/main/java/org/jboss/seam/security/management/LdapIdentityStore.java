@@ -101,8 +101,12 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 	/**
 	* Time limit for LDAP searches, in milliseconds
 	*/
-	private int searchTimeLimit = 10000;
+	private int searchTimeLimit = 10_000;
 
+	public LdapIdentityStore() {
+		super();
+	}
+	
 	public String getServerAddress() {
 		return serverAddress;
 	}
@@ -316,7 +320,9 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		} else {
 			searchScope = SearchControls.SUBTREE_SCOPE;
 			if (!"SUBTREE_SCOPE".equals(value)) {
-				log.warn("Invalid search scope specified (" + value + ") - search scope set to SUBTREE_SCOPE");
+				if (log.isWarnEnabled()) {
+					log.warn("Invalid search scope specified (" + value + ") - search scope set to SUBTREE_SCOPE");
+				}
 			}
 		}
 	}
@@ -350,8 +356,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 		env.setProperty(Context.SECURITY_PRINCIPAL, principal);
 		env.setProperty(Context.SECURITY_CREDENTIALS, credentials);
 
-		InitialLdapContext ctx = new InitialLdapContext(env, null);
-		return ctx;
+		return new InitialLdapContext(env, null);
 	}
 
 	protected String getUserDN(String username) {
@@ -376,8 +381,9 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 				if (enabledAttrib != null) {
 					for (int r = 0; r < enabledAttrib.size(); r++) {
 						Object value = enabledAttrib.get(r);
-						if (LDAP_BOOLEAN_TRUE.equals(value))
+						if (LDAP_BOOLEAN_TRUE.equals(value)) {
 							return true;
+						}
 					}
 				}
 				return false;
@@ -497,7 +503,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 			// Then delete all user attributes that point to this role
 			int searchScope = SearchControls.SUBTREE_SCOPE;
-			int searchTimeLimit = 10000;
+			int searchTimeLimit = 10_000;
 
 			String[] roleAttr = { getUserRoleAttribute() };
 
@@ -510,16 +516,16 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 			Object[] filterArgs = new Object[getUserObjectClasses().length + 1];
 			filterArgs[0] = roleDN;
 
-			roleFilter.append("(&(");
-			roleFilter.append(getUserRoleAttribute());
-			roleFilter.append("={0})");
+			roleFilter.append("(&(")
+			.append(getUserRoleAttribute())
+			.append("={0})");
 
 			for (int i = 0; i < getUserObjectClasses().length; i++) {
-				roleFilter.append("(");
-				roleFilter.append(getObjectClassAttribute());
-				roleFilter.append("={");
-				roleFilter.append(i + 1);
-				roleFilter.append("})");
+				roleFilter.append("(")
+				.append(getObjectClassAttribute())
+				.append("={")
+				.append(i + 1)
+				.append("})");
 				filterArgs[i + 1] = getUserObjectClasses()[i];
 			}
 
@@ -551,7 +557,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 			ctx = initialiseContext();
 
 			int searchScope = SearchControls.SUBTREE_SCOPE;
-			int searchTimeLimit = 10000;
+			int searchTimeLimit = 10_000;
 
 			String[] roleAttr = { getRoleNameAttribute() };
 
@@ -571,8 +577,9 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 				for (int i = 0; i < user.size(); i++) {
 					Object value = user.get(i);
-					if (role.equals(value))
+					if (role.equals(value)) {
 						return true;
+					}
 				}
 			}
 			answer.close();
@@ -603,8 +610,9 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 	@Override
 	public boolean isUserEnabled(String name) {
-		if (getEnabledAttribute() == null)
+		if (getEnabledAttribute() == null) {
 			return true;
+		}
 
 		InitialLdapContext ctx = null;
 		try {
@@ -616,8 +624,9 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 			if (enabledAttrib != null) {
 				for (int r = 0; r < enabledAttrib.size(); r++) {
 					Object value = enabledAttrib.get(r);
-					if (LDAP_BOOLEAN_TRUE.equals(value))
+					if (LDAP_BOOLEAN_TRUE.equals(value)) {
 						return true;
+					}
 				}
 			}
 
@@ -631,8 +640,9 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 	@Override
 	public boolean disableUser(String name) {
-		if (getEnabledAttribute() == null)
+		if (getEnabledAttribute() == null) {
 			return false;
+		}
 
 		InitialLdapContext ctx = null;
 		try {
@@ -653,8 +663,9 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 	@Override
 	public boolean enableUser(String name) {
-		if (getEnabledAttribute() == null)
+		if (getEnabledAttribute() == null) {
 			return false;
+		}
 
 		InitialLdapContext ctx = null;
 		try {
@@ -699,7 +710,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 					for (int r = 0; r < roles.size(); r++) {
 						Object value = roles.get(r);
 						String roleName = null;
-						if (getRoleAttributeIsDN() == true) {
+						if (getRoleAttributeIsDN()) {
 							String roleDN = value.toString();
 							String[] returnAttribute = { getRoleNameAttribute() };
 							try {

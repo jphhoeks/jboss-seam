@@ -30,6 +30,10 @@ import org.jboss.seam.util.Reflections;
 public class ManagedEntityWrapper {
 
 	private static LogProvider log = Logging.getLogProvider(ManagedEntityWrapper.class);
+	
+	public ManagedEntityWrapper() {
+		super();
+	}
 
 	public void wrap(Object target, Component component) throws Exception {
 		if (!touchedContextsExist()) {
@@ -50,7 +54,9 @@ public class ManagedEntityWrapper {
 		String oldCid = switchToConversationContextOfComponent(component);
 		Class beanClass = target.getClass();
 		for (; beanClass != Object.class; beanClass = beanClass.getSuperclass()) {
-			log.trace("Examining fields on " + beanClass);
+			if (log.isTraceEnabled()) {
+				log.trace("Examining fields on " + beanClass);
+			}
 			for (Field field : beanClass.getDeclaredFields()) {
 				if (!ignore(field)) {
 					Object value = getFieldValue(target, field);
@@ -61,18 +67,26 @@ public class ManagedEntityWrapper {
 							value = getWrappedData(dataModel);
 						}
 						if (containsReferenceToEntityInstance(value)) {
-							log.trace("Attempting to save wrapper for " + field + " (" + value + ")");
+							if (log.isTraceEnabled()) {
+								log.trace("Attempting to save wrapper for " + field + " (" + value + ")");
+							}
 							saveWrapper(target, component, field, dataModel, value);
 						} else {
-							log.trace("Clearing wrapper for " + field + " (" + value + ") as it isn't a entity reference");
+							if (log.isTraceEnabled()) {
+								log.trace("Clearing wrapper for " + field + " (" + value + ") as it isn't a entity reference");
+							}
 							clearWrapper(component, field);
 						}
 					} else {
-						log.trace("Clearing wrapper for " + field + " as it is null");
+						if (log.isTraceEnabled()) {
+							log.trace("Clearing wrapper for " + field + " as it is null");
+						}
 						clearWrapper(component, field);
 					}
 				} else {
-					log.trace("Ignoring field " + field + " as it is static, transient or annotated with @In");
+					if (log.isTraceEnabled()) {
+						log.trace("Ignoring field " + field + " as it is static, transient or annotated with @In");
+					}
 				}
 			}
 		}
@@ -94,7 +108,9 @@ public class ManagedEntityWrapper {
 
 		Class beanClass = controllerBean.getClass();
 		for (; beanClass != Object.class; beanClass = beanClass.getSuperclass()) {
-			log.trace("Examining fields on " + beanClass);
+			if (log.isTraceEnabled()) {
+				log.trace("Examining fields on " + beanClass);
+			}
 			for (Field field : beanClass.getDeclaredFields()) {
 				if (!ignore(field)) {
 					Object value = getFieldValue(controllerBean, field);
@@ -102,11 +118,15 @@ public class ManagedEntityWrapper {
 					if (value != null && DATA_MODEL.isInstance(value)) {
 						dataModel = value;
 					}
-					log.trace("Attempting to restore wrapper for " + field + " (" + value + ")");
+					if (log.isTraceEnabled()) {
+						log.trace("Attempting to restore wrapper for " + field + " (" + value + ")");
+					}
 					//TODO: be more selective
 					getFromWrapper(controllerBean, component, field, dataModel);
 				} else {
-					log.trace("Ignoring field " + field + " as it is static, transient or annotated with @In");
+					if (log.isTraceEnabled()) {
+						log.trace("Ignoring field " + field + " as it is static, transient or annotated with @In");
+					}
 				}
 			}
 		}
@@ -142,10 +162,10 @@ public class ManagedEntityWrapper {
 	}
 
 	private Object getFieldValue(Object bean, Field field) throws Exception {
-		if (!field.isAccessible())
+		if (!field.isAccessible()) {
 			field.setAccessible(true);
-		Object value = Reflections.get(field, bean);
-		return value;
+		}
+		return Reflections.get(field, bean);
 	}
 
 	private boolean ignore(Field field) {

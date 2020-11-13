@@ -20,29 +20,14 @@ import org.jboss.seam.transaction.TransactionInterceptor;
 @Interceptor(stateless = true, around = { BijectionInterceptor.class, ConversationInterceptor.class, TransactionInterceptor.class,
 		BusinessProcessInterceptor.class, RollbackInterceptor.class })
 public class EventInterceptor extends AbstractInterceptor {
-	private static final long serialVersionUID = -136300200838134612L;
-
-	/*@PostConstruct
-	public void postConstruct(InvocationContext ctx)
-	{
-	  Events.instance().raiseEvent("org.jboss.seam.postConstruct." + component.getName());
-	}
-	@PreDestroy
-	public void preDestroy(InvocationContext ctx)
-	{
-	  Events.instance().raiseEvent("org.jboss.seam.preDestroy." + component.getName());
-	}
-	@PrePassivate
-	public void prePassivate(InvocationContext ctx)
-	{
-	  Events.instance().raiseEvent("org.jboss.seam.prePassivate." + component.getName());
-	}
 	
-	@PostActivate
-	public void postActivate(InvocationContext ctx)
-	{
-	  Events.instance().raiseEvent("org.jboss.seam.postActivate." + component.getName());
-	}*/
+	private static final long serialVersionUID = -136300200838134612L;
+	
+	public EventInterceptor() {
+		super();
+	}
+
+
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ctx) throws Exception {

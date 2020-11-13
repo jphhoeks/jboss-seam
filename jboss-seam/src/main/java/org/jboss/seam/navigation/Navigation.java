@@ -12,6 +12,10 @@ public final class Navigation {
 	private List<Rule> rules = new ArrayList<Rule>();
 	private Rule rule;
 
+	public Navigation() {
+		super();
+	}
+	
 	public List<Rule> getRules() {
 		return rules;
 	}

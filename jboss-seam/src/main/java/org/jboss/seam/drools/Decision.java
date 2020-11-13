@@ -7,6 +7,10 @@ package org.jboss.seam.drools;
  */
 public class Decision {
 	private String outcome;
+	
+	public Decision() {
+		super();
+	}
 
 	public String getOutcome() {
 		return outcome;

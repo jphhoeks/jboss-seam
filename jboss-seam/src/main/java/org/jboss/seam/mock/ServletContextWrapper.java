@@ -12,9 +12,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.EventListener;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
@@ -39,7 +39,7 @@ public class ServletContextWrapper implements ServletContext {
 
 	private ServletContext delegate;
 
-	private Map<String, Object> attributes = new HashMap<String, Object>();
+	private Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
 
 	public ServletContextWrapper(ServletContext delegate) {
 		this.delegate = delegate;
@@ -112,8 +112,7 @@ public class ServletContextWrapper implements ServletContext {
 
 	@Override
 	public InputStream getResourceAsStream(String arg0) {
-		InputStream ret = delegate.getResourceAsStream(arg0);
-		return ret;
+		return delegate.getResourceAsStream(arg0);
 	}
 
 	@Override

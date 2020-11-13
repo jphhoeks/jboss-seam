@@ -38,6 +38,10 @@ public class ComponentDeploymentHandler extends AbstractClassDeploymentHandler {
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.ComponentDeploymentHandler";
 
+	public ComponentDeploymentHandler() {
+		super();
+	}
+	
 	@Override
 	public String getName() {
 		return NAME;

@@ -29,6 +29,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 public class QueueSession {
 
 	private javax.jms.QueueSession queueSession;
+	
+	public QueueSession() {
+		super();
+	}
 
 	@Create
 	public void create() throws JMSException, NamingException {

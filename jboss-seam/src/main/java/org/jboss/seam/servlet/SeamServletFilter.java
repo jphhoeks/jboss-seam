@@ -10,5 +10,8 @@ import org.jboss.seam.web.ContextFilter;
  */
 @Deprecated
 public class SeamServletFilter extends ContextFilter {
+	public SeamServletFilter() {
+		super();
+	}
 
 }

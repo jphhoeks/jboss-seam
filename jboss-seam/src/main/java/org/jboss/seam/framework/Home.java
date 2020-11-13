@@ -37,6 +37,10 @@ public abstract class Home<T, E> extends MutableController<T> {
 	private ValueExpression<?> createdMessage;
 	private ValueExpression<?> updatedMessage;
 
+	protected Home() {
+		super();
+	}
+	
 	/**
 	* Add a {@link javax.faces.application.FacesMessage} and log a message when 
 	* the entity instance is updated.
@@ -172,6 +176,7 @@ public abstract class Home<T, E> extends MutableController<T> {
 	* transaction when necessary.
 	*/
 	protected void joinTransaction() {
+	//
 	}
 
 	/**
@@ -265,8 +270,9 @@ public abstract class Home<T, E> extends MutableController<T> {
 	* @see #assignId(Object)
 	*/
 	public void setId(Object id) {
-		if (setDirty(this.id, id))
+		if (setDirty(this.id, id)) {
 			setInstance(null);
+		}
 		this.id = id;
 	}
 

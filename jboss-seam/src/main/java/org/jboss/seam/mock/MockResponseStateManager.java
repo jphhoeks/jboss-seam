@@ -25,7 +25,7 @@ public class MockResponseStateManager extends ResponseStateManager {
 	@Override
 	@Deprecated
 	public void writeState(FacesContext ctx, javax.faces.application.StateManager.SerializedView viewState) throws IOException {
-
+		//
 	}
 
 	@Override

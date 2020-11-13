@@ -55,6 +55,10 @@ public class RuleBasedPermissionResolver implements PermissionResolver, Serializ
 
 	private RuleBase securityRules;
 
+	public RuleBasedPermissionResolver() {
+		super();
+	}
+	
 	@Create
 	public boolean create() {
 		initSecurityContext();
@@ -72,8 +76,10 @@ public class RuleBasedPermissionResolver implements PermissionResolver, Serializ
 		}
 
 		if (getSecurityContext() == null) {
-			log.debug("no security rule base available - please install a RuleBase with the name '" + RULES_COMPONENT_NAME
+			if (log.isDebugEnabled()) {
+				log.debug("no security rule base available - please install a RuleBase with the name '" + RULES_COMPONENT_NAME
 					+ "' if permission checks are required.");
+			}
 		}
 	}
 
@@ -88,8 +94,9 @@ public class RuleBasedPermissionResolver implements PermissionResolver, Serializ
 	public boolean hasPermission(Object target, String action) {
 		StatefulSession securityContext = getSecurityContext();
 
-		if (securityContext == null)
+		if (securityContext == null) {
 			return false;
+		}
 
 		List<FactHandle> handles = new ArrayList<FactHandle>();
 
@@ -126,15 +133,17 @@ public class RuleBasedPermissionResolver implements PermissionResolver, Serializ
 		Iterator iter = targets.iterator();
 		while (iter.hasNext()) {
 			Object target = iter.next();
-			if (hasPermission(target, action))
+			if (hasPermission(target, action)) {
 				iter.remove();
+			}
 		}
 	}
 
 	public boolean checkConditionalRole(String roleName, Object target, String action) {
 		StatefulSession securityContext = getSecurityContext();
-		if (securityContext == null)
+		if (securityContext == null) {
 			return false;
+		}
 
 		RoleCheck roleCheck = new RoleCheck(roleName);
 

@@ -47,8 +47,10 @@ public class MockViewHandler extends ViewHandler {
 		if (Strings.isEmpty(pathInfo)) {
 			int sploc = servletPath.lastIndexOf('.');
 			if (sploc < 0) {
-				logger.warn("You should catch the exception before Seam",
+				if (logger.isWarnEnabled()) {
+					logger.warn("You should catch the exception before Seam",				
 						new IllegalArgumentException("no file extension in servlet path: " + servletPath));
+				}
 				// in case of Servlet exception which is not mapped and handled by Seam
 				return contextPath + viewId;
 			}
@@ -80,6 +82,7 @@ public class MockViewHandler extends ViewHandler {
 
 	@Override
 	public void renderView(FacesContext ctx, UIViewRoot viewRoot) throws IOException, FacesException {
+		//
 	}
 
 	@Override
@@ -89,6 +92,7 @@ public class MockViewHandler extends ViewHandler {
 
 	@Override
 	public void writeState(FacesContext ctx) throws IOException {
+		//
 	}
 
 }

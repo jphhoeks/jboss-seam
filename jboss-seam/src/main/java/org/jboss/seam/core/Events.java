@@ -36,6 +36,9 @@ public class Events {
 
 	private static final LogProvider log = Logging.getLogProvider(Events.class);
 
+	public Events() {
+		super();
+	}
 	/**
 	* Add a new listener for a given event type
 	* 
@@ -56,7 +59,9 @@ public class Events {
 	*/
 	public void raiseEvent(String type, Object... parameters) {
 		//TODO: find a way to map event parameters to params in an EL-defined listener
-		log.trace("Processing event:" + type);
+		if (log.isTraceEnabled()) {
+			log.trace("Processing event:" + type);
+		}
 		List<Init.ObserverMethodExpression> list = Init.instance().getObserverMethodExpressions(type);
 		if (list != null) {
 			for (ObserverMethodExpression listener : list) {

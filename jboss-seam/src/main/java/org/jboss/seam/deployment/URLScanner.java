@@ -71,17 +71,23 @@ public class URLScanner extends AbstractScanner {
 					paths.add(urlPath);
 				}
 			} catch (IOException ioe) {
-				log.warn("could not read: " + resourceName, ioe);
+				if (log.isWarnEnabled()) {
+					log.warn("could not read: " + resourceName, ioe);
+				}
 			}
 		}
 		long finishTime = System.currentTimeMillis();
-		log.info("found " + paths.size() + " resources in " + (finishTime - startTime) + " ms");
+		if (log.isInfoEnabled()) {
+			log.info("found " + paths.size() + " resources in " + (finishTime - startTime) + " ms");
+		}
 
 		startTime = System.currentTimeMillis();
 		handle(paths);
 		finishTime = System.currentTimeMillis();
 
-		log.info("handled all resources in " + (finishTime - startTime) + " ms");
+		if (log.isInfoEnabled()) {
+			log.info("handled all resources in " + (finishTime - startTime) + " ms");
+		}
 
 	}
 
@@ -89,27 +95,37 @@ public class URLScanner extends AbstractScanner {
 		for (String urlPath : paths) {
 			long startTime = System.currentTimeMillis();
 			try {
-				log.trace("scanning: " + urlPath);
+				if (log.isTraceEnabled()) {
+					log.trace("scanning: " + urlPath);
+				}
 				File file = new File(urlPath);
 				if (file.isDirectory()) {
 					handleDirectory(file, null);
 				} else if (file.isFile() && file.exists()) {
 					handleArchiveByFile(file);
 				} else {
-					log.warn("file not found:" + urlPath);
+					if (log.isWarnEnabled()) {
+						log.warn("file not found:" + urlPath);
+					}
 				}
 			} catch (IOException ioe) {
-				log.warn("could not read entries", ioe);
+				if (log.isWarnEnabled()) {
+					log.warn("could not read entries", ioe);
+				}
 			}
 			long finishTime = System.currentTimeMillis();
-			log.info("loaded " + urlPath + " in " + (finishTime - startTime) + " ms");
+			if (log.isInfoEnabled()) {
+				log.info("loaded " + urlPath + " in " + (finishTime - startTime) + " ms");
+			}
 		}
 	}
 
 	private void handleArchiveByFile(File file) throws IOException {
 		ZipFile zip = null;
 		try {
-			log.trace("archive: " + file);
+			if (log.isTraceEnabled()) {
+				log.trace("archive: " + file);
+			}
 			touchTimestamp(file);
 			zip = new ZipFile(file);
 			Enumeration<? extends ZipEntry> entries = zip.entries();
@@ -141,12 +157,16 @@ public class URLScanner extends AbstractScanner {
 	private void handleDirectory(File file, String path, File[] excludedDirectories) {
 		for (File excludedDirectory : excludedDirectories) {
 			if (file.equals(excludedDirectory)) {
-				log.trace("skipping excluded directory: " + file);
+				if (log.isTraceEnabled()) {
+					log.trace("skipping excluded directory: " + file);
+				}
 				return;
 			}
 		}
 
-		log.trace("handling directory: " + file);
+		if (log.isTraceEnabled()) {
+			log.trace("handling directory: " + file);
+		}
 		for (File child : file.listFiles()) {
 			String newPath = path == null ? child.getName() : path + '/' + child.getName();
 			if (child.isDirectory()) {

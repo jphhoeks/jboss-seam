@@ -34,6 +34,10 @@ public class ConversationEntries extends AbstractMutable implements Serializable
 	private static final long serialVersionUID = 7996835952419813634L;
 	private Map<String, ConversationEntry> conversationIdEntryMap = new HashMap<String, ConversationEntry>();
 
+	public ConversationEntries() {
+		super();
+	}
+	
 	public synchronized Collection<ConversationEntry> getConversationEntries() {
 		Collection<ConversationEntry> values = new ArrayList<ConversationEntry>(conversationIdEntryMap.values());
 		return Collections.unmodifiableCollection(values);
@@ -61,8 +65,9 @@ public class ConversationEntries extends AbstractMutable implements Serializable
 
 	public synchronized ConversationEntry removeConversationEntry(String id) {
 		ConversationEntry entry = conversationIdEntryMap.remove(id);
-		if (entry != null)
+		if (entry != null) {
 			setDirty();
+		}
 		return entry;
 	}
 

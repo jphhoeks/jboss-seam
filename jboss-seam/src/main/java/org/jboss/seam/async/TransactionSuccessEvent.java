@@ -26,6 +26,7 @@ public class TransactionSuccessEvent extends AsynchronousEvent implements Synchr
 
 	@Override
 	public void beforeCompletion() {
+		//
 	}
 
 	@Override

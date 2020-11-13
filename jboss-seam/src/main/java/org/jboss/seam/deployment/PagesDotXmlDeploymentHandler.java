@@ -25,6 +25,10 @@ public class PagesDotXmlDeploymentHandler extends AbstractDeploymentHandler {
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.PagesDotXmlDeploymentHandler";
 
+	public PagesDotXmlDeploymentHandler() {
+		super();
+	}
+	
 	@Override
 	public String getName() {
 		return NAME;

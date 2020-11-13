@@ -131,12 +131,12 @@ public class Entity extends Model {
 		}
 		String name = getModelName(entityClass);
 		Model model = (Model) Contexts.getApplicationContext().get(name);
-		if (model == null || !(model instanceof Entity)) {
+		if (model instanceof Entity) {
+			return (Entity) model;
+		} else {
 			Entity entity = new Entity(entityClass);
 			Contexts.getApplicationContext().set(name, entity);
 			return entity;
-		} else {
-			return (Entity) model;
 		}
 	}
 

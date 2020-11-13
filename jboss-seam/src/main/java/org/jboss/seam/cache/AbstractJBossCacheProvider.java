@@ -4,11 +4,13 @@ import org.jboss.cache.Fqn;
 
 public abstract class AbstractJBossCacheProvider<T> extends CacheProvider<T> {
 
+	private Fqn defaultFqn;
+
 	public AbstractJBossCacheProvider() {
+		super();
 		super.setConfiguration("treecache.xml");
 	}
 
-	private Fqn defaultFqn;
 
 	protected Fqn getFqn(String region) {
 		if (region != null) {

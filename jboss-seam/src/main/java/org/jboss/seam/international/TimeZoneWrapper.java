@@ -18,6 +18,7 @@ public class TimeZoneWrapper extends TimeZone {
 	private TimeZone timeZone;
 
 	public TimeZoneWrapper(TimeZone tz) {
+		super();
 		timeZone = tz;
 		setID(tz.getID());
 	}
@@ -34,14 +35,13 @@ public class TimeZoneWrapper extends TimeZone {
 
 	public String getLabel() {
 		StringBuilder label = new StringBuilder(50);
-		label.append(getId().replace("_", " "));
-		label.append(" (UTC");
-		label.append(timeZone.getRawOffset() > 0 ? "+" : "-");
+		label.append(getId().replace("_", " "))
+		.append(" (UTC")
+		.append(timeZone.getRawOffset() > 0 ? "+" : "-");
 		if (Math.abs(timeZone.getRawOffset()) < MILLISECONDS_PER_HOUR * 10) {
 			label.append("0");
 		}
-		label.append(Math.abs(timeZone.getRawOffset()) / MILLISECONDS_PER_HOUR);
-		label.append(":00)");
+		label.append(Math.abs(timeZone.getRawOffset()) / MILLISECONDS_PER_HOUR).append(":00)");
 		return label.toString();
 	}
 

@@ -23,6 +23,7 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 	private Interceptor wrappedInterceptor;
 
 	public HibernateSecurityInterceptor(Interceptor wrappedInterceptor) {
+		super();
 		this.wrappedInterceptor = wrappedInterceptor;
 	}
 
@@ -34,7 +35,7 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 			// Not a JPA entity
 		}
 
-		return wrappedInterceptor != null ? wrappedInterceptor.onLoad(entity, id, state, propertyNames, types) : false;
+		return wrappedInterceptor != null && wrappedInterceptor.onLoad(entity, id, state, propertyNames, types);
 	}
 
 	@Override
@@ -59,8 +60,7 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 			// Not a JPA entity
 		}
 
-		return wrappedInterceptor != null ? wrappedInterceptor.onFlushDirty(entity, id, currentState, previousState, propertyNames, types)
-				: false;
+		return wrappedInterceptor != null && wrappedInterceptor.onFlushDirty(entity, id, currentState, previousState, propertyNames, types);
 	}
 
 	@Override
@@ -71,6 +71,6 @@ public class HibernateSecurityInterceptor extends EmptyInterceptor {
 			// Not a JPA entity
 		}
 
-		return wrappedInterceptor != null ? wrappedInterceptor.onSave(entity, id, state, propertyNames, types) : false;
+		return wrappedInterceptor != null && wrappedInterceptor.onSave(entity, id, state, propertyNames, types);
 	}
 }

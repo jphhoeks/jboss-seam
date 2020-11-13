@@ -26,6 +26,10 @@ public class ManagedQueueSender {
 
 	private QueueSender queueSender;
 
+	public ManagedQueueSender() {
+		super();
+	}
+	
 	/**
 	* The JNDI name of the queue
 	*/

@@ -20,6 +20,7 @@ class EntityBeanList extends AbstractEntityBeanCollection {
 	private List<PassivatedEntity> passivatedEntityList;
 
 	public EntityBeanList(List<Object> instance) {
+		super();
 		this.list = instance;
 	}
 

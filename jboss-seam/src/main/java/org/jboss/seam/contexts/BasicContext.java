@@ -73,12 +73,14 @@ public class BasicContext implements Context {
 			Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
 		}
 		map.put(name, value);
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
+		}
 	}
 
 	@Override
 	public void flush() {
+		//
 	}
 
 	@Override

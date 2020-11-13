@@ -19,6 +19,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.contexts.Contexts;
+import org.jboss.seam.util.Resources;
 
 /**
  * Maintains a set of "safe" actions that may be performed 
@@ -36,14 +37,19 @@ public class SafeActions {
 
 	private Set<String> safeActions = Collections.synchronizedSet(new HashSet<String>());
 
+	public SafeActions() {
+		super();
+	}
+	
 	public static String toActionId(String viewId, String expression) {
 		return viewId.substring(1) + ':' + expression.substring(2, expression.length() - 1);
 	}
 
 	public static String toAction(String id) {
 		int loc = id.indexOf(':');
-		if (loc < 0)
+		if (loc < 0) {
 			throw new IllegalArgumentException();
+		}
 		return "#{" + id.substring(loc + 1) + "}";
 	}
 
@@ -52,21 +58,27 @@ public class SafeActions {
 	}
 
 	public boolean isActionSafe(String id) {
-		if (safeActions.contains(id))
+		if (safeActions.contains(id)) {
 			return true;
+		}
 
 		int loc = id.indexOf(':');
-		if (loc < 0)
+		if (loc < 0) {
 			throw new IllegalArgumentException("Invalid action method " + id);
+		}
 		String viewId = id.substring(0, loc);
 		String action = "\"#{" + id.substring(loc + 1) + "}\"";
 
 		// adding slash as it otherwise won't find a page viewId by getResource*
-		InputStream is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/" + viewId);
-		if (is == null)
-			throw new IllegalStateException("Unable to read view " + "/" + viewId + " to execute action " + action);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		InputStream is = null;
+		BufferedReader reader = null;
+	
 		try {
+			is = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("/" + viewId);
+			if (is == null) {
+				throw new IllegalStateException("Unable to read view " + "/" + viewId + " to execute action " + action);
+			}
+			reader = new BufferedReader(new InputStreamReader(is));
 			while (reader.ready()) {
 				if (reader.readLine().contains(action)) {
 					addSafeAction(id);
@@ -77,11 +89,7 @@ public class SafeActions {
 		} catch (IOException ioe) {
 			throw new RuntimeException("Error parsing view " + "/" + viewId + " to execute action " + action, ioe);
 		} finally {
-			try {
-				reader.close();
-			} catch (IOException ioe) {
-				throw new RuntimeException(ioe);
-			}
+			Resources.close(reader, is);
 		}
 	}
 

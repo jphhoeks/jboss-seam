@@ -32,6 +32,10 @@ public class BijectionInterceptor extends AbstractInterceptor {
 	private ReentrantLock lock = new ReentrantLock();
 
 
+	public BijectionInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	@AroundTimeout

@@ -165,7 +165,9 @@ public class Seam
       while ( clazz!=null && !Object.class.equals(clazz) )
       {
          Name name = clazz.getAnnotation(Name.class);
-         if ( name!=null ) return name.value();
+         if ( name!=null ) {
+			return name.value();
+		}
          clazz = clazz.getSuperclass();
       }
       return null;
@@ -236,25 +238,25 @@ public class Seam
    private static String getMessageDrivenEjbName(Class<?> clazz)
    {
       String mdName = name( clazz.getAnnotation(MESSAGE_DRIVEN) );
-      return mdName.equals("") ? unqualifyClassName(clazz) : mdName;
+      return "".equals(mdName) ? unqualifyClassName(clazz) : mdName;
    }
 
    private static String getStatelessEjbName(Class<?> clazz)
    {
       String statelessName = name( clazz.getAnnotation(STATELESS) );
-      return statelessName.equals("") ? unqualifyClassName(clazz) : statelessName;
+      return "".equals(statelessName) ? unqualifyClassName(clazz) : statelessName;
    }
 
    private static String getStatefulEjbName(Class<?> clazz)
    {
       String statefulName = name( clazz.getAnnotation(STATEFUL) );
-      return statefulName.equals("") ? unqualifyClassName(clazz) : statefulName;
+      return "".equals(statefulName) ? unqualifyClassName(clazz) : statefulName;
    }
    
    private static String getSingletonEjbName(Class<?> clazz)
    {
       String singletonName = name( clazz.getAnnotation(SINGLETON) );
-      return singletonName.equals("") ? unqualifyClassName(clazz) : singletonName;
+      return "".equals(singletonName) ? unqualifyClassName(clazz) : singletonName;
    }
 
    private static String getEjbNameFromDescriptor(Class<?> clazz)
@@ -268,26 +270,16 @@ public class Seam
       return Strings.unqualify( Strings.unqualify( clazz.getName() ), '$' );
    }
    
-   public static boolean isInterceptionEnabled(Class<?> clazz)
-   {
-      ComponentType componentType = getComponentType(clazz);
-      if ( componentType==ENTITY_BEAN )
-      {
-         return false;
-      }
-      else if ( getComponentType(clazz)==MESSAGE_DRIVEN_BEAN )
-      {
-         return true;
-      }
-      else if ( clazz.isAnnotationPresent(BypassInterceptors.class) )
-      {
-         return false;
-      }
-      else 
-      {
-         return true;
-      }
-   }
+	public static boolean isInterceptionEnabled(Class<?> clazz) {
+		ComponentType componentType = getComponentType(clazz);
+		if (componentType == ENTITY_BEAN) {
+			return false;
+		} else if (getComponentType(clazz) == MESSAGE_DRIVEN_BEAN) {
+			return true;
+		} 
+		
+		return ! clazz.isAnnotationPresent(BypassInterceptors.class);
+	}
    
    /**
     * Mark the session for invalidation at the end of the 
@@ -295,22 +287,20 @@ public class Seam
     * 
     * @deprecated use Session.instance().invalidate()
     */
-   @Deprecated
-public static void invalidateSession()
-   {
-      Session.instance().invalidate();
-   }
+	@Deprecated
+	public static void invalidateSession() {
+		Session.instance().invalidate();
+	}
    
    /**
     * Is the session marked for invalidation?
     * 
     * @deprecated use Session.instance().isInvalidated()
     */
-   @Deprecated
-public static boolean isSessionInvalid()
-   {
-      return Session.instance().isInvalid();
-   }
+	@Deprecated
+	public static boolean isSessionInvalid() {
+		return Session.instance().isInvalid();
+	}
    
    /**
     * Get the Seam component, even if no application context
@@ -352,7 +342,7 @@ public static boolean isSessionInvalid()
 				while (resources.hasMoreElements() && versionString == null) {
 					final URL url = resources.nextElement();
 					final InputStream stream = url.openStream();
-					if (stream != null)
+					if (stream != null) {
 						try {
 							final Manifest manifest = new Manifest(stream);
 							final Attributes mainAttributes = manifest.getMainAttributes();
@@ -368,6 +358,7 @@ public static boolean isSessionInvalid()
 							} catch (Throwable ignored) {
 							}
 						}
+					}
 				}
 			} catch (IOException ignored) {
 			}

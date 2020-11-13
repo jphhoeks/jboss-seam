@@ -99,6 +99,10 @@ public class EnhancedMockHttpServletResponse implements HttpServletResponse {
 
 	private String includedUrl;
 
+	public EnhancedMockHttpServletResponse() {
+		super();
+	}
+	
 	//---------------------------------------------------------------------
 	// ServletResponse interface
 	//---------------------------------------------------------------------

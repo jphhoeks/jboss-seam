@@ -40,7 +40,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -51,6 +50,7 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.naming.NamingException;
 import javax.servlet.http.HttpSessionActivationListener;
@@ -156,7 +156,7 @@ public class Component extends Model {
    private Method prePassivateMethod;
    private Method postActivateMethod;
    
-   private Map<String, Method> removeMethods = new HashMap<String, Method>();
+   private Map<String, Method> removeMethods = new ConcurrentHashMap<String, Method>();
    private Set<Method> lifecycleMethods = new HashSet<Method>();
    private Set<Method> conversationManagementMethods = new HashSet<Method>();
    
@@ -165,13 +165,13 @@ public class Component extends Model {
    private List<BijectedAttribute> parameterSetters = new ArrayList<BijectedAttribute>();
    private List<BijectedAttribute> dataModelGetters = new ArrayList<BijectedAttribute>();
    private List<BijectedAttribute> pcAttributes = new ArrayList<BijectedAttribute>();
-   private Map<String, BijectedAttribute> dataModelSelectionSetters = new HashMap<String, BijectedAttribute>();
+   private Map<String, BijectedAttribute> dataModelSelectionSetters = new ConcurrentHashMap<String, BijectedAttribute>();
    
    private List<Interceptor> interceptors = new ArrayList<Interceptor>();
    private List<Interceptor> clientSideInterceptors = new ArrayList<Interceptor>();
 
-   private Map<Method, InitialValue> initializerSetters = new HashMap<Method, InitialValue>();
-   private Map<Field, InitialValue> initializerFields = new HashMap<Field, InitialValue>();
+   private Map<Method, InitialValue> initializerSetters = new ConcurrentHashMap<Method, InitialValue>();
+   private Map<Field, InitialValue> initializerFields = new ConcurrentHashMap<Field, InitialValue>();
 
    private List<Field> logFields = new ArrayList<Field>();
    private List<org.jboss.seam.log.Log> logInstances = new ArrayList<org.jboss.seam.log.Log>();
@@ -299,14 +299,18 @@ public class Component extends Model {
 		}
 
 		if (hasAnnotation && !interceptionEnabled) {
-			log.warn("Interceptors are disabled for @Synchronized component - synchronization will be disabled for: " + name + "/"
+			if (log.isWarnEnabled()) {
+				log.warn("Interceptors are disabled for @Synchronized component - synchronization will be disabled for: " + name + "/"
 					+ getBeanClass().getCanonicalName());
+			}
 		}
 
 		if (hasAnnotation && type == STATEFUL_SESSION_BEAN) {
-			log.warn(
+			if (log.isWarnEnabled()) {
+				log.warn(
 					"Seam synchronization interceptor is disabled for @Synchronized @Stateful component - Seam synchronization will be disabled for: "
 							+ name + "/" + getBeanClass().getCanonicalName());
+			}
 		}
 	}
 
@@ -316,9 +320,10 @@ public class Component extends Model {
 			Init init = (Init) applicationContext.get(Seam.getComponentName(Init.class));
 			if (init != null) {
 				if (getBeanClass().isAnnotationPresent(Converter.class)) {
-					if (!getBeanClass().isAnnotationPresent(BypassInterceptors.class))
+					if (!getBeanClass().isAnnotationPresent(BypassInterceptors.class)) {
 						throw new IllegalStateException(
 								"Converter " + getBeanClass().getName() + " must be annotated with @BypassInterceptors");
+					}
 
 					Converter converter = getBeanClass().getAnnotation(Converter.class);
 					if (converter.forClass() != void.class) {
@@ -328,9 +333,10 @@ public class Component extends Model {
 					init.getConverters().put(id, getName());
 				}
 				if (getBeanClass().isAnnotationPresent(Validator.class)) {
-					if (!getBeanClass().isAnnotationPresent(BypassInterceptors.class))
+					if (!getBeanClass().isAnnotationPresent(BypassInterceptors.class)) {
 						throw new IllegalStateException(
 								"Validator " + getBeanClass().getName() + " must be annotated with @BypassInterceptors");
+					}
 
 					Validator validator = getBeanClass().getAnnotation(Validator.class);
 					String id = Strings.isEmpty(validator.id()) ? getName() : validator.id();
@@ -383,17 +389,20 @@ public class Component extends Model {
 					"Stateful session beans may not be bound to the PAGE context: " + name + "/" + getBeanClass().getCanonicalName());
 		}
 		if (scope == APPLICATION && type == STATEFUL_SESSION_BEAN) {
-			log.warn(
+			if (log.isWarnEnabled()) {
+				log.warn(		
 					"Stateful session beans was bound to the APPLICATION context - note that it is not safe to make concurrent calls to the bean: "
 							+ name + "/" + getBeanClass().getCanonicalName());
+			}
 		}
 		if (scope != STATELESS && type == MESSAGE_DRIVEN_BEAN) {
 			throw new IllegalArgumentException(
 					"Message-driven beans must be bound to STATELESS context: " + name + "/" + getBeanClass().getCanonicalName());
 		}
 		if (scope != STATELESS && type == ComponentType.STATELESS_SESSION_BEAN) {
-			log.warn("Stateless session beans should only be bound to the STATELESS context:" + name + "/"
-					+ getBeanClass().getCanonicalName());
+			if (log.isWarnEnabled()) {
+				log.warn("Stateless session beans should only be bound to the STATELESS context:" + name + "/"	+ getBeanClass().getCanonicalName());
+			}
 		}
 	}
    
@@ -408,7 +417,9 @@ public class Component extends Model {
 		boolean serializableScope = scope == PAGE || scope == SESSION || scope == CONVERSATION;
 		boolean serializableType = type == JAVA_BEAN || type == ENTITY_BEAN;
 		if (serializableType && serializableScope && !Serializable.class.isAssignableFrom(getBeanClass())) {
-			log.warn("Component class should be serializable: " + name + " / " + getBeanClass().getCanonicalName() + " / SCOPE:" + scope);
+			if (log.isWarnEnabled()) {
+				log.warn("Component class should be serializable: " + name + " / " + getBeanClass().getCanonicalName() + " / SCOPE:" + scope);
+			}
 		}
 	}
 
@@ -469,16 +480,18 @@ public class Component extends Model {
 				} catch (IllegalArgumentException ignored) {
 				}
 				if (setterMethod != null) {
-					if (!setterMethod.isAccessible())
+					if (!setterMethod.isAccessible()) {
 						setterMethod.setAccessible(true);
+					}
 					Class parameterClass = setterMethod.getParameterTypes()[0];
 					Type parameterType = setterMethod.getGenericParameterTypes()[0];
 					initializerSetters.put(setterMethod,
 							getInitialValueHonoringExceptions(propertyName, propertyValue, parameterClass, parameterType));
 				} else {
 					Field field = Reflections.getField(getBeanClass(), propertyName);
-					if (!field.isAccessible())
+					if (!field.isAccessible()) {
 						field.setAccessible(true);
+					}
 					initializerFields.put(field, getInitialValue(propertyValue, field.getType(), field.getGenericType()));
 				}
 			}
@@ -516,8 +529,8 @@ public class Component extends Model {
 	}
 
 	private void initMembers(Class<?> clazz, Context applicationContext) {
-		Map<Method, Annotation> selectionSetters = new HashMap<Method, Annotation>();
-		Map<Field, Annotation> selectionFields = new HashMap<Field, Annotation>();
+		Map<Method, Annotation> selectionSetters = new ConcurrentHashMap<Method, Annotation>();
+		Map<Field, Annotation> selectionFields = new ConcurrentHashMap<Field, Annotation>();
 		Set<String> dataModelNames = new HashSet<String>();
 
 		for (; clazz != Object.class; clazz = clazz.getSuperclass()) {
@@ -890,10 +903,10 @@ public class Component extends Model {
 	public void addInterceptor(Object interceptorInstance) {
 		try {
 			addInterceptor(new Interceptor(interceptorInstance, this));
-		} catch (LinkageError e) {
-			log.debug("Unable to load interceptor " + interceptorInstance.getClass(), e);
-		} catch (TypeNotPresentException e) {
-			log.debug("Unable to load interceptor " + interceptorInstance.getClass(), e);
+		} catch (LinkageError | TypeNotPresentException e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Unable to load interceptor " + interceptorInstance.getClass(), e);
+			}
 		} catch (Exception e) {
 			throw new IllegalArgumentException("Unable to load interceptor " + interceptorInstance.getClass(), e);
 		}
@@ -911,7 +924,7 @@ public class Component extends Model {
 
 	private List<Interceptor> newSort(List<Interceptor> list) {
 		List<SortItem<Interceptor>> siList = new ArrayList<SortItem<Interceptor>>();
-		Map<Class<?>, SortItem<Interceptor>> ht = new HashMap<Class<?>, SortItem<Interceptor>>();
+		Map<Class<?>, SortItem<Interceptor>> ht = new ConcurrentHashMap<Class<?>, SortItem<Interceptor>>();
 
 		for (Interceptor i : list) {
 			SortItem<Interceptor> si = new SortItem<Interceptor>(i);
@@ -926,7 +939,9 @@ public class Component extends Model {
 			if (interceptorAnn != null) {
 				for (Class<?> cl : Arrays.asList(interceptorAnn.around())) {
 					if (!isCompatibleInterceptor(interceptorAnn, seamInterceptor(cl))) {
-						log.warn("Interceptor " + clazz + " has different type than around interceptor " + cl);
+						if (log.isWarnEnabled()) {
+							log.warn("Interceptor " + clazz + " has different type than around interceptor " + cl);
+						}
 					}
 
 					si.addAround(ht.get(cl));
@@ -934,7 +949,9 @@ public class Component extends Model {
 
 				for (Class<?> cl : Arrays.asList(interceptorAnn.within())) {
 					if (!isCompatibleInterceptor(interceptorAnn, seamInterceptor(cl))) {
-						log.warn("Interceptor " + clazz + " has different type than within interceptor " + cl);
+						if (log.isWarnEnabled()) {
+							log.warn("Interceptor " + clazz + " has different type than within interceptor " + cl);
+						}
 					}
 
 					si.addWithin(ht.get(cl));
@@ -988,10 +1005,10 @@ public class Component extends Model {
 				Class<?> clazz = Reflections.classForName(interceptorName);
 				interceptorInstance = clazz.getDeclaredConstructor().newInstance();
 
-			} catch (LinkageError e) {
-				log.debug("Unable to load interceptor " + interceptorName, e);
-			} catch (TypeNotPresentException e) {
-				log.debug("Unable to load interceptor " + interceptorName, e);
+			} catch (LinkageError | TypeNotPresentException e) {
+				if (log.isDebugEnabled()) {
+					log.debug("Unable to load interceptor " + interceptorName, e);
+				}
 			} catch (Exception e) {
 				throw new IllegalArgumentException("Unable to load interceptor " + interceptorName, e);
 			}
@@ -1049,14 +1066,16 @@ public class Component extends Model {
    
 	private static boolean hasAnnotation(Class clazz, String annotationName) {
 		for (Annotation a : clazz.getAnnotations()) {
-			if (a.annotationType().getName().equals(annotationName))
+			if (a.annotationType().getName().equals(annotationName)) {
 				return true;
+			}
 		}
 
 		for (Method method : clazz.getMethods()) {
 			for (Annotation a : method.getAnnotations()) {
-				if (a.annotationType().getName().equals(annotationName))
+				if (a.annotationType().getName().equals(annotationName)) {
 					return true;
+				}
 			}
 		}
 
@@ -1302,21 +1321,27 @@ public class Component extends Model {
 		try {
 			callDestroyMethod(bean);
 		} catch (Exception e) {
-			log.warn("Exception calling component @Destroy method: " + name + "/" + getBeanClass().getCanonicalName(), e);
+			if (log.isWarnEnabled()) {
+				log.warn("Exception calling component @Destroy method: " + name + "/" + getBeanClass().getCanonicalName(), e);
+			}
 		}
 		if (getType() == STATEFUL_SESSION_BEAN) {
 			try {
 				callDefaultRemoveMethod(bean);
 			} catch (Exception e) {
-				log.warn(
-						"Exception calling stateful session bean default @Remove method: " + name + "/" + getBeanClass().getCanonicalName(),
-						e);
+				if (log.isWarnEnabled()) {
+					log.warn("Exception calling stateful session bean default @Remove method: " + name + "/" + getBeanClass().getCanonicalName(),
+							e);
+				}
+						
 			}
 		} else if (getType() == JAVA_BEAN) {
 			try {
 				callPreDestroyMethod(bean);
 			} catch (Exception e) {
-				log.warn("Exception calling JavaBean @PreDestroy method: " + name + "/" + getBeanClass().getCanonicalName(), e);
+				if (log.isWarnEnabled()) {
+					log.warn("Exception calling JavaBean @PreDestroy method: " + name + "/" + getBeanClass().getCanonicalName(), e);
+				}
 			}
 		}
 	}
@@ -1579,12 +1604,7 @@ public class Component extends Model {
 				}
 			}
 
-			// No interface view
-			if (clazz.isInstance(bean)) {
-				return true;
-			}
-
-			return false;
+			return clazz.isInstance(bean);
 		}
 	}
 
@@ -1735,7 +1755,9 @@ public class Component extends Model {
 				} else if (component.getScope().isContextActive()) {
 					result = component.newInstance();
 				} else {
-					log.warn("Cannot create Seam component, scope is not active: " + name + "(" + component.getScope().name() + ")");
+					if (log.isWarnEnabled()) {
+						log.warn("Cannot create Seam component, scope is not active: " + name + "(" + component.getScope().name() + ")");
+					}
 				}
 			}
 		}
@@ -1744,7 +1766,9 @@ public class Component extends Model {
 			if (component != null) {
 				if (!component.isInstance(result)) {
 					if (component.hasUnwrapMethod())
+					 {
 						return result; /// best way???
+					}
 					throw new IllegalArgumentException(
 							"value of context variable is not an instance of the component bound to the context variable: " + name
 									+ ". If you are using hot deploy, you may have attempted to hot deploy a session or "
@@ -1896,7 +1920,7 @@ public class Component extends Model {
 				if (getScope() != STATELESS) {
 					getScope().getContext().remove(name);
 				}
-			} catch (Exception ignore) {
+			} catch (Exception ignored) {
 				// Ignore
 			}
 			throw new InstantiationException("Could not instantiate Seam component: " + name, e);
@@ -2048,15 +2072,17 @@ public class Component extends Model {
 		if (result == null) {
 			for (Namespace namespace : getImports()) {
 				result = namespace.getComponentInstance(name, create, allowAutocreation);
-				if (result != null)
+				if (result != null) {
 					break;
+				}
 			}
 		}
 		if (result == null) {
 			for (Namespace namespace : Init.instance().getGlobalImports()) {
 				result = namespace.getComponentInstance(name, create, allowAutocreation);
-				if (result != null)
+				if (result != null) {
 					break;
+				}
 			}
 		}
 		if (result == null) {
@@ -2183,7 +2209,7 @@ public class Component extends Model {
 			this.parameterType = parameterType;
 			try {
 				this.converter = Conversions.getConverter(parameterClass);
-			} catch (IllegalArgumentException iae) {
+			} catch (IllegalArgumentException ignored) {
 				// no converter for the type
 			}
 			// vb =
@@ -2262,14 +2288,11 @@ public class Component extends Model {
 					throw new IllegalArgumentException(
 							"Cannot instantiate a set of type " + collectionClass + "; try specifying type type in components.xml", e);
 				} catch (ClassCastException e) {
-					throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.Set");
-				} catch (java.lang.InstantiationException e) {
+					throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.Set", e);
+				} catch (java.lang.InstantiationException |  InvocationTargetException e) {
 					throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName()
 							+ "; try specifying type type in components.xml", e);
-				} catch (InvocationTargetException e) {
-					throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName()
-							+ "; try specifying type type in components.xml", e);
-				} catch (NoSuchMethodException e) {
+				}  catch (NoSuchMethodException e) {
 					throw new IllegalArgumentException("Class " + collectionClass.getCanonicalName() + " doesn't hava a valid constructor",
 							e);
 				}
@@ -2330,11 +2353,8 @@ public class Component extends Model {
 								+ "; try specifying type type in components.xml", e);
 					} catch (ClassCastException e) {
 						throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.List", e);
-					} catch (java.lang.InstantiationException e) {
+					} catch (java.lang.InstantiationException | InvocationTargetException e) {
 						throw new IllegalArgumentException("Cannot instantiate a list of type " + collectionClass.getCanonicalName()
-								+ "; try specifying type type in components.xml", e);
-					} catch (InvocationTargetException e) {
-						throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName()
 								+ "; try specifying type type in components.xml", e);
 					} catch (NoSuchMethodException e) {
 						throw new IllegalArgumentException(
@@ -2394,14 +2414,11 @@ public class Component extends Model {
 					throw new IllegalArgumentException("Cannot instantiate a map of type " + collectionClass.getCanonicalName()
 							+ "; try specifying type type in components.xml", e);
 				} catch (ClassCastException e) {
-					throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.Map");
-				} catch (java.lang.InstantiationException e) {
+					throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.Map", e);
+				} catch (java.lang.InstantiationException | InvocationTargetException e) {
 					throw new IllegalArgumentException("Cannot instantiate a map of type " + collectionClass.getCanonicalName()
 							+ "; try specifying type type in components.xml", e);
-				} catch (InvocationTargetException e) {
-					throw new IllegalArgumentException("Cannot instantiate a set of type " + collectionClass.getCanonicalName()
-							+ "; try specifying type type in components.xml", e);
-				} catch (NoSuchMethodException e) {
+				}  catch (NoSuchMethodException e) {
 					throw new IllegalArgumentException("Class " + collectionClass.getCanonicalName() + " doesn't hava a valid constructor",
 							e);
 				}
@@ -2488,7 +2505,8 @@ public class Component extends Model {
 			try {
 				Method setterMethod = Reflections.getSetterMethod(getter.getDeclaringClass(), name);
 				this.setter = new BijectedMethod(name, setterMethod, annotation);
-			} catch (IllegalArgumentException e) {
+			} catch (IllegalArgumentException ignored) {
+				//
 			}
 		}
 		@Override

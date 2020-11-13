@@ -28,6 +28,10 @@ public class ManagedTopicPublisher {
 
 	private TopicPublisher topicPublisher;
 
+	public ManagedTopicPublisher() {
+		super();
+	}
+	
 	/**
 	* The JNDI name of the topic
 	*/

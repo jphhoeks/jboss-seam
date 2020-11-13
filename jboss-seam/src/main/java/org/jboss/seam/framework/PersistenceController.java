@@ -12,6 +12,10 @@ public abstract class PersistenceController<T> extends Controller {
 	private static final long serialVersionUID = 1L;
 	private transient T persistenceContext;
 
+	protected PersistenceController() {
+		super();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public T getPersistenceContext() {
 		if (persistenceContext == null) {

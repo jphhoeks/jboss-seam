@@ -83,20 +83,24 @@ public class PageContext implements Context {
 
 	@Override
 	public void set(String name, Object value) {
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
+		}
 		getCurrentWritableMap().put(getKey(name), value);
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
+		}
 	}
 
 	@Override
 	public void remove(String name) {
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
+		}
 		getCurrentWritableMap().remove(getKey(name));
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
+		}
 	}
 
 	@Override
@@ -109,7 +113,7 @@ public class PageContext implements Context {
 				names.add(key.substring(prefix.length()));
 			}
 		}
-		return names.toArray(new String[names.size()]);
+		return names.toArray(new String[0]);
 	}
 
 	@Override

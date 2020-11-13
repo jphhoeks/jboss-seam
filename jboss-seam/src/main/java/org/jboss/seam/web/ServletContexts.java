@@ -31,6 +31,10 @@ import org.jboss.seam.contexts.Contexts;
 public class ServletContexts {
 
 	private HttpServletRequest request;
+	
+	public ServletContexts() {
+		super();
+	}
 
 	public static ServletContexts instance() {
 		if (!Contexts.isEventContextActive()) {

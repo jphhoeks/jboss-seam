@@ -213,9 +213,11 @@ public class ResourceRequestEnvironment {
 		}
 
 		protected void prepareRequest(EnhancedMockHttpServletRequest request) {
+			//
 		}
 
 		protected void onResponse(EnhancedMockHttpServletResponse response) {
+			//
 		}
 
 		public HttpServletRequest getRequest() {

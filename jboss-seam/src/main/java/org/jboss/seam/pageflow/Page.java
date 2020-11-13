@@ -41,6 +41,9 @@ public class Page extends Node implements Parsable {
 	private boolean switchEnabled;
 	private String noConversationViewId;
 
+	public Page() {
+		super();
+	}
 	/**
 	* parses the dom4j element that corresponds to this page.
 	*/

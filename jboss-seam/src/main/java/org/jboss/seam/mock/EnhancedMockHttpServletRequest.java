@@ -16,6 +16,29 @@
 
 package org.jboss.seam.mock;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
@@ -30,28 +53,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.security.Principal;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
 
 /**
  * Mock implementation of the {@link javax.servlet.http.HttpServletRequest}
@@ -104,7 +105,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	// ServletRequest properties
 	//---------------------------------------------------------------------
 
-	private final Hashtable attributes = new Hashtable();
+	private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
 
 	private String characterEncoding;
 
@@ -129,7 +130,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	/**
 	* List of locales in descending order
 	*/
-	private final Vector locales = new Vector();
+	private final List<Locale> locales = new ArrayList<Locale>();
 
 	private boolean secure = false;
 
@@ -154,7 +155,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	/**
 	* The key is the lowercase header name; the value is a {@link org.jboss.seam.mock.HeaderValueHolder} object.
 	*/
-	private final Hashtable headers = new Hashtable();
+	private final Map<String, HeaderValueHolder> headers = new ConcurrentHashMap<String, HeaderValueHolder>();
 
 	private String method;
 
@@ -164,11 +165,11 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 
 	private String queryString;
 
-	private Map<String, String> queryParameters = new HashMap();
+	private Map<String, String> queryParameters = new ConcurrentHashMap<String, String>();
 
 	private String remoteUser;
 
-	private Set<String> userRoles = new HashSet();
+	private Set<String> userRoles = new HashSet<String>();
 
 	private Principal userPrincipal;
 
@@ -329,9 +330,9 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	}
 
 	@Override
-	public Enumeration getAttributeNames() {
+	public Enumeration<String> getAttributeNames() {
 		checkActive();
-		return this.attributes.keys();
+		return Collections.enumeration(this.attributes.keySet());
 	}
 
 	@Override
@@ -610,12 +611,12 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 
 	@Override
 	public Locale getLocale() {
-		return (Locale) this.locales.get(0);
+		return this.locales.get(0);
 	}
 
 	@Override
-	public Enumeration getLocales() {
-		return this.locales.elements();
+	public Enumeration<Locale> getLocales() {
+		return Collections.enumeration(this.locales);
 	}
 
 	public void setSecure(boolean secure) {
@@ -775,7 +776,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 
 	@Override
 	public Enumeration<String> getHeaderNames() {
-		return this.headers.keys();
+		return Collections.enumeration(headers.keySet());
 	}
 
 	@Override
@@ -831,10 +832,11 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 
 	@Override
 	public String getQueryString() {
-		if (getQueryParameters().size() > 0) {
+		if (!getQueryParameters().isEmpty()) {
 			StringBuilder q = new StringBuilder(queryString);
-			if (!queryString.endsWith("&"))
+			if (!queryString.endsWith("&")) {
 				q.append("&");
+			}
 			for (Map.Entry<String, String> entry : getQueryParameters().entrySet()) {
 				q.append(entry.getKey());
 				q.append("=");
@@ -903,8 +905,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	@Override
 	public StringBuffer getRequestURL() {
 		StringBuffer url = new StringBuffer(this.scheme);
-		url.append("://").append(this.serverName).append(':').append(this.serverPort);
-		url.append(getRequestURI());
+		url.append("://").append(this.serverName).append(':').append(this.serverPort).append(getRequestURI());
 		return url;
 	}
 

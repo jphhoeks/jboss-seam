@@ -16,6 +16,11 @@ import javax.persistence.PreUpdate;
  * @author Shane Bryzak
  */
 public class EntitySecurityListener {
+	
+	public EntitySecurityListener() {
+		super();
+	}
+	
 	@PostLoad
 	public void postLoad(Object entity) {
 		EntityPermissionChecker.instance().checkEntityPermission(entity, READ);

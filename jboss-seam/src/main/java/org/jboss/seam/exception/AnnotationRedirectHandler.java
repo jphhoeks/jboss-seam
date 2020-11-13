@@ -14,6 +14,11 @@ import org.jboss.seam.core.Expressions;
  *
  */
 public class AnnotationRedirectHandler extends RedirectHandler {
+	
+	public AnnotationRedirectHandler() {
+		super();
+	}
+	
 	@Override
 	public boolean isHandler(Exception e) {
 		return e.getClass().isAnnotationPresent(Redirect.class);

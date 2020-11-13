@@ -31,8 +31,9 @@ public class SeamExpressionSubProcessResolver implements SubProcessResolver {
 		JbpmContext jbpmContext = ManagedJbpmContext.instance();
 		if (jbpmContext != null) {
 			GraphSession graphSession = jbpmContext.getGraphSession();
-			if (graphSession == null)
+			if (graphSession == null) {
 				throw new JpdlException("graphsession can  not be null");
+			}
 			// now, we must be able to find the sub-process
 			if (subProcessName != null) {
 
@@ -46,7 +47,7 @@ public class SeamExpressionSubProcessResolver implements SubProcessResolver {
 						subProcessDefinition = graphSession.findProcessDefinition(subProcessName, version);
 
 					} catch (NumberFormatException e) {
-						throw new JpdlException("version in process-state was not a number: " + subProcessElement.asXML());
+						throw new JpdlException("version in process-state was not a number: " + subProcessElement.asXML(), e);
 					}
 
 				} else { // if only the name is specified

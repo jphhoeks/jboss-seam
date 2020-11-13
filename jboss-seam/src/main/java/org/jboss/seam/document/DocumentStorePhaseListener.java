@@ -22,6 +22,10 @@ public class DocumentStorePhaseListener implements PhaseListener {
 
 	private static final LogProvider log = Logging.getLogProvider(DocumentStorePhaseListener.class);
 
+	public DocumentStorePhaseListener()  {
+		super();
+	}
+	
 	@Override
 	public PhaseId getPhaseId() {
 		return PhaseId.RENDER_RESPONSE;
@@ -89,7 +93,6 @@ public class DocumentStorePhaseListener implements PhaseListener {
 			return false;
 		}
 		String useragent = request.getHeader("User-Agent");
-		boolean isIE = useragent != null && useragent.contains("MSIE");
-		return isIE;
+		return useragent != null && useragent.contains("MSIE");
 	}
 }

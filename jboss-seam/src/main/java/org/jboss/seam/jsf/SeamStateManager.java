@@ -21,6 +21,7 @@ public class SeamStateManager extends StateManagerWrapper {
 	private final StateManager stateManager;
 
 	public SeamStateManager(StateManager sm) {
+		super();
 		this.stateManager = sm;
 	}
 

@@ -90,12 +90,18 @@ public class Identity implements Serializable {
 	*/
 	private boolean authenticating = false;
 
+
 	private static final ThreadLocal<Integer> REENTRANT_COUNT = new ThreadLocal<Integer>() {
 		@Override
 		protected Integer initialValue() {
 			return 0;
 		}
 	};
+	
+	
+	public Identity() {
+		super();
+	}
 
 	@Create
 	public void create() {
@@ -204,18 +210,21 @@ public class Identity implements Serializable {
 	* the user is authenticated
 	*/
 	public void checkRestriction(String expr) {
-		if (!securityEnabled)
+		if (!securityEnabled) {
 			return;
+		}
 
 		if (!evaluateExpression(expr)) {
 			if (!isLoggedIn()) {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_LOGGED_IN);
+				}
 				log.debug(String.format("Error evaluating expression [%s] - User not logged in", expr));
 				throw new NotLoggedInException();
 			} else {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_AUTHORIZED);
+				}
 				throw new AuthorizationException(String.format("Authorization check failed for expression [%s]", expr));
 			}
 		}
@@ -240,13 +249,15 @@ public class Identity implements Serializable {
 				// and login() is explicitly called then we still want to raise the LOGIN_SUCCESSFUL event,
 				// and then return.
 				if (Contexts.isEventContextActive() && Contexts.getEventContext().isSet(SILENT_LOGIN)) {
-					if (Events.exists())
+					if (Events.exists()) {
 						Events.instance().raiseEvent(EVENT_LOGIN_SUCCESSFUL);
+					}
 					return "loggedIn";
 				}
 
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_ALREADY_LOGGED_IN);
+				}
 				return "loggedIn";
 			}
 
@@ -260,8 +271,9 @@ public class Identity implements Serializable {
 				log.debug("Login successful for: " + getCredentials().getUsername());
 			}
 
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_LOGIN_SUCCESSFUL);
+			}
 			return "loggedIn";
 		} catch (LoginException ex) {
 			credentials.invalidate();
@@ -269,8 +281,9 @@ public class Identity implements Serializable {
 			if (log.isDebugEnabled()) {
 				log.debug("Login failed for: " + getCredentials().getUsername(), ex);
 			}
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_LOGIN_FAILED, ex);
+			}
 		}
 
 		return null;
@@ -283,8 +296,9 @@ public class Identity implements Serializable {
 	*/
 	public void quietLogin() {
 		try {
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_QUIET_LOGIN);
+			}
 
 			// Ensure that we haven't been authenticated as a result of the EVENT_QUIET_LOGIN event
 			if (!isLoggedIn()) {
@@ -333,8 +347,9 @@ public class Identity implements Serializable {
 	*/
 	protected void preAuthenticate() {
 		preAuthenticationRoles.clear();
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent(EVENT_PRE_AUTHENTICATE);
+		}
 	}
 
 	/**
@@ -362,8 +377,9 @@ public class Identity implements Serializable {
 
 		credentials.setPassword(null);
 
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent(EVENT_POST_AUTHENTICATE, this);
+		}
 	}
 
 	/**
@@ -389,8 +405,9 @@ public class Identity implements Serializable {
 		if (isLoggedIn()) {
 			unAuthenticate();
 			Session.instance().invalidate();
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_LOGGED_OUT);
+			}
 		}
 	}
 
@@ -401,10 +418,12 @@ public class Identity implements Serializable {
 	* @return boolean True if the user is a member of the specified role
 	*/
 	public boolean hasRole(String role) {
-		if (!securityEnabled)
+		if (!securityEnabled) {
 			return true;
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get()))
+		}
+		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
 			return true;
+		}
 
 		tryLogin();
 
@@ -425,8 +444,9 @@ public class Identity implements Serializable {
 	* @param role The name of the role to add
 	*/
 	public boolean addRole(String role) {
-		if (role == null || "".equals(role))
+		if (role == null || "".equals(role)) {
 			return false;
+		}
 
 		if (!isLoggedIn()) {
 			preAuthenticationRoles.add(role);
@@ -478,12 +498,14 @@ public class Identity implements Serializable {
 
 		if (!hasRole(role)) {
 			if (!isLoggedIn()) {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_LOGGED_IN);
+				}
 				throw new NotLoggedInException();
 			} else {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_AUTHORIZED);
+				}
 				throw new AuthorizationException(String.format("Authorization check failed for role [%s]", role));
 			}
 		}
@@ -499,38 +521,44 @@ public class Identity implements Serializable {
 	* @throws AuthorizationException if the user does not have the specified permission
 	*/
 	public void checkPermission(String name, String action, Object... arg) {
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get()))
+		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
 			return;
+		}
 
 		tryLogin();
 
 		if (!hasPermission(name, action, arg)) {
 			if (!isLoggedIn()) {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_LOGGED_IN);
+				}
 				throw new NotLoggedInException();
 			} else {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_AUTHORIZED);
+				}
 				throw new AuthorizationException(String.format("Authorization check failed for permission [%s,%s]", name, action));
 			}
 		}
 	}
 
 	public void checkPermission(Object target, String action) {
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get()))
+		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
 			return;
+		}
 
 		tryLogin();
 
 		if (!hasPermission(target, action)) {
 			if (!isLoggedIn()) {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_LOGGED_IN);
+				}
 				throw new NotLoggedInException();
 			} else {
-				if (Events.exists())
+				if (Events.exists()) {
 					Events.instance().raiseEvent(EVENT_NOT_AUTHORIZED);
+				}
 				throw new AuthorizationException(String.format("Authorization check failed for permission[%s,%s]", target, action));
 			}
 		}
@@ -545,12 +573,15 @@ public class Identity implements Serializable {
 	* @return boolean True if the user has the specified permission
 	*/
 	public boolean hasPermission(String name, String action, Object... arg) {
-		if (!securityEnabled)
+		if (!securityEnabled) {
 			return true;
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get()))
+		}
+		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
 			return true;
-		if (permissionMapper == null)
+		}
+		if (permissionMapper == null) {
 			return false;
+		}
 
 		if (arg != null) {
 			return permissionMapper.resolvePermission(arg[0], action);
@@ -564,14 +595,18 @@ public class Identity implements Serializable {
 	}
 
 	public boolean hasPermission(Object target, String action) {
-		if (!securityEnabled)
+		if (!securityEnabled) {
 			return true;
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get()))
+		}
+		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
 			return true;
-		if (permissionMapper == null)
+		}
+		if (permissionMapper == null) {
 			return false;
-		if (target == null)
+		}
+		if (target == null) {
 			return false;
+		}
 
 		return permissionMapper.resolvePermission(target, action);
 	}
@@ -624,7 +659,7 @@ public class Identity implements Serializable {
 	*/
 	@Deprecated
 	public boolean isRememberMe() {
-		return rememberMe != null ? rememberMe.isEnabled() : false;
+		return rememberMe != null && rememberMe.isEnabled();
 	}
 
 	/**
@@ -632,8 +667,9 @@ public class Identity implements Serializable {
 	*/
 	@Deprecated
 	public void setRememberMe(boolean remember) {
-		if (rememberMe != null)
+		if (rememberMe != null) {
 			rememberMe.setEnabled(remember);
+		}
 	}
 
 	public Credentials getCredentials() {

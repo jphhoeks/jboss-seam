@@ -35,6 +35,10 @@ public class JbossPojoCacheProvider extends AbstractJBossCacheProvider<PojoCache
 
 	private static final LogProvider log = Logging.getLogProvider(JbossPojoCacheProvider.class);
 
+	public JbossPojoCacheProvider() {
+		super();
+	}
+	
 	@Create
 	public void create() {
 		log.debug("Starting JBoss POJO Cache 1.x");

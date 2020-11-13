@@ -29,12 +29,17 @@ public class TimeZoneSelector extends Selector {
 	private static final long serialVersionUID = -5013819375360015369L;
 
 	private String id;
+	
+	public TimeZoneSelector() {
+		super();
+	}
 
 	@Create
 	public void initTimeZone() {
 		String timeZoneId = getCookieValueIfEnabled();
-		if (timeZoneId != null)
+		if (timeZoneId != null) {
 			setTimeZoneId(timeZoneId);
+		}
 	}
 
 	@Override

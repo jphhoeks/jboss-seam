@@ -13,6 +13,10 @@ import org.jboss.seam.faces.DataModels;
  */
 public class DataModelBinder implements DataBinder<DataModel, Object, javax.faces.model.DataModel> {
 
+	public DataModelBinder() {
+		super();
+	}
+	
 	@Override
 	public String getVariableName(DataModel out) {
 		return out.value();

@@ -10,6 +10,10 @@ public class MockLifecycleFactory extends LifecycleFactory {
 
 	private static Lifecycle lifecycle;
 
+	public MockLifecycleFactory() {
+		super();
+	}
+	
 	public static void setLifecycle(Lifecycle lifecycle) {
 		MockLifecycleFactory.lifecycle = lifecycle;
 	}

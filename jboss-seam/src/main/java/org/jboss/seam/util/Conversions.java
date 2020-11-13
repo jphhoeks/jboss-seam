@@ -12,13 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("serial")
 public class Conversions {
 	private static final String EXPRESSION_MARKER = "#{";
 	private static final char EXPRESSION_ESCAPE_CHAR = '\\';
 
-	private static Map<Class, Converter> converters = new HashMap<Class, Converter>() {
+	private static Map<Class, Converter> converters = new ConcurrentHashMap<Class, Converter>() {
 		{
 			put(String.class, new StringConverter());
 			put(Boolean.class, new BooleanConverter());
@@ -330,8 +331,9 @@ public class Conversions {
 		private Class type;
 
 		public MultiPropertyValue(String[] strings, Class type) {
-			if (strings == null)
+			if (strings == null) {
 				throw new IllegalArgumentException();
+			}
 			this.strings = strings;
 			this.type = type;
 		}
@@ -383,8 +385,9 @@ public class Conversions {
 		private Class type;
 
 		public AssociativePropertyValue(Map<String, String> keyedValues, Class type) {
-			if (keyedValues == null)
+			if (keyedValues == null) {
 				throw new IllegalArgumentException();
+			}
 			this.keyedValues = keyedValues;
 			this.type = type;
 		}

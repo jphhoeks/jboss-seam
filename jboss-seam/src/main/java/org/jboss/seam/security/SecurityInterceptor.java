@@ -44,6 +44,10 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 		private Map<Integer, Set<String>> paramRestrictions;
 		private Set<String> roleRestrictions;
 
+		public Restriction() {
+			super();
+		}
+		
 		public void setExpression(String expression) {
 			this.expression = expression;
 		}
@@ -123,6 +127,10 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 		}
 	}
 
+	public SecurityInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {
@@ -130,8 +138,9 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 
 		if (!"hashCode".equals(interfaceMethod.getName())) {
 			Restriction restriction = getRestriction(interfaceMethod);
-			if (restriction != null)
+			if (restriction != null) {
 				restriction.check(invocation.getParameters());
+			}
 		}
 
 		return invocation.proceed();
@@ -164,8 +173,9 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 					}
 
 					if (restrict != null) {
-						if (restriction == null)
+						if (restriction == null) {
 							restriction = new Restriction();
+						}
 
 						if (Strings.isEmpty(restrict.value())) {
 							restriction.setPermissionTarget(getComponent().getName());
@@ -177,8 +187,9 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 
 					for (Annotation annotation : method.getDeclaringClass().getAnnotations()) {
 						if (annotation.annotationType().isAnnotationPresent(RoleCheck.class)) {
-							if (restriction == null)
+							if (restriction == null) {
 								restriction = new Restriction();
+							}
 							restriction.addRoleRestriction(annotation.annotationType().getSimpleName().toLowerCase());
 						}
 					}
@@ -204,8 +215,9 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 							}
 						}
 						if (annotation.annotationType().isAnnotationPresent(RoleCheck.class)) {
-							if (restriction == null)
+							if (restriction == null) {
 								restriction = new Restriction();
+							}
 							restriction.addRoleRestriction(annotation.annotationType().getSimpleName().toLowerCase());
 						}
 					}
@@ -215,8 +227,9 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 						for (Annotation annotation : annotations) {
 							if (annotation.annotationType().isAnnotationPresent(PermissionCheck.class)) {
 								PermissionCheck permissionCheck = annotation.annotationType().getAnnotation(PermissionCheck.class);
-								if (restriction == null)
+								if (restriction == null) {
 									restriction = new Restriction();
+								}
 								restriction.addParameterRestriction(i, getPermissionAction(permissionCheck, annotation));
 							}
 						}

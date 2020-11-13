@@ -90,6 +90,10 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 	private AnnotatedBeanProperty<RoleGroups> roleGroupsProperty;
 	private AnnotatedBeanProperty<RoleConditional> roleConditionalProperty;
 
+	public JpaIdentityStore() {
+		super();
+	}
+	
 	public Set<Feature> getFeatures() {
 		return featureSet.getFeatures();
 	}
@@ -196,27 +200,33 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 
 			userPrincipalProperty.setValue(user, username);
 
-			if (userFirstNameProperty.isSet())
+			if (userFirstNameProperty.isSet()) {
 				userFirstNameProperty.setValue(user, firstname);
-			if (userLastNameProperty.isSet())
+			}
+			if (userLastNameProperty.isSet()) {
 				userLastNameProperty.setValue(user, lastname);
-
-			if (password == null) {
-				if (userEnabledProperty.isSet())
-					userEnabledProperty.setValue(user, false);
-			} else {
-				setUserPassword(user, password);
-				if (userEnabledProperty.isSet())
-					userEnabledProperty.setValue(user, true);
 			}
 
-			if (Events.exists())
+			if (password == null) {
+				if (userEnabledProperty.isSet()) {
+					userEnabledProperty.setValue(user, false);
+				}
+			} else {
+				setUserPassword(user, password);
+				if (userEnabledProperty.isSet()) {
+					userEnabledProperty.setValue(user, true);
+				}
+			}
+
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_PRE_PERSIST_USER, user);
+			}
 
 			persistEntity(user);
 
-			if (Events.exists())
+			if (Events.exists()) {
 				Events.instance().raiseEvent(EVENT_USER_CREATED, user);
+			}
 
 			return true;
 		} catch (Exception ex) {
@@ -272,8 +282,9 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 
 	@Override
 	public boolean grantRole(String username, String role) {
-		if (roleClass == null)
+		if (roleClass == null) {
 			return false;
+		}
 
 		Object user = lookupUser(username);
 		if (user == null) {
@@ -376,8 +387,9 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 
 	@Override
 	public boolean addRoleToGroup(String role, String group) {
-		if (!roleGroupsProperty.isSet())
+		if (!roleGroupsProperty.isSet()) {
 			return false;
+		}
 
 		Object targetRole = lookupRole(role);
 		if (targetRole == null) {
@@ -417,8 +429,9 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 
 	@Override
 	public boolean removeRoleFromGroup(String role, String group) {
-		if (!roleGroupsProperty.isSet())
+		if (!roleGroupsProperty.isSet()) {
 			return false;
+		}
 
 		Object roleToRemove = lookupRole(role);
 		if (role == null) {
@@ -488,7 +501,9 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 	@Override
 	public boolean enableUser(String name) {
 		if (!userEnabledProperty.isSet()) {
-			log.debug("Can not enable user, no @UserEnabled property configured in userClass " + userClass.getName());
+			if (log.isDebugEnabled()) {
+				log.debug("Can not enable user, no @UserEnabled property configured in userClass " + userClass.getName());
+			}
 			return false;
 		}
 
@@ -498,7 +513,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		}
 
 		// Can't enable an already-enabled user, return false
-		if (((Boolean) userEnabledProperty.getValue(user)) == true) {
+		if ((Boolean) userEnabledProperty.getValue(user)) {
 			return false;
 		}
 
@@ -509,7 +524,9 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 	@Override
 	public boolean disableUser(String name) {
 		if (!userEnabledProperty.isSet()) {
-			log.debug("Can not disable user, no @UserEnabled property configured in userClass " + userClass.getName());
+			if (log.isDebugEnabled()) {
+				log.debug("Can not disable user, no @UserEnabled property configured in userClass " + userClass.getName());
+			}
 			return false;
 		}
 
@@ -519,7 +536,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		}
 
 		// Can't disable an already-disabled user, return false
-		if (((Boolean) userEnabledProperty.getValue(user)) == false) {
+		if (!((Boolean) userEnabledProperty.getValue(user))) {
 			return false;
 		}
 
@@ -735,7 +752,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 	}
 
 	public boolean isRoleConditional(String role) {
-		return roleConditionalProperty.isSet() ? (Boolean) roleConditionalProperty.getValue(lookupRole(role)) : false;
+		return roleConditionalProperty.isSet() && (Boolean) roleConditionalProperty.getValue(lookupRole(role));
 	}
 
 	public Object lookupRole(String role) {
@@ -824,16 +841,16 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 	public List<String> listGrantableRoles() {
 		StringBuilder roleQuery = new StringBuilder();
 
-		roleQuery.append("select r.");
-		roleQuery.append(roleNameProperty.getName());
-		roleQuery.append(" from ");
-		roleQuery.append(roleClass.getName());
-		roleQuery.append(" r");
+		roleQuery.append("select r.")
+		.append(roleNameProperty.getName())
+		.append(" from ")
+		.append(roleClass.getName())
+		.append(" r");
 
 		if (roleConditionalProperty.isSet()) {
-			roleQuery.append(" where r.");
-			roleQuery.append(roleConditionalProperty.getName());
-			roleQuery.append(" = false");
+			roleQuery.append(" where r.")
+			.append(roleConditionalProperty.getName())
+			.append(" = false");
 		}
 
 		return lookupEntityManager().createQuery(roleQuery.toString()).getResultList();

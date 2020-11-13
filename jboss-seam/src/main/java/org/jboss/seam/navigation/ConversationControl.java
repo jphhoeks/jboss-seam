@@ -26,6 +26,10 @@ public class ConversationControl {
 	private ValueExpression<Boolean> beginConversationCondition;
 	private ValueExpression<Boolean> endConversationCondition;
 	private String conversationName;
+	
+	public ConversationControl() {
+		super();
+	}
 
 	public boolean isBeginConversation() {
 		return isBeginConversation;

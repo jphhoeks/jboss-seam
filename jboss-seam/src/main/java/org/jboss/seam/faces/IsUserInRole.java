@@ -22,6 +22,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Name("org.jboss.seam.web.isUserInRole")
 @Install(precedence = FRAMEWORK, classDependencies = "javax.faces.context.FacesContext")
 public class IsUserInRole extends org.jboss.seam.web.IsUserInRole {
+	public IsUserInRole() {
+		super();
+	}
+	
 	@Override
 	protected Boolean isUserInRole(String role) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();

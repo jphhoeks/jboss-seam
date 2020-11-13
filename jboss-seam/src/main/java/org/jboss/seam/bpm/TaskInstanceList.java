@@ -24,6 +24,10 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
 @Scope(APPLICATION)
 @Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
 public class TaskInstanceList {
+	
+	public TaskInstanceList() {
+		super();
+	}
 
 	@Unwrap
 	@Transactional
@@ -32,8 +36,9 @@ public class TaskInstanceList {
 	}
 
 	private List<TaskInstance> getTaskInstanceList(String actorId) {
-		if (actorId == null)
+		if (actorId == null) {
 			return null;
+		}
 
 		return ManagedJbpmContext.instance().getTaskList(actorId);
 	}

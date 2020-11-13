@@ -27,6 +27,10 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
 @Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
 public class TaskInstanceListForType {
 
+	public TaskInstanceListForType() {
+		super();
+	}
+	
 	@Unwrap
 	@Transactional
 	public Map<String, List<TaskInstance>> getTaskInstanceList() {
@@ -34,8 +38,9 @@ public class TaskInstanceListForType {
 	}
 
 	private Map<String, List<TaskInstance>> getTaskInstanceList(String actorId) {
-		if (actorId == null)
+		if (actorId == null) {
 			return null;
+		}
 
 		Map<String, List<TaskInstance>> map = new HashMap<String, List<TaskInstance>>();
 		List<TaskInstance> taskInstances = ManagedJbpmContext.instance().getTaskList(actorId);

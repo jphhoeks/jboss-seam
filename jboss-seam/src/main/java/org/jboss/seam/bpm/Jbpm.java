@@ -71,6 +71,15 @@ public class Jbpm {
 	private String[] pageflowDefinitions;
 	private Map<String, ProcessDefinition> pageflowProcessDefinitions = new HashMap<String, ProcessDefinition>();
 
+	private static final DbSubProcessResolver DB_SUB_PROCESS_RESOLVER = new DbSubProcessResolver();
+	
+	public static JbpmConfiguration pageflowConfiguration = JbpmConfiguration.parseResource("org/jboss/seam/bpm/jbpm.pageflow.cfg.xml");
+	
+	
+	public Jbpm () {
+		super();
+	}
+	
 	@Create
 	public void startup() throws Exception {
 		log.debug("Starting jBPM");
@@ -111,7 +120,7 @@ public class Jbpm {
 		DbPersistenceServiceFactory dbpsf = (DbPersistenceServiceFactory) jbpmConfiguration.getServiceFactory("persistence");
 		if (Naming.getInitialContextProperties() != null) {
 			// Prefix regular JNDI properties for Hibernate
-			Hashtable<String, String> hash = Naming.getInitialContextProperties();
+			Map<String, String> hash = Naming.getInitialContextProperties();
 			Properties prefixed = new Properties();
 			for (Map.Entry<String, String> entry : hash.entrySet()) {
 				prefixed.setProperty(Environment.JNDI_PREFIX + "." + entry.getKey(), entry.getValue());
@@ -120,7 +129,9 @@ public class Jbpm {
 			try {
 				dbpsf.getJbpmHibernateConfiguration().getConfigurationProxy().getProperties().putAll(prefixed);
 			} catch (HibernateException he) {
-				log.warn("could not set JNDI properties for jBPM persistence: " + he.getMessage());
+				if (log.isWarnEnabled()) {
+					log.warn("could not set JNDI properties for jBPM persistence: " + he.getMessage());
+				}
 			}
 		}
 	}
@@ -134,29 +145,30 @@ public class Jbpm {
 	}
 
 	public static ProcessDefinition getPageflowDefinitionFromResource(String resourceName) {
-		InputStream resource = ResourceLoader.instance().getResourceAsStream(resourceName);
-		if (resource == null) {
-			throw new IllegalArgumentException("pageflow resource not found: " + resourceName);
-		}
+		InputStream resource = null;
 		try {
+			resource = ResourceLoader.instance().getResourceAsStream(resourceName);
+			if (resource == null) {
+				throw new IllegalArgumentException("pageflow resource not found: " + resourceName);
+			}
 			return Jbpm.parseInputSource(new InputSource(resource));
 		} catch (JpdlException e) {
 			throw new JpdlException("Unable to parse process definition " + resourceName, e);
 		} finally {
-			Resources.closeStream(resource);
+			Resources.close(resource);
 		}
 	}
 
 	public ProcessDefinition getProcessDefinitionFromResource(String resourceName) {
-		InputStream resource = ResourceLoader.instance().getResourceAsStream(resourceName);
-		if (resource == null) {
-			throw new IllegalArgumentException("process definition resource not found: " + resourceName);
-		}
-
+		InputStream resource = null;
 		try {
+			resource = ResourceLoader.instance().getResourceAsStream(resourceName);
+			if (resource == null) {
+				throw new IllegalArgumentException("process definition resource not found: " + resourceName);
+			}
 			return ProcessDefinition.parseXmlInputStream(resource);
 		} finally {
-			Resources.closeStream(resource);
+			Resources.close(resource);
 		}
 	}
 
@@ -195,10 +207,9 @@ public class Jbpm {
 		Reader reader = null;
 		try {
 			reader = new StringReader(pageflowDefinition);
-			//stream = new ReaderInputStream(new StringReader(pageflowDefinition));
 			return Jbpm.parseReaderSource(reader);
 		} finally {
-			Resources.closeReader(reader);
+			Resources.close(reader);
 		}
 	}
 
@@ -211,11 +222,10 @@ public class Jbpm {
 		//InputStream stream = null;
 		Reader reader = null;
 		try {
-			//stream = new ReaderInputStream(new StringReader(processDefinition));
 			reader = new StringReader(processDefinition);
 			return ProcessDefinition.parseXmlReader(reader);
 		} finally {
-			Resources.closeReader(reader);
+			Resources.close(reader);
 		}
 	}
 
@@ -293,7 +303,7 @@ public class Jbpm {
 		this.jbpmConfigurationJndiName = jbpmConfigurationJndiName;
 	}
 
-	public static JbpmConfiguration pageflowConfiguration = JbpmConfiguration.parseResource("org/jboss/seam/bpm/jbpm.pageflow.cfg.xml");
+
 
 	public static JbpmContext createPageflowContext() {
 		return pageflowConfiguration.createJbpmContext();
@@ -317,11 +327,14 @@ public class Jbpm {
 		}
 	}
 
-	private static final DbSubProcessResolver DB_SUB_PROCESS_RESOLVER = new DbSubProcessResolver();
 
 	class SeamSubProcessResolver implements SubProcessResolver {
 		private static final long serialVersionUID = 1L;
 
+		public SeamSubProcessResolver() {
+			super();
+		}
+		
 		@Override
 		public ProcessDefinition findSubProcess(Element element) {
 			String subProcessName = element.attributeValue("name");

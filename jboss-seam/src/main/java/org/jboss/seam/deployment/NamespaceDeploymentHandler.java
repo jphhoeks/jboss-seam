@@ -32,6 +32,7 @@ public class NamespaceDeploymentHandler extends AbstractDeploymentHandler {
 	private Set<Package> packages;
 
 	public NamespaceDeploymentHandler() {
+		super();
 		packages = new HashSet<Package>();
 	}
 
@@ -48,7 +49,9 @@ public class NamespaceDeploymentHandler extends AbstractDeploymentHandler {
 			String packageName = filenameToPackageName(fileDescriptor.getName());
 			Package pkg = getPackage(packageName, classLoader);
 			if (pkg == null) {
-				log.warn("Cannot load package info for " + packageName);
+				if (log.isWarnEnabled()) {
+					log.warn("Cannot load package info for " + packageName);
+				}
 			} else {
 				if (pkg.getAnnotation(Namespace.class) != null) {
 					packages.add(pkg);

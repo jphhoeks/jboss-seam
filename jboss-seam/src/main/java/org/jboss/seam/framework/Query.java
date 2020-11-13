@@ -14,6 +14,7 @@ import org.jboss.seam.core.Expressions;
 import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.faces.DataModels;
 import org.jboss.seam.persistence.QueryParser;
+import org.jboss.seam.util.Strings;
 
 /**
  * Base class for components which manage a query
@@ -72,6 +73,10 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 
 	public abstract Long getResultCount();
 
+	public Query() {
+		super();
+	}
+	
 	@Create
 	public void validate() {
 		if (getEjbql() == null) {
@@ -243,7 +248,6 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 		return builder.toString();
 	}
 
-	@SuppressWarnings("rawtypes")
 	protected boolean isRestrictionParameterSet(Object parameterValue) {
 		return parameterValue != null && !"".equals(parameterValue)
 				&& (parameterValue instanceof Collection ? !((Collection) parameterValue).isEmpty() : true);
@@ -439,7 +443,7 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 	}
 
 	private String sanitizeOrderDirection(String direction) {
-		if (direction == null || direction.length() == 0) {
+		if (Strings.isEmpty(direction)) {
 			return null;
 		} else if (direction.equalsIgnoreCase(DIR_ASC)) {
 			return DIR_ASC;
@@ -459,7 +463,7 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 	}
 
 	private String sanitizeOrderColumn(String columnName) {
-		if (columnName == null || columnName.trim().length() == 0) {
+		if (Strings.isEmpty(columnName)) {
 			return null;
 		} else if (ORDER_COLUMN_PATTERN.matcher(columnName).find()) {
 			return columnName;
@@ -497,16 +501,19 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 	}
 
 	private static boolean isAnyParameterDirty(List<ValueExpression<?>> valueBindings, List<Object> lastParameterValues) {
-		if (lastParameterValues == null)
+		if (lastParameterValues == null) {
 			return true;
+		}
 		for (int i = 0; i < valueBindings.size(); i++) {
 			Object parameterValue = valueBindings.get(i).getValue();
 			Object lastParameterValue = lastParameterValues.get(i);
 			//treat empty strings as null, for consistency with isRestrictionParameterSet()
-			if ("".equals(parameterValue))
+			if ("".equals(parameterValue)) {
 				parameterValue = null;
-			if ("".equals(lastParameterValue))
+			}
+			if ("".equals(lastParameterValue)) {
 				lastParameterValue = null;
+			}
 			if (parameterValue != lastParameterValue && (parameterValue == null || !parameterValue.equals(lastParameterValue))) {
 				return true;
 			}

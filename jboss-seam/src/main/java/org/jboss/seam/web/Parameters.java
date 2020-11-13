@@ -26,10 +26,15 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Scope(ScopeType.STATELESS)
 @Install(precedence = BUILT_IN)
 public class Parameters {
+	
+	public Parameters() {
+		super();
+	}
 
 	protected Object convertRequestParameter(String requestParameter, Class<?> type) {
-		if (String.class.equals(type))
+		if (String.class.equals(type)) {
 			return requestParameter;
+		}
 		throw new IllegalArgumentException("No converters available");
 	}
 

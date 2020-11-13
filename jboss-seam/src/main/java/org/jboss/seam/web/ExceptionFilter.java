@@ -55,6 +55,10 @@ public class ExceptionFilter extends AbstractFilter {
 
 	private static final LogProvider log = Logging.getLogProvider(ExceptionFilter.class);
 
+	public ExceptionFilter() {
+		super();
+	}
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		try {
@@ -101,10 +105,8 @@ public class ExceptionFilter extends AbstractFilter {
 		try {
 			rollbackTransactionIfNecessary();
 			Exceptions.instance().handle(e);
-		} catch (ServletException se) {
+		} catch (ServletException | IOException se) {
 			throw se;
-		} catch (IOException ioe) {
-			throw ioe;
 		} catch (Exception ehe) {
 			throw new ServletException(ehe);
 		} finally {

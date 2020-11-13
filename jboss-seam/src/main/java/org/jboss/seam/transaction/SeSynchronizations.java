@@ -27,6 +27,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 public class SeSynchronizations implements Synchronizations {
 	protected Stack<SynchronizationRegistry> synchronizations = new Stack<SynchronizationRegistry>();
 
+	public SeSynchronizations() {
+		super();
+	}
+	
 	@Override
 	public void afterTransactionBegin() {
 		synchronizations.push(new SynchronizationRegistry());

@@ -25,6 +25,10 @@ import org.jboss.seam.core.Init;
  *
  */
 public class SeamELResolver extends ELResolver {
+	
+	public SeamELResolver() {
+		super();
+	}
 
 	@Override
 	public Class getCommonPropertyType(ELContext context, Object base) {
@@ -226,6 +230,7 @@ public class SeamELResolver extends ELResolver {
 
 	@Override
 	public void setValue(ELContext context, Object base, Object property, Object value) {
+		//
 	}
 
 }

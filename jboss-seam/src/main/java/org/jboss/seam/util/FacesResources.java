@@ -16,7 +16,8 @@ public class FacesResources {
 			if (context != null) {
 				stream = context.getResourceAsStream(resource);
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
+			//
 		}
 
 		if (stream == null) {
@@ -35,7 +36,8 @@ public class FacesResources {
 			if (context != null) {
 				url = context.getResource(resource);
 			}
-		} catch (Exception e) {
+		} catch (Exception ignored) {
+			//
 		}
 
 		if (url == null) {

@@ -38,6 +38,10 @@ public class Redirect extends AbstractMutable implements Serializable {
 	private boolean conversationPropagationEnabled = true;
 	private boolean conversationBegun;
 
+	public Redirect() {
+		super();
+	}
+	
 	/**
 	* Get the JSF view id to redirect to
 	*/
@@ -101,8 +105,9 @@ public class Redirect extends AbstractMutable implements Serializable {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		// If this isn't a faces request then just return
-		if (context == null)
+		if (context == null) {
 			return;
+		}
 
 		// first capture all request parameters
 		parameters.putAll(context.getExternalContext().getRequestParameterMap());

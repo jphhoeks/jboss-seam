@@ -30,6 +30,10 @@ public class RemoveInterceptor extends AbstractInterceptor {
 
 	private static final LogProvider log = Logging.getLogProvider(RemoveInterceptor.class);
 
+	public RemoveInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {

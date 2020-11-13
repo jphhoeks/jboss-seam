@@ -22,6 +22,7 @@ public class TransactionCompletionEvent extends AsynchronousEvent implements Syn
 
 	@Override
 	public void beforeCompletion() {
+		//
 	}
 
 	@Override

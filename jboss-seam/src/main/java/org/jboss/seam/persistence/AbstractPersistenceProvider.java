@@ -20,6 +20,10 @@ import org.jboss.seam.Entity;
  */
 public abstract class AbstractPersistenceProvider {
 
+	protected AbstractPersistenceProvider() {
+		super();
+	}
+	
 	/**
 	*  Set the flush mode to manual-only flushing. Called when
 	*  an atomic persistence context is required.

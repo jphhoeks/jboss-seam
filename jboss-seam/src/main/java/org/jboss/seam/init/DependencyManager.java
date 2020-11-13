@@ -109,11 +109,9 @@ public class DependencyManager {
 		for (String className : classDependencies) {
 			try {
 				descriptor.getComponentClass().getClassLoader().loadClass(className);
-			} catch (LinkageError e) {
+			} catch (LinkageError | Exception e) {
 				return false;
-			} catch (Exception e) {
-				return false;
-			}
+			} 
 		}
 
 		return true;

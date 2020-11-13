@@ -24,6 +24,10 @@ public class AsynchronousInterceptor extends AbstractInterceptor {
 
 	private static final String REENTRANT = "org.jboss.seam.async.AsynchronousIntercepter.REENTRANT";
 
+	public AsynchronousInterceptor() {
+		super();
+	}
+	
 	@AroundInvoke
 	@Override
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {

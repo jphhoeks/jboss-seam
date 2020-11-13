@@ -6,6 +6,10 @@ import java.util.List;
 public class Sorter<T> {
 
 	private List<SortItem<T>> list = null; // new ArrayList();
+	
+	public Sorter() {
+		super();
+	}
 
 	public List<SortItem<T>> sort(List<SortItem<T>> lst) {
 

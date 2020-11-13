@@ -27,6 +27,10 @@ public class Validation {
 
 	private boolean succeeded;
 	private boolean failed;
+	
+	public Validation() {
+		super();
+	}
 
 	public static Validation instance() {
 		if (!Contexts.isEventContextActive()) {

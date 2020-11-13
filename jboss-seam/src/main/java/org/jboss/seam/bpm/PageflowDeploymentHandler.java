@@ -18,18 +18,19 @@ import org.jboss.seam.util.XML;
 public class PageflowDeploymentHandler extends AbstractDeploymentHandler {
 
 	private static DeploymentMetadata NAMESPACE_METADATA = new DeploymentMetadata() {
-
 		@Override
 		public String getFileNameSuffix() {
 			return ".jpdl.xml";
 		}
-
 	};
 
 	private static LogProvider log = Logging.getLogProvider(PageflowDeploymentHandler.class);
 
 	public static final String NAME = "org.jboss.seam.bpm.PageflowDeploymentHandler";
 
+	public PageflowDeploymentHandler() {
+		super();
+	}
 	@Override
 	public String getName() {
 		return NAME;
@@ -40,20 +41,24 @@ public class PageflowDeploymentHandler extends AbstractDeploymentHandler {
 		Set<FileDescriptor> files = new HashSet<FileDescriptor>();
 		for (FileDescriptor fileDescriptor : getResources()) {
 			try {
-				InputStream inputStream = fileDescriptor.getUrl().openStream();
+				InputStream inputStream = null;
 				try {
-
+					inputStream = fileDescriptor.getUrl().openStream();
 					Element root = XML.getRootElementSafely(inputStream);
 					if ("pageflow-definition".equals(root.getName())) {
 						files.add(fileDescriptor);
 					}
 				} catch (DocumentException e) {
-					log.debug("Unable to parse " + fileDescriptor.getName(), e);
+					if (log.isDebugEnabled()) {
+						log.debug("Unable to parse " + fileDescriptor.getName(), e);
+					}
 				} finally {
-					Resources.closeStream(inputStream);
+					Resources.close(inputStream);
 				}
 			} catch (IOException e) {
-				log.trace("Error loading " + fileDescriptor.getName());
+				if (log.isTraceEnabled()) {
+					log.trace("Error loading " + fileDescriptor.getName());
+				}
 			}
 
 		}

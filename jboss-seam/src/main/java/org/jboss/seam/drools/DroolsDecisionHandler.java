@@ -3,6 +3,7 @@ package org.jboss.seam.drools;
 import java.util.List;
 
 import org.drools.WorkingMemory;
+import org.jboss.seam.util.Strings;
 import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.graph.node.DecisionHandler;
 
@@ -22,11 +23,15 @@ public class DroolsDecisionHandler extends DroolsHandler implements DecisionHand
 	public String workingMemoryName;
 	public String startProcessId;
 
+	public DroolsDecisionHandler() {
+		super();
+	}
+	
 	@Override
 	public String decide(ExecutionContext executionContext) throws Exception {
 		WorkingMemory workingMemory = getWorkingMemory(workingMemoryName, assertObjects, retractObjects, executionContext);
 		workingMemory.setGlobal("decision", new Decision());
-		if (startProcessId != null && startProcessId.trim().length() > 0) {
+		if (!Strings.isEmpty(startProcessId)) {
 			workingMemory.startProcess(startProcessId);
 		}
 		workingMemory.fireAllRules();

@@ -34,6 +34,7 @@ public abstract class AbstractDeploymentHandler implements DeploymentHandler {
 
 	@Override
 	public void postProcess(ClassLoader classLoader) {
+		//
 	}
 
 }

@@ -22,4 +22,7 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Install(precedence = BUILT_IN, value = false)
 @BypassInterceptors
 public class EjbTransaction {
+	public EjbTransaction() {
+		super();
+	}
 }

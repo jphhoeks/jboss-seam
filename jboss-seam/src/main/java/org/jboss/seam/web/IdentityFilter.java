@@ -29,6 +29,10 @@ import org.jboss.seam.annotations.web.Filter;
 @BypassInterceptors
 @Filter(within = { "org.jboss.seam.web.multipartFilter" })
 public class IdentityFilter extends AbstractFilter {
+	
+	public IdentityFilter() {
+		super();
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

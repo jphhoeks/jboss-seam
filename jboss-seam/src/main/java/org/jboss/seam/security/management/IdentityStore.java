@@ -51,8 +51,9 @@ public interface IdentityStore {
 		}
 
 		public void enableAll() {
-			for (Feature f : Feature.values())
+			for (Feature f : Feature.values()) {
 				addFeature(f);
+			}
 		}
 	}
 

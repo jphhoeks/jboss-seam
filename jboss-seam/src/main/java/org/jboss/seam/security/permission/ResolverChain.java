@@ -21,6 +21,10 @@ public class ResolverChain implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<PermissionResolver> resolvers = new ArrayList<PermissionResolver>();
 
+	public ResolverChain() {
+		super();
+	}
+	
 	public List<PermissionResolver> getResolvers() {
 		return resolvers;
 	}

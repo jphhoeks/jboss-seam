@@ -49,6 +49,7 @@ public class EnumDeploymentHandler extends AbstractDeploymentHandler {
 	private Set<Class<? extends Enum<?>>> enums;
 
 	public EnumDeploymentHandler() {
+		super();
 		enums = new HashSet<Class<? extends Enum<?>>>();
 	}
 

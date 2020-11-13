@@ -29,6 +29,10 @@ public class Filter implements Serializable {
 	private Map<String, ValueExpression> parameters = new HashMap<String, ValueExpression>();
 	private ValueExpression enabled;
 
+	public Filter() {
+		super();
+	}
+	
 	@Create
 	public void create(Component component) {
 		//default the filter name to the component name

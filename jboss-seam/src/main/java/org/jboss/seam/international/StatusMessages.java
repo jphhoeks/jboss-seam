@@ -33,6 +33,10 @@ public abstract class StatusMessages implements Serializable {
 
 	private transient List<Runnable> tasks;
 
+	public StatusMessages() {
+		super();
+	}
+	
 	protected List<StatusMessage> getMessages() {
 		return messages;
 	}
@@ -350,8 +354,9 @@ public abstract class StatusMessages implements Serializable {
 
 	protected void doRunTasks() {
 		if (tasks != null) {
-			for (Runnable task : tasks)
+			for (Runnable task : tasks) {
 				task.run();
+			}
 			tasks.clear();
 		}
 	}

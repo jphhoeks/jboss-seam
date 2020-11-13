@@ -42,6 +42,11 @@ import org.jboss.seam.util.Strings;
 @BypassInterceptors
 @Filter(within = "org.jboss.seam.web.ajax4jsfFilter", around = "org.jboss.seam.web.exceptionFilter")
 public class RedirectFilter extends AbstractFilter {
+	
+	public RedirectFilter() {
+		super();
+	}
+	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		RedirectFilterHttpResponseWrapper r = new RedirectFilterHttpResponseWrapper((HttpServletResponse) response);

@@ -13,6 +13,10 @@ import org.jboss.seam.security.SecurityInterceptor;
 @Interceptor(stateless = true, type = InterceptorType.SERVER, around = AsynchronousInterceptor.class)
 public class WSSecurityInterceptor extends SecurityInterceptor {
 	private static final long serialVersionUID = 4096942998268335354L;
+	
+	public WSSecurityInterceptor() {
+		super();
+	}
 
 	@Override
 	public boolean isInterceptorEnabled() {

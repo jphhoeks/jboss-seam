@@ -18,6 +18,7 @@ public final class RenderNavigationHandler extends NavigationHandler {
 	private final String control;
 
 	public RenderNavigationHandler(ValueExpression<String> viewId, String message, Severity severity, String control) {
+		super();
 		this.viewId = viewId;
 		this.message = message;
 		this.severity = severity;

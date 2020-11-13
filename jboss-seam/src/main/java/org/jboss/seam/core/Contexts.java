@@ -26,6 +26,10 @@ import org.jboss.seam.contexts.Context;
 @Install(precedence = BUILT_IN)
 @Scope(ScopeType.STATELESS)
 public class Contexts {
+	
+	public Contexts() {
+		super();
+	}
 
 	@Factory(value = "org.jboss.seam.core.eventContext", autoCreate = true)
 	public Context getEventContext() {

@@ -63,6 +63,7 @@ public class HotDeploymentStrategy extends DeploymentStrategy {
 	* components are placed
 	*/
 	public HotDeploymentStrategy(ClassLoader classLoader, File hotDeployDirectory, ServletContext servletContext, boolean enabled) {
+		super();
 		if (enabled) {
 			this.servletContext = servletContext;
 			this.classLoader = Thread.currentThread().getContextClassLoader();

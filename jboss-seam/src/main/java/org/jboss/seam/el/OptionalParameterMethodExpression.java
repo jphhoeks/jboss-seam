@@ -20,6 +20,7 @@ class OptionalParameterMethodExpression extends MethodExpression {
 	private MethodExpression withNoParam;
 
 	public OptionalParameterMethodExpression(MethodExpression withParam, MethodExpression withNoParam) {
+		super();
 		this.withParam = withParam;
 		this.withNoParam = withNoParam;
 	}
@@ -54,8 +55,9 @@ class OptionalParameterMethodExpression extends MethodExpression {
 
 	@Override
 	public boolean equals(Object object) {
-		if (!(object instanceof OptionalParameterMethodExpression))
+		if (!(object instanceof OptionalParameterMethodExpression)) {
 			return false;
+		}
 		OptionalParameterMethodExpression other = (OptionalParameterMethodExpression) object;
 		return withParam.equals(other.withParam);
 	}

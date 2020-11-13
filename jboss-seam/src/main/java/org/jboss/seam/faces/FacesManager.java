@@ -10,10 +10,10 @@ import static org.jboss.seam.annotations.Install.FRAMEWORK;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -51,6 +51,10 @@ public class FacesManager extends Manager {
 
 	private boolean controllingRedirect;
 
+	public FacesManager() {
+		super();
+	}
+	
 	/**
 	* Temporarily promote a temporary conversation to
 	* a long running conversation for the duration of
@@ -74,7 +78,7 @@ public class FacesManager extends Manager {
 	}
 
 	public void interpolateAndRedirect(String url) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		Map<String, Object> parameters = new ConcurrentHashMap<String, Object>();
 		int loc = url.indexOf('?');
 		if (loc > 0) {
 			StringTokenizer tokens = new StringTokenizer(url.substring(loc), "?=&");
@@ -198,7 +202,9 @@ public class FacesManager extends Manager {
 		} catch (IOException ioe) {
 			throw new RedirectException(ioe);
 		} catch (IllegalStateException ise) {
-			throw new RedirectException(ise.getMessage());
+			RedirectException re = new RedirectException(ise.getMessage());
+			re.initCause(ise);
+			throw re;
 		} finally {
 			Contexts.getEventContext().remove(REDIRECT_FROM_MANAGER);
 			controllingRedirect = false;

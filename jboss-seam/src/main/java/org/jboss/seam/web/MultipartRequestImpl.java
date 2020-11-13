@@ -19,6 +19,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -37,7 +38,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	private static final String PARAM_CONTENT_TYPE = "Content-Type";
 
 	private static final int BUFFER_SIZE = 2048;
-	private static final int MAX_BUFFER_SIZE = 16384;
+	private static final int MAX_BUFFER_SIZE = 16_384;
 	private static final int CHUNK_SIZE = 512;
 
 	private boolean createTempFiles;
@@ -45,6 +46,8 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	private String encoding = null;
 
 	private Map<String, Param> parameters = null;
+	
+	private HttpServletRequest request;
 
 	private enum ReadState {
 		BOUNDARY, HEADERS, DATA
@@ -142,7 +145,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 				fOut = new BufferedOutputStream(
 						Files.newOutputStream(tempFile.toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
 			} catch (IOException ex) {
-				throw new FileUploadException("Could not create temporary file");
+				throw new FileUploadException("Could not create temporary file", ex);
 			}
 		}
 
@@ -175,7 +178,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 					byte[] data = Files.readAllBytes(tempFile.toPath());
 					tempFile.delete();
 					return data;
-				} catch (IOException ex) {
+				} catch (IOException ignored) {
 					/* too bad? */
 				}
 
@@ -202,7 +205,8 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 							tempFile.delete();
 						}
 					};
-				} catch (FileNotFoundException ex) {
+				} catch (FileNotFoundException ignored) {
+					//
 				}
 			}
 
@@ -210,7 +214,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 		}
 	}
 
-	private HttpServletRequest request;
+
 
 	public MultipartRequestImpl(HttpServletRequest request, boolean createTempFiles, int maxRequestSize) {
 		super(request);
@@ -232,14 +236,14 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 		encoding = request.getCharacterEncoding();
 
 		parameters = new HashMap<String, Param>();
-
+		InputStream input = null;
 		try {
 			byte[] buffer = new byte[BUFFER_SIZE];
 			Map<String, String> headers = new HashMap<String, String>();
 
 			ReadState readState = ReadState.BOUNDARY;
 
-			InputStream input = request.getInputStream();
+			input = request.getInputStream();
 			int read = input.read(buffer);
 			int pos = 0;
 
@@ -281,8 +285,9 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 								if (paramName != null) {
 									if (headers.containsKey(PARAM_FILENAME)) {
 										FileParam fp = new FileParam(paramName);
-										if (createTempFiles)
+										if (createTempFiles) {
 											fp.createTempFile();
+										}
 										fp.setContentType(headers.get(PARAM_CONTENT_TYPE));
 										fp.setFilename(headers.get(PARAM_FILENAME));
 										p = fp;
@@ -315,8 +320,9 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 								p.appendData(buffer, pos, i - pos - boundaryMarker.length - CR_LF.length - 1);
 							}
 
-							if (p instanceof ValueParam)
+							if (p instanceof ValueParam) {
 								((ValueParam) p).complete();
+							}
 
 							if (checkSequence(buffer, i + CR_LF.length, CR_LF)) {
 								i += CR_LF.length;
@@ -379,14 +385,18 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 		} catch (IOException ex) {
 			throw new FileUploadException("IO Error parsing multipart request", ex);
 		}
+		finally {
+			Resources.close(input);
+		}
 	}
 
 	private byte[] getBoundaryMarker(String contentType) {
 		Map<String, String> params = parseParams(contentType, ";");
 		String boundaryStr = params.get("boundary");
 
-		if (boundaryStr == null)
+		if (boundaryStr == null) {
 			return null;
+		}
 
 		try {
 			return boundaryStr.getBytes("ISO-8859-1");
@@ -405,12 +415,14 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	* @return boolean indicating if the sequence was found at the specified position
 	*/
 	private boolean checkSequence(byte[] data, int pos, byte[] seq) {
-		if (pos - seq.length < -1 || pos >= data.length)
+		if (pos - seq.length < -1 || pos >= data.length) {
 			return false;
+		}
 
 		for (int i = 0; i < seq.length; i++) {
-			if (data[(pos - seq.length) + i + 1] != seq[i])
+			if (data[(pos - seq.length) + i + 1] != seq[i]) {
 				return false;
+			}
 		}
 
 		return true;
@@ -430,15 +442,17 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	}
 
 	private Param getParam(String name) {
-		if (parameters == null)
+		if (parameters == null) {
 			parseRequest();
+		}
 		return parameters.get(name);
 	}
 
 	@Override
 	public Enumeration<String> getParameterNames() {
-		if (parameters == null)
+		if (parameters == null) {
 			parseRequest();
+		}
 
 		return Collections.enumeration(parameters.keySet());
 	}
@@ -446,19 +460,19 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	@Override
 	public byte[] getFileBytes(String name) {
 		Param p = getParam(name);
-		return (p != null && p instanceof FileParam) ? ((FileParam) p).getData() : null;
+		return (p instanceof FileParam) ? ((FileParam) p).getData() : null;
 	}
 
 	@Override
 	public InputStream getFileInputStream(String name) {
 		Param p = getParam(name);
-		return (p != null && p instanceof FileParam) ? ((FileParam) p).getInputStream() : null;
+		return (p instanceof FileParam) ? ((FileParam) p).getInputStream() : null;
 	}
 
 	@Override
 	public String getFileContentType(String name) {
 		Param p = getParam(name);
-		return (p != null && p instanceof FileParam) ? ((FileParam) p).getContentType() : null;
+		return (p instanceof FileParam) ? ((FileParam) p).getContentType() : null;
 	}
 
 	@Override
@@ -470,17 +484,18 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	@Override
 	public int getFileSize(String name) {
 		Param p = getParam(name);
-		return (p != null && p instanceof FileParam) ? ((FileParam) p).getFileSize() : -1;
+		return (p instanceof FileParam) ? ((FileParam) p).getFileSize() : -1;
 	}
 
 	@Override
 	public String getParameter(String name) {
 		Param p = getParam(name);
-		if (p != null && p instanceof ValueParam) {
+		if (p instanceof ValueParam) {
 			ValueParam vp = (ValueParam) p;
-			if (vp.getValue() instanceof String)
+			if (vp.getValue() instanceof String) {
 				return (String) vp.getValue();
-		} else if (p != null && p instanceof FileParam) {
+			}
+		} else if (p instanceof FileParam) {
 			return "---BINARY DATA---";
 		} else {
 			return super.getParameter(name);
@@ -492,7 +507,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	@Override
 	public String[] getParameterValues(String name) {
 		Param p = getParam(name);
-		if (p != null && p instanceof ValueParam) {
+		if (p instanceof ValueParam) {
 			ValueParam vp = (ValueParam) p;
 			if (vp.getValue() instanceof List) {
 				List vals = (List) vp.getValue();
@@ -509,10 +524,11 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 
 	@Override
 	public Map<String, String[]> getParameterMap() {
-		if (parameters == null)
+		if (parameters == null) {
 			parseRequest();
+		}
 
-		Map<String, String[]> params = new HashMap<String, String[]>(super.getParameterMap());
+		Map<String, String[]> params = new ConcurrentHashMap<String, String[]>(super.getParameterMap());
 
 		for (String name : parameters.keySet()) {
 			Param p = parameters.get(name);

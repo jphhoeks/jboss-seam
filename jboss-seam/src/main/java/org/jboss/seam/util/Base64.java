@@ -497,8 +497,9 @@ public class Base64 {
 				gzos = new GZIPOutputStream(b64os);
 				oos = new ObjectOutputStream(gzos);
 			} // end if: gzip
-			else
+ else {
 				oos = new ObjectOutputStream(b64os);
+			}
 
 			oos.writeObject(serializableObject);
 		} // end try
@@ -778,15 +779,18 @@ public class Base64 {
 						b4Posn = 0;
 
 						// If that was the equals sign, break out of 'for' loop
-						if (sbiCrop == EQUALS_SIGN)
+						if (sbiCrop == EQUALS_SIGN) {
 							break;
+						}
 					} // end if: quartet built
 
 				} // end if: equals sign or better
 
 			} // end if: white space, equals sign or better
 			else {
-				log.warn("Bad Base64 input character at " + i + ": " + source[i] + "(decimal)");
+				if (log.isWarnEnabled()) {
+					log.warn("Bad Base64 input character at " + i + ": " + source[i] + "(decimal)");
+				}
 				return null;
 			} // end else: 
 		} // each input character
@@ -914,21 +918,22 @@ public class Base64 {
 	 */
 	public static boolean encodeToFile(byte[] dataToEncode, String filename) {
 		Base64.OutputStream bos = null;
+		java.io.OutputStream  os = null;
 		try {
-			java.io.OutputStream os = new BufferedOutputStream(
+			os = new BufferedOutputStream(
 					Files.newOutputStream(new File(filename).toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
 			bos = new Base64.OutputStream(os, Base64.ENCODE);
 			bos.write(dataToEncode);
-		} // end try
+		} 
 		catch (IOException e) {
 			throw new UncheckedIOException(e);
-		} // end catch: IOException
+		} 
 		finally {
-			Resources.close(bos);
-		} // end finally
+			Resources.close(bos, os);
+		} 
 
 		return true;
-	} // end encodeToFile
+	} 
 
 	/**
 	 * Convenience method for decoding data to a file.
@@ -984,8 +989,9 @@ public class Base64 {
 			bis = new Base64.InputStream(new java.io.BufferedInputStream(Files.newInputStream(file.toPath())), Base64.DECODE);
 
 			// Read until done
-			while ((numBytes = bis.read(buffer, length, 4096)) >= 0)
+			while ((numBytes = bis.read(buffer, length, 4096)) >= 0) {
 				length += numBytes;
+			}
 
 			// Save in a variable to return
 			decodedData = new byte[length];
@@ -1181,8 +1187,9 @@ public class Base64 {
 						} // end try: read
 						catch (IOException e) {
 							// Only a problem if we got no data at all.
-							if (i == 0)
+							if (i == 0) {
 								throw e;
+							}
 
 						} // end catch
 					} // end for: each needed input byte
@@ -1209,7 +1216,9 @@ public class Base64 {
 						} while (b >= 0 && decodabet[b & 0x7f] <= WHITE_SPACE_ENC);
 
 						if (b < 0)
+						 {
 							break; // Reads a -1 if end of stream
+						}
 
 						b4[i] = (byte) b;
 					} // end for: each needed input byte
@@ -1232,8 +1241,9 @@ public class Base64 {
 			// Got data?
 			if (position >= 0) {
 				// End of relevant data?
-				if ( /*!encode &&*/ position >= numSigBytes)
+				if ( /*!encode &&*/ position >= numSigBytes) {
 					return -1;
+				}
 
 				if (encode && breakLines && lineLength >= MAX_LINE_LENGTH) {
 					lineLength = 0;
@@ -1246,8 +1256,9 @@ public class Base64 {
 
 					int b = buffer[position++];
 
-					if (position >= bufferLength)
+					if (position >= bufferLength) {
 						position = -1;
+					}
 
 					return b & 0xFF; // This is how you "cast" a byte that's
 										// intended to be unsigned.
@@ -1283,12 +1294,14 @@ public class Base64 {
 				//if( b < 0 && i == 0 )
 				//    return -1;
 
-				if (b >= 0)
+				if (b >= 0) {
 					dest[off + i] = (byte) b;
-				else if (i == 0)
+				} else if (i == 0) {
 					return -1;
-				else
+				}
+				else {
 					break; // Out of 'for' loop
+				}
 			} // end for: each byte read
 			return i;
 		} // end read

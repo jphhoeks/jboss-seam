@@ -28,6 +28,10 @@ public class RoleSearch implements Serializable {
 
 	@In
 	IdentityManager identityManager;
+	
+	public RoleSearch() {
+		super();
+	}
 
 	public void loadRoles() {
 		roles = identityManager.listRoles();
@@ -36,8 +40,9 @@ public class RoleSearch implements Serializable {
 	public String getRoleGroups(String role) {
 		List<String> roles = identityManager.getRoleGroups(role);
 
-		if (roles == null)
+		if (roles == null) {
 			return "";
+		}
 
 		StringBuilder sb = new StringBuilder();
 

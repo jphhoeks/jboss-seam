@@ -15,6 +15,7 @@ public class AsynchronousEvent extends Asynchronous {
 	private Object[] parameters;
 
 	public AsynchronousEvent(String type, Object[] parameters) {
+		super();
 		this.type = type;
 		this.parameters = parameters;
 	}

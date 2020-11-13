@@ -6,10 +6,10 @@
  */
 package org.jboss.seam.contexts;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -32,7 +32,7 @@ public class BusinessProcessContext implements Context {
 
 	private static final LogProvider log = Logging.getLogProvider(BusinessProcessContext.class);
 
-	private final Map<String, Object> additions = new HashMap<String, Object>();
+	private final Map<String, Object> additions = new ConcurrentHashMap<String, Object>();
 	private final Set<String> removals = new HashSet<String>();
 	private final boolean enabled;
 
@@ -54,10 +54,12 @@ public class BusinessProcessContext implements Context {
 	public Object get(String name) {
 
 		Object result = additions.get(name);
-		if (result != null)
+		if (result != null) {
 			return result;
-		if (removals.contains(name))
+		}
+		if (removals.contains(name)) {
 			return null;
+		}
 
 		org.jbpm.taskmgmt.exe.TaskInstance taskInstance = getTaskInstance();
 		if (taskInstance == null) {
@@ -71,8 +73,9 @@ public class BusinessProcessContext implements Context {
 
 	@Override
 	public void set(String name, Object value) {
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
+		}
 		if (value == null) {
 			//yes, we need this
 			remove(name);
@@ -80,8 +83,9 @@ public class BusinessProcessContext implements Context {
 			removals.remove(name);
 			additions.put(name, value);
 		}
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
+		}
 	}
 
 	@Override
@@ -91,12 +95,14 @@ public class BusinessProcessContext implements Context {
 
 	@Override
 	public void remove(String name) {
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
+		}
 		additions.remove(name);
 		removals.add(name);
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
+		}
 	}
 
 	@Override
@@ -107,7 +113,7 @@ public class BusinessProcessContext implements Context {
 		return results.toArray(new String[] {});
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "unchecked" })
 	private Set<String> getNamesFromContext() {
 		//TODO: note that this is called from Contexts.destroy(), 
 		//      after the Seam-managed txn was committed, but 
@@ -168,7 +174,9 @@ public class BusinessProcessContext implements Context {
 	}
 
 	private void flushToTaskInstance(org.jbpm.taskmgmt.exe.TaskInstance taskInstance) {
-		log.debug("flushing to task instance: " + taskInstance.getId());
+		if (log.isDebugEnabled()) {
+			log.debug("flushing to task instance: " + taskInstance.getId());
+		}
 
 		for (Map.Entry<String, Object> entry : additions.entrySet()) {
 			taskInstance.setVariableLocally(entry.getKey(), entry.getValue());
@@ -180,7 +188,9 @@ public class BusinessProcessContext implements Context {
 	}
 
 	private void flushToProcessInstance(org.jbpm.graph.exe.ProcessInstance processInstance) {
-		log.debug("flushing to process instance: " + processInstance.getId());
+		if (log.isDebugEnabled()) {
+			log.debug("flushing to process instance: " + processInstance.getId());
+		}
 
 		ContextInstance contextInstance = processInstance.getContextInstance();
 

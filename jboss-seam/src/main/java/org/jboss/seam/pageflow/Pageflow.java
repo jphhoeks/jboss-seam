@@ -56,6 +56,10 @@ public class Pageflow extends AbstractMutable implements Serializable {
 
 	private ProcessInstance processInstance;
 
+	public Pageflow() {
+		super();
+	}
+	
 	public boolean isInProcess() {
 		return processInstance != null;
 	}
@@ -148,8 +152,9 @@ public class Pageflow extends AbstractMutable implements Serializable {
 	* Get the current Node of the pageflow.
 	*/
 	public Node getNode() {
-		if (processInstance == null)
+		if (processInstance == null) {
 			return null;
+		}
 		Node node = getSubProcessInstance().getRootToken().getNode();
 		if (node == null) {
 			throw new IllegalStateException("pageflow has not yet started");
@@ -363,7 +368,7 @@ public class Pageflow extends AbstractMutable implements Serializable {
 	public String getNoConversationViewId(String pageflowName, String pageflowNodeName) {
 		ProcessDefinition pageflowProcessDefinition = getPageflowProcessDefinition(pageflowName);
 		Node node = pageflowProcessDefinition.getNode(pageflowNodeName);
-		if (node != null && node instanceof Page) {
+		if (node instanceof Page) {
 			return ((Page) node).getNoConversationViewId();
 		} else {
 			return null;
@@ -387,7 +392,9 @@ public class Pageflow extends AbstractMutable implements Serializable {
 	private static ProcessInstance createInstance(ProcessDefinition processDefinition) {
 		JbpmContext jbpmContext = Jbpm.createPageflowContext();
 		try {
-			log.debug("new pageflow instance for definition: " + processDefinition.getName());
+			if (log.isDebugEnabled()) {
+				log.debug("new pageflow instance for definition: " + processDefinition.getName());
+			}
 			return processDefinition.createProcessInstance();
 		} finally {
 			jbpmContext.close();
@@ -397,7 +404,9 @@ public class Pageflow extends AbstractMutable implements Serializable {
 	private static void signal(ProcessInstance processInstance, String outcome) {
 		JbpmContext jbpmContext = Jbpm.createPageflowContext();
 		try {
-			log.debug("signaling pageflow transition for outcome: " + outcome);
+			if (log.isDebugEnabled()) {
+				log.debug("signaling pageflow transition for outcome: " + outcome);
+			}
 			processInstance.signal(outcome);
 		} finally {
 			jbpmContext.close();

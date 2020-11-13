@@ -33,6 +33,10 @@ import org.jboss.seam.jsf.SetDataModel;
 @Scope(STATELESS)
 @BypassInterceptors
 public class DataModels {
+	
+	public DataModels() {
+		super();
+	}
 
 	/**
 	* Wrap the value in a DataModel

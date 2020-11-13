@@ -22,9 +22,11 @@ public class UnifiedELMethodBinding extends javax.faces.el.MethodBinding impleme
 	private Class[] argTypes;
 
 	public UnifiedELMethodBinding() {
+		super();
 	}
 
 	public UnifiedELMethodBinding(String expressionString, Class[] argTypes) {
+		super();
 		this.expressionString = expressionString;
 		this.argTypes = argTypes;
 	}

@@ -46,6 +46,10 @@ public class EjbSynchronizations implements LocalEjbSynchronizations, SessionSyn
 	protected LinkedList<SynchronizationRegistry> synchronizations = new LinkedList<SynchronizationRegistry>();
 	protected LinkedList<SynchronizationRegistry> committing = new LinkedList<SynchronizationRegistry>();
 
+	public EjbSynchronizations() {
+		super();
+	}
+	
 	@Override
 	public void afterBegin() {
 		log.debug("afterBegin");
@@ -107,6 +111,7 @@ public class EjbSynchronizations implements LocalEjbSynchronizations, SessionSyn
 	@Override
 	@Remove
 	public void destroy() {
+		//
 	}
 
 }

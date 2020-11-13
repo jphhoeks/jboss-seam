@@ -65,7 +65,7 @@ public class JavaBeanInterceptor extends RootInterceptor implements MethodHandle
 					callPrePassivate();
 					return (bean instanceof HttpSessionActivationListener) ? method.invoke(bean, params) : null;
 				}
-			} else if (params.length == 1 && method.getName().equals("equals")) {
+			} else if (params.length == 1 && "equals".equals(method.getName())) {
 				//make default equals() method return true when called on itself
 				//by unwrapping the proxy
 				//We don't let calling this equals make us dirty, as we assume it is without side effects
@@ -163,7 +163,7 @@ public class JavaBeanInterceptor extends RootInterceptor implements MethodHandle
 		Component comp = null;
 		try {
 			comp = getComponent();
-		} catch (IllegalStateException ise) {
+		} catch (IllegalStateException ignored) {
 			//this can occur when tomcat deserializes persistent sessions
 		}
 

@@ -70,7 +70,7 @@ public class ClientSideInterceptor extends RootInterceptor implements MethodHand
 		Component comp = null;
 		try {
 			comp = getComponent();
-		} catch (IllegalStateException ise) {
+		} catch (IllegalStateException ignored) {
 			//this can occur when tomcat deserializes persistent sessions
 		}
 

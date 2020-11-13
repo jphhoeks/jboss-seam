@@ -32,7 +32,7 @@ public class Strings {
 		}
 
 		for (int i = 0; i < len; i++) {
-			if ((Character.isWhitespace(string.charAt(i)) == false)) {
+			if (!Character.isWhitespace(string.charAt(i))) {
 				return false;
 			}
 		}
@@ -79,8 +79,9 @@ public class Strings {
 	}
 
 	public static String toString(String sep, Object... objects) {
-		if (objects.length == 0)
+		if (objects.length == 0) {
 			return "";
+		}
 		StringBuilder builder = new StringBuilder();
 		for (Object object : objects) {
 			builder.append(sep).append(object);
@@ -89,8 +90,9 @@ public class Strings {
 	}
 
 	public static String toClassNameString(String sep, Object... objects) {
-		if (objects.length == 0)
+		if (objects.length == 0) {
 			return "";
+		}
 		StringBuilder builder = new StringBuilder();
 		for (Object object : objects) {
 			builder.append(sep);
@@ -104,8 +106,9 @@ public class Strings {
 	}
 
 	public static String toString(String sep, Class<?>... classes) {
-		if (classes.length == 0)
+		if (classes.length == 0) {
 			return "";
+		}
 		StringBuilder builder = new StringBuilder();
 		for (Class<?> clazz : classes) {
 			builder.append(sep).append(clazz.getName());

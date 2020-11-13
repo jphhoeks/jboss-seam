@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.el.CompositeELResolver;
 import javax.el.ExpressionFactory;
@@ -42,7 +43,55 @@ import org.jboss.seam.jsf.SeamViewHandler;
 import org.jboss.seam.util.Reflections;
 
 public class MockApplication extends Application {
+	
+	private javax.el.CompositeELResolver elResolver;
+	private javax.el.CompositeELResolver additionalResolvers;
+	private Collection<Locale> locales;
+	private final Map<String, Validator> validatorsById = new ConcurrentHashMap<String, Validator>();
+	
+	private NavigationHandler navigationHandler = new SeamNavigationHandler(new MockNavigationHandler());
+	private Locale defaultLocale = Locale.ENGLISH;
+	private StateManager stateManager = new SeamStateManager(new MockStateManager());
+	private ViewHandler viewHandler = new SeamViewHandler(new MockViewHandler());
+	
+	
+	private final Map<Class<?>, Converter> converters = new HashMap<Class<?>, Converter>();
+	{
+		converters.put(Integer.class, new IntegerConverter());
+		converters.put(Long.class, new LongConverter());
+		converters.put(Float.class, new FloatConverter());
+		converters.put(Double.class, new DoubleConverter());
+		converters.put(Boolean.class, new BooleanConverter());
+		converters.put(Short.class, new ShortConverter());
+		converters.put(Byte.class, new ByteConverter());
+		converters.put(Character.class, new CharacterConverter());
+		converters.put(BigDecimal.class, new BigDecimalConverter());
+		converters.put(BigInteger.class, new BigIntegerConverter());
+	}
 
+	private final Map<String, Converter> convertersById = new HashMap<String, Converter>();
+	{
+		convertersById.put(IntegerConverter.CONVERTER_ID, new IntegerConverter());
+		convertersById.put(LongConverter.CONVERTER_ID, new LongConverter());
+		convertersById.put(FloatConverter.CONVERTER_ID, new FloatConverter());
+		convertersById.put(DoubleConverter.CONVERTER_ID, new DoubleConverter());
+		convertersById.put(BooleanConverter.CONVERTER_ID, new BooleanConverter());
+		convertersById.put(ShortConverter.CONVERTER_ID, new ShortConverter());
+		convertersById.put(ByteConverter.CONVERTER_ID, new ByteConverter());
+		convertersById.put(CharacterConverter.CONVERTER_ID, new CharacterConverter());
+		convertersById.put(BigDecimalConverter.CONVERTER_ID, new BigDecimalConverter());
+		convertersById.put(BigIntegerConverter.CONVERTER_ID, new BigIntegerConverter());
+	}
+	
+	public MockApplication() {
+		super();
+		elResolver = new CompositeELResolver();
+		additionalResolvers = new CompositeELResolver();
+		elResolver.add(additionalResolvers);
+		elResolver.add(EL.EL_RESOLVER);
+	}
+
+	
 	@Override
 	public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass, Object source) {
 		// empty publish method
@@ -53,16 +102,8 @@ public class MockApplication extends Application {
 		// empty publish method
 	}
 
-	private javax.el.CompositeELResolver elResolver;
-	private javax.el.CompositeELResolver additionalResolvers;
-	private Collection<Locale> locales;
 
-	public MockApplication() {
-		elResolver = new CompositeELResolver();
-		additionalResolvers = new CompositeELResolver();
-		elResolver.add(additionalResolvers);
-		elResolver.add(EL.EL_RESOLVER);
-	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -115,7 +156,7 @@ public class MockApplication extends Application {
 		throw new UnsupportedOperationException();
 	}
 
-	private Locale defaultLocale = Locale.ENGLISH;
+
 
 	@Override
 	public Locale getDefaultLocale() {
@@ -149,7 +190,7 @@ public class MockApplication extends Application {
 		this.msgBundleName = bundleName;
 	}
 
-	private NavigationHandler navigationHandler = new SeamNavigationHandler(new MockNavigationHandler());
+
 
 	@Override
 	public NavigationHandler getNavigationHandler() {
@@ -161,7 +202,7 @@ public class MockApplication extends Application {
 		this.navigationHandler = navigationHandler;
 	}
 
-	private ViewHandler viewHandler = new SeamViewHandler(new MockViewHandler());
+
 
 	@Override
 	public ViewHandler getViewHandler() {
@@ -173,7 +214,7 @@ public class MockApplication extends Application {
 		this.viewHandler = viewHandler;
 	}
 
-	private StateManager stateManager = new SeamStateManager(new MockStateManager());
+
 
 	@Override
 	public StateManager getStateManager() {
@@ -215,33 +256,7 @@ public class MockApplication extends Application {
 		throw new UnsupportedOperationException();
 	}
 
-	private final Map<Class<?>, Converter> converters = new HashMap<Class<?>, Converter>();
-	{
-		converters.put(Integer.class, new IntegerConverter());
-		converters.put(Long.class, new LongConverter());
-		converters.put(Float.class, new FloatConverter());
-		converters.put(Double.class, new DoubleConverter());
-		converters.put(Boolean.class, new BooleanConverter());
-		converters.put(Short.class, new ShortConverter());
-		converters.put(Byte.class, new ByteConverter());
-		converters.put(Character.class, new CharacterConverter());
-		converters.put(BigDecimal.class, new BigDecimalConverter());
-		converters.put(BigInteger.class, new BigIntegerConverter());
-	}
 
-	private final Map<String, Converter> convertersById = new HashMap<String, Converter>();
-	{
-		convertersById.put(IntegerConverter.CONVERTER_ID, new IntegerConverter());
-		convertersById.put(LongConverter.CONVERTER_ID, new LongConverter());
-		convertersById.put(FloatConverter.CONVERTER_ID, new FloatConverter());
-		convertersById.put(DoubleConverter.CONVERTER_ID, new DoubleConverter());
-		convertersById.put(BooleanConverter.CONVERTER_ID, new BooleanConverter());
-		convertersById.put(ShortConverter.CONVERTER_ID, new ShortConverter());
-		convertersById.put(ByteConverter.CONVERTER_ID, new ByteConverter());
-		convertersById.put(CharacterConverter.CONVERTER_ID, new CharacterConverter());
-		convertersById.put(BigDecimalConverter.CONVERTER_ID, new BigDecimalConverter());
-		convertersById.put(BigIntegerConverter.CONVERTER_ID, new BigIntegerConverter());
-	}
 
 	@Override
 	public void addConverter(String id, String converterClass) {
@@ -295,7 +310,7 @@ public class MockApplication extends Application {
 		this.locales = locales;
 	}
 
-	private final Map<String, Validator> validatorsById = new HashMap<String, Validator>();
+
 
 	@Override
 	public void addValidator(String id, String validatorClass) {

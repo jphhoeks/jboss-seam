@@ -24,6 +24,10 @@ public class EntityManagerProxyInterceptor extends AbstractInterceptor {
 
 	private static final long serialVersionUID = 1L;
 
+	public EntityManagerProxyInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext ic) throws Exception {

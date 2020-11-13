@@ -34,6 +34,10 @@ public class Conversation implements Serializable {
 	String description;
 	String viewId;
 
+	public Conversation() {
+		super();
+	}
+	
 	/**
 	* Kills all conversations except the current one
 	*/

@@ -30,7 +30,7 @@ public final class Naming {
 		}
 
 		try {
-			return props.size() == 0 ? new InitialContext() : new InitialContext(props);
+			return props.isEmpty() ? new InitialContext() : new InitialContext(props);
 		} catch (NamingException e) {
 			log.debug("Could not obtain initial context");
 			throw e;
@@ -39,8 +39,9 @@ public final class Naming {
 	}
 
 	public static InitialContext getInitialContext() throws NamingException {
-		if (initialContext == null)
+		if (initialContext == null) {
 			initInitialContext();
+		}
 
 		return initialContext;
 	}

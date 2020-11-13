@@ -27,6 +27,10 @@ import org.jboss.seam.web.Session;
 @Install(precedence = BUILT_IN)
 @BypassInterceptors
 public class ConversationStack {
+	
+	public ConversationStack() {
+		super();
+	}
 
 	protected List<ConversationEntry> createConversationEntryStack() {
 		ConversationEntries conversationEntries = ConversationEntries.getInstance();

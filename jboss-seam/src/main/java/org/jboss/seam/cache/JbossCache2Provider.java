@@ -54,6 +54,10 @@ public class JbossCache2Provider extends AbstractJBossCacheProvider<Cache> {
 			throw new IllegalStateException("Unable to use JBoss Cache 2", e);
 		}
 	}
+	
+	public JbossCache2Provider() {
+		super();
+	}
 
 	@Create
 	public void create() {

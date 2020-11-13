@@ -23,14 +23,19 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
 @Scope(ScopeType.APPLICATION)
 @Install(precedence = BUILT_IN, dependencies = "org.jboss.seam.bpm.jbpm")
 public class PooledTaskInstanceList {
+	
+	public PooledTaskInstanceList() {
+		super();
+	}
 
 	@Unwrap
 	@Transactional
 	public List<TaskInstance> getPooledTaskInstanceList() {
 		Actor actor = Actor.instance();
 		String actorId = actor.getId();
-		if (actorId == null)
+		if (actorId == null) {
 			return null;
+		}
 		ArrayList groupIds = new ArrayList(actor.getGroupActorIds());
 		groupIds.add(actorId);
 		return ManagedJbpmContext.instance().getGroupTaskList(groupIds);

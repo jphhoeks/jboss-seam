@@ -16,6 +16,10 @@ import javax.persistence.Query;
 public class EntityController extends PersistenceController<EntityManager> {
 
 	private static final long serialVersionUID = 1L;
+	
+	public EntityController() {
+		super();
+	}
 
 	public EntityManager getEntityManager() {
 		return getPersistenceContext();

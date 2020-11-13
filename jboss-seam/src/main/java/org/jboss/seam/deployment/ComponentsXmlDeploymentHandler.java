@@ -19,6 +19,10 @@ public class ComponentsXmlDeploymentHandler extends AbstractDeploymentHandler im
 	*/
 	public static final String NAME = "org.jboss.seam.deployment.ComponentsXmlDeploymentHandler";
 
+	public ComponentsXmlDeploymentHandler() {
+		super();
+	}
+	
 	@Override
 	public String getName() {
 		return NAME;

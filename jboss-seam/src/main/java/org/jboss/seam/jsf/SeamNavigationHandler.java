@@ -27,6 +27,7 @@ public class SeamNavigationHandler extends ConfigurableNavigationHandler {
 	private final NavigationHandler baseNavigationHandler;
 
 	public SeamNavigationHandler(NavigationHandler navigationHandler) {
+		super();
 		this.baseNavigationHandler = navigationHandler;
 	}
 

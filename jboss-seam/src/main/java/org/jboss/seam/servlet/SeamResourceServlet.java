@@ -1,8 +1,8 @@
 package org.jboss.seam.servlet;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -31,8 +31,12 @@ public class SeamResourceServlet extends HttpServlet {
 
 	private ServletContext context;
 
-	private Map<String, AbstractResource> providers = new HashMap<String, AbstractResource>();
+	private Map<String, AbstractResource> providers = new ConcurrentHashMap<String, AbstractResource>();
 
+	public SeamResourceServlet() {
+		super();
+	}
+	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -63,8 +67,9 @@ public class SeamResourceServlet extends HttpServlet {
 		if (request.getRequestURI().startsWith(prefix)) {
 			String path = request.getRequestURI().replaceFirst(prefix, "");
 			int index = path.indexOf('/', 1);
-			if (index != -1)
+			if (index != -1) {
 				path = path.substring(0, index);
+			}
 
 			AbstractResource provider = providers.get(path);
 			if (provider != null) {

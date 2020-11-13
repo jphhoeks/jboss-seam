@@ -12,10 +12,12 @@ public class MockResponseWriter extends ResponseWriter {
 	private Writer writer;
 
 	public MockResponseWriter(Writer writer) {
+		super();
 		this.writer = writer;
 	}
 
 	public MockResponseWriter() {
+		super();
 		this.writer = new StringWriter();
 	}
 

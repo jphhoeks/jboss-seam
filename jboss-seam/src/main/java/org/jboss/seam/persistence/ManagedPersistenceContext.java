@@ -56,6 +56,10 @@ public class ManagedPersistenceContext
 	private transient boolean synchronizationRegistered;
 	private transient boolean destroyed;
 
+	public ManagedPersistenceContext() {
+		super();
+	}
+	
 	@Override
 	public boolean clearDirty() {
 		return true;
@@ -83,19 +87,21 @@ public class ManagedPersistenceContext
 			}
 		}
 
-		if (log.isDebugEnabled()) {
-			if (entityManagerFactory == null) {
+		if (entityManagerFactory == null) {
+			if (log.isDebugEnabled()) {
 				log.debug("created seam managed persistence context for persistence unit: " + persistenceUnitJndiName);
-			} else {
-				log.debug("created seam managed persistence context from EntityManagerFactory");
 			}
+		} else {
+			log.debug("created seam managed persistence context from EntityManagerFactory");
 		}
+	
 	}
 
 	@Unwrap
 	public EntityManager getEntityManager() throws NamingException, SystemException {
-		if (entityManager == null)
+		if (entityManager == null) {
 			initEntityManager();
+		}
 
 		if (!synchronizationRegistered && !Lifecycle.isDestroying()) {
 			joinTransaction();
@@ -144,6 +150,7 @@ public class ManagedPersistenceContext
 	*/
 	@Override
 	public void sessionDidActivate(HttpSessionEvent event) {
+		//
 	}
 
 	@Destroy
@@ -180,6 +187,7 @@ public class ManagedPersistenceContext
 
 	@Override
 	public void beforeCompletion() {
+		//
 	}
 
 	private void close() {

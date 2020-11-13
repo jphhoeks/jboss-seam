@@ -8,6 +8,10 @@ public class Header {
 	public String name;
 	public ValueExpression<Object> expression;
 
+	public Header() {
+		super();
+	}
+	
 	public String getName() {
 		return name;
 	}

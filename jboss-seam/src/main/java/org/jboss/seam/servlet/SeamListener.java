@@ -27,9 +27,15 @@ import org.jboss.seam.log.Logging;
 public class SeamListener implements ServletContextListener, HttpSessionListener {
 	private static final LogProvider log = Logging.getLogProvider(ServletContextListener.class);
 
+	public SeamListener() {
+		super();
+	}
+	
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		log.info("Welcome to Seam " + Seam.getVersion());
+		if (log.isInfoEnabled()) {
+			log.info("Welcome to Seam " + Seam.getVersion());
+		}
 		event.getServletContext().setAttribute(Seam.VERSION, Seam.getVersion());
 		ServletLifecycle.beginApplication(event.getServletContext());
 		new Initialization(event.getServletContext()).create().init();
@@ -49,8 +55,10 @@ public class SeamListener implements ServletContextListener, HttpSessionListener
 	public void sessionDestroyed(HttpSessionEvent event) {
 		JBossClusterMonitor monitor = JBossClusterMonitor.getInstance(event.getSession().getServletContext());
 		if (monitor != null && monitor.failover()) {
-			// If application is unfarmed or all nodes shutdown simultaneously, cluster cache may still fail to retrieve SFSBs to destroy
-			log.debug("Detected fail-over, not destroying session context");
+			if (log.isDebugEnabled()) {
+				// If application is unfarmed or all nodes shutdown simultaneously, cluster cache may still fail to retrieve SFSBs to destroy
+				log.debug("Detected fail-over, not destroying session context");
+			}
 		} else {
 			ServletLifecycle.endSession(event.getSession());
 		}

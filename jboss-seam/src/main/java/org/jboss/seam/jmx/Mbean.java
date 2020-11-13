@@ -8,6 +8,10 @@ public class Mbean {
 	String objectName;
 	String agentId;
 	String proxyClass;
+	
+	public Mbean() {
+		super();
+	}
 
 	public String getAgentId() {
 		return agentId;
@@ -36,8 +40,7 @@ public class Mbean {
 	@Unwrap
 	public Object createProxy() {
 		try {
-			Object o = MBeanProxy.get(Class.forName(proxyClass), new ObjectName(getObjectName()), getAgentId());
-			return o;
+			return MBeanProxy.get(Class.forName(proxyClass), new ObjectName(getObjectName()), getAgentId());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

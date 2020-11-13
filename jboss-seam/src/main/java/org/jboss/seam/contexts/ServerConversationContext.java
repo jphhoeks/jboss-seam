@@ -6,12 +6,12 @@
  */
 package org.jboss.seam.contexts;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -31,7 +31,7 @@ import org.jboss.seam.persistence.PersistenceContexts;
 public class ServerConversationContext implements Context {
 
 	private final Map<String, Object> session;
-	private final Map<String, Object> additions = new HashMap<String, Object>();
+	private final Map<String, Object> additions = new ConcurrentHashMap<String, Object>();
 	private final Set<String> removals = new HashSet<String>();
 	private final String id;
 	private final List<String> idStack;
@@ -112,8 +112,9 @@ public class ServerConversationContext implements Context {
 	}
 
 	private Object unwrapEntityBean(Object result) {
-		if (result == null)
+		if (result == null) {
 			return null;
+		}
 		if (result instanceof Wrapper) {
 			return ((Wrapper) result).getInstance();
 		} else {
@@ -124,8 +125,9 @@ public class ServerConversationContext implements Context {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void set(String name, Object value) {
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preSetVariable." + name);
+		}
 		if (value == null) {
 			//yes, we need this
 			remove(name);
@@ -142,8 +144,9 @@ public class ServerConversationContext implements Context {
 			}
 			additions.put(name, value);
 		}
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postSetVariable." + name);
+		}
 	}
 
 	@Override
@@ -153,12 +156,14 @@ public class ServerConversationContext implements Context {
 
 	@Override
 	public void remove(String name) {
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.preRemoveVariable." + name);
+		}
 		additions.remove(name);
 		removals.add(name);
-		if (Events.exists())
+		if (Events.exists()) {
 			Events.instance().raiseEvent("org.jboss.seam.postRemoveVariable." + name);
+		}
 	}
 
 	@Override
@@ -219,7 +224,7 @@ public class ServerConversationContext implements Context {
 	public void unflush() {
 		for (String key : getNamesForAllConversationsFromSession()) {
 			Object attribute = session.get(key);
-			if (attribute != null && attribute instanceof Wrapper) {
+			if (attribute instanceof Wrapper) {
 				((Wrapper) attribute).activate();
 			}
 		}

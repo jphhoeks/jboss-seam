@@ -22,10 +22,12 @@ public class UnifiedELValueBinding extends javax.faces.el.ValueBinding implement
 	private String expressionString;
 
 	public UnifiedELValueBinding(String expressionString) {
+		super();
 		this.expressionString = expressionString;
 	}
 
 	public UnifiedELValueBinding() {
+		super();
 	}
 
 	@Override

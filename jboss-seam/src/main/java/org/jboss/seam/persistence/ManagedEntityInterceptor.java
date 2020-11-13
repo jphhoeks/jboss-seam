@@ -30,6 +30,10 @@ public class ManagedEntityInterceptor extends AbstractInterceptor {
 	private static ManagedEntityWrapper managedEntityWrapper = new ManagedEntityWrapper();
 
 	private boolean reentrant;
+	
+	public ManagedEntityInterceptor() {
+		super();
+	}
 
 	@Override
 	@AroundInvoke
@@ -38,17 +42,25 @@ public class ManagedEntityInterceptor extends AbstractInterceptor {
 			return ctx.proceed();
 		} else {
 			reentrant = true;
-			log.trace("Attempting to activate " + getComponent().getName() + " component");
+			if (log.isTraceEnabled()) {
+				log.trace("Attempting to activate " + getComponent().getName() + " component");
+			}
 			managedEntityWrapper.deserialize(ctx.getTarget(), getComponent());
-			log.debug("Activated " + getComponent().getName() + " component");
+			if (log.isDebugEnabled()) {
+				log.debug("Activated " + getComponent().getName() + " component");
+			}
 			try {
 				return ctx.proceed();
 			} finally {
 				if (!isTransactionRolledBackOrMarkedRollback()) {
-					log.trace("Attempting to passivate " + getComponent().getName() + " component");
+					if (log.isTraceEnabled()) {
+						log.trace("Attempting to passivate " + getComponent().getName() + " component");
+					}
 					managedEntityWrapper.wrap(ctx.getTarget(), getComponent());
 					reentrant = false;
-					log.debug("Passivated " + getComponent().getName() + " component");
+					if (log.isDebugEnabled()) {
+						log.debug("Passivated " + getComponent().getName() + " component");
+					}
 				}
 			}
 		}

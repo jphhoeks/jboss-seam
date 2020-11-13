@@ -14,6 +14,10 @@ import org.jboss.seam.annotations.Name;
 @Install(false)
 public abstract class Renderer {
 	public abstract String render(String viewId);
+	
+	protected Renderer () {
+		super();
+	}
 
 	public static Renderer instance() {
 		return (Renderer) Component.getInstance(Renderer.class);

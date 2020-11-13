@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.Namespace;
@@ -64,7 +65,7 @@ public class Init {
 
 	private Collection<Namespace> globalImports = new ArrayList<Namespace>();
 
-	private Map<String, Class<? extends Enum<?>>> enums = new HashMap<String, Class<? extends Enum<?>>>();
+	private Map<String, Class<? extends Enum<?>>> enums = new ConcurrentHashMap<String, Class<? extends Enum<?>>>();
 
 	private boolean jbpmInstalled;
 	private String jndiPattern;
@@ -75,11 +76,11 @@ public class Init {
 
 	private List<String> interceptors = new ArrayList<String>(DEFAULT_INTERCEPTORS);
 
-	private Map<String, List<ObserverMethod>> observerMethods = new HashMap<String, List<ObserverMethod>>();
-	private Map<String, List<ObserverMethodExpression>> observerMethodBindings = new HashMap<String, List<ObserverMethodExpression>>();
-	private Map<String, FactoryMethod> factories = new HashMap<String, FactoryMethod>();
-	private Map<String, FactoryExpression> factoryMethodExpressions = new HashMap<String, FactoryExpression>();
-	private Map<String, FactoryExpression> factoryValueExpressions = new HashMap<String, FactoryExpression>();
+	private Map<String, List<ObserverMethod>> observerMethods = new ConcurrentHashMap<String, List<ObserverMethod>>();
+	private Map<String, List<ObserverMethodExpression>> observerMethodBindings = new ConcurrentHashMap<String, List<ObserverMethodExpression>>();
+	private Map<String, FactoryMethod> factories = new ConcurrentHashMap<String, FactoryMethod>();
+	private Map<String, FactoryExpression> factoryMethodExpressions = new ConcurrentHashMap<String, FactoryExpression>();
+	private Map<String, FactoryExpression> factoryValueExpressions = new ConcurrentHashMap<String, FactoryExpression>();
 
 	private Set<String> autocreateVariables = new HashSet<String>();
 	private Set<String> installedFilters = new HashSet<String>();
@@ -88,20 +89,23 @@ public class Init {
 
 	private Set<String> hotDeployableComponents = new HashSet<String>();
 
-	private Map<String, String> converters = new HashMap<String, String>();
-	private Map<String, String> validators = new HashMap<String, String>();
-	private Map<Class<?>, String> convertersByClass = new HashMap<Class<?>, String>();
+	private Map<String, String> converters = new ConcurrentHashMap<String, String>();
+	private Map<String, String> validators = new ConcurrentHashMap<String, String>();
+	private Map<Class<?>, String> convertersByClass = new ConcurrentHashMap<Class<?>, String>();
 
 	private long timestamp;
 	private long warTimestamp;
 	private File[] hotDeployPaths;
 
+	public Init() {
+		super();
+	}
+	
 	public static Init instance() {
 		if (!Contexts.isApplicationContextActive()) {
 			throw new IllegalStateException("No active application scope");
 		}
-		Init init = (Init) Contexts.getApplicationContext().get(Init.class);
-		return init;
+		return (Init) Contexts.getApplicationContext().get(Init.class);
 	}
 
 	public static class FactoryMethod {
@@ -267,10 +271,12 @@ public class Init {
 			return "ObserverMethod(" + method + ')';
 		}
 
+		
 		@Override
 		public boolean equals(Object obj) {
-			if (!(obj instanceof ObserverMethod))
+			if (!(obj instanceof ObserverMethod)) {
 				return false;
+			}
 
 			ObserverMethod other = (ObserverMethod) obj;
 			return this.component.equals(other.component)
@@ -527,7 +533,7 @@ public class Init {
 	*/
 	public void checkDefaultInterceptors() {
 		for (String defaultInterceptor : DEFAULT_INTERCEPTORS) {
-			if (!interceptors.contains(defaultInterceptor)) {
+			if (!interceptors.contains(defaultInterceptor) && log.isWarnEnabled()) {
 				log.warn("The built-in interceptor " + defaultInterceptor + " is missing. This application may not function as expected");
 			}
 		}

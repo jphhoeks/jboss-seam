@@ -20,6 +20,11 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @Name("org.jboss.seam.faces.facesContext")
 @Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 public class FacesContext {
+	
+	public FacesContext() {
+		super();
+	}
+	
 	@Unwrap
 	public javax.faces.context.FacesContext getContext() {
 		return javax.faces.context.FacesContext.getCurrentInstance();

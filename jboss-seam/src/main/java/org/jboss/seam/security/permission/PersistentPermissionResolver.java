@@ -40,6 +40,10 @@ public class PersistentPermissionResolver implements PermissionResolver, Seriali
 
 	private static final LogProvider log = Logging.getLogProvider(PersistentPermissionResolver.class);
 
+	public PersistentPermissionResolver() {
+		super();
+	}
+	
 	@Create
 	public void create() {
 		initPermissionStore();
@@ -51,8 +55,10 @@ public class PersistentPermissionResolver implements PermissionResolver, Seriali
 		}
 
 		if (permissionStore == null) {
-			log.debug("no permission store available - please install a PermissionStore with the name '"
+			if (log.isDebugEnabled()) {
+				log.debug("no permission store available - please install a PermissionStore with the name '"
 					+ Seam.getComponentName(JpaPermissionStore.class) + "' if persistent permissions are required.");
+			}
 		}
 	}
 
@@ -66,13 +72,15 @@ public class PersistentPermissionResolver implements PermissionResolver, Seriali
 
 	@Override
 	public boolean hasPermission(Object target, String action) {
-		if (permissionStore == null)
+		if (permissionStore == null) {
 			return false;
+		}
 
 		Identity identity = Identity.instance();
 
-		if (!identity.isLoggedIn())
+		if (!identity.isLoggedIn()) {
 			return false;
+		}
 
 		List<Permission> permissions = permissionStore.listPermissions(target, action);
 
@@ -89,8 +97,9 @@ public class PersistentPermissionResolver implements PermissionResolver, Seriali
 
 				if (role.isConditional()) {
 					RuleBasedPermissionResolver resolver = RuleBasedPermissionResolver.instance();
-					if (resolver.checkConditionalRole(role.getName(), target, action))
+					if (resolver.checkConditionalRole(role.getName(), target, action)) {
 						return true;
+					}
 				} else if (identity.hasRole(role.getName())) {
 					return true;
 				}
@@ -102,12 +111,14 @@ public class PersistentPermissionResolver implements PermissionResolver, Seriali
 
 	@Override
 	public void filterSetByAction(Set<Object> targets, String action) {
-		if (permissionStore == null)
+		if (permissionStore == null) {
 			return;
+		}
 
 		Identity identity = Identity.instance();
-		if (!identity.isLoggedIn())
+		if (!identity.isLoggedIn()) {
 			return;
+		}
 
 		List<Permission> permissions = permissionStore.listPermissions(targets, action);
 

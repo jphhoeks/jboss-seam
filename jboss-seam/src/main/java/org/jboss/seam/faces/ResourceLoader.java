@@ -23,6 +23,10 @@ import org.jboss.seam.util.FacesResources;
 @Install(precedence = FRAMEWORK, classDependencies = "javax.faces.context.FacesContext")
 @Name("org.jboss.seam.core.resourceLoader")
 public class ResourceLoader extends org.jboss.seam.core.ResourceLoader {
+	
+	public ResourceLoader() {
+		super();
+	}
 
 	@Override
 	public InputStream getResourceAsStream(String resource) {

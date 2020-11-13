@@ -64,7 +64,7 @@ public class PermissionCheck {
 	}
 
 	public boolean hasRequirements() {
-		return requirements != null && requirements.size() > 0;
+		return requirements != null && !requirements.isEmpty();
 	}
 
 	public Set<String> getRequirements() {

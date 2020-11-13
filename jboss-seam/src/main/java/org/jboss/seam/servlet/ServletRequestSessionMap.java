@@ -37,7 +37,7 @@ public class ServletRequestSessionMap implements Map<String, Object> {
 	@Override
 	public boolean containsKey(Object key) {
 		HttpSession session = request.getSession(false);
-		return session == null ? false : session.getAttribute((String) key) != null;
+		return session != null && session.getAttribute((String) key) != null;
 	}
 
 	@Override

@@ -15,6 +15,11 @@ import org.jboss.seam.web.Parameters;
 public class DocumentStoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 5196002741557182072L;
 
+	
+	public DocumentStoreServlet() {
+		super();
+	}
+	
 	@Override
 	protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		new ContextualHttpServletRequest(request) {

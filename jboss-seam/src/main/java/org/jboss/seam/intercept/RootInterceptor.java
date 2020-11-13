@@ -35,8 +35,11 @@ public class RootInterceptor implements Serializable {
 	private boolean isSeamComponent;
 	private String componentName;
 	private List<Object> userInterceptors;
-
-	private transient Component component; //a cache of the Component reference for performance
+	
+	 //a cache of the Component reference for performance
+	private transient Component component;
+	
+	private static final Constructor CONSTRUCTOR;
 
 	protected RootInterceptor(InterceptorType type) {
 		this.type = type;
@@ -58,8 +61,6 @@ public class RootInterceptor implements Serializable {
 		if (isSeamComponent) {
 			try {
 				getComponent().initialize(bean);
-			} catch (RuntimeException e) {
-				throw e;
 			} catch (Exception e) {
 				throw new RuntimeException("exception initializing EJB component", e);
 			}
@@ -69,8 +70,6 @@ public class RootInterceptor implements Serializable {
 	protected void invokeAndHandle(InvocationContext invocation, EventType invocationType) {
 		try {
 			invoke(invocation, invocationType);
-		} catch (RuntimeException e) {
-			throw e;
 		} catch (Exception e) {
 			throw new RuntimeException("exception in EJB lifecycle callback", e);
 		}
@@ -137,7 +136,7 @@ public class RootInterceptor implements Serializable {
 		return new SeamInvocationContext(invocation, eventType, userInterceptors, getComponent().getInterceptors(type));
 	}
 
-	private static final Constructor CONSTRUCTOR;
+
 	static {
 		if (EJB.INVOCATION_CONTEXT_AVAILABLE) {
 			try {
@@ -166,9 +165,7 @@ public class RootInterceptor implements Serializable {
 	}
 
 	private boolean isProcessInterceptors(Method method, Object bean) {
-		boolean res = isSeamComponent && getComponent().isInterceptionEnabled() && !isBypassed(method) && !isClearDirtyMethod(method, bean);
-
-		return res;
+		return isSeamComponent && getComponent().isInterceptionEnabled() && !isBypassed(method) && !isClearDirtyMethod(method, bean);
 	}
 
 	private boolean isBypassed(Method method) {

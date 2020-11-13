@@ -17,6 +17,10 @@ public abstract class ErrorHandler extends ExceptionHandler {
 
 	protected abstract boolean isEnd(Exception e);
 
+	public ErrorHandler() {
+		super();
+	}
+	
 	@Override
 	public void handle(Exception e) throws Exception {
 		if (Contexts.isConversationContextActive() && isEnd(e)) {

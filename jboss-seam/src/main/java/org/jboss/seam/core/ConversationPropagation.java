@@ -41,6 +41,10 @@ public class ConversationPropagation {
 	private PropagationType propagationType;
 	private String pageflow;
 
+	public ConversationPropagation() {
+		super();
+	}
+	
 	/**
 	* Initialize the request conversation id, taking
 	* into account conversation propagation style, and
@@ -80,7 +84,9 @@ public class ConversationPropagation {
 		}
 
 		else {
-			log.trace("Found conversation id in request parameter: " + conversationId);
+			if (log.isTraceEnabled()) {
+				log.trace("Found conversation id in request parameter: " + conversationId);
+			}
 		}
 	}
 
@@ -155,7 +161,9 @@ public class ConversationPropagation {
 			try {
 				propagationType = PropagationType.valueOf(value.toUpperCase());
 			} catch (IllegalArgumentException iae) {
-				log.warn("Invalid conversation propagation parameter received, assuming none, received:" + value);
+				if (log.isWarnEnabled()) {
+					log.warn("Invalid conversation propagation parameter received, assuming none, received:" + value, iae);
+				}
 			}
 		}
 	}

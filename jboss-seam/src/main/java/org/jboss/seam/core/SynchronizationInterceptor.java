@@ -21,6 +21,10 @@ public class SynchronizationInterceptor extends AbstractInterceptor {
 
 	private ReentrantLock lock = new ReentrantLock(true);
 
+	public SynchronizationInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocation) throws Exception {

@@ -32,6 +32,10 @@ public abstract class AbstractFilter implements Filter {
 	private Pattern pattern;
 
 	private boolean disabled;
+	
+	protected AbstractFilter () {
+		super();
+	}
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -105,33 +109,41 @@ public abstract class AbstractFilter implements Filter {
 
 	private static boolean matchesTomcatPattern(String path, String pattern) {
 
-		if (pattern == null)
+		if (pattern == null) {
 			return true;
+		}
 
-		if (path == null || "".equals(path))
+		if (path == null || "".equals(path)) {
 			path = "/";
-		if (pattern == null || "".equals(pattern))
+		}
+		if (pattern == null || "".equals(pattern)) {
 			pattern = "/";
+		}
 
 		// Check for an exact match
-		if (path.equals(pattern))
+		if (path.equals(pattern)) {
 			return true;
+		}
 
 		// Check for path prefix matching
 		if (pattern.startsWith("/") && pattern.endsWith("/*")) {
 			pattern = pattern.substring(0, pattern.length() - 2);
-			if (pattern.length() == 0)
+			if (pattern.length() == 0) {
 				return true;
+			}
 
-			if (path.endsWith("/"))
+			if (path.endsWith("/")) {
 				path = path.substring(0, path.length() - 1);
+			}
 
 			while (true) {
-				if (pattern.equals(path))
+				if (pattern.equals(path)) {
 					return true;
+				}
 				int slash = path.lastIndexOf('/');
-				if (slash <= 0)
+				if (slash <= 0) {
 					break;
+				}
 				path = path.substring(0, slash);
 			}
 			return false;
@@ -141,21 +153,16 @@ public abstract class AbstractFilter implements Filter {
 		if (pattern.startsWith("*.")) {
 			int slash = path.lastIndexOf('/');
 			int period = path.lastIndexOf('.');
-			if ((slash >= 0) && (period > slash) && path.endsWith(pattern.substring(1))) {
-				return true;
-			}
-			return false;
+			return ((slash >= 0) && (period > slash) && path.endsWith(pattern.substring(1)));
 		}
 
 		// Check for universal mapping
-		if (pattern.equals("/"))
-			return true;
-
-		return false;
+		return "/".equals(pattern);
 	}
 
 	@Override
 	public void destroy() {
+		//
 	}
 
 }

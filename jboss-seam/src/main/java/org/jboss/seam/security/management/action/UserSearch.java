@@ -29,6 +29,10 @@ public class UserSearch implements Serializable {
 	@In
 	IdentityManager identityManager;
 
+	public UserSearch() {
+		super();
+	}
+	
 	public void loadUsers() {
 		users = identityManager.listUsers();
 	}
@@ -36,8 +40,9 @@ public class UserSearch implements Serializable {
 	public String getUserRoles(String username) {
 		List<String> roles = identityManager.getGrantedRoles(username);
 
-		if (roles == null)
+		if (roles == null) {
 			return "";
+		}
 
 		StringBuilder sb = new StringBuilder();
 

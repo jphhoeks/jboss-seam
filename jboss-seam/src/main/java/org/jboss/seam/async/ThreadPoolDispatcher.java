@@ -32,6 +32,10 @@ public class ThreadPoolDispatcher extends AbstractDispatcher<Future, TimerSchedu
 
 	private ScheduledExecutorService executor;
 
+	public ThreadPoolDispatcher() {
+		super();
+	}
+	
 	@Create
 	public void startup() {
 		executor = Executors.newScheduledThreadPool(threadPoolSize);

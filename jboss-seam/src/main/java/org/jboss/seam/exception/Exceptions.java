@@ -46,6 +46,10 @@ public class Exceptions {
 
 	private List<ExceptionHandler> exceptionHandlers = new ArrayList<ExceptionHandler>();
 
+	public Exceptions() {
+		super();
+	}
+	
 	public void handle(Exception e) throws Exception {
 		if (Contexts.isConversationContextActive()) {
 			Contexts.getConversationContext().set("org.jboss.seam.caughtException", e);
@@ -86,6 +90,7 @@ public class Exceptions {
 							break;
 						case trace:
 							log.trace("handled and logged exception", e);
+							break;
 						}
 					}
 
@@ -124,70 +129,81 @@ public class Exceptions {
 	}
 
 	private void addHandler(ExceptionHandler handler) {
-		if (handler != null)
+		if (handler != null) {
 			exceptionHandlers.add(handler);
+		}
 	}
 
 	
 	private ExceptionHandler parse(String fileName) throws DocumentException, ClassNotFoundException {
 		ExceptionHandler anyhandler = null;
-		InputStream stream = ResourceLoader.instance().getResourceAsStream(fileName);
-		if (stream != null) {
-			log.debug("reading exception mappings from " + fileName);
-
-			List<Element> elements = null;
-			try {
-				elements = XML.getRootElement(stream).elements("exception");
-			} finally {
-				Resources.closeStream(stream);
-			}
-
-			for (final Element exception : elements) {
-				String className = exception.attributeValue("class");
-				boolean logEnabled = exception.attributeValue("log") != null ? Boolean.valueOf(exception.attributeValue("log")) : true;
-
-				LogLevel logLevel = LogLevel.error;
+		InputStream stream = null;
+		try {
+			stream = ResourceLoader.instance().getResourceAsStream(fileName);
+			if (stream != null) {
+				if (log.isDebugEnabled()) {
+					log.debug("reading exception mappings from " + fileName);
+				}
+	
+				List<Element> elements = null;
 				try {
-					String levelValue = exception.attributeValue("log-level");
-					if (levelValue == null) {
-						levelValue = exception.attributeValue("logLevel");
-					}
-
-					if (levelValue != null) {
-						logLevel = LogLevel.valueOf(levelValue.toLowerCase());
-					}
-				} catch (IllegalArgumentException ex) {
-					StringBuilder sb = new StringBuilder();
-					sb.append("Exception handler");
-					if (className != null)
-						sb.append(" for class " + className);
-					sb.append(" is configured with an invalid log-level.  Acceptable " + "values are: fatal,error,warn,info,debug,trace. "
-							+ "A default level of 'error' has been configured instead.");
-					log.warn(sb.toString());
+					elements = XML.getRootElement(stream).elements("exception");
+				} finally {
+					Resources.close(stream);
 				}
-
-				if (className == null) {
-					anyhandler = createHandler(exception, Exception.class);
-					anyhandler.setLogEnabled(logEnabled);
-					anyhandler.setLogLevel(logLevel);
-				} else {
-					ExceptionHandler handler = null;
-
+	
+				for (final Element exception : elements) {
+					String className = exception.attributeValue("class");
+					boolean logEnabled = exception.attributeValue("log") == null || Boolean.valueOf(exception.attributeValue("log"));
+	
+					LogLevel logLevel = LogLevel.error;
 					try {
-						handler = createHandler(exception, Reflections.classForName(className));
-
-						if (handler != null) {
-							handler.setLogEnabled(logEnabled);
-							handler.setLogLevel(logLevel);
+						String levelValue = exception.attributeValue("log-level");
+						if (levelValue == null) {
+							levelValue = exception.attributeValue("logLevel");
 						}
-					} catch (ClassNotFoundException e) {
-						log.error("Can't find exception class for exception handler", e);
+	
+						if (levelValue != null) {
+							logLevel = LogLevel.valueOf(levelValue.toLowerCase());
+						}
+					} catch (IllegalArgumentException ex) {
+						StringBuilder sb = new StringBuilder();
+						sb.append("Exception handler");
+						if (className != null) {
+							sb.append(" for class ").append(className);
+						}
+						sb.append(" is configured with an invalid log-level.  Acceptable " + "values are: fatal,error,warn,info,debug,trace. "
+								+ "A default level of 'error' has been configured instead.");
+						log.warn(sb.toString());
 					}
-					if (handler != null)
-						exceptionHandlers.add(handler);
+	
+					if (className == null) {
+						anyhandler = createHandler(exception, Exception.class);
+						anyhandler.setLogEnabled(logEnabled);
+						anyhandler.setLogLevel(logLevel);
+					} else {
+						ExceptionHandler handler = null;
+	
+						try {
+							handler = createHandler(exception, Reflections.classForName(className));
+	
+							if (handler != null) {
+								handler.setLogEnabled(logEnabled);
+								handler.setLogLevel(logLevel);
+							}
+						} catch (ClassNotFoundException e) {
+							log.error("Can't find exception class for exception handler", e);
+						}
+						if (handler != null) {
+							exceptionHandlers.add(handler);
+						}
+					}
+	
 				}
-
 			}
+		}
+		finally {
+			Resources.close(stream);
 		}
 		return anyhandler;
 	}
@@ -199,7 +215,7 @@ public class Exceptions {
 		if (conversationElement != null) {
 			endConversation = true;
 			String beforeRedirect = conversationElement.attributeValue("before-redirect");
-			endConversationBeforeRedirect = Strings.isEmpty(beforeRedirect) ? false : Boolean.valueOf(beforeRedirect);
+			endConversationBeforeRedirect = !Strings.isEmpty(beforeRedirect) && Boolean.valueOf(beforeRedirect);
 		}
 
 		Element redirect = exception.element("redirect");

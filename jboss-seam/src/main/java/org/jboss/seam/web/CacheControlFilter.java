@@ -32,6 +32,10 @@ public class CacheControlFilter extends AbstractFilter {
 	private static final LogProvider log = Logging.getLogProvider(CacheControlFilter.class);
 
 	private String value;
+	
+	public CacheControlFilter() {
+		super();
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -39,7 +43,9 @@ public class CacheControlFilter extends AbstractFilter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
 		if (isMappedToCurrentRequestPath(request)) {
-			log.debug("Applying Cache-Control HTTP header for resource '" + httpRequest.getRequestURI() + "': " + getValue());
+			if (log.isDebugEnabled()) {
+				log.debug("Applying Cache-Control HTTP header for resource '" + httpRequest.getRequestURI() + "': " + getValue());
+			}
 
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			httpResponse.setHeader("Cache-Control", getValue());

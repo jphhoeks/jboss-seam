@@ -23,6 +23,10 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 @BypassInterceptors
 public class Locale extends org.jboss.seam.core.Locale {
 
+	public Locale() {
+		super();
+	}
+	
 	@Unwrap
 	@Override
 	public java.util.Locale getLocale() {

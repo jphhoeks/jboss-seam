@@ -35,6 +35,7 @@ public class SeamViewHandler extends ViewHandlerWrapper {
 	private static final ThreadLocal<Source> source = new ThreadLocal<Source>();
 
 	public SeamViewHandler(ViewHandler viewHandler) {
+		super();
 		this.viewHandler = viewHandler;
 	}
 

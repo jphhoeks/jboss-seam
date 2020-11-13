@@ -35,7 +35,9 @@ public class CaptchaResponseValidator implements ConstraintValidator<CaptchaResp
 		if (!result) {
 
 			context.disableDefaultConstraintViolation();
-			log.debug("annotation.message=" + annotation.message());
+			if (log.isDebugEnabled()) {
+				log.debug("annotation.message=" + annotation.message());
+			}
 			String template = Interpolator.instance().interpolate(annotation.message());
 			context.buildConstraintViolationWithTemplate(template).addConstraintViolation();
 		}

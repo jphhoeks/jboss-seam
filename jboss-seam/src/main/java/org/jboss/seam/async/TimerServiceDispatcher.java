@@ -40,9 +40,14 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 	@Resource
 	TimerService timerService;
 
+	public TimerServiceDispatcher() {
+		super();
+	}
+	
 	@PostConstruct
 	public void postConstruct() {
-	} //workaround for a bug in EJB3
+		//workaround for a bug in EJB3
+	}
 
 	@Timeout
 	public void dispatch(Timer timer) {
@@ -191,10 +196,7 @@ public class TimerServiceDispatcher extends AbstractDispatcher<Timer, TimerSched
 	public Object call(Callable task) {
 		try {
 			return task.call();
-		} catch (RuntimeException e) {
-			// just pass along runtime exceptions
-			throw e;
-		} catch (Exception e) {
+		}  catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

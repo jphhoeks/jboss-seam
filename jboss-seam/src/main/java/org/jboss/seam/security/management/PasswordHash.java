@@ -48,6 +48,10 @@ public class PasswordHash {
 	*/
 	private int saltLength = 8;
 
+	public PasswordHash() {
+		super();
+	}
+	
 	@Deprecated
 	public String generateHash(String password) {
 		return generateHash(password, DEFAULT_ALGORITHM);

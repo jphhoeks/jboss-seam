@@ -26,6 +26,10 @@ public class DigestRequest {
 	*/
 	private String clientDigest;
 
+	public DigestRequest() {
+		super();
+	}
+	
 	public String getClientNonce() {
 		return clientNonce;
 	}
@@ -124,14 +128,18 @@ public class DigestRequest {
 
 	public void validate() throws DigestValidationException {
 		// Check all required parameters were supplied (ie RFC 2069)
-		if (realm == null)
+		if (realm == null) {
 			throw new DigestValidationException("Mandatory field 'realm' not specified");
-		if (nonce == null)
+		}
+		if (nonce == null) {
 			throw new DigestValidationException("Mandatory field 'nonce' not specified");
-		if (uri == null)
+		}
+		if (uri == null) {
 			throw new DigestValidationException("Mandatory field 'uri' not specified");
-		if (clientDigest == null)
+		}
+		if (clientDigest == null) {
 			throw new DigestValidationException("Mandatory field 'response' not specified");
+		}
 
 		// Check all required parameters for an "auth" qop were supplied (ie RFC 2617)
 		if ("auth".equals(qop)) {
@@ -160,7 +168,9 @@ public class DigestRequest {
 		try {
 			nonceExpiry = Long.parseLong(nonceTokens[0]);
 		} catch (NumberFormatException nfe) {
-			throw new DigestValidationException("First nonce token should be numeric, but was: " + nonceTokens[0]);
+			DigestValidationException dve =  new DigestValidationException("First nonce token should be numeric, but was: " + nonceTokens[0]);
+			dve.initCause(nfe);
+			throw dve;
 		}
 
 		// To get this far, the digest must have been valid

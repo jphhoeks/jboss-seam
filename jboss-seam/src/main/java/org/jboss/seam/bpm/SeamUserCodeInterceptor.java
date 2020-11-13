@@ -49,6 +49,10 @@ class SeamUserCodeInterceptor implements UserCodeInterceptor {
 		}
 	}
 
+	public SeamUserCodeInterceptor() {
+		super();
+	}
+	
 	@Override
 	public void executeAction(final Action action, final ExecutionContext context) throws Exception {
 		if (isPageflow(context)) {

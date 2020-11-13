@@ -11,6 +11,11 @@ import org.jboss.seam.security.Identity;
  * @author Shane Bryzak
  */
 public abstract class DigestAuthenticator {
+	
+	public DigestAuthenticator() {
+		super();
+	}
+	
 	@SuppressWarnings("deprecation")
 	protected boolean validatePassword(String password) {
 		Context ctx = Contexts.getSessionContext();

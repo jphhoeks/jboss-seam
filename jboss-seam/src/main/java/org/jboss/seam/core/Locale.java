@@ -23,6 +23,10 @@ import org.jboss.seam.contexts.Contexts;
 @Install(precedence = BUILT_IN)
 @BypassInterceptors
 public class Locale {
+	
+	public Locale() {
+		super();
+	}
 
 	@Unwrap
 	public java.util.Locale getLocale() {

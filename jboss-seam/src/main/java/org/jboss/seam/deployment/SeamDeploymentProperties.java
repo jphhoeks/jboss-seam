@@ -17,17 +17,19 @@ public class SeamDeploymentProperties {
 	private ClassLoader classLoader;
 	private Enumeration<URL> urlEnum;
 
+	/**
+	 * The resource bundle used to control Seam deployment
+	 */
+	public static final String RESOURCE_BUNDLE = "META-INF/seam-deployment.properties";
+	
+	// All resource bundles to use, including legacy names
+	private static final String[] RESOURCE_BUNDLES = { RESOURCE_BUNDLE, "META-INF/seam-scanner.properties" };
+
 	public SeamDeploymentProperties(ClassLoader classLoader) {
+		super();
 		this.classLoader = classLoader;
 	}
 
-	/**
-	* The resource bundle used to control Seam deployment
-	*/
-	public static final String RESOURCE_BUNDLE = "META-INF/seam-deployment.properties";
-
-	// All resource bundles to use, including legacy names
-	private static final String[] RESOURCE_BUNDLES = { RESOURCE_BUNDLE, "META-INF/seam-scanner.properties" };
 
 	/**
 	* Get a list of possible values for a given key.

@@ -33,6 +33,7 @@ public class SeamApplication extends ApplicationWrapper {
 	protected Application application;
 
 	public SeamApplication(Application application) {
+		super();
 		this.application = application;
 	}
 

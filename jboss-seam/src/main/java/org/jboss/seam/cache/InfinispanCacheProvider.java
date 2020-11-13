@@ -55,6 +55,10 @@ public class InfinispanCacheProvider extends AbstractInfinispanCacheProvider<Tre
 			throw new IllegalStateException("Unable to use Infinispan Cache", e);
 		}
 	}
+	
+	public InfinispanCacheProvider() {
+		super();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Create

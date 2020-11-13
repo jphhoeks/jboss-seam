@@ -3,7 +3,7 @@ package org.jboss.seam.jmx;
 import static org.jboss.seam.ScopeType.APPLICATION;
 import static org.jboss.seam.annotations.Install.BUILT_IN;
 
-import java.util.Vector;
+import java.util.List;
 
 import javax.management.MBeanServer;
 import javax.management.MBeanServerFactory;
@@ -46,6 +46,10 @@ public class JBossClusterMonitor {
 
 	private ObjectName serverObjectName;
 
+	public JBossClusterMonitor() {
+		super();
+	}
+	
 	@Create
 	public void create() {
 		jbossMBeanServer = locateJBoss();
@@ -58,7 +62,9 @@ public class JBossClusterMonitor {
 			clusteringCacheObjectName = new ObjectName("jboss.cache:service=TomcatClusteringCache");
 			serverObjectName = new ObjectName("jboss.system:type=Server");
 		} catch (MalformedObjectNameException e) {
-			log.warn("Invalid JMX name: " + e.getMessage());
+			if (log.isWarnEnabled()) {
+				log.warn("Invalid JMX name: " + e.getMessage(), e);
+			}
 		}
 
 		try {
@@ -102,7 +108,7 @@ public class JBossClusterMonitor {
 		// attribute => NumberOfTasksInTimer
 
 		try {
-			return ((Vector) jbossMBeanServer.getAttribute(clusteringCacheObjectName, "Members")).size() == 1;
+			return ((List) jbossMBeanServer.getAttribute(clusteringCacheObjectName, "Members")).size() == 1;
 		} catch (Exception e) {
 			log.warn("Could not determine number of members in cluster", e);
 			return true;

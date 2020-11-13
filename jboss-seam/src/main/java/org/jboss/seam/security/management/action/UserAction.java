@@ -39,6 +39,10 @@ public class UserAction implements Serializable {
 	@In
 	IdentityManager identityManager;
 
+	public UserAction() {
+		super();
+	}
+	
 	@Begin
 	public void createUser() {
 		roles = new ArrayList<String>();
@@ -101,8 +105,9 @@ public class UserAction implements Serializable {
 
 		if (grantedRoles != null) {
 			for (String role : grantedRoles) {
-				if (!roles.contains(role))
+				if (!roles.contains(role)) {
 					identityManager.revokeRole(username, role);
+				}
 			}
 		}
 

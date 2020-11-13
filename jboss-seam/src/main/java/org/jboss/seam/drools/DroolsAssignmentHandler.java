@@ -3,6 +3,7 @@ package org.jboss.seam.drools;
 import java.util.List;
 
 import org.drools.WorkingMemory;
+import org.jboss.seam.util.Strings;
 import org.jbpm.graph.exe.ExecutionContext;
 import org.jbpm.taskmgmt.def.AssignmentHandler;
 import org.jbpm.taskmgmt.exe.Assignable;
@@ -22,12 +23,16 @@ public class DroolsAssignmentHandler extends DroolsHandler implements Assignment
 	public List<String> assertObjects;
 	public List<String> retractObjects;
 	public String startProcessId;
+	
+	public DroolsAssignmentHandler() {
+		super();
+	}
 
 	@Override
 	public void assign(Assignable assignable, ExecutionContext executionContext) throws Exception {
 		WorkingMemory workingMemory = getWorkingMemory(workingMemoryName, assertObjects, retractObjects, executionContext);
 		workingMemory.setGlobal("assignable", assignable);
-		if (startProcessId != null && startProcessId.trim().length() > 0) {
+		if (!Strings.isEmpty(startProcessId)) {
 			workingMemory.startProcess(startProcessId);
 		}
 		workingMemory.fireAllRules();

@@ -28,6 +28,9 @@ public class EntityQuery<E> extends Query<EntityManager, E> {
 	private Long resultCount;
 	private Map<String, Object> hints;
 
+	public EntityQuery() {
+		super();
+	}
 	/**
 	* Validate the query
 	* 

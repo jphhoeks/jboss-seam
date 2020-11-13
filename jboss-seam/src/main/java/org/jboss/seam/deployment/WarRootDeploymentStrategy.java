@@ -33,13 +33,13 @@ public class WarRootDeploymentStrategy extends DeploymentStrategy {
 
 	private DotPageDotXmlDeploymentHandler dotPageDotXmlDeploymentHandler;
 
-	private PagesDotXmlDeploymentHandler pagesDotXmlDeploymentHandler;
 
 	public WarRootDeploymentStrategy(ClassLoader classLoader, File warRoot, ServletContext servletContext) {
 		this(classLoader, warRoot, servletContext, new File[0]);
 	}
 
 	public WarRootDeploymentStrategy(ClassLoader classLoader, File warRoot, ServletContext servletContext, File[] excludedDirectories) {
+		super();
 		this.classLoader = classLoader;
 		this.servletContext = servletContext;
 		this.warRoot = new File[1];
@@ -52,7 +52,7 @@ public class WarRootDeploymentStrategy extends DeploymentStrategy {
 			this.warRoot = new File[0];
 		}
 		dotPageDotXmlDeploymentHandler = new DotPageDotXmlDeploymentHandler();
-		pagesDotXmlDeploymentHandler = new PagesDotXmlDeploymentHandler();
+		PagesDotXmlDeploymentHandler pagesDotXmlDeploymentHandler = new PagesDotXmlDeploymentHandler();
 		getDeploymentHandlers().put(DotPageDotXmlDeploymentHandler.NAME, dotPageDotXmlDeploymentHandler);
 		getDeploymentHandlers().put(PagesDotXmlDeploymentHandler.NAME, pagesDotXmlDeploymentHandler);
 

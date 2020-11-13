@@ -6,7 +6,6 @@ import static org.jboss.seam.annotations.Install.BUILT_IN;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,13 +20,15 @@ import org.jboss.seam.security.management.IdentityManager;
 import org.jboss.seam.security.permission.Permission;
 import org.jboss.seam.security.permission.PermissionManager;
 
+import net.sf.ehcache.store.chm.ConcurrentHashMap;
+
 @Scope(CONVERSATION)
 @Name("org.jboss.seam.security.permission.permissionSearch")
 @Install(precedence = BUILT_IN)
 public class PermissionSearch implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Map<Principal, List<Permission>> groupedPermissions = new HashMap<Principal, List<Permission>>();
+	private Map<Principal, List<Permission>> groupedPermissions = new ConcurrentHashMap<Principal, List<Permission>>();
 
 	@DataModel
 	List<Principal> recipients;
@@ -43,6 +44,10 @@ public class PermissionSearch implements Serializable {
 
 	private Object target;
 
+	public PermissionSearch() {
+		super();
+	}
+	
 	@Begin
 	public void search(Object target) {
 		this.target = target;
@@ -72,8 +77,9 @@ public class PermissionSearch implements Serializable {
 		StringBuilder sb = new StringBuilder();
 
 		for (Permission permission : groupedPermissions.get(recipient)) {
-			if (sb.length() > 0)
+			if (sb.length() > 0) {
 				sb.append(", ");
+			}
 			sb.append(permission.getAction());
 		}
 

@@ -30,6 +30,10 @@ public class Transition extends AbstractMutable implements Serializable {
 
 	private String name;
 
+	public Transition() {
+		super();
+	}
+	
 	public String getName() {
 		return name;
 	}
