@@ -482,7 +482,7 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 	}
 
 	private String sanitizeRestrictionLogicOperator(String operator) {
-		if (operator == null || operator.trim().length() == 0) {
+		if (!Strings.isEmpty(operator)) {
 			return LOGIC_OPERATOR_AND;
 		}
 		if (!(LOGIC_OPERATOR_AND.equals(operator) || LOGIC_OPERATOR_OR.equals(operator))) {

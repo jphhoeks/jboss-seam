@@ -41,8 +41,6 @@ class SeamUserCodeInterceptor implements UserCodeInterceptor {
 		void runAndWrap() {
 			try {
 				run();
-			} catch (RuntimeException re) {
-				throw re;
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

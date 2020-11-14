@@ -35,6 +35,7 @@ import org.jboss.seam.deployment.FileDescriptor;
 import org.jboss.seam.deployment.StandardDeploymentStrategy;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Naming;
 import org.jboss.seam.util.Resources;
 import org.jbpm.JbpmConfiguration;
@@ -181,11 +182,11 @@ public class Jbpm {
 	}
 
 	public String[] getProcessDefinitions() {
-		return processDefinitions;
+		return CloneUtils.cloneArray(processDefinitions);
 	}
 
 	public void setProcessDefinitions(String[] processDefinitions) {
-		this.processDefinitions = processDefinitions;
+		this.processDefinitions = CloneUtils.cloneArray(processDefinitions);
 	}
 
 	/**

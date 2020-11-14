@@ -38,6 +38,7 @@ import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.SecurityInterceptor;
 import org.jboss.seam.transaction.RollbackInterceptor;
 import org.jboss.seam.transaction.TransactionInterceptor;
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Resources;
 import org.jboss.seam.webservice.WSSecurityInterceptor;
 
@@ -469,11 +470,11 @@ public class Init {
 	}
 
 	public File[] getHotDeployPaths() {
-		return hotDeployPaths;
+		return CloneUtils.cloneArray(hotDeployPaths);
 	}
 
 	public void setHotDeployPaths(File[] hotDeployJars) {
-		this.hotDeployPaths = hotDeployJars;
+		this.hotDeployPaths = CloneUtils.cloneArray(hotDeployJars);
 	}
 
 	public long getTimestamp() {

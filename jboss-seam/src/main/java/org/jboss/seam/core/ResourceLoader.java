@@ -16,6 +16,7 @@ import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.contexts.ServletLifecycle;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Resources;
 import org.jboss.seam.util.Strings;
 
@@ -44,11 +45,11 @@ public class ResourceLoader {
 	* @return an array of resource bundle names
 	*/
 	public String[] getBundleNames() {
-		return bundleNames;
+		return CloneUtils.cloneArray(bundleNames);
 	}
 
 	public void setBundleNames(String[] bundleNames) {
-		this.bundleNames = bundleNames;
+		this.bundleNames = CloneUtils.cloneArray(bundleNames);
 	}
 
 	public InputStream getResourceAsStream(String resource) {

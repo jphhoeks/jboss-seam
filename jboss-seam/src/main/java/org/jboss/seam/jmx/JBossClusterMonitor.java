@@ -71,7 +71,8 @@ public class JBossClusterMonitor {
 			jbossMBeanServer.getMBeanInfo(clusteringCacheObjectName);
 			clustered = true;
 			log.info("JBoss cluster detected");
-		} catch (Exception e) {
+		} catch (Exception ignored) {
+			//
 		}
 	}
 

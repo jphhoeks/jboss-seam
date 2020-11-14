@@ -18,6 +18,7 @@ import org.jboss.seam.core.Mutable;
 import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 
 /**
  * A conversation-scoped Drools WorkingMemory for a named RuleBase
@@ -148,10 +149,10 @@ public class ManagedWorkingMemory implements Mutable, Serializable {
 	}
 
 	public String[] getEventListeners() {
-		return eventListeners;
+		return CloneUtils.cloneArray(eventListeners);
 	}
 
 	public void setEventListeners(String[] eventListeners) {
-		this.eventListeners = eventListeners;
+		this.eventListeners = CloneUtils.cloneArray(eventListeners);
 	}
 }

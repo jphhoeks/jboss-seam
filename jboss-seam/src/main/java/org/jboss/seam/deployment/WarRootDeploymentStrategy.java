@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 
 /**
  * A special deployment strategy that can be used to scan the war root. This
@@ -81,7 +82,7 @@ public class WarRootDeploymentStrategy extends DeploymentStrategy {
 	}
 
 	public File[] getExcludedDirectories() {
-		return excludedDirectories;
+		return CloneUtils.cloneArray(excludedDirectories);
 	}
 
 	public Set<FileDescriptor> getDotPageDotXmlFileNames() {

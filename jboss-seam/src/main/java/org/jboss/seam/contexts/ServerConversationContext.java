@@ -179,9 +179,9 @@ public class ServerConversationContext implements Context {
 		String prefix = getPrefix(getId());
 		for (String name : session.keySet()) {
 			if (name.startsWith(prefix)) {
-				name = name.substring(prefix.length());
-				if (!removals.contains(name)) {
-					results.add(name);
+				String name2 = name.substring(prefix.length());
+				if (!removals.contains(name2)) {
+					results.add(name2);
 				}
 			}
 		}

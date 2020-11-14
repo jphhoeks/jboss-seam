@@ -9,6 +9,7 @@ import org.jboss.seam.annotations.Install;
 import org.jboss.seam.annotations.Startup;
 import org.jboss.seam.core.Init;
 import org.jboss.seam.security.permission.PermissionResolver;
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.web.AbstractResource;
 
 /**
@@ -104,11 +105,11 @@ public class ComponentDescriptor implements Comparable<ComponentDescriptor> {
 
 	public String[] getStartupDependencies() {
 		if (startupDepends != null && startupDepends.length > 0) {
-			return startupDepends;
+			return CloneUtils.cloneArray(startupDepends);
 		}
 		Startup startup = componentClass.getAnnotation(Startup.class);
 		if (startup != null) {
-			return startup.depends();
+			return CloneUtils.cloneArray(startup.depends());
 		}
 		return new String[0];
 	}

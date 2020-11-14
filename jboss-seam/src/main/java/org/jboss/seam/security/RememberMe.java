@@ -196,9 +196,9 @@ public class RememberMe implements Serializable {
 
 	protected String generateTokenValue() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(new UID().toString());
-		sb.append(":");
-		sb.append(random.nextLong());
+		sb.append(new UID().toString())
+		.append(":")
+		.append(random.nextLong());
 		return sb.toString();
 	}
 

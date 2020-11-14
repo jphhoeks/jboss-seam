@@ -21,6 +21,7 @@ import org.jboss.seam.core.Expressions.ValueExpression;
 import org.jboss.seam.core.ResourceLoader;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Resources;
 
 import javassist.util.proxy.ProxyFactory;
@@ -142,11 +143,11 @@ public class RuleBase {
 	}
 
 	public String[] getRuleFiles() {
-		return ruleFiles;
+		return CloneUtils.cloneArray(ruleFiles);
 	}
 
 	public void setRuleFiles(String[] ruleFiles) {
-		this.ruleFiles = ruleFiles;
+		this.ruleFiles = CloneUtils.cloneArray(ruleFiles);
 	}
 
 	public String getDslFile() {

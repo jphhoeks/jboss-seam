@@ -54,6 +54,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
+import org.jboss.seam.util.CloneUtils;
+
 /**
  * Mock implementation of the {@link javax.servlet.http.HttpServletRequest}
  * interface. Supports the Servlet 2.4 API level.
@@ -689,12 +691,12 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	}
 
 	public void setCookies(Cookie[] cookies) {
-		this.cookies = cookies;
+		this.cookies = CloneUtils.cloneArray(cookies);
 	}
 
 	@Override
 	public Cookie[] getCookies() {
-		return this.cookies;
+		return CloneUtils.cloneArray(this.cookies);
 	}
 
 	public void addCookie(Cookie cookie) {

@@ -30,6 +30,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 
 /**
  * An IdentityStore implementation that integrates with a directory service.
@@ -276,11 +277,11 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 	}
 
 	public String[] getUserObjectClasses() {
-		return userObjectClasses;
+		return CloneUtils.cloneArray(userObjectClasses);
 	}
 
 	public void setUserObjectClasses(String[] userObjectClasses) {
-		this.userObjectClasses = userObjectClasses;
+		this.userObjectClasses = CloneUtils.cloneArray(userObjectClasses);
 	}
 
 	public int getSearchTimeLimit() {

@@ -334,13 +334,13 @@ public class Conversions {
 			if (strings == null) {
 				throw new IllegalArgumentException();
 			}
-			this.strings = strings;
+			this.strings = CloneUtils.cloneArray(strings);
 			this.type = type;
 		}
 
 		@Override
 		public String[] getMultiValues() {
-			return strings;
+			return CloneUtils.cloneArray(strings);
 		}
 
 		@Override

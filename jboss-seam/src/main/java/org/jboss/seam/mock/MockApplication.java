@@ -53,7 +53,8 @@ public class MockApplication extends Application {
 	private Locale defaultLocale = Locale.ENGLISH;
 	private StateManager stateManager = new SeamStateManager(new MockStateManager());
 	private ViewHandler viewHandler = new SeamViewHandler(new MockViewHandler());
-	
+	private String msgBundleName;
+
 	
 	private final Map<Class<?>, Converter> converters = new HashMap<Class<?>, Converter>();
 	{
@@ -178,7 +179,6 @@ public class MockApplication extends Application {
 		throw new UnsupportedOperationException();
 	}
 
-	private String msgBundleName;
 
 	@Override
 	public String getMessageBundle() {

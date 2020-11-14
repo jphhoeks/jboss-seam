@@ -57,6 +57,7 @@ import org.jboss.seam.log.Logging;
 import org.jboss.seam.pageflow.Pageflow;
 import org.jboss.seam.security.Identity;
 import org.jboss.seam.security.NotLoggedInException;
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Resources;
 import org.jboss.seam.util.Strings;
 import org.jboss.seam.util.XML;
@@ -1419,11 +1420,11 @@ public class Pages {
 	}
 
 	public String[] getResources() {
-		return resources;
+		return CloneUtils.cloneArray(resources);
 	}
 
 	public void setResources(String[] resources) {
-		this.resources = resources;
+		this.resources = CloneUtils.cloneArray(resources);
 	}
 
 	private static boolean isDebugPage(String viewId) {

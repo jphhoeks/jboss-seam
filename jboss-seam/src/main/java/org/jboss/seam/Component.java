@@ -601,6 +601,7 @@ public class Component extends Model {
 		}
 	}
 
+	
 	private void scanMethod(Context applicationContext, Map<Method, Annotation> selectionSetters, Set<String> dataModelNames,
 			Method method) {
 		if (method.isAnnotationPresent(Destroy.class)) {
@@ -669,13 +670,41 @@ public class Component extends Model {
 			Init init = (Init) applicationContext.get(Seam.getComponentName(Init.class));
 
 			Observer observer = method.getAnnotation(Observer.class);
-			for (String eventType : observer.value()) {
-				if (eventType.length() == 0) {
-					eventType = method.getName(); 
-					// TODO: new defaulting rule to map @Observer
-					// onFooEvent() -> event type "fooEvent"
+			for (String eventType : observer.value()) {				
+				if (eventType.length() > 0) {
+					init.addObserverMethod(eventType, method, this, observer.create());					
 				}
-				init.addObserverMethod(eventType, method, this, observer.create());
+				else {
+					// Idea (curently only case 1, to not break old code)
+					// Register one or two defaults.
+					// 1. the old behaviour : method name. 
+					//     examples: customEvent, onCustomEvent, foo 
+					// 2. if the method startsWith on, remove it and lowerCase.
+					//     examples
+					//         onCustomEvent -> customEvent
+					//         oncustomEvent -> ignored
+					//         customEvent -> ignored
+					
+					String methodName = method.getName();
+					init.addObserverMethod(methodName, method, this, observer.create());
+					
+					
+/*					
+					if (methodName.startsWith("on")) {
+						String defaultEventType = "";
+						String tmp = methodName.substring(2);
+						if (Character.isUpperCase(tmp.charAt(0))) {
+							StringBuilder sb = new StringBuilder(tmp);
+							sb.setCharAt(0, Character.toLowerCase(tmp.charAt(0)));
+							defaultEventType = sb.toString();
+						}
+						if (!Strings.isEmpty(defaultEventType)) {
+							init.addObserverMethod(defaultEventType, method, this, observer.create());
+						}
+					}
+*/					
+					
+				}
 			}
 		}
 
@@ -2347,13 +2376,10 @@ public class Component extends Model {
 					list = new ArrayList(initialValues.length);
 				} else {
 					try {
-						list = (List) collectionClass.getDeclaredConstructor().newInstance();
-					} catch (IllegalAccessException e) {
-						throw new IllegalArgumentException("Cannot instantiate a list of type " + collectionClass.getCanonicalName()
-								+ "; try specifying type type in components.xml", e);
+						list = (List) collectionClass.getDeclaredConstructor().newInstance();					
 					} catch (ClassCastException e) {
 						throw new IllegalArgumentException("Cannot cast " + collectionClass.getCanonicalName() + " to java.util.List", e);
-					} catch (java.lang.InstantiationException | InvocationTargetException e) {
+					} catch (java.lang.InstantiationException | InvocationTargetException | IllegalAccessException e) {
 						throw new IllegalArgumentException("Cannot instantiate a list of type " + collectionClass.getCanonicalName()
 								+ "; try specifying type type in components.xml", e);
 					} catch (NoSuchMethodException e) {
