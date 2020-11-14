@@ -22,6 +22,10 @@ public class Introspector {
 
 	@RequestParameter
 	private String name;
+	
+	public Introspector() {
+		super();
+	}
 
 	@SuppressWarnings("unchecked")
 	public Attribute[] getAttributes() throws Exception {
