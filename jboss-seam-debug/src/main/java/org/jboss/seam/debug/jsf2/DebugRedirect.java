@@ -10,11 +10,12 @@ import org.jboss.seam.faces.FacesManager;
 @BypassInterceptors
 @Install(debug = true, precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 public class DebugRedirect {
+	private String viewId;
+
 	public DebugRedirect() {
 		super();
 	}
 
-	private String viewId;
 
 	public String getViewId() {
 		return viewId;
