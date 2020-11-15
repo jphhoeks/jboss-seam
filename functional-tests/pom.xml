@@ -11,6 +11,10 @@
 
 	<artifactId>functional-tests</artifactId>
 	<name>Seam Functional Tests Common Classes</name>
+	
+	<properties>
+		<automatic.module.name>com.github.albfernandez.seam.functionaltests</automatic.module.name>
+	</properties>
 
 	<dependencies>
 		<dependency>
