@@ -12,6 +12,10 @@
 	<artifactId>seam-reference-guide</artifactId>
 	<name>Seam Reference Guide</name>
 	<packaging>jar</packaging>
+	
+	<properties>
+		<automatic.module.name>com.github.albfernandez.seam.guide</automatic.module.name>
+	</properties>
 
 	<build>
 		<defaultGoal>process-classes</defaultGoal>
