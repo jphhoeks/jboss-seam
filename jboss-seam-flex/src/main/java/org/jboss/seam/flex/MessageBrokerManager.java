@@ -35,6 +35,10 @@ public class MessageBrokerManager {
 	private flex.messaging.MessageBroker broker;
 
 	private ServletConfig servletConfig;
+	
+	public MessageBrokerManager() {
+		super();
+	}
 
 	public void init(ServletConfig servletConfig) throws ServletException {
 		this.servletConfig = servletConfig;
@@ -112,10 +116,14 @@ public class MessageBrokerManager {
 
 			// necessary to create for later
 			HttpFlexSession fs = HttpFlexSession.getFlexSession(req);
-			log.info("flex session is " + fs);
+			if (log.isInfoEnabled()) {
+				log.info("flex session is " + fs);
+			}
 
 			Endpoint endpoint = findEndpoint(req, res);
-			log.info("Endpoint: " + endpoint.describeEndpoint());
+			if (log.isInfoEnabled()) {
+				log.info("Endpoint: " + endpoint.describeEndpoint());
+			}
 
 			endpoint.service(req, res);
 		} catch (UnsupportedOperationException ue) {
@@ -148,7 +156,9 @@ public class MessageBrokerManager {
 			endpointPath = endpointPath + pathInfo;
 		}
 
-		log.info("flex request for cp=" + contextPath + " ep=" + endpointPath);
+		if (log.isInfoEnabled()) {
+			log.info("flex request for cp=" + contextPath + " ep=" + endpointPath);
+		}
 		try {
 			return broker.getEndpoint(endpointPath, contextPath);
 		} catch (MessageException me) {
@@ -183,7 +193,9 @@ public class MessageBrokerManager {
 		remotingService.setId("remoting-service");
 
 		broker.addService(remotingService);
-		log.info("Flex remotingservice not found- creating " + remotingService);
+		if (log.isInfoEnabled()) {
+			log.info("Flex remotingservice not found- creating " + remotingService);
+		}
 		return remotingService;
 	}
 
@@ -218,7 +230,9 @@ public class MessageBrokerManager {
 
 	public void addDestinations(Collection<Class<?>> destinations) {
 		for (Class<?> annotatedClass : destinations) {
-			log.info("Adding scanned flex desitionation for class " + annotatedClass);
+			if (log.isInfoEnabled()) {
+				log.info("Adding scanned flex desitionation for class " + annotatedClass);
+			}
 			FlexRemote fr = annotatedClass.getAnnotation(FlexRemote.class);
 
 			Name name = annotatedClass.getAnnotation(Name.class);

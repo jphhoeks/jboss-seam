@@ -15,6 +15,10 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value = "org.jboss.seam.ui.AtomicLongConverter")
 public class AtomicLongConverter implements Converter {
+	
+	public AtomicLongConverter() {
+		super();
+	}
 
 	@Override
 	public Object getAsObject(FacesContext ctx, UIComponent ui, String value) {

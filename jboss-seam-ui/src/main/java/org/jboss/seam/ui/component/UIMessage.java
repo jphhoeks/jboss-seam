@@ -39,6 +39,10 @@ import org.richfaces.cdk.annotations.Tag;
 public abstract class UIMessage extends HtmlMessage implements UIDecorateAware {
 
 	protected UIDecorate decorate;
+	
+	protected UIMessage() {
+		super();
+	}
 
 	/**
 	* A depth-first search for an EditableValueHolder
@@ -50,8 +54,9 @@ public abstract class UIMessage extends HtmlMessage implements UIDecorateAware {
 		for (Object child : component.getChildren()) {
 			if (child instanceof UIComponent) {
 				UIComponent evh = getEditableValueHolder((UIComponent) child);
-				if (evh != null)
+				if (evh != null) {
 					return evh;
+				}
 			}
 		}
 		return null;

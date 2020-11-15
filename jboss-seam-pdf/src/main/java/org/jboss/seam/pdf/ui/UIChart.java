@@ -53,6 +53,10 @@ public abstract class UIChart extends ITextComponent {
 	private String plotOutlinePaint;
 
 	protected Dataset dataset;
+	
+	public UIChart() {
+		super();
+	}
 
 	public void setTitle(String title) {
 		this.title = title;

@@ -36,6 +36,10 @@ import org.richfaces.cdk.annotations.Tag;
 		"command-button-props.xml", "javax.faces.component.UICommand.xml", "javax.faces.component.ValueHolder.xml", "i18n-props.xml",
 		"accesskey-props.xml" })
 public abstract class UILink extends UISeamCommandBase {
+	
+	protected UILink() {
+		super();
+	}
 
 	@Attribute
 	public abstract String getStyleClass();

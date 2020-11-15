@@ -17,6 +17,10 @@ import org.richfaces.cdk.annotations.Tag;
 		"javax.faces.component.UIComponent.xml", "core-props.xml" })
 public abstract class UIRemote extends UIComponentBase {
 
+	protected UIRemote() {
+		super();
+	}
+	
 	@Attribute(description = @Description("The Seam components to include in the Seam Remoting JS interface stubs"))
 	public abstract String getInclude();
 

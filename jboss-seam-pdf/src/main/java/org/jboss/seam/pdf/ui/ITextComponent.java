@@ -23,6 +23,10 @@ public abstract class ITextComponent extends UIComponentBase {
 
 	protected String inFacet;
 	protected Object currentFacet;
+	
+	protected ITextComponent() {
+		super();
+	}
 
 	/**
 	* get the current Itext object

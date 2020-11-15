@@ -38,6 +38,10 @@ public class UIForm extends FormComponent {
 	PdfStamper stamper;
 	AcroFields fields;
 	ByteArrayOutputStream buffer;
+	
+	public UIForm() {
+		super();
+	}
 
 	public String getURL() {
 		return (String) valueOf("URL", URL);

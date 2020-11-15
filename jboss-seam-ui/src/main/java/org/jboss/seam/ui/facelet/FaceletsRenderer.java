@@ -28,6 +28,9 @@ import org.jboss.seam.faces.Renderer;
 @Install(value = true, precedence = Install.BUILT_IN, classDependencies = "com.sun.faces.application.ApplicationAssociate")
 public class FaceletsRenderer extends Renderer {
 
+	public FaceletsRenderer() {
+		super();
+	}
 	/**
 	* Render the viewId, anything written to the JSF ResponseWriter is
 	* returned 

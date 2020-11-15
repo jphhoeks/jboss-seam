@@ -42,6 +42,10 @@ import org.richfaces.cdk.annotations.Tag;
 public abstract class UIConversationId extends UIParameter {
 
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.ConversationId";
+	
+	protected UIConversationId() {
+		super();
+	}
 
 	@Override
 	public String getName() {

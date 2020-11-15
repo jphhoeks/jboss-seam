@@ -9,42 +9,7 @@ import java.util.Map;
  * @author Nicklas Karlsson (nickarls@gmail.com)
  */
 public class CellStyle {
-
-	public class Font {
-		public String family;
-		public Integer pointSize;
-		public String color;
-		public Boolean bold;
-		public Boolean italic;
-		public String scriptStyle;
-		public String underlineStyle;
-		public Boolean struckOut;
-
-		public boolean isUsed() {
-			return family != null || pointSize != null || color != null || bold != null || italic != null || scriptStyle != null
-					|| underlineStyle != null || struckOut != null;
-		}
-	}
-
-	public class Background {
-		public String color;
-		public String pattern;
-
-		public boolean isUsed() {
-			return color != null || pattern != null;
-		}
-	}
-
-	public class Border {
-		public String color;
-		public String lineStyle;
-
-		public boolean isUsed() {
-			return color != null || lineStyle != null;
-		}
-
-	}
-
+	
 	public Font font = new Font();
 	public Background background = new Background();
 	public Border leftBorder = new Border();
@@ -60,6 +25,55 @@ public class CellStyle {
 	public String verticalAlignment;
 	public String formatMask;
 	public String forceType;
+	
+	public class Font {
+		public String family;
+		public Integer pointSize;
+		public String color;
+		public Boolean bold;
+		public Boolean italic;
+		public String scriptStyle;
+		public String underlineStyle;
+		public Boolean struckOut;
+
+		public Font() {
+			super();
+		}
+		
+		public boolean isUsed() {
+			return family != null || pointSize != null || color != null || bold != null || italic != null || scriptStyle != null
+					|| underlineStyle != null || struckOut != null;
+		}
+	}
+
+	public class Background {
+		public String color;
+		public String pattern;
+		
+		public Background() {
+			super();
+		}
+
+		public boolean isUsed() {
+			return color != null || pattern != null;
+		}
+	}
+
+	public class Border {
+		public String color;
+		public String lineStyle;
+		
+		public Border() {
+			super();
+		}		
+
+		public boolean isUsed() {
+			return color != null || lineStyle != null;
+		}
+
+	}
+
+
 
 	public CellStyle(Map<String, Object> styleMap) {
 		font.family = (String) styleMap.get(CSSNames.FONT_FAMILY);

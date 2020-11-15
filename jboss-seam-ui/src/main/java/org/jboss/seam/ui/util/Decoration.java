@@ -9,45 +9,53 @@ public class Decoration {
 	public static boolean hasMessage(UIComponent component, FacesContext context) {
 
 		// If the component isn't to be rendered, then ignore
-		if (!component.isRendered())
+		if (!component.isRendered()) {
 			return false;
+		}
 
 		if (component instanceof EditableValueHolder) {
 
 			// If the component has failed validation, then it's invalid      
-			if (!((EditableValueHolder) component).isValid())
+			if (!((EditableValueHolder) component).isValid()) {
 				return true;
+			}
 
 			// If the component has a faces message attached, return true.
 			// TODO enhance this to only consider ERROR and WARN messages probably
-			if (context.getMessages(component.getClientId(context)).hasNext())
-				return true; //TODO: put this outside the if???
+			if (context.getMessages(component.getClientId(context)).hasNext()) {
+				//TODO: put this outside the if???
+				return true; 
+			}
 		}
 
 		for (Object child : component.getChildren()) {
 			if (child instanceof UIComponent) {
 				boolean message = hasMessage((UIComponent) child, context);
-				if (message)
+				if (message) {
 					return true;
+				}
 			}
 		}
 		return false;
 	}
 
 	public static boolean hasRequired(UIComponent component, FacesContext context) {
-		if (!component.isRendered())
+		if (!component.isRendered()) {
 			return false;
+		}
 
 		if (component instanceof EditableValueHolder) {
-			if (((EditableValueHolder) component).isRequired())
+			if (((EditableValueHolder) component).isRequired()) {
 				return true;
+			}
 		}
 
 		for (Object child : component.getChildren()) {
 			if (child instanceof UIComponent) {
 				boolean required = hasRequired((UIComponent) child, context);
-				if (required)
+				if (required) {
 					return true;
+				}
 			}
 		}
 		return false;
@@ -65,8 +73,9 @@ public class Decoration {
 				}
 			} else if (child instanceof UIComponent) {
 				UIComponent evh = getEditableValueHolder((UIComponent) child);
-				if (evh != null)
+				if (evh != null) {
 					return evh;
+				}
 			}
 		}
 		return null;
@@ -74,10 +83,12 @@ public class Decoration {
 
 	public static UIComponent getDecoration(String name, UIComponent component) {
 		UIComponent dec = component.getFacet(name);
-		if (dec != null)
+		if (dec != null) {
 			return dec;
-		if (component.getParent() == null)
+		}
+		if (component.getParent() == null) {
 			return null;
+		}
 		return getDecoration(name, component.getParent());
 	}
 

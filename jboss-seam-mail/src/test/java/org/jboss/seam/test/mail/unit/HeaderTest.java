@@ -4,6 +4,11 @@ import org.jboss.seam.mail.ui.Header;
 import org.testng.annotations.Test;
 
 public class HeaderTest {
+	
+	public HeaderTest() {
+		super();
+	}
+	
 	@Test
 	public void testHeader() {
 		String name = "foo";

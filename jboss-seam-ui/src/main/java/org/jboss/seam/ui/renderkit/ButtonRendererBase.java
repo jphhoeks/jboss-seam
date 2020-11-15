@@ -13,6 +13,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.ButtonRenderer", family = "org.jboss.seam.ui.ButtonRenderer")
 public class ButtonRendererBase extends RendererBase {
+	
+	public ButtonRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {

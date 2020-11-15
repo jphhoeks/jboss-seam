@@ -24,6 +24,10 @@ import org.jboss.seam.mock.MockServletContext;
 public class ServletContextManager {
 
 	private ServletContext servletContext;
+	
+	public ServletContextManager() {
+		super();
+	}
 
 	@Create
 	public void create() {

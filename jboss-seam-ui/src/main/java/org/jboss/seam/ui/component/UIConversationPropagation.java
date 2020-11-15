@@ -41,6 +41,10 @@ public abstract class UIConversationPropagation extends UIParameter {
 
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.ConversationPropagation";
 
+	protected UIConversationPropagation() {
+		super();
+	}
+	
 	@Override
 	public String getName() {
 		return "conversationPropagation";

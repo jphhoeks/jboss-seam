@@ -44,6 +44,9 @@ public class FormattedTextValidator implements javax.faces.validator.Validator, 
 	String firstError;
 	String firstErrorDetail;
 
+	public FormattedTextValidator() {
+		super();
+	}
 	/**
 	 * Validate the given value as well-formed Seam Text. If there are parse
 	 * errors, throw a ValidatorException including the first parse error.
@@ -176,11 +179,13 @@ public class FormattedTextValidator implements javax.faces.validator.Validator, 
 		String location = null;
 
 		// Avoid IOOBE even if what we show is wrong, we need to figure out why the indexes are off sometimes
-		if (beginIndex > 0 && beginIndex < endIndex && endIndex > 0 && endIndex < originalText.length())
+		if (beginIndex > 0 && beginIndex < endIndex && endIndex > 0 && endIndex < originalText.length()) {
 			location = originalText.substring(beginIndex, endIndex);
+		}
 
-		if (location == null)
+		if (location == null) {
 			return location;
+		}
 
 		// Filter some dangerous characters we do not want in error messages
 		return location.replace("\n", " ").replace("\r", " ").replace("#{", "# {");

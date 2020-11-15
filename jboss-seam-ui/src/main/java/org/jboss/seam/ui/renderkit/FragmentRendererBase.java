@@ -12,6 +12,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.renderkit.FragmentRendererBase", family = "org.jboss.seam.ui.FragmentRenderer")
 public class FragmentRendererBase extends RendererBase {
+	
+	public FragmentRendererBase() {
+		super();
+	}
+	
 	@Override
 	protected Class getComponentClass() {
 		return UIFragment.class;

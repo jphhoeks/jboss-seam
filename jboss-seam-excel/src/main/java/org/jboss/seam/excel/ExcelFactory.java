@@ -36,6 +36,10 @@ public class ExcelFactory {
 		defaultImplementations.put("jxl", JXLExcelWorkbook.class);
 	}
 
+	public ExcelFactory() {
+		super();
+	}
+	
 	public static ExcelFactory instance() {
 		return (ExcelFactory) Component.getInstance(ExcelFactory.class);
 	}

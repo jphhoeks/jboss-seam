@@ -19,6 +19,10 @@ public abstract class UIGraphicImage extends HtmlGraphicImage {
 
 	public static final String FAMILY = "org.jboss.seam.ui.UIGraphicImage";
 
+	protected UIGraphicImage() {
+		super();
+	}
+	
 	@Attribute(description = @Description("File name for the generated URL - allows a stable file name and thus browser caching"))
 	public abstract String getFileName();
 

@@ -36,10 +36,11 @@ import javax.faces.el.MethodNotFoundException;
 public class SimpleActionMethodBinding extends MethodBinding implements StateHolder {
 	// private static final Log log =
 	// LogFactory.getLog(SimpleActionMethodBinding.class);
-
+	private boolean _transient = false;
 	private String _outcome;
 
 	public SimpleActionMethodBinding(String outcome) {
+		super();
 		_outcome = outcome;
 	}
 
@@ -56,13 +57,14 @@ public class SimpleActionMethodBinding extends MethodBinding implements StateHol
 	// ~ StateHolder support
 	// ----------------------------------------------------------------------------
 
-	private boolean _transient = false;
+
 
 	/**
 	 * Empty constructor, so that new instances can be created when restoring
 	 * state.
 	 */
 	public SimpleActionMethodBinding() {
+		super();
 		_outcome = null;
 	}
 

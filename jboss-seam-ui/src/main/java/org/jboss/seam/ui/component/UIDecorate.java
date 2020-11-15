@@ -23,6 +23,10 @@ public abstract class UIDecorate extends UIComponentBase implements NamingContai
 
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.Decorate";
 
+	protected UIDecorate() {
+		super();
+	}
+	
 	public boolean hasMessage() {
 		String clientId = getInputClientId();
 		if (clientId == null) {

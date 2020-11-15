@@ -37,6 +37,10 @@ public class RendererFacesContextFactory {
 
 	private javax.faces.context.FacesContextFactory facesContextFactory;
 	private Lifecycle lifecycle;
+	
+	public RendererFacesContextFactory() {
+		super();
+	}
 
 	@Create
 	public void create() {

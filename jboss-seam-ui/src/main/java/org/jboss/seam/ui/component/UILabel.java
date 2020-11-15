@@ -20,6 +20,9 @@ import org.richfaces.cdk.annotations.Tag;
 public abstract class UILabel extends HtmlOutputLabel implements UIDecorateAware {
 	protected UIDecorate decorate;
 
+	protected UILabel() {
+		super();
+	}
 	/**
 	* A depth-first search for an EditableValueHolder
 	*/
@@ -30,8 +33,9 @@ public abstract class UILabel extends HtmlOutputLabel implements UIDecorateAware
 		for (Object child : component.getChildren()) {
 			if (child instanceof UIComponent) {
 				UIComponent evh = getEditableValueHolder((UIComponent) child);
-				if (evh != null)
+				if (evh != null) {
 					return evh;
+				}
 			}
 		}
 		return null;

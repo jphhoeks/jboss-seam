@@ -35,6 +35,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 		"command-button-props.xml", "javax.faces.component.UICommand.xml", "javax.faces.component.ValueHolder.xml", "i18n-props.xml",
 		"accesskey-props.xml" })
 public abstract class UIButton extends UISeamCommandBase {
+	
+	protected UIButton() {
+		super();
+	}
 
 	@Attribute
 	public abstract String getStyleClass();

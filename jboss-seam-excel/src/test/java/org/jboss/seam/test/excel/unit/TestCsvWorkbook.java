@@ -8,6 +8,10 @@ import org.testng.annotations.Test;
 
 @Test
 public class TestCsvWorkbook {
+	
+	public TestCsvWorkbook() {
+		super();
+	}
 
 	@Test(expectedExceptions = { RuntimeException.class })
 	public void testOneSheetOnly() {

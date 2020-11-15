@@ -42,6 +42,7 @@ import org.jboss.seam.excel.ui.command.UIMergeCells;
 import org.jboss.seam.excel.ui.command.UIRowPageBreak;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 
 /**
  * Class that encapsulates the JExcelApi Workbook and Worksheet concepts and
@@ -62,7 +63,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	// The maximum number of columns allowed by the Excel specification. This
 	// will be worked around in future versions of this class by automatically
 	// creating new sheets
-	private static final int MAX_ROWS = 65535;
+	private static final int MAX_ROWS = 65_535;
 
 	// The default worksheet naming base
 	private static final String DEFAULT_WORKSHEET_NAME = "Sheet{0}";
@@ -116,6 +117,9 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 
 	private JXLHelper jxlHelper = new JXLHelper();
 
+	public JXLExcelWorkbook() {
+		super();
+	}
 	/**
 	 * Moves the row pointer to the next row. Used internally when adding data
 	 * 
@@ -308,26 +312,27 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 	public void createWorkbook(UIWorkbook uiWorkbook) {
 		String urlString = uiWorkbook.getTemplateURI();
 		InputStream templateStream = null;
-		if (urlString != null) {
-			try {
-				if (urlString.indexOf("://") < 0) {
-					templateStream = getClass().getResourceAsStream(urlString);
-				} else {
-					templateStream = new URL(urlString).openStream();
-				}
-			} catch (Exception e) {
-				throw new ExcelWorkbookException("Could not handle template URI", e);
-			}
-		}
-		WorkbookSettings workbookSettings = null;
-		if (uiWorkbook.hasSettings()) {
-			workbookSettings = jxlHelper.createWorkbookSettings(uiWorkbook);
-		}
-		if (log.isDebugEnabled()) {
-			log.debug("Creating workbook with creation type #0", uiWorkbook.getCreationType());
-		}
-		// The joys of multiple constructors and no setters...
 		try {
+			if (urlString != null) {
+				try {
+					if (urlString.indexOf("://") < 0) {
+						templateStream = getClass().getResourceAsStream(urlString);
+					} else {
+						templateStream = new URL(urlString).openStream();
+					}
+				} catch (Exception e) {
+					throw new ExcelWorkbookException("Could not handle template URI", e);
+				}
+			}
+			WorkbookSettings workbookSettings = null;
+			if (uiWorkbook.hasSettings()) {
+				workbookSettings = jxlHelper.createWorkbookSettings(uiWorkbook);
+			}
+			if (log.isDebugEnabled()) {
+				log.debug("Creating workbook with creation type #0", uiWorkbook.getCreationType());
+			}
+			// The joys of multiple constructors and no setters...
+
 			switch (uiWorkbook.getCreationType()) {
 			case WITH_SETTNGS_AND_TEMPLATE:
 				workbook = Workbook.createWorkbook(byteStream, Workbook.getWorkbook(templateStream), workbookSettings);
@@ -344,6 +349,9 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 			}
 		} catch (Exception e) {
 			throw new ExcelWorkbookException("Could not create workbook", e);
+		}
+		finally {
+			Resources.close(templateStream);
 		}
 		if (uiWorkbook.getWorkbookProtected() != null) {
 			workbook.setProtected(uiWorkbook.getWorkbookProtected());
@@ -536,7 +544,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 		if (command.getStartRow() == null || command.getEndRow() == null) {
 			throw new ExcelWorkbookException("Must define starting and ending rows when grouping rows");
 		}
-		boolean collapse = command.getCollapse() == null ? false : command.getCollapse();
+		boolean collapse = command.getCollapse() != null && command.getCollapse();
 		try {
 			worksheet.setRowGroup(command.getStartRow(), command.getEndRow(), collapse);
 		} catch (Exception e) {
@@ -564,7 +572,7 @@ public class JXLExcelWorkbook implements ExcelWorkbook {
 		for (int i = command.getStartColumn(); i <= command.getEndColumn(); i++) {
 			worksheet.setColumnView(i, new CellView());
 		}
-		boolean collapse = command.getCollapse() == null ? false : command.getCollapse();
+		boolean collapse = command.getCollapse() != null && command.getCollapse();
 		try {
 			worksheet.setColumnGroup(command.getStartColumn(), command.getEndColumn(), collapse);
 		} catch (Exception e) {

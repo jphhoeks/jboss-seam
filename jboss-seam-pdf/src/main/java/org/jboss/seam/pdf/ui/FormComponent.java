@@ -7,6 +7,10 @@ public abstract class FormComponent extends UIComponentBase {
 	protected static final String FIELDS_KEY = "acrofields";
 	protected static final String STAMPER_KEY = "acrostamper";
 
+	protected FormComponent() {
+		super();
+	}
+	
 	protected Object valueOf(String name, Object defaultValue) {
 		Object value = defaultValue;
 		if (getValueExpression(name) != null) {

@@ -5,9 +5,14 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 
 public class UIPageNumber extends ITextComponent {
+	
+	public UIPageNumber() {
+		super();
+	}
 
 	@Override
 	public void createITextObject(FacesContext context) {
+		//
 	}
 
 	@Override
@@ -22,6 +27,7 @@ public class UIPageNumber extends ITextComponent {
 
 	@Override
 	public void removeITextObject() {
+		//
 	}
 
 	@Override

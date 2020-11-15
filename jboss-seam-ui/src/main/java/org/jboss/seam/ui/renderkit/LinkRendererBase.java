@@ -13,6 +13,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.LinkRenderer", family = "org.jboss.seam.ui.LinkRenderer")
 public class LinkRendererBase extends RendererBase {
+	
+	public LinkRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {

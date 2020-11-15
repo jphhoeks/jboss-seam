@@ -12,6 +12,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.ResourceRenderer", family = "org.jboss.seam.ui.ResourceRenderer")
 public class ResourceRendererBase extends RendererBase {
+	
+	public ResourceRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {

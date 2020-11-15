@@ -10,6 +10,10 @@ public class UIHeader extends MailComponent {
 
 	private String name;
 	private String value;
+	
+	public UIHeader() {
+		super();
+	}
 
 	@Override
 	public void encodeBegin(FacesContext facesContext) throws IOException {

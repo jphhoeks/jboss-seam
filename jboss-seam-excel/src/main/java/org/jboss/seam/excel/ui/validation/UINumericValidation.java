@@ -13,6 +13,10 @@ public class UINumericValidation extends ExcelComponent implements Validation {
 	private Double value2;
 	private ValidationCondition condition;
 
+	public UINumericValidation() {
+		super();
+	}
+	
 	@Override
 	public String getFamily() {
 		return COMPONENT_TYPE;

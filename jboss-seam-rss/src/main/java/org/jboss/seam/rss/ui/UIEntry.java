@@ -32,6 +32,10 @@ public class UIEntry extends SyndicationComponent {
 	private TextType textFormat = TextType.html;
 	private Date published;
 	private Date updated;
+	
+	public UIEntry() {
+		super();
+	}
 
 	@Override
 	public String getFamily() {

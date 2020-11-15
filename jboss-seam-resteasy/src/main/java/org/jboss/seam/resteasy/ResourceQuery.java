@@ -55,6 +55,9 @@ public class ResourceQuery<T> extends AbstractResource<T> {
 
 	private Query<?, T> entityQuery = null;
 
+	public ResourceQuery() {
+		super();
+	}
 	/**
 	* Called at component instantiation.
 	*/

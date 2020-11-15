@@ -6,6 +6,10 @@ import org.apache.tools.ant.Task;
 public class PathFilenameTask extends Task {
 	private String path;
 	private String propertyName;
+	
+	public PathFilenameTask() {
+		super();
+	}
 
 	@Override
 	public void execute() throws BuildException {

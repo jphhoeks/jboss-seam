@@ -32,6 +32,10 @@ public class EntityIdentifierStore extends AbstractMutable {
 
 	private static final long serialVersionUID = 1L;
 	private List<Identifier> store;
+	
+	public EntityIdentifierStore() {
+		super();
+	}
 
 	@Create
 	public void create() {

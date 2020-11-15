@@ -44,10 +44,13 @@ public class SeamAuthorizationStrategy implements IAuthorizationStrategy {
 	public boolean isInstantiationAuthorized(Class componentClass) {
 		try {
 			WicketComponent instance = WicketComponent.getInstance(componentClass);
-			if (instance != null)
+			if (instance != null) {
 				instance.checkRestrictions();
+			}
 		} catch (NotLoggedInException e) {
-			log.error("Unauthorized access to " + componentClass.getName() + ", user not logged in", e);
+			if (log.isErrorEnabled()) {
+				log.error("Unauthorized access to " + componentClass.getName() + ", user not logged in", e);
+			}
 			return handleException(componentClass);
 		} catch (org.jboss.seam.security.AuthorizationException e) {
 			return false;

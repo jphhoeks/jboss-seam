@@ -6,48 +6,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class Messages {
+public final class Messages {
+	
 	private static final String BUNDLE_NAME = "org.ajax4jsf.messages";
 
-	private static Map<ClassLoader, ResourceBundle> bundles = new HashMap<ClassLoader, ResourceBundle>();
-
-	private static synchronized ResourceBundle getBundle() {
-		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-		ResourceBundle bundle = bundles.get(contextClassLoader);
-		if (bundle == null) {
-			bundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), contextClassLoader);
-			bundles.put(contextClassLoader, bundle);
-		}
-
-		return bundle;
-	}
-
-	public static final String getMessage(String name) {
-		String value = getBundle().getString(name);
-		return value == null ? "%" + name + "%" : value;
-	}
-
-	public static final String getMessage(String name, Object param) {
-		String pattern = getBundle().getString(name);
-		if (pattern == null)
-			return "%" + name + "%";
-		return MessageFormat.format(pattern, new Object[] { param });
-	}
-
-	public static final String getMessage(String name, Object param1, Object param2) {
-		String pattern = getBundle().getString(name);
-		if (pattern == null)
-			return "%" + name + "%";
-		return MessageFormat.format(pattern, new Object[] { param1, param2 });
-	}
-
-	public static final String getMessage(String name, Object[] params) {
-		String pattern = getBundle().getString(name);
-		if (pattern == null)
-			return "%" + name + "%";
-		return MessageFormat.format(pattern, params);
-	}
-
+	
 	public static final String BUNDLE_MAP_NO_PUT_VALUE = "BUNDLE_MAP_NO_PUT_VALUE";
 	public static final String BUNDLE_MAP_NO_REMOVE_VALUE = "BUNDLE_MAP_NO_REMOVE_VALUE";
 	public static final String NO_CONVERTER_REGISTERED = "NO_CONVERTER_REGISTERED";
@@ -305,6 +268,54 @@ public class Messages {
 	public static final String NOT_PARENT_AJAX_COMPONENT_ERROR = "NOT_PARENT_AJAX_COMPONENT_ERROR";
 	public static final String INVALID_VALUE = "INVALID_VALUE";
 	public static final String DATASCROLLER_PAGE_MISSING = "DATASCROLLER_PAGE_MISSING";
+	
+	private static Map<ClassLoader, ResourceBundle> bundles = new HashMap<ClassLoader, ResourceBundle>();
+
+	private Messages() {
+		throw new AssertionError("No instances Allowed");
+	}
+	
+	private static synchronized ResourceBundle getBundle() {
+		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+		ResourceBundle bundle = bundles.get(contextClassLoader);
+		if (bundle == null) {
+			bundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), contextClassLoader);
+			bundles.put(contextClassLoader, bundle);
+		}
+
+		return bundle;
+	}
+
+	public static final String getMessage(String name) {
+		String value = getBundle().getString(name);
+		return value == null ? "%" + name + "%" : value;
+	}
+
+	public static final String getMessage(String name, Object param) {
+		String pattern = getBundle().getString(name);
+		if (pattern == null) {
+			return "%" + name + "%";
+		}
+		return MessageFormat.format(pattern, new Object[] { param });
+	}
+
+	public static final String getMessage(String name, Object param1, Object param2) {
+		String pattern = getBundle().getString(name);
+		if (pattern == null) {
+			return "%" + name + "%";
+		}
+		return MessageFormat.format(pattern, new Object[] { param1, param2 });
+	}
+
+	public static final String getMessage(String name, Object[] params) {
+		String pattern = getBundle().getString(name);
+		if (pattern == null) {
+			return "%" + name + "%";
+		}
+		return MessageFormat.format(pattern, params);
+	}
+
+	
 
 
 }

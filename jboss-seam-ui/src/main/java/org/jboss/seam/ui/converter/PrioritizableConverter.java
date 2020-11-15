@@ -21,8 +21,10 @@ public class PrioritizableConverter implements Converter, Comparable<Prioritizab
 	private Converter delegate;
 
 	private int priority;
+	private boolean _transient;
 
 	public PrioritizableConverter() {
+		super();
 	}
 
 	public PrioritizableConverter(ValueExpression vb, int priority) {
@@ -62,7 +64,7 @@ public class PrioritizableConverter implements Converter, Comparable<Prioritizab
 		return this.getPriority() - o.getPriority();
 	}
 
-	private boolean _transient;
+
 
 	@Override
 	public boolean isTransient() {

@@ -14,6 +14,10 @@ public abstract class UIGraphics2D extends ITextComponent {
 
 	private int height = 300;
 	private int width = 400;
+	
+	public UIGraphics2D() {
+		super();
+	}
 
 	public void setHeight(int height) {
 		this.height = height;

@@ -15,6 +15,10 @@ public class UIStroke extends UIComponentBase {
 	Float miterLimit = 1f;
 	String dashString;
 	Float dashPhase = 0f;
+	
+	public UIStroke() {
+		super();
+	}
 
 	public String getCap() {
 		return cap;

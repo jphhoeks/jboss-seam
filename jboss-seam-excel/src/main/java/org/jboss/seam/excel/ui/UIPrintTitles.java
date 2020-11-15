@@ -7,6 +7,10 @@ public class UIPrintTitles extends ExcelComponent {
 	private Integer firstRow;
 	private Integer lastCol;
 	private Integer lastRow;
+	
+	public UIPrintTitles() {
+		super();
+	}
 
 	public Integer getFirstCol() {
 		return (Integer) valueOf("firstCol", firstCol);

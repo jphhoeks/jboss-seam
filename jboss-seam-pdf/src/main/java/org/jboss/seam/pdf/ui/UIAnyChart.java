@@ -7,6 +7,10 @@ import org.jfree.data.general.Dataset;
 
 public class UIAnyChart extends UIChart {
 
+	public UIAnyChart() {
+		super();
+	}
+	
 	@Override
 	public JFreeChart createChart(FacesContext context) {
 		throw new RuntimeException("the chart tag requires a chart");

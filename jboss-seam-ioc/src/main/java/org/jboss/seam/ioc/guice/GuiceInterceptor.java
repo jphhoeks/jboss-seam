@@ -36,6 +36,10 @@ public class GuiceInterceptor extends AbstractInterceptor {
 
 	private transient Injector defaultInjector = null;
 
+	public GuiceInterceptor() {
+		super();
+	}
+	
 	@Override
 	@AroundInvoke
 	public Object aroundInvoke(InvocationContext invocationContext) throws Exception {

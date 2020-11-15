@@ -22,6 +22,10 @@ public class UICell extends UICellBase implements WorksheetItem {
 	private Integer column;
 	private Integer row;
 
+	public UICell() {
+		super();
+	}
+	
 	@Override
 	public Integer getColumn() {
 		return (Integer) valueOf("column", column);

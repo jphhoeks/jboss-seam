@@ -10,6 +10,10 @@ public class UIRangeValidation extends ExcelComponent implements Validation {
 	private Integer endColumn;
 	private Integer endRow;
 
+	public UIRangeValidation() {
+		super();
+	}
+	
 	public Integer getStartColumn() {
 		return (Integer) valueOf("startColumn", startColumn);
 	}

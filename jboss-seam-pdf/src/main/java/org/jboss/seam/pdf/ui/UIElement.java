@@ -6,6 +6,10 @@ import com.lowagie.text.Element;
 
 public class UIElement extends ITextComponent {
 	Element element;
+	
+	public UIElement() {
+		super();
+	}
 
 	public void setValue(Element element) {
 		this.element = element;

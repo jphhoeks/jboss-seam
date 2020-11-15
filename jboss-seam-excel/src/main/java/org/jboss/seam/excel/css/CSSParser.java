@@ -21,6 +21,7 @@ import org.jboss.seam.excel.ui.UILink;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.util.Reflections;
+import org.jboss.seam.util.Resources;
 
 /**
  * CSS parser for the XLS-CSS
@@ -146,7 +147,7 @@ public class CSSParser {
 		while ((line = reader.readLine()) != null) {
 			buffer.append(line);
 		}
-		reader.close();
+		Resources.close(reader);
 		return buffer.toString();
 	}
 
@@ -162,12 +163,19 @@ public class CSSParser {
 	private Map<String, StyleMap> parseStylesheet(String urlString) throws MalformedURLException, IOException {
 		Map<String, StyleMap> styleClasses = new HashMap<String, StyleMap>();
 		InputStream cssStream = null;
-		if (urlString.indexOf("://") < 0) {
-			cssStream = getClass().getResourceAsStream(urlString);
-		} else {
-			cssStream = new URL(urlString).openStream();
+		String css = "";
+		try {
+			if (urlString.indexOf("://") < 0) {
+				cssStream = getClass().getResourceAsStream(urlString);
+			} else {
+				cssStream = new URL(urlString).openStream();
+			}
+			css = readCSS(cssStream).toLowerCase();
 		}
-		String css = readCSS(cssStream).toLowerCase();
+		finally {
+			Resources.close(cssStream);
+		}
+			
 		int firstBrace = -1;
 		int secondBrace = -1;
 		while (!"".equals(css)) {

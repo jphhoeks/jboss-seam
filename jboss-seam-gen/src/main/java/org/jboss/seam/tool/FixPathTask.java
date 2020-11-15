@@ -6,6 +6,10 @@ import org.apache.tools.ant.Task;
 public class FixPathTask extends Task {
 	private String propertyName;
 
+	public FixPathTask() {
+		super();
+	}
+	
 	@Override
 	public void execute() throws BuildException {
 		String path = getProject().getProperty(propertyName);

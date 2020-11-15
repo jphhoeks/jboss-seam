@@ -49,10 +49,12 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 	 * No-arg constructor used during restoreState
 	 */
 	protected MethodBindingToMethodExpression() {
+		super();
 	}
 
 	/** Creates a new instance of MethodBindingToMethodExpression */
 	public MethodBindingToMethodExpression(javax.faces.el.MethodBinding methodBinding) {
+		super();
 		checkNullArgument(methodBinding, "methodBinding");
 		this.methodBinding = methodBinding;
 	}
@@ -111,8 +113,9 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 
 	@Override
 	public boolean isLiteralText() {
-		if (methodBinding == null)
+		if (methodBinding == null) {
 			throw new IllegalStateException("methodBinding is null");
+		}
 		String expr = methodBinding.getExpressionString();
 		return !(expr.startsWith("#{") && expr.endsWith("}"));
 	}
@@ -162,37 +165,44 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 
 	@Override
 	public int hashCode() {
-		final int PRIME = 31;
+		final int prime = 31;
 		int result = 1;
-		result = PRIME * result + ((methodBinding == null) ? 0 : methodBinding.hashCode());
+		result = prime * result + ((methodBinding == null) ? 0 : methodBinding.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		final MethodBindingToMethodExpression other = (MethodBindingToMethodExpression) obj;
 		if (methodBinding == null) {
-			if (other.methodBinding != null)
+			if (other.methodBinding != null) {
 				return false;
-		} else if (!methodBinding.equals(other.methodBinding))
+			}
+		} else if (!methodBinding.equals(other.methodBinding)) {
 			return false;
+		}
 		return true;
 	}
 
 	private void checkNullState(Object notNullInstance, String instanceName) {
-		if (notNullInstance == null)
+		if (notNullInstance == null) {
 			throw new IllegalStateException(instanceName + " is null");
+		}
 	}
 
 	private void checkNullArgument(Object notNullInstance, String instanceName) {
-		if (notNullInstance == null)
+		if (notNullInstance == null) {
 			throw new IllegalArgumentException(instanceName + " is null");
+		}
 	}
 
 	private <T> T invoke(Invoker<T> invoker) {
@@ -210,8 +220,9 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 	}
 
 	private static Object newInstance(String type, Class[] expectedTypes) {
-		if (type == null)
+		if (type == null) {
 			return null;
+		}
 
 		Class clazzForName = simpleClassForName(type);
 
@@ -229,13 +240,9 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 	private static Object newInstance(Class clazz) throws FacesException {
 		try {
 			return clazz.newInstance();
-		} catch (LinkageError e) {
+		} catch (LinkageError |  InstantiationException | IllegalAccessException e) {
 			throw new FacesException(e);
-		} catch (InstantiationException e) {
-			throw new FacesException(e);
-		} catch (IllegalAccessException e) {
-			throw new FacesException(e);
-		}
+		} 
 	}
 
 	/**
@@ -249,8 +256,9 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 	 * @throws ClassNotFoundException
 	 */
 	private static Class classForName(String type) throws ClassNotFoundException {
-		if (type == null)
+		if (type == null) {
 			throw new NullPointerException("type");
+		}
 		try {
 			// Try WebApp ClassLoader first
 			return Class.forName(type, false, // do not initialize for faster startup

@@ -68,11 +68,11 @@ public class UrlBuilder {
 	}
 
 	protected String getParametersAsString() {
-		String params = "";
+		StringBuilder params = new StringBuilder();
 		for (String key : parameters.keySet()) {
-			params += "&" + key + "=" + parameters.get(key);
+			params.append("&").append(key).append("=").append(parameters.get(key));
 		}
-		return params;
+		return params.toString();
 	}
 
 	protected Map<String, String> getParameters() {

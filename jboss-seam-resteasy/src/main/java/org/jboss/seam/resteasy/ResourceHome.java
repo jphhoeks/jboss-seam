@@ -76,6 +76,10 @@ public class ResourceHome<T, T2> extends AbstractResource<T> {
 
 	private static final PathParamAnnotation pathParamAnnotation = new PathParamAnnotation();
 
+	public ResourceHome() {
+		super();
+	}
+	
 	/**
 	* Called at component instantiation. EntityHome component must be set in
 	* order for component to be created.
@@ -257,7 +261,7 @@ public class ResourceHome<T, T2> extends AbstractResource<T> {
 			entity = reader.readFrom(entityClass, entityClass, entityClass.getAnnotations(), requestContentType,
 					headers.getRequestHeaders(), is);
 		} catch (Exception e) {
-			throw new RuntimeException("Unable to unmarshall request body");
+			throw new RuntimeException("Unable to unmarshall request body", e);
 		}
 		return entity;
 	}

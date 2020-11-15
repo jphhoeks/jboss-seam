@@ -6,6 +6,10 @@ import org.jboss.seam.core.Events;
 public class EventInterceptor<T> implements StatelessInterceptor<T> {
 
 	private static final long serialVersionUID = 1L;
+	
+	public EventInterceptor() {
+		super();
+	}
 
 	@Override
 	public Object afterInvoke(InvocationContext<T> invocationContext, Object result) {
@@ -27,7 +31,7 @@ public class EventInterceptor<T> implements StatelessInterceptor<T> {
 
 	@Override
 	public void beforeInvoke(InvocationContext<T> invocationContext) {
-
+		//
 	}
 
 	@Override

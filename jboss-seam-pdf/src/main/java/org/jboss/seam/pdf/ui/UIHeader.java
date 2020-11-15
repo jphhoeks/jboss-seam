@@ -4,6 +4,11 @@ import com.lowagie.text.Document;
 import com.lowagie.text.HeaderFooter;
 
 public class UIHeader extends UIHeaderFooter {
+	
+	public UIHeader() {
+		super();
+	}
+	
 	@Override
 	public void handleHeaderFooter(HeaderFooter header) {
 		Document document = findDocument();

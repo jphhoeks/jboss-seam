@@ -6,6 +6,10 @@ public class UIListValidationItem extends ExcelComponent {
 	public static final String COMPONENT_TYPE = "org.jboss.seam.excel.ui.validation.UIListValidationItem";
 
 	private String value;
+	
+	public UIListValidationItem() {
+		super();
+	}
 
 	public String getValue() {
 		return (String) valueOf("value", value);

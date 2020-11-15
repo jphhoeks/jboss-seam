@@ -6,6 +6,10 @@ import org.apache.tools.ant.Task;
 public class UncapitalizePropertyTask extends Task {
 	private String value;
 	private String name;
+	
+	public UncapitalizePropertyTask() {
+		super();
+	}
 
 	@Override
 	public void execute() throws BuildException {

@@ -64,10 +64,12 @@ public class EqualityValidator implements Validator, StateHolder {
 			setMessageId(messageId);
 		}
 		if (operator != null && !"".equals(operator)) {
-			if (ValidOperation.valueOf(operator.toUpperCase()) != null)
+			if (ValidOperation.valueOf(operator.toUpperCase()) != null) {
 				setOperator(ValidOperation.valueOf(operator.toUpperCase()));
-			else
+			}
+			else {
 				throw new IllegalStateException("Illegal operator. " + "Supported are: " + validOperatorsAsString());
+			}
 		}
 
 	}
@@ -142,8 +144,9 @@ public class EqualityValidator implements Validator, StateHolder {
 				}
 				parent = parent.getParent();
 			}
-			if (decorateParent != null)
+			if (decorateParent != null) {
 				otherComponent = findChildComponent(decorateParent);
+			}
 
 		}
 		return otherComponent;
@@ -152,12 +155,15 @@ public class EqualityValidator implements Validator, StateHolder {
 	private UIComponent findChildComponent(UIComponent parent) {
 		UIComponent ret = null;
 		for (UIComponent child : parent.getChildren()) {
-			if (child.getId().equals(getFor()))
+			if (child.getId().equals(getFor())) {
 				ret = child;
-			else
+			}
+			else {
 				ret = findChildComponent(child);
-			if (ret != null)
+			}
+			if (ret != null) {
 				break;
+			}
 		}
 		return ret;
 
@@ -263,7 +269,9 @@ public class EqualityValidator implements Validator, StateHolder {
 				if (rendererType != null) {
 					renderer = context.getRenderKit().getRenderer(component.getFamily(), rendererType);
 					if (null == renderer) {
-						log.trace("Can't get Renderer for type " + rendererType);
+						if (log.isTraceEnabled()) {
+							log.trace("Can't get Renderer for type " + rendererType);
+						}
 					}
 				} else {
 					if (log.isTraceEnabled()) {

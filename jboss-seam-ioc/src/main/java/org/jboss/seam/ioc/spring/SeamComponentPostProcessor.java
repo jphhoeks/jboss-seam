@@ -17,6 +17,10 @@ import org.springframework.core.Ordered;
 public class SeamComponentPostProcessor implements BeanPostProcessor, Ordered {
 
 	private int order = Ordered.LOWEST_PRECEDENCE;
+	
+	public SeamComponentPostProcessor() {
+		super();
+	}
 
 	/**
 	 * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessAfterInitialization(java.lang.Object,

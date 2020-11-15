@@ -8,6 +8,10 @@ import org.apache.wicket.application.IComponentOnBeforeRenderListener;
 import org.jboss.seam.international.StatusMessage;
 
 public class SeamStatusMessagesListener implements IComponentOnBeforeRenderListener {
+	
+	public SeamStatusMessagesListener() {
+		super();
+	}
 
 	@Override
 	public void onBeforeRender(Component component) {

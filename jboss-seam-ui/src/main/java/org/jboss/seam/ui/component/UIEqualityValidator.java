@@ -15,6 +15,11 @@ import org.richfaces.cdk.annotations.Tag;
  */
 @JsfComponent(description = @Description(displayName = "org.jboss.seam.ui.EqualityValidator", value = "Validate all child JSF input fields against the bound propertys using Hibernate Validator."), family = "org.jboss.seam.ui.EqualityValidator", type = "org.jboss.seam.ui.EqualityValidator", generate = "org.jboss.seam.ui.component.html.HtmlEqualityValidator", tag = @Tag(baseClass = "org.jboss.seam.ui.util.cdk.UIComponentTagBase", name = "validateEquality"), renderer = @JsfRenderer(type = "org.jboss.seam.ui.EqualityValidatorRenderer", family = "org.jboss.seam.ui.EqualityValidatorRenderer"))
 public abstract class UIEqualityValidator extends UIComponentBase {
+	
+	protected UIEqualityValidator() {
+		super();
+	}
+	
 	@Attribute(description = @Description("Id of component to validate against"))
 	public abstract String getFor();
 

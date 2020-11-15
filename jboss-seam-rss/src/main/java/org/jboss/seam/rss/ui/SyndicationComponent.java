@@ -6,6 +6,10 @@ import javax.faces.context.FacesContext;
 public abstract class SyndicationComponent extends UIComponentBase {
 	protected static final String FEED_IMPL_KEY = "theFeed";
 	protected static final String ATOM_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+	
+	public SyndicationComponent() {
+		super();
+	}
 
 	protected Object valueOf(String name, Object defaultValue) {
 		Object value = defaultValue;

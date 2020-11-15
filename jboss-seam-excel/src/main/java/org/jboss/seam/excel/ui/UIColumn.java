@@ -18,6 +18,10 @@ public class UIColumn extends ExcelComponent {
 	public static final String HEADER_FACET_NAME = "header";
 	private static final String FOOTER_FACET_NAME = "footer";
 
+	public UIColumn() {
+		super();
+	}
+	
 	@Override
 	public String getFamily() {
 		return COMPONENT_TYPE;

@@ -7,6 +7,10 @@ public class UIRowPageBreak extends ExcelComponent implements Command {
 
 	private Integer row;
 
+	public UIRowPageBreak() {
+		super();
+	}
+	
 	public Integer getRow() {
 		return (Integer) valueOf("row", row);
 	}

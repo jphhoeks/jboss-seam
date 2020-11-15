@@ -23,6 +23,10 @@ public class UIField extends FormComponent {
 	private String name;
 	private Object value;
 	private Boolean readOnly = Boolean.TRUE;
+	
+	public UIField() {
+		super();
+	}
 
 	@Override
 	public void encodeBegin(FacesContext facesContext) throws IOException {

@@ -25,10 +25,20 @@ import org.jboss.seam.util.RandomStringUtils;
 import org.jboss.seam.util.Reflections;
 
 public class UIAttachment extends MailComponent implements ValueHolder {
-
+	
+	private Object value;
+	private String contentType;
+	private String fileName;
+	private String status;
+	private String disposition = "attachment";
+	
 	public class AttachmentStatus {
 
 		private String contentId;
+		
+		public AttachmentStatus() {
+			super();
+		}
 
 		public String getContentId() {
 			return contentId;
@@ -40,15 +50,10 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 
 	}
 
-	private Object value;
 
-	private String contentType;
-
-	private String fileName;
-
-	private String status;
-
-	private String disposition = "attachment";
+	public UIAttachment() {
+		super();
+	}
 
 	@Override
 	public Object getValue() {
@@ -133,7 +138,7 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 				MimeBodyPart attachment = new MimeBodyPart();
 				// Need to manually set the contentid
 				String contentId = RandomStringUtils.randomAlphabetic(20).toLowerCase();
-				if (disposition.equals("inline")) {
+				if ("inline".equals(disposition)) {
 					attachment.setContentID(new Header("<" + contentId + ">").getSanitizedValue());
 				}
 				attachment.setDataHandler(new DataHandler(ds));
@@ -142,7 +147,7 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 				findMessage().getAttachments().add(attachment);
 				if (getStatus() != null) {
 					AttachmentStatus attachmentStatus = new AttachmentStatus();
-					if (disposition.equals("inline")) {
+					if ("inline".equals(disposition)) {
 						attachmentStatus.setContentId(contentId);
 					}
 					Contexts.getEventContext().set(getStatus(), attachmentStatus);

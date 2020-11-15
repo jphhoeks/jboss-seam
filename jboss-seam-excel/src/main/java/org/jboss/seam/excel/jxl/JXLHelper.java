@@ -71,6 +71,10 @@ public class JXLHelper {
 	// A cache of cell info
 	private CellInfoCache cellInfoCache = new CellInfoCache();
 
+	public JXLHelper() {
+		super();
+	}
+	
 	/**
 	* Tries to get a general display format (number first, then date)
 	*  
@@ -92,7 +96,7 @@ public class JXLHelper {
 		}
 		try {
 			displayFormat = new NumberFormat(formatMask);
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException ignored) {
 			// no-op, it was worth a try;
 		}
 		if (displayFormat != null) {
@@ -100,7 +104,7 @@ public class JXLHelper {
 		}
 		try {
 			displayFormat = new DateFormat(formatMask);
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException ignored) {
 			// no-op, it was worth a try;
 		}
 		return displayFormat;

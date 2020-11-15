@@ -7,6 +7,10 @@ public class UIFooter extends ExcelComponent {
 	public static final String CENTER_FACET = "center";
 	public static final String RIGHT_FACET = "right";
 
+	public UIFooter() {
+		super();
+	}
+	
 	@Override
 	public String getFamily() {
 		return COMPONENT_TYPE;

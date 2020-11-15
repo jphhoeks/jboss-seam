@@ -17,6 +17,10 @@ import static org.testng.Assert.fail;
  */
 
 public class AtomicLongConverterTest {
+	
+	public AtomicLongConverterTest() {
+		super();
+	}
 
 	@Test
 	public void testGetAsObject() {

@@ -7,6 +7,10 @@ public class UIPrintArea extends ExcelComponent {
 	private Integer firstRow;
 	private Integer lastColumn;
 	private Integer lastRow;
+	
+	public UIPrintArea() {
+		super();
+	}
 
 	public Integer getFirstColumn() {
 		return (Integer) valueOf("firstColumn", firstColumn);

@@ -24,6 +24,10 @@ public class UIChartSeries extends ITextComponent {
 	private String seriesStroke;
 	private Boolean seriesVisible;
 	private Boolean seriesVisibleInLegend;
+	
+	public UIChartSeries() {
+		super();
+	}
 
 	public String getKey() {
 		return (String) valueBinding("key", key);
@@ -139,7 +143,9 @@ public class UIChartSeries extends ITextComponent {
 				if (renderer instanceof AbstractRenderer) {
 					configureSeries((AbstractRenderer) renderer, seriesIndex);
 				} else {
-					log.error("render is not AbtractRenderer" + renderer);
+					if (log.isErrorEnabled()) {
+						log.error("render is not AbtractRenderer" + renderer);
+					}
 				}
 
 			}
@@ -183,6 +189,7 @@ public class UIChartSeries extends ITextComponent {
 
 	@Override
 	public void createITextObject(FacesContext context) {
+		//
 	}
 
 	@Override
@@ -192,9 +199,11 @@ public class UIChartSeries extends ITextComponent {
 
 	@Override
 	public void removeITextObject() {
+		//
 	}
 
 	@Override
 	public void handleAdd(Object other) {
+		//
 	}
 }

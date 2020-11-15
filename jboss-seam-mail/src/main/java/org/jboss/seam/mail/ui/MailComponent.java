@@ -25,6 +25,10 @@ public abstract class MailComponent extends UIComponentBase {
 	private UIMessage message;
 
 	private static final String FAMILY = "org.jboss.seam.mail";
+	
+	public MailComponent() {
+		super();
+	}
 
 	@Override
 	public String getFamily() {

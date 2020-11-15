@@ -16,6 +16,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 @JsfRenderer(type = "org.jboss.seam.ui.ValidateAllRenderer", family = "org.jboss.seam.ui.ValidateAllRenderer")
 public class ValidateAllRendererBase extends RendererBase {
 
+	public ValidateAllRendererBase() {
+		super();
+	}
+	
 	@Override
 	protected Class getComponentClass() {
 		return UIValidateAll.class;

@@ -22,7 +22,10 @@ import org.jboss.seam.log.Logging;
  */
 public abstract class UIComponentELTagBase extends UIComponentELTag {
 
-	private static final LogProvider log = Logging.getLogProvider(UIComponentELTagBase.class);
+	
+	protected UIComponentELTagBase() {
+		super();
+	}
 
 	protected void setActionListenerProperty(UIComponent component, MethodExpression actionListener) {
 		if (actionListener != null) {

@@ -25,6 +25,9 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 @JsfRenderer(type = "org.jboss.seam.ui.EqualityValidatorRenderer", family = "org.jboss.seam.ui.EqualityValidatorRenderer")
 public class EqualityValidatorRendererBase extends RendererBase implements ComponentSystemEventListener {
 
+	public EqualityValidatorRendererBase() {
+		super();
+	}
 	@Override
 	protected Class getComponentClass() {
 		return UIEqualityValidator.class;
@@ -37,8 +40,9 @@ public class EqualityValidatorRendererBase extends RendererBase implements Compo
 			evh = (EditableValueHolder) ev.getParent();
 		}
 
-		if (evh == null)
+		if (evh == null) {
 			throw new IllegalArgumentException("validateEquality tag must be nested in an EditableValueHolder (\"input tag\")");
+		}
 
 		if (!hasEqualityValidator(evh)) {
 			evh.addValidator(new EqualityValidator(ev.getFor(), ev.getMessage(), ev.getMessageId(), ev.getOperator()));

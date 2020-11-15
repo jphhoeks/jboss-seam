@@ -9,6 +9,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.DivRenderer", family = "org.jboss.seam.ui.DivRenderer")
 public class DivRendererBase extends StyleRendererBase {
+	
+	public DivRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {

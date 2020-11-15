@@ -30,6 +30,10 @@ public class DefaultActionRendererBase extends RendererBase {
 	public static final String MARK = "org.jboss.seam.ui.DefaultAction";
 
 	private static LogProvider log = Logging.getLogProvider(DefaultActionRendererBase.class);
+	
+	public DefaultActionRendererBase() {
+		super();
+	}
 
 	@Override
 	protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {

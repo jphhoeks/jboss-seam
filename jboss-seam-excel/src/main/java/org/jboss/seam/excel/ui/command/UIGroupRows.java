@@ -9,6 +9,10 @@ public class UIGroupRows extends ExcelComponent implements Command {
 	private Integer endRow;
 	private Boolean collapse;
 
+	public UIGroupRows() {
+		super();
+	}
+	
 	public Boolean getCollapse() {
 		return (Boolean) valueOf("collapse", collapse);
 	}

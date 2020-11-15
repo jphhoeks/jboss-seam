@@ -35,11 +35,15 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 @BypassInterceptors
 public class SpringELResolver extends ELResolver {
 	private static final LogProvider log = Logging.getLogProvider(SpringELResolver.class);
+	
+	public SpringELResolver() {
+		super();
+	}
 
 	@Create
 	public void initialize() {
 		ELResolver resolver = EL.EL_RESOLVER;
-		if (resolver == null || !(resolver instanceof CompositeELResolver)) {
+		if (!(resolver instanceof CompositeELResolver)) {
 			throw new IllegalStateException(
 					"Could not add Spring ELResolver to Resolver Chain.  " + "Seam resolver was not an instance of CompositeELResolver.");
 		}
@@ -103,6 +107,7 @@ public class SpringELResolver extends ELResolver {
 
 	@Override
 	public void setValue(ELContext context, Object base, Object property, Object value) {
+		//
 	}
 
 	/**

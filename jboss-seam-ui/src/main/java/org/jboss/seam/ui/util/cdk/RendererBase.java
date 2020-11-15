@@ -45,16 +45,23 @@ public abstract class RendererBase extends Renderer {
 	 */
 	protected static final String JAVASCRIPT_NAMESPACE = "JBossSeam";
 	private static final RendererUtils utils = new RendererUtils();
+	
+	protected RendererBase() {
+		super();
+	}
 
 	@Override
 	public void decode(FacesContext context, UIComponent component) {
 		// Test for correct parameters.
-		if (context == null)
+		if (context == null) {
 			throw new NullPointerException("Context must not be null");
-		if (component == null)
+		}
+		if (component == null) {
 			throw new NullPointerException("Component must not be null");
-		if (!getComponentClass().isInstance(component))
+		}
+		if (!getComponentClass().isInstance(component)) {
 			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		}
 		preDecode(context, component);
 		// TODO - create set od common decoders ( UIInput, ActionSource etc. ) for process decoding.
 		if (component.isRendered()) {
@@ -63,21 +70,25 @@ public abstract class RendererBase extends Renderer {
 	}
 
 	protected void preDecode(FacesContext context, UIComponent component) {
+		//
 	}
 
 	protected void preEncodeBegin(FacesContext context, UIComponent component) throws IOException {
-
+		//
 	}
 
 	@Override
 	public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
 		// Test for correct parameters.
-		if (context == null)
+		if (context == null) {
 			throw new NullPointerException("Context must not be null");
-		if (component == null)
+		}
+		if (component == null) {
 			throw new NullPointerException("Component must not be null");
-		if (!getComponentClass().isInstance(component))
+		}
+		if (!getComponentClass().isInstance(component)) {
 			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		}
 		preEncodeBegin(context, component);
 		if (component.isRendered()) {
 			ResponseWriter writer = context.getResponseWriter();
@@ -88,12 +99,15 @@ public abstract class RendererBase extends Renderer {
 	@Override
 	public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
 		// Test for correct parameters.
-		if (context == null)
+		if (context == null) {
 			throw new NullPointerException("Context must not be null");
-		if (component == null)
+		}
+		if (component == null) {
 			throw new NullPointerException("Component must not be null");
-		if (!getComponentClass().isInstance(component))
+		}
+		if (!getComponentClass().isInstance(component)) {
 			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		}
 		preEncodeBegin(context, component);
 		if (component.isRendered()) {
 			ResponseWriter writer = context.getResponseWriter();
@@ -104,12 +118,15 @@ public abstract class RendererBase extends Renderer {
 	@Override
 	public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
 		// Test for correct parameters.
-		if (context == null)
+		if (context == null) {
 			throw new NullPointerException("Context must not be null");
-		if (component == null)
+		}
+		if (component == null) {
 			throw new NullPointerException("Component must not be null");
-		if (!getComponentClass().isInstance(component))
+		}
+		if (!getComponentClass().isInstance(component)) {
 			throw new IllegalArgumentException("Component must be of type " + getComponentClass().getName());
+		}
 		if (component.isRendered()) {
 			ResponseWriter writer = context.getResponseWriter();
 			doEncodeEnd(writer, context, component);
@@ -128,7 +145,7 @@ public abstract class RendererBase extends Renderer {
 	 * @param component
 	 */
 	protected void doDecode(FacesContext context, UIComponent component) {
-
+		//
 	}
 
 	/**
@@ -139,7 +156,7 @@ public abstract class RendererBase extends Renderer {
 	 * @param component
 	 */
 	protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-
+		//
 	}
 
 	/**
@@ -160,7 +177,7 @@ public abstract class RendererBase extends Renderer {
 	 * @throws IOException 
 	 */
 	protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-
+		//
 	}
 
 	/**

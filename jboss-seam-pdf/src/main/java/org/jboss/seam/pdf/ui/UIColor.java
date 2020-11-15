@@ -16,6 +16,10 @@ public class UIColor extends UIComponentBase {
 
 	String point;
 	String point2;
+	
+	public UIColor() {
+		super();
+	}
 
 	public void setColor(String color) {
 		this.color = color;

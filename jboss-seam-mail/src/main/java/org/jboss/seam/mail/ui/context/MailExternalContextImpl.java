@@ -16,6 +16,7 @@ public class MailExternalContextImpl extends ExternalContextWrapper {
 	}
 
 	public MailExternalContextImpl(ExternalContext delegate, String urlBase) {
+		super();
 		this.delegate = delegate;
 		this.urlBase = urlBase;
 	}

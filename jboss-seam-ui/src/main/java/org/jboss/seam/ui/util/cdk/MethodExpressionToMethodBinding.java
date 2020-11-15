@@ -39,11 +39,13 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
 	private boolean isTransient = false;
 
 	public MethodExpressionToMethodBinding() {
+		super();
 		methodExpression = null;
 	}
 
 	/** Creates a new instance of MethodExpressionToMethodBinding */
 	public MethodExpressionToMethodBinding(MethodExpression methodExpression) {
+		super();
 		this.methodExpression = methodExpression;
 	}
 
@@ -80,14 +82,16 @@ public class MethodExpressionToMethodBinding extends MethodBinding implements St
 
 	@Override
 	public void restoreState(FacesContext context, Object state) {
-		if (state != null)
+		if (state != null) {
 			methodExpression = (MethodExpression) state;
+		}
 	}
 
 	@Override
 	public Object saveState(FacesContext context) {
-		if (!isTransient)
+		if (!isTransient) {
 			return methodExpression;
+		}
 		return null;
 	}
 

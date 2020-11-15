@@ -24,6 +24,10 @@ public class DecorateRendererBase extends RendererBase {
 	// The list of attributes in the event scope to store away
 	String[] storeOriginals = new String[] { "invalid", "required" };
 
+	public DecorateRendererBase() {
+		super();
+	}
+	
 	@Override
 	protected Class getComponentClass() {
 		return UIDecorate.class;

@@ -33,12 +33,13 @@ public class ModelValidator implements Validator {
 				invalidValues = Validators.instance().validate(valueExpression, facesContext.getELContext(), value);
 			} catch (ELException ele) {
 				Throwable cause = ele.getCause();
-				if (cause == null)
+				if (cause == null) {
 					cause = ele;
-				throw new ValidatorException(createMessage(cause), cause);
+				}
+				throw new ValidatorException(createMessage(cause), ele);
 			}
 
-			if (invalidValues != null && invalidValues.size() > 0) {
+			if (invalidValues != null && !invalidValues.isEmpty()) {
 				throw new ValidatorException(createMessage(invalidValues, resolveLabel(facesContext, component)));
 			}
 		}

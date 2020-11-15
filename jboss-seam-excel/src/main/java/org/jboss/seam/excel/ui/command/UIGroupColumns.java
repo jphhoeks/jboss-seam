@@ -9,6 +9,10 @@ public class UIGroupColumns extends ExcelComponent implements Command {
 	private Integer endColumn;
 	private Boolean collapse;
 
+	public UIGroupColumns() {
+		super();
+	}
+	
 	public Boolean getCollapse() {
 		return (Boolean) valueOf("collapse", collapse);
 	}

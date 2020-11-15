@@ -12,6 +12,10 @@ public class UppercasePropertyTask extends Task {
 	private String name;
 
 	private String value;
+	
+	public UppercasePropertyTask() {
+		super();
+	}
 
 	@Override
 	public void execute() throws BuildException {

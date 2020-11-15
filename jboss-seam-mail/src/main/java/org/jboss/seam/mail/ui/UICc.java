@@ -7,6 +7,10 @@ import javax.mail.Message.RecipientType;
  */
 public class UICc extends RecipientAddressComponent {
 
+	public UICc() {
+		super();
+	}
+	
 	@Override
 	protected RecipientType getRecipientType() {
 		return RecipientType.CC;

@@ -5,6 +5,11 @@ import javax.faces.context.FacesContext;
 import com.lowagie.text.Paragraph;
 
 public class UITitle extends ITextComponent {
+	
+	public UITitle() {
+		super();
+	}
+	
 	@Override
 	public void createITextObject(FacesContext context) {
 		//

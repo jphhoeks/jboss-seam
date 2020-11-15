@@ -12,8 +12,16 @@ import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 
 public class WicketInstrumentationTask extends Task {
+	
 	Path buildPath;
-
+	private File outputDirectory;
+	private FileSet fileset;
+	private boolean useAnnotations = false;
+	
+	public WicketInstrumentationTask() {
+		super();
+	}
+	
 	public Path getBuildPath() {
 		return buildPath;
 	}
@@ -26,7 +34,7 @@ public class WicketInstrumentationTask extends Task {
 		buildPath = path;
 	}
 
-	private File outputDirectory;
+	
 
 	public File getOutputDirectory() {
 		return outputDirectory;
@@ -36,13 +44,13 @@ public class WicketInstrumentationTask extends Task {
 		this.outputDirectory = outputDirectory;
 	}
 
-	private FileSet fileset;
+	
 
 	public void addFileset(FileSet fileset) {
 		this.fileset = fileset;
 	}
 
-	private boolean useAnnotations = false;
+	
 
 	public boolean isUseAnnotations() {
 		return useAnnotations;

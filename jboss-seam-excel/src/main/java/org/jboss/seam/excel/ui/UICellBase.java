@@ -4,6 +4,10 @@ public abstract class UICellBase extends ExcelComponent {
 	private String comment;
 	private Integer commentWidth;
 	private Integer commentHeight;
+	
+	protected UICellBase() {
+		super();
+	}
 
 	public String getComment() {
 		return (String) valueOf("comment", comment);

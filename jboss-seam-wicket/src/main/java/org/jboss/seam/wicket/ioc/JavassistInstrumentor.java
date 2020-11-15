@@ -140,10 +140,14 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	}
 
 	public CtClass instrumentClass(String className) throws NotFoundException, CannotCompileException {
-		log.debug("Examining " + className);
+		if (log.isDebugEnabled()) {
+			log.debug("Examining " + className);
+		}
 		CtClass implementation = classPool.get(className);
 		if (isInstrumentable(implementation)) {
-			log.debug("Instrumenting " + className);
+			if (log.isDebugEnabled()) {
+				log.debug("Instrumenting " + className);
+			}
 			instrumentClass(implementation);
 		}
 		return implementation;
@@ -216,7 +220,9 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 					newMethod.setModifiers(Modifier.PRIVATE);
 					implementation.addMethod(newMethod);
 					method.setBody(createBody(implementation, method, newMethod));
-					log.trace("instrumented method " + method.getName());
+					if (log.isTraceEnabled()) {
+						log.trace("instrumented method " + method.getName());
+					}
 				}
 			}
 		}
@@ -229,7 +235,9 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 							"{" + constructorObject + "throw new RuntimeException(getHandler().handleException(this, constructor, e));}",
 							exception, "e");
 					constructor.insertAfter(constructorObject + "getHandler().afterInvoke(this, constructor);");
-					log.trace("instrumented constructor " + constructor.getName());
+					if (log.isTraceEnabled()) {
+						log.trace("instrumented constructor " + constructor.getName());
+					}
 				}
 			}
 		}
@@ -248,7 +256,9 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 				+ createMethodDelegation(newMethod)
 				+ "if (this.handler != null) result = ($r) this.handler.afterInvoke(this, method, ($w) result); return ($r) result;}";
 
-		log.trace("Creating method " + clazz.getName() + "." + newMethod.getName() + "(" + newMethod.getSignature() + ")" + src);
+		if (log.isTraceEnabled()) {
+			log.trace("Creating method " + clazz.getName() + "." + newMethod.getName() + "(" + newMethod.getSignature() + ")" + src);
+		}
 		return src;
 	}
 
@@ -286,11 +296,18 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	* @throws NotFoundException
 	*/
 	private static String createParameterTypesArray(CtBehavior behavior) throws NotFoundException {
-		String src = "Class[] parameterTypes = new Class[" + behavior.getParameterTypes().length + "];";
+		StringBuilder src = new StringBuilder();
+		src.append("Class[] parameterTypes = new Class[")
+		.append(behavior.getParameterTypes().length)
+		.append("];");
 		for (int i = 0; i < behavior.getParameterTypes().length; i++) {
-			src += "parameterTypes[" + i + "] = " + behavior.getParameterTypes()[i].getName() + ".class;";
+			src.append("parameterTypes[")
+			.append(i)
+			.append("] = ")
+			.append(behavior.getParameterTypes()[i].getName())
+			.append(".class;");
 		}
-		return src;
+		return src.toString();
 	}
 
 	/**
@@ -400,8 +417,9 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 			// do not instrument something we've already instrumented.
 			// can't use 'isSubtype' because the superclass may be instrumented
 			// while we are not
-			if (isInstrumented(clazz))
+			if (isInstrumented(clazz)) {
 				return false;
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -410,9 +428,11 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	}
 
 	private boolean isInstrumented(CtClass clazz) {
-		for (String inf : clazz.getClassFile2().getInterfaces())
-			if (inf.equals(getInstrumentedComponentInterface().getName()))
+		for (String inf : clazz.getClassFile2().getInterfaces()) {
+			if (inf.equals(getInstrumentedComponentInterface().getName())) {
 				return true;
+			}
+		}
 		return false;
 	}
 
@@ -496,7 +516,7 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 		Set<String> packagesToInstrument = new HashSet<String>();
 		String list = System.getProperty("org.jboss.seam.wicket.instrumented-packages");
 		String scanAnnotationsProperty = System.getProperty("org.jboss.seam.wicket.scanAnnotations");
-		boolean scanAnnotations = scanAnnotationsProperty == null ? false : scanAnnotationsProperty.equals("true");
+		boolean scanAnnotations = scanAnnotationsProperty != null && "true".equals(scanAnnotationsProperty);
 		if (list == null) {
 			return;
 		}

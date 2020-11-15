@@ -27,7 +27,7 @@ import org.jboss.seam.util.Resources;
  *
  */
 public class DocumentStoreUtils {
-	private static final int BUFFER_SIZE = 32768;
+	private static final int BUFFER_SIZE = 32_768;
 
 	public static String addResourceToDataStore(FacesContext ctx, UIResource resource) {
 		String baseName = Pages.getCurrentBaseName();

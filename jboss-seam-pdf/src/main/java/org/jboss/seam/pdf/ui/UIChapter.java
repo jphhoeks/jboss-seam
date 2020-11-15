@@ -9,6 +9,10 @@ public class UIChapter extends UISection {
 	Integer number = 1;
 	String chapterTitle;
 
+	public UIChapter() {
+		super();
+	}
+	
 	public Chapter getChapter() {
 		return (Chapter) getSection();
 	}
@@ -31,8 +35,9 @@ public class UIChapter extends UISection {
 		chapterTitle = (String) valueBinding(context, "chapterTitle", chapterTitle);
 
 		section = new Chapter("", number);
-		if (numberDepth != null)
+		if (numberDepth != null) {
 			section.setNumberDepth(numberDepth);
+		}
 
 		if (chapterTitle != null) {
 			section.setBookmarkTitle(chapterTitle);

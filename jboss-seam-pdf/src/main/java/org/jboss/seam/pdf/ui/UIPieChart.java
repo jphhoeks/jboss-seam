@@ -34,6 +34,10 @@ public class UIPieChart extends UIChart {
 	private String baseSectionOutlinePaint;
 	private String baseSectionPaint;
 	private String baseSectionOutlineStroke;
+	
+	public UIPieChart() {
+		super();
+	}
 
 	public void setLabel(String label) {
 		this.label = label;

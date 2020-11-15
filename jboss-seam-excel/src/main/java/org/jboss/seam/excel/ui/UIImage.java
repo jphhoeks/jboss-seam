@@ -10,6 +10,10 @@ public class UIImage extends ExcelComponent implements WorksheetItem {
 	private Integer startRow;
 	private Double columnSpan;
 	private Double rowSpan;
+	
+	public UIImage() {
+		super();
+	}
 
 	public String getURI() {
 		return (String) valueOf("URI", URI);

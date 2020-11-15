@@ -25,16 +25,6 @@ import org.jboss.seam.ui.util.JSF;
  */
 public class UIMessage extends MailComponent {
 
-	public static class Importance {
-
-		public static final String LOW = "low";
-
-		public static final String NORMAL = "normal";
-
-		public static final String HIGH = "high";
-
-	}
-
 	private MimeMessage mimeMessage;
 
 	List<MimeBodyPart> attachments = new ArrayList<MimeBodyPart>();
@@ -52,6 +42,21 @@ public class UIMessage extends MailComponent {
 	private String charset;
 
 	private String messageId;
+	
+	public static class Importance {
+
+		public static final String LOW = "low";
+
+		public static final String NORMAL = "normal";
+
+		public static final String HIGH = "high";
+
+	}
+
+
+	public UIMessage() {
+		super();
+	}
 
 	/**
 	* Get the JavaMail Session to use. If not set the default session is used
@@ -184,7 +189,7 @@ public class UIMessage extends MailComponent {
 
 	public boolean isRequestReadReceipt() {
 		if (requestReadReceipt == null) {
-			return getBoolean("requestReadReceipt") == null ? false : getBoolean("requestReadReceipt");
+			return getBoolean("requestReadReceipt") != null && getBoolean("requestReadReceipt");
 		} else {
 			return requestReadReceipt;
 		}

@@ -38,6 +38,11 @@ public abstract class UISelectItems extends javax.faces.component.UISelectItems 
 
 	private List<javax.faces.model.SelectItem> selectItems;
 	private Object originalValue;
+	private static final String NO_SELECTION_VALUE = null;
+
+	/* Kinder impl of get/setLabel */
+
+	private String label;
 
 	private class NullableSelectItem extends javax.faces.model.SelectItem {
 
@@ -45,6 +50,7 @@ public abstract class UISelectItems extends javax.faces.component.UISelectItems 
 		private Object value;
 
 		private NullableSelectItem(Object value, String label) {
+			super();
 			super.setLabel(label);
 			this.value = value;
 		}
@@ -55,7 +61,11 @@ public abstract class UISelectItems extends javax.faces.component.UISelectItems 
 		}
 
 	}
-
+	
+	protected UISelectItems() {
+		super();
+	}
+	
 	private abstract class ContextualSelectItem {
 
 		private Object varValue;
@@ -108,11 +118,7 @@ public abstract class UISelectItems extends javax.faces.component.UISelectItems 
 		}
 	}
 
-	private static final String NO_SELECTION_VALUE = null;
 
-	/* Kinder impl of get/setLabel */
-
-	private String label;
 
 	@Attribute(aliases = {
 			@Alias("itemLabel") }, description = @Description("the label to be used when rendering the SelectItem. Can reference the var variable"))
@@ -208,7 +214,7 @@ public abstract class UISelectItems extends javax.faces.component.UISelectItems 
 				selectItems.addAll(asSelectItems(((Query) originalValue).getResultList()));
 			} else if (originalValue != null && originalValue.getClass().isArray()) {
 				selectItems.addAll(asSelectItems(arrayAsList(originalValue)));
-			} else if (temporarySelectItems.size() == 0) {
+			} else if (temporarySelectItems.isEmpty()) {
 				return originalValue;
 			}
 

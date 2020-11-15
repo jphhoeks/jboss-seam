@@ -12,6 +12,10 @@ import org.apache.tools.ant.Task;
 public class PrintTask extends Task {
 	private String file;
 
+	public PrintTask() {
+		super();
+	}
+	
 	public void setFile(String file) {
 		this.file = file;
 	}

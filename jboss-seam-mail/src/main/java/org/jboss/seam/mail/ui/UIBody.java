@@ -27,6 +27,10 @@ public class UIBody extends MailComponent {
 
 	private String type = HTML;
 
+	public UIBody() {
+		super();
+	}
+	
 	@Override
 	public void encodeChildren(FacesContext facesContext) throws IOException {
 		try {
@@ -61,7 +65,7 @@ public class UIBody extends MailComponent {
 
 			if (findMessage().getAttachments().size() > 0) {
 				for (MimeBodyPart attachment : findMessage().getAttachments()) {
-					if (attachment.getDisposition().equalsIgnoreCase("inline")) {
+					if ("inline".equalsIgnoreCase(attachment.getDisposition())) {
 						bodyMultipart.addBodyPart(attachment);
 					} else {
 						getRootMultipart().addBodyPart(attachment);
@@ -128,7 +132,7 @@ public class UIBody extends MailComponent {
 
 	private static boolean containsInlineAttachment(List<MimeBodyPart> attachments) throws MessagingException {
 		for (MimeBodyPart attachment : attachments) {
-			if (attachment.getDisposition().equalsIgnoreCase("inline")) {
+			if ("inline".equalsIgnoreCase(attachment.getDisposition())) {
 				return true;
 			}
 		}

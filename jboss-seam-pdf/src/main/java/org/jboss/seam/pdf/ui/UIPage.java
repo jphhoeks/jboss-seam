@@ -9,6 +9,10 @@ import com.lowagie.text.*;
 public class UIPage extends ITextComponent {
 	public static final String COMPONENT_TYPE = "org.jboss.seam.pdf.ui.UIPage";
 
+	public UIPage() {
+		super();
+	}
+	
 	@Override
 	public Object getITextObject() {
 		return null;

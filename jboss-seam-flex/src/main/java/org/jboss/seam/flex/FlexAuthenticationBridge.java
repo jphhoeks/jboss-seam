@@ -18,15 +18,23 @@ public class FlexAuthenticationBridge {
 	Identity identity;
 	@In
 	Credentials credentials;
+	
+	public FlexAuthenticationBridge() {
+		super();
+	}
 
 	public String login(String username, String password) {
-		log.info("*LOGIN " + username + " " + password);
+		if (log.isInfoEnabled()) {
+			log.info("*LOGIN " + username + " " + password);
+		}
 		credentials.setUsername(username);
 		credentials.setPassword(password);
 
 		String result = identity.login();
 
-		log.info("*LOGIN RESULT " + result);
+		if (log.isInfoEnabled()) {
+			log.info("*LOGIN RESULT " + result);
+		}
 		return result;
 	}
 

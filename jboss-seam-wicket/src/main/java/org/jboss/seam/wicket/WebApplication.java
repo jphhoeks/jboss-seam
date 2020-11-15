@@ -16,6 +16,10 @@ import org.jboss.seam.contexts.Contexts;
 public class WebApplication {
 
 	private String applicationClass;
+	
+	public WebApplication() {
+		super();
+	}
 
 	public String getApplicationClass() {
 		return applicationClass;

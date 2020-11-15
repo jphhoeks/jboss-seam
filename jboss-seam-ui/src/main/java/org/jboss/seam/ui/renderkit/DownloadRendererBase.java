@@ -15,6 +15,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.DownloadRenderer", family = "org.jboss.seam.ui.DownloadRenderer")
 public class DownloadRendererBase extends RendererBase {
+	
+	public DownloadRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {
@@ -25,8 +29,9 @@ public class DownloadRendererBase extends RendererBase {
 	protected void doEncodeBegin(javax.faces.context.ResponseWriter writer, FacesContext ctx, UIComponent component) throws IOException {
 		UIDownload download = (UIDownload) component;
 
-		if (!download.isRendered())
+		if (!download.isRendered()) {
 			return;
+		}
 
 		if (download.getSrc() != null) {
 
@@ -58,10 +63,12 @@ public class DownloadRendererBase extends RendererBase {
 	private void writeStartTag(javax.faces.context.ResponseWriter writer, UIDownload download, String url) throws IOException {
 		writer.startElement(HTML.ANCHOR_ELEM, null);
 		writer.writeAttribute(HTML.HREF_ATTR, url, null);
-		if (download.getStyle() != null)
+		if (download.getStyle() != null) {
 			writer.writeAttribute(HTML.STYLE_ATTR, download.getStyle(), null);
-		if (download.getStyleClass() != null)
+		}
+		if (download.getStyleClass() != null) {
 			writer.writeAttribute(HTML.CLASS_ATTR, download.getStyleClass(), null);
+		}
 	}
 
 	@Override

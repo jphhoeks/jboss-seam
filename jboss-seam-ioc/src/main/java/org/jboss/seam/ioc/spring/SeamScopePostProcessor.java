@@ -32,6 +32,10 @@ public class SeamScopePostProcessor implements BeanFactoryPostProcessor, Initial
 	private String prefix;
 
 	private boolean defaultAutoCreate = false;
+	
+	public SeamScopePostProcessor() {
+		super();
+	}
 
 	/**
 	 * Null is not a valid prefix so make it the default is used if null or empty.

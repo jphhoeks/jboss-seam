@@ -15,6 +15,10 @@ public class UIListItem extends ITextComponent {
 	Float indentationLeft;
 	Float indentationRight;
 	Integer listSymbol;
+	
+	public UIListItem() {
+		super();
+	}
 
 	public void setListSymbol(Integer listSymbol) {
 		this.listSymbol = listSymbol;

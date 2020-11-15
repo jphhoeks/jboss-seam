@@ -13,6 +13,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Startup;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.contexts.ServletLifecycle;
+import org.jboss.seam.util.CloneUtils;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
@@ -30,6 +31,10 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 public class ContextLoader {
 	private WebApplicationContext webApplicationContext;
 	private String[] configLocations = { XmlWebApplicationContext.DEFAULT_CONFIG_LOCATION };
+	
+	public ContextLoader() {
+		super();
+	}
 
 	@Create
 	public void create() throws Exception {
@@ -59,16 +64,16 @@ public class ContextLoader {
 
 	@Destroy
 	public void destroy() {
-		if (webApplicationContext != null && webApplicationContext instanceof ConfigurableWebApplicationContext) {
+		if (webApplicationContext instanceof ConfigurableWebApplicationContext) {
 			((ConfigurableWebApplicationContext) webApplicationContext).close();
 		}
 	}
 
 	public String[] getConfigLocations() {
-		return configLocations;
+		return CloneUtils.cloneArray(configLocations);
 	}
 
 	public void setConfigLocations(String[] configLocations) {
-		this.configLocations = configLocations;
+		this.configLocations = CloneUtils.cloneArray(configLocations);
 	}
 }

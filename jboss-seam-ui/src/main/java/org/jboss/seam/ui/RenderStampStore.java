@@ -34,16 +34,25 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 public class RenderStampStore implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	class RenderStamp {
-		String stamp;
-		Date timeStamp;
-	}
-
 	int maxSize = 100;
 
 	Map<String, RenderStamp> store = new ConcurrentHashMap<String, RenderStamp>();
+	
+	class RenderStamp {
+		String stamp;
+		Date timeStamp;
+		
+		public RenderStamp() {
+			super();
+		}
+	}
 
+
+
+	public RenderStampStore() {
+		super();
+	}
+	
 	/**
 	 * Stores a stamp in the store, and returns the key it is stored under.
 	 */

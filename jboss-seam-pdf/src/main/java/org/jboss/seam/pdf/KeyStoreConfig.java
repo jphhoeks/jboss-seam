@@ -14,6 +14,10 @@ public class KeyStoreConfig {
 	String keyStorePassword = null;
 	String keyPassword = null;
 	String keyAlias = null;
+	
+	public KeyStoreConfig() {
+		super();
+	}
 
 	public String getKeyStore() {
 		return keyStore;

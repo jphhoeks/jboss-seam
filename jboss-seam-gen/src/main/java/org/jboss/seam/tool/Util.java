@@ -4,6 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Util {
+	
+	public Util() {
+		super();
+	}
+	
 	public String lower(String name) {
 		return name.substring(0, 1).toLowerCase() + name.substring(1);
 	}

@@ -35,7 +35,9 @@ public class StyleStringParser {
 		String styleString = styleBuilder.toString();
 		int keyValueBreakpointIndex = styleString.indexOf(KEY_VALUE_SEPARATOR);
 		if (keyValueBreakpointIndex < 0) {
-			log.warn("Key-value separator character #0 not found in style #1, dropping", KEY_VALUE_SEPARATOR + styleBuilder.toString());
+			if (log.isWarnEnabled()) {
+				log.warn("Key-value separator character #0 not found in style #1, dropping", KEY_VALUE_SEPARATOR + styleBuilder.toString());
+			}
 			return;
 		}
 		String styleName = styleString.substring(0, keyValueBreakpointIndex).toLowerCase().trim();
@@ -57,7 +59,7 @@ public class StyleStringParser {
 				validValues.add(array[i].toLowerCase().trim());
 			}
 		}
-		return validValues.toArray(new String[validValues.size()]);
+		return validValues.toArray(new String[0]);
 	}
 
 	public StyleMap parse() {

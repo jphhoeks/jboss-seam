@@ -217,8 +217,6 @@ public class JXLFactory {
 		}
 		try {
 			return Class.forName(className).getField(fieldName.toUpperCase()).get(null);
-		} catch (NoSuchFieldException e) {
-			throw e;
 		} catch (Exception e) {
 			throw new ExcelWorkbookException(
 					Interpolator.instance().interpolate("Could not read field #0 from class #1", fieldName, className), e);
@@ -387,7 +385,7 @@ public class JXLFactory {
 		}
 		// Workaround for the feature that black is... well not always black in
 		// Excel (ref: Andy Khan on yahoo groups)
-		if (color.equalsIgnoreCase("black")) {
+		if ("black".equalsIgnoreCase(color)) {
 			color = "palette_black";
 		}
 		try {

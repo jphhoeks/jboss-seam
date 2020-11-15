@@ -122,8 +122,9 @@ public abstract class AbstractResource<T> {
 	protected MediaType selectResponseMediaType() {
 		for (MediaType acceptedMediaType : httpHeaders.getAcceptableMediaTypes()) {
 			for (MediaType availableMediaType : mediaTypes) {
-				if (acceptedMediaType.isCompatible(availableMediaType))
+				if (acceptedMediaType.isCompatible(availableMediaType)) {
 					return availableMediaType;
+				}
 			}
 		}
 		return null;

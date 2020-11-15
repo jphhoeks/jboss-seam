@@ -31,6 +31,10 @@ import org.jboss.seam.persistence.PersistenceContexts;
 public class ConversationInterceptor<T> implements StatelessInterceptor<T> {
 
 	private static final long serialVersionUID = 1L;
+	
+	public ConversationInterceptor() {
+		super();
+	}
 
 	@Override
 	public void beforeInvoke(InvocationContext<T> invocationContext) {
@@ -206,7 +210,7 @@ public class ConversationInterceptor<T> implements StatelessInterceptor<T> {
 	}
 
 	private void beginNavigation(String pageflowName) {
-		if (!pageflowName.equals("")) {
+		if (!"".equals(pageflowName)) {
 			Pageflow.instance().begin(pageflowName);
 		}
 	}

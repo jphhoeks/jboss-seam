@@ -12,6 +12,11 @@ import org.jboss.seam.mail.ui.context.MailResponseWriter;
  * JSF component for rendering subject line
  */
 public class UISubject extends MailComponent {
+	
+	public UISubject() {
+		super();
+	}
+	
 	@Override
 	public void encodeChildren(FacesContext facesContext) throws IOException {
 		try {

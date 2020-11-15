@@ -15,6 +15,10 @@ import org.richfaces.cdk.annotations.Tag;
 		"core-props.xml", "javax.faces.component.UIComponent.xml" })
 public abstract class UISpan extends UIStyle {
 
+	protected UISpan() {
+		super();
+	}
+	
 	@Attribute(description = @Description("Span title attribute"))
 	public abstract String getTitle();
 

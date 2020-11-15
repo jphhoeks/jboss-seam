@@ -19,6 +19,10 @@ public class UIMultiColumnText extends ITextComponent {
 
 	MultiColumnText multiColumnText = null;
 
+	public UIMultiColumnText() {
+		super();
+	}
+	
 	public float getLeft() {
 		return (Float) valueBinding("left", left);
 	}

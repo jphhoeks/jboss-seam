@@ -71,13 +71,16 @@ public class SeamScope implements Scope {
 	public Object remove(String name) {
 		// copied from Component.callDestory should be able to reuse. Needed because if remove is called then for some
 		// reason spring doesn't use the destroy callback.
-		log.debug("destroying: " + name);
+		if (log.isDebugEnabled()) {
+			log.debug("destroying: " + name);
+		}
 		Component component = SpringComponent.forSpringBeanName(name);
 		Object bean = null;
 		if (component != null) {
 			bean = scope.getContext().get(component.getName());
-			if (bean != null) // in a portal environment, this is possible
-			{
+			if (bean != null) { 
+				// in a portal environment, this is possible
+			
 				if (Events.exists()) {
 					Events.instance().raiseEvent("org.jboss.seam.preDestroy." + name);
 				}
@@ -86,7 +89,9 @@ public class SeamScope implements Scope {
 						component.callComponentMethod(bean, component.getDestroyMethod());
 					}
 				} catch (Exception e) {
-					log.warn("Could not destroy component: " + component.getName(), e);
+					if (log.isWarnEnabled()) {
+						log.warn("Could not destroy component: " + component.getName(), e);
+					}
 				}
 			}
 			scope.getContext().remove(component.getName());

@@ -39,6 +39,10 @@ public class CsvExcelWorkbook implements ExcelWorkbook {
 
 	private Log log = Logging.getLog(getClass());
 
+	public CsvExcelWorkbook() {
+		super();
+	}
+	
 	protected String getColumnDelimeterReplacement() {
 		return DEFAULT_COLUMN_DELIMITER_REPLACEMENT;
 	}
@@ -85,8 +89,10 @@ public class CsvExcelWorkbook implements ExcelWorkbook {
 			for (int j = 0; j <= maxColumn; j++) {
 				String value = table.get(hash(i, j));
 				value = (value == null) ? "" : value;
-				if (value.contains(getColumnDelimeter()))
-					value = value.replace(getColumnDelimeter(), getColumnDelimeterReplacement()); //JBSEAM-4187
+				if (value.contains(getColumnDelimeter())) {
+					//JBSEAM-4187
+					value = value.replace(getColumnDelimeter(), getColumnDelimeterReplacement()); 
+				}
 				buffer.append(getColumnDelimeter()).append(value).append(getColumnDelimeter()).append(getColumnSeparator());
 			}
 			buffer.deleteCharAt(buffer.length() - 1);
@@ -127,15 +133,17 @@ public class CsvExcelWorkbook implements ExcelWorkbook {
 		int column = (cell.getColumn() == null) ? currentColumn : cell.getColumn();
 		addCsvCell(column, row, String.valueOf(cell.getValue()));
 
-		if (cell.getColumn() == null && cell.getRow() == null)
+		if (cell.getColumn() == null && cell.getRow() == null) {
 			currentRow++;
+		}
 	}
 
 	private void addHyperLink(UIHyperlink link) {
 		int row = (link.getStartRow() == null) ? currentRow : link.getStartRow();
 		int column = (link.getStartColumn() == null) ? currentColumn : link.getStartColumn();
-		if (link.getEndColumn() != null || link.getEndRow() != null)
+		if (link.getEndColumn() != null || link.getEndRow() != null) {
 			log.warn("endColumn/endRow is not supported by csv exporter", new Object[0]);
+		}
 		addCsvCell(column, row, String.valueOf(link.getURL()));
 	}
 
@@ -167,15 +175,17 @@ public class CsvExcelWorkbook implements ExcelWorkbook {
 
 	@Override
 	public void addWorksheetFooter(WorksheetItem item, int colspan) {
-		if (colspan > 0)
+		if (colspan > 0) {
 			log.warn("footer colspan are not supported by CSV exporter", new Object[0]);
+		}
 		addItem(item);
 	}
 
 	@Override
 	public void addWorksheetHeader(WorksheetItem item, int colspan) {
-		if (colspan > 0)
+		if (colspan > 0) {
 			log.warn("header colspan are not supported by CSV exporter", new Object[0]);
+		}
 		addItem(item);
 
 	}

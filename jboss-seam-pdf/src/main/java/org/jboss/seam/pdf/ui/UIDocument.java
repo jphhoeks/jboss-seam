@@ -62,6 +62,10 @@ public class UIDocument extends ITextComponent {
 
 	UISignature signatureField;
 
+	public UIDocument() {
+		super();
+	}
+	
 	public void setDisposition(String disposition) {
 		this.disposition = disposition;
 	}

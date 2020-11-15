@@ -33,6 +33,10 @@ public class SpringTaskExecutorDispatcher<T, S extends Schedule> extends Abstrac
 	private ValueExpression<Dispatcher<T, S>> scheduleDispatcher;
 	private ValueExpression<TaskExecutor> taskExecutor;
 
+	public SpringTaskExecutorDispatcher() {
+		super();
+	}
+	
 	@Override
 	public T scheduleAsynchronousEvent(String type, Object... parameters) {
 		taskExecutor.getValue().execute(new RunnableAsynchronous(new AsynchronousEvent(type, parameters)));

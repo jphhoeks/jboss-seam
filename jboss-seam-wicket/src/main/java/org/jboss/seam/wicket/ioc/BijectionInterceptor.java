@@ -3,6 +3,10 @@ package org.jboss.seam.wicket.ioc;
 public class BijectionInterceptor<T> implements StatelessInterceptor<T> {
 
 	private static final long serialVersionUID = -7256203542198126515L;
+	
+	public BijectionInterceptor() {
+		super();
+	}
 
 	@Override
 	public Object afterInvoke(InvocationContext<T> invocationContext, Object result) {

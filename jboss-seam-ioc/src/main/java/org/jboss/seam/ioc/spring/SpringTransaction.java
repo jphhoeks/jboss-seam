@@ -49,6 +49,10 @@ public class SpringTransaction extends AbstractUserTransaction {
 	private TransactionStatus currentTransaction;
 
 	private Boolean joinTransaction;
+	
+	public SpringTransaction() {
+		super();
+	}
 
 	@Override
 	public void registerSynchronization(Synchronization sync) {
@@ -232,7 +236,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 			try {
 				log.debug("Attempting to rollback left over transaction.  Should never be called.");
 				getPlatformTransactionManagerRequired().rollback(currentTransaction);
-			} catch (Throwable e) {
+			} catch (Throwable ignored) {
 				// ignore
 			}
 		}

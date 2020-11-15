@@ -46,6 +46,10 @@ public class WicketFilterInstantiator {
 	public static String DEFAULT_WICKET_COMPONENT_DIRECTORY_PATH = "WEB-INF/wicket";
 	private static LogProvider log = Logging.getLogProvider(WicketFilterInstantiator.class);
 
+	public WicketFilterInstantiator() {
+		super();
+	}
+	
 	@Unwrap
 	public Filter unrwap() {
 		return new WicketFilter() {
@@ -71,13 +75,9 @@ public class WicketFilterInstantiator {
 							this.classLoader = new WicketClassLoader(Thread.currentThread().getContextClassLoader(), new ClassPool(), dir)
 									.instrument();
 						}
-					} catch (NotFoundException e) {
+					} catch (NotFoundException | CannotCompileException | ClassNotFoundException  e) {
 						throw new ServletException(e);
-					} catch (CannotCompileException e) {
-						throw new ServletException(e);
-					} catch (ClassNotFoundException e) {
-						throw new ServletException(e);
-					}
+					} 
 					/*
 					 * If no applicationClassName has been specified on the filter, use the name specified with 
 					 * <wicket:web-application/> in components.xml

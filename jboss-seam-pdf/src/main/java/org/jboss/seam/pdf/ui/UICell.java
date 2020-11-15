@@ -37,6 +37,10 @@ public class UICell extends UIRectangle {
 	Integer rotation;
 
 	boolean hasContent = false;
+	
+	public UICell() {
+		super();
+	}
 
 	public void setGrayFill(Float grayFill) {
 		this.grayFill = grayFill;

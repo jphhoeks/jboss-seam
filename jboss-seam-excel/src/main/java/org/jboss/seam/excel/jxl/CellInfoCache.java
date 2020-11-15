@@ -18,6 +18,10 @@ public class CellInfoCache {
 
 	// A cache for cell formattings, mapped by UIComponent ID
 	private Map<String, WritableCellFormat> cellFormatCache = new HashMap<String, WritableCellFormat>();
+	
+	public CellInfoCache() {
+		super();
+	}
 
 	public CellType getCachedCellType(String componentId) {
 		return cellDataTypeCache.get(componentId);

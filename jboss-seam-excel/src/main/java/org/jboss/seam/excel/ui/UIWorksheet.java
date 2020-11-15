@@ -64,6 +64,10 @@ public class UIWorksheet extends ExcelComponent {
 	private Integer verticalPrintResolution;
 	private Integer zoomFactor;
 
+	public UIWorksheet() {
+		super();
+	}
+	
 	public Boolean getAutomaticFormulaCalculation() {
 		return (Boolean) valueOf("automaticFormulaCalculation", automaticFormulaCalculation);
 	}

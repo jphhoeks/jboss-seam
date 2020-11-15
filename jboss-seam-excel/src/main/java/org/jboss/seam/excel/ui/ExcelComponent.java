@@ -125,8 +125,9 @@ public abstract class ExcelComponent extends UIComponentBase {
 	* @return The workbook
 	*/
 	protected ExcelWorkbook getWorkbook(UIComponent component) {
-		if (component == null)
+		if (component == null) {
 			return null;
+		}
 		if (component instanceof UIWorkbook) {
 			UIWorkbook uiWorkBook = (UIWorkbook) component;
 			return uiWorkBook.getExcelWorkbook();

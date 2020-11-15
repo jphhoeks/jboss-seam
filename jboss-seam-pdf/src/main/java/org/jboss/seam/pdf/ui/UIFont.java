@@ -15,6 +15,10 @@ public class UIFont extends ITextComponent {
 	String style;
 	String color;
 	boolean embedded = false;
+	
+	public UIFont() {
+		super();
+	}
 
 	public String getName() {
 		return (String) valueBinding("name", name);

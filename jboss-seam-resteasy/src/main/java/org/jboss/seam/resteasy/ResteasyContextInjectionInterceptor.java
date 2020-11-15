@@ -45,6 +45,7 @@ public class ResteasyContextInjectionInterceptor extends AbstractInterceptor {
 	private final PropertyInjector propertyInjector;
 
 	public ResteasyContextInjectionInterceptor(PropertyInjector propertyInjector) {
+		super();
 		this.propertyInjector = propertyInjector;
 	}
 

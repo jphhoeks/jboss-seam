@@ -10,6 +10,10 @@ public class UISection extends ITextComponent {
 	Integer numberDepth;
 	String sectionTitle;
 	boolean newPage = false;
+	
+	public UISection() {
+		super();
+	}
 
 	public void setNumberDepth(Integer numberDepth) {
 		this.numberDepth = numberDepth;

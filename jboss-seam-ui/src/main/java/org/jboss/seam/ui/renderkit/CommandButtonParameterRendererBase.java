@@ -26,6 +26,10 @@ public abstract class CommandButtonParameterRendererBase extends RendererBase {
 	protected abstract LogProvider getLog();
 
 	protected abstract String getParameterName(UIComponent component);
+	
+	public CommandButtonParameterRendererBase() {
+		super();
+	}
 
 	@Override
 	protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {

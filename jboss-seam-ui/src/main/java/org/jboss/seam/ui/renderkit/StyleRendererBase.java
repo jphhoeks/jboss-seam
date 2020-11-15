@@ -10,6 +10,10 @@ import org.jboss.seam.ui.component.UIStyle;
 import org.jboss.seam.ui.util.cdk.RendererBase;
 
 public abstract class StyleRendererBase extends RendererBase {
+	
+	protected StyleRendererBase() {
+		super();
+	}
 
 	@Override
 	protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {

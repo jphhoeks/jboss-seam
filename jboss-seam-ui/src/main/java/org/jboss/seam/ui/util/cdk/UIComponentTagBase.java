@@ -21,6 +21,10 @@ import javax.faces.event.ValueChangeEvent;
  */
 public abstract class UIComponentTagBase extends UIComponentELTagBase {
 
+	protected UIComponentTagBase() {
+		super();
+	}
+	
 	protected ExpressionFactory getExpressionFactory() {
 		return getFacesContext().getApplication().getExpressionFactory();
 	}

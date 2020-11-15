@@ -7,6 +7,7 @@ import org.jboss.seam.annotations.*;
 import static org.jboss.seam.annotations.Install.FRAMEWORK;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +32,10 @@ public class Injector implements Serializable {
 
 	private com.google.inject.Injector injector = null;
 
+	public Injector() {
+		super();
+	}
+	
 	@Unwrap
 	public com.google.inject.Injector getInjector() {
 		return injector;
@@ -42,7 +47,9 @@ public class Injector implements Serializable {
 			throw new IllegalArgumentException("No Guice module specified.");
 		}
 
-		log.debug("Creating injector '" + "'from modules: " + Arrays.toString(modules));
+		if (log.isDebugEnabled()) {
+			log.debug("Creating injector '" + "'from modules: " + Arrays.toString(modules));
+		}
 
 		final List<Module> moduleList = getModuleList(modules);
 
@@ -72,10 +79,10 @@ public class Injector implements Serializable {
 	}
 
 	public String[] getModules() {
-		return modules;
+		return CloneUtils.cloneArray(modules);
 	}
 
 	public void setModules(String[] modules) {
-		this.modules = modules;
+		this.modules = CloneUtils.cloneArray(modules);
 	}
 }

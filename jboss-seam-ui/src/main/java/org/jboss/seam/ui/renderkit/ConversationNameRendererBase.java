@@ -16,6 +16,10 @@ public class ConversationNameRendererBase extends CommandButtonParameterRenderer
 
 	private static LogProvider log = Logging.getLogProvider(ConversationNameRendererBase.class);
 
+	public ConversationNameRendererBase() {
+		super();
+	}
+	
 	@Override
 	protected LogProvider getLog() {
 		return log;

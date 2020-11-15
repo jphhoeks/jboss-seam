@@ -14,6 +14,10 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value = "org.jboss.seam.ui.AtomicIntegerConverter")
 public class AtomicIntegerConverter implements Converter {
+	
+	public AtomicIntegerConverter() {
+		super();
+	}
 
 	@Override
 	public Object getAsObject(FacesContext ctx, UIComponent ui, String value) {

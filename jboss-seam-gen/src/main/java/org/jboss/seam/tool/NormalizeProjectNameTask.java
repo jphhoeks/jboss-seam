@@ -5,6 +5,10 @@ import org.apache.tools.ant.Task;
 
 public class NormalizeProjectNameTask extends Task {
 	private String propertyName;
+	
+	public NormalizeProjectNameTask() {
+		super();
+	}
 
 	@Override
 	public void execute() throws BuildException {

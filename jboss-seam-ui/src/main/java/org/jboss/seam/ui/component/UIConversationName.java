@@ -21,6 +21,10 @@ public abstract class UIConversationName extends UIParameter {
 
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.ConversationName";
 
+	protected UIConversationName() {
+		super();
+	}
+	
 	@Override
 	public String getName() {
 		return "conversationName";

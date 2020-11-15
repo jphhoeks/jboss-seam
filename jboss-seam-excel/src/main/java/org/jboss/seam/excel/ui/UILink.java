@@ -5,6 +5,10 @@ public class UILink extends ExcelComponent {
 
 	private String URL;
 
+	public UILink() {
+		super();
+	}
+	
 	public String getURL() {
 		return (String) valueOf("URL", URL);
 	}

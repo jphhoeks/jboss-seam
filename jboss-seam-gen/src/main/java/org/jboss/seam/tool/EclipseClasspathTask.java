@@ -24,6 +24,10 @@ public class EclipseClasspathTask extends Task {
 	private String filterProperty;
 
 	private List<Path> paths = new ArrayList<Path>();
+	
+	public EclipseClasspathTask() {
+		super();
+	}
 
 	@Override
 	public void execute() throws BuildException {

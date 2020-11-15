@@ -17,6 +17,10 @@ import static org.testng.Assert.assertEquals;
  */
 
 public class AtomicIntegerConverterTest {
+	
+	public AtomicIntegerConverterTest() {
+		super();
+	}
 
 	@Test
 	public void testGetAsObject() {

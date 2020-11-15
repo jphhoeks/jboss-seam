@@ -29,6 +29,10 @@ public class SeamNamespaceHandler extends NamespaceHandlerSupport {
 
 	public static final String SEAM_COMPONENT_POST_PROCESSOR_BEAN_NAME = "org.jboss.seam.ioc.spring.seamComponentPostProcessor";
 
+	public SeamNamespaceHandler() {
+		super();
+	}
+	
 	/**
 	* @see org.springframework.beans.factory.xml.NamespaceHandler#init()
 	*/

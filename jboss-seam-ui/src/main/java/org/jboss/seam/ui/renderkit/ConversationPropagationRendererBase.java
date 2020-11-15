@@ -16,6 +16,10 @@ public class ConversationPropagationRendererBase extends CommandButtonParameterR
 
 	private static LogProvider log = Logging.getLogProvider(ConversationPropagationRendererBase.class);
 
+	public ConversationPropagationRendererBase() {
+		super();
+	}
+	
 	@Override
 	protected Class getComponentClass() {
 		return UIConversationPropagation.class;

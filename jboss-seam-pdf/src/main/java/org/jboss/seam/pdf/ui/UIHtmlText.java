@@ -19,6 +19,10 @@ public class UIHtmlText extends ITextComponent implements ValueHolder {
 
 	private Converter converter;
 	private Object localValue;
+	
+	public UIHtmlText() {
+		super();
+	}
 
 	@Override
 	public boolean getRendersChildren() {
@@ -96,7 +100,7 @@ public class UIHtmlText extends ITextComponent implements ValueHolder {
 
 	@Override
 	public void createITextObject(FacesContext context) {
-
+		//
 	}
 
 	@Override
@@ -106,6 +110,7 @@ public class UIHtmlText extends ITextComponent implements ValueHolder {
 
 	@Override
 	public void removeITextObject() {
+		//
 	}
 
 	@Override

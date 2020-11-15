@@ -12,6 +12,10 @@ import javax.mail.internet.MimeMessage;
  * JSF Component for rendering a from address
  */
 public class UIFrom extends AddressComponent {
+	
+	public UIFrom () {
+		super();
+	}
 
 	@Override
 	public void encodeBegin(FacesContext facesContext) throws IOException {

@@ -6,6 +6,10 @@ import java.awt.Graphics2D;
 public class UISwingComponent extends UIGraphics2D {
 	private Component component;
 
+	public UISwingComponent() {
+		super();
+	}
+	
 	public void setComponent(Component component) {
 		this.component = component;
 	}

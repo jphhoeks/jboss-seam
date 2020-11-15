@@ -22,6 +22,10 @@ public class UITimeSeriesChart extends UIChart {
 	private Boolean rangeGridlinesVisible;
 	private String rangeGridlinePaint;
 	private String rangeGridlineStroke;
+	
+	public UITimeSeriesChart() {
+		super();
+	}
 
 	public String getDomainAxisLabel() {
 		return (String) valueBinding("domainAxisLabel", domainAxisLabel);

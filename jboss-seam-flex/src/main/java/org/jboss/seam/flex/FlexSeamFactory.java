@@ -21,18 +21,24 @@ public class FlexSeamFactory implements FlexFactory {
 
 	@Override
 	public void initialize(String id, ConfigMap configMap) {
-		log.info("!FSF init " + id + " props=" + configMap);
+		if (log.isInfoEnabled()) {
+			log.info("!FSF init " + id + " props=" + configMap);
+		}
 	}
 
 	@Override
 	public FactoryInstance createFactoryInstance(String id, ConfigMap properties) {
-		log.info("!FSF create factory " + id + " props=" + properties);
+		if (log.isInfoEnabled()) {
+			log.info("!FSF create factory " + id + " props=" + properties);
+		}
 		return new FactoryInstance(this, id, properties);
 	}
 
 	@Override
 	public Object lookup(FactoryInstance factory) {
-		log.info("!FSF lookup " + factory);
+		if (log.isInfoEnabled()) {
+			log.info("!FSF lookup " + factory);
+		}
 
 		try {
 			Object instance = Component.getInstance(componentName, true);

@@ -12,6 +12,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.SpanRenderer", family = "org.jboss.seam.ui.SpanRenderer")
 public class SpanRendererBase extends StyleRendererBase {
+	
+	protected SpanRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {

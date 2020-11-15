@@ -45,9 +45,12 @@ public class ConverterChain implements Converter, StateHolder {
 
 	private List<PrioritizableConverter> converters;
 
+	
 	private boolean dirty;
+	private boolean _transient;
 
 	public ConverterChain() {
+		super();
 		// A Priority Queue would be nice but JSF has issues serializing that
 		converters = new ArrayList<PrioritizableConverter>();
 	}
@@ -152,7 +155,7 @@ public class ConverterChain implements Converter, StateHolder {
 		}
 	}
 
-	private boolean _transient;
+
 
 	@Override
 	public boolean isTransient() {

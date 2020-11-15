@@ -12,6 +12,10 @@ import org.apache.tools.ant.Task;
 public class RandomUUIDTask extends Task {
 	private String property;
 
+	public RandomUUIDTask() {
+		super();
+	}
+	
 	@Override
 	public void execute() throws BuildException {
 		getProject().setProperty(property, generateRandomUUID());

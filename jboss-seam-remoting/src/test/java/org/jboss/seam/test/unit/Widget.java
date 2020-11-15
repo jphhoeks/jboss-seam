@@ -15,6 +15,10 @@ public class Widget {
 	private Map<String, Widget> widgetMap;
 	private List<Widget> widgetList;
 
+	public Widget() {
+		super();
+	}
+	
 	public String getValue() {
 		return value;
 	}

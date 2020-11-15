@@ -12,6 +12,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 
 @JsfRenderer(type = "org.jboss.seam.ui.FormattedTextRenderer", family = "org.jboss.seam.ui.FormattedTextRenderer")
 public class FormattedTextRendererBase extends RendererBase {
+	
+	public FormattedTextRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {

@@ -10,6 +10,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 
 public class UILineChart extends UICategoryChartBase {
+	
+	public UILineChart() {
+		super();
+	}
+	
 	@Override
 	public void restoreState(FacesContext context, Object state) {
 		Object[] values = (Object[]) state;

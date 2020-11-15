@@ -14,6 +14,10 @@ import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
 public class SeamManagedEntityManagerFactoryBean extends AbstractEntityManagerFactoryBean {
 	private String persistenceContextName;
 
+	public SeamManagedEntityManagerFactoryBean() {
+		super();
+	}
+	
 	@Override
 	protected EntityManagerFactory createNativeEntityManagerFactory() throws PersistenceException {
 		return new SeamManagedEntityManagerFactory(persistenceContextName);

@@ -28,6 +28,10 @@ public class FlexFilter extends AbstractFilter {
 
 	MessageBrokerManager messageBrokerManager;
 	List<Class<?>> scanned = new ArrayList<Class<?>>();
+	
+	public FlexFilter() {
+		super();
+	}
 
 	private AnnotationDeploymentHandler annotationDeploymentHandler() {
 		DeploymentStrategy deployment = (DeploymentStrategy) Component.getInstance("deploymentStrategy");
@@ -102,7 +106,9 @@ public class FlexFilter extends AbstractFilter {
 		public String getInitParameter(String param) {
 			String result = params.get(param);
 
-			log.info("init param " + param + " is " + result);
+			if (log.isInfoEnabled()) {
+				log.info("init param " + param + " is " + result);
+			}
 			return result;
 		}
 

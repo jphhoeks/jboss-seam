@@ -10,6 +10,10 @@ public class UIAnchor extends ITextComponent {
 
 	String name;
 	String reference;
+	
+	public UIAnchor() {
+		super();
+	}
 
 	public void setName(String name) {
 		this.name = name;

@@ -11,6 +11,10 @@ public class UIHyperlink extends UICellBase implements WorksheetItem {
 	private Integer startRow;
 	private Integer endColumn;
 	private Integer endRow;
+	
+	public UIHyperlink() {
+		super();
+	}
 
 	@Override
 	public String getFamily() {

@@ -28,6 +28,10 @@ public class UISignature extends ITextComponent {
 	String reason;
 	String location;
 
+	public UISignature() {
+		super();
+	}
+	
 	public void setField(String field) {
 		this.field = field;
 	}
@@ -46,10 +50,12 @@ public class UISignature extends ITextComponent {
 
 	@Override
 	public void createITextObject(FacesContext context) {
+		//
 	}
 
 	@Override
 	public void removeITextObject() {
+		//
 	}
 
 	@Override

@@ -13,6 +13,10 @@ import javax.mail.internet.MimeMessage;
  * JSF component for rendering a Reply-to header
  */
 public class UIReplyTo extends AddressComponent {
+	
+	public UIReplyTo() {
+		super();
+	}
 
 	@Override
 	public void encodeBegin(FacesContext facesContext) throws IOException {

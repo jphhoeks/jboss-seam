@@ -26,7 +26,10 @@ public class MailTest {
 
 	private static final String PASSWORD = "letmein";
 
-	private static final String EMAIL = "pete.muir@jboss.org";
+	
+	public MailTest() {
+		super();
+	}
 
 	@Test
 	public void testBasicMailSession() {

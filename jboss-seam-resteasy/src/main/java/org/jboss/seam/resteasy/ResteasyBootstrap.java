@@ -91,6 +91,10 @@ public class ResteasyBootstrap {
 	// The job of this class is to initialize and configure the RESTEasy Dispatcher instance
 	protected Dispatcher dispatcher;
 
+	public ResteasyBootstrap() {
+		super();
+	}
+	
 	@Factory("org.jboss.seam.resteasy.dispatcher")
 	public Dispatcher getDispatcher() {
 		return dispatcher;
@@ -162,8 +166,9 @@ public class ResteasyBootstrap {
 
 		if (scanClasspathForAnnotations) {
 			Collection<Class<?>> annotatedTypes = handler.getClassMap().get(annotationFQName);
-			if (annotatedTypes != null)
+			if (annotatedTypes != null) {
 				types.addAll(annotatedTypes);
+			}
 		}
 
 		try {
@@ -171,7 +176,9 @@ public class ResteasyBootstrap {
 				types.add(Reflections.classForName(s));
 			}
 		} catch (ClassNotFoundException ex) {
-			log.error("error loading JAX-RS type: " + ex.getMessage(), ex);
+			if (log.isErrorEnabled()) {
+				log.error("error loading JAX-RS type: " + ex.getMessage(), ex);
+			}
 		}
 
 		return types;
@@ -260,16 +267,19 @@ public class ResteasyBootstrap {
 			// An @Provider annotated type may:
 
 			// - have been already handled as a Seam component in the previous routine
-			if (handledProviders.contains(providerClass))
+			if (handledProviders.contains(providerClass)) {
 				continue;
+			}
 
 			// - be a RESTEasy built-in provider
-			if (providerClass.getName().startsWith("org.jboss.resteasy.plugins.providers"))
+			if (providerClass.getName().startsWith("org.jboss.resteasy.plugins.providers")) {
 				continue;
+			}
 
 			// - be an interface, which we don't care about if we don't have an implementation
-			if (providerClass.isInterface())
+			if (providerClass.isInterface()) {
 				continue;
+			}
 
 			//         // - be just plain RESTEasy, no Seam component lookup or lifecycle
 			//         if (StringConverter.class.isAssignableFrom(providerClass))
@@ -331,7 +341,9 @@ public class ResteasyBootstrap {
 			case STATEFUL_SESSION_BEAN:
 				// EJB seam component resources must be @Path annotated on one of their business interfaces
 				if (resourceInterface != null) {
-					log.error("Not implemented: Stateful EJB Seam component resource: " + seamComponent);
+					if (log.isErrorEnabled()) {
+						log.error("Not implemented: Stateful EJB Seam component resource: " + seamComponent);
+					}
 					// TODO: registerStatefulEJBSeamComponentResource(seamComponent);
 				}
 				break;
@@ -371,12 +383,14 @@ public class ResteasyBootstrap {
 			// An @Path annotated type may:
 
 			// - have been already handled as a Seam component in the previous routine
-			if (handledResources.contains(resourceClass))
+			if (handledResources.contains(resourceClass)) {
 				continue;
+			}
 
 			// - be an interface, which we don't care about if we don't have an implementation
-			if (resourceClass.isInterface())
+			if (resourceClass.isInterface()) {
 				continue;
+			}
 
 			// - be a @Stateless EJB implementation class that was listed in components.xml
 			if (resourceClass.isAnnotationPresent(EJB.STATELESS)) {

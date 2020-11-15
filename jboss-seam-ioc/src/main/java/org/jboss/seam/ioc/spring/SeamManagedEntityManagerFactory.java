@@ -102,15 +102,15 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0] ? Boolean.TRUE : Boolean.FALSE);
 			}
-			if (method.getName().equals("hashCode")) {
+			if ("hashCode".equals(method.getName())) {
 				// Use hashCode of EntityManager proxy.
 				return Integer.valueOf(hashCode());
 			}
-			if (method.getName().equals("isOpen")) {
+			if ("isOpen".equals(method.getName())) {
 				return delegate.isOpen() && !closed;
 			}
 			if (!delegate.isOpen()) {
@@ -124,7 +124,7 @@ public class SeamManagedEntityManagerFactory implements EntityManagerFactory, Se
 			if (closed) {
 				throw new IllegalStateException("This PersistenceContext is closed.");
 			}
-			if (method.getName().equals("close")) {
+			if ("close".equals(method.getName())) {
 				log.debug("Closing PersistenceContext Proxy.");
 				closed = true;
 				return null;

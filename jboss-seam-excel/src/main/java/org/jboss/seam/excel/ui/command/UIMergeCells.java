@@ -9,6 +9,10 @@ public class UIMergeCells extends ExcelComponent implements Command {
 	private Integer startRow;
 	private Integer endColumn;
 	private Integer endRow;
+	
+	public UIMergeCells() {
+		super();
+	}
 
 	public Integer getStartColumn() {
 		return (Integer) valueOf("startColumn", startColumn);

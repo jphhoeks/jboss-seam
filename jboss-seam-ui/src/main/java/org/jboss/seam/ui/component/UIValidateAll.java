@@ -16,6 +16,10 @@ public abstract class UIValidateAll extends UIComponentBase {
 
 	// TODO Make this a hidden=true, el=false property in validateAll.xml
 	private boolean validatorsAdded = false;
+	
+	protected UIValidateAll() {
+		super();
+	}
 
 	public boolean isValidatorsAdded() {
 		return validatorsAdded;

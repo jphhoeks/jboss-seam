@@ -22,6 +22,10 @@ public class UIList extends ITextComponent {
 	Integer charNumber;
 	Integer numberType = 0;
 
+	public UIList() {
+		super();
+	}
+	
 	public void setStyle(String style) {
 		this.style = style;
 	}

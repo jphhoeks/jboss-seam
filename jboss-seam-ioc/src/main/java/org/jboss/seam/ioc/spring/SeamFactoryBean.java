@@ -31,6 +31,10 @@ public class SeamFactoryBean extends AbstractFactoryBean implements Initializing
 
 	private boolean proxy = false;
 
+	public SeamFactoryBean() {
+		super();
+	}
+	
 	/**
 	* Initializes the factory. If proxy=true then initialize the proxy.
 	* 
@@ -66,7 +70,7 @@ public class SeamFactoryBean extends AbstractFactoryBean implements Initializing
 			if (targetClass.isInterface()) {
 				interfaces.add(targetClass);
 			}
-			pf.setInterfaces(interfaces.toArray(new Class[interfaces.size()]));
+			pf.setInterfaces(interfaces.toArray(new Class[0]));
 
 			this.proxyInstance = pf.getProxy(Thread.currentThread().getContextClassLoader());
 

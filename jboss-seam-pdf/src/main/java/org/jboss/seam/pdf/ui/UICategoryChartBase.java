@@ -36,6 +36,10 @@ public abstract class UICategoryChartBase extends UIChart {
 	private Boolean rangeGridlinesVisible;
 	private String rangeGridlinePaint;
 	private String rangeGridlineStroke;
+	
+	public UICategoryChartBase() {
+		super();
+	}
 
 	public String getDomainAxisLabel() {
 		return (String) valueBinding("domainAxisLabel", domainAxisLabel);
@@ -235,7 +239,9 @@ public abstract class UICategoryChartBase extends UIChart {
 		if (plot instanceof CategoryPlot) {
 			configurePlot((CategoryPlot) plot);
 		} else {
-			log.error("UICATEGORYCHART --- unknown plot " + plot);
+			if (log.isErrorEnabled()) {
+				log.error("UICATEGORYCHART --- unknown plot " + plot);
+			}
 		}
 	}
 

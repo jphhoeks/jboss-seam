@@ -63,18 +63,27 @@ import org.testng.annotations.Test;
  */
 public class RemotingTest {
 	private class InvalidClass {
+		private InvalidClass() {
+			 super();
+		}
+	}
+	private enum TestEnum {
+		red, green, blue
+	}
+	
+	public RemotingTest() {
+		super();
 	}
 
 	public Element createElement(String name, String value) throws UnsupportedEncodingException {
 		Element e = DocumentFactory.getInstance().createElement(name);
-		if (value != null)
+		if (value != null) {
 			e.addText(URLEncoder.encode(value, StringWrapper.DEFAULT_ENCODING));
+		}
 		return e;
 	}
 
-	private enum TestEnum {
-		red, green, blue
-	}
+
 
 	@Test
 	public void testBooleanWrapper() throws Exception {
@@ -88,7 +97,8 @@ public class RemotingTest {
 			// Try an invalid conversion
 			wrapper.convert(InvalidClass.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		// test the marshal() method
@@ -131,7 +141,8 @@ public class RemotingTest {
 			// this should throw an exception
 			wrapper.convert(InvalidClass.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		try {
@@ -139,7 +150,8 @@ public class RemotingTest {
 			wrapper.setElement(createElement("date", "foobar"));
 			wrapper.convert(Date.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		// test conversionScore() method
@@ -197,7 +209,8 @@ public class RemotingTest {
 			// Attempt an invalid conversion
 			wrapper.convert(Integer.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		value = "A";
@@ -216,7 +229,8 @@ public class RemotingTest {
 			// Attempt an invalid conversion
 			wrapper.convert(InvalidClass.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		// Test conversionScore() method
@@ -292,7 +306,8 @@ public class RemotingTest {
 			// Attempt an invalid conversion
 			wrapper.convert(InvalidClass.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		assert ConversionScore.exact == wrapper.conversionScore(Integer.class);
@@ -324,6 +339,7 @@ public class RemotingTest {
 	private class InvalidList<E> extends ArrayList<E> {
 		@SuppressWarnings("unused")
 		public InvalidList() {
+			super();
 			throw new InstantiationError();
 		}
 	}
@@ -386,7 +402,8 @@ public class RemotingTest {
 			// This should throw a ConversionException
 			wrapper.convert(InvalidList.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		t = RemotingTest.class.getMethod("dummyInvalid").getGenericReturnType();
@@ -394,12 +411,13 @@ public class RemotingTest {
 			// This should throw a ConversionException also
 			wrapper.convert(t);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		int[] intValues = new int[2];
-		intValues[0] = 44444;
-		intValues[1] = 55555;
+		intValues[0] = 44_444;
+		intValues[1] = 55_555;
 
 		e = createElement("bag", null);
 		e.addElement("element").addElement("number").addText("" + intValues[0]);
@@ -433,7 +451,8 @@ public class RemotingTest {
 			wrapper.setValue(new InvalidClass());
 			wrapper.marshal(out);
 			assert false;
-		} catch (RuntimeException ex) {
+		} catch (RuntimeException ignored) {
+			
 		}
 
 		// test conversionScore() method
@@ -464,6 +483,7 @@ public class RemotingTest {
 	private class InvalidMap extends HashMap {
 		@SuppressWarnings("unused")
 		public InvalidMap() {
+			super();
 			throw new InstantiationError();
 		}
 	}
@@ -508,14 +528,16 @@ public class RemotingTest {
 			// This should throw a ConversionException
 			wrapper.convert(InvalidClass.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		try {
 			// This should throw a ConversionException also
 			wrapper.convert(InvalidMap.class);
 			assert false;
-		} catch (ConversionException ex) {
+		} catch (ConversionException ignored) {
+			//
 		}
 
 		// ensure when we marshal/unmarshal the values in the map remain the same      
@@ -567,6 +589,7 @@ public class RemotingTest {
 
 			@Override
 			public void marshal(OutputStream out) {
+				//
 			}
 
 			@Override
@@ -585,7 +608,8 @@ public class RemotingTest {
 		wrapper.setCallContext(null);
 		try {
 			wrapper.serialize(null);
-		} catch (IOException ex) {
+		} catch (IOException ignored) {
+			//
 		}
 	}
 
@@ -595,7 +619,8 @@ public class RemotingTest {
 			// This should throw a RuntimeException
 			WrapperFactory.getInstance().createWrapper("invalid");
 			assert false;
-		} catch (RuntimeException ex) {
+		} catch (RuntimeException ignored) {
+			//
 		}
 
 		assert WrapperFactory.getInstance().getWrapperForObject(null) instanceof NullWrapper;
@@ -757,6 +782,9 @@ public class RemotingTest {
 	}
 
 	class ProxyInterfaceGenerator extends InterfaceGenerator {
+		public ProxyInterfaceGenerator() {
+			super();
+		}
 		@Override
 		public String getFieldType(Type type) {
 			return super.getFieldType(type);

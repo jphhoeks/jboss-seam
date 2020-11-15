@@ -64,7 +64,9 @@ public class WicketClassLoader extends Loader {
 	* @throws CannotCompileException
 	*/
 	private void handleDirectory(File file, String path, Set<String> collectedClasses) throws NotFoundException, CannotCompileException {
-		log.trace("directory: " + file);
+		if (log.isTraceEnabled()) {
+			log.trace("directory: " + file);
+		}
 		for (File child : file.listFiles()) {
 			String newPath = path == null ? child.getName() : path + '/' + child.getName();
 			if (child.isDirectory()) {

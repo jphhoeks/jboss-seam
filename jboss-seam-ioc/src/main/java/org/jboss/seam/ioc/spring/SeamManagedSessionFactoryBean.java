@@ -29,6 +29,10 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 	private String sessionName;
 
 	private SessionFactory baseSessionFactory;
+	
+	public SeamManagedSessionFactoryBean() {
+		super();
+	}
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -117,16 +121,16 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			if (method.getName().equals("equals")) {
+			if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0] ? Boolean.TRUE : Boolean.FALSE);
 			}
-			if (method.getName().equals("hashCode")) {
+			if ("hashCode".equals(method.getName())) {
 				// Use hashCode of SessionFactory proxy.
 				return Integer.valueOf(hashCode());
 			}
 			SessionFactory delegate = getRawSessionFactory();
-			if (method.getName().equals("isClosed")) {
+			if ("isClosed".equals(method.getName())) {
 				return delegate.isClosed() || isClosed;
 			}
 			if (delegate.isClosed()) {
@@ -140,21 +144,21 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 			if (isClosed) {
 				throw new IllegalStateException("This SessionFactory is closed.");
 			}
-			if (method.getName().equals("close")) {
+			if ("close".equals(method.getName())) {
 				Session session = getSession();
 				session.disconnect();
 				isClosed = true;
 				return null;
 			}
 
-			if (method.getName().equals("getCurrentSession")) {
+			if ("getCurrentSession".equals(method.getName())) {
 				try {
 					return getSession();
 				} catch (IllegalStateException ex) {
-					throw new HibernateException(ex.getMessage());
+					throw new HibernateException(ex.getMessage(), ex);
 				}
 			}
-			if (method.getName().equals("openSession")) {
+			if ("openSession".equals(method.getName())) {
 				if (method.getParameterTypes().length == 0) {
 					Session session = getSession();
 					// Return close suppressing Session Proxy that implements all
@@ -163,17 +167,17 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 					List<Class> interfaces = new ArrayList<Class>(Arrays.asList(ClassUtils.getAllInterfaces(session)));
 					//Have to bend Session implementation since HiberanteSessionProxy doesn't implement classic.Session.
 					interfaces.add(Session.class);
-					return Proxy.newProxyInstance(this.getClass().getClassLoader(), interfaces.toArray(new Class[interfaces.size()]),
+					return Proxy.newProxyInstance(this.getClass().getClassLoader(), interfaces.toArray(new Class[0]),
 							new SeamManagedSessionHandler((SessionFactory) proxy, session));
 				} else {
 					throw new HibernateException(
 							"This SeamManagedSessionFactory will only return a session from a call to noarg openSession()");
 				}
 			}
-			if (method.getName().equals("openStatelessSession")) {
+			if ("openStatelessSession".equals(method.getName())) {
 				throw new HibernateException("This SessionFactory does not support StatelessSessions");
 			}
-			if (method.getName().equals("getReference")) {
+			if ("getReference".equals(method.getName())) {
 				throw new HibernateException(
 						"A SeamManagedSessionFactory is not referencable.  If this is a requirement file a feature request.");
 			}
@@ -213,16 +217,16 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			if (method.getName().equals("getSessionFactory")) {
+			if ("getSessionFactory".equals(method.getName())) {
 				return sessionFactory;
-			} else if (method.getName().equals("equals")) {
+			} else if ("equals".equals(method.getName())) {
 				// Only consider equal when proxies are identical.
 				return (proxy == args[0] ? Boolean.TRUE : Boolean.FALSE);
-			} else if (method.getName().equals("hashCode")) {
+			} else if ("hashCode".equals(method.getName())) {
 				// Use hashCode of Session proxy.
 				return Integer.valueOf(hashCode());
 			}
-			if (method.getName().equals("isOpen")) {
+			if ("isOpen".equals(method.getName())) {
 				return delegate.isOpen() && !closed;
 			}
 			if (!delegate.isOpen()) {
@@ -236,7 +240,7 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 			if (closed) {
 				throw new IllegalStateException("This Session is closed.");
 			}
-			if (method.getName().equals("close")) {
+			if ("close".equals(method.getName())) {
 				log.debug("Closing Session Proxy.");
 				delegate.disconnect();
 				closed = true;

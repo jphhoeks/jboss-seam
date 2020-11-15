@@ -16,6 +16,10 @@ import javax.faces.convert.FacesConverter;
 public class NoSelectionConverter implements Converter {
 	public static final String NO_SELECTION_VALUE = "org.jboss.seam.ui.NoSelectionConverter.noSelectionValue";
 
+	public NoSelectionConverter() {
+		super();
+	}
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
 		if (value == null) {

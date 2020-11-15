@@ -73,6 +73,10 @@ public class ResteasyResourceAdapter extends AbstractResource {
 
 	protected Dispatcher dispatcher;
 	protected Application application;
+	
+	public ResteasyResourceAdapter() {
+		super();
+	}
 
 	@Create
 	public void init() {
@@ -163,7 +167,9 @@ public class ResteasyResourceAdapter extends AbstractResource {
 			// Still is /<context>/seam/resource/rest, so cut off the context
 			mappingPrefix = mappingPrefix.substring(request.getContextPath().length());
 
-			log.debug("Using request mapping prefix: " + mappingPrefix);
+			if (log.isDebugEnabled()) {
+				log.debug("Using request mapping prefix: " + mappingPrefix);
+			}
 
 			// This is the prefix used by RESTEasy to resolve resources and generate URIs with
 			return ServletUtil.extractUriInfo(request, mappingPrefix);

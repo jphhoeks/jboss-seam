@@ -72,16 +72,20 @@ public class SeamResteasyResourceFactory implements ResourceFactory {
 		// Push this onto event context so we have it available in ResteasyContextInjectionInterceptor
 		Contexts.getEventContext().set(ResteasyContextInjectionInterceptor.RE_HTTP_REQUEST_VAR, request);
 		Contexts.getEventContext().set(ResteasyContextInjectionInterceptor.RE_HTTP_RESPONSE_VAR, response);
-		log.debug("creating RESTEasy resource instance by looking up Seam component: " + seamComponent.getName());
+		if (log.isDebugEnabled()) {
+			log.debug("creating RESTEasy resource instance by looking up Seam component: " + seamComponent.getName());
+		}
 		return Component.getInstance(seamComponent.getName());
 	}
 
 	@Override
 	public void requestFinished(HttpRequest request, HttpResponse response, Object resource) {
+		//
 	}
 
 	@Override
 	public void unregistered() {
+		//
 	}
 
 }

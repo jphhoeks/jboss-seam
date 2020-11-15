@@ -30,6 +30,10 @@ public class UITable extends ITextComponent {
 	Boolean headersInEvent;
 	Boolean splitLate;
 	Boolean keepTogether;
+	
+	public UITable() {
+		super();
+	}
 
 	public void setWidths(String widths) {
 		this.widths = widths;

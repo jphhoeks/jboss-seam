@@ -54,6 +54,10 @@ public class ExcelExporter {
 	// A map of known column widths
 	private Map<Integer, Integer> columnWidths = new HashMap<Integer, Integer>();
 
+	public ExcelExporter() {
+		super();
+	}
+	
 	/**
 	* Helper method to call the exporter and use the default excel workbook
 	* implementation

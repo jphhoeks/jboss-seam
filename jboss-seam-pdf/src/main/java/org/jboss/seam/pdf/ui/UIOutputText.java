@@ -9,20 +9,21 @@ import javax.faces.convert.Converter;
 
 import com.lowagie.text.Chunk;
 
-public class UIOutputText extends ITextComponent implements ValueHolder
-
-{
+public class UIOutputText extends ITextComponent implements ValueHolder {
 	Chunk chunk;
 
 	Converter converter;
 	Object value;
 	Object localValue;
 
+	public UIOutputText() {
+		super();
+	}
+	
 	// -- ITextComponent methods
 	@Override
 	public void encodeEnd(FacesContext context) throws IOException {
 		chunk.append(convert(context, getValue()));
-
 		super.encodeEnd(context);
 	}
 
@@ -45,7 +46,7 @@ public class UIOutputText extends ITextComponent implements ValueHolder
 		if (value != null) {
 			try {
 				return ctx.getApplication().createConverter(value.getClass());
-			} catch (FacesException e) {
+			} catch (FacesException ignored) {
 				// no converter defined - no problem
 			}
 		}

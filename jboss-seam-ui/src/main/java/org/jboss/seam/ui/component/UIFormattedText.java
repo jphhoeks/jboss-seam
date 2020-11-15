@@ -54,9 +54,13 @@ public abstract class UIFormattedText extends UIOutput {
 	@SuppressWarnings("unused")
 	private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.FormattedText";
 
+	protected UIFormattedText() {
+		super();
+	}
 	public String getFormattedText() {
-		if (getValue() == null)
+		if (getValue() == null) {
 			return null;
+		}
 		Reader r = new StringReader((String) getValue());
 		SeamTextLexer lexer = new SeamTextLexer(r);
 		SeamTextParser parser = new SeamTextParser(lexer);
@@ -64,7 +68,7 @@ public abstract class UIFormattedText extends UIOutput {
 			parser.startRule();
 		} catch (RecognitionException rex) {
 			// Log a nice message for any lexer/parser errors, users can disable this if they want to
-			log.warn("Seam Text parse error: " + rex.getMessage());
+			log.warn("Seam Text parse error: " + rex.getMessage(), rex);
 		} catch (ANTLRException ex) {
 			// All other errors are fatal;
 			throw new RuntimeException(ex);

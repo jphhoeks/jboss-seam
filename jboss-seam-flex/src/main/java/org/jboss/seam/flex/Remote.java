@@ -14,6 +14,10 @@ import org.jboss.seam.annotations.Startup;
 public class Remote {
 	String destinationName;
 	String componentName;
+	
+	public Remote() {
+		super();
+	}
 
 	public void setDestinationName(String destionationName) {
 		this.destinationName = destionationName;

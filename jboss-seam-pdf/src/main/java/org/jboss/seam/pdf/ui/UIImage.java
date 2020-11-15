@@ -38,6 +38,10 @@ public class UIImage extends UIRectangle {
 	Boolean underlying;
 
 	java.awt.Image imageData;
+	
+	public UIImage() {
+		super();
+	}
 
 	public void setValue(Object value) {
 		this.value = value;

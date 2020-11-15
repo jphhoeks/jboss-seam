@@ -20,6 +20,10 @@ public class UIParagraph extends ITextComponent {
 
 	Boolean keepTogether;
 
+	public UIParagraph() {
+		super();
+	}
+	
 	public void setAlignment(String alignment) {
 		this.alignment = alignment;
 	}

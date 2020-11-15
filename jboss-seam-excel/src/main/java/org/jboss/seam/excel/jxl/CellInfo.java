@@ -20,6 +20,10 @@ public class CellInfo {
 	// Cell contents type of the cell
 	private CellType cellType;
 
+	public CellInfo() {
+		super();
+	}
+	
 	public CellType getCellType() {
 		return cellType;
 	}

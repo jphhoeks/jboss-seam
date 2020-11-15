@@ -24,6 +24,10 @@ public class ClientUidSelector extends Selector {
 
 	private String clientUid;
 
+	public ClientUidSelector() {
+		super();
+	}
+	
 	@Create
 	public void onCreate() {
 		String requestContextPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();

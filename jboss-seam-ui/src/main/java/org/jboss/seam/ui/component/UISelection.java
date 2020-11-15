@@ -41,6 +41,10 @@ public abstract class UISelection extends UIParameter {
 
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.Selection";
 
+	public UISelection() {
+		super();
+	}
+	
 	@Override
 	public String getName() {
 		return "dataModelSelection";

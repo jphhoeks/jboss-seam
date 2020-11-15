@@ -33,6 +33,10 @@ public class RendererUtils {
 	private static final String TRINIDAD_COMMANDBUTTON_CLASS = "org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton";
 	private static final String RICHFACES_COMMANDBUTTON_CLASS = "org.ajax4jsf.component.UIAjaxCommandButton";
 
+	public RendererUtils() {
+		super();
+	}
+	
 	/**
 	* Since Trinidad, and possibly other JSF implementations don't always subclass
 	* from {@link javax.faces.component.UIForm} we can't cast to UIForm.

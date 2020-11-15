@@ -16,6 +16,11 @@ import org.richfaces.cdk.annotations.Tag;
 		"core-props.xml", "javax.faces.component.UICommand.xml", "i18n-props.xml", "javax.faces.component.UIOutput.xml",
 		"javax.faces.component.UIGraphic.xml", "accesskey-props.xml" })
 public abstract class UIDownload extends UILink {
+	
+	protected UIDownload() {
+		super();
+	}
+	
 	@Attribute(description = @Description("Source xhtml file that acts as resource holder"))
 	public abstract String getSrc();
 

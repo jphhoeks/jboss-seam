@@ -12,6 +12,10 @@ public class EncodePasswordTask extends Task {
 	private String property;
 	private String password;
 
+	public EncodePasswordTask() {
+		super();
+	}
+	
 	@Override
 	public void execute() throws BuildException {
 		getProject().setProperty(property, encode(password));
@@ -22,14 +26,14 @@ public class EncodePasswordTask extends Task {
 			return "";
 		}
 
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < value.length(); i++) {
 			int c = value.charAt(i);
 			c ^= 0xdfaa;
-			result += Integer.toHexString(c);
+			result.append(Integer.toHexString(c));
 		}
 
-		return result;
+		return result.toString();
 	}
 
 	public void setProperty(String property) {

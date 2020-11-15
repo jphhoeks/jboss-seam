@@ -80,6 +80,9 @@ public class TokenRendererBase extends RendererBase {
 
 	private static final String COOKIE_CHECK_SCRIPT_KEY = "org.jboss.seam.ui.COOKIE_CHECK_SCRIPT";
 
+	public TokenRendererBase() {
+		super();
+	}
 	@Override
 	protected Class getComponentClass() {
 		return UIToken.class;

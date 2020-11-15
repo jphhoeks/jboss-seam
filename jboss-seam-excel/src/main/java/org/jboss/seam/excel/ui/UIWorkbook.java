@@ -53,6 +53,10 @@ public class UIWorkbook extends ExcelComponent {
 	private String filename;
 	private String disposition;
 
+	public UIWorkbook() {
+		super();
+	}
+	
 	public String getFilename() {
 		return (String) valueOf("filename", filename);
 	}

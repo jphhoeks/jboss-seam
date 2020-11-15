@@ -27,6 +27,10 @@ import org.jboss.seam.ui.util.ViewUrlBuilder;
  */
 public abstract class UISeamCommandBase extends UIOutput implements ActionSource2 {
 
+	protected UISeamCommandBase() {
+		super();
+	}
+	
 	public abstract String getView();
 
 	public String getUrl() throws UnsupportedEncodingException {

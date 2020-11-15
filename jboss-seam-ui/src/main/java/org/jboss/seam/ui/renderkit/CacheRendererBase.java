@@ -2,7 +2,6 @@ package org.jboss.seam.ui.renderkit;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Calendar;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -19,10 +18,10 @@ public class CacheRendererBase extends RendererBase {
 
 	private static final LogProvider log = Logging.getLogProvider(UICache.class);
 
-	/**
-	* last time we logged the failure of the cache
-	*/
-	private static Calendar lastLog = null;
+
+	public CacheRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {
@@ -36,7 +35,9 @@ public class CacheRendererBase extends RendererBase {
 			String key = cache.getKey();
 			String cachedContent = (String) cache.getCacheProvider().get(cache.getRegion(), key);
 			if (cachedContent == null) {
-				log.debug("rendering from scratch: " + key);
+				if (log.isDebugEnabled()) {
+					log.debug("rendering from scratch: " + key);
+				}
 				StringWriter stringWriter = new StringWriter();
 				ResponseWriter cachingResponseWriter = writer.cloneWithWriter(stringWriter);
 				context.setResponseWriter(cachingResponseWriter);
@@ -46,7 +47,9 @@ public class CacheRendererBase extends RendererBase {
 				writer.write(output);
 				cache.getCacheProvider().put(cache.getRegion(), key, output);
 			} else {
-				log.debug("rendering from cache: " + key);
+				if (log.isDebugEnabled()) {
+					log.debug("rendering from cache: " + key);
+				}
 				writer.write(cachedContent);
 			}
 		} else {

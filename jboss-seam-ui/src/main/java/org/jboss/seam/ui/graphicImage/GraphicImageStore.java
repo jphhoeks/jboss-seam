@@ -22,7 +22,8 @@ import org.jboss.seam.log.Logging;
 public class GraphicImageStore extends AbstractMutable implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Log log = Logging.getLog(GraphicImageStore.class);
-
+	private Map<String, ImageWrapper> store = new HashMap<String, ImageWrapper>();
+	
 	public static class ImageWrapper implements Serializable {
 
 		private static final long serialVersionUID = 1L;
@@ -45,8 +46,12 @@ public class GraphicImageStore extends AbstractMutable implements Serializable {
 		}
 	}
 
-	private Map<String, ImageWrapper> store = new HashMap<String, ImageWrapper>();
 
+
+	public GraphicImageStore() {
+		super();
+	}
+	
 	/**
 	* Put a image into the store
 	* @param image

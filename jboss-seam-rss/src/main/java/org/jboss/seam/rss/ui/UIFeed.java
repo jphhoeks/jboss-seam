@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.contexts.Contexts;
+import org.jboss.seam.util.Resources;
 
 import yarfraw.core.datamodel.ChannelFeed;
 import yarfraw.core.datamodel.FeedFormat;
@@ -39,7 +40,6 @@ import yarfraw.io.FeedWriter;
 
 public class UIFeed extends SyndicationComponent {
 	private static final String COMPONENT_TYPE = "org.jboss.seam.rss.ui.UIFeed";
-	private static final String EXTENSION = "xml";
 	private static final String MIMETYPE = "text/xml";
 
 	private boolean sendRedirect = true;
@@ -50,6 +50,10 @@ public class UIFeed extends SyndicationComponent {
 	private Date updated;
 	private String link;
 	private FeedFormat feedFormat = FeedFormat.ATOM10;
+	
+	public UIFeed() {
+		super();
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -78,13 +82,19 @@ public class UIFeed extends SyndicationComponent {
 			 */
 			throw new RuntimeException("Could not create feed", e);
 		}
-		Writer responseWriter = ((HttpServletResponse) facesContext.getExternalContext().getResponse()).getWriter();
-		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-		response.setContentType(MIMETYPE);
-		response.setContentLength(byteStream.size());
-		responseWriter.write(byteStream.toString());
-		response.flushBuffer();
-		facesContext.responseComplete();
+		Writer responseWriter = null;
+		try {
+			responseWriter = ((HttpServletResponse) facesContext.getExternalContext().getResponse()).getWriter();
+			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+			response.setContentType(MIMETYPE);
+			response.setContentLength(byteStream.size());
+			responseWriter.write(byteStream.toString());
+			response.flushBuffer();
+		}
+		finally {
+			Resources.close(responseWriter);
+			facesContext.responseComplete();
+		}
 	}
 
 	public boolean isSendRedirect() {

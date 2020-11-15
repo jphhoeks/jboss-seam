@@ -35,7 +35,6 @@ import com.lowagie.text.pdf.PdfWriter;
 
 public class UIBarCode extends ITextComponent {
 
-	private Barcode barcode;
 	private Object itextObject;
 
 	private String type;
@@ -52,6 +51,10 @@ public class UIBarCode extends ITextComponent {
 
 	String barColor;
 	String textColor;
+	
+	public UIBarCode() {
+		super();
+	}
 
 	public String getCode() {
 		return (String) valueBinding("code", code);
@@ -206,7 +209,7 @@ public class UIBarCode extends ITextComponent {
 
 	@Override
 	public void createITextObject(FacesContext context) throws IOException {
-		barcode = createBarcodeType(getType());
+		Barcode barcode = createBarcodeType(getType());
 
 		barcode.setCode(getCode());
 

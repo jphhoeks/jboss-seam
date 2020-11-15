@@ -20,6 +20,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  */
 @JsfRenderer(type = "org.jboss.seam.ui.graphicImage.GraphicImageRenderer", family = "org.jboss.seam.ui.GraphicImageRenderer")
 public class GraphicImageRendererBase extends RendererBase {
+	
+	public GraphicImageRendererBase() {
+		super();
+	}
 
 	@Override
 	protected Class getComponentClass() {
@@ -39,8 +43,9 @@ public class GraphicImageRendererBase extends RendererBase {
 
 		Image image = Image.instance();
 
-		if (graphicImage.isInvalidate())
+		if (graphicImage.isInvalidate()) {
 			cacheProvider.remove(graphicImage.getCacheKey());
+		}
 
 		if (graphicImage.isCache() && cacheProvider.get(graphicImage.getCacheKey()) != null) {
 			wrapper = (ImageWrapper) cacheProvider.get(graphicImage.getCacheKey());
@@ -63,8 +68,9 @@ public class GraphicImageRendererBase extends RendererBase {
 
 			wrapper = new ImageWrapper(image.getImage(), image.getContentType());
 
-			if (graphicImage.isCache())
+			if (graphicImage.isCache()) {
 				cacheProvider.put(graphicImage.getCacheKey(), wrapper);
+			}
 		}
 
 		key = GraphicImageStore.instance().put(wrapper, key);

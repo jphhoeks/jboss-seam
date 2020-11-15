@@ -27,23 +27,21 @@ public class SeamAdapter extends JavaAdapter {
 	private static final String CONVERSATION_ID = "conversationId";
 
 	private static final LogProvider log = Logging.getLogProvider(SeamAdapter.class);
+	
+	public SeamAdapter() {
+		super();
+	}
 
 	@Override
 	public Object invoke(Message message) {
-		log.info("SeamAdapter: " + message);
-
-		try {
-			startSeamContexts(message, FlexContext.getHttpRequest());
-
-			Object result = wrapResult(super.invoke(message));
-
-			endSeamContexts(FlexContext.getHttpRequest());
-
-			return result;
-		} catch (RuntimeException e) {
-			// XXX end request properly....
-			throw e;
+		if (log.isInfoEnabled()) {
+			log.info("SeamAdapter: " + message);
 		}
+
+		startSeamContexts(message, FlexContext.getHttpRequest());
+		Object result = wrapResult(super.invoke(message));
+		endSeamContexts(FlexContext.getHttpRequest());
+		return result;
 	}
 
 	protected Object wrapResult(Object result) {

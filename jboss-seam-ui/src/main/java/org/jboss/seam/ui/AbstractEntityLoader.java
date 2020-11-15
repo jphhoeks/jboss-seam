@@ -17,6 +17,9 @@ public abstract class AbstractEntityLoader<T> extends PersistenceController<T> {
 
 	private static final long serialVersionUID = -3972482802298571753L;
 
+	protected AbstractEntityLoader() {
+		super();
+	}
 	/**
 	* Load and return the entity stored
 	* @param key

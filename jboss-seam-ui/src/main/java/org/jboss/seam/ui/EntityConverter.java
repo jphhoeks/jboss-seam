@@ -33,6 +33,10 @@ public class EntityConverter implements javax.faces.convert.Converter, Serializa
 
 	private static final long serialVersionUID = 1L;
 	private AbstractEntityLoader entityLoader;
+	
+	public EntityConverter() {
+		super();
+	}
 
 	public AbstractEntityLoader getEntityLoader() {
 		if (entityLoader == null) {

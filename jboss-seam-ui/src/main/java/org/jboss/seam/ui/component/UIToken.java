@@ -75,6 +75,11 @@ public abstract class UIToken extends UIOutput {
 	@SuppressWarnings("unused")
 	private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.Token";
 
+	
+	protected UIToken() {
+		super();
+	}
+	
 	/**
 	* Indicates whether the session id should be included in the form signature,
 	* hence binding the token to the session. This value can be set to false

@@ -24,6 +24,10 @@ import com.sun.faces.facelets.compiler.SAXCompiler;
 public class FaceletCompiler {
 
 	private com.sun.faces.facelets.compiler.Compiler compiler;
+	
+	public FaceletCompiler() {
+		super();
+	}
 
 	@Create
 	public void create() {

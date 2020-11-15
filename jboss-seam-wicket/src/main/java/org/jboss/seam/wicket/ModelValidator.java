@@ -48,7 +48,7 @@ public class ModelValidator implements IValidator {
 		ClassValidator<?> classValidator = Validators.instance().getValidator(clazz);
 		Set<?> invalidValues = classValidator.getPotentialInvalidValues(property, validatable.getValue());
 
-		if (invalidValues.size() > 0) {
+		if (!invalidValues.isEmpty()) {
 			ConstraintViolation constraintViolation = (ConstraintViolation) invalidValues.iterator().next();
 			String message = constraintViolation.getMessage();
 			IValidationError validationError = new ValidationError().setMessage(message);

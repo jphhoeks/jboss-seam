@@ -30,6 +30,10 @@ public abstract class UIFileUpload extends UIInput {
 	private Integer localFileSize;
 
 	private InputStream localInputStream;
+	
+	protected UIFileUpload() {
+		super();
+	}
 
 	@Override
 	public void processUpdates(FacesContext context) {
@@ -82,7 +86,8 @@ public abstract class UIFileUpload extends UIInput {
 					} finally {
 						try {
 							getLocalInputStream().close();
-						} catch (IOException e) {
+						} catch (IOException ignored) {
+							//
 						}
 					}
 				}
@@ -111,8 +116,8 @@ public abstract class UIFileUpload extends UIInput {
 	* Workaround for IE, which includes the full path to the file.
 	*/
 	private String extractFilename(String filename) {
-		if (filename != null && filename.lastIndexOf("\\") > -1) {
-			return filename.substring(filename.lastIndexOf("\\") + 1);
+		if (filename != null && filename.lastIndexOf('\\') > -1) {
+			return filename.substring(filename.lastIndexOf('\\') + 1);
 		} else {
 			return filename;
 		}
@@ -152,7 +157,7 @@ public abstract class UIFileUpload extends UIInput {
 	@Override
 	public void setValue(Object value) {
 		// Check if the local values get restored
-		if (value != null && value instanceof LocalUploadValue) {
+		if (value instanceof LocalUploadValue) {
 			LocalUploadValue localValue = (LocalUploadValue) value;
 			localFileName = localValue.getFileName();
 			localFileSize = localValue.getFileSize();

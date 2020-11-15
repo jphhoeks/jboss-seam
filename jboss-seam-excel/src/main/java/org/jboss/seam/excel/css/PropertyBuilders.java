@@ -262,11 +262,11 @@ public class PropertyBuilders {
 					styleMap.put(CSSNames.FONT_COLOR, value);
 				} else if (JXLFactory.isUnderlineStyle(value)) {
 					styleMap.put(CSSNames.FONT_UNDERLINE_STYLE, value);
-				} else if ("italic".equals(value.toLowerCase())) {
+				} else if ("italic".equalsIgnoreCase(value)) {
 					styleMap.put(CSSNames.FONT_ITALIC, Boolean.TRUE);
-				} else if ("bold".equals(value.toLowerCase())) {
+				} else if ("bold".equalsIgnoreCase(value)) {
 					styleMap.put(CSSNames.FONT_BOLD, Boolean.TRUE);
-				} else if ("struck_out".equals(value.toLowerCase())) {
+				} else if ("struck_out".equalsIgnoreCase(value)) {
 					styleMap.put(CSSNames.FONT_STRUCK_OUT, Boolean.TRUE);
 				} else if (isNumeric(value)) {
 					styleMap.put(CSSNames.FONT_SIZE, Integer.parseInt(value));

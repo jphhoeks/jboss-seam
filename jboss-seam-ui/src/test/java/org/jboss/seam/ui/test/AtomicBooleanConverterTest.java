@@ -18,6 +18,10 @@ import static org.testng.Assert.assertFalse;
  */
 
 public class AtomicBooleanConverterTest {
+	
+	public AtomicBooleanConverterTest() {
+		super();
+	}
 
 	@Test
 	public void testGetAsObject() {

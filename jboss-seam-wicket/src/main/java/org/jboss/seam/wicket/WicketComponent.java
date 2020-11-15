@@ -51,7 +51,27 @@ import org.jboss.seam.wicket.ioc.InjectedField;
 import org.jboss.seam.wicket.ioc.StatelessInterceptor;
 
 public class WicketComponent<T> {
+	private static LogProvider log = Logging.getLogProvider(WicketComponent.class);
 
+	private Class<? extends T> type;
+
+	private Class<?> enclosingType;
+	private String enclosingInstanceVariableName;
+
+	private List<BijectedAttribute<In>> inAttributes = new ArrayList<BijectedAttribute<In>>();
+	private List<BijectedAttribute<Out>> outAttributes = new ArrayList<BijectedAttribute<Out>>();
+	private List<InjectedLogger> loggerFields = new ArrayList<InjectedLogger>();
+
+	private Set<AccessibleObject> conversationManagementMembers = new HashSet<AccessibleObject>();
+
+	private List<StatelessInterceptor<T>> interceptors = new ArrayList<StatelessInterceptor<T>>();
+
+	private Set<String> restrictions;
+
+	boolean anyMethodHasRaiseEvent = false;
+
+	private Class<? extends Page> noConversationPage;
+	
 	private final class InjectedLogger extends InjectedField<Logger> {
 		private Log logInstance;
 
@@ -74,26 +94,7 @@ public class WicketComponent<T> {
 		}
 	}
 
-	private static LogProvider log = Logging.getLogProvider(WicketComponent.class);
 
-	private Class<? extends T> type;
-
-	private Class<?> enclosingType;
-	private String enclosingInstanceVariableName;
-
-	private List<BijectedAttribute<In>> inAttributes = new ArrayList<BijectedAttribute<In>>();
-	private List<BijectedAttribute<Out>> outAttributes = new ArrayList<BijectedAttribute<Out>>();
-	private List<InjectedLogger> loggerFields = new ArrayList<InjectedLogger>();
-
-	private Set<AccessibleObject> conversationManagementMembers = new HashSet<AccessibleObject>();
-
-	private List<StatelessInterceptor<T>> interceptors = new ArrayList<StatelessInterceptor<T>>();
-
-	private Set<String> restrictions;
-
-	boolean anyMethodHasRaiseEvent = false;
-
-	private Class<? extends Page> noConversationPage;
 
 	public Class<?> getType() {
 		return type;
@@ -136,9 +137,13 @@ public class WicketComponent<T> {
 		this.type = type;
 		this.enclosingType = type.getEnclosingClass();
 		if (this.enclosingType != null) {
-			log.debug("Class: " + type + ", enclosed by " + enclosingType);
+			if (log.isDebugEnabled()) {
+				log.debug("Class: " + type + ", enclosed by " + enclosingType);
+			}
 		} else {
-			log.debug("Class: " + type);
+			if (log.isDebugEnabled()) {
+				log.debug("Class: " + type);
+			}
 		}
 
 		scan();
@@ -172,8 +177,9 @@ public class WicketComponent<T> {
 			for (Annotation annotation : cls.getAnnotations()) {
 				if (annotation instanceof Restrict) {
 					Restrict restrict = (Restrict) annotation;
-					if (restrictions == null)
+					if (restrictions == null) {
 						restrictions = new HashSet<String>();
+					}
 
 					if (Strings.isEmpty(restrict.value())) {
 						throw new IllegalStateException("@Restrict on " + cls.getName() + " must specify an expression");
@@ -183,8 +189,9 @@ public class WicketComponent<T> {
 				}
 
 				if (annotation.annotationType().isAnnotationPresent(RoleCheck.class)) {
-					if (restrictions == null)
+					if (restrictions == null) {
 						restrictions = new HashSet<String>();
+					}
 					restrictions.add("#{identity.hasRole('" + annotation.annotationType().getSimpleName().toLowerCase() + "')}");
 				}
 
@@ -345,12 +352,12 @@ public class WicketComponent<T> {
 		Object result;
 		String name = in.getContextVariableName();
 		if (name.startsWith("#")) {
-			if (log.isDebugEnabled()) {
+			if (log.isTraceEnabled()) {
 				log.trace("trying to inject with EL expression: " + name);
 			}
 			result = Expressions.instance().createValueExpression(name).getValue();
 		} else if (in.getAnnotation().scope() == UNSPECIFIED) {
-			if (log.isDebugEnabled()) {
+			if (log.isTraceEnabled()) {
 				log.trace("trying to inject with hierarchical context search: " + name);
 			}
 			boolean create = in.getAnnotation().create() && !org.jboss.seam.contexts.Lifecycle.isDestroying();
@@ -363,7 +370,9 @@ public class WicketComponent<T> {
 				throw new IllegalArgumentException("cannot specify explicit scope=STATELESS on @In: " + in.toString());
 			}
 
-			log.trace("trying to inject from specified context: " + name);
+			if (log.isTraceEnabled()) {
+				log.trace("trying to inject from specified context: " + name);
+			}
 
 			if (in.getAnnotation().scope().isContextActive()) {
 				result = in.getAnnotation().scope().getContext().get(name);
@@ -384,8 +393,9 @@ public class WicketComponent<T> {
 		if (result == null) {
 			for (Namespace namespace : Init.instance().getGlobalImports()) {
 				result = namespace.getComponentInstance(name, create);
-				if (result != null)
+				if (result != null) {
 					break;
+				}
 			}
 		}
 		return result;

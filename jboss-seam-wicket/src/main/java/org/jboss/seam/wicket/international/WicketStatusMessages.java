@@ -20,6 +20,10 @@ import org.jboss.seam.international.StatusMessages;
 public class WicketStatusMessages extends StatusMessages {
 
 	private static final long serialVersionUID = 151098003005176119L;
+	
+	public WicketStatusMessages() {
+		super();
+	}
 
 	public void onBeforeRender() {
 		doRunTasks();

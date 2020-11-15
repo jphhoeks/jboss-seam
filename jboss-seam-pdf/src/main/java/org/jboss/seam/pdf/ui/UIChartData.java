@@ -19,6 +19,10 @@ public class UIChartData extends ITextComponent {
 	private String sectionPaint;
 	private String sectionOutlinePaint;
 	private String sectionOutlineStroke;
+	
+	public UIChartData() {
+		super();
+	}
 
 	public Object getValue() {
 		return valueBinding("value", value);
@@ -174,7 +178,7 @@ public class UIChartData extends ITextComponent {
 
 	@Override
 	public void createITextObject(FacesContext context) {
-
+		//
 	}
 
 	@Override
@@ -184,11 +188,12 @@ public class UIChartData extends ITextComponent {
 
 	@Override
 	public void handleAdd(Object other) {
+		//
 
 	}
 
 	@Override
 	public void removeITextObject() {
-
+		//
 	}
 }

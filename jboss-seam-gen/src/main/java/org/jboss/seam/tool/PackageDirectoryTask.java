@@ -6,6 +6,10 @@ import org.apache.tools.ant.Task;
 public class PackageDirectoryTask extends Task {
 	private String packageName;
 	private String propertyName;
+	
+	public PackageDirectoryTask() {
+		super();
+	}
 
 	@Override
 	public void execute() throws BuildException {

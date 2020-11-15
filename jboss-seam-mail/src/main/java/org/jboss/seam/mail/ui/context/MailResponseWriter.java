@@ -37,6 +37,7 @@ public class MailResponseWriter extends ResponseWriter {
 	private ResponseWriter delegate;
 
 	public MailResponseWriter(ResponseWriter responseWriter, String contentType) throws FacesException {
+		super();
 		this.delegate = responseWriter;
 		this.contentType = contentType;
 	}

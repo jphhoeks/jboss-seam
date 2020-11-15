@@ -6,6 +6,11 @@ import org.jboss.seam.ui.util.UrlBuilder;
 import org.testng.annotations.Test;
 
 public class UrlBuilderTest {
+	
+	public UrlBuilderTest() {
+		super();
+	}
+	
 	@Test
 	public void testBaseUrlAlreadyHasParams() throws UnsupportedEncodingException {
 		UrlBuilder url = new UrlBuilder("/someurl?arg1=a", "", "UTF8");

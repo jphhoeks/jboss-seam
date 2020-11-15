@@ -45,6 +45,10 @@ public abstract class SeamWebApplication extends WebApplication {
 	* can be queried post-request to determine their values. 
 	*/
 	protected boolean destroyContextsLazily = false;
+	
+	protected SeamWebApplication() {
+		super();
+	}
 
 	public boolean isDestroyContextsLazily() {
 		return destroyContextsLazily;

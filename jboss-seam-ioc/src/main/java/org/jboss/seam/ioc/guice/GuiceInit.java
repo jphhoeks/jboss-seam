@@ -29,6 +29,10 @@ public class GuiceInit implements Serializable {
 
 	private Injector injector;
 
+	public GuiceInit() {
+		super();
+	}
+	
 	public Injector getInjector() {
 		return injector;
 	}

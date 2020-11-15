@@ -11,7 +11,10 @@ import org.jboss.seam.wicket.WicketComponent;
 public class WicketHandler implements Serializable {
 
 	private static final long serialVersionUID = -3135412003891086932L;
-
+	private Class<?> type;
+	private transient WicketComponent component;
+	private int reentrant = 0;
+	
 	public static WicketHandler create(Object bean) {
 		WicketHandler handler = new WicketHandler(bean.getClass());
 		return handler;
@@ -21,9 +24,7 @@ public class WicketHandler implements Serializable {
 		this.type = type;
 	}
 
-	private Class<?> type;
-	private transient WicketComponent component;
-	private int reentrant = 0;
+
 
 	private WicketComponent getComponent() {
 		if (component == null) {
@@ -132,7 +133,8 @@ public class WicketHandler implements Serializable {
 				if (enclosingInstance instanceof InstrumentedComponent) {
 					return (InstrumentedComponent) enclosingInstance;
 				}
-			} catch (Exception e) {
+			} catch (Exception ignored) {
+				//
 			}
 		}
 		return null;

@@ -11,6 +11,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.Dataset;
 
 public class UIBarChart extends UICategoryChartBase {
+	
+	public UIBarChart() {
+		super();
+	}
+	
 	@Override
 	public void restoreState(FacesContext context, Object state) {
 		Object[] values = (Object[]) state;
@@ -44,6 +49,7 @@ public class UIBarChart extends UICategoryChartBase {
 	}
 
 	public void configureRenderer(BarRenderer renderer) {
+		//
 	}
 
 	@Override

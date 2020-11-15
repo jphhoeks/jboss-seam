@@ -13,6 +13,10 @@ import org.jboss.seam.core.Manager;
 @Install(precedence = 100, classDependencies = "org.apache.wicket.Application")
 @BypassInterceptors
 public class WicketManager extends Manager {
+	
+	public WicketManager() {
+		super();
+	}
 
 	public String appendConversationIdFromRedirectFilter(String url) {
 		super.beforeRedirect();

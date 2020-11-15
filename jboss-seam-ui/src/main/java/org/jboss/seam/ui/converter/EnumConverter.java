@@ -18,6 +18,11 @@ import org.jboss.seam.util.Strings;
  */
 @FacesConverter(value = "org.jboss.seam.ui.EnumConverter")
 public class EnumConverter implements javax.faces.convert.Converter {
+	
+	public EnumConverter() {
+		super();
+	}
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent comp, String value) throws ConverterException {
 		if (value == null) {

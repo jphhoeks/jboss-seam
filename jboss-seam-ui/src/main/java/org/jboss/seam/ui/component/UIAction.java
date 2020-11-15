@@ -34,13 +34,17 @@ import org.jboss.seam.navigation.SafeActions;
 public class UIAction extends UIParameter {
 
 	private static final String COMPONENT_FAMILY = "org.jboss.seam.ui.Action";
+	private String action;
 
+	protected UIAction() {
+		super();
+	}
+	
 	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
 
-	private String action;
 
 	public String getAction() {
 		return action;

@@ -18,6 +18,11 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  */
 @JsfRenderer(type = "org.jboss.seam.ui.RemoteRenderer", family = "org.jboss.seam.ui.RemoteRenderer")
 public class RemoteRendererBase extends RendererBase {
+	
+	public RemoteRendererBase() {
+		super();
+	}
+	
 	@Override
 	protected Class getComponentClass() {
 		return UIRemote.class;

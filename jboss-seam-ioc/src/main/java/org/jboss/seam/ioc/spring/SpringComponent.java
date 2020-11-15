@@ -187,8 +187,6 @@ public class SpringComponent extends IoCComponent {
 		if (bean instanceof Advised) {
 			try {
 				inject(((Advised) bean).getTargetSource().getTarget(), enforceRequired);
-			} catch (RuntimeException e) {
-				throw e;
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}
@@ -211,10 +209,12 @@ public class SpringComponent extends IoCComponent {
 
 	@Override
 	protected void checkSynchronizedForComponentType() {
+		//
 	}
 
 	@Override
 	protected void checkPersistenceContextForComponentType() {
+		//
 	}
 
 	/**

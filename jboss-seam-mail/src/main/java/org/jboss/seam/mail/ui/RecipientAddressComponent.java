@@ -14,6 +14,10 @@ import javax.mail.internet.MimeMessage;
  * specify a RecipientType 
  */
 public abstract class RecipientAddressComponent extends AddressComponent {
+	
+	protected RecipientAddressComponent() {
+		super();
+	}
 
 	@Override
 	public void encodeBegin(FacesContext facesContext) throws IOException {

@@ -40,6 +40,10 @@ public abstract class UITaskId extends UIParameter {
 
 	private static final String COMPONENT_TYPE = "org.jboss.seam.ui.TaskId";
 
+	protected UITaskId() {
+		super();
+	}
+	
 	@Override
 	public String getName() {
 		return "taskId";
@@ -48,9 +52,10 @@ public abstract class UITaskId extends UIParameter {
 	@Override
 	public Object getValue() {
 		ValueExpression valueExpression = getValueExpression("taskInstance");
-		if (valueExpression == null)
+		if (valueExpression == null) {
 			valueExpression = getFacesContext().getApplication().getExpressionFactory()
 					.createValueExpression(getFacesContext().getELContext(), "#{task}", TaskInstance.class);
+		}
 		TaskInstance taskInstance = (TaskInstance) valueExpression.getValue(getFacesContext().getELContext());
 		return taskInstance == null ? null : taskInstance.getId();
 	}

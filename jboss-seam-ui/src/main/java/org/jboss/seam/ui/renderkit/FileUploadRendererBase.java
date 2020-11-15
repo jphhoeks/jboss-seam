@@ -22,6 +22,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 @JsfRenderer(type = "org.jboss.seam.ui.FileUploadRenderer", family = "org.jboss.seam.ui.FileUploadRenderer")
 public class FileUploadRendererBase extends RendererBase {
 
+	public FileUploadRendererBase() {
+		super();
+	}
+	
 	@Override
 	protected Class getComponentClass() {
 		return UIFileUpload.class;
@@ -100,6 +104,7 @@ public class FileUploadRendererBase extends RendererBase {
 		InputStream inputStream;
 
 		public WrappedFileUploadInputStream(Part part) {
+			super();
 			this.part = part;
 		}
 
@@ -180,8 +185,9 @@ public class FileUploadRendererBase extends RendererBase {
 				}
 			}
 
-			if (!found)
+			if (!found) {
 				break;
+			}
 		}
 
 		return request;

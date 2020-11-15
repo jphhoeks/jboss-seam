@@ -26,6 +26,10 @@ public class HttpSessionManager implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private transient HttpSession session;
 
+	public HttpSessionManager() {
+		super();
+	}
+	
 	@Unwrap
 	public HttpSession getSession() {
 		if (session == null) {
