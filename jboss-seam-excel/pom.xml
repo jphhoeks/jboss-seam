@@ -10,6 +10,10 @@
     <artifactId>jboss-seam-excel</artifactId>
     <packaging>jar</packaging>
     <name>Seam Excel</name>
+    
+    <properties>
+    	<automatic.module.name>com.github.albfernandez.seam.excel</automatic.module.name>
+    </properties>
 
     <dependencies>
 

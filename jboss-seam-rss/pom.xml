@@ -9,6 +9,10 @@
 
     <artifactId>jboss-seam-rss</artifactId>
     <name>Seam RSS</name>
+    
+    <properties>
+    	<automatic.module.name>com.github.albfernandez.seam.rss</automatic.module.name>
+    </properties>
 
     <dependencies>
         <dependency>

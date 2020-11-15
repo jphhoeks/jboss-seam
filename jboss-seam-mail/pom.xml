@@ -10,6 +10,9 @@
 	<artifactId>jboss-seam-mail</artifactId>
 	<name>Seam Mail</name>
 
+	<properties>
+		<automatic.module.name>com.github.albfernandez.seam.mail</automatic.module.name>
+	</properties>
 
     <dependencies>
         <dependency>

@@ -9,6 +9,9 @@
     <artifactId>jboss-seam-ui</artifactId>
     <name>Seam UI JSF2 support</name>
 
+	<properties>
+		<automatic.module.name>com.github.albfernandez.seam.ui</automatic.module.name>
+	</properties>
 
     <build>
         <plugins>

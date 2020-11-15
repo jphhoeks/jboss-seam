@@ -11,6 +11,10 @@
       <relativePath>../pom.xml</relativePath>
    </parent>
 
+	<properties>
+		<automatic.module.name>com.github.albfernandez.seam.gen</automatic.module.name>
+	</properties>
+
    <build>
    	<plugins>
         <plugin>

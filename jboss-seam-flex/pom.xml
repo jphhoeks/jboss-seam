@@ -9,6 +9,10 @@
 
     <artifactId>jboss-seam-flex</artifactId>
     <name>Seam Flex</name>
+    
+    <properties>
+    	<automatic.module.name>com.github.albfernandez.seam.flex</automatic.module.name>
+    </properties>
 
     <dependencies>
 	    <dependency>

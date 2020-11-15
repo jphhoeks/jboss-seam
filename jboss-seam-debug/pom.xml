@@ -9,8 +9,9 @@
 	<artifactId>jboss-seam-debug</artifactId>
 	<name>Seam Debug for JSF2</name>
 	
-  <properties>
+  	<properties>
       <main.basedir>${project.parent.basedir}</main.basedir>
+      <automatic.module.name>com.github.albfernandez.seam.debug</automatic.module.name>
     </properties>
 
     <dependencies>

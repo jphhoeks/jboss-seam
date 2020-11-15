@@ -57,8 +57,7 @@
         <version.project-info-reports.plugin>3.0.0</version.project-info-reports.plugin>
 		<!-- General properties -->
         <project.short.version>2.3</project.short.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 		<seam.docbook.xslt.version>1.2.0</seam.docbook.xslt.version>
 		<seam.docbook.version>1.1.0.GA</seam.docbook.version>
 		<jbossorg.docbook.version>1.1.0</jbossorg.docbook.version>
@@ -82,6 +81,18 @@
         <version.org.jboss.shrinkwrap.resolver>2.1.1</version.org.jboss.shrinkwrap.resolver>
 
 
+		<!-- plugin versions -->
+		<version.clean.plugin>3.1.0</version.clean.plugin>
+		<version.ejb.plugin>2.3</version.ejb.plugin>
+		<version.deploy.plugin>2.8.2</version.deploy.plugin>
+		<version.gpg.plugin>1.6</version.gpg.plugin>
+		<version.jar.plugin>3.2.0</version.jar.plugin>
+		<version.javadoc.plugin>3.0.1</version.javadoc.plugin>
+		<version.nexux-staging.plugin>1.6.8</version.nexux-staging.plugin>
+		<version.source.plugin>3.0.1</version.source.plugin>
+		<version.surefire.plugin>2.22.0</version.surefire.plugin>
+		<version.war.plugin>3.2.2</version.war.plugin>
+
         <version.spotbugs-maven-plugin>4.1.4</version.spotbugs-maven-plugin>
         <version.findsecbugs-plugin>1.11.0</version.findsecbugs-plugin>
         <version.sb-contrib>7.4.7</version.sb-contrib>
@@ -94,6 +105,9 @@
 
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <jacoco.skip>false</jacoco.skip>
         <dependency.skip>true</dependency.skip>
@@ -334,6 +348,7 @@
                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${version.javadoc.plugin}</version>
                     <configuration>
                     	<source>7</source>
 						<links>
@@ -351,7 +366,7 @@
 				<!-- just for jboss-seam core as it is EJB type not jar -->
 				<plugin>
 					<artifactId>maven-ejb-plugin</artifactId>
-					<version>2.3</version>
+					<version>${version.ejb.plugin}</version>
 					<configuration>
 						<ejbVersion>3.0</ejbVersion>
 						<archive>
@@ -360,9 +375,10 @@
 								<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 							</manifest>
 							<manifestEntries>
+							 	<Built-By></Built-By>
 								<Seam-Version>${project.version}</Seam-Version>
 								<Build-Time>${maven.build.timestamp}</Build-Time>
-								<Automatic-Module-Name>com.github.albfernandez.seam.${project.artifactId}</Automatic-Module-Name>
+								<Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
 							</manifestEntries>
 						</archive>
 					</configuration>
@@ -554,6 +570,7 @@
 		<plugins>
             <plugin>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>${version.source.plugin}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -566,20 +583,17 @@
 						</manifestEntries>
 					</archive>
 				</configuration>
-<!-- execution is defined already in org.jboss:jboss-parent -->				
 				<executions>
 					<execution>
 						<id>attach-sources</id>
 						<phase>package</phase>
-<!-- 						<goals> -->
-<!-- 							<goal>jar</goal> -->
-<!-- 						</goals> -->
                     </execution>
                 </executions>
             </plugin>
 			<plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${version.javadoc.plugin}</version>
                     <configuration>
                     	<source>7</source>
 						<links>
@@ -597,6 +611,7 @@
             <!-- Packaging -->
             <plugin>
                <artifactId>maven-jar-plugin</artifactId>
+               <version>${version.jar.plugin}</version>
                <configuration>
                    <archive>
                        <manifest>
@@ -604,9 +619,10 @@
                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                        </manifest>
                        <manifestEntries>
+                       	 <Built-By></Built-By>
                          <Seam-Version>${project.version}</Seam-Version>
                          <Build-Time>${maven.build.timestamp}</Build-Time>
-                         <Automatic-Module-Name>com.github.albfernandez.seam.${project.artifactId}</Automatic-Module-Name>
+                         <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
                        </manifestEntries>
                    </archive>
                </configuration>
@@ -615,6 +631,7 @@
            <plugin>
                <artifactId>maven-war-plugin</artifactId>
                <inherited>true</inherited>
+               <version>${version.war.plugin}</version>
                <configuration>
                    <failOnMissingWebXml>false</failOnMissingWebXml>
                    <warName>${project.build.finalName}</warName>
@@ -624,6 +641,7 @@
             <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
+				<version>${version.gpg.plugin}</version>
 				<configuration>
 					<keyname>${gpg.keyname}</keyname>
 					<passphraseServerId>${gpg.keyname}</passphraseServerId>
@@ -641,7 +659,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.8</version>
+				<version>${version.nexux-staging.plugin}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>

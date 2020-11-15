@@ -43,16 +43,11 @@
 
 	<properties>
 
-		<!-- plugin versions -->
-		<version.clean.plugin>3.1.0</version.clean.plugin>
-		<version.deploy.plugin>2.8.2</version.deploy.plugin>
-		<version.gpg.plugin>1.6</version.gpg.plugin>
-		<version.javadoc.plugin>3.0.1</version.javadoc.plugin>
-		<version.source.plugin>3.0.1</version.source.plugin>
-		<version.surefire.plugin>2.22.0</version.surefire.plugin>
-		<version.war.plugin>3.2.2</version.war.plugin>
 
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
 		<!-- Version string properties for integrations -->
 		<version.seam>2.3.25-SNAPSHOT</version.seam>
 		<version.wicket>1.4.14</version.wicket>
@@ -1245,116 +1240,6 @@
 
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>${version.clean.plugin}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${version.javadoc.plugin}</version>
-					<configuration>
-						<header><![CDATA[<b>${project.name} ${project.version}</b>]]></header>
-						<footer><![CDATA[<b>${project.name} ${project.version}</b>]]></footer>
-						<archive>
-							<index>true</index>
-							<manifest>
-								<addDefaultSpecificationEntries>
-									true
-								</addDefaultSpecificationEntries>
-								<addDefaultImplementationEntries>
-									true
-								</addDefaultImplementationEntries>
-							</manifest>
-							<manifestEntries>
-								<Implementation-URL>${project.url}</Implementation-URL>
-								<Java-Version>${java.version}</Java-Version>
-								<Java-Vendor>${java.vendor}</Java-Vendor>
-								<Os-Name>${os.name}</Os-Name>
-								<Os-Arch>${os.arch}</Os-Arch>
-								<Os-Version>${os.version}</Os-Version>
-							</manifestEntries>
-						</archive>
-						<additionalOptions>${javadoc.additional.params}</additionalOptions>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>${version.gpg.plugin}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>${version.source.plugin}</version>
-					<configuration>
-						<archive>
-							<index>true</index>
-							<manifest>
-								<addDefaultSpecificationEntries>
-									true
-								</addDefaultSpecificationEntries>
-								<addDefaultImplementationEntries>
-									true
-								</addDefaultImplementationEntries>
-							</manifest>
-							<manifestEntries>
-								<Implementation-URL>${project.url}</Implementation-URL>
-								<Java-Version>${java.version}</Java-Version>
-								<Java-Vendor>${java.vendor}</Java-Vendor>
-								<Os-Name>${os.name}</Os-Name>
-								<Os-Arch>${os.arch}</Os-Arch>
-								<Os-Version>${os.version}</Os-Version>
-							</manifestEntries>
-						</archive>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${version.surefire.plugin}</version>
-					<configuration>
-						<trimStackTrace>false</trimStackTrace>
-						<systemProperties>
-							<java.io.tmpdir>${project.build.directory}</java.io.tmpdir>
-						</systemProperties>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>${version.war.plugin}</version>
-					<configuration>
-						<archive>
-							<index>true</index>
-							<manifest>
-								<addDefaultSpecificationEntries>
-									true
-								</addDefaultSpecificationEntries>
-								<addDefaultImplementationEntries>
-									true
-								</addDefaultImplementationEntries>
-							</manifest>
-							<manifestEntries>
-								<Implementation-URL>${project.url}</Implementation-URL>
-								<Java-Version>${java.version}</Java-Version>
-								<Java-Vendor>${java.vendor}</Java-Vendor>
-								<Os-Name>${os.name}</Os-Name>
-								<Os-Arch>${os.arch}</Os-Arch>
-								<Os-Version>${os.version}</Os-Version>
-								<Scm-Url>${project.scm.url}</Scm-Url>
-								<Scm-Connection>${project.scm.connection}</Scm-Connection>
-								<Scm-Revision>${buildNumber}</Scm-Revision>
-							</manifestEntries>
-						</archive>
-						<failOnMissingWebXml>false</failOnMissingWebXml>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -1369,7 +1254,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>${version.deploy.plugin}</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>

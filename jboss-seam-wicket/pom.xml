@@ -9,6 +9,10 @@
 
     <artifactId>jboss-seam-wicket</artifactId>
     <name>Seam Wicket</name>
+    
+    <properties>
+    	<automatic.module.name>com.github.albfernandez.seam.wicket</automatic.module.name>
+    </properties>
 
     <dependencies>
         <dependency>

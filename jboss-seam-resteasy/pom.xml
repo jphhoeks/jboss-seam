@@ -10,6 +10,10 @@
 
     <artifactId>jboss-seam-resteasy</artifactId>
     <name>Seam Resteasy</name>
+    
+    <properties>
+    	<automatic.module.name>com.github.albfernandez.seam.resteasy</automatic.module.name>
+    </properties>
 
     <dependencies>
         <dependency>

@@ -9,6 +9,10 @@
 
     <artifactId>jboss-seam-pdf</artifactId>
     <name>Seam PDF</name>
+    
+    <properties>
+    	<automatic.module.name>com.github.albfernandez.seam.pdf</automatic.module.name>
+    </properties>
 
     <dependencies>
         <dependency>
