@@ -65,7 +65,7 @@
                    </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
+                <artifactId>maven-javadoc-plugin</artifactId>                
                 <configuration>
                 	<source>8</source>
                     <links>
@@ -76,6 +76,8 @@
                     <doctitle>JBoss Seam ${project.name} API ${project.version}</doctitle> <!-- Used by javadoc:javadoc goal -->
                     <detectOfflineLinks>false</detectOfflineLinks>
                    <additionalOptions>${javadoc.opts}</additionalOptions>
+                   <failOnError>false</failOnError>
+                   <failOnWarnings>false</failOnWarnings>
                 </configuration>
                 <executions>
                     <execution>
