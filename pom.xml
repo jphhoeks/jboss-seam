@@ -37,7 +37,7 @@
 	
 	<ciManagement>
         <system>Travis</system>
-        <url>https://travis-ci.org/albfernandez/jboss-seam</url>
+        <url>https://travis-ci.com/albfernandez/jboss-seam</url>
     </ciManagement>
     
     <distributionManagement>
@@ -87,9 +87,9 @@
 		<version.deploy.plugin>2.8.2</version.deploy.plugin>
 		<version.gpg.plugin>1.6</version.gpg.plugin>
 		<version.jar.plugin>3.2.0</version.jar.plugin>
-		<version.javadoc.plugin>3.0.1</version.javadoc.plugin>
+		<version.javadoc.plugin>3.2.0</version.javadoc.plugin>
 		<version.nexux-staging.plugin>1.6.8</version.nexux-staging.plugin>
-		<version.source.plugin>3.0.1</version.source.plugin>
+		<version.source.plugin>3.2.1</version.source.plugin>
 		<version.surefire.plugin>2.22.0</version.surefire.plugin>
 		<version.war.plugin>3.2.2</version.war.plugin>
 
@@ -361,6 +361,7 @@
                         was slowing builds down.  If removed review
                         full build. -->
                         <detectOfflineLinks>false</detectOfflineLinks>
+                        <additionalparam>${javadoc.opts}</additionalparam>
                     </configuration>
                 </plugin>
 				<!-- just for jboss-seam core as it is EJB type not jar -->
@@ -606,6 +607,7 @@
                         was slowing builds down.  If removed review
                         full build. -->
                         <detectOfflineLinks>false</detectOfflineLinks>
+                        <additionalparam>${javadoc.opts}</additionalparam>
                     </configuration>
                 </plugin>
             <!-- Packaging -->
