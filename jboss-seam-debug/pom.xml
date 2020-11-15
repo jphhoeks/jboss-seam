@@ -43,7 +43,7 @@
                     <doctitle>JBoss Seam ${project.name} API ${project.version}</doctitle>
                     <!-- Used by javadoc:javadoc goal -->
                     <detectOfflineLinks>false</detectOfflineLinks>
-                    <additionalparam>${javadoc.opts}</additionalparam>
+                    <additionalOptions>${javadoc.opts}</additionalOptions>
                 </configuration>
                 <executions>
                     <execution>

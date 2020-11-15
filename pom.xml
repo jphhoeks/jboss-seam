@@ -361,7 +361,7 @@
                         was slowing builds down.  If removed review
                         full build. -->
                         <detectOfflineLinks>false</detectOfflineLinks>
-                        <additionalparam>${javadoc.opts}</additionalparam>
+                        <additionalOptions>${javadoc.opts}</additionalOptions>
                     </configuration>
                 </plugin>
 				<!-- just for jboss-seam core as it is EJB type not jar -->
