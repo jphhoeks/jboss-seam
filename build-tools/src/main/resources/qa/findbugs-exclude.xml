@@ -2,10 +2,27 @@
     <Match>
         <!-- We don't care that much about serialization -->
         <!-- Some fb-contrib filters just aren't production-grade -->
-        <Bug pattern="SE_BAD_FIELD,SE_COMPARATOR_SHOULD_BE_SERIALIZABLE,SE_NO_SERIALVERSIONID,EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS,EXS_EXCEPTION_SOFTENING_NO_CHECKED,PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS,LO_STUTTERED_MESSAGE"
+        <Bug pattern="SE_BAD_FIELD,SE_COMPARATOR_SHOULD_BE_SERIALIZABLE,SE_NO_SERIALVERSIONID,IMC_IMMATURE_CLASS_BAD_SERIALVERSIONUID,EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS,EXS_EXCEPTION_SOFTENING_NO_CHECKED,PRMC_POSSIBLY_REDUNDANT_METHOD_CALLS,LO_STUTTERED_MESSAGE"
             category="MALICIOUS_CODE"
         />
     </Match>
+    
+    <Match>
+    	<!--  Seam is a injection framework, need to access to private attributes -->
+    	<Bug pattern="RFI_SET_ACCESSIBLE" />
+    </Match>
+    
+    <Match>
+    	<!-- We need to maintain backwards compatibility, so API changes should be taken with extreme care -->
+    	<Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER,FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY,UP_UNUSED_PARAMETER,NM_SAME_SIMPLE_NAME_AS_SUPERCLASS,ACEM_ABSTRACT_CLASS_EMPTY_METHODS,EXS_EXCEPTION_SOFTENING_RETURN_FALSE,STT_STRING_PARSING_A_FIELD" />
+    </Match>
+    
+    <Match>
+    	<!--  Proxy for log in controller -->
+    	<Class name="org.jboss.seam.framework.Controller"/>
+    	<Bug pattern="SEAM_LOG_INJECTION"/>
+    </Match>
+    
     <!-- Tests -->
 
     <!-- Classes that don't represent state don't need some methods -->
