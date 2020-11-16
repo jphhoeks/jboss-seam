@@ -69,13 +69,21 @@ public class SOAPRequestHandler implements SOAPHandler {
 	* @return boolean true if processing should continue
 	*/
 	public boolean handleInbound(MessageContext messageContext) {
+		if (!(messageContext instanceof SOAPMessageContext)){
+			if (messageContext != null) {
+				log.error("Received object is not instance of SOPAMessageContext: " + messageContext.getClass().getCanonicalName());				
+			}
+			else {
+				log.error("Received object is not instance of SOPAMessageContext: null");
+			}
+		}
 		try {
 			HttpServletRequest request = (HttpServletRequest) messageContext.get(MessageContext.SERVLET_REQUEST);
 			ServletLifecycle.beginRequest(request, ServletLifecycle.getServletContext());
 
 			ServletContexts.instance().setRequest(request);
 
-			String conversationId = extractConversationId(messageContext);
+			String conversationId = extractConversationId((SOAPMessageContext) messageContext);
 			ConversationPropagation.instance().setConversationId(conversationId);
 			Manager.instance().restoreConversation();
 
@@ -130,9 +138,8 @@ public class SOAPRequestHandler implements SOAPHandler {
 	* @return The conversation ID, or null if there is no conversation ID set
 	* @throws SOAPException
 	*/
-	private String extractConversationId(MessageContext messageContext) throws SOAPException {
-		SOAPMessageContext smc = (SOAPMessageContext) messageContext;
-		SOAPHeader header = smc.getMessage().getSOAPHeader();
+	private String extractConversationId(SOAPMessageContext messageContext) throws SOAPException {		
+		SOAPHeader header = messageContext.getMessage().getSOAPHeader();
 
 		if (header != null) {
 			Iterator iter = header.getChildElements(CIDQN);

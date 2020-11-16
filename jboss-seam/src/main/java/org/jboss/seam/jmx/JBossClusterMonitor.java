@@ -62,9 +62,7 @@ public class JBossClusterMonitor {
 			clusteringCacheObjectName = new ObjectName("jboss.cache:service=TomcatClusteringCache");
 			serverObjectName = new ObjectName("jboss.system:type=Server");
 		} catch (MalformedObjectNameException e) {
-			if (log.isWarnEnabled()) {
-				log.warn("Invalid JMX name: " + e.getMessage(), e);
-			}
+			log.warn("Invalid JMX name #0", e, e.getMessage());
 		}
 
 		try {

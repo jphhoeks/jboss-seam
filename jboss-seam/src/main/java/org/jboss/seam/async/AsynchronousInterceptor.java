@@ -45,7 +45,7 @@ public class AsynchronousInterceptor extends AbstractInterceptor {
 
 			boolean setFlag = false;
 			if (isExecutingAsynchronousCall()) {
-				Contexts.getEventContext().set(REENTRANT, true);
+				Contexts.getEventContext().set(REENTRANT, Boolean.TRUE);
 				setFlag = true;
 			}
 

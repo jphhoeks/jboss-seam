@@ -27,8 +27,8 @@ public class ProcessInstanceFinder {
 
 	private String processDefinitionName;
 	private String nodeName;
-	private Boolean processInstanceEnded = false;
-	private Boolean sortDescending = false;
+	private Boolean processInstanceEnded = Boolean.FALSE;
+	private Boolean sortDescending = Boolean.FALSE;
 	
 	public ProcessInstanceFinder() {
 		super();

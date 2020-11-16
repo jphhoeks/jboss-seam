@@ -73,7 +73,7 @@ public enum ScopeType
 
    private ScopeType()
    {
-      prefix = "org.jboss.seam." + toString();
+      prefix = "org.jboss.seam." + name();
    }
    
    public boolean isContextActive()

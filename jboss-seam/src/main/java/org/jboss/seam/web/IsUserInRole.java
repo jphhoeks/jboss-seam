@@ -44,7 +44,7 @@ public class IsUserInRole {
 			@Override
 			public Boolean get(Object key) {
 				if (!(key instanceof String)) {
-					return false;
+					return Boolean.FALSE;
 				}
 				String role = (String) key;
 				return isUserInRole(role);

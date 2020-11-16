@@ -74,7 +74,11 @@ public class DelegatingInvocationHandler<T> implements InvocationHandler {
 		}
 
 		if (log.isTraceEnabled()) {
-			log.trace("Delegating method " + method.getName() + " with args " + (args == null ? null : Arrays.asList(args)));
+			log.trace(
+				"Delegating method #0 with args #1", 
+				method.getName(),
+				(args == null ? "null" : Arrays.asList(args).toString())
+			);
 		}
 
 		return target.method.invoke(target.target, args);

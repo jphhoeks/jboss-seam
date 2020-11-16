@@ -175,7 +175,7 @@ public class Identity implements Serializable {
 	public boolean tryLogin() {
 		if (!authenticating && getPrincipal() == null && credentials.isSet() && Contexts.isEventContextActive()
 				&& !Contexts.getEventContext().isSet(LOGIN_TRIED)) {
-			Contexts.getEventContext().set(LOGIN_TRIED, true);
+			Contexts.getEventContext().set(LOGIN_TRIED, Boolean.TRUE);
 			quietLogin();
 		}
 
@@ -305,7 +305,7 @@ public class Identity implements Serializable {
 				if (credentials.isSet()) {
 					authenticate();
 					if (isLoggedIn() && Contexts.isEventContextActive()) {
-						Contexts.getEventContext().set(SILENT_LOGIN, true);
+						Contexts.getEventContext().set(SILENT_LOGIN, Boolean.TRUE);
 					}
 				}
 			}
@@ -708,7 +708,7 @@ public class Identity implements Serializable {
 
 			operation.execute();
 		} finally {
-			systemOp.set(false);
+			systemOp.set(Boolean.FALSE);
 			principal = savedPrincipal;
 			subject = savedSubject;
 		}

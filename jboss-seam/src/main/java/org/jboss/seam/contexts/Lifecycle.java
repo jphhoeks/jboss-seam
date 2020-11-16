@@ -64,11 +64,11 @@ public class Lifecycle {
 	}
 
 	public static void startDestroying() {
-		destroying.set(true);
+		destroying.set(Boolean.TRUE);
 	}
 
 	public static void stopDestroying() {
-		destroying.set(false);
+		destroying.set(Boolean.FALSE);
 	}
 
 	public static boolean isDestroying() {
@@ -103,6 +103,7 @@ public class Lifecycle {
 	*/
 	@Deprecated
 	public static void mockApplication() {
+		
 		setupApplication(null);
 	}
 

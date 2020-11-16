@@ -112,7 +112,7 @@ public class AuthenticationFilter extends AbstractFilter {
 
 		new ContextualHttpServletRequest(httpRequest) {
 			@Override
-			public void process() throws ServletException, IOException, LoginException {
+			public void process() throws ServletException, IOException {
 				if (AUTH_TYPE_BASIC.equals(authType)) {
 					processBasicAuth(httpRequest, httpResponse, chain);
 				} else if (AUTH_TYPE_DIGEST.equals(authType)) {
@@ -144,7 +144,7 @@ public class AuthenticationFilter extends AbstractFilter {
 
 			String username = "";
 			String password = "";
-			int delim = token.indexOf(":");
+			int delim = token.indexOf(':');
 
 			if (delim != -1) {
 				username = token.substring(0, delim);

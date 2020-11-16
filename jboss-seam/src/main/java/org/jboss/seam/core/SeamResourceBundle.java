@@ -138,7 +138,7 @@ public class SeamResourceBundle extends java.util.ResourceBundle {
 	}
 
 	private Object interpolate(Object message) {
-		return message != null && message instanceof String ? Interpolator.instance().interpolate((String) message) : message;
+		return message instanceof String ? Interpolator.instance().interpolate((String) message) : message;
 	}
 
 	private List<java.util.ResourceBundle> getPageResourceBundles() {

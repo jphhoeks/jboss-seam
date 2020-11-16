@@ -209,12 +209,12 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 
 			if (password == null) {
 				if (userEnabledProperty.isSet()) {
-					userEnabledProperty.setValue(user, false);
+					userEnabledProperty.setValue(user, Boolean.FALSE);
 				}
 			} else {
 				setUserPassword(user, password);
 				if (userEnabledProperty.isSet()) {
-					userEnabledProperty.setValue(user, true);
+					userEnabledProperty.setValue(user, Boolean.TRUE);
 				}
 			}
 
@@ -517,7 +517,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 			return false;
 		}
 
-		userEnabledProperty.setValue(user, true);
+		userEnabledProperty.setValue(user, Boolean.TRUE);
 		return true;
 	}
 
@@ -540,7 +540,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 			return false;
 		}
 
-		userEnabledProperty.setValue(user, false);
+		userEnabledProperty.setValue(user, Boolean.FALSE);
 		return true;
 	}
 

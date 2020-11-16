@@ -77,8 +77,7 @@ public class Schedule implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((duration == null) ? 0 : duration.hashCode());
-		result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
-		return result;
+		return prime * result + ((expiration == null) ? 0 : expiration.hashCode());
 	}
 
 	@Override

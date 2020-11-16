@@ -487,9 +487,9 @@ public class AbstractSeamTest {
 		}
 
 		private void saveConversationViewRoot() {
-			Map renderedViewRootAttributes = facesContext.getViewRoot().getViewMap();
+			Map<String, Object> renderedViewRootAttributes = facesContext.getViewRoot().getViewMap();
 			if (renderedViewRootAttributes != null && conversationId != null) {
-				Map conversationState = new ConcurrentHashMap();
+				Map<String, Object> conversationState = new ConcurrentHashMap<String, Object>();
 				conversationState.putAll(renderedViewRootAttributes);
 				conversationViewRootAttributes.put(conversationId, conversationState);
 			}
@@ -655,7 +655,7 @@ public class AbstractSeamTest {
 			try {
 				UIViewRoot viewRoot = facesContext.getApplication().getViewHandler().createView(facesContext, getViewId());
 				facesContext.setViewRoot(viewRoot);
-				Map restoredViewRootAttributes = facesContext.getViewRoot().getViewMap();
+				Map<String, Object> restoredViewRootAttributes = facesContext.getViewRoot().getViewMap();
 				if (conversationId != null) {
 					if (isGetRequest()) {
 						setParameter(Manager.instance().getConversationIdParameter(), conversationId);
@@ -664,7 +664,7 @@ public class AbstractSeamTest {
 						if (conversationViewRootAttributes.containsKey(conversationId)) {
 							// should really only do this if the view id matches (not
 							// really possible to implement)
-							Map state = conversationViewRootAttributes.get(conversationId);
+							Map<String,  Object> state = conversationViewRootAttributes.get(conversationId);
 							restoredViewRootAttributes.putAll(state);
 						}
 					}
@@ -861,7 +861,6 @@ public class AbstractSeamTest {
 
 		// FactoryFinder cannot be reliably used, as something could have called getFactory sooner
 		ApplicationFactory applicationFactory = (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-		//applicationFactory = new MockApplicationFactory();
 
 		application = applicationFactory.getApplication();
 		conversationViewRootAttributes = new HashMap<String, Map>();

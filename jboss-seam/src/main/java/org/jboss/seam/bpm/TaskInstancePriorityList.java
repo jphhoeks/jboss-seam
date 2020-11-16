@@ -46,7 +46,7 @@ public class TaskInstancePriorityList {
 		}
 
 		return ManagedJbpmContext.instance().getSession().createCriteria(TaskInstance.class).add(Restrictions.eq("actorId", actorId))
-				.add(Restrictions.eq("isOpen", true)).add(Restrictions.ne("isSuspended", true)).addOrder(Order.asc("priority"))
+				.add(Restrictions.eq("isOpen", Boolean.TRUE)).add(Restrictions.ne("isSuspended", Boolean.TRUE)).addOrder(Order.asc("priority"))
 				.setCacheable(true).list();
 	}
 

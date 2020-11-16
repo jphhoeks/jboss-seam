@@ -72,8 +72,7 @@ public class TimerSchedule extends Schedule {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((intervalDuration == null) ? 0 : intervalDuration.hashCode());
-		return result;
+		return prime * result + ((intervalDuration == null) ? 0 : intervalDuration.hashCode());
 	}
 
 	@Override

@@ -148,11 +148,11 @@ public class Resources {
 
 	public static File getRealFile(ServletContext servletContext, String path) {
 		String realPath = servletContext.getRealPath(path);
-		if (realPath == null) //WebLogic!
-		{
+		if (realPath == null) {
+			 //WebLogic!
 			try {
 				URL resourcePath = servletContext.getResource(path);
-				if ((resourcePath != null) && (resourcePath.getProtocol().equals("file"))) {
+				if (resourcePath != null && "file".equals(resourcePath.getProtocol())) {
 					realPath = resourcePath.getPath();
 				} else {
 					if (log.isInfoEnabled()) {

@@ -173,8 +173,7 @@ public class Component extends Model {
    private Map<Method, InitialValue> initializerSetters = new ConcurrentHashMap<Method, InitialValue>();
    private Map<Field, InitialValue> initializerFields = new ConcurrentHashMap<Field, InitialValue>();
 
-   private List<Field> logFields = new ArrayList<Field>();
-   private List<org.jboss.seam.log.Log> logInstances = new ArrayList<org.jboss.seam.log.Log>();
+   private Map<Field, org.jboss.seam.log.Log> logFields = new ConcurrentHashMap<>();
    
    private Collection<Namespace> imports = new ArrayList<Namespace>();
    private Namespace namespace;
@@ -850,8 +849,7 @@ public class Component extends Model {
 			if (Modifier.isStatic(field.getModifiers())) {
 				Reflections.setAndWrap(field, null, logInstance);
 			} else {
-				logFields.add(field);
-				logInstances.add(logInstance);
+				logFields.put(field,  logInstance);
 			}
 		}
 
@@ -1444,8 +1442,8 @@ public class Component extends Model {
 	}
 
 	private void injectLog(Object bean) {
-		for (int i = 0; i < logFields.size(); i++) {
-			setFieldValue(bean, logFields.get(i), "log", logInstances.get(i));
+		for (Map.Entry<Field, org.jboss.seam.log.Log> entry: logFields.entrySet()) {
+			setFieldValue(bean, entry.getKey(), "log", entry.getValue());
 		}
 	}
 

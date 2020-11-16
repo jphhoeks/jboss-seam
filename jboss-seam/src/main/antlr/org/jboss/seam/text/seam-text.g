@@ -299,7 +299,7 @@ options
             }
 
             // Check attribute value of style (CSS filtering)
-            if (attributeName.equals("style")) {
+            if ("style".equals(attributeName)) {
                 if (!REGEX_VALID_CSS_STRING1.matcher(attributeValue).matches() ||
                     !REGEX_VALID_CSS_STRING2.matcher(attributeValue).matches()) {
                     throw createSemanticException(

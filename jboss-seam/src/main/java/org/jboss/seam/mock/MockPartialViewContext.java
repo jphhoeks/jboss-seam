@@ -15,9 +15,9 @@ public class MockPartialViewContext extends PartialViewContext {
 
 	public MockPartialViewContext() {
 		super();
-		partialRequest = true;
-		ajaxRequest = true;
-		renderAll = false;
+		partialRequest = Boolean.TRUE;
+		ajaxRequest = Boolean.TRUE;
+		renderAll = Boolean.FALSE;
 	}
 
 	@Override

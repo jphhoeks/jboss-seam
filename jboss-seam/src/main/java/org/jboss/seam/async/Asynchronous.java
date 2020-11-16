@@ -55,7 +55,7 @@ public abstract class Asynchronous implements Serializable {
 				Lifecycle.beginApplication(new ServletApplicationMap(servletContext));
 				Lifecycle.beginCall();
 			}
-			Contexts.getEventContext().set(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL, true);
+			Contexts.getEventContext().set(AbstractDispatcher.EXECUTING_ASYNCHRONOUS_CALL, Boolean.TRUE);
 			if (taskId != null) {
 				BusinessProcess.instance().resumeTask(taskId);
 			} else if (processId != null) {
