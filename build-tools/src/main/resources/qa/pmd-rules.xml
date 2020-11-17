@@ -9,29 +9,41 @@
     </description>
     <!-- FIXME: reduce the amout of supressions and custom configuration here -->
     <rule ref="category/java/bestpractices.xml">
+    	<exclude name="AbstractClassWithoutAbstractMethod" />
+    	<exclude name="AvoidReassigningParameters" />
         <exclude name="AccessorMethodGeneration"/>
+    	<exclude name="CollapsibleIfStatements" />
+        <exclude name="ConstantsInInterface" />
         <exclude name="JUnitTestContainsTooManyAsserts"/>
         <exclude name="JUnitTestsShouldIncludeAssert"/>
         <exclude name="JUnitUseExpected"/>
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+        <exclude name="JUnit4TestShouldUseTestAnnotation"/>
+        <exclude name="LooseCoupling" />
+        <exclude name="ReplaceHashtableWithMap"/>
     	<exclude name="UseTryWithResources" />   
+    	<exclude name="UnusedAssignment"/>
     	<exclude name="UnusedFormalParameter" /> 
     	<exclude name="UseVarargs"/>
     	<exclude name="ReplaceEnumerationWithIterator" />
+    	<exclude name="WhileLoopWithLiteralBoolean" />
     </rule>
 
     <rule ref="category/java/errorprone.xml">
-        <exclude name="AvoidFieldNameMatchingMethodName"/>
-        <exclude name="DataflowAnomalyAnalysis"/>
-        <exclude name="BeanMembersShouldSerialize"/>
-        <exclude name="UseLocaleWithCaseConversions"/>
-        <exclude name="NullAssignment" />
-        <exclude name="AvoidLiteralsInIfCondition"/>
         <exclude name="AvoidDuplicateLiterals"/>
+        <exclude name="AvoidFieldNameMatchingMethodName"/>
+        <exclude name="AvoidLiteralsInIfCondition"/>
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="ConstructorCallsOverridableMethod" />
+        <exclude name="DataflowAnomalyAnalysis"/>
+        <exclude name="NullAssignment" />
+        <exclude name="ReturnEmptyArrayRatherThanNull" />
+        <exclude name="SingleMethodSingleton"/>
+        <exclude name="SingletonClassReturningNewInstance" />
+        <exclude name="UseLocaleWithCaseConversions"/>
+        <exclude name="UseProperClassLoader" />
     </rule>
-    <rule ref="category/java/design.xml">
-    	<exclude name="CollapsibleIfStatement"/>
-    </rule>
+
     <!--<rule ref="category/java/multithreading.xml"></rule>-->
     <!--<rule ref="category/java/security.xml"></rule>-->
     <!--<rule ref="category/java/performance.xml"></rule>-->
