@@ -101,6 +101,7 @@ import org.jboss.seam.intercept.JavaBeanInterceptor;
 import org.jboss.seam.intercept.Proxy;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Conversions;
 import org.jboss.seam.util.Conversions.PropertyValue;
 import org.jboss.seam.util.Naming;
@@ -2190,7 +2191,7 @@ public class Component extends Model {
 	}
 
 	public String[] getDependencies() {
-		return dependencies;
+		return CloneUtils.cloneArray(dependencies);
 	}
 
 	public boolean isLifecycleMethod(Method method) {

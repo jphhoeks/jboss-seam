@@ -173,36 +173,41 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		try {
 			elementValue = URLDecoder.decode(element.getStringValue(), DEFAULT_ENCODING);
 		} catch (UnsupportedEncodingException ex) {
-			throw new ConversionException("Error converting value - encoding not supported.");
+			throw new ConversionException("Error converting value - encoding not supported.", ex);
 		}
 
 		try {
-			if (converters.containsKey(type))
+			if (converters.containsKey(type)) {
 				value = converters.get(type).convert(elementValue);
-			else if (type instanceof Class && ((Class) type).isEnum())
+			}
+			else if (type instanceof Class && ((Class) type).isEnum()) {
 				value = Enum.valueOf((Class) type, elementValue);
-			else
+			}
+			else {
 				// Should never reach this line - calcConverstionScore should guarantee this.
 				throw new ConversionException(String.format("Value [%s] cannot be converted to type [%s].", elementValue, type));
+			}
 
 			return value;
-		} catch (Exception ex) {
-			if (ex instanceof ConversionException)
-				throw (ConversionException) ex;
-			else
-				throw new ConversionException(String.format("Could not convert value [%s] to type [%s].", elementValue, type.toString()),
-						ex);
+		} 
+		catch (ConversionException ce) {
+			throw ce;
+		}
+		catch (Exception ex) {
+			throw new ConversionException(String.format("Could not convert value [%s] to type [%s].", elementValue, type.toString()),ex);
 		}
 	}
 
 	@Override
 	public ConversionScore conversionScore(Class cls) {
-		if (cls.equals(String.class) || StringBuffer.class.isAssignableFrom(cls))
+		if (cls.equals(String.class) || StringBuffer.class.isAssignableFrom(cls)) {
 			return ConversionScore.exact;
+		}
 
 		for (Class c : COMPATIBLE_CLASSES) {
-			if (cls.equals(c))
+			if (cls.equals(c)) {
 				return ConversionScore.compatible;
+			}
 		}
 
 		if (cls.isEnum()) {
@@ -210,8 +215,10 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 				String elementValue = URLDecoder.decode(element.getStringValue(), DEFAULT_ENCODING);
 				Enum.valueOf(cls, elementValue);
 				return ConversionScore.compatible;
-			} catch (IllegalArgumentException ex) {
-			} catch (UnsupportedEncodingException ex) {
+			} catch (IllegalArgumentException ignored) {
+				//
+			} catch (UnsupportedEncodingException ignored) {
+				// 
 			}
 		}
 

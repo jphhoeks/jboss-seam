@@ -26,7 +26,7 @@ public class PrintTask extends Task {
 		try {
 			reader = Files.newBufferedReader(new File(file).toPath(), StandardCharsets.UTF_8);
 			while (reader.ready()) {
-				System.out.println(reader.readLine());
+				System.out.println(reader.readLine()); // NOPMD
 			}
 			reader.close();
 		} catch (Exception e) {

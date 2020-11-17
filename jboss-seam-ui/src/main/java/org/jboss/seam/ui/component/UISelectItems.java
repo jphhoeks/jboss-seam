@@ -49,7 +49,7 @@ public abstract class UISelectItems extends javax.faces.component.UISelectItems 
 		private static final long serialVersionUID = 1L;
 		private Object value;
 
-		private NullableSelectItem(Object value, String label) {
+		NullableSelectItem(Object value, String label) {
 			super();
 			super.setLabel(label);
 			this.value = value;

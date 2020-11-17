@@ -108,13 +108,15 @@ public class Credentials implements Serializable {
 		return new CallbackHandler() {
 			@Override
 			public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-				for (int i = 0; i < callbacks.length; i++) {
-					if (callbacks[i] instanceof NameCallback) {
-						((NameCallback) callbacks[i]).setName(getUsername());
-					} else if (callbacks[i] instanceof PasswordCallback) {
-						((PasswordCallback) callbacks[i]).setPassword(getPassword() != null ? getPassword().toCharArray() : null);
+				for (Callback call: callbacks) {
+					if (call instanceof NameCallback) {
+						((NameCallback) call).setName(getUsername());
+					} else if (call instanceof PasswordCallback) {
+						((PasswordCallback) call).setPassword(getPassword() != null ? getPassword().toCharArray() : null);
 					} else {
-						log.warn("Unsupported callback " + callbacks[i]);
+						if (log.isWarnEnabled()) {
+							log.warn("Unsupported callback " + call);
+						}
 					}
 				}
 			}

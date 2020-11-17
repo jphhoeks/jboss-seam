@@ -79,7 +79,7 @@ public class EnumDeploymentHandler extends AbstractDeploymentHandler {
 				}
 			}
 			// catching everything, to manage Errors
-			catch (Throwable ignored) {
+			catch (Throwable ignored) { //NOPMD
 				// log.warn("Exception post-processing "+cname, t);
 			}
 		}

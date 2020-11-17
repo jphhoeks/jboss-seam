@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Reflections;
 
 /**
@@ -21,7 +22,7 @@ class RootInvocationContext implements InvocationContext {
 	public RootInvocationContext(Object bean, Method method, Object[] params) {
 		this.bean = bean;
 		this.method = method;
-		this.params = params;
+		this.params = CloneUtils.cloneArray(params);
 	}
 
 	@Override
@@ -47,11 +48,11 @@ class RootInvocationContext implements InvocationContext {
 
 	@Override
 	public Object[] getParameters() {
-		return params;
+		return CloneUtils.cloneArray(params);
 	}
 
 	@Override
 	public void setParameters(Object[] newParams) {
-		params = newParams;
+		params = CloneUtils.cloneArray(newParams);
 	}
 }

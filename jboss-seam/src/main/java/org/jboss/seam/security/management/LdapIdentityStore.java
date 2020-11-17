@@ -269,11 +269,11 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 	}
 
 	public String[] getRoleObjectClasses() {
-		return roleObjectClasses;
+		return CloneUtils.cloneArray(roleObjectClasses);
 	}
 
 	public void setRoleObjectClass(String[] roleObjectClasses) {
-		this.roleObjectClasses = roleObjectClasses;
+		this.roleObjectClasses = CloneUtils.cloneArray(roleObjectClasses);
 	}
 
 	public String[] getUserObjectClasses() {

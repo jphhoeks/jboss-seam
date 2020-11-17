@@ -49,7 +49,8 @@ public class AtomicBooleanConverterTest {
 		try {
 			converter.getAsString(null, null, Boolean.TRUE);
 			fail("should only take atomic booleans");
-		} catch (ConverterException c) {
+		} catch (ConverterException ignored) {
+			//
 		}
 
 	}

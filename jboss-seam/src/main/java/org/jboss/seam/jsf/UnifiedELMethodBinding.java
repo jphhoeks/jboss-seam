@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
+import org.jboss.seam.util.CloneUtils;
+
 /**
  * Nobody should be using MethodBinding anymore, but if they 
  * are, we need this.
@@ -28,7 +30,7 @@ public class UnifiedELMethodBinding extends javax.faces.el.MethodBinding impleme
 	public UnifiedELMethodBinding(String expressionString, Class[] argTypes) {
 		super();
 		this.expressionString = expressionString;
-		this.argTypes = argTypes;
+		this.argTypes = CloneUtils.cloneArray(argTypes);
 	}
 
 	@Override

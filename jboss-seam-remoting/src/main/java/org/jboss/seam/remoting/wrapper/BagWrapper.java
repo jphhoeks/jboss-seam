@@ -45,12 +45,14 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 		// If the value is an array, convert it to a Collection
 		if (value.getClass().isArray()) {
 			vals = new ArrayList();
-			for (int i = 0; i < Array.getLength(value); i++)
+			for (int i = 0; i < Array.getLength(value); i++) {
 				vals.add(Array.get(value, i));
-		} else if (Collection.class.isAssignableFrom(value.getClass()))
+			}
+		} else if (Collection.class.isAssignableFrom(value.getClass())) {
 			vals = (Collection) value;
-		else
+		} else {
 			throw new RuntimeException(String.format("Can not marshal object as bag: [%s]", value));
+		}
 
 		for (Object val : vals) {
 			out.write(ELEMENT_TAG_OPEN);
@@ -67,30 +69,32 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 		// First convert the elements in the bag to a List of Wrappers
 		List<Wrapper> vals = new ArrayList<Wrapper>();
 
-		for (Element e : element.elements("element"))
+		for (Element e : element.elements("element")) {
 			vals.add(context.createWrapperFromElement(e.elements().get(0)));
+		}
 
 		if (type instanceof Class && ((Class) type).isArray()) {
 			Class arrayType = ((Class) type).getComponentType();
 			value = Array.newInstance(arrayType, vals.size()); // Fix this
-			for (int i = 0; i < vals.size(); i++)
+			for (int i = 0; i < vals.size(); i++) {
 				Array.set(value, i, vals.get(i).convert(arrayType));
+			}
 		} else if (type instanceof Class && Collection.class.isAssignableFrom((Class) type)) {
 			try {
 				value = getConcreteClass((Class) type).getDeclaredConstructor().newInstance();
 			} catch (Exception ex) {
 				throw new ConversionException(String.format("Could not create instance of target type [%s].", type), ex);
 			}
-			for (Wrapper w : vals)
+			for (Wrapper w : vals) {
 				((Collection) value).add(w.convert(Object.class));
+			}
 		} else if (type instanceof ParameterizedType
 				&& Collection.class.isAssignableFrom((Class) ((ParameterizedType) type).getRawType())) {
 			Class rawType = (Class) ((ParameterizedType) type).getRawType();
 			Type genType = Object.class;
-
-			for (Type t : ((ParameterizedType) type).getActualTypeArguments()) {
-				genType = t;
-				break;
+			Type[] typeArguments = ((ParameterizedType) type).getActualTypeArguments();
+			if (typeArguments != null && typeArguments.length > 0) {
+				genType = typeArguments[0];
 			}
 
 			try {
@@ -99,8 +103,9 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 				throw new ConversionException(String.format("Could not create instance of target type [%s].", rawType), ex);
 			}
 
-			for (Wrapper w : vals)
+			for (Wrapper w : vals) {
 				((Collection) value).add(w.convert(genType));
+			}
 		}
 
 		return value;
@@ -109,14 +114,16 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 	private Class getConcreteClass(Class c) {
 		if (c.isInterface()) {
 			// Support Set, Queue and (by default, and as a last resort) List
-			if (Set.class.isAssignableFrom(c))
+			if (Set.class.isAssignableFrom(c)) {
 				return HashSet.class;
-			else if (Queue.class.isAssignableFrom(c))
+			} else if (Queue.class.isAssignableFrom(c)) {
 				return LinkedList.class;
-			else
+			} else {
 				return ArrayList.class;
-		} else
+			}
+		} else {
 			return c;
+		}
 	}
 
 	/**
@@ -129,14 +136,17 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 		// There's no such thing as an exact match for a bag, so we'll just look for
 		// a compatible match
 
-		if (cls.isArray())
+		if (cls.isArray()) {
 			return ConversionScore.compatible;
+		}
 
-		if (cls.equals(Object.class))
+		if (cls.equals(Object.class)) {
 			return ConversionScore.compatible;
+		}
 
-		if (Collection.class.isAssignableFrom(cls))
+		if (Collection.class.isAssignableFrom(cls)) {
 			return ConversionScore.compatible;
+		}
 
 		return ConversionScore.nomatch;
 	}

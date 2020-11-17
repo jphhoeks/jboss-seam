@@ -26,8 +26,9 @@ public class ParserUtils {
 		Wrapper resultWrapper = ctx.createWrapperFromElement(valueElement.elementIterator().next());
 
 		// Now unmarshal the ref values
-		for (Wrapper w : ctx.getInRefs().values())
+		for (Wrapper w : ctx.getInRefs().values()) {
 			w.unmarshal();
+		}
 
 		return resultWrapper.getValue();
 	}

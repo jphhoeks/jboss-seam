@@ -108,14 +108,15 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 				try {
 					method.invoke(value, fieldValue);
 				} catch (Exception e) {
-					throw new RuntimeException(String.format("Could not invoke setter method [%s]", method.getName()));
+					throw new RuntimeException(String.format("Could not invoke setter method [%s]", method.getName()), e);
 				}
 			} else {
 				// Otherwise try to set the field value directly
 				boolean accessible = field.isAccessible();
 				try {
-					if (!accessible)
+					if (!accessible) {
 						field.setAccessible(true);
+					}
 					field.set(value, fieldValue);
 				} catch (Exception ex) {
 					throw new RuntimeException("Could not set field value.", ex);
@@ -128,10 +129,11 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 
 	@Override
 	public Object convert(Type type) throws ConversionException {
-		if (type instanceof Class && ((Class) type).isAssignableFrom(value.getClass()))
+		if (type instanceof Class && ((Class) type).isAssignableFrom(value.getClass())) {
 			return value;
-		else
+		} else {
 			throw new ConversionException(String.format("Value [%s] cannot be converted to type [%s].", value, type));
+		}
 	}
 
 	@Override
@@ -166,13 +168,15 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 		String componentName = Seam.getComponentName(cls);
 		Component component = componentName != null ? Component.forName(componentName) : null;
 
-		if (component != null)
+		if (component != null) {
 			cls = component.getBeanClass();
+		}
 
-		if (componentName != null)
+		if (componentName != null) {
 			out.write(componentName.getBytes());
-		else
+		} else {
 			out.write(cls.getName().getBytes());
+		}
 
 		out.write(BEAN_START_TAG_CLOSE);
 
@@ -190,7 +194,7 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 				Field f = null;
 				try {
 					f = cls.getField(propertyName);
-				} catch (NoSuchFieldException ex) {
+				} catch (NoSuchFieldException ignored) {
 				}
 
 				boolean accessible = false;
@@ -218,14 +222,15 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 						try {
 							context.createWrapperFromObject(accessor.invoke(value), fieldPath).marshal(out);
 						} catch (InvocationTargetException ex) {
-							throw new RuntimeException(String.format("Failed to read property [%s] for object [%s]", propertyName, value));
+							throw new RuntimeException(String.format("Failed to read property [%s] for object [%s]",propertyName, value), ex);
 						}
 					}
 				} catch (IllegalAccessException ex) {
-					throw new RuntimeException("Error reading value from field.");
+					throw new RuntimeException("Error reading value from field.", ex);
 				} finally {
-					if (f != null)
+					if (f != null) {
 						f.setAccessible(accessible);
+					}
 				}
 
 				out.write(MEMBER_CLOSE_TAG);
@@ -237,11 +242,12 @@ public class BeanWrapper extends BaseWrapper implements Wrapper {
 
 	@Override
 	public ConversionScore conversionScore(Class cls) {
-		if (cls.equals(value.getClass()))
+		if (cls.equals(value.getClass())) {
 			return ConversionScore.exact;
-		else if (cls.isAssignableFrom(value.getClass()) || cls.equals(Object.class))
+		} else if (cls.isAssignableFrom(value.getClass()) || cls.equals(Object.class)) {
 			return ConversionScore.compatible;
-		else
+		} else {
 			return ConversionScore.nomatch;
+		}
 	}
 }

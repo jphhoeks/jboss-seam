@@ -100,27 +100,27 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 			MBeanOperationInfo[] operations = info.getOperations();
 
 			// collect the MBean attribute metadata for standard mbean proxies
-			for (int i = 0; i < attributes.length; ++i) {
-				attributeMap.put(attributes[i].getName(), attributes[i]);
+			for (MBeanAttributeInfo attribute: attributes) {
+				attributeMap.put(attribute.getName(), attribute);
 			}
 
 			// Check whether the target resource exposes the common object methods.
 			// Dynamic Proxy will delegate these methods automatically to the
 			// invoke() implementation.
-			for (int i = 0; i < operations.length; ++i) {
-				if ("toString".equals(operations[i].getName()) && "java.lang.String".equals(operations[i].getReturnType())
-						&& operations[i].getSignature().length == 0) {
+			for (MBeanOperationInfo operation : operations) {
+				if ("toString".equals(operation.getName()) && "java.lang.String".equals(operation.getReturnType())
+						&& operation.getSignature().length == 0) {
 					delegateToStringToResource = true;
 				}
 
-				else if ("equals".equals(operations[i].getName()) && operations[i].getReturnType().equals(Boolean.TYPE.getName())
-						&& operations[i].getSignature().length == 1
-						&& "java.lang.Object".equals(operations[i].getSignature()[0].getType())) {
+				else if ("equals".equals(operation.getName()) && operation.getReturnType().equals(Boolean.TYPE.getName())
+						&& operation.getSignature().length == 1
+						&& "java.lang.Object".equals(operation.getSignature()[0].getType())) {
 					delegateEqualsToResource = true;
 				}
 
-				else if ("hashCode".equals(operations[i].getName()) && operations[i].getReturnType().equals(Integer.TYPE.getName())
-						&& operations[i].getSignature().length == 0) {
+				else if ("hashCode".equals(operation.getName()) && operation.getReturnType().equals(Integer.TYPE.getName())
+						&& operation.getSignature().length == 0) {
 					delegateHashCodeToResource = true;
 				}
 			}

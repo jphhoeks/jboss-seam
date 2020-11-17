@@ -399,19 +399,22 @@ public class Image implements Serializable {
 		if (inputStream == null) {
 			throw new IllegalArgumentException("Image pointed to must exist (input stream must not be null)");
 		}
-		BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-		ImageInputStream imageInputStream = ImageIO.createImageInputStream(bufferedInputStream);
-		if (imageInputStream == null) {
-			throw new IllegalArgumentException("Error creating image input stream from image");
-		}
-
-		Iterator<ImageReader> iter = ImageIO.getImageReaders(imageInputStream);
-		if (!iter.hasNext()) {
-			return;
-		}
-
+		BufferedInputStream bufferedInputStream = null;
+		ImageInputStream imageInputStream = null; 
 		ImageReader reader = null;
 		try {
+			bufferedInputStream = new BufferedInputStream(inputStream);
+			imageInputStream = ImageIO.createImageInputStream(bufferedInputStream);
+			if (imageInputStream == null) {
+				throw new IllegalArgumentException("Error creating image input stream from image");
+			}
+
+			Iterator<ImageReader> iter = ImageIO.getImageReaders(imageInputStream);
+			if (!iter.hasNext()) {
+				return;
+			}
+
+			
 			reader = iter.next();
 			ImageReadParam param = reader.getDefaultReadParam();
 			reader.setInput(imageInputStream, true, true);
@@ -419,7 +422,6 @@ public class Image implements Serializable {
 			setContentType(Type.getTypeByFormatName(type));
 			setBufferedImage(reader.read(0, param));
 		} finally {
-
 			Resources.close(imageInputStream);
 			reader.dispose();
 			Resources.close(bufferedInputStream);

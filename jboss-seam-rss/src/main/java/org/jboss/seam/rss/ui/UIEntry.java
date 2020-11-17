@@ -3,6 +3,7 @@ package org.jboss.seam.rss.ui;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.faces.context.FacesContext;
 
@@ -65,10 +66,10 @@ public class UIEntry extends SyndicationComponent {
 		}
 		itemEntry.setDescriptionOrSummary(makeText(getSummary()));
 		if (getUpdated() != null) {
-			itemEntry.setUpdatedDate(getUpdated(), new SimpleDateFormat(ATOM_DATE_FORMAT));
+			itemEntry.setUpdatedDate(getUpdated(), new SimpleDateFormat(ATOM_DATE_FORMAT, Locale.ENGLISH));
 		}
 		if (getPublished() != null) {
-			itemEntry.setPubDate(getPublished(), new SimpleDateFormat(ATOM_DATE_FORMAT));
+			itemEntry.setPubDate(getPublished(), new SimpleDateFormat(ATOM_DATE_FORMAT, Locale.ENGLISH));
 		}
 
 		channelFeed.addItem(itemEntry);

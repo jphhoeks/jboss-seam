@@ -20,24 +20,26 @@ public class BooleanWrapper extends BaseWrapper implements Wrapper {
 
 	@Override
 	public Object convert(Type type) throws ConversionException {
-		if (type.equals(Boolean.class) || type.equals(Object.class))
+		if (type.equals(Boolean.class) || type.equals(Object.class)) {
 			value = Boolean.valueOf(element.getStringValue());
-		else if (type.equals(Boolean.TYPE))
+		} else if (type.equals(Boolean.TYPE)) {
 			value = Boolean.parseBoolean(element.getStringValue());
-		else
+		} else {
 			throw new ConversionException(
 					String.format("Parameter [%s] cannot be converted to type [%s].", element.getStringValue(), type));
+		}
 
 		return value;
 	}
 
 	@Override
 	public ConversionScore conversionScore(Class cls) {
-		if (cls.equals(Boolean.class) || cls.equals(Boolean.TYPE))
+		if (cls.equals(Boolean.class) || cls.equals(Boolean.TYPE)) {
 			return ConversionScore.exact;
-		else if (cls.equals(Object.class))
+		} else if (cls.equals(Object.class)) {
 			return ConversionScore.compatible;
-		else
+		} else {
 			return ConversionScore.nomatch;
+		}
 	}
 }

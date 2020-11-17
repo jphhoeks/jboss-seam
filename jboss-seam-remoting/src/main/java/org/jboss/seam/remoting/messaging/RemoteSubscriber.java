@@ -72,14 +72,16 @@ public class RemoteSubscriber {
 		synchronized (subscriber) {
 			do {
 				// Only timeout for the first message.. subsequent messages should be nowait
-				if (messages == null && timeout > 0)
-					m = subscriber.receive((long)timeout * 1000L);
-				else
+				if (messages == null && timeout > 0) {
+					m = subscriber.receive(timeout * 1000L);
+				} else {
 					m = subscriber.receiveNoWait();
+				}
 
 				if (m != null) {
-					if (messages == null)
+					if (messages == null) {
 						messages = new ArrayList<Message>();
+					}
 					messages.add(m);
 				}
 			} while (m != null);

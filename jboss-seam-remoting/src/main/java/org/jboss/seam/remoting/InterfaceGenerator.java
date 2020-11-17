@@ -133,8 +133,9 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 	public static Set<String> getAccessibleProperties(Class cls) {
 		/** @todo This is a hack to get the "real" class - find out if there is
 		      an API method in CGLIB that can be used instead */
-		if (cls.getName().contains("EnhancerByCGLIB"))
+		if (cls.getName().contains("EnhancerByCGLIB")) {
 			cls = cls.getSuperclass();
+		}
 
 		if (!accessibleProperties.containsKey(cls)) {
 			synchronized (accessibleProperties) {
@@ -190,8 +191,9 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 								String propertyName = String.format("%s%s", Character.toLowerCase(m.getName().charAt(startIdx)),
 										m.getName().substring(startIdx + 1));
 
-								if (!properties.contains(propertyName))
+								if (!properties.contains(propertyName)) {
 									properties.add(propertyName);
+								}
 							}
 						}
 
@@ -230,9 +232,10 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 				}
 			}
 
-			if (componentTypes.isEmpty())
+			if (componentTypes.isEmpty()) {
 				throw new RuntimeException(String
 						.format("Type cannot be determined for component [%s]. Please ensure that it has a local interface.", component));
+			}
 		} else if (component.getType().equals(ComponentType.ENTITY_BEAN)) {
 			appendTypeSource(out, component.getBeanClass(), types);
 			return;
@@ -262,8 +265,9 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 				break;
 			}
 		}
-		if (!foundNew)
+		if (!foundNew) {
 			return;
+		}
 
 		if (component.getName().contains(".")) {
 			componentSrc.append("Seam.Remoting.createNamespace('");
@@ -284,8 +288,9 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 				types.add(type);
 
 				for (Method m : type.getDeclaredMethods()) {
-					if (m.getAnnotation(WebRemote.class) == null)
+					if (m.getAnnotation(WebRemote.class) == null) {
 						continue;
+					}
 
 					// Append the return type to the source block
 					appendTypeSource(out, m.getGenericReturnType(), types);
@@ -300,14 +305,16 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 					for (int i = 0; i < m.getGenericParameterTypes().length; i++) {
 						appendTypeSource(out, m.getGenericParameterTypes()[i], types);
 
-						if (i > 0)
+						if (i > 0) {
 							componentSrc.append(", ");
+						}
 						componentSrc.append("p");
 						componentSrc.append(i);
 					}
 
-					if (m.getGenericParameterTypes().length > 0)
+					if (m.getGenericParameterTypes().length > 0) {
 						componentSrc.append(", ");
+					}
 					componentSrc.append("callback, exceptionHandler) {\n");
 
 					componentSrc.append("    return Seam.Remoting.execute(this, \"");
@@ -315,8 +322,9 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 					componentSrc.append("\", [");
 
 					for (int i = 0; i < m.getParameterTypes().length; i++) {
-						if (i > 0)
+						if (i > 0) {
 							componentSrc.append(", ");
+						}
 						componentSrc.append("p");
 						componentSrc.append(i);
 					}
@@ -360,16 +368,18 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 				return;
 			}
 
-			if (classType.getName().startsWith("java.") || types.contains(type) || classType.isPrimitive())
+			if (classType.getName().startsWith("java.") || types.contains(type) || classType.isPrimitive()) {
 				return;
+			}
 
 			// Keep track of which types we've already added
 			types.add(type);
 
 			appendClassSource(out, classType, types);
 		} else if (type instanceof ParameterizedType) {
-			for (Type t : ((ParameterizedType) type).getActualTypeArguments())
+			for (Type t : ((ParameterizedType) type).getActualTypeArguments()) {
 				appendTypeSource(out, t, types);
+			}
 		}
 	}
 
@@ -383,16 +393,18 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 	 */
 	private void appendClassSource(OutputStream out, Class classType, Set<Type> types) throws IOException {
 		// Don't generate interfaces for enums
-		if (classType.isEnum())
+		if (classType.isEnum()) {
 			return;
+		}
 
 		StringBuilder typeSource = new StringBuilder();
 
 		// Determine whether this class is a component; if so, use its name
 		// otherwise use its class name.
 		String componentName = Seam.getComponentName(classType);
-		if (componentName == null)
+		if (componentName == null) {
 			componentName = classType.getName();
+		}
 
 		String typeName = componentName.replace('.', '$');
 
@@ -438,8 +450,9 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 			// Include types referenced by generic declarations
 			if (propertyType instanceof ParameterizedType) {
 				for (Type t : ((ParameterizedType) propertyType).getActualTypeArguments()) {
-					if (t instanceof Class)
+					if (t instanceof Class) {
 						appendTypeSource(out, t, types);
+					}
 				}
 			}
 
@@ -455,15 +468,17 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 				} catch (NoSuchMethodException ex) {
 					getterName = String.format("is%s", fieldName);
 					try {
-						if (Modifier.isPublic(classType.getMethod(getterName).getModifiers()))
+						if (Modifier.isPublic(classType.getMethod(getterName).getModifiers())) {
 							getMethodName = getterName;
+						}
 					} catch (NoSuchMethodException ex2) {
 						/* don't care */}
 				}
 
 				try {
-					if (Modifier.isPublic(classType.getMethod(setterName, f.getType()).getModifiers()))
+					if (Modifier.isPublic(classType.getMethod(setterName, f.getType()).getModifiers())) {
 						setMethodName = setterName;
+					}
 				} catch (SecurityException ex) {
 				} catch (NoSuchMethodException ex) {
 					/* don't care */}
@@ -524,8 +539,9 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 		boolean first = true;
 
 		for (String key : metadata.keySet()) {
-			if (!first)
+			if (!first) {
 				typeSource.append(",\n");
+			}
 
 			typeSource.append("  {field: \"");
 			typeSource.append(key);
@@ -541,10 +557,11 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 		// Register the type under Seam.Component if it is a component, otherwise
 		// register it under Seam.Remoting
 
-		if (classType.isAnnotationPresent(Name.class))
+		if (classType.isAnnotationPresent(Name.class)) {
 			typeSource.append("Seam.Component.register(Seam.Remoting.type.");
-		else
+		} else {
 			typeSource.append("Seam.Remoting.registerType(Seam.Remoting.type.");
+		}
 
 		typeSource.append(typeName);
 		typeSource.append(");\n\n");
@@ -560,31 +577,33 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 	 */
 	protected String getFieldType(Type type) {
 		if (type.equals(String.class) || (type instanceof Class && ((Class) type).isEnum()) || type.equals(BigInteger.class)
-				|| type.equals(BigDecimal.class))
+				|| type.equals(BigDecimal.class)) {
 			return "str";
-		else if (type.equals(Boolean.class) || type.equals(Boolean.TYPE))
+		} else if (type.equals(Boolean.class) || type.equals(Boolean.TYPE)) {
 			return "bool";
-		else if (type.equals(Short.class) || type.equals(Short.TYPE) || type.equals(Integer.class) || type.equals(Integer.TYPE)
+		} else if (type.equals(Short.class) || type.equals(Short.TYPE) || type.equals(Integer.class) || type.equals(Integer.TYPE)
 				|| type.equals(Long.class) || type.equals(Long.TYPE) || type.equals(Float.class) || type.equals(Float.TYPE)
-				|| type.equals(Double.class) || type.equals(Double.TYPE) || type.equals(Byte.class) || type.equals(Byte.TYPE))
+				|| type.equals(Double.class) || type.equals(Double.TYPE) || type.equals(Byte.class) || type.equals(Byte.TYPE)) {
 			return "number";
-		else if (type instanceof Class) {
+		} else if (type instanceof Class) {
 			Class cls = (Class) type;
-			if (Date.class.isAssignableFrom(cls) || Calendar.class.isAssignableFrom(cls))
+			if (Date.class.isAssignableFrom(cls) || Calendar.class.isAssignableFrom(cls)) {
 				return "date";
-			else if (cls.isArray())
+			} else if (cls.isArray()) {
 				return "bag";
-			else if (cls.isAssignableFrom(Map.class))
+			} else if (cls.isAssignableFrom(Map.class)) {
 				return "map";
-			else if (cls.isAssignableFrom(Collection.class))
+			} else if (cls.isAssignableFrom(Collection.class)) {
 				return "bag";
+			}
 		} else if (type instanceof ParameterizedType) {
 			ParameterizedType pt = (ParameterizedType) type;
 
-			if (pt.getRawType() instanceof Class && Map.class.isAssignableFrom((Class) pt.getRawType()))
+			if (pt.getRawType() instanceof Class && Map.class.isAssignableFrom((Class) pt.getRawType())) {
 				return "map";
-			else if (pt.getRawType() instanceof Class && Collection.class.isAssignableFrom((Class) pt.getRawType()))
+			} else if (pt.getRawType() instanceof Class && Collection.class.isAssignableFrom((Class) pt.getRawType())) {
 				return "bag";
+			}
 		}
 
 		return "bean";

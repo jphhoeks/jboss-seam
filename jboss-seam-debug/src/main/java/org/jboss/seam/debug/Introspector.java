@@ -122,7 +122,7 @@ public class Introspector {
 		public String getStringValue() {
 			try {
 				return value == null ? null : value.toString();
-			} catch (Throwable e) {
+			} catch (Exception e) {
 				return Introspector.toString(e);
 			}
 		}

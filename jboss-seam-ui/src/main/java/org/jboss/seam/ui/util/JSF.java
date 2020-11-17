@@ -155,9 +155,8 @@ public class JSF {
 	public static final String FIRST_ATTR = "first";
 
 	public static void renderChildren(FacesContext facesContext, UIComponent component) throws IOException {
-		List children = component.getChildren();
-		for (int j = 0, size = component.getChildCount(); j < size; j++) {
-			UIComponent child = (UIComponent) children.get(j);
+		List<UIComponent> children = component.getChildren();
+		for (UIComponent child: children) {
 			renderChild(facesContext, child);
 		}
 	}

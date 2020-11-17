@@ -59,11 +59,10 @@ public class PropertyBuilders {
 		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
-			for (int i = 0; i < values.length; i++) {
-				String value = values[i];
-				if (JXLFactory.isColor(values[i])) {
+			for (String value: values) {
+				if (JXLFactory.isColor(value)) {
 					styleMap.put(CSSNames.BORDER_BOTTOM_COLOR, value);
-				} else if (JXLFactory.isBorderLineStyle(values[i])) {
+				} else if (JXLFactory.isBorderLineStyle(value)) {
 					styleMap.put(CSSNames.BORDER_BOTTOM_LINE_STYLE, value);
 				} else {
 					throw new ExcelWorkbookException("Border bottom shorthand can only handle line style and color");
@@ -83,11 +82,10 @@ public class PropertyBuilders {
 		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
-			for (int i = 0; i < values.length; i++) {
-				String value = values[i];
-				if (JXLFactory.isColor(values[i])) {
+			for (String value: values) {
+				if (JXLFactory.isColor(value)) {
 					styleMap.put(CSSNames.BORDER_RIGHT_COLOR, value);
-				} else if (JXLFactory.isBorderLineStyle(values[i])) {
+				} else if (JXLFactory.isBorderLineStyle(value)) {
 					styleMap.put(CSSNames.BORDER_RIGHT_LINE_STYLE, value);
 				} else {
 					throw new ExcelWorkbookException("Border right shorthand can only handle line style and color");
@@ -107,11 +105,10 @@ public class PropertyBuilders {
 		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
-			for (int i = 0; i < values.length; i++) {
-				String value = values[i];
-				if (JXLFactory.isColor(values[i])) {
+			for (String value: values) {
+				if (JXLFactory.isColor(value)) {
 					styleMap.put(CSSNames.BORDER_TOP_COLOR, value);
-				} else if (JXLFactory.isBorderLineStyle(values[i])) {
+				} else if (JXLFactory.isBorderLineStyle(value)) {
 					styleMap.put(CSSNames.BORDER_TOP_LINE_STYLE, value);
 				} else {
 					throw new ExcelWorkbookException("Border top shorthand can only handle line style and color");
@@ -131,11 +128,10 @@ public class PropertyBuilders {
 		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
-			for (int i = 0; i < values.length; i++) {
-				String value = values[i];
-				if (JXLFactory.isColor(values[i])) {
+			for (String value: values) {
+				if (JXLFactory.isColor(value)) {
 					styleMap.put(CSSNames.BORDER_LEFT_COLOR, value);
-				} else if (JXLFactory.isBorderLineStyle(values[i])) {
+				} else if (JXLFactory.isBorderLineStyle(value)) {
 					styleMap.put(CSSNames.BORDER_LEFT_LINE_STYLE, value);
 				} else {
 					throw new ExcelWorkbookException("Border left shorthand can only handle line style and color");
@@ -149,18 +145,17 @@ public class PropertyBuilders {
 		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
-			for (int i = 0; i < values.length; i++) {
-				String value = values[i];
+			for (String value: values) {
 				if (JXLFactory.isColor(value)) {
-					styleMap.put(CSSNames.BORDER_LEFT_COLOR, values[1]);
-					styleMap.put(CSSNames.BORDER_RIGHT_COLOR, values[1]);
-					styleMap.put(CSSNames.BORDER_TOP_COLOR, values[1]);
-					styleMap.put(CSSNames.BORDER_BOTTOM_COLOR, values[1]);
+					styleMap.put(CSSNames.BORDER_LEFT_COLOR, value);
+					styleMap.put(CSSNames.BORDER_RIGHT_COLOR, value);
+					styleMap.put(CSSNames.BORDER_TOP_COLOR, value);
+					styleMap.put(CSSNames.BORDER_BOTTOM_COLOR, value);
 				} else if (JXLFactory.isBorderLineStyle(value)) {
-					styleMap.put(CSSNames.BORDER_LEFT_LINE_STYLE, values[0]);
-					styleMap.put(CSSNames.BORDER_RIGHT_LINE_STYLE, values[0]);
-					styleMap.put(CSSNames.BORDER_TOP_LINE_STYLE, values[0]);
-					styleMap.put(CSSNames.BORDER_BOTTOM_LINE_STYLE, values[0]);
+					styleMap.put(CSSNames.BORDER_LEFT_LINE_STYLE, value);
+					styleMap.put(CSSNames.BORDER_RIGHT_LINE_STYLE, value);
+					styleMap.put(CSSNames.BORDER_TOP_LINE_STYLE, value);
+					styleMap.put(CSSNames.BORDER_BOTTOM_LINE_STYLE, value);
 				} else {
 					throw new ExcelWorkbookException("Border shorthand can only handle line style and color");
 				}
@@ -179,11 +174,10 @@ public class PropertyBuilders {
 		@Override
 		public StyleMap parseProperty(String key, String[] values) {
 			StyleMap styleMap = new StyleMap();
-			for (int i = 0; i < values.length; i++) {
-				String value = values[i];
-				if (JXLFactory.isPattern(values[i])) {
+			for (String value: values) {
+				if (JXLFactory.isPattern(value)) {
 					styleMap.put(CSSNames.BACKGROUND_PATTERN, value);
-				} else if (JXLFactory.isColor(values[i])) {
+				} else if (JXLFactory.isColor(value)) {
 					styleMap.put(CSSNames.BACKGROUND_COLOR, value);
 				} else {
 					throw new ExcelWorkbookException("Background shorthand can only handle color and pattern");
@@ -254,8 +248,7 @@ public class PropertyBuilders {
 				values = valueString.split(" ");
 			}
 
-			for (int i = 0; i < values.length; i++) {
-				String value = values[i];
+			for (String value: values) {
 				if (JXLFactory.isScriptStyle(value)) {
 					styleMap.put(CSSNames.FONT_SCRIPT_STYLE, value);
 				} else if (JXLFactory.isColor(value)) {

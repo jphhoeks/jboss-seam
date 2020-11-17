@@ -171,11 +171,13 @@ public class Call {
 
 		// Find the method according to the method name and the parameter classes
 		Method m = findMethod(methodName, type);
-		if (m == null)
+		if (m == null) {
 			throw new RuntimeException("No compatible method found.");
+		}
 
-		if (m.getAnnotation(WebRemote.class).exclude().length > 0)
+		if (m.getAnnotation(WebRemote.class).exclude().length > 0) {
 			constraints = Arrays.asList(m.getAnnotation(WebRemote.class).exclude());
+		}
 
 		Object[] params = convertParams(m.getGenericParameterTypes());
 
@@ -219,16 +221,18 @@ public class Call {
 		Map<Method, Integer> candidates = new HashMap<Method, Integer>();
 
 		for (Method m : cls.getDeclaredMethods()) {
-			if (m.getAnnotation(WebRemote.class) == null)
+			if (m.getAnnotation(WebRemote.class) == null) {
 				continue;
+			}
 
 			if (name.equals(m.getName()) && m.getParameterTypes().length == params.size()) {
 				int score = 0;
 
 				for (int i = 0; i < m.getParameterTypes().length; i++) {
 					ConversionScore convScore = params.get(i).conversionScore(m.getParameterTypes()[i]);
-					if (convScore == ConversionScore.nomatch)
+					if (convScore == ConversionScore.nomatch) {
 						continue;
+					}
 					score += convScore.getScore();
 				}
 				candidates.put(m, score);

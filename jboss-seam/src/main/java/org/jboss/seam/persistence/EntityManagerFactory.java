@@ -29,7 +29,7 @@ import org.jboss.seam.util.Naming;
 @BypassInterceptors
 @Startup
 public class EntityManagerFactory {
-	private javax.persistence.EntityManagerFactory entityManagerFactory;
+	private javax.persistence.EntityManagerFactory jpaEntityManagerFactory;
 
 	private String persistenceUnitName;
 	private Map<String, String> persistenceUnitProperties;
@@ -42,7 +42,7 @@ public class EntityManagerFactory {
 	
 	@Unwrap
 	public javax.persistence.EntityManagerFactory getEntityManagerFactory() {
-		return entityManagerFactory;
+		return jpaEntityManagerFactory;
 	}
 
 	@Create
@@ -50,13 +50,13 @@ public class EntityManagerFactory {
 		if (persistenceUnitName == null) {
 			persistenceUnitName = component.getName();
 		}
-		entityManagerFactory = createEntityManagerFactory();
+		jpaEntityManagerFactory = createEntityManagerFactory();
 	}
 
 	@Destroy
 	public void shutdown() {
-		if (entityManagerFactory != null) {
-			entityManagerFactory.close();
+		if (jpaEntityManagerFactory != null) {
+			jpaEntityManagerFactory.close();
 		}
 	}
 

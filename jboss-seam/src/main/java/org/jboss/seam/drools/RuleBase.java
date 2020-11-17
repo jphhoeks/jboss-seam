@@ -121,7 +121,9 @@ public class RuleBase {
 		}
 
 		if (consequenceExceptionHandler != null) {
-			log.debug("adding consequence exception handler: " + consequenceExceptionHandler.getExpressionString());
+			if (log.isDebugEnabled()) {
+				log.debug("adding consequence exception handler: " + consequenceExceptionHandler.getExpressionString());
+			}
 			Class handlerClz = consequenceExceptionHandler.getValue().getClass();
 			if (ProxyFactory.isProxyClass(consequenceExceptionHandler.getValue().getClass())) {
 				handlerClz = consequenceExceptionHandler.getValue().getClass().getSuperclass();

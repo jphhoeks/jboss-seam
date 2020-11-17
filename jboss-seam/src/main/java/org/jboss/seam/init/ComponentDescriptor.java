@@ -42,7 +42,7 @@ public class ComponentDescriptor implements Comparable<ComponentDescriptor> {
 		this.autoCreate = autoCreate;
 		this.precedence = precedence;
 		this.startup = startup;
-		this.startupDepends = startupDepends;
+		this.startupDepends = CloneUtils.cloneArray(startupDepends);
 	}
 
 	/**

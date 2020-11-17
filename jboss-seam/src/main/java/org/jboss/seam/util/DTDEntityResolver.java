@@ -95,7 +95,7 @@ public class DTDEntityResolver implements EntityResolver, Serializable {
 	protected InputStream resolveInLocalNamespace(String path) {
 		try {
 			return Resources.getResourceAsStream(path, ServletLifecycle.getServletContext());
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			return null;
 		}
 	}

@@ -39,7 +39,8 @@ public class AtomicIntegerConverterTest {
 		try {
 			converter.getAsObject(null, null, "NaN");
 			fail("should only take numbers");
-		} catch (ConverterException c) {
+		} catch (ConverterException ignored) {
+			//
 		}
 	}
 
@@ -53,7 +54,8 @@ public class AtomicIntegerConverterTest {
 		try {
 			converter.getAsString(null, null, Integer.valueOf(0));
 			fail("should only take atomic ints");
-		} catch (ConverterException c) {
+		} catch (ConverterException ignored) {
+			//
 		}
 	}
 

@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Element;
@@ -64,9 +63,9 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 			typeClass = (Class) ((ParameterizedType) type).getRawType();
 
 			for (Type t : ((ParameterizedType) type).getActualTypeArguments()) {
-				if (keyType == null)
+				if (keyType == null) {
 					keyType = t;
-				else {
+				} else {
 					valueType = t;
 					break;
 				}
@@ -74,19 +73,21 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 		}
 		// Or a non-generified Map
 		else if (type instanceof Class && Map.class.isAssignableFrom((Class) type)) {
-			if (!((Class) type).isInterface())
+			if (!((Class) type).isInterface()) {
 				typeClass = (Class) type;
+			}
 			keyType = Object.class;
 			valueType = Object.class;
 		}
 		// If it's neither, throw an exception
-		else
+ else {
 			throw new ConversionException(String.format("Cannot convert value to type [%s]", type));
+		}
 
 		// If we don't have a concrete type, default to creating a HashMap
-		if (typeClass == null || typeClass.isInterface())
+		if (typeClass == null || typeClass.isInterface()) {
 			value = new HashMap();
-		else {
+		} else {
 			try {
 				// Otherwise create an instance of the concrete type
 				if (type instanceof Class) {
@@ -112,11 +113,13 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 
 	@Override
 	public ConversionScore conversionScore(Class cls) {
-		if (Map.class.isAssignableFrom(cls))
+		if (Map.class.isAssignableFrom(cls)) {
 			return ConversionScore.exact;
+		}
 
-		if (cls.equals(Object.class))
+		if (cls.equals(Object.class)) {
 			return ConversionScore.compatible;
+		}
 
 		return ConversionScore.nomatch;
 	}

@@ -173,11 +173,11 @@ public class Jbpm {
 	}
 
 	public String[] getPageflowDefinitions() {
-		return pageflowDefinitions;
+		return CloneUtils.cloneArray(pageflowDefinitions);
 	}
 
 	public void setPageflowDefinitions(String[] pageflowDefinitions) {
-		this.pageflowDefinitions = pageflowDefinitions;
+		this.pageflowDefinitions = CloneUtils.cloneArray(pageflowDefinitions);
 	}
 
 	public String[] getProcessDefinitions() {

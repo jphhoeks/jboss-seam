@@ -38,7 +38,8 @@ public class AtomicLongConverterTest {
 		try {
 			converter.getAsObject(null, null, "NaN");
 			fail("should only take numbers");
-		} catch (ConverterException c) {
+		} catch (ConverterException ignored) {
+			//
 		}
 
 	}
@@ -53,7 +54,8 @@ public class AtomicLongConverterTest {
 		try {
 			converter.getAsString(null, null, Long.valueOf(0));
 			fail("should only take atomic longs");
-		} catch (ConverterException c) {
+		} catch (ConverterException ignored) {
+			//
 		}
 	}
 

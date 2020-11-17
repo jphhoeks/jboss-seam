@@ -77,12 +77,12 @@ public class JpaTokenStore implements TokenStore, Serializable {
 			tokenValueProperty.setValue(token, value);
 
 			lookupEntityManager().persist(token);
-		} catch (Exception ex) {
-			if (ex instanceof IdentityManagementException) {
-				throw (IdentityManagementException) ex;
-			} else {
-				throw new IdentityManagementException("Could not create account", ex);
-			}
+		} 
+		catch (IdentityManagementException e) {
+			throw e;
+		}
+		catch (Exception ex) {
+			throw new IdentityManagementException("Could not create account", ex);			
 		}
 	}
 

@@ -63,67 +63,60 @@ public class MailResponseWriter extends ResponseWriter {
 
 	@Override
 	public void startDocument() throws IOException {
-		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
-			// Do nothing, can't write tags/attributes to plaintext!
-		} else {
+		
+		// can't write tags/attributes to plaintext!
+		if (!TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
 			delegate.startDocument();
-		}
+		} 
 	}
 
 	@Override
 	public void endDocument() throws IOException {
-		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
-			// Do nothing, can't write tags/attributes to plaintext!
-		} else {
+		// can't write tags/attributes to plaintext!
+		if (!TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
 			delegate.endDocument();
-		}
+		} 
 	}
 
 	@Override
 	public void startElement(String name, UIComponent component) throws IOException {
-		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
-			// Do nothing, can't write tags/attributes to plaintext!
-		} else {
+		// can't write tags/attributes to plaintext!
+		if (!TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
 			delegate.startElement(name, component);
-		}
+		} 
 	}
 
 	@Override
 	public void endElement(String name) throws IOException {
-		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
-			// Do nothing, can't write tags/attributes to plaintext!
-		} else {
+		// can't write tags/attributes to plaintext!
+		if (!TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
 			delegate.endElement(name);
-		}
+		} 
 	}
 
 	@Override
 	public void writeAttribute(String name, Object value, String property) throws IOException {
-		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
-			// Do nothing, can't write tags/attributes to plaintext!
-		} else {
+		// can't write tags/attributes to plaintext!
+		if (!TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
 			delegate.writeAttribute(name, value, property);
-		}
+		} 
 
 	}
 
 	@Override
 	public void writeURIAttribute(String name, Object value, String componentPropertyName) throws IOException {
-		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
-			// Do nothing, can't write tags/attributes to plaintext!
-		} else {
-			delegate.writeURIAttribute(name, value, componentPropertyName);
-		}
-
+		// can't write tags/attributes to plaintext!
+		if (!TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
+			delegate.writeURIAttribute(name, value, componentPropertyName);		
+		} 
 	}
 
 	@Override
 	public void writeComment(Object comment) throws IOException {
-		if (TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
-			// Do nothing, can't write comments to plaintext!
-		} else {
+		// can't write comments to plaintext!
+		if (!TEXT_PLAIN_CONTENT_TYPE.equals(getContentType())) {
 			delegate.writeComment(comment);
-		}
+		} 
 	}
 
 	@Override

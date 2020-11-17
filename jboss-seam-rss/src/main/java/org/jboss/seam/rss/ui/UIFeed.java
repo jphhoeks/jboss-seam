@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +64,7 @@ public class UIFeed extends SyndicationComponent {
 		channelFeed.setTitle(getTitle());
 		channelFeed.setDescriptionOrSubtitle(getSubtitle());
 		if (getUpdated() != null) {
-			channelFeed.setPubDate(getUpdated(), new SimpleDateFormat(ATOM_DATE_FORMAT));
+			channelFeed.setPubDate(getUpdated(), new SimpleDateFormat(ATOM_DATE_FORMAT, Locale.ENGLISH));
 		}
 		channelFeed.addLink(getLink());
 		Contexts.getEventContext().set(FEED_IMPL_KEY, channelFeed);

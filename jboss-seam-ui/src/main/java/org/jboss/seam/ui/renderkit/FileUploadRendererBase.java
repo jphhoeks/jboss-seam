@@ -169,7 +169,8 @@ public class FileUploadRendererBase extends RendererBase {
 						request = (ServletRequest) m.invoke(request);
 						found = true;
 						break;
-					} catch (Exception ex) { /* Ignore, try the next one */
+					} catch (Exception ignored) { 
+						/* Ignore, try the next one */
 					}
 				}
 			}
@@ -179,7 +180,8 @@ public class FileUploadRendererBase extends RendererBase {
 					if (ServletRequest.class.isAssignableFrom(f.getType())) {
 						try {
 							request = (ServletRequest) f.get(request);
-						} catch (Exception ex) { /* Ignore */
+						} catch (Exception ignored) { 
+							/* Ignore */
 						}
 					}
 				}

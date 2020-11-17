@@ -7,9 +7,7 @@ import static org.jboss.seam.util.JSF.setWrappedData;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.Seam;
@@ -136,18 +134,18 @@ public class ManagedEntityWrapper {
 		if (value == null) {
 			return false;
 		} else if (value instanceof Collection) {
+			Collection col = (Collection) value;
 			// Do a lazy man's generic check by scanning the collection until an entity is found (nested objects not considered).
-			for (Iterator iter = ((Collection) value).iterator(); iter.hasNext();) {
-				Object v = iter.next();
+			for (Object v: col) {
 				if (v != null && Seam.getEntityClass(v.getClass()) != null) {
 					return true;
 				}
 			}
 			return false;
 		} else if (value instanceof Map) {
+			Map<?,?> m = (Map) value;
 			// Do a lazy man's generic check by scanning the collection until an entity is found (nested objects not considered).
-			for (Iterator iter = ((Map) value).entrySet().iterator(); iter.hasNext();) {
-				Entry e = (Entry) iter.next();
+			for (Map.Entry e: m.entrySet()) {
 				if ((e.getKey() != null && Seam.getEntityClass(e.getKey().getClass()) != null)
 						|| (e.getValue() != null && Seam.getEntityClass(e.getValue().getClass()) != null)) {
 					return true;
@@ -185,10 +183,11 @@ public class ManagedEntityWrapper {
 		Contexts.getConversationContext().set(getFieldId(component, field), value);
 		if (dataModel == null) {
 			Reflections.set(field, bean, null);
-		} else {
+		} 
+		//else {
 			// JBSEAM-1814, JBPAPP-1616 Clearing the wrapped data is simply unnecessary. Either we leave it alone, or we set the field to null.
 			//setWrappedData(dataModel, null);
-		}
+		//}
 	}
 
 	private void clearWrapper(Component component, Field field) throws Exception {

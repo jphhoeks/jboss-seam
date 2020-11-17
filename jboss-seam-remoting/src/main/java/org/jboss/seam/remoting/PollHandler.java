@@ -78,7 +78,6 @@ public class PollHandler extends BaseRequestHandler implements RequestHandler {
 		try {
 			List<PollRequest> requests = new ArrayList<PollRequest>();
 
-			@SuppressWarnings("unchecked")
 			List<Element> requestElements = env.element("body").elements("poll");
 			for (Element e : requestElements) {
 				requests.add(new PollRequest(e.attributeValue("token"), Integer.parseInt(e.attributeValue("timeout"))));

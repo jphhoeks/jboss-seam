@@ -86,7 +86,7 @@ public class MessageBrokerManager {
 			// clear the broker and servlet config as this thread is done
 			FlexContext.clearThreadLocalObjects();
 
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			log.error("MessageBrokerServlet failed to initialize due to runtime exception");
 			destroy();
 			throw new ServletException(t);

@@ -36,9 +36,7 @@ public class DecorateHandler extends ComponentHandler {
 				this.delegate.apply(context, component);
 			} catch (FacesException e) {
 				if (e.getCause() instanceof FileNotFoundException) {
-					FileNotFoundException fnf = new FileNotFoundException("Could not load template:" + getValue(template, context));
-					fnf.initCause(e);
-					throw new FacesException(fnf.getMessage(), fnf);
+					throw new FacesException("Could not load template:" + getValue(template, context), e);
 				}
 				throw e;
 			}

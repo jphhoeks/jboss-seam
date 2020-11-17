@@ -54,9 +54,9 @@ public class StyleStringParser {
 
 	public static String[] trimArray(String[] array) {
 		List<String> validValues = new ArrayList<String>();
-		for (int i = 0; i < array.length; i++) {
-			if (!"".equals(array[i]) && !" ".equals(array[i])) {
-				validValues.add(array[i].toLowerCase().trim());
+		for (String value: array) {
+			if (!"".equals(value) && !" ".equals(value)) {
+				validValues.add(value.toLowerCase().trim());
 			}
 		}
 		return validValues.toArray(new String[0]);

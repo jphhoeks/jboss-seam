@@ -68,7 +68,9 @@ public abstract class UIFormattedText extends UIOutput {
 			parser.startRule();
 		} catch (RecognitionException rex) {
 			// Log a nice message for any lexer/parser errors, users can disable this if they want to
-			log.warn("Seam Text parse error: " + rex.getMessage(), rex);
+			if (log.isWarnEnabled()) {
+				log.warn("Seam Text parse error: " + rex.getMessage(), rex);
+			}
 		} catch (ANTLRException ex) {
 			// All other errors are fatal;
 			throw new RuntimeException(ex);

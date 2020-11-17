@@ -44,7 +44,7 @@ public class WarRootDeploymentStrategy extends DeploymentStrategy {
 		this.classLoader = classLoader;
 		this.servletContext = servletContext;
 		this.warRoot = new File[1];
-		this.excludedDirectories = excludedDirectories;
+		this.excludedDirectories = CloneUtils.cloneArray(excludedDirectories);
 		if (warRoot != null) {
 			this.warRoot[0] = warRoot;
 			getFiles().add(warRoot);

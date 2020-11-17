@@ -226,10 +226,10 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 
 		Class clazzForName = simpleClassForName(type);
 
-		if (expectedTypes != null) {
-			for (int i = 0, size = expectedTypes.length; i < size; i++) {
-				if (!expectedTypes[i].isAssignableFrom(clazzForName)) {
-					throw new FacesException("'" + type + "' does not implement expected type '" + expectedTypes[i] + "'");
+		if (expectedTypes != null) {			
+			for (Class expected: expectedTypes) {
+				if (!expected.isAssignableFrom(clazzForName)) {
+					throw new FacesException("'" + type + "' does not implement expected type '" + expected + "'");
 				}
 			}
 		}

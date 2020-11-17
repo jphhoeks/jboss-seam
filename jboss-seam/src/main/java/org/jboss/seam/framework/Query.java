@@ -523,8 +523,8 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 
 	private static List<Object> getParameterValues(List<ValueExpression<?>> valueBindings) {
 		List<Object> values = new ArrayList<Object>(valueBindings.size());
-		for (int i = 0; i < valueBindings.size(); i++) {
-			values.add(valueBindings.get(i).getValue());
+		for (ValueExpression<?> valueExpression: valueBindings) {
+			values.add(valueExpression.getValue());
 		}
 		return values;
 	}

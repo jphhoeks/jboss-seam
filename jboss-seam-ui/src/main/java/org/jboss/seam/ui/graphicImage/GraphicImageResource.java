@@ -4,9 +4,9 @@ import static org.jboss.seam.ScopeType.APPLICATION;
 import static org.jboss.seam.annotations.Install.BUILT_IN;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +16,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.servlet.ContextualHttpServletRequest;
 import org.jboss.seam.ui.graphicImage.GraphicImageStore.ImageWrapper;
+import org.jboss.seam.util.Resources;
 import org.jboss.seam.web.AbstractResource;
 
 /**
@@ -59,9 +60,15 @@ public class GraphicImageResource extends AbstractResource {
 			response.setContentType(image.getContentType().getMimeType());
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setContentLength(image.getImage().length);
-			ServletOutputStream os = response.getOutputStream();
-			os.write(image.getImage());
-			os.flush();
+			OutputStream os = null;
+			try {
+				os = response.getOutputStream();
+				os.write(image.getImage());
+				os.flush();
+			}
+			finally {
+				Resources.close(os);
+			}
 		} else {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}

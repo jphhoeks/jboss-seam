@@ -8,7 +8,7 @@ public class EnumerationEnumeration<T> implements Enumeration<T> {
 	private int loc = 0;
 
 	public EnumerationEnumeration(Enumeration<T>[] enumerations) {
-		this.enumerations = enumerations;
+		this.enumerations = CloneUtils.cloneArray(enumerations);
 	}
 
 	@Override
@@ -36,11 +36,6 @@ public class EnumerationEnumeration<T> implements Enumeration<T> {
 	private void nextEnumeration() {
 		loc++;
 	}
-
-	/*private boolean isNextEnumerationAvailable()
-	{
-	  return loc < enumerations.length-1;
-	}*/
 
 	private boolean isCurrentEnumerationAvailable() {
 		return loc < enumerations.length;

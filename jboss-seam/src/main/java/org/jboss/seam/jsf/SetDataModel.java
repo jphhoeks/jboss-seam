@@ -92,8 +92,8 @@ public class SetDataModel extends javax.faces.model.DataModel implements Seriali
 			Object data = isRowAvailable() ? getRowData() : null;
 			DataModelEvent event = new DataModelEvent(this, newRowIndex, data);
 			DataModelListener[] listeners = getDataModelListeners();
-			for (int i = 0; i < listeners.length; i++) {
-				listeners[i].rowSelected(event);
+			for (DataModelListener listener: listeners) {
+				listener.rowSelected(event);
 			}
 		}
 	}

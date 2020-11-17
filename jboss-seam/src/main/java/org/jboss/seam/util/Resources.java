@@ -22,19 +22,18 @@ public class Resources {
 		if (servletContext != null) {
 			try {
 				stream = servletContext.getResourceAsStream(resource);
-				if (stream != null && log.isDebugEnabled()) {
-					log.debug("Loaded resource from servlet context: " + resource);
+				if (stream != null) {
+					if (log.isDebugEnabled()) {
+						log.debug("Loaded resource from servlet context: " + resource);
+					}
+					return stream;
 				}
 			} catch (Exception ignored) {
 				//
 			}
 		}
 
-		if (stream == null) {
-			stream = getResourceAsStream(resource, stripped);
-		}
-
-		return stream;
+		return getResourceAsStream(resource, stripped);
 	}
 
 	public static URL getResource(String resource, ServletContext servletContext) {
@@ -73,26 +72,28 @@ public class Resources {
 				if (log.isDebugEnabled()) {
 					log.debug("Loaded resource from context classloader: " + stripped);
 				}
+				return stream;
 			}
 		}
 
-		if (stream == null) {
-			stream = Seam.class.getResourceAsStream(resource);
-			if (stream != null) {
-				if (log.isDebugEnabled()) {
-					log.debug("Loaded resource from Seam classloader: " + resource);
-				}
+		InputStream stream2 = null;
+		stream2 = Seam.class.getResourceAsStream(resource);
+		if (stream2 != null) {
+			if (log.isDebugEnabled()) {
+				log.debug("Loaded resource from Seam classloader: " + resource);
 			}
+			return stream2;
 		}
 
-		if (stream == null) {
-			stream = Seam.class.getClassLoader().getResourceAsStream(stripped);
-			if (stream != null && log.isDebugEnabled()) {
+		InputStream stream3 = Seam.class.getClassLoader().getResourceAsStream(stripped);
+		if (stream3 != null) {
+			if (log.isDebugEnabled()) {
 				log.debug("Loaded resource from Seam classloader: " + stripped);
 			}
+			return stream3;
 		}
 
-		return stream;
+		return null;
 	}
 
 	static URL getResource(String resource, String stripped) {
@@ -124,7 +125,7 @@ public class Resources {
 
 	public static void close(AutoCloseable... closeables) {
 		for (AutoCloseable c : closeables) {
-			close(c);
+			Resources.close(c);
 		}
 	}
 

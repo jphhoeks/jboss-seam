@@ -32,9 +32,9 @@ public class CallContext {
 	 */
 	public Wrapper createWrapperFromElement(Element element) {
 		if ("ref".equals(element.getQualifiedName())) {
-			if (inRefs.containsKey(element.attributeValue("id")))
+			if (inRefs.containsKey(element.attributeValue("id"))) {
 				return inRefs.get(element.attributeValue("id"));
-			else {
+			} else {
 				Element value = element.elements().get(0);
 
 				Wrapper w = WrapperFactory.getInstance().createWrapper(value.getQualifiedName());
@@ -58,8 +58,9 @@ public class CallContext {
 	public Wrapper createWrapperFromObject(Object value, String path) {
 		// Not very efficient but has to be done - may implement something better later
 		for (Wrapper ref : outRefs) {
-			if (ref.getValue().equals(value))
+			if (ref.getValue().equals(value)) {
 				return ref;
+			}
 		}
 
 		Wrapper w = WrapperFactory.getInstance().getWrapperForObject(value);
@@ -92,7 +93,8 @@ public class CallContext {
 	 * @param w Wrapper
 	 */
 	public void addOutRef(Wrapper w) {
-		if (!outRefs.contains(w))
+		if (!outRefs.contains(w)) {
 			outRefs.add(w);
+		}
 	}
 }

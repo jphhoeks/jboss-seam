@@ -270,7 +270,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 		};
 
 		this.userRoles = principalRoles;
-		this.cookies = cookies;
+		this.cookies = CloneUtils.cloneArray(cookies);
 
 		// Old mock: The 1.2 RI NPEs if this header isn't present
 		addHeader("Accept", new String[0]);
@@ -398,9 +398,9 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	* replacing existing values, use {@link #addParameters(java.util.Map)}.
 	*/
 	public void setParameters(Map params) {
-		for (Iterator it = params.keySet().iterator(); it.hasNext();) {
-			Object key = it.next();
-			Object value = params.get(key);
+		for (Map.Entry entry: ((Map<?,?>)params).entrySet()) {
+			Object key = entry.getKey();
+			Object value = entry.getValue();
 			if (value instanceof String) {
 				this.setParameter((String) key, (String) value);
 			} else if (value instanceof String[]) {
@@ -444,9 +444,9 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	* {@link #setParameters(java.util.Map)}.
 	*/
 	public void addParameters(Map params) {
-		for (Iterator it = params.keySet().iterator(); it.hasNext();) {
-			Object key = it.next();
-			Object value = params.get(key);
+		for (Map.Entry entry: ((Map<?,?>)params).entrySet()) {
+			Object key = entry.getKey();
+			Object value = entry.getValue();
 			if (value instanceof String) {
 				this.addParameter((String) key, (String) value);
 			} else if (value instanceof String[]) {

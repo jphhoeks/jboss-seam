@@ -65,8 +65,9 @@ public class GWTToSeamAdapter {
 		// Find the component we're calling
 		Component component = Component.forName(serviceIntfName);
 
-		if (component == null)
+		if (component == null) {
 			throw new RuntimeException("No such component: " + serviceIntfName);
+		}
 
 		Object instance = getServiceComponent(serviceIntfName);
 		Class clz = null;
@@ -79,13 +80,15 @@ public class GWTToSeamAdapter {
 				}
 			}
 
-			if (clz == null)
+			if (clz == null) {
 				throw new RuntimeException(String
 						.format("Type cannot be determined for component [%s]. Please ensure that it has a local interface.", component));
+			}
 		}
 
-		if (clz == null)
+		if (clz == null) {
 			clz = component.getBeanClass();
+		}
 
 		Method method = getMethod(serviceIntfName, methodName, clz, paramTypes);
 
@@ -109,8 +112,9 @@ public class GWTToSeamAdapter {
 			try {
 				synchronized (METHOD_CACHE) {
 					Method m = findMethod(clz, methodName, paramTypes);
-					if (m == null)
+					if (m == null) {
 						throw new NoSuchMethodException();
+					}
 					METHOD_CACHE.put(key, m);
 					return m;
 				}
@@ -162,8 +166,9 @@ public class GWTToSeamAdapter {
 	* @WebRemote for security reasons.
 	*/
 	private boolean isWebRemoteAnnotated(Method method) {
-		if (method == null)
+		if (method == null) {
 			return false;
+		}
 		return method.getAnnotation(WebRemote.class) != null;
 	}
 

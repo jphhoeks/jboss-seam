@@ -6,7 +6,10 @@ public class Exceptions {
 
 	public static Exception getCause(Exception exception) {
 		Throwable cause = getCauseThrowable(exception);
-		return cause == exception || !(cause instanceof Exception) ? null : (Exception) cause;
+		if (cause instanceof Exception && !cause.equals(exception)) {
+			return (Exception) cause;
+		}
+		return null;
 	}
 
 	public static Throwable getCauseThrowable(Throwable exception) {

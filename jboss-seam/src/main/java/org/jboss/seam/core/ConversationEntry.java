@@ -239,7 +239,8 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
 		String name = component.getName();
 		Context session = Contexts.getSessionContext();
 		String location = id;
-		for (int i = 1, len = conversationIdStack.size(); i < len; i++) {
+		int len = conversationIdStack.size();
+		for (int i = 1; i < len; i++) {
 			String cid = conversationIdStack.get(i);
 			String key = ScopeType.CONVERSATION.getPrefix() + '#' + cid + '$' + name;
 			if (session.get(key) != null) {

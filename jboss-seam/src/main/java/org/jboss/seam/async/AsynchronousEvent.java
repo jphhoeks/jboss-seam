@@ -1,6 +1,7 @@
 package org.jboss.seam.async;
 
 import org.jboss.seam.core.Events;
+import org.jboss.seam.util.CloneUtils;
 
 /**
  * An asynchronous event
@@ -17,7 +18,7 @@ public class AsynchronousEvent extends Asynchronous {
 	public AsynchronousEvent(String type, Object[] parameters) {
 		super();
 		this.type = type;
-		this.parameters = parameters;
+		this.parameters = CloneUtils.cloneArray(parameters);
 	}
 
 	@Override

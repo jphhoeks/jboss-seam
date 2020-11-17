@@ -154,8 +154,9 @@ public class Remoting extends AbstractResource {
 					log.error(String.format("Resource [%s] not found.", resourceName));
 				}
 			} finally {
-				if (in != null)
+				if (in != null) {
 					in.close();
+				}
 			}
 		}
 	}

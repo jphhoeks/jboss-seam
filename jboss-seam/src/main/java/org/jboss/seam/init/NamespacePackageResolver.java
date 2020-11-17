@@ -83,7 +83,7 @@ public class NamespacePackageResolver {
 
 		if (path != null) {
 			String[] pathElements = path.split("/");
-			for (int i = 1, len = pathElements.length; i < len; i++) {
+			for (int i = 1; i < pathElements.length; i++) {
 				appendToPackageName(buf, pathElements[i]);
 			}
 		}

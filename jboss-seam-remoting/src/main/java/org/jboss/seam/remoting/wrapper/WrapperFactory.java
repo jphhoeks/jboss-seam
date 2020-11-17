@@ -85,29 +85,31 @@ public class WrapperFactory {
 	}
 
 	public Wrapper getWrapperForObject(Object obj) {
-		if (obj == null)
+		if (obj == null) {
 			return new NullWrapper();
+		}
 
 		Wrapper w = null;
 
-		if (Map.class.isAssignableFrom(obj.getClass()))
+		if (Map.class.isAssignableFrom(obj.getClass())) {
 			w = new MapWrapper();
-		else if (obj.getClass().isArray() || Collection.class.isAssignableFrom(obj.getClass()))
+		} else if (obj.getClass().isArray() || Collection.class.isAssignableFrom(obj.getClass())) {
 			w = new BagWrapper();
-		else if (obj.getClass().equals(Boolean.class) || obj.getClass().equals(Boolean.TYPE))
+		} else if (obj.getClass().equals(Boolean.class) || obj.getClass().equals(Boolean.TYPE)) {
 			w = new BooleanWrapper();
-		else if (obj.getClass().isEnum())
+		} else if (obj.getClass().isEnum()) {
 			w = new StringWrapper();
-		else if (Date.class.isAssignableFrom(obj.getClass()) || Calendar.class.isAssignableFrom(obj.getClass()))
+		} else if (Date.class.isAssignableFrom(obj.getClass()) || Calendar.class.isAssignableFrom(obj.getClass())) {
 			w = new DateWrapper();
-		else if (classRegistry.containsKey(obj.getClass())) {
+		} else if (classRegistry.containsKey(obj.getClass())) {
 			try {
 				w = (Wrapper) classRegistry.get(obj.getClass()).getDeclaredConstructor().newInstance();
 			} catch (Exception ex) {
 				throw new RuntimeException("Failed to create wrapper instance.", ex);
 			}
-		} else
+		} else {
 			w = new BeanWrapper();
+		}
 
 		w.setValue(obj);
 		return w;

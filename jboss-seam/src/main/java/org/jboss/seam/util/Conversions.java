@@ -166,10 +166,10 @@ public class Conversions {
 		public Set toObject(PropertyValue values, Type type) {
 			String[] strings = values.getMultiValues();
 			Class elementType = Reflections.getCollectionElementType(type);
-			Set set = new HashSet(strings.length);
+			Set<Object> set = new HashSet<Object>(strings.length);
 			Converter elementConverter = converters.get(elementType);
-			for (int i = 0; i < strings.length; i++) {
-				Object element = elementConverter.toObject(new FlatPropertyValue(strings[i]), elementType);
+			for (String value : strings) {
+				Object element = elementConverter.toObject(new FlatPropertyValue(value), elementType);
 				set.add(element);
 			}
 			return set;
@@ -181,10 +181,10 @@ public class Conversions {
 		public List toObject(PropertyValue values, Type type) {
 			String[] strings = values.getMultiValues();
 			Class elementType = Reflections.getCollectionElementType(type);
-			List list = new ArrayList(strings.length);
+			List<Object> list = new ArrayList<Object>(strings.length);
 			Converter elementConverter = converters.get(elementType);
-			for (int i = 0; i < strings.length; i++) {
-				list.add(getElementValue(elementType, elementConverter, strings[i]));
+			for (String value: strings) {
+				list.add(getElementValue(elementType, elementConverter, value));
 			}
 			return list;
 		}

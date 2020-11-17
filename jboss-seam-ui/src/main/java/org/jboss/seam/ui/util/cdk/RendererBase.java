@@ -22,7 +22,6 @@
 package org.jboss.seam.ui.util.cdk;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -188,8 +187,7 @@ public abstract class RendererBase extends Renderer {
 	 */
 	public void renderChildren(FacesContext facesContext, UIComponent component) throws IOException {
 		if (component.getChildCount() > 0) {
-			for (Iterator it = component.getChildren().iterator(); it.hasNext();) {
-				UIComponent child = (UIComponent) it.next();
+			for(UIComponent child: component.getChildren()) {
 				renderChild(facesContext, child);
 			}
 		}

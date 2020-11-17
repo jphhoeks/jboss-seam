@@ -41,7 +41,8 @@ public class PollRequest {
 			} catch (JMSException ex) {
 				errors.add(new PollError(PollError.ERROR_CODE_JMS_EXCEPTION, "Error polling for messages"));
 			}
-		} else
+		} else {
 			errors.add(new PollError(PollError.ERROR_CODE_TOKEN_NOT_FOUND, "No subscription was found for the specified token."));
+		}
 	}
 }

@@ -13,7 +13,7 @@ import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
  */
 public class SeamManagedEntityManagerFactoryBean extends AbstractEntityManagerFactoryBean {
 	private String persistenceContextName;
-
+	
 	public SeamManagedEntityManagerFactoryBean() {
 		super();
 	}

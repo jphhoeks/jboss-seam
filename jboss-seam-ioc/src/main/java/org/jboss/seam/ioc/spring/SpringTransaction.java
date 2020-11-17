@@ -236,7 +236,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 			try {
 				log.debug("Attempting to rollback left over transaction.  Should never be called.");
 				getPlatformTransactionManagerRequired().rollback(currentTransaction);
-			} catch (Throwable ignored) {
+			} catch (Exception ignored) {
 				// ignore
 			}
 		}

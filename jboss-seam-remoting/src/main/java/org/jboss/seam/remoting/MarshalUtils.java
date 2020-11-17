@@ -33,8 +33,9 @@ public class MarshalUtils {
 			String escapedString = XML.escapeXMLChars(call.getId());
 			out.write(escapedString.getBytes());
 			out.write(RESULT_TAG_OPEN_END);
-		} else
+		} else {
 			out.write(RESULT_TAG_OPEN);
+		}
 
 		if (call.getException() != null) {
 			out.write(EXCEPTION_TAG_OPEN);
@@ -59,10 +60,11 @@ public class MarshalUtils {
 				out.write(Integer.toString(i).getBytes());
 				out.write(RequestHandler.REF_TAG_OPEN_END);
 
-				if (wrapper instanceof BeanWrapper && call.getConstraints() != null)
+				if (wrapper instanceof BeanWrapper && call.getConstraints() != null) {
 					((BeanWrapper) wrapper).serialize(out, call.getConstraints());
-				else
+				} else {
 					wrapper.serialize(out);
+				}
 
 				out.write(RequestHandler.REF_TAG_CLOSE);
 			}

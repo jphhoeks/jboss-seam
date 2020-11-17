@@ -146,9 +146,9 @@ public class ExecutionHandler extends BaseRequestHandler implements RequestHandl
 				// First reconstruct all the references
 				Element refsNode = e.element("refs");
 
-				Iterator iter = refsNode.elementIterator("ref");
+				Iterator<Element> iter = refsNode.elementIterator("ref");
 				while (iter.hasNext()) {
-					call.getContext().createWrapperFromElement((Element) iter.next());
+					call.getContext().createWrapperFromElement(iter.next());
 				}
 
 				// Now unmarshal the ref values
@@ -161,7 +161,7 @@ public class ExecutionHandler extends BaseRequestHandler implements RequestHandl
 				// Then process the param values
 				iter = paramsNode.elementIterator("param");
 				while (iter.hasNext()) {
-					Element param = (Element) iter.next();
+					Element param = iter.next();
 
 					call.addParameter(call.getContext().createWrapperFromElement(param.elementIterator().next()));
 				}

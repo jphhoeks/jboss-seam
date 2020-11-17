@@ -289,8 +289,7 @@ public final class HTML {
 	*/
 	public static boolean renderHTMLAttributes(ResponseWriter writer, UIComponent component, String[] attributes) throws IOException {
 		boolean somethingDone = false;
-		for (int i = 0, len = attributes.length; i < len; i++) {
-			String attrName = attributes[i];
+		for (String attrName: attributes) {
 			if (renderHTMLAttribute(writer, component, attrName, attrName)) {
 				somethingDone = true;
 			}

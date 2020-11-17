@@ -21,7 +21,7 @@ public class FacesResources {
 		}
 
 		if (stream == null) {
-			stream = Resources.getResourceAsStream(resource, stripped);
+			return Resources.getResourceAsStream(resource, stripped);
 		}
 
 		return stream;

@@ -13,9 +13,6 @@ import javax.faces.event.MethodExpressionValueChangeListener;
 import javax.faces.validator.MethodExpressionValidator;
 import javax.faces.webapp.UIComponentELTag;
 
-import org.jboss.seam.log.LogProvider;
-import org.jboss.seam.log.Logging;
-
 /**
  * @author Maksim Kaszynski
  *
