@@ -34,6 +34,7 @@ import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.contexts.Lifecycle;
 import org.jboss.seam.init.DeploymentDescriptor;
 import org.jboss.seam.init.EjbDescriptor;
+import org.jboss.seam.util.Resources;
 import org.jboss.seam.util.Strings;
 import org.jboss.seam.web.Session;
 
@@ -43,221 +44,169 @@ import org.jboss.seam.web.Session;
  * 
  * @author Gavin King
  */
-public class Seam
-{
-   private static final Map<Class<?>, String> COMPONENT_NAME_CACHE = new ConcurrentHashMap<Class<?>, String>();
-   private static final Map<Class<?>, EjbDescriptor> EJB_DESCRIPTOR_CACHE = new ConcurrentHashMap<Class<?>, EjbDescriptor>();
-   private static final Set<ClassLoader> CLASSLOADERS_LOADED = new HashSet<ClassLoader>(); 
+public class Seam {
+	private static final Map<Class<?>, String> COMPONENT_NAME_CACHE = new ConcurrentHashMap<Class<?>, String>();
+	private static final Map<Class<?>, EjbDescriptor> EJB_DESCRIPTOR_CACHE = new ConcurrentHashMap<Class<?>, EjbDescriptor>();
+	private static final Set<ClassLoader> CLASSLOADERS_LOADED = new HashSet<ClassLoader>();
 
-   // application-scoped property in which the Seam version is stored
-   public static final String VERSION = "org.jboss.seam.version";
-   
+	// application-scoped property in which the Seam version is stored
+	public static final String VERSION = "org.jboss.seam.version";
 
-   private static String versionString;
+	private static String versionString;
 
-   public static EjbDescriptor getEjbDescriptor(Class<?> clazz)
-   {
-      EjbDescriptor info = EJB_DESCRIPTOR_CACHE.get(clazz);
-      if (info != null) 
-      {
-          return info;
-      }
-      else if (!CLASSLOADERS_LOADED.contains(clazz.getClassLoader()))
-      {
-         cacheEjbDescriptors(clazz);
-         return EJB_DESCRIPTOR_CACHE.get(clazz);
-      }
-      
-      return null;
-   }
-   
-   private synchronized static void cacheEjbDescriptors(Class<?> clazz)
-   {
-      if (!CLASSLOADERS_LOADED.contains(clazz.getClassLoader()))
-      {         
-         Map<Class<?>, EjbDescriptor> ejbDescriptors = new DeploymentDescriptor(clazz).getEjbDescriptors();
-         EJB_DESCRIPTOR_CACHE.putAll(ejbDescriptors);
-         CLASSLOADERS_LOADED.add(clazz.getClassLoader());         
-      }
-   } 
+	public static EjbDescriptor getEjbDescriptor(Class<?> clazz) {
+		EjbDescriptor info = EJB_DESCRIPTOR_CACHE.get(clazz);
+		if (info != null) {
+			return info;
+		} else if (!CLASSLOADERS_LOADED.contains(clazz.getClassLoader())) {
+			cacheEjbDescriptors(clazz);
+			return EJB_DESCRIPTOR_CACHE.get(clazz);
+		}
+
+		return null;
+	}
+
+	private synchronized static void cacheEjbDescriptors(Class<?> clazz) {
+		if (!CLASSLOADERS_LOADED.contains(clazz.getClassLoader())) {
+			Map<Class<?>, EjbDescriptor> ejbDescriptors = new DeploymentDescriptor(clazz).getEjbDescriptors();
+			EJB_DESCRIPTOR_CACHE.putAll(ejbDescriptors);
+			CLASSLOADERS_LOADED.add(clazz.getClassLoader());
+		}
+	}
   
-   /**
-    * Get the default scope
-    * @see Scope
-    */
-   public static ScopeType getComponentScope(Class<?> clazz)
-   {
-       return clazz.isAnnotationPresent(Scope.class) ?
-               clazz.getAnnotation(Scope.class).value() :
-               getComponentType(clazz).getDefaultScope();
-   }
+   	/**
+	* Get the default scope
+	* @see Scope
+	*/
+	public static ScopeType getComponentScope(Class<?> clazz) {
+		return clazz.isAnnotationPresent(Scope.class) ? clazz.getAnnotation(Scope.class).value()
+				: getComponentType(clazz).getDefaultScope();
+	}
    
    /**
     * Get the scope for a role
     * @see Scope
     */
-   public static ScopeType getComponentRoleScope(Class<?> clazz, Role role)
-   {
-      return role.scope()==ScopeType.UNSPECIFIED ?
-            getComponentType(clazz).getDefaultScope() :
-            role.scope();
-   }
+	public static ScopeType getComponentRoleScope(Class<?> clazz, Role role) {
+		return role.scope() == ScopeType.UNSPECIFIED ? getComponentType(clazz).getDefaultScope() : role.scope();
+	}
    
    /**
     * Get the component type
     */
-   public static ComponentType getComponentType(Class<?> clazz)
-   {
-      if ( clazz.isAnnotationPresent(STATEFUL) ) 
-      {
-          return STATEFUL_SESSION_BEAN;
-      } 
-      else if ( clazz.isAnnotationPresent(STATELESS) ) 
-      {
-          return STATELESS_SESSION_BEAN;
-      } 
-      else if ( clazz.isAnnotationPresent(SINGLETON) ) 
-      {
-          return SINGLETON_SESSION_BEAN;
-      } 
-      else if ( clazz.isAnnotationPresent(MESSAGE_DRIVEN) ) 
-      {
-          return MESSAGE_DRIVEN_BEAN;
-      } 
-      else if ( clazz.isAnnotationPresent(Entity.class) ) 
-      {
-          return ENTITY_BEAN;
-      } 
-      else 
-      {          
-         EjbDescriptor ejbDescriptor = getEjbDescriptor(clazz);
-         if (ejbDescriptor == null) 
-         {
-            return JAVA_BEAN;
-         }
-         else
-         {
-            return ejbDescriptor.getBeanType();
-         }
-      }      
-   }
+	public static ComponentType getComponentType(Class<?> clazz) {
+		if (clazz.isAnnotationPresent(STATEFUL)) {
+			return STATEFUL_SESSION_BEAN;
+		} else if (clazz.isAnnotationPresent(STATELESS)) {
+			return STATELESS_SESSION_BEAN;
+		} else if (clazz.isAnnotationPresent(SINGLETON)) {
+			return SINGLETON_SESSION_BEAN;
+		} else if (clazz.isAnnotationPresent(MESSAGE_DRIVEN)) {
+			return MESSAGE_DRIVEN_BEAN;
+		} else if (clazz.isAnnotationPresent(Entity.class)) {
+			return ENTITY_BEAN;
+		} else {
+			EjbDescriptor ejbDescriptor = getEjbDescriptor(clazz);
+			if (ejbDescriptor == null) {
+				return JAVA_BEAN;
+			} else {
+				return ejbDescriptor.getBeanType();
+			}
+		}
+	}
       
    /**
     * Get the component name
     * @see Name
     */
-   public static String getComponentName(Class<?> clazz)
-   {
-      String result = COMPONENT_NAME_CACHE.get(clazz);
-      if (result==null)
-      {
-         result = searchComponentName(clazz);
-         if (result!=null)
-         {
-            COMPONENT_NAME_CACHE.put(clazz, result);
-         }
-      }
-      return result;
-   }
-   
-   public static String searchComponentName(Class<?> clazz)
-   {
-      while ( clazz!=null && !Object.class.equals(clazz) )
-      {
-         Name name = clazz.getAnnotation(Name.class);
-         if ( name!=null ) {
-			return name.value();
+	public static String getComponentName(Class<?> clazz) {
+		String result = COMPONENT_NAME_CACHE.get(clazz);
+		if (result == null) {
+			result = searchComponentName(clazz);
+			if (result != null) {
+				COMPONENT_NAME_CACHE.put(clazz, result);
+			}
 		}
-         clazz = clazz.getSuperclass();
-      }
-      return null;
-   }
+		return result;
+	}
+   
+	public static String searchComponentName(Class<?> clazz) {
+		while (clazz != null && !Object.class.equals(clazz)) {
+			Name name = clazz.getAnnotation(Name.class);
+			if (name != null) {
+				return name.value();
+			}
+			clazz = clazz.getSuperclass();
+		}
+		return null;
+	}
    
    /**
     * Get the bean class from a container-generated proxy
     * class
     * 
     */
-   public static Class<?> getEntityClass(Class<?> clazz)
-   {
-      while (clazz != null && !Object.class.equals(clazz))
-      {
-         if (clazz.isAnnotationPresent(Entity.class))
-         {
-            return clazz;
-         }
-         else
-         {
-            EjbDescriptor ejbDescriptor = Seam.getEjbDescriptor(clazz);
-            if (ejbDescriptor != null)
-            {
-               return ejbDescriptor.getBeanType() == ComponentType.ENTITY_BEAN ? clazz : null;
-            }
-            else
-            {
-               clazz = clazz.getSuperclass();
-            }
-         }
-      }
-      return null;
-   }
-   
+	public static Class<?> getEntityClass(Class<?> clazz) {
+		while (clazz != null && !Object.class.equals(clazz)) {
+			if (clazz.isAnnotationPresent(Entity.class)) {
+				return clazz;
+			} else {
+				EjbDescriptor ejbDescriptor = Seam.getEjbDescriptor(clazz);
+				if (ejbDescriptor != null) {
+					return ejbDescriptor.getBeanType() == ComponentType.ENTITY_BEAN ? clazz : null;
+				} else {
+					clazz = clazz.getSuperclass();
+				}
+			}
+		}
+		return null;
+	}
+
    /**
     * Is the class a container-generated proxy class for an 
     * entity bean?
     */
-   public static boolean isEntityClass(Class<?> clazz)
-   {
-      return getEntityClass(clazz)!=null;
-   }
+	public static boolean isEntityClass(Class<?> clazz) {
+		return getEntityClass(clazz) != null;
+	}
    
-   public static String getEjbName(Class<?> clazz)
-   {
-       switch ( getComponentType(clazz) ) 
-       {
-           case ENTITY_BEAN:
-           case JAVA_BEAN:
-               return null;
-           case STATEFUL_SESSION_BEAN:
-               return clazz.isAnnotationPresent(STATEFUL) ? 
-                     getStatefulEjbName(clazz) : getEjbNameFromDescriptor(clazz);
-           case STATELESS_SESSION_BEAN:
-               return clazz.isAnnotationPresent(STATELESS) ?
-                     getStatelessEjbName(clazz) : getEjbNameFromDescriptor(clazz);
-           case SINGLETON_SESSION_BEAN:
-              return clazz.isAnnotationPresent(SINGLETON) ?
-                     getSingletonEjbName(clazz) : getEjbNameFromDescriptor(clazz);
-           case MESSAGE_DRIVEN_BEAN:
-               return clazz.isAnnotationPresent(MESSAGE_DRIVEN) ?
-                     getMessageDrivenEjbName(clazz) : getEjbNameFromDescriptor(clazz);
-           default:
-               throw new IllegalArgumentException();
-       }
-   }
+	public static String getEjbName(Class<?> clazz) {
+		switch (getComponentType(clazz)) {
+		case ENTITY_BEAN:
+		case JAVA_BEAN:
+			return null;
+		case STATEFUL_SESSION_BEAN:
+			return clazz.isAnnotationPresent(STATEFUL) ? getStatefulEjbName(clazz) : getEjbNameFromDescriptor(clazz);
+		case STATELESS_SESSION_BEAN:
+			return clazz.isAnnotationPresent(STATELESS) ? getStatelessEjbName(clazz) : getEjbNameFromDescriptor(clazz);
+		case SINGLETON_SESSION_BEAN:
+			return clazz.isAnnotationPresent(SINGLETON) ? getSingletonEjbName(clazz) : getEjbNameFromDescriptor(clazz);
+		case MESSAGE_DRIVEN_BEAN:
+			return clazz.isAnnotationPresent(MESSAGE_DRIVEN) ? getMessageDrivenEjbName(clazz) : getEjbNameFromDescriptor(clazz);
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 
-   private static String getMessageDrivenEjbName(Class<?> clazz)
-   {
-      String mdName = name( clazz.getAnnotation(MESSAGE_DRIVEN) );
-      return "".equals(mdName) ? unqualifyClassName(clazz) : mdName;
-   }
+	private static String getMessageDrivenEjbName(Class<?> clazz) {
+		String mdName = name(clazz.getAnnotation(MESSAGE_DRIVEN));
+		return "".equals(mdName) ? unqualifyClassName(clazz) : mdName;
+	}
 
-   private static String getStatelessEjbName(Class<?> clazz)
-   {
-      String statelessName = name( clazz.getAnnotation(STATELESS) );
-      return "".equals(statelessName) ? unqualifyClassName(clazz) : statelessName;
-   }
+	private static String getStatelessEjbName(Class<?> clazz) {
+		String statelessName = name(clazz.getAnnotation(STATELESS));
+		return "".equals(statelessName) ? unqualifyClassName(clazz) : statelessName;
+	}
 
-   private static String getStatefulEjbName(Class<?> clazz)
-   {
-      String statefulName = name( clazz.getAnnotation(STATEFUL) );
-      return "".equals(statefulName) ? unqualifyClassName(clazz) : statefulName;
-   }
-   
-   private static String getSingletonEjbName(Class<?> clazz)
-   {
-      String singletonName = name( clazz.getAnnotation(SINGLETON) );
-      return "".equals(singletonName) ? unqualifyClassName(clazz) : singletonName;
-   }
+	private static String getStatefulEjbName(Class<?> clazz) {
+		String statefulName = name(clazz.getAnnotation(STATEFUL));
+		return "".equals(statefulName) ? unqualifyClassName(clazz) : statefulName;
+	}
+
+	private static String getSingletonEjbName(Class<?> clazz) {
+		String singletonName = name(clazz.getAnnotation(SINGLETON));
+		return "".equals(singletonName) ? unqualifyClassName(clazz) : singletonName;
+	}
 
    private static String getEjbNameFromDescriptor(Class<?> clazz)
    {
@@ -265,10 +214,9 @@ public class Seam
       return ejbDescriptor==null ? null : ejbDescriptor.getEjbName();
    }
    
-   private static String unqualifyClassName(Class<?> clazz) 
-   {
-      return Strings.unqualify( Strings.unqualify( clazz.getName() ), '$' );
-   }
+	private static String unqualifyClassName(Class<?> clazz) {
+		return Strings.unqualify(Strings.unqualify(clazz.getName()), '$');
+	}
    
 	public static boolean isInterceptionEnabled(Class<?> clazz) {
 		ComponentType componentType = getComponentType(clazz);
@@ -322,14 +270,12 @@ public class Seam
 		return null;
 	}
    
-   public static String getVersion()
-   {
+	public static String getVersion() {
 
 		if (versionString == null) {
 			// default: read from package metadata
 	      Package pkg = Seam.class.getPackage();
-	      if (pkg.getImplementationVersion() != null)
-	      {
+	      if (pkg.getImplementationVersion() != null) {
 	         versionString =  pkg.getImplementationVersion();
 	         return versionString;
 	      }
@@ -340,10 +286,11 @@ public class Seam
 			try {
 				resources = Seam.class.getClassLoader().getResources("META-INF/MANIFEST.MF");
 				while (resources.hasMoreElements() && versionString == null) {
-					final URL url = resources.nextElement();
-					final InputStream stream = url.openStream();
-					if (stream != null) {
-						try {
+					InputStream stream = null;
+					try {
+						final URL url = resources.nextElement();
+						stream = url.openStream();
+						if (stream != null) {
 							final Manifest manifest = new Manifest(stream);
 							final Attributes mainAttributes = manifest.getMainAttributes();
 							if (mainAttributes != null && "Seam Core".equals(mainAttributes.getValue("Specification-Title"))) {
@@ -352,15 +299,13 @@ public class Seam
 									versionString += "-" + mainAttributes.getValue("Build-Time");
 								}
 							}
-						} finally {
-							try {
-								stream.close();
-							} catch (Throwable ignored) {
-							}
 						}
+					} finally {
+						Resources.close(stream);
 					}
 				}
 			} catch (IOException ignored) {
+				//
 			}
 			if (versionString == null) {
 				versionString = "";
@@ -369,10 +314,9 @@ public class Seam
 		return versionString;
 	}
    
-   public static void clearComponentNameCache()
-   {
-      COMPONENT_NAME_CACHE.clear();
-      EJB_DESCRIPTOR_CACHE.clear();
-   }
+	public static void clearComponentNameCache() {
+		COMPONENT_NAME_CACHE.clear();
+		EJB_DESCRIPTOR_CACHE.clear();
+	}
    
 }

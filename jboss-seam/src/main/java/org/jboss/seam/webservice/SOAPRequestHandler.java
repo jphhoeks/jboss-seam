@@ -69,13 +69,15 @@ public class SOAPRequestHandler implements SOAPHandler {
 	* @return boolean true if processing should continue
 	*/
 	public boolean handleInbound(MessageContext messageContext) {
+		if (messageContext == null ) {
+			log.error("Received object is not instance of SOPAMessageContext: null");
+			return false;
+		}
 		if (!(messageContext instanceof SOAPMessageContext)){
-			if (messageContext != null) {
+			if (log.isErrorEnabled()) {
 				log.error("Received object is not instance of SOPAMessageContext: " + messageContext.getClass().getCanonicalName());				
 			}
-			else {
-				log.error("Received object is not instance of SOPAMessageContext: null");
-			}
+			return false;
 		}
 		try {
 			HttpServletRequest request = (HttpServletRequest) messageContext.get(MessageContext.SERVLET_REQUEST);

@@ -41,7 +41,7 @@ public class RuleBase {
 	private String[] ruleFiles;
 	private String dslFile;
 	private ValueExpression<ConsequenceExceptionHandler> consequenceExceptionHandler;
-	private org.drools.RuleBase ruleBase;
+	private org.drools.RuleBase rules;
 
 	public RuleBase() {
 		super();
@@ -129,17 +129,17 @@ public class RuleBase {
 			RuleBaseConfiguration rbconf = new RuleBaseConfiguration();
 			ConsequenceExceptionHandlerOption cehOption = ConsequenceExceptionHandlerOption.get(handlerClz);
 			rbconf.setOption(cehOption);
-			ruleBase = RuleBaseFactory.newRuleBase(rbconf);
+			rules = RuleBaseFactory.newRuleBase(rbconf);
 		} else {
-			ruleBase = RuleBaseFactory.newRuleBase();
+			rules = RuleBaseFactory.newRuleBase();
 		}
 
-		ruleBase.addPackage(builder.getPackage());
+		rules.addPackage(builder.getPackage());
 	}
 
 	@Unwrap
 	public org.drools.RuleBase getRuleBase() {
-		return ruleBase;
+		return rules;
 	}
 
 	public String[] getRuleFiles() {

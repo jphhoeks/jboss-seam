@@ -61,6 +61,7 @@ import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.navigation.Pages;
 import org.jboss.seam.servlet.ServletApplicationMap;
+import org.jboss.seam.util.CollectionsUtils;
 import org.jboss.seam.util.Conversions;
 import org.jboss.seam.util.Naming;
 import org.jboss.seam.util.Reflections;
@@ -86,9 +87,7 @@ public class Initialization {
 	private Map<String, Conversions.PropertyValue> properties = new ConcurrentHashMap<String, Conversions.PropertyValue>();
 	private Map<String, Set<ComponentDescriptor>> componentDescriptors = new ConcurrentHashMap<String, Set<ComponentDescriptor>>();
 	private List<FactoryDescriptor> factoryDescriptors = new ArrayList<FactoryDescriptor>();
-	@SuppressWarnings("rawtypes")
 	private Set<Class> installedComponentClasses = new HashSet<Class>();
-	//private Set<String> importedPackages = new HashSet<String>();
 	private Map<String, NamespaceDescriptor> namespaceMap = new ConcurrentHashMap<String, NamespaceDescriptor>();
 	private NamespacePackageResolver namespacePackageResolver = new NamespacePackageResolver();
 	private Map<String, EventListenerDescriptor> eventListenerDescriptors = new ConcurrentHashMap<String, EventListenerDescriptor>();
@@ -103,19 +102,19 @@ public class Initialization {
 	private File hotDeployDirectory;
 	private File warRoot;
 
-	private Set<String> nonPropertyAttributes = new HashSet<String>();
+	private Set<String> nonPropertyAttributes = CollectionsUtils.unmodifiableSet(
+		"name",
+		"installed",
+		"scope",
+		"startup",
+		"startupDepends",
+		"class",
+		"jndi-name",
+		"precedence",
+		"auto-create"
+	);
+			
 
-	{
-		this.nonPropertyAttributes.add("name");
-		this.nonPropertyAttributes.add("installed");
-		this.nonPropertyAttributes.add("scope");
-		this.nonPropertyAttributes.add("startup");
-		this.nonPropertyAttributes.add("startupDepends");
-		this.nonPropertyAttributes.add("class");
-		this.nonPropertyAttributes.add("jndi-name");
-		this.nonPropertyAttributes.add("precedence");
-		this.nonPropertyAttributes.add("auto-create");
-	}
 
 	public Initialization(ServletContext servletContext) {
 		this.servletContext = servletContext;

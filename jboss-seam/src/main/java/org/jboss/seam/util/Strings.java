@@ -26,8 +26,11 @@ public class Strings {
 	}
 
 	public static boolean isEmpty(String string) {
-		int len;
-		if (string == null || (len = string.length()) == 0) {
+		if (string == null) {
+			return true;
+		}
+		int len = string.length();
+		if (len == 0) {
 			return true;
 		}
 
@@ -119,8 +122,9 @@ public class Strings {
 	public static String toString(InputStream in) throws IOException {
 		final StringBuilder out = new StringBuilder();
 		final byte[] b = new byte[4096];
-		for (int n; (n = in.read(b)) != -1;) {
-			out.append(new String(b, 0, n));
+		int n = 0;
+		while ((n = in.read(b)) != -1) {
+			out.append(new String(b, 0, n));		
 		}
 		return out.toString();
 	}

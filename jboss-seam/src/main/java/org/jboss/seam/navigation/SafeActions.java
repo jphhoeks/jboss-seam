@@ -35,7 +35,7 @@ import org.jboss.seam.util.Resources;
 @Install(precedence = BUILT_IN, classDependencies = "javax.faces.context.FacesContext")
 public class SafeActions {
 
-	private Set<String> safeActions = Collections.synchronizedSet(new HashSet<String>());
+	private Set<String> actions = Collections.synchronizedSet(new HashSet<String>());
 
 	public SafeActions() {
 		super();
@@ -54,11 +54,11 @@ public class SafeActions {
 	}
 
 	public void addSafeAction(String id) {
-		safeActions.add(id);
+		actions.add(id);
 	}
 
 	public boolean isActionSafe(String id) {
-		if (safeActions.contains(id)) {
+		if (actions.contains(id)) {
 			return true;
 		}
 

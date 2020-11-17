@@ -55,9 +55,22 @@ public class MockApplication extends Application {
 	private ViewHandler viewHandler = new SeamViewHandler(new MockViewHandler());
 	private String msgBundleName;
 
-	
 	private final Map<Class<?>, Converter> converters = new HashMap<Class<?>, Converter>();
-	{
+	
+	private final Map<String, Converter> convertersById = new HashMap<String, Converter>();
+	
+
+	public MockApplication() {
+		super();
+		initConverters();
+		elResolver = new CompositeELResolver();
+		additionalResolvers = new CompositeELResolver();
+		elResolver.add(additionalResolvers);
+		elResolver.add(EL.EL_RESOLVER);
+	}
+
+	
+	private void initConverters() {
 		converters.put(Integer.class, new IntegerConverter());
 		converters.put(Long.class, new LongConverter());
 		converters.put(Float.class, new FloatConverter());
@@ -68,10 +81,7 @@ public class MockApplication extends Application {
 		converters.put(Character.class, new CharacterConverter());
 		converters.put(BigDecimal.class, new BigDecimalConverter());
 		converters.put(BigInteger.class, new BigIntegerConverter());
-	}
-
-	private final Map<String, Converter> convertersById = new HashMap<String, Converter>();
-	{
+		
 		convertersById.put(IntegerConverter.CONVERTER_ID, new IntegerConverter());
 		convertersById.put(LongConverter.CONVERTER_ID, new LongConverter());
 		convertersById.put(FloatConverter.CONVERTER_ID, new FloatConverter());
@@ -83,15 +93,6 @@ public class MockApplication extends Application {
 		convertersById.put(BigDecimalConverter.CONVERTER_ID, new BigDecimalConverter());
 		convertersById.put(BigIntegerConverter.CONVERTER_ID, new BigIntegerConverter());
 	}
-	
-	public MockApplication() {
-		super();
-		elResolver = new CompositeELResolver();
-		additionalResolvers = new CompositeELResolver();
-		elResolver.add(additionalResolvers);
-		elResolver.add(EL.EL_RESOLVER);
-	}
-
 	
 	@Override
 	public void publishEvent(FacesContext context, Class<? extends SystemEvent> systemEventClass, Object source) {

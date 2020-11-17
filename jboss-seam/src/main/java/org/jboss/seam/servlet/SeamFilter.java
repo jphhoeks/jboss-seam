@@ -46,7 +46,8 @@ public class SeamFilter implements Filter {
 		private FilterChain chain;
 		private int index;
 
-		private FilterChainImpl(FilterChain chain) {
+		FilterChainImpl(FilterChain chain) {
+			super();
 			this.chain = chain;
 			index = -1;
 		}

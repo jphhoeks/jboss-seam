@@ -2,7 +2,6 @@
 package org.jboss.seam.persistence;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 import javax.persistence.Persistence;

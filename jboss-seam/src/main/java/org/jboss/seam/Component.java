@@ -2211,6 +2211,7 @@ public class Component extends Model {
 		private Object value;
 
 		public ConstantInitialValue(PropertyValue propertyValue, Class parameterClass, Type parameterType) {
+			super();
 			this.value = Conversions.getConverter(parameterClass).toObject(propertyValue, parameterType);
 		}
 		@Override
@@ -2232,6 +2233,7 @@ public class Component extends Model {
 		private Type parameterType;
 
 		public ELInitialValue(PropertyValue propertyValue, Class parameterClass, Type parameterType) {
+			super();
 			this.expression = propertyValue.getSingleValue();
 			this.parameterType = parameterType;
 			try {
@@ -2283,6 +2285,7 @@ public class Component extends Model {
 		private Class collectionClass;
 
 		public SetInitialValue(PropertyValue propertyValue, Class collectionClass, Type collectionType) {
+			super();
 			String[] expressions = propertyValue.getMultiValues();
 			initialValues = new InitialValue[expressions.length];
 			elementType = Reflections.getCollectionElementType(collectionType);
@@ -2296,6 +2299,7 @@ public class Component extends Model {
 				initialValues[i] = getInitialValue(elementValue, elementType, elementType);
 			}
 		}
+		
 		@Override
 		public Object getValue(Class type) {
 			Set set;
@@ -2343,6 +2347,7 @@ public class Component extends Model {
 		private Class collectionClass;
 
 		public ListInitialValue(PropertyValue propertyValue, Class collectionClass, Type collectionType) {
+			super();
 			String[] expressions = propertyValue.getMultiValues();
 			initialValues = new InitialValue[expressions.length];
 			isArray = collectionClass.isArray();
@@ -2407,6 +2412,7 @@ public class Component extends Model {
 		private Class collectionClass;
 
 		public MapInitialValue(PropertyValue propertyValue, Class collectionClass, Type collectionType) {
+			super();
 			Map<String, String> expressions = propertyValue.getKeyedValues();
 			initialValues = new LinkedHashMap<InitialValue, InitialValue>(expressions.size());
 			elementType = Reflections.getCollectionElementType(collectionType);
@@ -2478,7 +2484,8 @@ public class Component extends Model {
 		private final Method method;
 		private final T annotation;
 
-		private BijectedMethod(String name, Method method, T annotation) {
+		BijectedMethod(String name, Method method, T annotation) {
+			super();
 			this.name = name;
 			this.method = method;
 			this.annotation = annotation;
@@ -2520,11 +2527,13 @@ public class Component extends Model {
 		private BijectedMethod<T> setter;
 
 		public BijectedProperty(String name, Method getter, Method setter, T annotation) {
+			super();
 			this.getter = new BijectedMethod(name, getter, annotation);
 			this.setter = new BijectedMethod(name, setter, annotation);
 		}
 
 		public BijectedProperty(String name, Method getter, T annotation) {
+			super();
 			this.getter = new BijectedMethod(name, getter, annotation);
 			try {
 				Method setterMethod = Reflections.getSetterMethod(getter.getDeclaringClass(), name);
@@ -2564,7 +2573,8 @@ public class Component extends Model {
 		private final Field field;
 		private final T annotation;
 
-		private BijectedField(String name, Field field, T annotation) {
+		BijectedField(String name, Field field, T annotation) {
+			super();
 			this.name = name;
 			this.field = field;
 			this.annotation = annotation;

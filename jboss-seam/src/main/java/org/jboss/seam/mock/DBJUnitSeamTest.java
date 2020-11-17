@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.sql.Connection;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
