@@ -518,7 +518,6 @@
                         <failOnViolation>false</failOnViolation>
                         <includeTests>true</includeTests>
                         <rulesets>
-                            <ruleset>/rulesets/java/basic.xml</ruleset>
                             <ruleset>qa/pmd-rules.xml</ruleset>
                         </rulesets>
                         <printFailingErrors>true</printFailingErrors>

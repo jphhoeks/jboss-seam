@@ -8,6 +8,8 @@
         Custom rules
     </description>
     <!-- FIXME: reduce the amout of supressions and custom configuration here -->
+    
+	<exclude-pattern>.*/target/generated-sources/.*</exclude-pattern>
     <rule ref="category/java/bestpractices.xml">
     	<exclude name="AbstractClassWithoutAbstractMethod" />
     	<exclude name="AvoidReassigningParameters" />
@@ -37,12 +39,24 @@
         <exclude name="ConstructorCallsOverridableMethod" />
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="NullAssignment" />
+        <exclude name="ProperLogger" />
         <exclude name="ReturnEmptyArrayRatherThanNull" />
         <exclude name="SingleMethodSingleton"/>
         <exclude name="SingletonClassReturningNewInstance" />
         <exclude name="UseLocaleWithCaseConversions"/>
         <exclude name="UseProperClassLoader" />
     </rule>
+    
+    <rule ref="category/java/errorprone.xml/CloseResource">
+    	<properties>
+    		<property name="closeTargets" value="close,Resources.close,org.jboss.seam.utils.Resources.close"/>
+    		<property name="allowedResourceTypes" value="ByteArrayOutputStream|java.io.ByteArrayOutputStream|java.io.ByteArrayInputStream|java.io.StringWriter|StringWriter|java.io.StringReader|StringReader|java.io.CharArrayWriter|java.util.stream.Stream|java.util.stream.IntStream|java.util.stream.LongStream|java.util.stream.DoubleStream" />
+    	</properties>
+    </rule>
+    
+    
+    <rule ref="category/java/codestyle.xml/ControlStatementBraces" />
+    
 
     <!--<rule ref="category/java/multithreading.xml"></rule>-->
     <!--<rule ref="category/java/security.xml"></rule>-->
