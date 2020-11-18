@@ -30,7 +30,7 @@
     	<exclude name="ReplaceEnumerationWithIterator" />
     	<exclude name="WhileLoopWithLiteralBoolean" />
     </rule>
-
+InterfaceGenerator
     <rule ref="category/java/errorprone.xml">
         <exclude name="AvoidDuplicateLiterals"/>
         <exclude name="AvoidFieldNameMatchingMethodName"/>
@@ -50,7 +50,7 @@
     <rule ref="category/java/errorprone.xml/CloseResource">
     	<properties>
     		<property name="closeTargets" value="close,Resources.close,org.jboss.seam.utils.Resources.close"/>
-    		<property name="allowedResourceTypes" value="ByteArrayOutputStream|java.io.ByteArrayOutputStream|java.io.ByteArrayInputStream|java.io.StringWriter|StringWriter|java.io.StringReader|StringReader|java.io.CharArrayWriter|java.util.stream.Stream|java.util.stream.IntStream|java.util.stream.LongStream|java.util.stream.DoubleStream" />
+    		<property name="allowedResourceTypes" value="ByteArrayOutputStream|java.io.ByteArrayOutputStream|java.io.ByteArrayInputStream|java.io.StringWriter|StringWriter|java.io.StringReader|StringReader|java.io.CharArrayWriter|java.util.stream.Stream|java.util.stream.IntStream|java.util.stream.LongStream|java.util.stream.DoubleStream|org.hibernate.Session|org.hibernate.SessionFactory" />
     	</properties>
     </rule>
     
