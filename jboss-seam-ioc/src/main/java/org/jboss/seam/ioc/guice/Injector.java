@@ -30,7 +30,7 @@ public class Injector implements Serializable {
 
 	private String[] modules;
 
-	private com.google.inject.Injector injector = null;
+	private com.google.inject.Injector injector = null; // NOPMD
 
 	public Injector() {
 		super();
@@ -56,9 +56,8 @@ public class Injector implements Serializable {
 		injector = Guice.createInjector(moduleList);
 	}
 
-	private static List<Module> getModuleList(String[] modules)
-			throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-		List<Module> moduleList = new ArrayList<Module>();
+	private static List<Module> getModuleList(String[] modules) {
+		List<Module> moduleList = new ArrayList<Module>(modules.length);
 
 		for (String m : modules) {
 			Module module = getModule(m);

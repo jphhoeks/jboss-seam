@@ -154,21 +154,25 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 
 								try {
 									getMethod = c.getMethod(getterName);
-								} catch (SecurityException ex) {
+								} catch (SecurityException ignored) {
+									//
 								} catch (NoSuchMethodException ex) {
 									// it might be an "is" method...
 									getterName = String.format("is%s", fieldName);
 									try {
 										getMethod = c.getMethod(getterName);
-									} catch (NoSuchMethodException ex2) {
-										/* don't care */}
+									} catch (NoSuchMethodException ignored) {
+										/* don't care */
+									}
 								}
 
 								try {
 									setMethod = c.getMethod(setterName, new Class[] { f.getType() });
-								} catch (SecurityException ex) {
-								} catch (NoSuchMethodException ex) {
-									/* don't care */}
+								} catch (SecurityException ignored) {
+									//
+								} catch (NoSuchMethodException ignored) {
+									/* don't care */
+								}
 
 								if (Modifier.isPublic(f.getModifiers()) || (getMethod != null && Modifier.isPublic(getMethod.getModifiers())
 										|| (setMethod != null && Modifier.isPublic(setMethod.getModifiers())))) {
@@ -464,23 +468,26 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 				try {
 					classType.getMethod(getterName);
 					getMethodName = getterName;
-				} catch (SecurityException ex) {
+				} catch (SecurityException ignored) {
+					
 				} catch (NoSuchMethodException ex) {
 					getterName = String.format("is%s", fieldName);
 					try {
 						if (Modifier.isPublic(classType.getMethod(getterName).getModifiers())) {
 							getMethodName = getterName;
 						}
-					} catch (NoSuchMethodException ex2) {
-						/* don't care */}
+					} catch (NoSuchMethodException ignored) {
+						/* don't care */
+					}
 				}
 
 				try {
 					if (Modifier.isPublic(classType.getMethod(setterName, f.getType()).getModifiers())) {
 						setMethodName = setterName;
 					}
-				} catch (SecurityException ex) {
-				} catch (NoSuchMethodException ex) {
+				} catch (SecurityException ignored) {
+					//
+				} catch (NoSuchMethodException ignored) {
 					/* don't care */}
 			}
 

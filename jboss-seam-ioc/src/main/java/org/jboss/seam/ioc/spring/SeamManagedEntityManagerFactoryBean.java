@@ -12,6 +12,9 @@ import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
  * @author Mike Youngstrom
  */
 public class SeamManagedEntityManagerFactoryBean extends AbstractEntityManagerFactoryBean {
+	
+	public static final long serialVersionUID = 1L;
+	
 	private String persistenceContextName;
 	
 	public SeamManagedEntityManagerFactoryBean() {

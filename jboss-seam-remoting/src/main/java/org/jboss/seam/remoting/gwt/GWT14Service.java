@@ -51,7 +51,7 @@ public class GWT14Service extends GWTService {
 			Method m = legacySerializationPolicyClass.getDeclaredMethod("getInstance");
 			legacySerializationPolicy = m.invoke(null);
 		} catch (Exception ex) {
-			log.error("Error initializing GWT14Service.  Please ensure " + "the GWT 1.4 libraries are in the classpath.");
+			log.error("Error initializing GWT14Service.  Please ensure the GWT 1.4 libraries are in the classpath.");			
 			throw ex;
 		}
 	}

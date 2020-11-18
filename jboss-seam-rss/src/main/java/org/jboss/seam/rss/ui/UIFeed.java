@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.util.Resources;
+import org.jboss.seam.util.Strings;
 
 import yarfraw.core.datamodel.ChannelFeed;
 import yarfraw.core.datamodel.FeedFormat;
@@ -77,19 +78,19 @@ public class UIFeed extends SyndicationComponent {
 		try {
 			FeedWriter.writeChannel(feedFormat, channelFeed, byteStream);
 		} catch (YarfrawException e) {
-			/**
-			 * Was IOException, but 1.5 does not have this constructor
-			 * http://java.sun.com/j2se/1.5.0/docs/api/java/io/IOException.html
-			 */
-			throw new RuntimeException("Could not create feed", e);
+			throw new IOException("Could not create feed", e);
 		}
 		Writer responseWriter = null;
 		try {
 			responseWriter = ((HttpServletResponse) facesContext.getExternalContext().getResponse()).getWriter();
 			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 			response.setContentType(MIMETYPE);
+			String enc = response.getCharacterEncoding();
+			if (Strings.isEmpty(enc)) {
+				enc = "UTF-8";
+			}
 			response.setContentLength(byteStream.size());
-			responseWriter.write(byteStream.toString());
+			responseWriter.write(byteStream.toString(enc));
 			response.flushBuffer();
 		}
 		finally {

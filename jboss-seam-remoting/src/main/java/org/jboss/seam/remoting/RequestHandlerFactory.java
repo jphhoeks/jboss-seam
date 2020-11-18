@@ -26,7 +26,7 @@ public class RequestHandlerFactory {
 		try {
 			Class.forName("javax.jms.Message");
 			registerHandler(REQUEST_PATH_POLL, new PollHandler());
-		} catch (ClassNotFoundException ex) {
+		} catch (ClassNotFoundException ignored) {
 			// Don't register PollHandler, swallow the exception
 		}
 	}

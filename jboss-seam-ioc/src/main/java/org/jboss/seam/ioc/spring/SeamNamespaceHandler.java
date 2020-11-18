@@ -163,7 +163,7 @@ public class SeamNamespaceHandler extends NamespaceHandlerSupport {
 			SpringComponent.addSpringComponent(seamName, springName, beanClassName, scope, (BeanFactory) parserContext.getRegistry(),
 					interceptionType);
 			if (node.getAttributes().getNamedItem(AUTO_CREATE_ATTR) != null) {
-				if (Boolean.valueOf(node.getAttributes().getNamedItem(AUTO_CREATE_ATTR).getNodeValue())) {
+				if (Boolean.parseBoolean(node.getAttributes().getNamedItem(AUTO_CREATE_ATTR).getNodeValue())) {
 					Init.instance().addAutocreateVariable(seamName);
 				}
 			}

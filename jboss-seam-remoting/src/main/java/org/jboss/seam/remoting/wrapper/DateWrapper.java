@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Handles date conversions
@@ -21,7 +22,7 @@ public class DateWrapper extends BaseWrapper implements Wrapper {
 	private static final String DATE_FORMAT = "yyyyMMddHHmmssSSS";
 
 	private DateFormat getDateFormat() {
-		return new SimpleDateFormat(DATE_FORMAT);
+		return new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class DateWrapper extends BaseWrapper implements Wrapper {
 			try {
 				value = getDateFormat().parse(element.getStringValue());
 			} catch (ParseException ex) {
-				throw new ConversionException(String.format("Date value [%s] is not in a valid format.", element.getStringValue()));
+				throw new ConversionException(String.format("Date value [%s] is not in a valid format.", element.getStringValue()), ex);
 			}
 		} else if ((type instanceof Class && Calendar.class.isAssignableFrom((Class) type))) {
 			try {
@@ -49,7 +50,7 @@ public class DateWrapper extends BaseWrapper implements Wrapper {
 				cal.setTime(getDateFormat().parse(element.getStringValue()));
 				value = cal;
 			} catch (ParseException ex) {
-				throw new ConversionException(String.format("Date value [%s] is not in a valid format.", element.getStringValue()));
+				throw new ConversionException(String.format("Date value [%s] is not in a valid format.", element.getStringValue()), ex);
 			}
 		} else {
 			throw new ConversionException(String.format("Value [%s] cannot be converted to type [%s].", element.getStringValue(), type));

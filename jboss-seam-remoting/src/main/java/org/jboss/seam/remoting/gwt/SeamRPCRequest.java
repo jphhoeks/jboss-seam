@@ -4,6 +4,8 @@ import com.google.gwt.user.server.rpc.SerializationPolicy;
 
 import java.lang.reflect.Method;
 
+import org.jboss.seam.util.CloneUtils;
+
 /**
  * @author Tomaz Cerar
  * @version $Revision$
@@ -18,8 +20,8 @@ public class SeamRPCRequest {
 
 	public SeamRPCRequest(Method method, Object[] parameters, Class[] parameterTypes, SerializationPolicy serializationPolicy) {
 		this.method = method;
-		this.parameters = parameters;
-		this.parameterTypes = parameterTypes;
+		this.parameters = CloneUtils.cloneArray(parameters);
+		this.parameterTypes = CloneUtils.cloneArray(parameterTypes);
 		this.serializationPolicy = serializationPolicy;
 	}
 
@@ -28,11 +30,11 @@ public class SeamRPCRequest {
 	}
 
 	public Object[] getParameters() {
-		return parameters;
+		return CloneUtils.cloneArray(parameters);
 	}
 
 	public Class[] getParameterTypes() {
-		return parameterTypes;
+		return CloneUtils.cloneArray(parameterTypes);
 	}
 
 	public SerializationPolicy getSerializationPolicy() {

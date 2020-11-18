@@ -41,8 +41,7 @@ public class FlexSeamFactory implements FlexFactory {
 		}
 
 		try {
-			Object instance = Component.getInstance(componentName, true);
-			return instance;
+			return Component.getInstance(componentName, true);
 		} catch (Exception e) {
 			log.error(e);
 			return null;

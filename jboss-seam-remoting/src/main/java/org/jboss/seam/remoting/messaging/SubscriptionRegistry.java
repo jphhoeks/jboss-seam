@@ -20,6 +20,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 
 /**
  *
@@ -126,19 +127,16 @@ public class SubscriptionRegistry {
 
 	private void resetTopic() {
 		TopicConnection savedTopic = null;
-
-		synchronized (monitor) {
-			if (topicConnection != null) {
-				savedTopic = topicConnection;
-				topicConnection = null;
+		try {
+			synchronized (monitor) {
+				if (topicConnection != null) {
+					savedTopic = topicConnection;
+					topicConnection = null;
+				}
 			}
 		}
-
-		if (savedTopic != null) {
-			try {
-				savedTopic.close();
-			} catch (Exception ignored) {
-			}
+		finally {
+			Resources.close(savedTopic);
 		}
 	}
 

@@ -88,8 +88,7 @@ public class SpringTransaction extends AbstractUserTransaction {
 			log.debug("BeanFactory either not found or not yet available.");
 			return null;
 		}
-		PlatformTransactionManager ptm = (PlatformTransactionManager) beanFactory.getBean(platformTransactionManagerName);
-		return ptm;
+		return (PlatformTransactionManager) beanFactory.getBean(platformTransactionManagerName);
 	}
 
 	private PlatformTransactionManager getPlatformTransactionManagerRequired() {

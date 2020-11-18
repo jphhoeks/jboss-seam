@@ -16,8 +16,7 @@ public class WicketHandler implements Serializable {
 	private int reentrant = 0;
 	
 	public static WicketHandler create(Object bean) {
-		WicketHandler handler = new WicketHandler(bean.getClass());
-		return handler;
+		return new WicketHandler(bean.getClass());
 	}
 
 	public WicketHandler(Class<?> type) {

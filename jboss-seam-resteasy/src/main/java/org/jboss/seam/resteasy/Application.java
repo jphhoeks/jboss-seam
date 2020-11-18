@@ -26,6 +26,7 @@ import org.jboss.seam.Component;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.util.CollectionsUtils;
 import org.jboss.seam.annotations.Install;
 
 import javax.ws.rs.core.MediaType;
@@ -116,10 +117,10 @@ public class Application extends javax.ws.rs.core.Application {
 	}
 
 	public Map<String, MediaType> getMediaTypeMappings() {
-		Map<String, MediaType> extMap = new HashMap<String, MediaType>();
-		for (String ext : mediaTypeMappings.keySet()) {
-			String value = mediaTypeMappings.get(ext);
-			extMap.put(ext, MediaType.valueOf(value));
+		Map<String, MediaType> extMap = CollectionsUtils.newHashMap(mediaTypeMappings.size());
+		
+		for(Map.Entry<String, String> entry : mediaTypeMappings.entrySet()) {
+			extMap.put(entry.getKey(), MediaType.valueOf(entry.getValue()));
 		}
 		return extMap;
 	}

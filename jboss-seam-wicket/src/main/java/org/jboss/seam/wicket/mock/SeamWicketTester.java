@@ -8,7 +8,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.wicket.protocol.http.HttpSessionStore;
-import org.apache.wicket.protocol.http.WebRequestCycle;
 import org.apache.wicket.protocol.http.WebResponse;
 import org.apache.wicket.session.ISessionStore;
 import org.apache.wicket.util.tester.DummyHomePage;
@@ -121,10 +120,5 @@ public class SeamWicketTester extends WicketTester {
 		return context;
 	}
 
-	@Override
-	public WebRequestCycle setupRequestAndResponse(boolean isAjax) {
-		WebRequestCycle cycle = super.setupRequestAndResponse(isAjax);
-		return cycle;
-	}
 
 }

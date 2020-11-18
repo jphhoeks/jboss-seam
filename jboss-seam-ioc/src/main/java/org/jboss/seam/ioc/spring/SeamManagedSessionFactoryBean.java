@@ -183,8 +183,7 @@ public class SeamManagedSessionFactoryBean extends AbstractFactoryBean {
 			}
 			try {
 				if (method.getDeclaringClass().equals(Session.class) && !(delegate instanceof Session)) {
-					throw new UnsupportedOperationException("Unable to execute method: " + method.toString()
-							+ " Seam managed session does not support classic.Session methods.");
+					throw new UnsupportedOperationException("Unable to execute method: " + method + " Seam managed session does not support classic.Session methods.");
 				}
 				return method.invoke(delegate, args);
 			} catch (InvocationTargetException ex) {

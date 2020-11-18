@@ -20,6 +20,7 @@ import org.jboss.seam.core.ConversationPropagation;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.servlet.ContextualHttpServletRequest;
+import org.jboss.seam.util.Resources;
 import org.jboss.seam.web.AbstractResource;
 
 import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
@@ -116,7 +117,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 						//
 						RemoteServiceServlet_writeResponse(request, response, responsePayload);
 
-					} catch (Throwable e) {
+					} catch (Exception e) {
 						RemoteServiceServlet_doUnexpectedFailure(e);
 					}
 
@@ -398,7 +399,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 
 			} catch (NoSuchMethodException e) {
 				throw new IncompatibleRemoteServiceException(
-						formatMethodNotFoundErrorMessage(serviceIntf, serviceMethodName, parameterTypes));
+						formatMethodNotFoundErrorMessage(serviceIntf, serviceMethodName, parameterTypes),e);
 			}
 		} catch (SerializationException ex) {
 			throw new IncompatibleRemoteServiceException(ex.getMessage(), ex);
@@ -641,13 +642,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 					getServletContext().log(message);
 				}
 			} finally {
-				if (is != null) {
-					try {
-						is.close();
-					} catch (IOException e) {
-						// Ignore this error
-					}
-				}
+				Resources.close(is);				
 			}
 		}
 

@@ -109,8 +109,10 @@ public class PollHandler extends BaseRequestHandler implements RequestHandler {
 				for (Message m : req.getMessages()) {
 					try {
 						writeMessage(m, out);
-					} catch (JMSException ex) {
-					} catch (IOException ex) {
+					} catch (JMSException ignored) {
+						//
+					} catch (IOException ignored) {
+						//
 					}
 				}
 				out.write(MESSAGES_TAG_CLOSE);

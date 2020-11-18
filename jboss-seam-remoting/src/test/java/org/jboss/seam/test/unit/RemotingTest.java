@@ -63,7 +63,7 @@ import org.testng.annotations.Test;
  */
 public class RemotingTest {
 	private class InvalidClass {
-		private InvalidClass() {
+		InvalidClass() {
 			 super();
 		}
 	}

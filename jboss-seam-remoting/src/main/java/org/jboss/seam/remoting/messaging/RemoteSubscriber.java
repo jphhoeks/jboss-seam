@@ -47,12 +47,14 @@ public class RemoteSubscriber {
 
 			// Remove the subscription's token from the user's session context
 			SubscriptionRegistry.instance().getUserTokens().remove(token);
-		} catch (JMSException ex) {
+		} catch (JMSException ignored) {
+			//
 		}
 
 		try {
 			topicSession.close();
-		} catch (JMSException ex) {
+		} catch (JMSException ignored) {
+			//
 		}
 	}
 

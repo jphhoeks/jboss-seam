@@ -123,7 +123,7 @@ public class GWTToSeamAdapter {
 				throw new SecurityException("Unable to access a service method called [" + methodName + "] on class [" + clz.getName()
 						+ "] without the @WebRemote attribute. "
 						+ "This may be a hack attempt, or someone simply neglected to use the @WebRemote attribute to indicate a method as"
-						+ " remotely accessible.");
+						+ " remotely accessible.", e);
 			}
 		}
 	}
@@ -132,11 +132,13 @@ public class GWTToSeamAdapter {
 		if (paramTypes == null) {
 			return serviceName + "." + methodName;
 		} else {
-			String pTypes = "";
-			for (int i = 0; i < paramTypes.length; i++) {
-				pTypes += paramTypes[i].getName();
+			StringBuilder pTypes = new StringBuilder();
+			pTypes.append(serviceName).append(".").append(methodName).append("(");
+			for (Class paramType: paramTypes) {
+				pTypes.append(paramType.getName());
 			}
-			return serviceName + "." + methodName + "(" + pTypes + ")";
+			pTypes.append(")");
+			return pTypes.toString();
 		}
 
 	}
@@ -194,7 +196,7 @@ public class GWTToSeamAdapter {
 
 		public Class returnType;
 
-		public Object returnedObject;
+		public Object returnedObject; //NOPMD
 	}
 
 }

@@ -176,9 +176,8 @@ public class ResteasyBootstrap {
 				types.add(Reflections.classForName(s));
 			}
 		} catch (ClassNotFoundException ex) {
-			if (log.isErrorEnabled()) {
-				log.error("error loading JAX-RS type: " + ex.getMessage(), ex);
-			}
+			log.error("error loading JAX-RS type: #0", ex, ex.getMessage());
+			
 		}
 
 		return types;
@@ -341,9 +340,7 @@ public class ResteasyBootstrap {
 			case STATEFUL_SESSION_BEAN:
 				// EJB seam component resources must be @Path annotated on one of their business interfaces
 				if (resourceInterface != null) {
-					if (log.isErrorEnabled()) {
-						log.error("Not implemented: Stateful EJB Seam component resource: " + seamComponent);
-					}
+					log.error("Not implemented: Stateful EJB Seam component resource: #0", seamComponent);
 					// TODO: registerStatefulEJBSeamComponentResource(seamComponent);
 				}
 				break;

@@ -6,8 +6,13 @@ import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
-import java.util.HashSet;
 import java.util.Set;
+
+import org.jboss.seam.annotations.Name;
+import org.jboss.seam.log.LogProvider;
+import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CollectionsUtils;
+import org.jboss.seam.wicket.WicketComponent;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
@@ -15,16 +20,11 @@ import javassist.CtBehavior;
 import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtField;
+import javassist.CtField.Initializer;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
 import javassist.Modifier;
 import javassist.NotFoundException;
-import javassist.CtField.Initializer;
-
-import org.jboss.seam.annotations.Name;
-import org.jboss.seam.log.LogProvider;
-import org.jboss.seam.log.Logging;
-import org.jboss.seam.wicket.WicketComponent;
 
 /**
  * This class is responsible for instrumenting wicket component classes so that
@@ -513,14 +513,15 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	* System property.
 	*/
 	private static void initAgent(Instrumentation instrumentation) {
-		Set<String> packagesToInstrument = new HashSet<String>();
 		String list = System.getProperty("org.jboss.seam.wicket.instrumented-packages");
 		String scanAnnotationsProperty = System.getProperty("org.jboss.seam.wicket.scanAnnotations");
 		boolean scanAnnotations = scanAnnotationsProperty != null && "true".equals(scanAnnotationsProperty);
 		if (list == null) {
 			return;
 		}
-		for (String packageName : list.split(",")) {
+		String[] packages = list.split(",");
+		Set<String> packagesToInstrument = CollectionsUtils.newHashSet(packages.length);
+		for (String packageName : packages) {
 			packagesToInstrument.add(packageName.replaceAll("\\.", "/"));
 		}
 

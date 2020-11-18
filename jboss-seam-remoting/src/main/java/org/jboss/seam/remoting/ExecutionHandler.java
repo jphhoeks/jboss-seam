@@ -62,7 +62,9 @@ public class ExecutionHandler extends BaseRequestHandler implements RequestHandl
 		}
 
 		String requestData = new String(out.toByteArray());
-		log.debug("Processing remote request: " + requestData);
+		if (log.isDebugEnabled()) {
+			log.debug("Processing remote request: " + requestData);
+		}
 
 		// Parse the incoming request as XML
 		SAXReader xmlReader = XML.getSafeSaxReader();
