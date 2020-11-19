@@ -23,6 +23,7 @@ import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.transaction.AbstractUserTransaction;
 import org.jboss.seam.transaction.Synchronizations;
+import org.jboss.seam.util.Strings;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -74,13 +75,13 @@ public class SpringTransaction extends AbstractUserTransaction {
 	* specified.
 	*/
 	protected PlatformTransactionManager getPlatformTransactionManager() {
-		if (((platformTransactionManagerName == null || "".equals(platformTransactionManagerName)) && platformTransactionManager == null)
-				|| (platformTransactionManagerName != null && !"".equals(platformTransactionManagerName))
-						&& platformTransactionManager != null) {
+		
+		if ((platformTransactionManager == null && Strings.isEmpty(platformTransactionManagerName)) ||
+			(platformTransactionManager != null && !Strings.isEmpty(platformTransactionManagerName))) {
 			throw new IllegalArgumentException(
 					"When configuring spring:spring-transaction you must specify either platformTransactionManager or platformTransactionManagerName.");
 		}
-		if ((platformTransactionManagerName == null || "".equals(platformTransactionManagerName))) {
+		if (platformTransactionManager != null) {
 			return platformTransactionManager.getValue();
 		}
 		BeanFactory beanFactory = findBeanFactory();

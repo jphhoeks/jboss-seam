@@ -483,7 +483,7 @@ public class UIWorksheet extends ExcelComponent {
 	@SuppressWarnings("unchecked")
 	private static List arrayAsList(Object array) {
 		if (array.getClass().getComponentType().isPrimitive()) {
-			List list = new ArrayList();
+			List list = new ArrayList(Array.getLength(array));
 			for (int i = 0; i < Array.getLength(array); i++) {
 				list.add(Array.get(array, i));
 			}

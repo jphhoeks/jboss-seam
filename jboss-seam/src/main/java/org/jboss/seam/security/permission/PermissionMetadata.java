@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jboss.seam.annotations.security.permission.Permissions;
+import org.jboss.seam.util.CollectionsUtils;
 
 /**
  * Permission actions can either be persisted as a comma-separated list of values, or as a
@@ -49,7 +50,7 @@ public class PermissionMetadata implements Serializable {
 
 			// Validate that all actions have a proper mask
 			if (useMask) {
-				Set<Long> masks = new HashSet<Long>();
+				Set<Long> masks = CollectionsUtils.newHashSet(actions.size());
 
 				for (String action : actions.keySet()) {
 					Long mask = actions.get(action);
@@ -170,7 +171,7 @@ public class PermissionMetadata implements Serializable {
 			initClassActions(targetClass);
 		}
 
-		List<String> actions = new ArrayList<String>();
+		List<String> actions = new ArrayList<String>(classActions.get(targetClass).size());
 		for (String action : classActions.get(targetClass).keySet()) {
 			actions.add(action);
 		}

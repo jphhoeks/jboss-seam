@@ -108,11 +108,12 @@ public class Exceptions {
 
 	@Create
 	public void initialize() throws Exception {
-		List<ExceptionHandler> deferredHandlers = new ArrayList<ExceptionHandler>();
+		String[] pageResources = Pages.instance().getResources();
+		List<ExceptionHandler> deferredHandlers = new ArrayList<ExceptionHandler>(pageResources.length + 1);
 
 		deferredHandlers.add(parse("/WEB-INF/exceptions.xml")); // deprecated
 
-		for (String pageFile : Pages.instance().getResources()) {
+		for (String pageFile : pageResources) {
 			deferredHandlers.add(parse(pageFile));
 		}
 

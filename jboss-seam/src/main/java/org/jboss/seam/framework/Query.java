@@ -394,7 +394,7 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 	}
 
 	public List<String> getRestrictionExpressionStrings() {
-		List<String> expressionStrings = new ArrayList<String>();
+		List<String> expressionStrings = new ArrayList<String>(getRestrictions().size());
 		for (ValueExpression<?> restriction : getRestrictions()) {
 			expressionStrings.add(restriction.getExpressionString());
 		}

@@ -274,8 +274,7 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 			return "Object result = null; " + wrapInExceptionHandler(method.getName() + "($$);");
 		} else {
 			String src = returnType.getName() + " result;";
-			src += wrapInExceptionHandler("result = " + method.getName() + "($$);");
-			return src;
+			return src + wrapInExceptionHandler("result = " + method.getName() + "($$);");
 		}
 	}
 
@@ -319,9 +318,8 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	*/
 	private static String createMethodObject(CtClass clazz, CtMethod method) throws NotFoundException {
 		String src = createParameterTypesArray(method);
-		src += "java.lang.reflect.Method method = " + clazz.getName() + ".class.getDeclaredMethod(\"" + method.getName()
+		return src + "java.lang.reflect.Method method = " + clazz.getName() + ".class.getDeclaredMethod(\"" + method.getName()
 				+ "\", parameterTypes);";
-		return src;
 	}
 
 	/**
@@ -333,8 +331,7 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	*/
 	private static String createConstructorObject(String className, CtConstructor constructor) throws NotFoundException {
 		String src = createParameterTypesArray(constructor);
-		src += "java.lang.reflect.Constructor constructor = " + className + ".class.getDeclaredConstructor(parameterTypes);";
-		return src;
+		return src + "java.lang.reflect.Constructor constructor = " + className + ".class.getDeclaredConstructor(parameterTypes);";
 	}
 
 	/**

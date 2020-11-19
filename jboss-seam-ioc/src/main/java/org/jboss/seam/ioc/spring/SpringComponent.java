@@ -222,7 +222,7 @@ public class SpringComponent extends IoCComponent {
 	 */
 	@Override
 	public List<BijectedAttribute> getPersistenceContextAttributes() {
-		if (getScope().equals(ScopeType.STATELESS)) {
+		if (getScope() == ScopeType.STATELESS) {
 			return Collections.emptyList();
 		}
 		return super.getPersistenceContextAttributes();

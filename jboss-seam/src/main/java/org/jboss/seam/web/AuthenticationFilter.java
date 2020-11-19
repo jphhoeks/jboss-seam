@@ -4,7 +4,6 @@ import static org.jboss.seam.ScopeType.APPLICATION;
 import static org.jboss.seam.annotations.Install.BUILT_IN;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.security.auth.login.LoginException;
@@ -30,6 +29,7 @@ import org.jboss.seam.security.digest.DigestUtils;
 import org.jboss.seam.security.digest.DigestValidationException;
 import org.jboss.seam.servlet.ContextualHttpServletRequest;
 import org.jboss.seam.util.Base64;
+import org.jboss.seam.util.CollectionsUtils;
 
 /**
  * Seam Servlet Filter supporting HTTP Basic and Digest authentication. Some code
@@ -203,7 +203,7 @@ public class AuthenticationFilter extends AbstractFilter {
 			String section212response = header.substring(7);
 
 			String[] headerEntries = section212response.split(",");
-			Map<String, String> headerMap = new HashMap<String, String>();
+			Map<String, String> headerMap = CollectionsUtils.newHashMap(headerEntries.length);
 			for (String entry : headerEntries) {
 				String[] vals = split(entry, "=");
 				headerMap.put(vals[0].trim(), vals[1].replace("\"", "").trim());

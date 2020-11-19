@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.jboss.seam.util.EnumerationEnumeration;
+import org.jboss.seam.util.Resources;
 
 public class SeamDeploymentProperties {
 
@@ -56,14 +57,13 @@ public class SeamDeploymentProperties {
 			while (getResources().hasMoreElements()) {
 				URL url = getResources().nextElement();
 				Properties properties = new Properties();
-				InputStream propertyStream = url.openStream();
+				InputStream propertyStream = null;
 				try {
+					propertyStream = url.openStream();
 					properties.load(propertyStream);
 					addProperty(key, properties.getProperty(key), values);
 				} finally {
-					if (propertyStream != null) {
-						propertyStream.close();
-					}
+					Resources.close(propertyStream);
 				}
 			}
 		} catch (IOException ignored) {

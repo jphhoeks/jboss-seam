@@ -44,7 +44,7 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 
 		// If the value is an array, convert it to a Collection
 		if (value.getClass().isArray()) {
-			vals = new ArrayList();
+			vals = new ArrayList(Array.getLength(value));
 			for (int i = 0; i < Array.getLength(value); i++) {
 				vals.add(Array.get(value, i));
 			}
@@ -67,9 +67,9 @@ public class BagWrapper extends BaseWrapper implements Wrapper {
 	@SuppressWarnings("unchecked")
 	public Object convert(Type type) throws ConversionException {
 		// First convert the elements in the bag to a List of Wrappers
-		List<Wrapper> vals = new ArrayList<Wrapper>();
-
-		for (Element e : element.elements("element")) {
+		List<Element> elements = element.elements("element");
+		List<Wrapper> vals = new ArrayList<Wrapper>(elements.size());
+		for (Element e : elements) {
 			vals.add(context.createWrapperFromElement(e.elements().get(0)));
 		}
 

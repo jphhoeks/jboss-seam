@@ -138,9 +138,9 @@ public class ExecutionHandler extends BaseRequestHandler implements RequestHandl
 	 */
 	private List<Call> unmarshalCalls(Element env) throws Exception {
 		try {
-			List<Call> calls = new ArrayList<Call>();
 
 			List<Element> callElements = env.element("body").elements("call");
+			List<Call> calls = new ArrayList<Call>(callElements.size());
 
 			for (Element e : callElements) {
 				Call call = new Call(e.attributeValue("id"), e.attributeValue("component"), e.attributeValue("method"));

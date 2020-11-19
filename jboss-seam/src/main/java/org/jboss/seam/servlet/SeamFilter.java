@@ -133,7 +133,7 @@ public class SeamFilter implements Filter {
 		// Do the sort
 		Sorter<Filter> sList = new Sorter<Filter>();
 		sortItems = sList.sort(sortItems);
-		List<Filter> sorted = new ArrayList<Filter>();
+		List<Filter> sorted = new ArrayList<Filter>(sortItems.size());
 		for (SortItem<Filter> si : sortItems) {
 			sorted.add(si.getObj());
 		}

@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -37,6 +36,7 @@ import org.jboss.seam.security.management.IdentityStore;
 import org.jboss.seam.security.management.JpaIdentityStore;
 import org.jboss.seam.security.permission.PermissionMetadata.ActionSet;
 import org.jboss.seam.util.AnnotatedBeanProperty;
+import org.jboss.seam.util.CollectionsUtils;
 
 /**
  * A permission store implementation that uses JPA as its persistence mechanism.
@@ -216,7 +216,7 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		}
 
 		if (targets != null) {
-			Set<String> identifiers = new HashSet<String>();
+			Set<String> identifiers = CollectionsUtils.newHashSet(targets.size());
 			for (Object t : targets) {
 				identifiers.add(identifierPolicy.getIdentifier(t));
 			}
@@ -557,7 +557,7 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		Map<String, Object> identifierCache = null;
 
 		if (targets != null) {
-			identifierCache = new HashMap<String, Object>();
+			identifierCache = CollectionsUtils.newHashMap(targets.size());
 
 			for (Object t : targets) {
 				identifierCache.put(identifierPolicy.getIdentifier(t), t);

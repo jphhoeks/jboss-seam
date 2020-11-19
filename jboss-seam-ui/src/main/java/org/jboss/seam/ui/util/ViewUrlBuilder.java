@@ -3,7 +3,6 @@ package org.jboss.seam.ui.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import org.jboss.seam.navigation.Page;
 import org.jboss.seam.navigation.Pages;
+import org.jboss.seam.util.CollectionsUtils;
 
 public class ViewUrlBuilder extends UrlBuilder {
 
@@ -58,10 +58,10 @@ public class ViewUrlBuilder extends UrlBuilder {
 	 * Converts Seam parameters Map <String,String> to JSF 2 Map<String,List<String>>
 	 */
 	private Map<String, List<String>> getParametersAsMap(Map<String, String> params) {
-		Map<String, List<String>> parameters = new HashMap<String, List<String>>();
+		Map<String, List<String>> parameters = CollectionsUtils.newHashMap(params.size());
 
 		for (Map.Entry<String, String> entry : params.entrySet()) {
-			List<String> list = new ArrayList<String>();
+			List<String> list = new ArrayList<String>(1);
 			list.add(entry.getValue());
 			parameters.put((entry.getKey()), list);
 		}

@@ -1300,7 +1300,7 @@ public class Pages {
 		Element redirect = element.element("redirect");
 		if (redirect != null) {
 			List<Element> children = redirect.elements("param");
-			final List<Param> params = new ArrayList<Param>();
+			final List<Param> params = new ArrayList<Param>(children.size());
 			for (Element child : children) {
 				params.add(parseParam(child, true));
 			}

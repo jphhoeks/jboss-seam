@@ -14,6 +14,7 @@ import java.util.zip.ZipFile;
 
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 
 /**
  * Implementation of {@link Scanner} which can scan a {@link URLClassLoader}
@@ -140,13 +141,7 @@ public class URLScanner extends AbstractScanner {
 		} catch (ZipException e) {
 			throw new RuntimeException("Error handling file " + file, e);
 		} finally {
-			if (zip != null) {
-				try {
-					zip.close();
-				} catch (IOException ignored) {
-					//
-				}
-			}
+			Resources.close(zip);
 		}
 	}
 

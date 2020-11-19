@@ -14,7 +14,7 @@ public class Sorter<T> {
 	public List<SortItem<T>> sort(List<SortItem<T>> lst) {
 
 		this.list = lst;
-		List<SortItem<T>> res = new ArrayList<SortItem<T>>();
+		List<SortItem<T>> res = new ArrayList<SortItem<T>>(lst.size());
 		SortItem<T> inmost = null;
 
 		do {

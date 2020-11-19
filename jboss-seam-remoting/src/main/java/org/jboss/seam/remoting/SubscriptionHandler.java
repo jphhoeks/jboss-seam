@@ -46,9 +46,9 @@ public class SubscriptionHandler extends BaseRequestHandler implements RequestHa
 		Element body = env.element("body");
 
 		// First handle any new subscriptions
-		List<SubscriptionRequest> requests = new ArrayList<SubscriptionRequest>();
 
 		List<Element> elements = body.elements("subscribe");
+		List<SubscriptionRequest> requests = new ArrayList<SubscriptionRequest>(elements.size());
 		for (Element e : elements) {
 			requests.add(new SubscriptionRequest(e.attributeValue("topic")));
 		}
@@ -65,9 +65,9 @@ public class SubscriptionHandler extends BaseRequestHandler implements RequestHa
 			}
 
 			// Then handle any unsubscriptions
-			List<String> unsubscribeTokens = new ArrayList<String>();
 
 			elements = body.elements("unsubscribe");
+			List<String> unsubscribeTokens = new ArrayList<String>(elements.size());
 			for (Element e : elements) {
 				unsubscribeTokens.add(e.attributeValue("token"));
 			}

@@ -769,33 +769,39 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 
 	@Override
 	public List<String> listUsers() {
-		return lookupEntityManager().createQuery("select u." + userPrincipalProperty.getName() + " from " + userClass.getName() + " u")
-				.getResultList();
+		return lookupEntityManager()
+			.createQuery("select u." + userPrincipalProperty.getName() + " from " + userClass.getName() + " u", String.class)
+			.getResultList();
 	}
 
 	@Override
 	public List<String> listUsers(String filter) {
 		return lookupEntityManager()
 				.createQuery("select u." + userPrincipalProperty.getName() + " from " + userClass.getName() + " u where lower("
-						+ userPrincipalProperty.getName() + ") like :username")
+						+ userPrincipalProperty.getName() + ") like :username", String.class)
 				.setParameter("username", "%" + (filter != null ? filter.toLowerCase() : "") + "%").getResultList();
 	}
 
 	@Override
 	public List<String> listRoles() {
-		return lookupEntityManager().createQuery("select r." + roleNameProperty.getName() + " from " + roleClass.getName() + " r")
+		return lookupEntityManager()
+				.createQuery("select r." + roleNameProperty.getName() + " from " + roleClass.getName() + " r", String.class)
 				.getResultList();
 	}
 
 	@Override
 	public List<Principal> listMembers(String role) {
-		List<Principal> members = new ArrayList<Principal>();
 
-		for (String user : listUserMembers(role)) {
+		List<String> userMembers = listUserMembers(role);
+		List<String> roleMembers = listRoleMembers(role);
+		
+		List<Principal> members = new ArrayList<Principal>(userMembers.size() + roleMembers.size());
+
+		for (String user : userMembers) {
 			members.add(new SimplePrincipal(user));
 		}
 
-		for (String roleName : listRoleMembers(role)) {
+		for (String roleName : roleMembers) {
 			members.add(new Role(roleName));
 		}
 
@@ -806,14 +812,16 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		Object roleEntity = lookupRole(role);
 
 		if (xrefClass == null) {
-			return lookupEntityManager().createQuery("select u." + userPrincipalProperty.getName() + " from " + userClass.getName()
-					+ " u where :role member of u." + userRolesProperty.getName()).setParameter("role", roleEntity).getResultList();
+			return lookupEntityManager()
+					.createQuery("select u." + userPrincipalProperty.getName() + " from " + userClass.getName()
+					+ " u where :role member of u." + userRolesProperty.getName(), String.class)
+					.setParameter("role", roleEntity).getResultList();
 		} else {
 			List xrefs = lookupEntityManager()
 					.createQuery("select x from " + xrefClass.getName() + " x where x." + xrefRoleProperty.getName() + " = :role")
 					.setParameter("role", roleEntity).getResultList();
 
-			List<String> members = new ArrayList<String>();
+			List<String> members = new ArrayList<String>(xrefs.size());
 
 			for (Object xref : xrefs) {
 				Object user = xrefUserProperty.getValue(xref);

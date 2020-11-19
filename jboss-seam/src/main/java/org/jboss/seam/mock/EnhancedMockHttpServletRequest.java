@@ -31,7 +31,6 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -55,6 +54,7 @@ import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
 import org.jboss.seam.util.CloneUtils;
+import org.jboss.seam.util.CollectionsUtils;
 
 /**
  * Mock implementation of the {@link javax.servlet.http.HttpServletRequest}
@@ -759,11 +759,9 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	}
 
 	public Map<String, String[]> getHeaders() {
-		Map<String, String[]> headerValues = new HashMap();
-
-		for (Object o : this.headers.entrySet()) {
-			Map.Entry<String, HeaderValueHolder> entry = (Map.Entry<String, HeaderValueHolder>) o;
-			String[] values = (String[]) entry.getValue().getValues().toArray(new String[entry.getValue().getValues().size()]);
+		Map<String, String[]> headerValues = CollectionsUtils.newHashMap(this.headers.size());
+		for (Map.Entry<String, HeaderValueHolder> entry : this.headers.entrySet()) {
+			String[] values = (String[]) entry.getValue().getValues().toArray(new String[0]);
 			headerValues.put(entry.getKey(), values);
 		}
 

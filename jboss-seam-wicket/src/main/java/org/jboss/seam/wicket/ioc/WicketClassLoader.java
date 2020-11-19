@@ -67,13 +67,16 @@ public class WicketClassLoader extends Loader {
 		if (log.isTraceEnabled()) {
 			log.trace("directory: " + file);
 		}
-		for (File child : file.listFiles()) {
-			String newPath = path == null ? child.getName() : path + '/' + child.getName();
-			if (child.isDirectory()) {
-				handleDirectory(child, newPath, collectedClasses);
-			} else {
-				if (newPath.endsWith(".class")) {
-					collectedClasses.add(filenameToClassname(newPath));
+		File[] files = file.listFiles();
+		if (files != null) {
+			for (File child : files) {
+				String newPath = path == null ? child.getName() : path + '/' + child.getName();
+				if (child.isDirectory()) {
+					handleDirectory(child, newPath, collectedClasses);
+				} else {
+					if (newPath.endsWith(".class")) {
+						collectedClasses.add(filenameToClassname(newPath));
+					}
 				}
 			}
 		}

@@ -102,6 +102,7 @@ import org.jboss.seam.intercept.Proxy;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.util.CloneUtils;
+import org.jboss.seam.util.CollectionsUtils;
 import org.jboss.seam.util.Conversions;
 import org.jboss.seam.util.Conversions.PropertyValue;
 import org.jboss.seam.util.Naming;
@@ -951,8 +952,8 @@ public class Component extends Model {
 	}
 
 	private List<Interceptor> newSort(List<Interceptor> list) {
-		List<SortItem<Interceptor>> siList = new ArrayList<SortItem<Interceptor>>();
-		Map<Class<?>, SortItem<Interceptor>> ht = new ConcurrentHashMap<Class<?>, SortItem<Interceptor>>();
+		List<SortItem<Interceptor>> siList = new ArrayList<SortItem<Interceptor>>(list.size());
+		Map<Class<?>, SortItem<Interceptor>> ht = CollectionsUtils.newConcurrentHashMap(list.size());
 
 		for (Interceptor i : list) {
 			SortItem<Interceptor> si = new SortItem<Interceptor>(i);

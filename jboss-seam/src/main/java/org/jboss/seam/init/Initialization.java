@@ -171,7 +171,7 @@ public class Initialization {
 			if (matcher.matches()) {
 				jarName = matcher.group(2);
 				fileName = matcher.group(3);
-				Set<String> documentNames = new HashSet<String>();
+				Set<String> documentNames = CollectionsUtils.newHashSet(duplicateJarPatterns.size());
 				for (Pattern duplicateJarPattern : duplicateJarPatterns) {
 					Matcher duplicateMatcher = duplicateJarPattern.matcher(jarName);
 
@@ -637,7 +637,7 @@ public class Initialization {
 			if (valueElements.size() != keyElements.size()) {
 				throw new IllegalArgumentException("value elements must match key elements: " + propName);
 			}
-			Map<String, String> keyedValues = new LinkedHashMap<String, String>();
+			Map<String, String> keyedValues = CollectionsUtils.newLinkedHashMap(keyElements.size());
 			for (int i = 0; i < keyElements.size(); i++) {
 				String key = trimmedText(keyElements.get(i), propName, replacements);
 				String value = trimmedText(valueElements.get(i), propName, replacements);

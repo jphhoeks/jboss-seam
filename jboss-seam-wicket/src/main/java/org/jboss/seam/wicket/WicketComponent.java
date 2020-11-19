@@ -222,7 +222,7 @@ public class WicketComponent<T> {
 		for (BijectedAttribute<Out> out : outAttributes) {
 			Object value = out.get(target);
 			if (value == null && out.getAnnotation().required()) {
-				throw new RequiredException("@Out attribute requires non-null value: " + out.toString());
+				throw new RequiredException("@Out attribute requires non-null value: " + out);
 			} else {
 				Component component = null;
 				if (out.getAnnotation().scope() == UNSPECIFIED) {
@@ -230,17 +230,17 @@ public class WicketComponent<T> {
 					if (value != null && component != null) {
 						if (!component.isInstance(value)) {
 							throw new IllegalArgumentException(
-									"attempted to bind an @Out attribute of the wrong type to: " + out.toString());
+									"attempted to bind an @Out attribute of the wrong type to: " + out);
 						}
 					}
 				} else if (out.getAnnotation().scope() == STATELESS) {
-					throw new IllegalArgumentException("cannot specify explicit scope=STATELESS on @Out: " + out.toString());
+					throw new IllegalArgumentException("cannot specify explicit scope=STATELESS on @Out: " + out);
 				}
 
 				ScopeType outScope = component == null ? out.getAnnotation().scope() : component.getScope();
 
 				if (outScope == null) {
-					throw new IllegalArgumentException("cannot determine scope to outject to on @Out: " + out.toString());
+					throw new IllegalArgumentException("cannot determine scope to outject to on @Out: " + out);
 				}
 
 				if (outScope.isContextActive()) {
@@ -364,10 +364,10 @@ public class WicketComponent<T> {
 			result = getInstanceInAllNamespaces(name, create);
 		} else {
 			if (in.getAnnotation().create()) {
-				throw new IllegalArgumentException("cannot combine create=true with explicit scope on @In: " + in.toString());
+				throw new IllegalArgumentException("cannot combine create=true with explicit scope on @In: " + in);
 			}
 			if (in.getAnnotation().scope() == STATELESS) {
-				throw new IllegalArgumentException("cannot specify explicit scope=STATELESS on @In: " + in.toString());
+				throw new IllegalArgumentException("cannot specify explicit scope=STATELESS on @In: " + in);
 			}
 
 			if (log.isTraceEnabled()) {

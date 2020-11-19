@@ -40,7 +40,7 @@ public final class RedirectNavigationHandler extends NavigationHandler {
 	public boolean navigate(FacesContext context) {
 		addFacesMessage(message, severity, control);
 
-		Map<String, Object> parameters = new HashMap<String, Object>();
+		Map<String, Object> parameters = new HashMap<String, Object>(params.size());
 		for (Param parameter : params) {
 			String value = parameter.getStringValueFromModel(context);
 			//render it even if the value is null, since we want it

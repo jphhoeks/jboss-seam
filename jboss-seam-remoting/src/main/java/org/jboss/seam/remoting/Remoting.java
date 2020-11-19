@@ -21,6 +21,7 @@ import org.jboss.seam.annotations.intercept.BypassInterceptors;
 import org.jboss.seam.contexts.ServletLifecycle;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.Resources;
 import org.jboss.seam.web.AbstractResource;
 
 /**
@@ -139,8 +140,9 @@ public class Remoting extends AbstractResource {
 	private void writeResource(String resourceName, HttpServletResponse response) throws IOException {
 		// Only allow resource requests for .js files
 		if (resourceName.endsWith(".js")) {
-			InputStream in = this.getClass().getClassLoader().getResourceAsStream("org/jboss/seam/remoting/" + resourceName);
+			InputStream in = null;
 			try {
+				in = this.getClass().getClassLoader().getResourceAsStream("org/jboss/seam/remoting/" + resourceName);
 				if (in != null) {
 					response.setContentType("text/javascript");
 
@@ -154,9 +156,7 @@ public class Remoting extends AbstractResource {
 					log.error(String.format("Resource [%s] not found.", resourceName));
 				}
 			} finally {
-				if (in != null) {
-					in.close();
-				}
+				Resources.close(in);
 			}
 		}
 	}

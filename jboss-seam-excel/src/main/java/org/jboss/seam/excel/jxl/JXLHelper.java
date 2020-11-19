@@ -499,7 +499,7 @@ public class JXLHelper {
 			throw new ExcelWorkbookException("No items in validation list");
 		}
 
-		List<String> validations = new ArrayList<String>();
+		List<String> validations = new ArrayList<String>(items.size());
 		for (UIListValidationItem item : items) {
 			validations.add(item.getValue());
 		}
