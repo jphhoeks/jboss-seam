@@ -12,9 +12,14 @@
     	<Bug pattern="RFI_SET_ACCESSIBLE" />
     </Match>
     
+	<!-- We need to maintain backwards compatibility, so API changes should be taken with extreme care -->
     <Match>
-    	<!-- We need to maintain backwards compatibility, so API changes should be taken with extreme care -->
     	<Bug pattern="OCP_OVERLY_CONCRETE_PARAMETER,FCCD_FIND_CLASS_CIRCULAR_DEPENDENCY,UP_UNUSED_PARAMETER,NM_SAME_SIMPLE_NAME_AS_SUPERCLASS,ACEM_ABSTRACT_CLASS_EMPTY_METHODS,EXS_EXCEPTION_SOFTENING_RETURN_FALSE,STT_STRING_PARSING_A_FIELD" />
+    </Match>
+    
+    <!-- We need to maintain backwards compatibility, so API changes should be taken with extreme care -->
+    <Match>
+    	<Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION,EXS_EXCEPTION_SOFTENING_HAS_CHECKED" />
     </Match>
     
     <Match>

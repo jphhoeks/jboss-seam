@@ -30,7 +30,6 @@
     	<exclude name="ReplaceEnumerationWithIterator" />
     	<exclude name="WhileLoopWithLiteralBoolean" />
     </rule>
-InterfaceGenerator
     <rule ref="category/java/errorprone.xml">
         <exclude name="AvoidDuplicateLiterals"/>
         <exclude name="AvoidFieldNameMatchingMethodName"/>
