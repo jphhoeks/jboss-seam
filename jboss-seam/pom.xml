@@ -161,17 +161,7 @@
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-core</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.infinispan</groupId>
-            <artifactId>infinispan-tree</artifactId>
-            <optional>true</optional>
-        </dependency>
-
+        
 
         <dependency>
             <groupId>org.hibernate</groupId>

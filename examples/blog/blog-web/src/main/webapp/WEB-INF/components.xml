@@ -30,7 +30,7 @@
       </theme:available-themes>
    </theme:theme-selector>
 
-   <cache:infinispan-cache-provider/>
+   <cache:eh-cache-provider/>
 
    <persistence:managed-persistence-context name="entityManager"
                                             auto-create="true"

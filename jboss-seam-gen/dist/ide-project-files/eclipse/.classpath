@@ -56,8 +56,6 @@
     <classpathentry kind="lib" path="lib/hibernate-validator.jar"/>
     <classpathentry kind="lib" path="lib/httpclient.jar"/>
     <classpathentry kind="lib" path="lib/httpcore.jar"/>
-    <classpathentry kind="lib" path="lib/infinispan-core.jar"/>
-    <classpathentry kind="lib" path="lib/infinispan-tree.jar"/>
     <classpathentry kind="lib" path="lib/itext.jar"/>
     <classpathentry kind="lib" path="lib/itext-rtf.jar"/>
     <classpathentry kind="lib" path="lib/jackrabbit-api.jar"/>

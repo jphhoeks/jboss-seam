@@ -56,7 +56,6 @@ public class BlogTest extends JUnitSeamTest {
                 .addAsResource("accessible.properties")
                 .addAsResource("default.properties")
                 .addAsResource("printable.properties")
-                .addAsResource("infinispan.xml")
                 .addAsResource("jgroupsConfig.xml")
                 
                 // manually copied from Web module, modified
