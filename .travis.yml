@@ -5,69 +5,13 @@ cache:
     - $HOME/.m2
 
 #using jobs instead
-#install: mvn install -DskipTests=true -Dgpg.skip=true -B -q
+install: mvn install -Dgpg.skip=true -Dmaven.javadoc.skip=true -Dcheckstyle.skip=true -B -V -Pquickrun,examples
 
 jdk:
   - openjdk8
+  - openjdk11
 
 before_script:
   - echo $HOME
   - echo $JAVA_OPTS
   - echo $MAVEN_OPTS
-
-install: true
-
-jobs:
-  fast_finish: true
-  include:
-    - stage: quick
-      script:  "mvn clean test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun"
-      name: "Seam Core: test-compile"
-      jdk: openjdk8
-    - script:  "mvn clean test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun"
-      name: "Seam Core: test-compile - jdk11"
-      env: CANFAIL=true
-      jdk: openjdk11
-    - script: "mvn test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,examples"
-      name: "Seam Core + examples: test-compile"
-      env: CANFAIL=true
-      jdk: openjdk8
-    - script: "mvn test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,examples"
-      name: "Seam Core + examples: test-compile -jdk11"
-      env: CANFAIL=true
-      jdk: openjdk11
-
-    - stage: long
-      script: "mvn verify -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun"
-      name: "Seam Core: verify"
-      jdk: openjdk8
-    - script: "mvn verify -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun"
-      name: "Seam Core: verify -jdk11"
-      env: CANFAIL=true
-      jdk: openjdk11
-    - script: "mvn package -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,examples"
-      name: "Seam Core + examples: verify"
-      env: CANFAIL=true
-      jdk: openjdk8
-    - script: "mvn package -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,examples"
-      name: "Seam Core + examples: verify -jdk11"
-      env: CANFAIL=true
-      jdk: openjdk11
-  allow_failures:
-    - jdk: openjdk8
-      env: CANFAIL=true
-    - jdk: openjdk11
-      env: CANFAIL=true
-#    - stage: integration
-#      script: "mvn test-compile -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,all"
-#      name: "Integration Wildfly 10"
-#    - script:
-#        - "docker-compose up as7"
-#        - "mvn package -Dcheckstyle.skip=true -Dgpg.skip=true -B -V -Pquickrun,all"
-#      name: "Integration JBoss AS 7"
-
-#    - stage: integration
-
-stages:
-  - quick
-  - long
