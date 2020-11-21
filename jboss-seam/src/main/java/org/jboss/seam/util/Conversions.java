@@ -19,35 +19,35 @@ public class Conversions {
 	private static final String EXPRESSION_MARKER = "#{";
 	private static final char EXPRESSION_ESCAPE_CHAR = '\\';
 
-	private static Map<Class, Converter> converters = new ConcurrentHashMap<Class, Converter>() {
-		{
-			put(String.class, new StringConverter());
-			put(Boolean.class, new BooleanConverter());
-			put(boolean.class, new BooleanConverter());
-			put(Integer.class, new IntegerConverter());
-			put(int.class, new IntegerConverter());
-			put(Long.class, new LongConverter());
-			put(long.class, new LongConverter());
-			put(Float.class, new FloatConverter());
-			put(float.class, new FloatConverter());
-			put(Double.class, new DoubleConverter());
-			put(double.class, new DoubleConverter());
-			put(Character.class, new CharacterConverter());
-			put(char.class, new CharacterConverter());
-			put(String[].class, new StringArrayConverter());
-			put(Set.class, new SetConverter());
-			put(List.class, new ListConverter());
-			put(Map.class, new MapConverter());
-			put(Properties.class, new PropertiesConverter());
-			//put(Date.class, new DateTimeConverter());
-			//put(Short.class, new ShortConverter());
-			//put(Byte.class, new ByteConverter());
-			put(Enum.class, new EnumConverter());
-			put(BigInteger.class, new BigIntegerConverter());
-			put(BigDecimal.class, new BigDecimalConverter());
-			put(Class.class, new ClassConverter());
-		}
-	};
+	private static Map<Class, Converter> converters = new ConcurrentHashMap<Class, Converter>();
+	
+	static {
+		converters.put(String.class, new StringConverter());
+		converters.put(Boolean.class, new BooleanConverter());
+		converters.put(boolean.class, new BooleanConverter());
+		converters.put(Integer.class, new IntegerConverter());
+		converters.put(int.class, new IntegerConverter());
+		converters.put(Long.class, new LongConverter());
+		converters.put(long.class, new LongConverter());
+		converters.put(Float.class, new FloatConverter());
+		converters.put(float.class, new FloatConverter());
+		converters.put(Double.class, new DoubleConverter());
+		converters.put(double.class, new DoubleConverter());
+		converters.put(Character.class, new CharacterConverter());
+		converters.put(char.class, new CharacterConverter());
+		converters.put(String[].class, new StringArrayConverter());
+		converters.put(Set.class, new SetConverter());
+		converters.put(List.class, new ListConverter());
+		converters.put(Map.class, new MapConverter());
+		converters.put(Properties.class, new PropertiesConverter());
+		//converters.put(Date.class, new DateTimeConverter());
+		//converters.put(Short.class, new ShortConverter());
+		//converters.put(Byte.class, new ByteConverter());
+		converters.put(Enum.class, new EnumConverter());
+		converters.put(BigInteger.class, new BigIntegerConverter());
+		converters.put(BigDecimal.class, new BigDecimalConverter());
+		converters.put(Class.class, new ClassConverter());
+	}
 
 	public static <Y> void putConverter(Class<Y> type, Converter<Y> converter) {
 		converters.put(type, converter);

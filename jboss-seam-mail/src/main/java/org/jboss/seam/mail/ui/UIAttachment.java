@@ -183,8 +183,8 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 	}
 
 	private String removePath(String fileName) {
-		if (fileName.lastIndexOf("/") > 0) {
-			return fileName.substring(fileName.lastIndexOf("/") + 1);
+		if (fileName.lastIndexOf('/') > 0) {
+			return fileName.substring(fileName.lastIndexOf('/') + 1);
 		} else {
 			return fileName;
 		}

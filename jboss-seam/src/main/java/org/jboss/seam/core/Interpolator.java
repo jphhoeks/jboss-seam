@@ -129,7 +129,8 @@ public class Interpolator {
 					if ("{".equals(nextTok)) {
 						++level;
 					} else if ("}".equals(nextTok)) {
-						if (--level == 0) {
+						level--;
+						if (level == 0) {
 							try {
 								if (params.length == 0) {
 									builder.append(expr.toString());

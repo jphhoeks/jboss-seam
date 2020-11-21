@@ -51,7 +51,7 @@ public class DeploymentDescriptor {
 			log.warn("Couldn't parse META-INF/orm.xml for component types ", e);
 		}
 		finally {
-			Resources.close(ejbJarXml);
+			Resources.close(ormXml);
 		}
 	}
 

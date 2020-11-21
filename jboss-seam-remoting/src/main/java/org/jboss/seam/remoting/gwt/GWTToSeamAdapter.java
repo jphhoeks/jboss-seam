@@ -106,8 +106,9 @@ public class GWTToSeamAdapter {
 	*/
 	private Method getMethod(String serviceName, String methodName, Class clz, Class[] paramTypes) {
 		String key = getKey(serviceName, methodName, paramTypes);
-		if (METHOD_CACHE.containsKey(key)) {
-			return (Method) METHOD_CACHE.get(key);
+		Method method = (Method)  METHOD_CACHE.get(key);
+		if (method != null) {
+			return method;
 		} else {
 			try {
 				synchronized (METHOD_CACHE) {
@@ -133,11 +134,11 @@ public class GWTToSeamAdapter {
 			return serviceName + "." + methodName;
 		} else {
 			StringBuilder pTypes = new StringBuilder();
-			pTypes.append(serviceName).append(".").append(methodName).append("(");
+			pTypes.append(serviceName).append('.').append(methodName).append('(');
 			for (Class paramType: paramTypes) {
 				pTypes.append(paramType.getName());
 			}
-			pTypes.append(")");
+			pTypes.append(')');
 			return pTypes.toString();
 		}
 

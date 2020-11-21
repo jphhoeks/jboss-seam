@@ -33,13 +33,13 @@ public class HomeTest {
 		try {
 			Class ec = new SimpleEntityHomeSansType().getEntityClass();
 			assert false : "Not expecting to have resolved a type, but got " + ec;
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException ignored) {
 		}
 
 		try {
 			Class ec = new EntityHome<SimpleEntity>().getEntityClass();
 			assert false : "Not expecting to have resolved a type, but got " + ec;
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException ignored) {
 		}
 
 		assert new SimpleHibernateEntityHomeWithType().getEntityClass() == SimpleEntity.class;
@@ -47,13 +47,13 @@ public class HomeTest {
 		try {
 			Class ec = new SimpleHibernateEntityHomeSansType().getEntityClass();
 			assert false : "Not expecting to have resolved a type, but got " + ec;
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException ignored) {
 		}
 
 		try {
 			Class ec = new HibernateEntityHome<SimpleEntity>().getEntityClass();
 			assert false : "Not expecting to have resolved a type, but got " + ec;
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException ignored) {
 		}
 
 		assert new Home<EntityManager, SimpleEntity>() {

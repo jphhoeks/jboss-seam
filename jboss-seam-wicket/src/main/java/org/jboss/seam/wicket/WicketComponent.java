@@ -206,7 +206,7 @@ public class WicketComponent<T> {
 		}
 
 		if (i > 1) {
-			this.enclosingInstanceVariableName = "this$" + (i - 2);
+			this.enclosingInstanceVariableName = "this$" + Integer.toString((i - 2));
 		}
 	}
 

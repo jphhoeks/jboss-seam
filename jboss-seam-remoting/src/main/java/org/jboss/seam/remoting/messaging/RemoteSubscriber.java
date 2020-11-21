@@ -18,7 +18,6 @@ public class RemoteSubscriber {
 	private String token;
 	private String topicName;
 
-	private Topic topic;
 	private TopicSession topicSession;
 	private TopicSubscriber subscriber;
 
@@ -37,7 +36,7 @@ public class RemoteSubscriber {
 
 	public void subscribe(TopicConnection conn) throws JMSException {
 		topicSession = conn.createTopicSession(false, javax.jms.Session.AUTO_ACKNOWLEDGE);
-		topic = topicSession.createTopic(topicName);
+		Topic topic = topicSession.createTopic(topicName);
 		subscriber = topicSession.createSubscriber(topic);
 	}
 

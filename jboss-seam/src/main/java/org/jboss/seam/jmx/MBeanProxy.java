@@ -87,15 +87,15 @@ public class MBeanProxy {
 			server.createMBean(instance.getName(), name);
 			return get(intrface, name, server);
 		} catch (ReflectionException e) {
-			throw createMBeanProxyCreationExceptionWithCause("Creating the MBean failed: " + e.toString(), e);
+			throw createMBeanProxyCreationExceptionWithCause("Creating the MBean failed: " + e.getMessage(), e);
 		} catch (InstanceAlreadyExistsException e) {
 			throw createMBeanProxyCreationExceptionWithCause("Instance already exists: " + name, e);
 		} catch (MBeanRegistrationException e) {
-			throw createMBeanProxyCreationExceptionWithCause("Error registering the MBean to the server: " + e.toString(), e);
+			throw createMBeanProxyCreationExceptionWithCause("Error registering the MBean to the server: " + e.getMessage(), e);
 		} catch (MBeanException e) {
 			throw createMBeanProxyCreationExceptionWithCause(e.toString(), e);
 		} catch (NotCompliantMBeanException e) {
-			throw createMBeanProxyCreationExceptionWithCause("Not a compliant MBean " + instance.getClass().getName() + ": " + e.toString(), e);
+			throw createMBeanProxyCreationExceptionWithCause("Not a compliant MBean " + instance.getClass().getName() + ": " + e.getMessage(), e);
 		}
 	}
 	

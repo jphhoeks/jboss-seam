@@ -49,17 +49,19 @@ public class Expressions implements Serializable {
 	// loading blacklisted patterns of non-valid EL expressions
 	static {
 		BufferedReader reader = null;
+		InputStream blacklistIS = null;
 		try {
-			InputStream blacklistIS = ResourceLoader.instance().getResourceAsStream("blacklist.properties");
+			blacklistIS = ResourceLoader.instance().getResourceAsStream("blacklist.properties");
 			reader = new BufferedReader(new InputStreamReader(blacklistIS));
-			String line;
-			while ((line = reader.readLine()) != null) {
+			String line = reader.readLine();
+			while (line != null) {
 				blacklist.add(line);
+				line = reader.readLine();
 			}
 		} catch (IOException e) {
 			log.warn("Black list of non-valid EL expressions was not found!");
 		} finally {
-			Resources.close(reader);
+			Resources.close(reader, blacklistIS);
 		}
 
 	}

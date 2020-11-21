@@ -229,12 +229,11 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 			}
 
 			return true;
-		} catch (Exception ex) {
-			if (ex instanceof IdentityManagementException) {
-				throw (IdentityManagementException) ex;
-			} else {
-				throw new IdentityManagementException("Could not create account", ex);
-			}
+		} catch (IdentityManagementException ex) {
+			throw ex;
+		}		
+		catch (Exception ex) {
+			throw new IdentityManagementException("Could not create account", ex);
 		}
 	}
 
@@ -463,12 +462,12 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 			persistEntity(instance);
 
 			return true;
-		} catch (Exception ex) {
-			if (ex instanceof IdentityManagementException) {
-				throw (IdentityManagementException) ex;
-			} else {
-				throw new IdentityManagementException("Could not create role", ex);
-			}
+		} 
+		catch (IdentityManagementException ex) {
+			throw ex;
+		}		
+		catch (Exception ex) {
+			throw new IdentityManagementException("Could not create role", ex);
 		}
 	}
 

@@ -37,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
+import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.IteratorEnumeration;
 
 /**
@@ -151,7 +152,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 	@Override
 	public Cookie[] getCookies() {
-		return cookies;
+		return CloneUtils.cloneArray(cookies);
 	}
 
 	@Override

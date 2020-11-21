@@ -201,8 +201,7 @@ public class PhaseListenerTest {
 
 		phases.afterPhase(new PhaseEvent(facesContext, PhaseId.RENDER_RESPONSE, MockLifecycle.INSTANCE));
 
-		assert ((FacesPage) getPageMap(facesContext).get(getPrefix() + Seam.getComponentName(FacesPage.class))).getConversationId()
-				.equals("2");
+		assert "2".equals(((FacesPage) getPageMap(facesContext).get(getPrefix() + Seam.getComponentName(FacesPage.class))).getConversationId());
 
 		assert !Contexts.isEventContextActive();
 		assert !Contexts.isSessionContextActive();

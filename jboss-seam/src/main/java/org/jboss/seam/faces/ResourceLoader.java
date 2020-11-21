@@ -35,13 +35,12 @@ public class ResourceLoader extends org.jboss.seam.core.ResourceLoader {
 		javax.faces.context.FacesContext context = javax.faces.context.FacesContext.getCurrentInstance();
 		if (context != null) {
 			stream = FacesResources.getResourceAsStream(resource, context.getExternalContext());
+			if (stream != null) {
+				return stream;
+			}
 		}
 
-		if (stream == null) {
-			stream = super.getResourceAsStream(resource);
-		}
-
-		return stream;
+		return super.getResourceAsStream(resource);
 	}
 
 	@Override

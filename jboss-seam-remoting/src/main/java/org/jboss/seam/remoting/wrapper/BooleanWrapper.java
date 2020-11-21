@@ -23,7 +23,7 @@ public class BooleanWrapper extends BaseWrapper implements Wrapper {
 		if (type.equals(Boolean.class) || type.equals(Object.class)) {
 			value = Boolean.valueOf(element.getStringValue());
 		} else if (type.equals(Boolean.TYPE)) {
-			value = Boolean.parseBoolean(element.getStringValue());
+			value = Boolean.valueOf(element.getStringValue());
 		} else {
 			throw new ConversionException(
 					String.format("Parameter [%s] cannot be converted to type [%s].", element.getStringValue(), type));

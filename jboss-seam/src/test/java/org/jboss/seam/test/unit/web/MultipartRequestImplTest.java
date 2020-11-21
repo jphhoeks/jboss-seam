@@ -34,8 +34,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jboss.seam.mock.EnhancedMockHttpServletRequest;
+import org.jboss.seam.util.Resources;
 import org.jboss.seam.web.MultipartRequestImpl;
 import org.testng.annotations.Test;
 
@@ -124,11 +126,11 @@ public class MultipartRequestImplTest {
 	*/
 	@Test
 	public void testParseRequestMissingParam() throws Throwable {
-
+		final InputStream stream = this.getClass().getClassLoader()
+				.getResourceAsStream("org/jboss/seam/test/unit/web/testMultiFileRequest.txt");
 		try {
 
-			final InputStream stream = this.getClass().getClassLoader()
-					.getResourceAsStream("org/jboss/seam/test/unit/web/testMultiFileRequest.txt");
+
 
 			assertNotNull(stream);
 
@@ -210,11 +212,14 @@ public class MultipartRequestImplTest {
 				expectedParamValues.remove(paramName);
 			}
 
-			if (expectedParamValues.size() > 0) {
-				log.error("" + expectedParamValues.size() + " expected parameters not parsed correctly:");
+			if (!expectedParamValues.isEmpty()) {
+				if (log.isEnabledFor(Level.ERROR)) {
+					log.error("" + expectedParamValues.size() + " expected parameters not parsed correctly:");
+				}
 				for (Entry<String, String> en : expectedParamValues.entrySet()) {
-
-					log.error("Expected parameter [" + en.getKey() + "], value [" + en.getValue() + "]");
+					if (log.isEnabledFor(Level.ERROR)) {
+						log.error("Expected parameter [" + en.getKey() + "], value [" + en.getValue() + "]");
+					}
 				}
 			}
 			assertEquals(expectedParamValues.size(), 0);
@@ -223,9 +228,12 @@ public class MultipartRequestImplTest {
 
 			assertNotNull(b);
 
-		} catch (final Throwable e) {
+		} catch (final Exception e) {
 			log.error(e.getMessage(), e);
 			throw e;
+		}
+		finally {
+			Resources.close(stream);
 		}
 
 	}
@@ -235,11 +243,11 @@ public class MultipartRequestImplTest {
 	*/
 	@Test
 	public void testParseRequestLoop() throws Throwable {
-
+		final InputStream stream = this.getClass().getClassLoader()
+				.getResourceAsStream("org/jboss/seam/test/unit/web/testMultiFileRequest2.txt");
 		try {
 
-			final InputStream stream = this.getClass().getClassLoader()
-					.getResourceAsStream("org/jboss/seam/test/unit/web/testMultiFileRequest2.txt");
+			
 
 			assertNotNull(stream);
 
@@ -319,19 +327,26 @@ public class MultipartRequestImplTest {
 				expectedParamValues.remove(paramName);
 			}
 
-			if (expectedParamValues.size() > 0) {
-				log.error("" + expectedParamValues.size() + " expected parameters not parsed correctly:");
+			if (!expectedParamValues.isEmpty()) {
+				if (log.isEnabledFor(Level.ERROR)) {
+					log.error("" + expectedParamValues.size() + " expected parameters not parsed correctly:");
+				}
 				for (Entry<String, String> en : expectedParamValues.entrySet()) {
-					log.error("Expected parameter [" + en.getKey() + "], value [" + en.getValue() + "]");
+					if (log.isEnabledFor(Level.ERROR)) {
+						log.error("Expected parameter [" + en.getKey() + "], value [" + en.getValue() + "]");
+					}
 				}
 			}
 			assertEquals(expectedParamValues.size(), 0);
 			byte[] b = r.getFileBytes("uploaded-files");
 			assertNotNull(b);
 
-		} catch (final Throwable e) {
+		} catch (final Exception e) {
 			log.error(e.getMessage(), e);
 			throw e;
+		}
+		finally {
+			Resources.close(stream);
 		}
 
 	}

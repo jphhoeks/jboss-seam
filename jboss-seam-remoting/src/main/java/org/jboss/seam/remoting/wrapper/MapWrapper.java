@@ -4,10 +4,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Element;
+import org.jboss.seam.util.CollectionsUtils;
 
 /**
  * @author Shane Bryzak
@@ -29,9 +30,13 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 	public void marshal(OutputStream out) throws IOException {
 		out.write(MAP_TAG_OPEN);
 
-		Map m = (Map) this.value;
+		Map<Object, Object> m = (Map) this.value;
 
-		for (Object key : m.keySet()) {
+		for (Map.Entry<Object, Object> entry: m.entrySet()) {
+			
+			Object key = entry.getKey();
+			Object value = entry.getValue();
+			
 			out.write(ELEMENT_TAG_OPEN);
 
 			out.write(KEY_TAG_OPEN);
@@ -39,7 +44,7 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 			out.write(KEY_TAG_CLOSE);
 
 			out.write(VALUE_TAG_OPEN);
-			context.createWrapperFromObject(m.get(key), String.format("%s[value]", path)).marshal(out);
+			context.createWrapperFromObject(value, String.format("%s[value]", path)).marshal(out);
 			out.write(VALUE_TAG_CLOSE);
 
 			out.write(ELEMENT_TAG_CLOSE);
@@ -84,9 +89,10 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 			throw new ConversionException(String.format("Cannot convert value to type [%s]", type));
 		}
 
+		List<Element> elements = element.elements("element");
 		// If we don't have a concrete type, default to creating a HashMap
 		if (typeClass == null || typeClass.isInterface()) {
-			value = new HashMap();
+			value = CollectionsUtils.newHashMap(elements.size());
 		} else {
 			try {
 				// Otherwise create an instance of the concrete type
@@ -100,7 +106,7 @@ public class MapWrapper extends BaseWrapper implements Wrapper {
 			}
 		}
 
-		for (Element e : element.elements("element")) {
+		for (Element e : elements) {
 			Element keyElement = e.element("k").elementIterator().next();
 			Element valueElement = e.element("v").elementIterator().next();
 

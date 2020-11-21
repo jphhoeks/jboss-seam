@@ -80,7 +80,8 @@ public class SafeActions {
 			}
 			reader = new BufferedReader(new InputStreamReader(is));
 			while (reader.ready()) {
-				if (reader.readLine().contains(action)) {
+				String line = reader.readLine();
+				if (line != null && line.contains(action)) {
 					addSafeAction(id);
 					return true;
 				}

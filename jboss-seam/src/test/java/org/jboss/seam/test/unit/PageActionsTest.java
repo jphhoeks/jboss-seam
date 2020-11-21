@@ -117,8 +117,8 @@ public class PageActionsTest extends AbstractPageTest {
 		Pages.instance().preRender(facesContext);
 		assertViewId(facesContext, "/action-test05.xhtml");
 		assertActionCalls(testActions, new String[] { "nonNullActionA" });
-		assert Contexts.getEventContext().get("lastRedirectViewId")
-				.equals("/pageA.xhtml") : "Expecting a redirect to /pageA.xhtml but redirected to "
+		assert "/pageA.xhtml".equals(Contexts.getEventContext().get("lastRedirectViewId"))
+				: "Expecting a redirect to /pageA.xhtml but redirected to "
 						+ Contexts.getEventContext().get("lastRedirectViewId");
 		assert facesContext.getResponseComplete() == true : "The response should have been marked as complete";
 	}
@@ -166,14 +166,14 @@ public class PageActionsTest extends AbstractPageTest {
 		assert actionsCalled.size() == methodNames.length : "Expected " + methodNames.length + " action(s) to be called, but executed "
 				+ actionsCalled.size() + " action(s) instead";
 		String expectedMethodCalls = "";
-		for (int i = 0, len = methodNames.length; i < len; i++) {
+		for (int i = 0; i < methodNames.length; i++) {
 			if (i > 0) {
 				expectedMethodCalls += ", ";
 			}
 			expectedMethodCalls += methodNames[i];
 		}
 		String actualMethodCalls = "";
-		for (int i = 0, len = actionsCalled.size(); i < len; i++) {
+		for (int i = 0; i < actionsCalled.size(); i++) {
 			if (i > 0) {
 				actualMethodCalls += ", ";
 			}

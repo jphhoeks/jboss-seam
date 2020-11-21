@@ -141,14 +141,20 @@ public class CSSParser {
 	* @throws IOException If the stream could not be read
 	*/
 	private static String readCSS(InputStream in) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		StringBuffer buffer = new StringBuffer();
-		String line;
-		while ((line = reader.readLine()) != null) {
-			buffer.append(line);
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new InputStreamReader(in));
+			StringBuffer buffer = new StringBuffer();
+			String line = reader.readLine();
+			while (line != null) {
+				buffer.append(line);
+				line = reader.readLine();
+			}
+			return buffer.toString();
 		}
-		Resources.close(reader);
-		return buffer.toString();
+		finally {
+			Resources.close(reader);
+		}
 	}
 
 	/**

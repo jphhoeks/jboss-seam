@@ -455,7 +455,7 @@ public class JavassistInstrumentor implements ClassFileTransformer {
 	@Override
 	public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain,
 			byte[] classfileBuffer) throws IllegalClassFormatException {
-		int index = className.lastIndexOf("/");
+		int index = className.lastIndexOf('/');
 		if (index < 1) {
 			return null;
 		}

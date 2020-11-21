@@ -71,7 +71,7 @@ public class AgentID implements ServerConstants {
 		try {
 			ObjectName name = new ObjectName(MBEAN_SERVER_DELEGATE);
 			return (String) server.getAttribute(name, "MBeanServerId");
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			throw new Error("Cannot find the MBean server delegate: " + t.toString(), t);
 		}
 	}

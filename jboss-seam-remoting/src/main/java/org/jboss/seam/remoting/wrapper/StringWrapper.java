@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,7 +58,7 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		converters.put(Integer.TYPE, new StringConverter() {
 			@Override
 			public Object convert(String value) {
-				return Integer.parseInt(value);
+				return Integer.valueOf(value);
 			}
 		});
 		converters.put(Long.class, new StringConverter() {
@@ -69,7 +70,7 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		converters.put(Long.TYPE, new StringConverter() {
 			@Override
 			public Object convert(String value) {
-				return Long.parseLong(value);
+				return Long.valueOf(value);
 			}
 		});
 		converters.put(Short.class, new StringConverter() {
@@ -81,7 +82,7 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		converters.put(Short.TYPE, new StringConverter() {
 			@Override
 			public Object convert(String value) {
-				return Short.parseShort(value);
+				return Short.valueOf(value);
 			}
 		});
 		converters.put(Boolean.class, new StringConverter() {
@@ -93,7 +94,7 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		converters.put(Boolean.TYPE, new StringConverter() {
 			@Override
 			public Object convert(String value) {
-				return Boolean.parseBoolean(value);
+				return Boolean.valueOf(value);
 			}
 		});
 		converters.put(Double.class, new StringConverter() {
@@ -105,7 +106,7 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		converters.put(Double.TYPE, new StringConverter() {
 			@Override
 			public Object convert(String value) {
-				return Double.parseDouble(value);
+				return Double.valueOf(value);
 			}
 		});
 		converters.put(Float.class, new StringConverter() {
@@ -141,7 +142,7 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		converters.put(Byte.TYPE, new StringConverter() {
 			@Override
 			public Object convert(String value) {
-				return Byte.parseByte(value);
+				return Byte.valueOf(value);
 			}
 		});
 		converters.put(BigInteger.class, new StringConverter() {
@@ -158,7 +159,7 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		});
 	}
 
-	public static final String DEFAULT_ENCODING = "UTF-8";
+	public static final String DEFAULT_ENCODING = StandardCharsets.UTF_8.name();
 
 	private static final byte[] STRING_TAG_OPEN = "<str>".getBytes();
 	private static final byte[] STRING_TAG_CLOSE = "</str>".getBytes();
@@ -177,8 +178,9 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		}
 
 		try {
-			if (converters.containsKey(type)) {
-				value = converters.get(type).convert(elementValue);
+			StringConverter converter = converters.get(type);
+			if (converter != null) {
+				value = converter.convert(elementValue);
 			}
 			else if (type instanceof Class && ((Class) type).isEnum()) {
 				value = Enum.valueOf((Class) type, elementValue);
@@ -213,8 +215,10 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		if (cls.isEnum()) {
 			try {
 				String elementValue = URLDecoder.decode(element.getStringValue(), DEFAULT_ENCODING);
-				Enum.valueOf(cls, elementValue);
-				return ConversionScore.compatible;
+				if (Enum.valueOf(cls, elementValue) != null) {
+					return ConversionScore.compatible;					
+				}
+				return ConversionScore.nomatch;
 			} catch (IllegalArgumentException ignored) {
 				//
 			} catch (UnsupportedEncodingException ignored) {

@@ -206,16 +206,16 @@ public class Pages {
 	* @param viewId a JSF view id
 	*/
 	public Page getPage(String viewId) {
-		if (viewId == null) {
-			//for tests
-			return new Page(viewId);
-		} else {
+		if (viewId != null) {
 			Page result = getCachedPage(viewId);
 			if (result == null) {
 				return createPage(viewId);
 			} else {
 				return result;
 			}
+		} else {
+			//for tests
+			return new Page(null);		
 		}
 	}
 
@@ -447,16 +447,16 @@ public class Pages {
 					.append("://")
 					.append(serverUrl.getHost());
 
-					if ("http".equals(scheme) && httpPort != null) {
-						sb.append(":").append(httpPort);
-					} else if ("https".equals(scheme) && httpsPort != null) {
-						sb.append(":").append(httpsPort);
+					if (httpPort != null && "http".equals(scheme)) {
+						sb.append(':').append(httpPort);
+					} else if (httpsPort != null && "https".equals(scheme)) {
+						sb.append(':').append(httpsPort);
 					} else if (serverUrl.getPort() != -1) {
-						sb.append(":").append(serverUrl.getPort());
+						sb.append(':').append(serverUrl.getPort());
 					}
 
 					if (!url.startsWith("/")) {
-						sb.append("/");
+						sb.append('/');
 					}
 
 					sb.append(url);
@@ -1336,7 +1336,10 @@ public class Pages {
 	}
 
 	private static ValueExpression<String> stringValueExpressionFor(String expr) {
-		return (ValueExpression<String>) ((expr == null) ? expr : Expressions.instance().createValueExpression(expr, String.class));
+		if (expr != null) {
+			return Expressions.instance().createValueExpression(expr, String.class);
+		}
+		return null;
 	}
 
 	public static Map<String, Severity> getFacesMessageValuesMap() {
@@ -1380,12 +1383,12 @@ public class Pages {
 	public static String getCurrentBaseName() {
 		String viewId = getViewId(FacesContext.getCurrentInstance());
 
-		int pos = viewId.lastIndexOf("/");
+		int pos = viewId.lastIndexOf('/');
 		if (pos != -1) {
 			viewId = viewId.substring(pos + 1);
 		}
 
-		pos = viewId.lastIndexOf(".");
+		pos = viewId.lastIndexOf('.');
 		if (pos != -1) {
 			viewId = viewId.substring(0, pos);
 		}

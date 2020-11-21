@@ -55,7 +55,7 @@ public class InterpolatorTest extends MockContainerTest {
 		try {
 			interpolator.interpolate("hello #{", (Object) null);
 			Assert.fail("interpolator not raised an exception");
-		} catch (Throwable t) {
+		} catch (Exception ignored) {
 
 		}
 	}

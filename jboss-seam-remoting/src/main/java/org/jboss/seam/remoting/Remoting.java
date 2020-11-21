@@ -74,13 +74,13 @@ public class Remoting extends AbstractResource {
 				sb.append("\";");
 				sb.append("\nSeam.Remoting.debug = ");
 				sb.append(getDebug() ? "true" : "false");
-				sb.append(";");
+				sb.append(';');
 				sb.append("\nSeam.Remoting.pollInterval = ");
 				sb.append(getPollInterval());
-				sb.append(";");
+				sb.append(';');
 				sb.append("\nSeam.Remoting.pollTimeout = ");
 				sb.append(getPollTimeout());
-				sb.append(";");
+				sb.append(';');
 
 				cachedConfig.put(contextPath, sb.toString().getBytes());
 			} finally {

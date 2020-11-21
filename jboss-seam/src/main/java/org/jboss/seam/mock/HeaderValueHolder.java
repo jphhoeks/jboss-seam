@@ -76,12 +76,15 @@ class HeaderValueHolder {
 	 *         found
 	 */
 	public static HeaderValueHolder getByName(Map headers, String name) {
-		for (Iterator it = headers.keySet().iterator(); it.hasNext();) {
-			String headerName = (String) it.next();
-			if (headerName.equalsIgnoreCase(name)) {
-				return (HeaderValueHolder) headers.get(headerName);
+		@SuppressWarnings("unchecked")
+		Map<String, HeaderValueHolder> m = headers;
+		for(Map.Entry<String, HeaderValueHolder> entry:  m.entrySet()) {
+			String headerName = entry.getKey();
+			if (headerName != null && headerName.equalsIgnoreCase(name)) {
+				return entry.getValue();
 			}
 		}
+
 		return null;
 	}
 

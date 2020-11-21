@@ -26,6 +26,7 @@ public class PropertyBuilders {
 				String indexedKey = CSSNames.COLUMN_WIDTHS + i;
 				if (COLUMN_WIDTH_WILDCARD.equals(value)) {
 					// Skip it, just moving along
+					continue;
 				} else if (isNumeric(value)) {
 					styleMap.put(indexedKey, Integer.parseInt(value));
 				} else {

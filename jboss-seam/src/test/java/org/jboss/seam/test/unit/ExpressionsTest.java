@@ -91,15 +91,18 @@ public class ExpressionsTest {
 
 		@Override
 		public Object getValue(ELContext elCtx, Object base, Object prop) {
-			if (base != null)
+			if (base != null) {
 				return null;
+			}
 
-			if (prop == null)
+			if (prop == null) {
 				throw new PropertyNotFoundException("No such property " + prop);
+			}
 
 			int idx = Arrays.binarySearch(IMPLICIT_OBJECT_NAMES, prop);
-			if (idx < 0)
+			if (idx < 0) {
 				return null;
+			}
 
 			FacesContext facesCtx = (FacesContext) elCtx.getContext(FacesContext.class);
 			ExternalContext extCtx = facesCtx.getExternalContext();

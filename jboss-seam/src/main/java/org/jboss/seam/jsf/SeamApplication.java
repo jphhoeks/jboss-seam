@@ -76,7 +76,7 @@ public class SeamApplication extends ApplicationWrapper {
 		return converter;
 	}
 
-	private class ConverterLocator {
+	private static class ConverterLocator {
 
 		private Map<Class<?>, String> converters;
 		private Class<?> targetClass;

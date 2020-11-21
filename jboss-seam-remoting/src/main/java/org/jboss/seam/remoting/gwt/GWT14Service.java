@@ -68,7 +68,7 @@ public class GWT14Service extends GWTService {
 			}
 		}
 
-		return (isException ? "//EX" : "//OK") + stream.toString();
+		return (isException ? "//EX" : "//OK") + stream;
 	}
 
 	@Override

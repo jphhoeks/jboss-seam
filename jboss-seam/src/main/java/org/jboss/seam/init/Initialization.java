@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -1086,7 +1085,7 @@ public class Initialization {
 					&& this.hotDeploymentStrategy.isFromHotDeployClassLoader(descriptor.getComponentClass())) {
 				Init.instance().addHotDeployableComponent(component.getName());
 			}
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			throw new RuntimeException("Could not create Component: " + name, e);
 		}
 	}

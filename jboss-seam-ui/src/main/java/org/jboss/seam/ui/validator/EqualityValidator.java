@@ -92,6 +92,7 @@ public class EqualityValidator implements Validator, StateHolder {
 		Object other = new OtherComponent(context, otherComponent).getValue();
 		if (value == null && other == null) {
 			// Thats fine
+			return;
 		} else if (value != null) {
 			switch (operator) {
 			case EQUAL:

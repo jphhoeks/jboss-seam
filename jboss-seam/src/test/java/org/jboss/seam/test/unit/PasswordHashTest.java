@@ -9,7 +9,7 @@ public class PasswordHashTest {
 	public void testMd5Hash() {
 		PasswordHash passwordHash = new PasswordHash();
 		String hash = passwordHash.generateHash("secret", "MD5");
-		assert hash.equals("Xr4ilOzQ4PCOq3aQ0qbuaQ==");
+		assert "Xr4ilOzQ4PCOq3aQ0qbuaQ==".equals(hash);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -17,6 +17,6 @@ public class PasswordHashTest {
 	public void testShaHash() {
 		PasswordHash passwordHash = new PasswordHash();
 		String hash = passwordHash.generateHash("secret", "SHA");
-		assert hash.equals("5en6G6MezRroT3XKqkdPOmY/BfQ=");
+		assert "5en6G6MezRroT3XKqkdPOmY/BfQ=".equals(hash);
 	}
 }

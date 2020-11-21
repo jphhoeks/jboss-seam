@@ -92,7 +92,7 @@ public class RuleBase {
 							}
 						}
 						finally {
-							Resources.close(dslReader, dslReader);
+							Resources.close(dslReader, drlReader);
 						}
 					}
 	

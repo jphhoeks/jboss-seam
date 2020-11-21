@@ -71,30 +71,30 @@ public class UIList extends ITextComponent {
 		listSymbol = (String) valueBinding(context, "listSymbol", listSymbol);
 
 		if (style != null) {
-			if (style.equalsIgnoreCase(STYLE_ROMAN)) {
+			if (STYLE_ROMAN.equalsIgnoreCase(style)) {
 				list = new RomanList((int) indent); // int? bug in text?
 				if (lowerCase != null) {
 					list.setLowercase(lowerCase);
 					// ((RomanList) list).setRomanLower(lowerCase);
 				}
-			} else if (style.equalsIgnoreCase(STYLE_GREEK)) {
+			} else if (STYLE_GREEK.equalsIgnoreCase(style)) {
 				list = new GreekList((int) indent); // int? bug in itext?
 
 				if (lowerCase != null) {
 					list.setLowercase(lowerCase);
 					// ((GreekList) list).setGreekLower(lowerCase);
 				}
-			} else if (style.equalsIgnoreCase(STYLE_DINGBATS)) {
+			} else if (STYLE_DINGBATS.equalsIgnoreCase(style)) {
 				charNumber = (Integer) valueBinding(context, "charNumber", charNumber);
 				list = new ZapfDingbatsList(charNumber, (int) indent);
-			} else if (style.equalsIgnoreCase(STYLE_DINGBATS_NUMBER)) {
+			} else if (STYLE_DINGBATS_NUMBER.equalsIgnoreCase(style)) {
 				numberType = (Integer) valueBinding(context, "numberType", numberType);
 				list = new ZapfDingbatsNumberList(numberType, (int) indent);
 
-			} else if (style.equalsIgnoreCase(STYLE_NUMBERED)) {
+			} else if (STYLE_NUMBERED.equalsIgnoreCase(style)) {
 				list = new List(true, indent);
 				// setFirst(int)
-			} else if (style.equalsIgnoreCase(STYLE_LETTERED)) {
+			} else if (STYLE_LETTERED.equalsIgnoreCase(style)) {
 				list = new List(false, true, indent);
 				// setFirst(char)
 			}

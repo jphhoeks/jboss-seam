@@ -78,8 +78,8 @@ public class InterceptorTest {
 			}
 		});
 		assert "foo".equals(result);
-		assert Contexts.getEventContext().get("otherString").equals("outAgain");
-		assert Contexts.getConversationContext().get("string").equals("out");
+		assert "outAgain".equals(Contexts.getEventContext().get("otherString"));
+		assert "out".equals(Contexts.getConversationContext().get("string"));
 		assert Contexts.getSessionContext().isSet("foo");
 		assert bar.foo == null;
 		assert bar.otherFoo == null;
@@ -133,7 +133,7 @@ public class InterceptorTest {
 			});
 			assert false;
 		} catch (Exception e) {
-			assert e instanceof RequiredException;
+			assert e instanceof RequiredException; // NOPMD
 		}
 
 		final Method method2;
@@ -168,7 +168,7 @@ public class InterceptorTest {
 			});
 			assert false;
 		} catch (Exception e) {
-			assert e instanceof RequiredException;
+			assert e instanceof RequiredException; //NOPMD
 		}
 
 		final Method method3;
@@ -201,7 +201,7 @@ public class InterceptorTest {
 
 		});
 		assert "success".equals(result);
-		assert Contexts.getConversationContext().get("name").equals("Gavin King");
+		assert "Gavin King".equals(Contexts.getConversationContext().get("name"));
 
 		ServletLifecycle.endApplication();
 	}
@@ -388,12 +388,15 @@ public class InterceptorTest {
 		invocationBControl.finish();
 		invocationCControl.finish();
 
-		if (thread1Exception.exception != null)
+		if (thread1Exception.exception != null) {
 			throw thread1Exception.exception;
-		if (thread2Exception.exception != null)
+		}
+		if (thread2Exception.exception != null) {
 			throw thread2Exception.exception;
-		if (thread3Exception.exception != null)
+		}
+		if (thread3Exception.exception != null) {
 			throw thread3Exception.exception;
+		}
 
 		Assert.assertEquals(invocationResults.get("A"), foo, "Injected value not accurate at end of method invocation A.");
 		Assert.assertEquals(invocationResults.get("B"), foo, "Injected value not accurate at end of method invocation B.");
@@ -499,7 +502,7 @@ public class InterceptorTest {
 		try {
 			cyclicFooProxy.getFooBar();
 			assert false : "cyclic dependency not detected";
-		} catch (CyclicDependencyException e) {
+		} catch (CyclicDependencyException ignored) {
 		}
 
 	}
@@ -511,7 +514,7 @@ public class InterceptorTest {
 		private final MockInvocationContext callProvideCyclicFooBar;
 		private final BijectionInterceptor cyclicBarBijectionInterceptor;
 
-		private CyclicBarProxy(MockInvocationContext callProvideCyclicFooBar, BijectionInterceptor cyclicBarBijectionInterceptor) {
+		CyclicBarProxy(MockInvocationContext callProvideCyclicFooBar, BijectionInterceptor cyclicBarBijectionInterceptor) {
 			this.callProvideCyclicFooBar = callProvideCyclicFooBar;
 			this.cyclicBarBijectionInterceptor = cyclicBarBijectionInterceptor;
 		}
@@ -881,7 +884,7 @@ public class InterceptorTest {
 			assert false;
 
 		} catch (Exception e) {
-			assert e instanceof NoConversationException;
+			assert e instanceof NoConversationException; //NOPMD
 		}
 
 		assert !Manager.instance().isLongRunningConversation();

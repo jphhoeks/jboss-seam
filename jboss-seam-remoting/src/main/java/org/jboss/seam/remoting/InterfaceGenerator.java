@@ -10,6 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -31,6 +32,7 @@ import org.jboss.seam.annotations.remoting.WebRemote;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.servlet.ContextualHttpServletRequest;
+import org.jboss.seam.util.CollectionsUtils;
 import org.jboss.seam.util.EJB;
 import org.jboss.seam.util.Reflections;
 import org.jboss.seam.web.ServletContexts;
@@ -53,6 +55,27 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 	 */
 	private Map<String, byte[]> interfaceCache = new HashMap<String, byte[]>();
 
+	private Set<Class> numberTypes = CollectionsUtils.unmodifiableSet(
+		Short.class, 
+		Short.TYPE, 
+		Integer.class, 
+		Integer.TYPE, 
+		Long.class, 
+		Long.TYPE, 
+		Float.class, 
+		Float.TYPE,
+		Double.class,
+		Double.TYPE,
+		Byte.class,
+		Byte.TYPE
+	);
+
+	
+	
+	public InterfaceGenerator() {
+		super();
+	}
+	
 	/**
 	 *
 	 * @param request HttpServletRequest
@@ -195,9 +218,7 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 								String propertyName = String.format("%s%s", Character.toLowerCase(m.getName().charAt(startIdx)),
 										m.getName().substring(startIdx + 1));
 
-								if (!properties.contains(propertyName)) {
-									properties.add(propertyName);
-								}
+								properties.add(propertyName);
 							}
 						}
 
@@ -312,7 +333,7 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 						if (i > 0) {
 							componentSrc.append(", ");
 						}
-						componentSrc.append("p");
+						componentSrc.append('p');
 						componentSrc.append(i);
 					}
 
@@ -329,7 +350,7 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 						if (i > 0) {
 							componentSrc.append(", ");
 						}
-						componentSrc.append("p");
+						componentSrc.append('p');
 						componentSrc.append(i);
 					}
 
@@ -545,7 +566,10 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 
 		boolean first = true;
 
-		for (String key : metadata.keySet()) {
+		
+		for (Map.Entry<String, String> entry: metadata.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
 			if (!first) {
 				typeSource.append(",\n");
 			}
@@ -553,7 +577,7 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 			typeSource.append("  {field: \"");
 			typeSource.append(key);
 			typeSource.append("\", type: \"");
-			typeSource.append(metadata.get(key));
+			typeSource.append(value);
 			typeSource.append("\"}");
 
 			first = false;
@@ -588,9 +612,7 @@ public class InterfaceGenerator extends BaseRequestHandler implements RequestHan
 			return "str";
 		} else if (type.equals(Boolean.class) || type.equals(Boolean.TYPE)) {
 			return "bool";
-		} else if (type.equals(Short.class) || type.equals(Short.TYPE) || type.equals(Integer.class) || type.equals(Integer.TYPE)
-				|| type.equals(Long.class) || type.equals(Long.TYPE) || type.equals(Float.class) || type.equals(Float.TYPE)
-				|| type.equals(Double.class) || type.equals(Double.TYPE) || type.equals(Byte.class) || type.equals(Byte.TYPE)) {
+		} else if (numberTypes.contains(type)) {
 			return "number";
 		} else if (type instanceof Class) {
 			Class cls = (Class) type;

@@ -713,7 +713,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 
 		sb.append("Could not locate requested method '");
 		sb.append(serviceMethodName);
-		sb.append("(");
+		sb.append('(');
 		for (int i = 0; i < parameterTypes.length; ++i) {
 			if (i > 0) {
 				sb.append(", ");
@@ -724,7 +724,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 
 		sb.append(" in interface '");
 		sb.append(printTypeName(serviceIntf));
-		sb.append("'");
+		sb.append('\'');
 
 		return sb.toString();
 	}
@@ -733,12 +733,12 @@ public abstract class GWTService extends AbstractResource implements Serializati
 		StringBuffer sb = new StringBuffer();
 		sb.append("Blocked attempt to access inaccessible method '");
 		sb.append(getSourceRepresentation(serviceMethod));
-		sb.append("'");
+		sb.append('\'');
 
 		if (target != null) {
 			sb.append(" on target '");
 			sb.append(printTypeName(target.getClass()));
-			sb.append("'");
+			sb.append('\'');
 		}
 
 		sb.append("; this is either misconfiguration or a hack attempt");
@@ -750,12 +750,12 @@ public abstract class GWTService extends AbstractResource implements Serializati
 		StringBuffer sb = new StringBuffer();
 		sb.append("Blocked attempt to invoke method '");
 		sb.append(getSourceRepresentation(serviceMethod));
-		sb.append("'");
+		sb.append('\'');
 
 		if (target != null) {
 			sb.append(" on target '");
 			sb.append(printTypeName(target.getClass()));
-			sb.append("'");
+			sb.append('\'');
 		}
 
 		sb.append(" with invalid arguments");

@@ -54,7 +54,8 @@ public class SeamFilter implements Filter {
 
 		@Override
 		public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException {
-			if (++index < filters.size()) {
+			index++;
+			if (index < filters.size()) {
 				Filter filter = filters.get(index);
 
 				if (filter instanceof AbstractFilter) {
