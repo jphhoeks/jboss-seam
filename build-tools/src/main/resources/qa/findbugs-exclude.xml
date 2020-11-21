@@ -19,13 +19,36 @@
     
     <!-- We need to maintain backwards compatibility, so API changes should be taken with extreme care -->
     <Match>
-    	<Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION,EXS_EXCEPTION_SOFTENING_HAS_CHECKED" />
+    	<Bug pattern="DRE_DECLARED_RUNTIME_EXCEPTION,EXS_EXCEPTION_SOFTENING_HAS_CHECKED,CFS_CONFUSING_FUNCTION_SEMANTICS,PCOA_PARTIALLY_CONSTRUCTED_OBJECT_ACCESS,BED_HIERARCHICAL_EXCEPTION_DECLARATION,TBP_TRISTATE_BOOLEAN_PATTERN" />
+    </Match>
+    <Match>
+    	<Bug pattern="MOM_MISLEADING_OVERLOAD_MODEL,BED_BOGUS_EXCEPTION_DECLARATION,CE_CLASS_ENVY"/>
     </Match>
     
     <Match>
     	<!--  Proxy for log in controller -->
     	<Class name="org.jboss.seam.framework.Controller"/>
     	<Bug pattern="SEAM_LOG_INJECTION"/>
+    </Match>
+    
+    <Match>
+    	<Bug pattern="SGSU_SUSPICIOUS_GETTER_SETTER_USE"/>
+    </Match>
+    
+    <!-- TODO Easy to fix but very much warnings -->
+    <Match>
+    	<Bug pattern="SPP_EQUALS_ON_ENUM,USBR_UNNECESSARY_STORE_BEFORE_RETURN"/>
+    </Match>
+    
+    <!--  TODO too much -->
+    
+    <Match>
+    	<Bug pattern="DC_PARTIALLY_CONSTRUCTED"/>
+    </Match>
+    
+    <!-- TODO String encoding and charsets -->
+    <Match>
+    	<Bug pattern="DM_DEFAULT_ENCODING,MDM_STRING_BYTES_ENCODING" />
     </Match>
     
     <!-- Tests -->
