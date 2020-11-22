@@ -51,6 +51,10 @@
     	<Bug pattern="DM_DEFAULT_ENCODING,MDM_STRING_BYTES_ENCODING" />
     </Match>
     
+    <Match>
+    	<Bug pattern="UTWR_USE_TRY_WITH_RESOURCES"/>
+    </Match>
+    
     <!-- Tests -->
 
     <!-- Classes that don't represent state don't need some methods -->
