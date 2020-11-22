@@ -148,10 +148,6 @@ public class UIMessage extends MailComponent {
 		}
 	}
 
-	@Override
-	public boolean getRendersChildren() {
-		return true;
-	}
 
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException {

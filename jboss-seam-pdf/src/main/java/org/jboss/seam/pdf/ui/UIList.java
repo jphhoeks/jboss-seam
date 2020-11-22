@@ -18,7 +18,7 @@ public class UIList extends ITextComponent {
 	String style;
 	String listSymbol;
 	float indent = 20;
-	Boolean lowerCase = false;
+	Boolean lowerCase = Boolean.FALSE;
 	Integer charNumber;
 	Integer numberType = 0;
 

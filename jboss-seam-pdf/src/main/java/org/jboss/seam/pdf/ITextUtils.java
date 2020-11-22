@@ -67,7 +67,7 @@ public class ITextUtils {
 		String[] parts = text.split("\\s");
 		float[] values = new float[parts.length];
 		for (int i = 0; i < parts.length; i++) {
-			values[i] = Float.valueOf(parts[i]);
+			values[i] = Float.parseFloat(parts[i]);
 		}
 
 		return values;
@@ -77,7 +77,7 @@ public class ITextUtils {
 		String[] parts = text.split("\\s");
 		int[] values = new int[parts.length];
 		for (int i = 0; i < parts.length; i++) {
-			values[i] = Integer.valueOf(parts[i]);
+			values[i] = Integer.parseInt(parts[i]);
 		}
 
 		return values;

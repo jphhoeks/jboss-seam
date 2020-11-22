@@ -239,9 +239,7 @@ public abstract class UICategoryChartBase extends UIChart {
 		if (plot instanceof CategoryPlot) {
 			configurePlot((CategoryPlot) plot);
 		} else {
-			if (log.isErrorEnabled()) {
-				log.error("UICATEGORYCHART --- unknown plot " + plot);
-			}
+			log.error("UICATEGORYCHART --- unknown plot #0", plot);
 		}
 	}
 

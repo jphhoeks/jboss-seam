@@ -335,7 +335,7 @@ public abstract class UIChart extends ITextComponent {
 	}
 
 	public PlotOrientation plotOrientation(String orientation) {
-		if (orientation != null && orientation.equalsIgnoreCase("horizontal")) {
+		if (orientation != null && "horizontal".equalsIgnoreCase(orientation)) {
 			return PlotOrientation.HORIZONTAL;
 		} else {
 			return PlotOrientation.VERTICAL;

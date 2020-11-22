@@ -81,7 +81,7 @@ public class UIForm extends FormComponent {
 
 		if (getExportKey() == null) {
 			UIComponent parent = getParent();
-			if (parent != null && (parent instanceof ValueHolder)) {
+			if (parent instanceof ValueHolder) {
 				log.debug("Storing PDF data in ValueHolder parent");
 				ValueHolder valueHolder = (ValueHolder) parent;
 				valueHolder.setValue(buffer.toByteArray());

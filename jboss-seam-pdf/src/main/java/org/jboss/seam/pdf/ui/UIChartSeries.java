@@ -143,9 +143,7 @@ public class UIChartSeries extends ITextComponent {
 				if (renderer instanceof AbstractRenderer) {
 					configureSeries((AbstractRenderer) renderer, seriesIndex);
 				} else {
-					if (log.isErrorEnabled()) {
-						log.error("render is not AbtractRenderer" + renderer);
-					}
+					log.error("render is not AbtractRenderer #0", renderer);
 				}
 
 			}

@@ -32,7 +32,7 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 	private String status;
 	private String disposition = "attachment";
 	
-	public class AttachmentStatus {
+	public static class AttachmentStatus {
 
 		private String contentId;
 		
@@ -83,7 +83,7 @@ public class UIAttachment extends MailComponent implements ValueHolder {
 			if (Reflections.isInstanceOf(this.getChildren().get(0).getClass(), "org.jboss.seam.pdf.ui.UIDocument")
 					|| Reflections.isInstanceOf(this.getChildren().get(0).getClass(), "org.jboss.seam.excel.ui.UIWorkbook")) {
 				Method method = Reflections.getSetterMethod(this.getChildren().get(0).getClass(), "sendRedirect");
-				Reflections.invokeAndWrap(method, this.getChildren().get(0), false);
+				Reflections.invokeAndWrap(method, this.getChildren().get(0), Boolean.FALSE);
 				JSF.renderChildren(context, this);
 			} else {
 				setValue(encode(context).getBytes());

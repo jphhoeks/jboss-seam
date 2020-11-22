@@ -24,10 +24,6 @@ public class UIHtmlText extends ITextComponent implements ValueHolder {
 		super();
 	}
 
-	@Override
-	public boolean getRendersChildren() {
-		return true;
-	}
 
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException {

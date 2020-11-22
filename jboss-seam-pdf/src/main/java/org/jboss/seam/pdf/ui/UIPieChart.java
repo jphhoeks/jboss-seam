@@ -267,7 +267,7 @@ public class UIPieChart extends UIChart {
 	}
 
 	public Rotation rotationValue(String value) {
-		if (value == null || value.equalsIgnoreCase("anticlockwise")) {
+		if (value == null || "anticlockwise".equalsIgnoreCase(value)) {
 			return Rotation.ANTICLOCKWISE;
 		} else {
 			return Rotation.CLOCKWISE;

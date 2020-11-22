@@ -75,7 +75,7 @@ public class UIField extends FormComponent {
 			if (!fieldMap.containsKey(theName)) {
 				log.warn("Could not find field '#0'. Found fields are", theName);
 				for (String key:  fieldMap.keySet()) {
-					log.warn(key);
+					log.warn("#0", key);
 				}
 				return;
 			}

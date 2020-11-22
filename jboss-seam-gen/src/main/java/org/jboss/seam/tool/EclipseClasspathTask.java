@@ -67,10 +67,12 @@ public class EclipseClasspathTask extends Task {
 					StandardOpenOption.TRUNCATE_EXISTING);
 			while (reader.ready()) {
 				String line = reader.readLine();
-				if (line.contains(filterProperty)) {
-					line = line.replace("@" + filterProperty + "@", eclipsepaths);
+				if (line != null) {
+					if (line.contains(filterProperty)) {
+						line = line.replace("@" + filterProperty + "@", eclipsepaths);
+					}
+					writer.write(line + "\r\n");
 				}
-				writer.write(line + "\r\n");
 			}
 			writer.flush();
 		} catch (IOException e) {
