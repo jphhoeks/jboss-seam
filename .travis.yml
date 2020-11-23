@@ -4,7 +4,7 @@ cache:
   directories:
     - $HOME/.m2
 
-#using jobs instead
+#
 install: mvn install -Dgpg.skip=true -Dmaven.javadoc.skip=true -Dcheckstyle.skip=true -B -V -Pquickrun,examples
 
 jdk:
