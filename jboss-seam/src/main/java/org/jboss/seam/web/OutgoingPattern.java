@@ -108,7 +108,7 @@ public class OutgoingPattern {
 
 		@Override
 		public String rewrite() {
-			StringBuffer res = new StringBuffer();
+			StringBuilder res = new StringBuilder();
 
 			int matchedPosition = 0;
 			for (String part : parts) {

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,6 +52,11 @@ public final class CollectionsUtils {
 	public static <K, V> HashMap<K, V> newHashMap(int expectedSize) {
 		return new HashMap<>(calculateInitialSizeForHashmaps(expectedSize));
 	}
+	
+
+	public static <K> Set<K> newLinkedHashSet(int expectedSize) {
+		return new LinkedHashSet<>(calculateInitialSizeForHashmaps(expectedSize));
+	}
 
 	private static int calculateInitialSizeForHashmaps(int expectedSize) {
 		if (expectedSize <= 0) {
@@ -67,5 +73,6 @@ public final class CollectionsUtils {
 		return Integer.MAX_VALUE;
 
 	}
+
 
 }

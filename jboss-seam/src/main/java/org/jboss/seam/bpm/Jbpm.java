@@ -7,7 +7,6 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -35,6 +34,7 @@ import org.jboss.seam.deployment.StandardDeploymentStrategy;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.util.CloneUtils;
+import org.jboss.seam.util.CollectionsUtils;
 import org.jboss.seam.util.Naming;
 import org.jboss.seam.util.Resources;
 import org.jbpm.JbpmConfiguration;
@@ -240,13 +240,21 @@ public class Jbpm {
 	}
 
 	private void installPageflowDefinitions() {
-		Set<String> mergedPageflowDefinitions = new LinkedHashSet<String>();
+		int size = 0;
+		if (pageflowDefinitions != null) {
+			size += pageflowDefinitions.length;
+		}
+		Set<FileDescriptor> fileDescriptors = ((PageflowDeploymentHandler) ((DeploymentStrategy) Contexts.getEventContext()
+				.get(StandardDeploymentStrategy.NAME)).getDeploymentHandlers().get(PageflowDeploymentHandler.NAME)).getResources();
+		size+=fileDescriptors.size();
+		
+		Set<String> mergedPageflowDefinitions = CollectionsUtils.newLinkedHashSet(size);
+		
 		if (pageflowDefinitions != null) {
 			mergedPageflowDefinitions.addAll(Arrays.asList(pageflowDefinitions));
 		}
 
-		for (FileDescriptor fileDescriptor : ((PageflowDeploymentHandler) ((DeploymentStrategy) Contexts.getEventContext()
-				.get(StandardDeploymentStrategy.NAME)).getDeploymentHandlers().get(PageflowDeploymentHandler.NAME)).getResources()) {
+		for (FileDescriptor fileDescriptor : fileDescriptors) {
 			mergedPageflowDefinitions.add(fileDescriptor.getName());
 		}
 
@@ -343,10 +351,8 @@ public class Jbpm {
 				return pageflow;
 			}
 			SeamExpressionSubProcessResolver SEAM_SUB_PROCESS_RESOLVER = new SeamExpressionSubProcessResolver();
-			if (SEAM_SUB_PROCESS_RESOLVER != null) {
-				return SEAM_SUB_PROCESS_RESOLVER.findSubProcess(element);
-			}
-			return DB_SUB_PROCESS_RESOLVER.findSubProcess(element);
+			return SEAM_SUB_PROCESS_RESOLVER.findSubProcess(element);
+
 		}
 	}
 

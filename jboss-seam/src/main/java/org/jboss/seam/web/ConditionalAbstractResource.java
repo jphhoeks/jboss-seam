@@ -254,7 +254,7 @@ public abstract class ConditionalAbstractResource extends AbstractResource {
 			MessageDigest md = MessageDigest.getInstance(algorithm);
 			md.update(bytes);
 			BigInteger number = new BigInteger(1, md.digest());
-			StringBuffer sb = new StringBuffer("0");
+			StringBuilder sb = new StringBuilder("0");
 			sb.append(number.toString(16));
 			return sb.toString();
 		} catch (Exception e) {

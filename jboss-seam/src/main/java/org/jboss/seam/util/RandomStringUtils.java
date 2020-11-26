@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.util;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 /**
@@ -43,7 +44,7 @@ public class RandomStringUtils {
 	 * to the random method so as to not return the same value in the 
 	 * same millisecond.</p>
 	 */
-	private static final Random RANDOM = new Random();
+	private static final SecureRandom RANDOM = new SecureRandom();
 
 	/**
 	 * <p><code>RandomStringUtils</code> instances should NOT be constructed in

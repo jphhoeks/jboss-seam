@@ -99,13 +99,13 @@ public abstract class StatusMessages implements Serializable {
 	public void addToControl(String id, Severity severity, String key, String messageTemplate, final Object... params) {
 		final StatusMessage message = new StatusMessage(severity, key, null, messageTemplate, null);
 		if (!message.isEmpty()) {
-			if (keyedMessages.containsKey(id)) {
-				keyedMessages.get(id).add(message);
-			} else {
-				List<StatusMessage> list = new ArrayList<StatusMessage>();
-				list.add(message);
-				keyedMessages.put(id, list);
+			List<StatusMessage> mess = keyedMessages.get(id);
+			if (mess == null) {
+				mess = new ArrayList<StatusMessage>();
+				keyedMessages.put(id,  mess);
 			}
+			mess.add(message);
+			
 			getTasks().add(new Runnable() {
 
 				@Override

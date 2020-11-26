@@ -71,7 +71,7 @@ public class DeploymentDescriptor {
 				if (ejbClass != null) {
 					info.setEjbClassName(ejbClass.getTextTrim());
 					Element sessionType = bean.element("session-type");
-					if (sessionType != null && sessionType.getTextTrim().equalsIgnoreCase("Stateful")) {
+					if (sessionType != null && "Stateful".equalsIgnoreCase(sessionType.getTextTrim())) {
 						info.setBeanType(ComponentType.STATEFUL_SESSION_BEAN);
 					} else {
 						info.setBeanType(ComponentType.STATELESS_SESSION_BEAN);

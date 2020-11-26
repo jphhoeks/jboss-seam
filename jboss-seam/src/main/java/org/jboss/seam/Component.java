@@ -2416,7 +2416,7 @@ public class Component extends Model {
 		public MapInitialValue(PropertyValue propertyValue, Class collectionClass, Type collectionType) {
 			super();
 			Map<String, String> expressions = propertyValue.getKeyedValues();
-			initialValues = new LinkedHashMap<InitialValue, InitialValue>(expressions.size());
+			initialValues = CollectionsUtils.newLinkedHashMap(expressions.size());
 			elementType = Reflections.getCollectionElementType(collectionType);
 			keyType = Reflections.getMapKeyType(collectionType);
 			if (propertyValue.getType() != null) {
@@ -2437,7 +2437,7 @@ public class Component extends Model {
 				if (collectionClass == SortedMap.class) {
 					result = new TreeMap();
 				} else {
-					result = new LinkedHashMap(initialValues.size());
+					result = CollectionsUtils.newLinkedHashMap(initialValues.size());
 				}
 			} else {
 				try {

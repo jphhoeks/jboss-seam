@@ -2,6 +2,7 @@ package org.jboss.seam.document;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
@@ -62,10 +63,10 @@ public class DocumentStorePhaseListener implements PhaseListener {
 				response.setContentType(documentData.getDocumentType().getMimeType());
 				if (isInternetExplorer(request)) {
 					response.setHeader("Content-Disposition", documentData.getDisposition() + "; filename=\""
-							+ URLEncoder.encode(documentData.getFileName(), "utf-8") + "\"");
+							+ URLEncoder.encode(documentData.getFileName(), StandardCharsets.UTF_8.name()) + "\"");
 				} else {
 					response.setHeader("Content-Disposition", documentData.getDisposition() + "; filename=\""
-							+ MimeUtility.encodeWord(documentData.getFileName(), "UTF-8", "Q") + "\"");
+							+ MimeUtility.encodeWord(documentData.getFileName(), StandardCharsets.UTF_8.name(), "Q") + "\"");
 				}
 
 				setHeadersForInternetExplorer(request, response);

@@ -67,7 +67,7 @@ public class DocumentStore implements Serializable {
 	}
 
 	public String preferredUrlForContent(String baseName, String extension, String contentId) {
-		StringBuffer url = new StringBuffer(baseUrlForContent(baseName, extension));
+		StringBuilder url = new StringBuilder(baseUrlForContent(baseName, extension));
 		if (url.toString().indexOf('?') >= 0) {
 			url.append("&docId=").append(contentId);
 		} else {

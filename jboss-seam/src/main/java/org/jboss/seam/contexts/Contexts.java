@@ -241,7 +241,7 @@ public class Contexts {
 	*/
 	static void destroy(Context context) {
 		if (Events.exists()) {
-			Events.instance().raiseEvent("org.jboss.seam.preDestroyContext." + context.getType().toString());
+			Events.instance().raiseEvent("org.jboss.seam.preDestroyContext." + context.getType());
 		}
 
 		Lifecycle.startDestroying();
@@ -267,7 +267,7 @@ public class Contexts {
 		}
 
 		if (Events.exists()) {
-			Events.instance().raiseEvent("org.jboss.seam.postDestroyContext." + context.getType().toString());
+			Events.instance().raiseEvent("org.jboss.seam.postDestroyContext." + context.getType());
 		}
 	}
 

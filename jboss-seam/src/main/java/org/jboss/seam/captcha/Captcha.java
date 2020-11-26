@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.util.Random;
+import java.security.SecureRandom;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -29,7 +29,7 @@ import org.jboss.seam.contexts.Contexts;
 public class Captcha implements Serializable {
 	private static final long serialVersionUID = -1253127365324079051L;
 
-	private static Random random = new Random(System.currentTimeMillis());
+	private static SecureRandom random = new SecureRandom();
 
 	private String correctResponse;
 	private String challenge;

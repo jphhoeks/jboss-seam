@@ -39,10 +39,10 @@ public class CSSParser {
 	private static final String STYLE_SHORTHAND_SEPARATOR = " ";
 
 	// What starts a rule block in a CSS file
-	private static final String LEFT_BRACE = "{";
+	private static final char LEFT_BRACE = '{';
 
 	// What ends a rule block in a CSS file
-	private static final String RIGHT_BRACE = "}";
+	private static final char RIGHT_BRACE = '}';
 
 	// The style classes that have been read in from e:link referenced, mapped on
 	// style class name
@@ -144,7 +144,7 @@ public class CSSParser {
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new InputStreamReader(in));
-			StringBuffer buffer = new StringBuffer();
+			StringBuilder buffer = new StringBuilder();
 			String line = reader.readLine();
 			while (line != null) {
 				buffer.append(line);
@@ -287,8 +287,9 @@ public class CSSParser {
 	* @return The style map of the component
 	*/
 	private StyleMap getStyleMap(UIComponent component) {
-		if (cellStyleCache.containsKey(component)) {
-			return cellStyleCache.get(component);
+		StyleMap cached = cellStyleCache.get(component);
+		if (cached != null) {
+			return cached;
 		}
 
 		StyleMap styleMap = new StyleMap();

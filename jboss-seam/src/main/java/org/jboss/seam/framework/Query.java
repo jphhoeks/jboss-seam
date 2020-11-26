@@ -26,8 +26,9 @@ import org.jboss.seam.util.Strings;
  * @author Gavin King
  *
  */
-public abstract class Query<T, E> extends PersistenceController<T> //TODO: extend MutableController!
-{
+//TODO: extend MutableController!
+public abstract class Query<T, E> extends PersistenceController<T> {
+
 	private static final long serialVersionUID = 1L;
 	private static final Pattern SUBJECT_PATTERN = Pattern.compile(
 			"^select\\s+((distinct)?\\s?\\w+(?:\\s*\\.\\s*\\w+)?)(?:\\s,\\s*(\\w+(?:\\s*\\.\\s*\\w+)?))?\\s+from",
@@ -229,7 +230,7 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 			Object parameterValue = restrictionParameters.get(i).getValue();
 			if (isRestrictionParameterSet(parameterValue)) {
 				if (WHERE_PATTERN.matcher(builder).find()) {
-					builder.append(" ").append(getRestrictionLogicOperator()).append(" ");
+					builder.append(' ').append(getRestrictionLogicOperator()).append(' ');
 				} else {
 					builder.append(" where ");
 				}
@@ -445,9 +446,9 @@ public abstract class Query<T, E> extends PersistenceController<T> //TODO: exten
 	private String sanitizeOrderDirection(String direction) {
 		if (Strings.isEmpty(direction)) {
 			return null;
-		} else if (direction.equalsIgnoreCase(DIR_ASC)) {
+		} else if (DIR_ASC.equalsIgnoreCase(direction)) {
 			return DIR_ASC;
-		} else if (direction.equalsIgnoreCase(DIR_DESC)) {
+		} else if (DIR_DESC.equalsIgnoreCase(direction)) {
 			return DIR_DESC;
 		} else {
 			throw new IllegalArgumentException("invalid order direction");

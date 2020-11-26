@@ -3,6 +3,7 @@ package org.jboss.seam.jmx;
 import java.net.InetAddress;
 import java.security.AccessController;
 import java.security.PrivilegedExceptionAction;
+import java.security.SecureRandom;
 import java.security.PrivilegedActionException;
 import java.util.Random;
 
@@ -28,7 +29,7 @@ public class AgentID implements ServerConstants {
 	// Static ----------------------------------------------------
 	private static SynchronizedLong id = new SynchronizedLong(0);
 
-	private static final Random rand = new Random(System.currentTimeMillis());
+	private static final SecureRandom rand = new SecureRandom();
 
 	/**
 	* Creates a new agent ID string. The identifier is of the form
@@ -72,7 +73,7 @@ public class AgentID implements ServerConstants {
 			ObjectName name = new ObjectName(MBEAN_SERVER_DELEGATE);
 			return (String) server.getAttribute(name, "MBeanServerId");
 		} catch (Exception t) {
-			throw new Error("Cannot find the MBean server delegate: " + t.toString(), t);
+			throw new Error("Cannot find the MBean server delegate: ", t);
 		}
 	}
 }

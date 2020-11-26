@@ -28,7 +28,7 @@ public class PropertyBuilders {
 					// Skip it, just moving along
 					continue;
 				} else if (isNumeric(value)) {
-					styleMap.put(indexedKey, Integer.parseInt(value));
+					styleMap.put(indexedKey, Integer.valueOf(value));
 				} else {
 					String message = Interpolator.instance().interpolate("Column widths must be numerical or *, not #0", value);
 					throw new ExcelWorkbookException(message);
@@ -192,7 +192,7 @@ public class PropertyBuilders {
 	}
 
 	private static String collectString(String[] values, String delimiter) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		for (int i = 0; i < values.length; i++) {
 			if (i > 0) {
 				buffer.append(delimiter);
@@ -238,8 +238,8 @@ public class PropertyBuilders {
 			StyleMap styleMap = new StyleMap();
 
 			String valueString = collectString(values, " ");
-			int firstQuote = valueString.indexOf("'");
-			int lastQuote = valueString.lastIndexOf("'");
+			int firstQuote = valueString.indexOf('\'');
+			int lastQuote = valueString.lastIndexOf('\'');
 			if (firstQuote > 0 && lastQuote > 0 && firstQuote != lastQuote) {
 				String fontName = valueString.substring(firstQuote, lastQuote);
 				styleMap.put(CSSNames.FONT_FAMILY, fontName);
@@ -263,7 +263,7 @@ public class PropertyBuilders {
 				} else if ("struck_out".equalsIgnoreCase(value)) {
 					styleMap.put(CSSNames.FONT_STRUCK_OUT, Boolean.TRUE);
 				} else if (isNumeric(value)) {
-					styleMap.put(CSSNames.FONT_SIZE, Integer.parseInt(value));
+					styleMap.put(CSSNames.FONT_SIZE, Integer.valueOf(value));
 				} else {
 					styleMap.put(CSSNames.FONT_FAMILY, value);
 				}
@@ -328,7 +328,7 @@ public class PropertyBuilders {
 				throw new ExcelWorkbookException(message);
 			}
 			StyleMap styleMap = new StyleMap();
-			styleMap.put(key, Integer.parseInt(value));
+			styleMap.put(key, Integer.valueOf(value));
 			return styleMap;
 		}
 	}
@@ -342,7 +342,7 @@ public class PropertyBuilders {
 				throw new ExcelWorkbookException(message);
 			}
 			StyleMap styleMap = new StyleMap();
-			styleMap.put(key, Boolean.parseBoolean(value));
+			styleMap.put(key, Boolean.valueOf(value)); 
 			return styleMap;
 		}
 	}

@@ -58,7 +58,7 @@ public class CyclicDependencyException extends IllegalStateException {
 	 */
 	private String createInvocationLabel(String componentName, Method method) {
 		StringBuilder invocationLabel = new StringBuilder(); 
-		invocationLabel.append(componentName).append(".").append(method.getName()).append("(");
+		invocationLabel.append(componentName).append('.').append(method.getName()).append('(');
 		int i = 1;
 		for (Class<?> parameterType : method.getParameterTypes()) {
 			invocationLabel.append(parameterType.getSimpleName());
@@ -67,7 +67,7 @@ public class CyclicDependencyException extends IllegalStateException {
 			}
 			i++;
 		}
-		invocationLabel.append(")");
+		invocationLabel.append(')');
 		return invocationLabel.toString();
 	}
 

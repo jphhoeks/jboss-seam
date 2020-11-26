@@ -173,7 +173,7 @@ public class RootInterceptor implements Serializable {
 	}
 
 	private boolean isClearDirtyMethod(Method method, Object bean) {
-		return bean instanceof Mutable && method != null && method.getName().equals("clearDirty") && method.getParameterTypes().length == 0;
+		return bean instanceof Mutable && method != null && "clearDirty".equals(method.getName()) && method.getParameterTypes().length == 0;
 	}
 
 	protected Component getComponent() {

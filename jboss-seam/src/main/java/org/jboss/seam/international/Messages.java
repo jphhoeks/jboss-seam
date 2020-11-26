@@ -54,12 +54,10 @@ public class Messages {
 					String resource;
 					try {
 						resource = bundle.getString(resourceKey);
+						return (resource == null) ? resourceKey : resource;
 					} catch (MissingResourceException mre) {
 						return resourceKey;
 					}
-
-					return (resource == null) ? resourceKey : resource;
-
 				} else {
 					return null;
 				}

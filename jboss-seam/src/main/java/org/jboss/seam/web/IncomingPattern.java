@@ -25,7 +25,7 @@ public class IncomingPattern {
 	}
 
 	public void parsePattern(String value) {
-		StringBuffer expr = new StringBuffer();
+		StringBuilder expr = new StringBuilder();
 
 		expr.append("^");
 		while (value.length() > 0) {
@@ -55,7 +55,7 @@ public class IncomingPattern {
 	}
 
 	private String regexpLiteral(String value) {
-		StringBuffer res = new StringBuffer();
+		StringBuilder res = new StringBuilder();
 		for (int i = 0; i < value.length(); i++) {
 			char c = value.charAt(i);
 
@@ -122,7 +122,7 @@ public class IncomingPattern {
 
 		@Override
 		public String rewrite() {
-			StringBuffer result = new StringBuffer();
+			StringBuilder result = new StringBuilder();
 
 			result.append(mappedURL(view));
 

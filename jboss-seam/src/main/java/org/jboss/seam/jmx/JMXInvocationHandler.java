@@ -125,7 +125,7 @@ public class JMXInvocationHandler implements ProxyContext, InvocationHandler, Se
 				}
 			}
 		} catch (InstanceNotFoundException e) {
-			throw MBeanProxy.createMBeanProxyCreationExceptionWithCause("Object name " + name + " not found: " + e.toString(), e);
+			throw MBeanProxy.createMBeanProxyCreationExceptionWithCause("Object name " + name + " not found: " + e, e);
 		} catch (IntrospectionException | ReflectionException e) {
 			throw MBeanProxy.createMBeanProxyCreationExceptionWithCause(e.toString(), e);
 		}

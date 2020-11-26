@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +56,7 @@ public class URLScanner extends AbstractScanner {
 				Enumeration<URL> urlEnum = getDeploymentStrategy().getClassLoader().getResources(resourceName);
 				while (urlEnum.hasMoreElements()) {
 					String urlPath = urlEnum.nextElement().getFile();
-					urlPath = URLDecoder.decode(urlPath, "UTF-8");
+					urlPath = URLDecoder.decode(urlPath, StandardCharsets.UTF_8.name());
 					if (urlPath.startsWith("file:")) {
 						urlPath = urlPath.substring(5);
 					}
@@ -162,16 +163,18 @@ public class URLScanner extends AbstractScanner {
 		if (log.isTraceEnabled()) {
 			log.trace("handling directory: " + file);
 		}
-		for (File child : file.listFiles()) {
-			String newPath = path == null ? child.getName() : path + '/' + child.getName();
-			if (child.isDirectory()) {
-				if (omitPackage.acceptPackage(newPath)) {
-					handleDirectory(child, newPath, excludedDirectories);
-				}
-			} else {
-				if (handle(newPath)) {
-					// only try to update the timestamp on this scanner if the file was actually handled
-					touchTimestamp(child);
+		if (file.listFiles() != null) {
+			for (File child : file.listFiles()) {
+				String newPath = path == null ? child.getName() : path + '/' + child.getName();
+				if (child.isDirectory()) {
+					if (omitPackage.acceptPackage(newPath)) {
+						handleDirectory(child, newPath, excludedDirectories);
+					}
+				} else {
+					if (handle(newPath)) {
+						// only try to update the timestamp on this scanner if the file was actually handled
+						touchTimestamp(child);
+					}
 				}
 			}
 		}

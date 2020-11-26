@@ -48,7 +48,7 @@ public class BinTools {
 		if (b == null) {
 			return "";
 		}
-		StringBuffer sb = new StringBuffer(2 * b.length);
+		StringBuilder sb = new StringBuilder(2 * b.length);
 		for (int i = 0; i < b.length; i++) {
 			int v = (256 + b[i]) % 256;
 			sb.append(hex.charAt((v / 16) & 15));

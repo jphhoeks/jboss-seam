@@ -80,7 +80,7 @@ public class MultipartRequestImplTest {
 
 		// let's put test parameter near the buffer boundary, from (bufferSize - 100) to (bufferSize + 100)
 		for (int i = -100; i < 100; i++) {
-			StringBuffer buffer = new StringBuffer(bufferSize + 256);
+			StringBuilder buffer = new StringBuilder(bufferSize + 256);
 			buffer.append(paddingParameter);
 			int paddingSize = bufferSize - i - paddingParameter.length() - CRLF.length();
 			appendPaddingValue(buffer, paddingSize);
@@ -99,7 +99,7 @@ public class MultipartRequestImplTest {
 		}
 	}
 
-	private static StringBuffer appendPaddingValue(StringBuffer buffer, int length) {
+	private static StringBuilder appendPaddingValue(StringBuilder buffer, int length) {
 		for (int i = 0; i < length; i++) {
 			buffer.append("x");
 		}

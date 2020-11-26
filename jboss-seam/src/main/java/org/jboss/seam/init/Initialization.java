@@ -456,9 +456,9 @@ public class Initialization {
 		int precedence = precedenceString == null ? Install.APPLICATION : Integer.parseInt(precedenceString);
 		ScopeType scope = scopeName == null ? null : ScopeType.valueOf(scopeName.toUpperCase(Locale.ENGLISH));
 		String autocreateAttribute = component.attributeValue("auto-create");
-		Boolean autoCreate = autocreateAttribute == null ? null : Boolean.parseBoolean(autocreateAttribute);
+		Boolean autoCreate = autocreateAttribute == null ? null : Boolean.valueOf(autocreateAttribute);
 		String startupAttribute = component.attributeValue("startup");
-		Boolean startup = startupAttribute == null ? null : Boolean.parseBoolean(startupAttribute);
+		Boolean startup = startupAttribute == null ? null : Boolean.valueOf(startupAttribute);
 		String startupDependsAttribute = component.attributeValue("startupDepends");
 		String[] startupDepends = startupDependsAttribute == null ? new String[0] : startupDependsAttribute.split(" ");
 

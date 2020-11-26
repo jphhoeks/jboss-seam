@@ -709,7 +709,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 	}
 
 	private static String formatMethodNotFoundErrorMessage(Class<?> serviceIntf, String serviceMethodName, Class<?>[] parameterTypes) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		sb.append("Could not locate requested method '");
 		sb.append(serviceMethodName);
@@ -730,7 +730,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 	}
 
 	private static String formatIllegalAccessErrorMessage(Object target, Method serviceMethod) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("Blocked attempt to access inaccessible method '");
 		sb.append(getSourceRepresentation(serviceMethod));
 		sb.append('\'');
@@ -747,7 +747,7 @@ public abstract class GWTService extends AbstractResource implements Serializati
 	}
 
 	private static String formatIllegalArgumentErrorMessage(Object target, Method serviceMethod, Object[] args) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("Blocked attempt to invoke method '");
 		sb.append(getSourceRepresentation(serviceMethod));
 		sb.append('\'');

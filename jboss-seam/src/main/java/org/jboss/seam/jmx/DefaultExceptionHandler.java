@@ -31,18 +31,18 @@ public class DefaultExceptionHandler implements ProxyExceptionHandler {
 
 	@Override
 	public Object handleInstanceNotFound(ProxyContext ctx, InstanceNotFoundException e, Method m, Object[] args) throws Exception {
-		throw new RuntimeProxyException("Instance not found: " + e.toString());
+		throw new RuntimeProxyException("Instance not found: " + e);
 	}
 
 	@Override
 	public Object handleAttributeNotFound(ProxyContext ctx, AttributeNotFoundException e, Method m, Object[] args) throws Exception {
-		throw new RuntimeProxyException("Attribute not found: " + e.toString());
+		throw new RuntimeProxyException("Attribute not found: " + e);
 	}
 
 	@Override
 	public Object handleInvalidAttributeValue(ProxyContext ctx, InvalidAttributeValueException e, Method m, Object[] args)
 			throws Exception {
-		throw new RuntimeProxyException("Invalid attribute value: " + e.toString());
+		throw new RuntimeProxyException("Invalid attribute value: " + e);
 	}
 
 	@Override

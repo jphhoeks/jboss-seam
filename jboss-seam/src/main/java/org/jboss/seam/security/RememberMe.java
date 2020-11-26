@@ -5,9 +5,9 @@ import static org.jboss.seam.annotations.Install.BUILT_IN;
 
 import java.io.Serializable;
 import java.rmi.server.UID;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.faces.context.FacesContext;
 
@@ -50,7 +50,7 @@ public class RememberMe implements Serializable {
 
 	private boolean autoLoggedIn;
 
-	private Random random = new Random(System.currentTimeMillis());
+	private SecureRandom random = new SecureRandom();
 
 	public enum Mode {
 		disabled, usernameOnly, autoLogin
@@ -103,7 +103,7 @@ public class RememberMe implements Serializable {
 		}
 	}
 
-	private class DecodedToken {
+	private static class DecodedToken {
 		private String username;
 		private String value;
 
@@ -256,7 +256,7 @@ public class RememberMe implements Serializable {
 	/**
 	* I hate these hacks... 
 	*/
-	private class BoolWrapper {
+	private static class BoolWrapper {
 		boolean value;
 		private BoolWrapper() {
 			super();

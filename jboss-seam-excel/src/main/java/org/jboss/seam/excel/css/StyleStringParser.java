@@ -36,7 +36,7 @@ public class StyleStringParser {
 		int keyValueBreakpointIndex = styleString.indexOf(KEY_VALUE_SEPARATOR);
 		if (keyValueBreakpointIndex < 0) {
 			if (log.isWarnEnabled()) {
-				log.warn("Key-value separator character #0 not found in style #1, dropping", KEY_VALUE_SEPARATOR + styleBuilder.toString());
+				log.warn("Key-value separator character #0 not found in style #1, dropping", KEY_VALUE_SEPARATOR + styleBuilder);
 			}
 			return;
 		}

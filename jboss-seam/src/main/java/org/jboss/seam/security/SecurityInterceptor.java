@@ -34,7 +34,7 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 	*/
 	private transient volatile Map<Method, Restriction> restrictions = new HashMap<Method, Restriction>();
 
-	private class Restriction {
+	private static class Restriction {
 		private String expression;
 
 		private String permissionTarget;
@@ -100,14 +100,15 @@ public class SecurityInterceptor extends AbstractInterceptor implements Serializ
 				}
 
 				if (methodRestrictions != null) {
-					for (String action : methodRestrictions.keySet()) {
-						Identity.instance().checkPermission(methodRestrictions.get(action), action);
+					for (Map.Entry<String, Object> entry: methodRestrictions.entrySet()) {
+						Identity.instance().checkPermission(entry.getValue(), entry.getKey());
 					}
 				}
 
 				if (paramRestrictions != null) {
-					for (Integer idx : paramRestrictions.keySet()) {
-						Set<String> actions = paramRestrictions.get(idx);
+					for (Map.Entry<Integer, Set<String>> entry: paramRestrictions.entrySet() ) {
+						Integer idx = entry.getKey();
+						Set<String> actions = entry.getValue();
 						for (String action : actions) {
 							Identity.instance().checkPermission(parameters[idx], action);
 						}

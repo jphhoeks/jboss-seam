@@ -189,16 +189,15 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 	}
 
 	public static class QuartzJob implements Job {
-		private Asynchronous async;
 
 		public QuartzJob() {
-			//
+			super();
 		}
 
 		@Override
 		public void execute(JobExecutionContext context) throws JobExecutionException {
 			JobDataMap dataMap = context.getJobDetail().getJobDataMap();
-			async = (Asynchronous) dataMap.get("async");
+			Asynchronous async = (Asynchronous) dataMap.get("async");
 			QuartzTriggerHandle handle = new QuartzTriggerHandle(context.getTrigger().getName());
 			try {
 				async.execute(handle);

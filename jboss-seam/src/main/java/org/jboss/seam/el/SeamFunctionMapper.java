@@ -73,14 +73,11 @@ public class SeamFunctionMapper extends ExtendedFunctionMapper {
 		try {
 			Method m = cls.getMethod(name, params);
 
-			List<Method> methods;
-			if (methodCache.containsKey(localName)) {
-				methods = methodCache.get(localName);
-			} else {
+			List<Method> methods = methodCache.get(localName);
+			if (methods == null) {
 				methods = new ArrayList<Method>();
 				methodCache.put(localName, methods);
 			}
-
 			methods.add(m);
 		} catch (NoSuchMethodException ex) {
 			log.warn(String.format("Method %s.%s could not be cached", cls.getName(), name));

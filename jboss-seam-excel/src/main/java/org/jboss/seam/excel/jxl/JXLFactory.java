@@ -194,7 +194,7 @@ public class JXLFactory {
 	*/
 	public static String getValidConstantsSuggestion(String className) {
 		List<String> constants = getValidContants(className);
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		int i = 0;
 		// Loop through the fields
 		for (String field : constants) {

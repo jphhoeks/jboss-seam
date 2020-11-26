@@ -56,7 +56,7 @@ public class NamespacePackageResolver {
 	 * seam:package:prefix
 	 */
 	private String parseOpaqueURI(URI uri) {
-		if (uri.getScheme().equalsIgnoreCase(JAVA_SCHEME)) {
+		if (JAVA_SCHEME.equalsIgnoreCase(uri.getScheme())) {
 			return uri.getSchemeSpecificPart();
 		}
 		throw new IllegalArgumentException("Unrecognized scheme in " + uri);
@@ -68,7 +68,7 @@ public class NamespacePackageResolver {
 			throw new IllegalArgumentException("Hierarchical URLs must use http or https scheme " + uri);
 		}
 
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 		appendToPackageName(buf, hostnameToPackage(uri.getHost()));
 		appendToPackageName(buf, pathToPackage(uri.getPath()));
 
@@ -79,7 +79,7 @@ public class NamespacePackageResolver {
 	 * Convert path elements to package names in forward order
 	 */
 	private String pathToPackage(String path) {
-		StringBuffer buf = new StringBuffer();
+		StringBuilder buf = new StringBuilder();
 
 		if (path != null) {
 			String[] pathElements = path.split("/");
@@ -92,7 +92,7 @@ public class NamespacePackageResolver {
 	}
 
 	private String hostnameToPackage(String hostname) {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		String[] subdomains = hostname.split("\\.");
 
@@ -107,7 +107,7 @@ public class NamespacePackageResolver {
 		return result.toString();
 	}
 
-	private void appendToPackageName(StringBuffer buf, String subdomain) {
+	private void appendToPackageName(StringBuilder buf, String subdomain) {
 		if (subdomain.length() > 0) {
 			subdomain = makeSafeForJava(subdomain);
 
@@ -131,6 +131,6 @@ public class NamespacePackageResolver {
 	 * @return
 	 */
 	private String makeSafeForJava(String subdomain) {
-		return subdomain.replace("-", "_");
+		return subdomain.replace('-', '_');
 	}
 }

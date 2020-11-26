@@ -26,11 +26,12 @@ public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler 
 	private Map<String, Set<Class<?>>> classes;
 	private Set<Class<? extends Annotation>> annotations;
 	
-	private class AnnotationDeploymentHandlerMetadata implements ClassDeploymentMetadata {
+	private static class AnnotationDeploymentHandlerMetadata implements ClassDeploymentMetadata {
 
 		private Set<Class<? extends Annotation>> annotations;
 
 		public AnnotationDeploymentHandlerMetadata(Set<Class<? extends Annotation>> annotations) {
+			super();
 			this.annotations = annotations;
 		}
 

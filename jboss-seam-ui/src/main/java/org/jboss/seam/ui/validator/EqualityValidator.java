@@ -75,7 +75,7 @@ public class EqualityValidator implements Validator, StateHolder {
 	}
 
 	private String validOperatorsAsString() {
-		StringBuffer buff = new StringBuffer();
+		StringBuilder buff = new StringBuilder();
 		for (ValidOperation op : ValidOperation.values()) {
 			buff.append(op.name()).append(" ");
 		}

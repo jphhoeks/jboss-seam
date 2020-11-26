@@ -26,7 +26,7 @@ public class CellStyle {
 	public String formatMask;
 	public String forceType;
 	
-	public class Font {
+	public static class Font {
 		public String family;
 		public Integer pointSize;
 		public String color;
@@ -46,7 +46,7 @@ public class CellStyle {
 		}
 	}
 
-	public class Background {
+	public static class Background {
 		public String color;
 		public String pattern;
 		
@@ -59,7 +59,7 @@ public class CellStyle {
 		}
 	}
 
-	public class Border {
+	public static class Border {
 		public String color;
 		public String lineStyle;
 		

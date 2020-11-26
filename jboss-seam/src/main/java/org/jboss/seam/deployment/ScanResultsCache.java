@@ -27,7 +27,7 @@ public class ScanResultsCache {
 	public static ScanResultsCache getInstance(ServletContext context) {
 
 		if (context.getAttribute(KEY_CACHE_SCAN_RESULTS) == null) {
-			Boolean useCache = Boolean.parseBoolean(context.getInitParameter(KEY_CACHE_SCAN_RESULTS));
+			Boolean useCache = Boolean.valueOf(context.getInitParameter(KEY_CACHE_SCAN_RESULTS));
 			ScanResultsCache cache = null;
 			if (useCache) {
 				cache = instance;

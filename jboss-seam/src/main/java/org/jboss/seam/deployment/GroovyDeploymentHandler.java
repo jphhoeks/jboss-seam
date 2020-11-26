@@ -35,7 +35,7 @@ public class GroovyDeploymentHandler extends AbstractDeploymentHandler {
 	
 	private Set<ClassDescriptor> classes;
 
-	private class GroovyDeploymentHandlerMetadata implements DeploymentMetadata {
+	private static class GroovyDeploymentHandlerMetadata implements DeploymentMetadata {
 
 		private String groovyExtension;
 

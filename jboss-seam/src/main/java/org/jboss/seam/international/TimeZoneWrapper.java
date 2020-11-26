@@ -35,9 +35,9 @@ public class TimeZoneWrapper extends TimeZone {
 
 	public String getLabel() {
 		StringBuilder label = new StringBuilder(50);
-		label.append(getId().replace("_", " "))
+		label.append(getId().replace('_', ' '))
 		.append(" (UTC")
-		.append(timeZone.getRawOffset() > 0 ? "+" : "-");
+		.append(timeZone.getRawOffset() > 0 ? '+' : '-');
 		if (Math.abs(timeZone.getRawOffset()) < MILLISECONDS_PER_HOUR * 10) {
 			label.append("0");
 		}

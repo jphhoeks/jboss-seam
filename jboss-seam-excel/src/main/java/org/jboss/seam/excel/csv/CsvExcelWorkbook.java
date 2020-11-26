@@ -84,7 +84,7 @@ public class CsvExcelWorkbook implements ExcelWorkbook {
 
 	@Override
 	public byte[] getBytes() {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		for (int i = 0; i <= maxRow; i++) {
 			for (int j = 0; j <= maxColumn; j++) {
 				String value = table.get(hash(i, j));
@@ -154,7 +154,7 @@ public class CsvExcelWorkbook implements ExcelWorkbook {
 	}
 
 	private String hash(int row, int column) {
-		StringBuffer buffer = new StringBuffer();
+		StringBuilder buffer = new StringBuilder();
 		buffer.append(row).append(getColumnSeparator()).append(column);
 		return buffer.toString();
 	}
