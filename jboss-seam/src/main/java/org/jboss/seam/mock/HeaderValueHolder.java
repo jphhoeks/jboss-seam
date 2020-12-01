@@ -20,7 +20,6 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,7 @@ import java.util.Map;
  */
 class HeaderValueHolder {
 
-	private final List values = new LinkedList();
+	private final List<Object> values = new LinkedList<Object>();
 
 	public HeaderValueHolder() {
 		super();
@@ -48,7 +47,7 @@ class HeaderValueHolder {
 		this.values.add(value);
 	}
 
-	public void addValues(Collection values) {
+	public void addValues(Collection<?> values) {
 		this.values.addAll(values);
 	}
 
@@ -75,10 +74,8 @@ class HeaderValueHolder {
 	 * @return the corresponding HeaderValueHolder, or <code>null</code> if none
 	 *         found
 	 */
-	public static HeaderValueHolder getByName(Map headers, String name) {
-		@SuppressWarnings("unchecked")
-		Map<String, HeaderValueHolder> m = headers;
-		for(Map.Entry<String, HeaderValueHolder> entry:  m.entrySet()) {
+	public static HeaderValueHolder getByName(Map<String, HeaderValueHolder> headers, String name) {
+		for(Map.Entry<String, HeaderValueHolder> entry:  headers.entrySet()) {
 			String headerName = entry.getKey();
 			if (headerName != null && headerName.equalsIgnoreCase(name)) {
 				return entry.getValue();

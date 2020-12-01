@@ -16,9 +16,6 @@
 
 package org.jboss.seam.mock;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -27,13 +24,17 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Mock implementation of the {@link javax.servlet.http.HttpServletResponse}
@@ -82,12 +83,12 @@ public class EnhancedMockHttpServletResponse implements HttpServletResponse {
 	// HttpServletResponse properties
 	//---------------------------------------------------------------------
 
-	private final List cookies = new ArrayList();
+	private final List<Cookie> cookies = new ArrayList<Cookie>();
 
 	/**
 	 * The key is the lowercase header name; the value is a {@link org.jboss.seam.mock.HeaderValueHolder} object.
 	 */
-	private final Map headers = new HashMap();
+	private final Map<String, HeaderValueHolder> headers = new HashMap<String, HeaderValueHolder>();
 
 	private int status = HttpServletResponse.SC_OK;
 
@@ -303,7 +304,7 @@ public class EnhancedMockHttpServletResponse implements HttpServletResponse {
 	 * @return the <code>Set</code> of header name <code>Strings</code>, or an empty <code>Set</code> if none
 	 */
 	@Override
-	public Set getHeaderNames() {
+	public Collection<String> getHeaderNames() {
 		return this.headers.keySet();
 	}
 

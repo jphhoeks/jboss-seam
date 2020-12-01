@@ -190,14 +190,16 @@ public class GWTToSeamAdapter {
 	* @author Michael Neale
 	*/
 	static class ReturnedObject {
+		public Class returnType;
+
+		public Object returnedObject; //NOPMD
+		
 		public ReturnedObject(Class type, Object result) {
 			this.returnType = type;
 			this.returnedObject = result;
 		}
 
-		public Class returnType;
 
-		public Object returnedObject; //NOPMD
 	}
 
 }

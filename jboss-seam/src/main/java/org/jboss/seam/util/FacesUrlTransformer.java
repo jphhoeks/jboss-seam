@@ -30,9 +30,9 @@ import javax.faces.context.FacesContext;
 public class FacesUrlTransformer {
 	private static final String HTTP_PROTOCOL_URL_PREFIX = "http://";
 	private static final String HTTPS_PROTOCOL_URL_PREFIX = "https://";
-	private static final String QUERY_STRING_DELIMITER = "?";
-	private static final String PARAMETER_PAIR_DELIMITER = "&";
-	private static final String PARAMETER_ASSIGNMENT_OPERATOR = "=";
+	private static final char QUERY_STRING_DELIMITER = '?';
+	private static final char PARAMETER_PAIR_DELIMITER = '&';
+	private static final char PARAMETER_ASSIGNMENT_OPERATOR = '=';
 
 	private String url;
 	private final FacesContext context;

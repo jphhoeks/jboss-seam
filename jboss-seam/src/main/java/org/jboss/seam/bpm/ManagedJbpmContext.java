@@ -82,8 +82,8 @@ public class ManagedJbpmContext implements Synchronization {
 
 		if (!synchronizationRegistered && !Lifecycle.isDestroying() && transaction.isActive()) {
 			jbpmContext.getSession().isOpen();
-			try //TODO: what we really want here is if (!cmt)
-			{
+			try {
+				//TODO: what we really want here is if (!cmt)
 				transaction.registerSynchronization(this);
 			} catch (UnsupportedOperationException uoe) {
 				jbpmContext.getSession().getTransaction().registerSynchronization(this);
