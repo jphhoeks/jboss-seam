@@ -429,8 +429,8 @@ public abstract class Home<T, E> extends MutableController<T> {
 	protected String getSimpleEntityName() {
 		String name = getEntityName();
 		if (name != null) {
-			return name.lastIndexOf(".") > 0 && name.lastIndexOf(".") < name.length()
-					? name.substring(name.lastIndexOf(".") + 1, name.length())
+			return name.lastIndexOf('.') > 0 && name.lastIndexOf('.') < name.length()
+					? name.substring(name.lastIndexOf('.') + 1, name.length())
 					: name;
 		} else {
 			return null;

@@ -2,13 +2,15 @@ package org.jboss.seam.ui.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.faces.component.UIParameter;
 
 public class UrlBuilder {
-	private static final String URL_ENCODING = "UTF-8";
+	private static final Charset URL_ENCODING = StandardCharsets.UTF_8;
 
 	private String url;
 
@@ -48,7 +50,7 @@ public class UrlBuilder {
 	}
 
 	protected String urlEncode(String value) throws UnsupportedEncodingException {
-		return characterEncoding == null ? URLEncoder.encode(value, URL_ENCODING) : URLEncoder.encode(value, characterEncoding);
+		return characterEncoding == null ? URLEncoder.encode(value, URL_ENCODING.name()) : URLEncoder.encode(value, characterEncoding);
 	}
 
 	protected String getFragment() {
@@ -69,8 +71,11 @@ public class UrlBuilder {
 
 	protected String getParametersAsString() {
 		StringBuilder params = new StringBuilder();
-		for (String key : parameters.keySet()) {
-			params.append("&").append(key).append("=").append(parameters.get(key));
+		
+		for (Map.Entry<String, String> entry: parameters.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			params.append('&').append(key).append("=").append(value);
 		}
 		return params.toString();
 	}

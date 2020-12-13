@@ -161,7 +161,7 @@ public class TokenRendererBase extends RendererBase {
 					+ " alert('This website uses a security measure that requires cookies to be enabled in your browser. Since you have cookies disabled, you will not be permitted to submit a form.');"
 					+ " }");
 			writer.endElement(HTML.SCRIPT_ELEM);
-			context.getExternalContext().getRequestMap().put(COOKIE_CHECK_SCRIPT_KEY, true);
+			context.getExternalContext().getRequestMap().put(COOKIE_CHECK_SCRIPT_KEY, Boolean.TRUE);
 		}
 	}
 

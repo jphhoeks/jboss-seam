@@ -10,12 +10,17 @@ import org.jboss.seam.util.Hex;
  *  
  * @author Shane Bryzak
  */
-public class DigestUtils {
+public final class DigestUtils {
+	
+	private DigestUtils() {
+		throw new AssertionError("No instances allowed");
+	}
+	
 	public static String generateDigest(boolean passwordAlreadyEncoded, String username, String realm, String password, String httpMethod,
 			String uri, String qop, String nonce, String nc, String cnonce) throws IllegalArgumentException {
 		String a1Md5 = null;
 		String a2 = httpMethod + ":" + uri;
-		String a2Md5 = new String(DigestUtils.md5Hex(a2));
+		String a2Md5 = md5Hex(a2);
 
 		if (passwordAlreadyEncoded) {
 			a1Md5 = password;
@@ -35,12 +40,12 @@ public class DigestUtils {
 			throw new IllegalArgumentException("This method does not support a qop: '" + qop + "'");
 		}
 
-		return new String(DigestUtils.md5Hex(digest));
+		return md5Hex(digest);
 	}
 
 	public static String encodePasswordInA1Format(String username, String realm, String password) {
 		String a1 = username + ":" + realm + ":" + password;
-		return new String(DigestUtils.md5Hex(a1));
+		return md5Hex(a1);
 
 	}
 

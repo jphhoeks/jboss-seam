@@ -92,6 +92,7 @@ public abstract class Selector extends AbstractMutable implements Serializable {
 			cookie.setPath(cookiePath);
 			cookie.setMaxAge(0);
 			cookie.setSecure(isSecure());
+			cookie.setHttpOnly(true);
 			response.addCookie(cookie);
 		}
 	}
@@ -108,11 +109,17 @@ public abstract class Selector extends AbstractMutable implements Serializable {
 			cookie.setMaxAge(getCookieMaxAge());
 			cookie.setPath(cookiePath);
 			cookie.setSecure(isSecure());
+			cookie.setHttpOnly(true);
 			response.addCookie(cookie);
 		}
 	}
 	
 	private boolean isSecure() {
-		return ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).isSecure();
+		try {
+			return ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).isSecure();
+		}
+		catch (Exception e) {
+			return true;
+		}
 	}
 }

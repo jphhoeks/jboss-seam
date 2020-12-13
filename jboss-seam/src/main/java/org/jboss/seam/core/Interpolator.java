@@ -99,7 +99,7 @@ public class Interpolator {
 
 				} else if ("#".equals(nextTok)) {
 					// could be trailing #
-					builder.append("#");
+					builder.append('#');
 
 				} else {
 					int index;
@@ -108,12 +108,12 @@ public class Interpolator {
 						if (index >= params.length) {
 							// log.warn("parameter index out of bounds: " + index +
 							// " in: " + string);
-							builder.append("#").append(nextTok);
+							builder.append('#').append(nextTok);
 						} else {
 							builder.append(params[index]).append(nextTok.substring(1));
 						}
 					} catch (NumberFormatException nfe) {
-						builder.append("#").append(nextTok);
+						builder.append('#').append(nextTok);
 					}
 				}
 			} else if ("{".equals(tok)) {
@@ -133,7 +133,7 @@ public class Interpolator {
 						if (level == 0) {
 							try {
 								if (params.length == 0) {
-									builder.append(expr.toString());
+									builder.append(expr);
 								} else {
 									String value = new MessageFormat(expr.toString(), Locale.instance()).format(params);
 									builder.append(value);

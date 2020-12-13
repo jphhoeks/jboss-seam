@@ -47,7 +47,10 @@ public class RoleSearch implements Serializable {
 		StringBuilder sb = new StringBuilder();
 
 		for (String r : roles) {
-			sb.append((sb.length() > 0 ? ", " : "") + r);
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			sb.append(r);
 		}
 
 		return sb.toString();

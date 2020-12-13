@@ -156,7 +156,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	}
 
 	@Override
-	public long getDateHeader(String arg0) {
+	public long getDateHeader(String name) {
 		throw new UnsupportedOperationException();
 	}
 

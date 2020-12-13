@@ -38,7 +38,7 @@ public class RenderStampStore implements Serializable {
 
 	Map<String, RenderStamp> store = new ConcurrentHashMap<String, RenderStamp>();
 	
-	class RenderStamp {
+	static class RenderStamp {
 		String stamp;
 		Date timeStamp;
 		

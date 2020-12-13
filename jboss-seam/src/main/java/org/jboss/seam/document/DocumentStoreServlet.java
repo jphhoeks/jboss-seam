@@ -2,6 +2,7 @@ package org.jboss.seam.document;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.mail.internet.MimeUtility;
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class DocumentStoreServlet extends HttpServlet {
 			response.setContentType(documentData.getDocumentType().getMimeType());
 			if (DocumentStorePhaseListener.isInternetExplorer(request)) {
 				response.setHeader("Content-Disposition",
-						documentData.getDisposition() + "; filename=\"" + URLEncoder.encode(documentData.getFileName(), "utf-8") + "\"");
+						documentData.getDisposition() + "; filename=\"" + URLEncoder.encode(documentData.getFileName(), StandardCharsets.UTF_8.name()) + "\"");
 			} else {
 				response.setHeader("Content-Disposition", documentData.getDisposition() + "; filename=\""
 						+ MimeUtility.encodeWord(documentData.getFileName(), "UTF-8", "Q") + "\"");

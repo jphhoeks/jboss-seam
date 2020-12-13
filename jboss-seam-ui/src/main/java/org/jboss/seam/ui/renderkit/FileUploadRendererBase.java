@@ -99,7 +99,7 @@ public class FileUploadRendererBase extends RendererBase {
 	* guarantee that close will be called.  Technically, we should set the Part on the UIFileUpload, but
 	* this wrapper requires less changes.
 	*/
-	class WrappedFileUploadInputStream extends InputStream {
+	static class WrappedFileUploadInputStream extends InputStream {
 		Part part;
 		InputStream inputStream;
 

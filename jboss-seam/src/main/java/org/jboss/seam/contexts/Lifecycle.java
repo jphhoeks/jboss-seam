@@ -6,6 +6,7 @@
  */
 package org.jboss.seam.contexts;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -103,8 +104,7 @@ public class Lifecycle {
 	*/
 	@Deprecated
 	public static void mockApplication() {
-		
-		setupApplication(null);
+		setupApplication(new HashMap<>());
 	}
 
 	/**

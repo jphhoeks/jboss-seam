@@ -2,7 +2,6 @@ package org.jboss.seam.deployment;
 
 import java.lang.annotation.Annotation;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import java.util.Set;
 
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
+import org.jboss.seam.util.CollectionsUtils;
 
 public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler {
 	/**
@@ -51,10 +51,10 @@ public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler 
 
 	public AnnotationDeploymentHandler(List<String> annotationTypes, ClassLoader classLoader) {
 		super();
-		this.annotations = new HashSet<Class<? extends Annotation>>();
+		this.annotations =  CollectionsUtils.newHashSet(annotationTypes.size());
 		for (String classname : annotationTypes) {
 			try {
-				annotations.add((Class<? extends Annotation>) classLoader.loadClass(classname));
+				this.annotations.add((Class<? extends Annotation>) classLoader.loadClass(classname));
 			} catch (ClassNotFoundException cnfe) {
 				if (log.isWarnEnabled()) { 
 					log.warn("could not load annotation class: " + classname, cnfe);
@@ -69,7 +69,7 @@ public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler 
 				}
 			}
 		}
-		metadata = new AnnotationDeploymentHandlerMetadata(annotations);
+		metadata = new AnnotationDeploymentHandlerMetadata(this.annotations);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class AnnotationDeploymentHandler extends AbstractClassDeploymentHandler 
 
 	@Override
 	public void postProcess(ClassLoader classLoader) {
-		classes = new HashMap<String, Set<Class<?>>>();
+		classes = CollectionsUtils.newHashMap(annotations.size());
 		for (Class<? extends Annotation> annotationType : annotations) {
 			classes.put(annotationType.getName(), new HashSet<Class<?>>());
 		}

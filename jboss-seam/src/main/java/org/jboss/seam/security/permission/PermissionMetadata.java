@@ -51,9 +51,9 @@ public class PermissionMetadata implements Serializable {
 			// Validate that all actions have a proper mask
 			if (useMask) {
 				Set<Long> masks = CollectionsUtils.newHashSet(actions.size());
-
-				for (String action : actions.keySet()) {
-					Long mask = actions.get(action);
+				for (Map.Entry<String, Long> entry : actions.entrySet()) {
+					String action = entry.getKey();
+					Long mask = entry.getValue();
 					if (masks.contains(mask)) {
 						throw new IllegalArgumentException(
 								"Class " + cls.getName() + " defines a duplicate mask for permission action [" + action + "]");
@@ -68,7 +68,6 @@ public class PermissionMetadata implements Serializable {
 						throw new IllegalArgumentException(
 								"Class " + cls.getName() + " must define a mask value that is a power of 2 for action [" + action + "]");
 					}
-
 					masks.add(mask);
 				}
 			}
@@ -94,11 +93,12 @@ public class PermissionMetadata implements Serializable {
 
 			if (usesActionMask.get(targetClass)) {
 				// bit mask-based actions
-				long vals = Long.valueOf(members);
+				long vals = Long.parseLong(members);
 
 				Map<String, Long> actions = classActions.get(targetClass);
-				for (String action : actions.keySet()) {
-					long mask = actions.get(action).longValue();
+				for (Map.Entry<String, Long> entry : actions.entrySet()) {
+					String action = entry.getKey();
+					long mask = entry.getValue().longValue();
 					if ((vals & mask) != 0) {
 						this.members.add(action);
 					}

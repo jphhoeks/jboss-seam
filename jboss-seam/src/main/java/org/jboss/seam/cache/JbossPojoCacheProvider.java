@@ -112,7 +112,7 @@ public class JbossPojoCacheProvider extends AbstractJBossCacheProvider<PojoCache
 		try {
 			cache.remove(getFqn(null));
 		} catch (CacheException e) {
-			throw new IllegalStateException(String.format("JBoss Cache throw exception when clearing default cache."), e);
+			throw new IllegalStateException("JBoss Cache throw exception when clearing default cache.", e);
 		}
 	}
 

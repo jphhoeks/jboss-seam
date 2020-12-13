@@ -522,7 +522,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 			.append("={0})");
 
 			for (int i = 0; i < getUserObjectClasses().length; i++) {
-				roleFilter.append("(")
+				roleFilter.append('(')
 				.append(getObjectClassAttribute())
 				.append("={")
 				.append(i + 1)
@@ -530,7 +530,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 				filterArgs[i + 1] = getUserObjectClasses()[i];
 			}
 
-			roleFilter.append(")");
+			roleFilter.append(')');
 
 			NamingEnumeration answer = ctx.search(getUserContextDN(), roleFilter.toString(), filterArgs, controls);
 			while (answer.hasMore()) {
@@ -829,7 +829,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 			Object[] filterArgs = new Object[getRoleObjectClasses().length];
 			for (int i = 0; i < getRoleObjectClasses().length; i++) {
-				roleFilter.append("(");
+				roleFilter.append('(');
 				roleFilter.append(getObjectClassAttribute());
 				roleFilter.append("={");
 				roleFilter.append(i);
@@ -887,7 +887,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 			Object[] filterArgs = new Object[getUserObjectClasses().length];
 			for (int i = 0; i < getUserObjectClasses().length; i++) {
-				userFilter.append("(");
+				userFilter.append('(');
 				userFilter.append(getObjectClassAttribute());
 				userFilter.append("={");
 				userFilter.append(i);
@@ -895,7 +895,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 				filterArgs[i] = getUserObjectClasses()[i];
 			}
 
-			userFilter.append(")");
+			userFilter.append(')');
 
 			NamingEnumeration answer = ctx.search(getUserContextDN(), userFilter.toString(), filterArgs, controls);
 			while (answer.hasMore()) {
@@ -941,7 +941,7 @@ public class LdapIdentityStore implements IdentityStore, Serializable {
 
 			Object[] filterArgs = new Object[getUserObjectClasses().length];
 			for (int i = 0; i < getUserObjectClasses().length; i++) {
-				userFilter.append("(");
+				userFilter.append('(');
 				userFilter.append(getObjectClassAttribute());
 				userFilter.append("={");
 				userFilter.append(i);

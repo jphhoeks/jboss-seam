@@ -834,13 +834,13 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 		if (!getQueryParameters().isEmpty()) {
 			StringBuilder q = new StringBuilder(queryString);
 			if (!queryString.endsWith("&")) {
-				q.append("&");
+				q.append('&');
 			}
 			for (Map.Entry<String, String> entry : getQueryParameters().entrySet()) {
 				q.append(entry.getKey());
-				q.append("=");
+				q.append('=');
 				q.append(entry.getValue());
-				q.append("&");
+				q.append('&');
 			}
 			if (q.toString().endsWith("&")) {
 				q.deleteCharAt(q.length() - 1);

@@ -47,7 +47,10 @@ public class UserSearch implements Serializable {
 		StringBuilder sb = new StringBuilder();
 
 		for (String role : roles) {
-			sb.append((sb.length() > 0 ? ", " : "") + role);
+			if (sb.length() > 0) {
+				sb.append(", ");
+			}
+			sb.append(role);
 		}
 
 		return sb.toString();

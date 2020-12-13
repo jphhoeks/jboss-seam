@@ -196,8 +196,8 @@ public class RememberMe implements Serializable {
 
 	protected String generateTokenValue() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(new UID().toString())
-		.append(":")
+		sb.append(new UID())
+		.append(':')
 		.append(random.nextLong());
 		return sb.toString();
 	}
@@ -205,7 +205,7 @@ public class RememberMe implements Serializable {
 	protected String encodeToken(String username, String value) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(username)
-		.append(":")
+		.append(':')
 		.append(value);
 		return Base64.encodeBytes(sb.toString().getBytes(), Base64.DONT_BREAK_LINES);
 	}

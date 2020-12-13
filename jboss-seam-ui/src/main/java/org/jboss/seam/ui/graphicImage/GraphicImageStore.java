@@ -69,7 +69,7 @@ public class GraphicImageStore extends AbstractMutable implements Serializable {
 	*/
 	public String put(ImageWrapper image, String key) {
 		if (key == null) {
-			key = "org.jboss.seam.ui.GraphicImageStore." + new UID().toString().replace(":", "-");
+			key = "org.jboss.seam.ui.GraphicImageStore." + new UID().toString().replace(':', '-');
 		}
 		store.put(key, image);
 		setDirty();

@@ -24,7 +24,7 @@ public class NoSelectionConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
 		if (value == null) {
 			return null;
-		} else if (value.equals(NO_SELECTION_VALUE)) {
+		} else if (NO_SELECTION_VALUE.equals(value)) {
 			return null;
 		} else {
 			return ConverterChain.CONTINUE;

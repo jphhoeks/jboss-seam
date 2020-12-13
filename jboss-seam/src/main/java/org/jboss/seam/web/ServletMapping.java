@@ -15,7 +15,7 @@ public class ServletMapping {
 			return mapping.substring(0, mapping.length() - 2) + viewId;
 
 		} else if (mapping.startsWith("*.")) {
-			int pos = viewId.lastIndexOf(".");
+			int pos = viewId.lastIndexOf('.');
 			if (pos != -1) {
 				return viewId.substring(0, pos) + mapping.substring(1);
 			}

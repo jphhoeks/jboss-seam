@@ -43,14 +43,14 @@ public class RemoteRendererBase extends RendererBase {
 	public void writeScript(FacesContext context, UIRemote remote) throws IOException {
 		ResponseWriter response = context.getResponseWriter();
 
-		Map request = context.getExternalContext().getRequestMap();
+		Map<String, Object> request = context.getExternalContext().getRequestMap();
 		if (!request.containsKey("REMOTE_SCRIPT")) {
 			response.startElement("script", null);
 			response.writeAttribute("type", "text/javascript", null);
 			response.writeAttribute("src",
 					context.getExternalContext().getRequestContextPath() + "/seam/resource/remoting/resource/remote.js", null);
 			response.endElement("script");
-			request.put("REMOTE_SCRIPT", true);
+			request.put("REMOTE_SCRIPT", Boolean.TRUE);
 		}
 
 		response.startElement("script", null);

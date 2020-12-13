@@ -20,6 +20,7 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.ui.component.UIDecorate;
+import org.jboss.seam.util.Strings;
 
 /**
  * Validates two fields are equal
@@ -63,21 +64,21 @@ public class EqualityValidator implements Validator, StateHolder {
 		if (messageId != null) {
 			setMessageId(messageId);
 		}
-		if (operator != null && !"".equals(operator)) {
-			if (ValidOperation.valueOf(operator.toUpperCase()) != null) {
+		if (!Strings.isEmpty(operator)) {
+			try {
 				setOperator(ValidOperation.valueOf(operator.toUpperCase()));
 			}
-			else {
-				throw new IllegalStateException("Illegal operator. " + "Supported are: " + validOperatorsAsString());
-			}
+			catch (IllegalArgumentException iae) {
+				throw new IllegalStateException("Illegal operator: " + operator + ". Supported are: " + validOperatorsAsString(), iae);
+			}			
 		}
 
-	}
+	}	
 
 	private String validOperatorsAsString() {
 		StringBuilder buff = new StringBuilder();
 		for (ValidOperation op : ValidOperation.values()) {
-			buff.append(op.name()).append(" ");
+			buff.append(op.name()).append(' ');
 		}
 		return buff.toString();
 	}
@@ -244,7 +245,7 @@ public class EqualityValidator implements Validator, StateHolder {
 	* @author pmuir
 	* 
 	*/
-	private class OtherComponent {
+	private static class OtherComponent {
 
 		private FacesContext context;
 		private UIComponent component;

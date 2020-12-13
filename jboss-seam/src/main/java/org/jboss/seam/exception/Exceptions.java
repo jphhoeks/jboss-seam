@@ -155,7 +155,7 @@ public class Exceptions {
 	
 				for (final Element exception : elements) {
 					String className = exception.attributeValue("class");
-					boolean logEnabled = exception.attributeValue("log") == null || Boolean.valueOf(exception.attributeValue("log"));
+					boolean logEnabled = exception.attributeValue("log") == null || Boolean.parseBoolean(exception.attributeValue("log"));
 	
 					LogLevel logLevel = LogLevel.error;
 					try {
@@ -216,7 +216,7 @@ public class Exceptions {
 		if (conversationElement != null) {
 			endConversation = true;
 			String beforeRedirect = conversationElement.attributeValue("before-redirect");
-			endConversationBeforeRedirect = !Strings.isEmpty(beforeRedirect) && Boolean.valueOf(beforeRedirect);
+			endConversationBeforeRedirect = !Strings.isEmpty(beforeRedirect) && Boolean.parseBoolean(beforeRedirect);
 		}
 
 		Element redirect = exception.element("redirect");
@@ -232,15 +232,16 @@ public class Exceptions {
 		}
 
 		Element error = exception.element("http-error");
-		if (error != null) {
-			String errorCode = error.attributeValue("error-code");
-			final int code = Strings.isEmpty(errorCode) ? 500 : Integer.parseInt(errorCode);
-			Element messageElement = error.element("message");
-			final String message = messageElement == null ? null : messageElement.getTextTrim();
-			return new ConfigErrorHandler(message, endConversation, clazz, code);
+		if (error == null) {
+			return null;
 		}
+		
+		String errorCode = error.attributeValue("error-code");
+		final int code = Strings.isEmpty(errorCode) ? 500 : Integer.parseInt(errorCode);
+		Element messageElement = error.element("message");
+		final String message = messageElement == null ? null : messageElement.getTextTrim();
+		return new ConfigErrorHandler(message, endConversation, clazz, code);
 
-		return null;
 	}
 
 	/**

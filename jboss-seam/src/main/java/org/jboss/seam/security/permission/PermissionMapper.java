@@ -118,8 +118,9 @@ public class PermissionMapper implements Serializable {
 				}
 			}
 
-			for (Class cls : deniedByClass.keySet()) {
-				Set<Object> denied = deniedByClass.get(cls);
+			for (Map.Entry<Class, Set<Object>> entry: deniedByClass.entrySet()) {
+				Class cls = entry.getKey();
+				Set<Object> denied = entry.getValue();
 				ResolverChain chain = getResolverChain(cls, action);
 				for (PermissionResolver resolver : chain.getResolvers()) {
 					resolver.filterSetByAction(denied, action);

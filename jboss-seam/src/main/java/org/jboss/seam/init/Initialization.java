@@ -283,7 +283,7 @@ public class Initialization {
 			String ns = elem.getNamespace().getURI();
 			NamespaceDescriptor nsInfo = resolveNamespace(ns);
 			if (nsInfo == null) {
-				if (!ns.equals(COMPONENT_NAMESPACE)) {
+				if (!COMPONENT_NAMESPACE.equals(ns)) {
 					if (log.isWarnEnabled()) {
 						log.warn("namespace declared in components.xml does not resolve to a package: " + ns);
 					}
@@ -368,7 +368,7 @@ public class Initialization {
 	}
 
 	private NamespaceDescriptor resolveNamespace(String namespace) {
-		if (Strings.isEmpty(namespace) || namespace.equals(COMPONENT_NAMESPACE)) {
+		if (Strings.isEmpty(namespace) || COMPONENT_NAMESPACE.equals(namespace)) {
 			return null;
 		}
 

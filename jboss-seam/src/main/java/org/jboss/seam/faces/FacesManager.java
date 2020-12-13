@@ -183,8 +183,7 @@ public class FacesManager extends Manager {
 			throw new RedirectException("cannot redirect to a null viewId");
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, List<String>> emptyParameterList = Collections.emptyMap();
-		String url = context.getApplication().getViewHandler().getRedirectURL(context, viewId, emptyParameterList, false);
+		String url = context.getApplication().getViewHandler().getRedirectURL(context, viewId, Collections.emptyMap(), false);
 		url = encodeConversationId(url, viewId, conversationId);
 		redirect(viewId, context, url);
 	}

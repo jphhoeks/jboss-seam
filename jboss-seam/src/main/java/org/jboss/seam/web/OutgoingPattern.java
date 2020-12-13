@@ -96,7 +96,7 @@ public class OutgoingPattern {
 		private String matchArg(String argName) {
 			for (int i = 0; i < queryArgs.size(); i++) {
 				String query = queryArgs.get(i);
-				int pos = query.indexOf("=");
+				int pos = query.indexOf('=');
 
 				if (query.subSequence(0, pos).equals(argName)) {
 					queryArgs.remove(i);

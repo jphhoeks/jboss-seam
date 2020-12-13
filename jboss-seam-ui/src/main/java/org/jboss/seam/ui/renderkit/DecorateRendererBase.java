@@ -20,7 +20,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 @JsfRenderer(type = "org.jboss.seam.ui.DecorateRenderer", family = "org.jboss.seam.ui.DecorateRenderer")
 public class DecorateRendererBase extends RendererBase {
 	// Place the attributes you want to store away
-	private Map<String, Object> originalValues = new HashMap();
+	private Map<String, Object> originalValues = new HashMap<>();
 	// The list of attributes in the event scope to store away
 	String[] storeOriginals = new String[] { "invalid", "required" };
 

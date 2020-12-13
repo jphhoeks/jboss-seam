@@ -125,9 +125,9 @@ public class DependencyManager {
 
 		for (Class<?> dependency : dependencies) {
 			if (!isInInstallSet(dependency)) {
-				Set<String> searchList = findPotentialComponents(dependency);
+				Set<String> searchSet = findPotentialComponents(dependency);
 
-				if (!tryToSatisfyDependencyUsing(dependency, searchList)) {
+				if (!tryToSatisfyDependencyUsing(dependency, searchSet)) {
 					return false;
 				}
 			}
@@ -136,8 +136,8 @@ public class DependencyManager {
 		return true;
 	}
 
-	private boolean tryToSatisfyDependencyUsing(Class<?> dependency, Set<String> searchList) {
-		for (String componentName : searchList) {
+	private boolean tryToSatisfyDependencyUsing(Class<?> dependency, Set<String> searchSet) {
+		for (String componentName : searchSet) {
 
 			Set<ComponentDescriptor> saved = new HashSet<ComponentDescriptor>(currentTestSet);
 

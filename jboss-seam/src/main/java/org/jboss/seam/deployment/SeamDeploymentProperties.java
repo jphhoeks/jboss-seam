@@ -54,12 +54,13 @@ public class SeamDeploymentProperties {
 
 	private void addPropertiesFromResourceBundle(String key, List<String> values) {
 		try {
+			Properties properties = new Properties();
 			while (getResources().hasMoreElements()) {
 				URL url = getResources().nextElement();
-				Properties properties = new Properties();
 				InputStream propertyStream = null;
 				try {
 					propertyStream = url.openStream();
+					properties.clear();
 					properties.load(propertyStream);
 					addProperty(key, properties.getProperty(key), values);
 				} finally {

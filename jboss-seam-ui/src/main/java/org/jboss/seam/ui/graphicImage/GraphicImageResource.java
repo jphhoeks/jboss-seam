@@ -54,7 +54,7 @@ public class GraphicImageResource extends AbstractResource {
 	}
 
 	private void doWork(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String pathInfo = request.getPathInfo().substring(getResourcePath().length() + 1, request.getPathInfo().lastIndexOf("."));
+		String pathInfo = request.getPathInfo().substring(getResourcePath().length() + 1, request.getPathInfo().lastIndexOf('.'));
 		ImageWrapper image = GraphicImageStore.instance().remove(pathInfo);
 		if (image != null && image.getImage() != null) {
 			response.setContentType(image.getContentType().getMimeType());

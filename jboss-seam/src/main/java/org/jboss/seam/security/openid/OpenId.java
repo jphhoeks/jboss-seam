@@ -166,7 +166,7 @@ public class OpenId implements Serializable {
 			StringBuffer receivingURL = httpReq.getRequestURL();
 			String queryString = httpReq.getQueryString();
 			if (queryString != null && queryString.length() > 0) {
-				receivingURL.append("?").append(httpReq.getQueryString());
+				receivingURL.append('?').append(httpReq.getQueryString());
 			}
 
 			// verify the response; ConsumerManager needs to be the same

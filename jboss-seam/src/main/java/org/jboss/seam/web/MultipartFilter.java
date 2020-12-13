@@ -73,7 +73,7 @@ public class MultipartFilter extends AbstractFilter {
 
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		if (isMultipartRequest(httpRequest) && httpRequest.getParts().size() == 0) {
+		if (isMultipartRequest(httpRequest) && httpRequest.getParts().isEmpty()) {
 			MultipartRequest multipartRequest = new MultipartRequestImpl(httpRequest, createTempFiles, maxRequestSize);
 
 			// Force the request to be parsed now

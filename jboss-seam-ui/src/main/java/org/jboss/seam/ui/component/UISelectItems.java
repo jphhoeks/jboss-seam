@@ -44,7 +44,7 @@ public abstract class UISelectItems extends javax.faces.component.UISelectItems 
 
 	private String label;
 
-	private class NullableSelectItem extends javax.faces.model.SelectItem {
+	private static class NullableSelectItem extends javax.faces.model.SelectItem {
 
 		private static final long serialVersionUID = 1L;
 		private Object value;

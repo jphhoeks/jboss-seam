@@ -395,9 +395,10 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		// Target/Recipient/Action map
 		Map<Object, Map<Principal, List<Permission>>> groupedPermissions = groupPermissions(permissions);
 
-		for (Object target : groupedPermissions.keySet()) {
-			Map<Principal, List<Permission>> recipientPermissions = groupedPermissions.get(target);
-
+		for (Map.Entry<Object, Map<Principal, List<Permission>>> entry1: groupedPermissions.entrySet()) {
+			Object target = entry1.getKey();
+			Map<Principal, List<Permission>> recipientPermissions = entry1.getValue();
+			
 			for (Map.Entry<Principal, List<Permission>> entry: recipientPermissions.entrySet()) {
 				Principal recipient = entry.getKey();
 				List<Permission> ps = entry.getValue();
@@ -417,9 +418,9 @@ public class JpaPermissionStore implements PermissionStore, Serializable {
 		// Target/Recipient/Action map
 		Map<Object, Map<Principal, List<Permission>>> groupedPermissions = groupPermissions(permissions);
 
-		for (Object target : groupedPermissions.keySet()) {
-			Map<Principal, List<Permission>> recipientPermissions = groupedPermissions.get(target);
-
+		for (Map.Entry<Object, Map<Principal, List<Permission>>> entry1: groupedPermissions.entrySet()) {
+			Object target = entry1.getKey();
+			Map<Principal, List<Permission>> recipientPermissions = entry1.getValue();
 			for (Map.Entry<Principal, List<Permission>> entry: recipientPermissions.entrySet()) {
 				Principal recipient = entry.getKey();
 				List<Permission> ps = entry.getValue();

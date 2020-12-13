@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -133,7 +135,7 @@ public class Base64 {
 	private final static byte NEW_LINE = (byte) '\n';
 
 	/** Preferred encoding. */
-	private final static String PREFERRED_ENCODING = "UTF-8";
+	private final static Charset PREFERRED_ENCODING = StandardCharsets.UTF_8;
 
 	// I think I end up not using the BAD_ENCODING indicator.
 	//private final static byte BAD_ENCODING    = -9; // Indicates error in encoding
@@ -511,12 +513,7 @@ public class Base64 {
 		} // end finally
 
 		// Return value according to relevant encoding.
-		try {
-			return new String(baos.toByteArray(), PREFERRED_ENCODING);
-		} // end try
-		catch (UnsupportedEncodingException uue) {
-			return new String(baos.toByteArray());
-		} // end catch
+		return new String(baos.toByteArray(), PREFERRED_ENCODING);
 
 	} // end encode
 
@@ -617,12 +614,7 @@ public class Base64 {
 			} // end finally
 
 			// Return value according to relevant encoding.
-			try {
-				return new String(baos.toByteArray(), PREFERRED_ENCODING);
-			} // end try
-			catch (UnsupportedEncodingException uue) {
-				return new String(baos.toByteArray());
-			} // end catch
+			return new String(baos.toByteArray(), PREFERRED_ENCODING);
 		} // end if: compress
 
 		// Else, don't compress. Better not to use streams at all then.
@@ -655,12 +647,7 @@ public class Base64 {
 			} // end if: some padding needed
 
 			// Return value according to relevant encoding.
-			try {
-				return new String(outBuff, 0, e, PREFERRED_ENCODING);
-			} // end try
-			catch (UnsupportedEncodingException uue) {
-				return new String(outBuff, 0, e);
-			} // end catch
+			return new String(outBuff, 0, e, PREFERRED_ENCODING);
 
 		} // end else: don't compress
 
@@ -822,14 +809,7 @@ public class Base64 {
 	 * @since 1.4
 	 */
 	public static byte[] decode(String s, int options) {
-		byte[] bytes;
-		try {
-			bytes = s.getBytes(PREFERRED_ENCODING);
-		} // end try
-		catch (UnsupportedEncodingException uee) {
-			bytes = s.getBytes();
-		} // end catch
-		//</change>
+		byte[] bytes = s.getBytes(PREFERRED_ENCODING);
 
 		// Decode
 		bytes = decode(bytes, 0, bytes.length, options);
@@ -1061,7 +1041,7 @@ public class Base64 {
 		java.io.OutputStream out = null;
 		try {
 			out = new BufferedOutputStream(Files.newOutputStream(new File(outfile).toPath()));
-			out.write(encoded.getBytes("US-ASCII")); // Strict, 7-bit output.
+			out.write(encoded.getBytes(StandardCharsets.US_ASCII)); // Strict, 7-bit output.
 		} // end try
 		catch (IOException ex) {
 			throw new UncheckedIOException(ex);

@@ -46,8 +46,8 @@ public class ServletContextWrapper implements ServletContext {
 	}
 
 	@Override
-	public Object getAttribute(String arg0) {
-		return attributes.get(arg0);
+	public Object getAttribute(String name) {
+		return attributes.get(name);
 	}
 
 	@Override
@@ -56,8 +56,8 @@ public class ServletContextWrapper implements ServletContext {
 	}
 
 	@Override
-	public ServletContext getContext(String arg0) {
-		return delegate.getContext(arg0);
+	public ServletContext getContext(String uripath) {
+		return delegate.getContext(uripath);
 	}
 
 	@Override
@@ -66,8 +66,8 @@ public class ServletContextWrapper implements ServletContext {
 	}
 
 	@Override
-	public String getInitParameter(String arg0) {
-		return delegate.getInitParameter(arg0);
+	public String getInitParameter(String name) {
+		return delegate.getInitParameter(name);
 	}
 
 	@Override
@@ -81,8 +81,8 @@ public class ServletContextWrapper implements ServletContext {
 	}
 
 	@Override
-	public String getMimeType(String arg0) {
-		return delegate.getMimeType(arg0);
+	public String getMimeType(String file) {
+		return delegate.getMimeType(file);
 	}
 
 	@Override
@@ -91,33 +91,33 @@ public class ServletContextWrapper implements ServletContext {
 	}
 
 	@Override
-	public RequestDispatcher getNamedDispatcher(String arg0) {
-		return delegate.getNamedDispatcher(arg0);
+	public RequestDispatcher getNamedDispatcher(String name) {
+		return delegate.getNamedDispatcher(name);
 	}
 
 	@Override
-	public String getRealPath(String arg0) {
-		return delegate.getRealPath(arg0);
+	public String getRealPath(String path) {
+		return delegate.getRealPath(path);
 	}
 
 	@Override
-	public RequestDispatcher getRequestDispatcher(String arg0) {
-		return delegate.getRequestDispatcher(arg0);
+	public RequestDispatcher getRequestDispatcher(String path) {
+		return delegate.getRequestDispatcher(path);
 	}
 
 	@Override
-	public URL getResource(String arg0) throws MalformedURLException {
-		return delegate.getResource(arg0);
+	public URL getResource(String path) throws MalformedURLException {
+		return delegate.getResource(path);
 	}
 
 	@Override
-	public InputStream getResourceAsStream(String arg0) {
-		return delegate.getResourceAsStream(arg0);
+	public InputStream getResourceAsStream(String path) {
+		return delegate.getResourceAsStream(path);
 	}
 
 	@Override
-	public Set<String> getResourcePaths(String arg0) {
-		return delegate.getResourcePaths(arg0);
+	public Set<String> getResourcePaths(String path) {
+		return delegate.getResourcePaths(path);
 	}
 
 	@Override
@@ -127,8 +127,8 @@ public class ServletContextWrapper implements ServletContext {
 
 	@Override
 	@Deprecated
-	public Servlet getServlet(String arg0) throws ServletException {
-		return delegate.getServlet(arg0);
+	public Servlet getServlet(String name) throws ServletException {
+		return delegate.getServlet(name);
 	}
 
 	@Override
@@ -149,24 +149,24 @@ public class ServletContextWrapper implements ServletContext {
 	}
 
 	@Override
-	public void log(String arg0) {
-		delegate.log(arg0);
+	public void log(String msg) {
+		delegate.log(msg);
 	}
 
 	@Override
 	@Deprecated
-	public void log(Exception arg0, String arg1) {
-		delegate.log(arg0, arg1);
+	public void log(Exception exception, String msg) {
+		delegate.log(exception, msg);
 	}
 
 	@Override
-	public void log(String arg0, Throwable arg1) {
-		delegate.log(arg0, arg1);
+	public void log(String msg, Throwable exception) {
+		delegate.log(msg, exception);
 	}
 
 	@Override
-	public void removeAttribute(String arg0) {
-		attributes.remove(arg0);
+	public void removeAttribute(String name) {
+		attributes.remove(name);
 	}
 
 	@Override

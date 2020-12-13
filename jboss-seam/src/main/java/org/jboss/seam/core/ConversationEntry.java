@@ -146,7 +146,7 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
 
 	@Override
 	public int compareTo(ConversationEntry entry) {
-		int result = Long.valueOf(getLastRequestTime()).compareTo(entry.getLastRequestTime());
+		int result = Long.compare(getLastRequestTime(), entry.getLastRequestTime());
 		return -(result == 0 ? getId().compareTo(entry.getId()) : result);
 	}
 
@@ -160,7 +160,10 @@ public final class ConversationEntry implements Serializable, Comparable<Convers
 	}
 
 	public Integer getConcurrentRequestTimeout() {
-		return concurrentRequestTimeout == null ? Manager.instance().getConcurrentRequestTimeout() : concurrentRequestTimeout;
+		if (concurrentRequestTimeout != null) {
+			return concurrentRequestTimeout;
+		}
+		return Integer.valueOf(Manager.instance().getConcurrentRequestTimeout());
 	}
 
 	void setConcurrentRequestTimeout(Integer concurrentRequestTimeout) {

@@ -314,7 +314,7 @@ public abstract class DBUnitSeamTest extends SeamTest {
 			}
 			if (test.getBinaryDir() != null) {
 				if (log.isDebugEnabled()) {
-					log.debug("Replacing [BINARY_DIR] placeholder with path: " + test.getBinaryDirFullpath().toString());
+					log.debug("Replacing [BINARY_DIR] placeholder with path: " + test.getBinaryDirFullpath());
 				}
 				dataSet.addReplacementSubstring("[BINARY_DIR]", test.getBinaryDirFullpath().toString());
 			}

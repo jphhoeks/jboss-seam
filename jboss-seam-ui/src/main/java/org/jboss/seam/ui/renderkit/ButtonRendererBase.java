@@ -66,7 +66,7 @@ public class ButtonRendererBase extends RendererBase {
 			writer.writeAttribute(HTML.VALUE_ATTR, button.getValue(), HTML.VALUE_ATTR);
 		}
 		if (button.isDisabled()) {
-			writer.writeAttribute(HTML.DISABLED_ATTR, true, HTML.DISABLED_ATTR);
+			writer.writeAttribute(HTML.DISABLED_ATTR, Boolean.TRUE, HTML.DISABLED_ATTR);
 		}
 		writer.writeAttribute(HTML.TYPE_ATTR, getType(button), HTML.TYPE_ATTR);
 		if (button.getImage() != null) {

@@ -83,7 +83,7 @@ public abstract class AbstractResource {
 	*
 	* @See org/springframework/js/resource/ResourceServlet.java
 	*/
-	private class GZIPResponseStream extends ServletOutputStream {
+	private static class GZIPResponseStream extends ServletOutputStream {
 
 		private ByteArrayOutputStream byteStream = null;
 

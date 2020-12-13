@@ -27,7 +27,7 @@ public abstract class UITransformImageBlur extends UIComponentBase implements Im
 		if (!isRendered()) {
 			return;
 		}
-		image.blur(Integer.valueOf(getRadius()));
+		image.blur(Integer.parseInt(getRadius()));
 	}
 
 	@Attribute(description = @Description("The radius of the blur (essentially the amount of blur)"))

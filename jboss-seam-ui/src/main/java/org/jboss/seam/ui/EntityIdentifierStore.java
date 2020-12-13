@@ -44,7 +44,7 @@ public class EntityIdentifierStore extends AbstractMutable {
 
 	public Identifier get(String key) {
 		try {
-			return store.get(Integer.valueOf(key));
+			return store.get(Integer.parseInt(key));
 		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
@@ -55,7 +55,7 @@ public class EntityIdentifierStore extends AbstractMutable {
 			store.add(identifier);
 			setDirty();
 		}
-		return ((Integer) store.indexOf(identifier)).toString();
+		return String.valueOf(store.indexOf(identifier));
 	}
 
 	public static EntityIdentifierStore instance() {

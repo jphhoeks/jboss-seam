@@ -32,7 +32,7 @@ public class TransactionInterceptor extends AbstractInterceptor {
 
 	transient private Map<AnnotatedElement, TransactionMetadata> transactionMetadata = new ConcurrentHashMap<AnnotatedElement, TransactionMetadata>();
 
-	private class TransactionMetadata {
+	private static class TransactionMetadata {
 		private boolean annotationPresent;
 		TransactionPropagationType propType;
 

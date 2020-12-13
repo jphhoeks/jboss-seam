@@ -5,13 +5,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 public class IncomingPattern {
+	
+	private static final String REGEXPARG = "([^/]*)";
+	
 	String view;
 	String pattern;
 	ServletMapping viewMapping;
 
 	java.util.regex.Pattern regexp;
 	List<String> regexpArgs = new ArrayList<String>();
-
+	
 	public IncomingPattern(ServletMapping viewMapping, String view, String pattern) {
 		this.view = view;
 		this.pattern = pattern;
@@ -27,7 +30,7 @@ public class IncomingPattern {
 	public void parsePattern(String value) {
 		StringBuilder expr = new StringBuilder();
 
-		expr.append("^");
+		expr.append('^');
 		while (value.length() > 0) {
 			int pos = value.indexOf('{');
 			if (pos == -1) {
@@ -40,19 +43,17 @@ public class IncomingPattern {
 				}
 				expr.append(regexpLiteral(value.substring(0, pos)));
 				String arg = value.substring(pos + 1, pos2);
-				expr.append(regexpArg(arg));
+				expr.append(REGEXPARG);
 				regexpArgs.add(arg);
 				value = value.substring(pos2 + 1);
 			}
 		}
-		expr.append("$");
+		expr.append('$');
 
 		regexp = java.util.regex.Pattern.compile(expr.toString());
 	}
 
-	private String regexpArg(String substring) {
-		return "([^/]*)";
-	}
+
 
 	private String regexpLiteral(String value) {
 		StringBuilder res = new StringBuilder();

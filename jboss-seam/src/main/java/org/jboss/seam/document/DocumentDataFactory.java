@@ -33,18 +33,18 @@ public final class DocumentDataFactory {
 	private static File getTempFile(byte[] data) {
 
 		File tempDir = getTempDir();
-		if (tempDir != null) {
-			File tempFile = new File(tempDir, "seam-docstore-" + UUID.randomUUID().toString());
-
-			try {
-				Files.write(tempFile.toPath(), data, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-			} catch (IOException ioe) {
-				log.warn("Error creating temp file", ioe);
-				tempFile = null;
-			}
-			return tempFile;
+		if (tempDir == null) {
+			return null;
 		}
-		return null;
+		File tempFile = new File(tempDir, "seam-docstore-" + UUID.randomUUID().toString());
+		
+		try {
+			Files.write(tempFile.toPath(), data, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+		} catch (IOException ioe) {
+			log.warn("Error creating temp file", ioe);
+			tempFile = null;
+		}
+		return tempFile;
 	}
 
 	private static File getTempDir() {

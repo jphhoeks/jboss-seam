@@ -315,7 +315,7 @@ public final class HTML {
 			throws IOException {
 		if (!isDefaultAttributeValue(value)) {
 			// render JSF "styleClass" attribute as "class"
-			String htmlAttrName = attrName.equals(HTML.STYLE_CLASS_ATTR) ? HTML.CLASS_ATTR : attrName;
+			String htmlAttrName = HTML.STYLE_CLASS_ATTR.equals(attrName) ? HTML.CLASS_ATTR : attrName;
 			writer.writeAttribute(htmlAttrName, value, componentProperty);
 			return true;
 		}

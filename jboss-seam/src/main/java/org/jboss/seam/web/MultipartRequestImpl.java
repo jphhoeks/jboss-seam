@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.rmi.server.UID;
@@ -140,7 +141,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 
 		public void createTempFile() {
 			try {
-				tempFile = File.createTempFile(new UID().toString().replace(":", "-"), ".upload");
+				tempFile = File.createTempFile(new UID().toString().replace(':', '-'), ".upload");
 				tempFile.deleteOnExit();
 				fOut = new BufferedOutputStream(
 						Files.newOutputStream(tempFile.toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
@@ -397,12 +398,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 		if (boundaryStr == null) {
 			return null;
 		}
-
-		try {
-			return boundaryStr.getBytes("ISO-8859-1");
-		} catch (UnsupportedEncodingException e) {
-			return boundaryStr.getBytes();
-		}
+		return boundaryStr.getBytes(StandardCharsets.ISO_8859_1);
 	}
 
 	/**
@@ -478,7 +474,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 	@Override
 	public String getFileName(String name) {
 		Param p = getParam(name);
-		return (p != null && p instanceof FileParam) ? ((FileParam) p).getFilename() : null;
+		return (p instanceof FileParam) ? ((FileParam) p).getFilename() : null;
 	}
 
 	@Override
@@ -530,8 +526,9 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 
 		Map<String, String[]> params = new ConcurrentHashMap<String, String[]>(super.getParameterMap());
 
-		for (String name : parameters.keySet()) {
-			Param p = parameters.get(name);
+		for(Map.Entry<String, Param> entry: parameters.entrySet()) {
+			String name = entry.getKey();
+			Param p = entry.getValue();
 			if (p instanceof ValueParam) {
 				ValueParam vp = (ValueParam) p;
 				if (vp.getValue() instanceof String) {
@@ -541,7 +538,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 				}
 			}
 		}
-
+		
 		return params;
 	}
 }

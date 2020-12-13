@@ -423,7 +423,9 @@ public class Image implements Serializable {
 			setBufferedImage(reader.read(0, param));
 		} finally {
 			Resources.close(imageInputStream);
-			reader.dispose();
+			if (reader != null) {
+				reader.dispose();
+			}
 			Resources.close(bufferedInputStream);
 			Resources.close(inputStream);
 		}

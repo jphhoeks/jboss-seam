@@ -100,11 +100,20 @@ public class Captcha implements Serializable {
 	*/
 	public BufferedImage renderChallenge() {
 		BufferedImage challenge = new BufferedImage(70, 20, BufferedImage.TYPE_BYTE_GRAY);
-		Graphics graphics = challenge.getGraphics();
-		graphics.setColor(getChallengeBackgroundColor());
-		graphics.fillRect(0, 0, getChallengeImageWidth(), 20);
-		graphics.setColor(getChallengeTextColor());
-		graphics.drawString(getChallenge(), 5, 15);
+		Graphics graphics = null;
+		try {
+			graphics = challenge.getGraphics();
+			graphics.setColor(getChallengeBackgroundColor());
+			graphics.fillRect(0, 0, getChallengeImageWidth(), 20);
+			graphics.setColor(getChallengeTextColor());
+			graphics.drawString(getChallenge(), 5, 15);
+		}
+		finally {
+			if (graphics != null) {
+				graphics.dispose();
+			}
+		}
+
 		return challenge;
 	}
 

@@ -188,8 +188,9 @@ public class FormattedTextValidator implements javax.faces.validator.Validator, 
 		}
 
 		// Filter some dangerous characters we do not want in error messages
-		return location.replace("\n", " ").replace("\r", " ").replace("#{", "# {");
+		return location.replace('\n', ' ').replace('\r', ' ').replace("#{", "# {");
 	}
+	
 
 	/**
 	 * Extracts the error from the <tt>RecognitionException</tt> and generates

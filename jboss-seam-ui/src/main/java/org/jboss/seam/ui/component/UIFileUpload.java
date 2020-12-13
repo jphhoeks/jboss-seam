@@ -181,7 +181,7 @@ public abstract class UIFileUpload extends UIInput {
 	/**
 	* Helper class to store the local values.
 	*/
-	protected class LocalUploadValue {
+	protected static class LocalUploadValue {
 
 		/** Stores the local content type. */
 		private String contentType;

@@ -339,7 +339,7 @@ public class Pages {
 			int colonLoc = dataModelSelection.indexOf(':');
 			int bracketLoc = dataModelSelection.indexOf('[');
 			if (colonLoc > 0 && bracketLoc > colonLoc) {
-				String var = dataModelSelection.substring(0, colonLoc);
+				String key = dataModelSelection.substring(0, colonLoc);
 				String name = dataModelSelection.substring(colonLoc + 1, bracketLoc);
 				int index = Integer.parseInt(dataModelSelection.substring(bracketLoc + 1, dataModelSelection.length() - 1));
 				Object value = Component.getInstance(name, true);
@@ -347,10 +347,10 @@ public class Pages {
 					DataModel<?> dataModel = (DataModel<?>) value;
 					if (index < dataModel.getRowCount()) {
 						dataModel.setRowIndex(index);
-						Contexts.getEventContext().set(var, dataModel.getRowData());
+						Contexts.getEventContext().set(key, dataModel.getRowData());
 					} else {
 						log.debug("DataModel row was unavailable");
-						Contexts.getEventContext().remove(var);
+						Contexts.getEventContext().remove(key);
 					}
 				}
 			}
@@ -843,7 +843,7 @@ public class Pages {
 			try {
 				String value = root.attributeValue("http-port");
 				if (!Strings.isEmpty(value)) {
-					httpPort = Integer.parseInt(value);
+					httpPort = Integer.valueOf(value);
 				}
 			} catch (NumberFormatException ex) {
 				throw new IllegalStateException("Invalid value specified for http-port attribute in pages.xml", ex);
@@ -854,7 +854,7 @@ public class Pages {
 			try {
 				String value = root.attributeValue("https-port");
 				if (!Strings.isEmpty(value)) {
-					httpsPort = Integer.parseInt(value);
+					httpsPort = Integer.valueOf(value);
 				}
 			} catch (NumberFormatException ex) {
 				throw new IllegalStateException("Invalid valid specified for https-port attribute in pages.xml", ex);
@@ -966,17 +966,17 @@ public class Pages {
 		}
 
 		String timeoutString = element.attributeValue("timeout");
-		if (timeoutString != null) {
-			page.setTimeout(Integer.parseInt(timeoutString));
+		if (!Strings.isEmpty(timeoutString)) {
+			page.setTimeout(Integer.valueOf(timeoutString));
 		}
 
 		String concurrentRequestTimeoutString = element.attributeValue("concurrent-request-timeout");
-		if (concurrentRequestTimeoutString != null) {
-			page.setConcurrentRequestTimeout(Integer.parseInt(concurrentRequestTimeoutString));
+		if (!Strings.isEmpty(concurrentRequestTimeoutString)) {
+			page.setConcurrentRequestTimeout(Integer.valueOf(concurrentRequestTimeoutString));
 		}
 
 		String noConversationViewIdString = element.attributeValue("no-conversation-view-id");
-		if (noConversationViewIdString != null) {
+		if (!Strings.isEmpty(noConversationViewIdString)) {
 			page.setNoConversationViewId(Expressions.instance().createValueExpression(noConversationViewIdString, String.class));
 		}
 		page.setConversationRequired(Boolean.parseBoolean(element.attributeValue("conversation-required")));
@@ -984,8 +984,8 @@ public class Pages {
 		page.setScheme(element.attributeValue("scheme"));
 
 		String expiresValue = element.attributeValue("expires");
-		if (expiresValue != null) {
-			page.setExpires(Integer.parseInt(expiresValue));
+		if (!Strings.isEmpty(expiresValue)) {
+			page.setExpires(Integer.valueOf(expiresValue));
 		}
 
 		ConversationIdParameter param = conversations.get(element.attributeValue("conversation"));

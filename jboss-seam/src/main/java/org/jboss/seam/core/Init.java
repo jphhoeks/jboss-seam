@@ -338,15 +338,17 @@ public class Init {
 	* @param component
 	*/
 	public void removeObserverMethods(Component component) {
-		// TODO Better implementation ;-)
-		for (String eventType : observerMethods.keySet()) {
+
+		for (Map.Entry<String, List<ObserverMethod>> entry: observerMethods.entrySet()) {
+			List<ObserverMethod> methods = entry.getValue(); 
 			List<ObserverMethod> observerMethodsToRemove = new ArrayList<ObserverMethod>();
-			for (ObserverMethod observerMethod : observerMethods.get(eventType)) {
+			for (ObserverMethod observerMethod: methods) {
 				if (observerMethod.getComponent().equals(component)) {
 					observerMethodsToRemove.add(observerMethod);
 				}
 			}
-			observerMethods.get(eventType).removeAll(observerMethodsToRemove);
+			methods.removeAll(observerMethodsToRemove);
+			
 		}
 	}
 
