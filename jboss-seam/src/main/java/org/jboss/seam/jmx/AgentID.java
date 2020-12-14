@@ -2,17 +2,16 @@ package org.jboss.seam.jmx;
 
 import java.net.InetAddress;
 import java.security.AccessController;
+import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.security.SecureRandom;
-import java.security.PrivilegedActionException;
-import java.util.Random;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
 
-import EDU.oswego.cs.dl.util.concurrent.SynchronizedLong;
-
 import org.jboss.mx.server.ServerConstants;
+
+import EDU.oswego.cs.dl.util.concurrent.SynchronizedLong;
 
 /**
  * Utility class for creating JMX agent identifiers. Also contains the
