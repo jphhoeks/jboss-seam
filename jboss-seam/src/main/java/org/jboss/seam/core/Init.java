@@ -310,13 +310,9 @@ public class Init {
 		return observerMethodBindings.get(eventType);
 	}
 
-	public void addObserverMethod(String eventType, Method method, Component component, boolean create) {
+	public void addObserverMethod(String eventType, Method method, Component component, boolean create) {		
+		observerMethods.putIfAbsent(eventType, new ArrayList<>());
 		List<ObserverMethod> observerList = observerMethods.get(eventType);
-		if (observerList == null) {
-			observerList = new ArrayList<ObserverMethod>();
-			observerMethods.put(eventType, observerList);
-		}
-
 		ObserverMethod observerMethod = new ObserverMethod(method, component, create);
 		if (!observerList.contains(observerMethod)) {
 			observerList.add(observerMethod);
@@ -324,12 +320,9 @@ public class Init {
 	}
 
 	public void addObserverMethodExpression(String eventType, MethodExpression<?> methodBinding) {
-		List<ObserverMethodExpression> observerList = observerMethodBindings.get(eventType);
-		if (observerList == null) {
-			observerList = new ArrayList<ObserverMethodExpression>();
-			observerMethodBindings.put(eventType, observerList);
-		}
-		observerList.add(new ObserverMethodExpression(methodBinding));
+		observerMethodBindings.putIfAbsent(eventType, new ArrayList<>());
+		List<ObserverMethodExpression> list = observerMethodBindings.get(eventType);
+		list.add(new ObserverMethodExpression(methodBinding));
 	}
 
 	/**

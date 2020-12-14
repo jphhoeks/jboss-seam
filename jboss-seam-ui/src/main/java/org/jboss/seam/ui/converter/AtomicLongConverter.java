@@ -8,6 +8,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
+import org.jboss.seam.util.Strings;
+
 /**
  *  Converter for java.util.concurrent.atomic.AtomicLong
  * 
@@ -22,15 +24,14 @@ public class AtomicLongConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext ctx, UIComponent ui, String value) {
-		Object object = null;
-		if (value != null && value.trim().length() > 0) {
-			try {
-				object = new AtomicLong(Long.parseLong(value.trim()));
-			} catch (NumberFormatException nfe) {
-				throw new ConverterException(nfe);
-			}
+		if (Strings.isEmpty(value)) {
+			return null;
 		}
-		return object;
+		try {
+			return new AtomicLong(Long.parseLong(value.trim()));
+		} catch (NumberFormatException nfe) {
+			throw new ConverterException(nfe);
+		}
 	}
 
 	@Override

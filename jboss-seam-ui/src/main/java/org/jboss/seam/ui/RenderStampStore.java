@@ -61,8 +61,10 @@ public class RenderStampStore implements Serializable {
 			if (store.size() == maxSize) {
 				Date oldest = null;
 				String oldestSigniture = null;
-				for (String sig : store.keySet()) {
-					RenderStamp s = store.get(sig);
+				
+				for (Map.Entry<String, RenderStamp> entry : store.entrySet()) {
+					String sig = entry.getKey();
+					RenderStamp s = entry.getValue();
 					if (oldest == null || s.timeStamp.before(oldest)) {
 						oldestSigniture = sig;
 					}

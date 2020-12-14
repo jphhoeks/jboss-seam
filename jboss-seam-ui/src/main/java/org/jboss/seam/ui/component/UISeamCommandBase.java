@@ -53,7 +53,7 @@ public abstract class UISeamCommandBase extends UIOutput implements ActionSource
 			}
 		}
 
-		if (viewId != null && isIncludePageParams()) {
+		if (isIncludePageParams()) {
 			Map<String, Object> pageParameters = Pages.instance().getStringValuesFromModel(context, viewId, usedParameters);
 			for (Map.Entry<String, Object> me : pageParameters.entrySet()) {
 				UIParameter uip = new UIParameter();

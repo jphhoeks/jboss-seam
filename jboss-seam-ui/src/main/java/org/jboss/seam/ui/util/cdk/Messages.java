@@ -288,34 +288,24 @@ public final class Messages {
 
 	public static final String getMessage(String name) {
 		String value = getBundle().getString(name);
-		return value == null ? "%" + name + "%" : value;
+		if (value != null) {
+			return value;
+		}
+		return "%" + name + "%"; 
 	}
 
 	public static final String getMessage(String name, Object param) {
-		String pattern = getBundle().getString(name);
-		if (pattern == null) {
-			return "%" + name + "%";
-		}
+		String pattern = getMessage(name);
 		return MessageFormat.format(pattern, new Object[] { param });
 	}
 
 	public static final String getMessage(String name, Object param1, Object param2) {
-		String pattern = getBundle().getString(name);
-		if (pattern == null) {
-			return "%" + name + "%";
-		}
+		String pattern = getMessage(name);
 		return MessageFormat.format(pattern, new Object[] { param1, param2 });
 	}
 
 	public static final String getMessage(String name, Object[] params) {
-		String pattern = getBundle().getString(name);
-		if (pattern == null) {
-			return "%" + name + "%";
-		}
+		String pattern = getMessage(name);
 		return MessageFormat.format(pattern, params);
 	}
-
-	
-
-
 }

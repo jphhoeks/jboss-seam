@@ -9,6 +9,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
+import org.jboss.seam.util.Strings;
+
 /**
  * Converter for java.util.concurrent.atomic.AtomicBoolean 
  * @author Dennis Byrne
@@ -22,7 +24,10 @@ public class AtomicBooleanConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext ctx, UIComponent ui, String string) {
-		return string != null && string.trim().length() > 0 ? new AtomicBoolean(Boolean.parseBoolean(string.trim())) : null;
+		if (Strings.isEmpty(string)) {
+			return null;
+		}
+		return new AtomicBoolean(Boolean.parseBoolean(string.trim()));
 	}
 
 	@Override

@@ -75,7 +75,7 @@ public class UrlBuilder {
 		for (Map.Entry<String, String> entry: parameters.entrySet()) {
 			String key = entry.getKey();
 			String value = entry.getValue();
-			params.append('&').append(key).append("=").append(value);
+			params.append('&').append(key).append('=').append(value);
 		}
 		return params.toString();
 	}
