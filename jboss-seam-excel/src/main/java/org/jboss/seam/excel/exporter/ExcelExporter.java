@@ -174,11 +174,11 @@ public class ExcelExporter {
 	* 
 	* @param column The column to parse
 	* @param iterator The iterator to the data
-	* @param var The binding var
+	* @param varBinding The binding var
 	* @param col
 	*/
 
-	private void processColumn(javax.faces.component.UIColumn column, Iterator iterator, String var, int columnIndex) {
+	private void processColumn(javax.faces.component.UIColumn column, Iterator iterator, String varBinding, int columnIndex) {
 		// Process header facet
 		UIComponent headerFacet = column.getFacet(UIColumn.HEADER_FACET_NAME);
 		if (headerFacet != null && UIOutput.class.isAssignableFrom(headerFacet.getClass())) {
@@ -189,7 +189,7 @@ public class ExcelExporter {
 
 		// Process data
 		while (iterator.hasNext()) {
-			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(var, iterator.next());
+			FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(varBinding, iterator.next());
 			List<UIOutput> dataOutputs = ExcelComponent.getChildrenOfType(column.getChildren(), UIOutput.class);
 			processOutputs(column, dataOutputs);
 		}

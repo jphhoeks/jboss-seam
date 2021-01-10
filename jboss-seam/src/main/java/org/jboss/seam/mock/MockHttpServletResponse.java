@@ -34,13 +34,13 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	@Override
-	public void addCookie(Cookie arg0) {
-		cookies.add(arg0);
+	public void addCookie(Cookie cookie) {
+		cookies.add(cookie);
 	}
 
 	@Override
-	public void addDateHeader(String arg0, long arg1) {
-		addHeader(arg0, getDate(arg1));
+	public void addDateHeader(String name, long date) {
+		addHeader(name, getDate(date));
 	}
 
 	@Override
@@ -57,47 +57,47 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	@Override
-	public boolean containsHeader(String arg0) {
-		return headers.containsKey(arg0);
+	public boolean containsHeader(String name) {
+		return headers.containsKey(name);
 	}
 
 	@Override
-	public String encodeRedirectURL(String arg0) {
+	public String encodeRedirectURL(String url) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String encodeURL(String arg0) {
-		return arg0;
+	public String encodeURL(String url) {
+		return url;
 	}
 
 	@Override
 	@Deprecated
-	public String encodeUrl(String arg0) {
-		return encodeURL(arg0);
+	public String encodeUrl(String url) {
+		return encodeURL(url);
 	}
 
 	@Override
-	public void sendError(int arg0) throws IOException {
-		this.status = arg0;
+	public void sendError(int statusCode) throws IOException {
+		this.status = statusCode;
 
 	}
 
 	@Override
-	public void sendError(int arg0, String arg1) throws IOException {
-		this.status = arg0;
+	public void sendError(int statusCode, String message) throws IOException {
+		this.status = statusCode;
 	}
 
 	@Override
-	public void sendRedirect(String arg0) throws IOException {
-		setHeader("Location", arg0);
+	public void sendRedirect(String url) throws IOException {
+		setHeader("Location", url);
 		setStatus(SC_FOUND);
 	}
 
 	@Override
-	public void setDateHeader(String arg0, long arg1) {
-		setHeader(arg0, getDate(arg1));
+	public void setDateHeader(String name, long date) {
+		setHeader(name, getDate(date));
 	}
 
 	@Override
@@ -113,8 +113,8 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	@Override
-	public void setStatus(int arg0) {
-		this.status = arg0;
+	public void setStatus(int statusCode) {
+		this.status = statusCode;
 	}
 
 	@Override
@@ -170,30 +170,30 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	@Override
-	public void setBufferSize(int arg0) {
+	public void setBufferSize(int size) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setCharacterEncoding(String arg0) {
-		this.charset = Charset.forName(arg0);
+	public void setCharacterEncoding(String encoding) {
+		this.charset = Charset.forName(encoding);
 
 	}
 
 	@Override
-	public void setContentLength(int arg0) {
+	public void setContentLength(int length) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void setContentType(String arg0) {
-		this.contentType = arg0;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	@Override
-	public void setLocale(Locale arg0) {
-		this.locale = arg0;
+	public void setLocale(Locale locale) {
+		this.locale = locale;
 	}
 
 	@Override
@@ -235,14 +235,14 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
 	@Override
 	@Deprecated
-	public void setStatus(int arg0, String arg1) {
-		setStatus(arg0);
+	public void setStatus(int statusCode, String message) {
+		setStatus(statusCode);
 
 	}
 
 	@Override
 	@Deprecated
-	public String encodeRedirectUrl(String arg0) {
+	public String encodeRedirectUrl(String url) {
 		// TODO Auto-generated method stub
 		return null;
 	}

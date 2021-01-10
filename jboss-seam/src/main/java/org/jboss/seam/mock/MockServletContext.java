@@ -269,7 +269,7 @@ public class MockServletContext implements ServletContext {
 	@Override
 	public void setAttribute(String att, Object value) {
 		if (value == null) {
-			attributes.remove(value);
+			attributes.remove(att);
 		} else {
 			attributes.put(att, value);
 		}

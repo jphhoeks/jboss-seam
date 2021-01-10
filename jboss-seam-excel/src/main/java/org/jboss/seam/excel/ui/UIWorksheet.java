@@ -22,7 +22,7 @@ public class UIWorksheet extends ExcelComponent {
 	private static final String FOOTER_FACET_NAME = "footer";
 
 	private String name;
-	private String var;
+	private String var1;
 	private Object value;
 	private Integer startRow;
 	private Integer startColumn;
@@ -394,11 +394,11 @@ public class UIWorksheet extends ExcelComponent {
 	}
 
 	public String getVar() {
-		return (String) valueOf("var", var);
+		return (String) valueOf("var", var1);
 	}
 
-	public void setVar(String var) {
-		this.var = var;
+	public void setVar(String v) {
+		this.var1 = v;
 	}
 
 	public Object getValue() {

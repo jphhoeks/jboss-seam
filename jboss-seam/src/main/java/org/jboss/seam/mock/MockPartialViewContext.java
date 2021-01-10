@@ -56,7 +56,7 @@ public class MockPartialViewContext extends PartialViewContext {
 	}
 
 	@Override
-	public void processPartial(PhaseId arg0) {
+	public void processPartial(PhaseId phaseId) {
 		//
 	}
 
@@ -68,13 +68,13 @@ public class MockPartialViewContext extends PartialViewContext {
 	}
 
 	@Override
-	public void setPartialRequest(boolean arg0) {
-		this.partialRequest = arg0;
+	public void setPartialRequest(boolean isPartialRequest) {
+		this.partialRequest = isPartialRequest;
 	}
 
 	@Override
-	public void setRenderAll(boolean arg0) {
-		this.renderAll = arg0;
+	public void setRenderAll(boolean renderAll) {
+		this.renderAll = renderAll;
 	}
 
 }
