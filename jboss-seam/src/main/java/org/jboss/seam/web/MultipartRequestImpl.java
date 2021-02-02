@@ -293,9 +293,8 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 										fp.setFilename(headers.get(PARAM_FILENAME));
 										p = fp;
 									} else {
-										if (parameters.containsKey(paramName)) {
-											p = parameters.get(paramName);
-										} else {
+										p = parameters.get(paramName);
+										if (p == null) {
 											p = new ValueParam(paramName);
 										}
 									}

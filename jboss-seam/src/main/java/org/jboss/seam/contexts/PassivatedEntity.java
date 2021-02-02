@@ -60,16 +60,15 @@ final class PassivatedEntity implements Serializable {
 			return null;
 		} else {
 			if (persistenceContext instanceof EntityManager) {
-				return getEntityFromEntityManager(persistenceContext, checkVersion);
+				return getEntityFromEntityManager((EntityManager) persistenceContext, checkVersion);
 			} else {
-				return getEntityFromHibernate(persistenceContext, checkVersion);
+				return getEntityFromHibernate((Session) persistenceContext, checkVersion);
 			}
 		}
 	}
 
-	private Object getEntityFromHibernate(Object persistenceContext, boolean checkVersion) {
+	private Object getEntityFromHibernate(Session session, boolean checkVersion) {
 		//TODO: split this out to somewhere to isolate the Hibernate dependency!!
-		Session session = (Session) persistenceContext;
 		if (session.isOpen()) {
 			Object result = session.load(getEntityClass(), (Serializable) getId());
 			if (result != null && checkVersion) {
@@ -88,8 +87,7 @@ final class PassivatedEntity implements Serializable {
 		}
 	}
 
-	private Object getEntityFromEntityManager(Object persistenceContext, boolean checkVersion) {
-		EntityManager em = (EntityManager) persistenceContext;
+	private Object getEntityFromEntityManager(EntityManager em, boolean checkVersion) {
 		if (em.isOpen()) {
 			Object result = em.getReference(getEntityClass(), getId());
 			if (result != null && checkVersion) {
@@ -108,21 +106,6 @@ final class PassivatedEntity implements Serializable {
 		}
 	}
 
-	/*public static Object unpassivateEntityAndCheckVersion(String key)
-	{
-	  return unpassivateEntity(key, true);
-	}
-	
-	public static Object unpassivateEntity(String key)
-	{
-	  return unpassivateEntity(key, false);
-	}
-	
-	private static Object unpassivateEntity(String key, boolean checkVersion)
-	{
-	  PassivatedEntity passivatedEntity = (PassivatedEntity) Contexts.getConversationContext().get(key);
-	  return passivatedEntity==null ? null : passivatedEntity.toEntityReference(checkVersion);
-	}*/
 
 	public static PassivatedEntity passivateEntity(Object value) {
 		Class<?> entityClass = Seam.getEntityClass(value.getClass());
@@ -140,35 +123,23 @@ final class PassivatedEntity implements Serializable {
 	private static PassivatedEntity createPassivatedEntity(Object value, Class<?> entityClass, String persistenceContextName,
 			Object persistenceContext) {
 		if (persistenceContext instanceof EntityManager) {
-			return createUsingEntityManager(value, entityClass, persistenceContextName, persistenceContext);
-		} else {
-			return createUsingHibernate(value, entityClass, persistenceContextName, persistenceContext);
+			return createUsingEntityManager(value, entityClass, persistenceContextName, (EntityManager) persistenceContext);
+		} else if (persistenceContext instanceof Session){
+			return createUsingHibernate(value, entityClass, persistenceContextName, (Session) persistenceContext);
+		}
+		else if (persistenceContext == null) {
+			throw new IllegalStateException("PersistenceContext not found or not configured");
+		}
+		else {
+			throw new IllegalStateException("Unexpected persistenceContext: " + persistenceContext.getClass().getCanonicalName());
 		}
 	}
 
-	/*private static String storeConversationContext(PassivatedEntity result)
-	{
-	  if (result==null)
-	  {
-	     return null;
-	  }
-	  else
-	  {
-	     String key = result.getKey();
-	     Contexts.getConversationContext().set( key, result );
-	     return key;
-	  }
-	}
-	
-	private String getKey()
-	{
-	  return "org.jboss.seam.passivatedEntity." + entityClass.getName() + '#' + getId();
-	}*/
+
 
 	private static PassivatedEntity createUsingHibernate(Object value, Class<?> entityClass, String persistenceContextName,
-			Object persistenceContext) {
+			Session session) {
 		//TODO: split this out to somewhere to isolate the Hibernate dependency!!
-		Session session = (Session) persistenceContext;
 		if (isManaged(value, session)) {
 			Object id = session.getIdentifier(value);
 			Object version = HibernatePersistenceProvider.getVersion(value, session);
@@ -190,8 +161,8 @@ final class PassivatedEntity implements Serializable {
 	}
 
 	private static PassivatedEntity createUsingEntityManager(Object value, Class<?> entityClass, String persistenceContextName,
-			Object persistenceContext) {
-		EntityManager em = (EntityManager) persistenceContext;
+			EntityManager persistenceContext) {
+		EntityManager em =  persistenceContext;
 		if (isManaged(value, em)) {
 			Object id = PersistenceProvider.instance().getId(value, em);
 			Object version = PersistenceProvider.instance().getVersion(value, em);

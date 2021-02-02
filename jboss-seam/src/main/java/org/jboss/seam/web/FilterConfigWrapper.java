@@ -29,8 +29,9 @@ public class FilterConfigWrapper implements FilterConfig {
 
 	@Override
 	public String getInitParameter(String name) {
-		if (parameters.containsKey(name)) {
-			return parameters.get(name);
+		String result = parameters.get(name);
+		if (result != null) {
+			return result;
 		} else {
 			return delegate.getInitParameter(name);
 		}

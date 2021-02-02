@@ -42,17 +42,11 @@ public class Theme {
 			public String get(Object key) {
 				if (key instanceof String) {
 					String resourceKey = (String) key;
-
-					String resource;
 					try {
-						resource = bundle.getString(resourceKey);
+						String resource = bundle.getString(resourceKey);
+						return Interpolator.instance().interpolate(resource);
 					} catch (MissingResourceException mre) {
 						return resourceKey;
-					}
-					if (resource == null) {
-						return resourceKey;
-					} else {
-						return Interpolator.instance().interpolate(resource);
 					}
 				} else {
 					return null;

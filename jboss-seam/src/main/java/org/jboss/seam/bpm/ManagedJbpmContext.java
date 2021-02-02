@@ -81,7 +81,10 @@ public class ManagedJbpmContext implements Synchronization {
 		}
 
 		if (!synchronizationRegistered && !Lifecycle.isDestroying() && transaction.isActive()) {
-			jbpmContext.getSession().isOpen();
+			
+			if (!jbpmContext.getSession().isOpen()) {
+				throw new IllegalStateException("Session is not open");
+			}
 			try {
 				//TODO: what we really want here is if (!cmt)
 				transaction.registerSynchronization(this);

@@ -588,9 +588,7 @@ public class JXLFactory {
 		} catch (IOException e) {
 			throw new ExcelWorkbookException("Could not get content from header facet", e);
 		}
-		if (facetContent == null) {
-			return;
-		}
+
 		facetContent = facetContent.trim();
 		int firstHash;
 		int secondHash;

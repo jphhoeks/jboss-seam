@@ -19,7 +19,6 @@ public class TempFileDocumentData extends FileDocumentData {
 		File file = getData();
 		if (file != null && file.exists()) {
 			file.delete();
-
 		}
 	}
 

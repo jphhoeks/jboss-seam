@@ -116,7 +116,7 @@ public abstract class AbstractFilter implements Filter {
 		if (path == null || "".equals(path)) {
 			path = "/";
 		}
-		if (pattern == null || "".equals(pattern)) {
+		if ("".equals(pattern)) {
 			pattern = "/";
 		}
 

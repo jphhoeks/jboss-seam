@@ -50,11 +50,8 @@ public class Messages {
 			public String get(Object key) {
 				if (key instanceof String) {
 					String resourceKey = (String) key;
-
-					String resource;
 					try {
-						resource = bundle.getString(resourceKey);
-						return (resource == null) ? resourceKey : resource;
+						return bundle.getString(resourceKey);
 					} catch (MissingResourceException mre) {
 						return resourceKey;
 					}

@@ -1,7 +1,7 @@
 package org.jboss.seam.deployment;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ import org.jboss.seam.annotations.Name;
  */
 public class ComponentDeploymentHandler extends AbstractClassDeploymentHandler {
 
-	private static Set<Class<? extends Annotation>> ANNOTATION_TYPES = new HashSet<Class<? extends Annotation>>(Arrays.asList(Name.class));
+	private static Set<Class<? extends Annotation>> ANNOTATION_TYPES = new HashSet<Class<? extends Annotation>>(Collections.singletonList(Name.class));
 
 	public static ClassDeploymentMetadata NAME_ANNOTATED_CLASS_METADATA = new ClassDeploymentMetadata() {
 

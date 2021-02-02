@@ -192,8 +192,9 @@ public class Init {
 	}
 
 	private void checkDuplicateFactory(String variable, Component component) {
-		if (factories.containsKey(variable)) {
-			String otherComponentName = factories.get(variable).getComponent().getName();
+		FactoryMethod factoryMethod = factories.get(variable);
+		if (factoryMethod != null) {
+			String otherComponentName = factoryMethod.getComponent().getName();
 			String componentName = component.getName();
 			if (componentName != null && !componentName.equals(otherComponentName)) {
 				throw new IllegalStateException("duplicate factory for: " + variable + " (duplicates are specified in " + componentName

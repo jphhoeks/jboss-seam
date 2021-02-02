@@ -101,9 +101,10 @@ public class Pageflow extends AbstractMutable implements Serializable {
 			org.jboss.seam.faces.FacesPage page = org.jboss.seam.faces.FacesPage.instance();
 			String pageflowName = page.getPageflowName();
 			String pageflowNodeName = page.getPageflowNodeName();
-			boolean canReposition = getPage().isBackEnabled()
-					&& getSubProcessInstance().getProcessDefinition().getName().equals(pageflowName) && //possibly not necessary?
-					pageflowNodeName != null;
+			boolean canReposition = 
+					pageflowNodeName != null && 
+					getPage().isBackEnabled() && 
+					getSubProcessInstance().getProcessDefinition().getName().equals(pageflowName);
 			if (canReposition) {
 				//check the node name to make sure we are still on the same node
 				if (!pageflowNodeName.equals(getNode().getName())) {

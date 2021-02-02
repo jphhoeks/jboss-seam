@@ -433,7 +433,7 @@ public class JpaIdentityStore implements IdentityStore, Serializable {
 		}
 
 		Object roleToRemove = lookupRole(role);
-		if (role == null) {
+		if (roleToRemove == null) {
 			throw new NoSuchUserException("Could not remove role from group, no such role '" + role + "'");
 		}
 

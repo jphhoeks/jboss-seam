@@ -114,17 +114,20 @@ public class SeamFilter implements Filter {
 
 		//create sort items
 		for (SortItem<Filter> sortItem : sortItems) {
+			if (sortItem == null) {
+				continue;
+			}
 			org.jboss.seam.annotations.web.Filter filterAnn = getFilterAnnotation(sortItem.getObj().getClass());
 			if (filterAnn != null) {
 				for (String s : Arrays.asList(filterAnn.around())) {
 					SortItem<Filter> aroundSortItem = sortItemsMap.get(s);
-					if (sortItem != null && aroundSortItem != null) {
+					if (aroundSortItem != null) {
 						sortItem.getAround().add(aroundSortItem);
 					}
 				}
 				for (String s : Arrays.asList(filterAnn.within())) {
 					SortItem<Filter> withinSortItem = sortItemsMap.get(s);
-					if (sortItem != null && withinSortItem != null) {
+					if (withinSortItem != null) {
 						sortItem.getWithin().add(withinSortItem);
 					}
 				}

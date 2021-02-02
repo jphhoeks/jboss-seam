@@ -215,10 +215,8 @@ public class StringWrapper extends BaseWrapper implements Wrapper {
 		if (cls.isEnum()) {
 			try {
 				String elementValue = URLDecoder.decode(element.getStringValue(), DEFAULT_ENCODING);
-				if (Enum.valueOf(cls, elementValue) != null) {
-					return ConversionScore.compatible;					
-				}
-				return ConversionScore.nomatch;
+				Enum.valueOf(cls, elementValue);
+				return ConversionScore.compatible;
 			} catch (IllegalArgumentException ignored) {
 				//
 			} catch (UnsupportedEncodingException ignored) {

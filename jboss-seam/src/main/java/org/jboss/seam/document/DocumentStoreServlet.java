@@ -34,15 +34,15 @@ public class DocumentStoreServlet extends HttpServlet {
 	private static void doWork(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Parameters params = Parameters.instance();
 		String contentId = (String) params.convertMultiValueRequestParameter(params.getRequestParameters(), "docId", String.class);
-
 		DocumentStore store = DocumentStore.instance();
 
 		if (store.idIsValid(contentId)) {
+			boolean isIE = DocumentStorePhaseListener.isInternetExplorer(request);
 			DocumentData documentData = store.getDocumentData(contentId);
 
 			response.setContentType(documentData.getDocumentType().getMimeType());
 			response.setContentType(documentData.getDocumentType().getMimeType());
-			if (DocumentStorePhaseListener.isInternetExplorer(request)) {
+			if (isIE) {
 				response.setHeader("Content-Disposition",
 						documentData.getDisposition() + "; filename=\"" + URLEncoder.encode(documentData.getFileName(), StandardCharsets.UTF_8.name()) + "\"");
 			} else {

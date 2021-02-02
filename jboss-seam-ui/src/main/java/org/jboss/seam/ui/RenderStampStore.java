@@ -67,6 +67,7 @@ public class RenderStampStore implements Serializable {
 					RenderStamp s = entry.getValue();
 					if (oldest == null || s.timeStamp.before(oldest)) {
 						oldestSigniture = sig;
+						oldest = s.timeStamp;
 					}
 				}
 				store.remove(oldestSigniture);

@@ -63,12 +63,17 @@ public class ClassDescriptor extends FileDescriptor {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other instanceof ClassDescriptor) {
-			ClassDescriptor that = (ClassDescriptor) other;
-			return this.getClazz().equals(that.getClazz());
-		} else {
+		if (this == other) {
+			return true;
+		}
+		if (other == null) {
 			return false;
 		}
+		if (getClass() != other.getClass()) {
+			return false;
+		}
+		ClassDescriptor that = (ClassDescriptor) other;
+		return this.getClazz().equals(that.getClazz());
 	}
 
 	@Override

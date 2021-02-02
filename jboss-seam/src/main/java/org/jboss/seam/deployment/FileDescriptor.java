@@ -53,17 +53,22 @@ public class FileDescriptor {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other instanceof FileDescriptor) {
-			FileDescriptor that = (FileDescriptor) other;
-			return this.getUrl().equals(that.getUrl());
-		} else {
+		if (this == other) {
+			return true;
+		}
+		if (other == null) {
 			return false;
 		}
+		if (getClass() != other.getClass()) {
+			return false;
+		}
+		FileDescriptor that = (FileDescriptor) other;
+		return this.getUrl().toString().equals(that.getUrl().toString());
 	}
 
 	@Override
 	public int hashCode() {
-		return getUrl().hashCode();
+		return getUrl().toString().hashCode();
 	}
 
 }

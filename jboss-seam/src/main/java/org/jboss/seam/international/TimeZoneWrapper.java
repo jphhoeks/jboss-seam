@@ -39,7 +39,7 @@ public class TimeZoneWrapper extends TimeZone {
 		.append(" (UTC")
 		.append(timeZone.getRawOffset() > 0 ? '+' : '-');
 		if (Math.abs(timeZone.getRawOffset()) < MILLISECONDS_PER_HOUR * 10) {
-			label.append("0");
+			label.append('0');
 		}
 		label.append(Math.abs(timeZone.getRawOffset()) / MILLISECONDS_PER_HOUR).append(":00)");
 		return label.toString();

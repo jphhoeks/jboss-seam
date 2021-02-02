@@ -2,6 +2,7 @@ package org.jboss.seam.excel.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -59,14 +60,14 @@ public class UIColumn extends ExcelComponent {
 		// Get UiCell template this column's data cells and iterate over sheet data
 		for (WorksheetItem item : getItems(getChildren())) {
 			Object oldValue = null;
-			Iterator iterator = null;
+			Iterator<?> iterator = null;
 			// Store away the old value for the sheet binding var (if there is one)
 			if (sheet.getVar() != null) {
 				oldValue = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(sheet.getVar());
 				iterator = sheet.getDataIterator();
 			} else {
 				// No var, no iteration...
-				iterator = new ArrayList().iterator();
+				iterator = Collections.emptyList().iterator();
 			}
 			while (iterator.hasNext()) {
 				// Store the bound data in the request map and add the cell

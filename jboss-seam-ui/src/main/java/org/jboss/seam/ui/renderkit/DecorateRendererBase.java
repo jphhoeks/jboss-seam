@@ -20,7 +20,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 @JsfRenderer(type = "org.jboss.seam.ui.DecorateRenderer", family = "org.jboss.seam.ui.DecorateRenderer")
 public class DecorateRendererBase extends RendererBase {
 	// Place the attributes you want to store away
-	private Map<String, Object> originalValues = new HashMap<>();
+	private Map<String, Object> originalValues = new HashMap<String, Object>();
 	// The list of attributes in the event scope to store away
 	String[] storeOriginals = new String[] { "invalid", "required" };
 
@@ -29,7 +29,7 @@ public class DecorateRendererBase extends RendererBase {
 	}
 	
 	@Override
-	protected Class getComponentClass() {
+	protected Class<UIDecorate> getComponentClass() {
 		return UIDecorate.class;
 	}
 
@@ -68,11 +68,13 @@ public class DecorateRendererBase extends RendererBase {
 	*/
 	private void restoreOriginalValues(String[] names, Context context) {
 		for (String name : names) {
-			if (originalValues.containsKey(name)) {
-				context.set(name, originalValues.get(name));
-			} else {
-				context.remove(name);
+			Object value = originalValues.get(name);
+			if (value != null) {
+				context.set(name, value);
 			}
+			else {
+				context.remove(name);
+			}			
 		}
 	}
 

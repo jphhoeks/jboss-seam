@@ -163,18 +163,20 @@ public class URLScanner extends AbstractScanner {
 		if (log.isTraceEnabled()) {
 			log.trace("handling directory: " + file);
 		}
-		if (file.listFiles() != null) {
-			for (File child : file.listFiles()) {
-				String newPath = path == null ? child.getName() : path + '/' + child.getName();
-				if (child.isDirectory()) {
-					if (omitPackage.acceptPackage(newPath)) {
-						handleDirectory(child, newPath, excludedDirectories);
-					}
-				} else {
-					if (handle(newPath)) {
-						// only try to update the timestamp on this scanner if the file was actually handled
-						touchTimestamp(child);
-					}
+		File[] childFiles = file.listFiles();
+		if (childFiles == null) {
+			return;
+		}
+		for (File child : childFiles) {
+			String newPath = path == null ? child.getName() : path + '/' + child.getName();
+			if (child.isDirectory()) {
+				if (omitPackage.acceptPackage(newPath)) {
+					handleDirectory(child, newPath, excludedDirectories);
+				}
+			} else {
+				if (handle(newPath)) {
+					// only try to update the timestamp on this scanner if the file was actually handled
+					touchTimestamp(child);
 				}
 			}
 		}

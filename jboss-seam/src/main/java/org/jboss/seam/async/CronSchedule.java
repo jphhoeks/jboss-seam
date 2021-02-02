@@ -1,6 +1,7 @@
 package org.jboss.seam.async;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * A "cron schedule" for a timed event executed by
@@ -13,9 +14,7 @@ public class CronSchedule extends Schedule {
 	private static final long serialVersionUID = 1L;
 	private String cron;
 
-	String getCron() {
-		return cron;
-	}
+
 
 	/**
 	* @param duration the delay before the first event occurs
@@ -39,5 +38,45 @@ public class CronSchedule extends Schedule {
 		super(duration, expiration, finalExpiration);
 		this.cron = cron;
 	}
+	
+	String getCron() {
+		return cron;
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (object == null) {
+			return false;
+		}
+		if (getClass() != object.getClass()) {
+			return false;
+		}
+		if (object instanceof CronSchedule) {
+			CronSchedule other = (CronSchedule) object;
+			boolean superEquals = super.equals(other);
+			if (!superEquals) {
+				return false;
+			}
+			if (this.cron == null) {
+				return other.cron == null;
+			}
+			return this.cron.equals(other.cron);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(cron);
+		return result;
+	}
+	
+	
+	
 
 }

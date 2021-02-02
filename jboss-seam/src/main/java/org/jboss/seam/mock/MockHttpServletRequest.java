@@ -89,8 +89,11 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 	public MockHttpServletRequest(HttpSession session, ExternalContext externalContext) {
 		this(session, null, new HashSet<String>());
+		if (externalContext == null) {
+			return;
+		}
 		Object request = externalContext.getRequest();
-		if (externalContext != null && (request instanceof HttpServletRequest)) {
+		if (request instanceof HttpServletRequest) {
 			httpServletRequest = (HttpServletRequest) request;
 			authType = httpServletRequest.getAuthType();
 			pathInfo = httpServletRequest.getPathInfo();
@@ -117,7 +120,6 @@ public class MockHttpServletRequest implements HttpServletRequest {
 			localName = httpServletRequest.getLocalName();
 			localAddr = httpServletRequest.getLocalAddr();
 			localPort = httpServletRequest.getLocalPort();
-
 		}
 	}
 
@@ -366,7 +368,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 	@Override
 	public void setAttribute(String att, Object value) {
 		if (value == null) {
-			attributes.remove(value);
+			attributes.remove(att);
 		} else {
 			attributes.put(att, value);
 		}

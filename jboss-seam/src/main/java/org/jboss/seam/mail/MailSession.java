@@ -94,7 +94,7 @@ public class MailSession extends AbstractMutable implements Serializable {
 		Properties properties = new Properties();
 
 		// Enable debugging if set
-		properties.put("mail.debug", isDebug());
+		properties.put("mail.debug", Boolean.toString(isDebug()));
 
 		if (getUsername() != null && getPassword() == null) {
 			log.warn("username supplied without a password (if an empty password is required supply an empty string)");
