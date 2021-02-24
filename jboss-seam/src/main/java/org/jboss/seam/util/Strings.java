@@ -64,17 +64,19 @@ public class Strings {
 	}
 
 	public static String[] split(String strings, String delims) {
-		if (strings == null) {
+		if (strings == null || strings.length() == 0) {
 			return new String[0];
-		} else {
-			StringTokenizer tokens = new StringTokenizer(strings, delims);
-			String[] result = new String[tokens.countTokens()];
-			int i = 0;
-			while (tokens.hasMoreTokens()) {
-				result[i++] = tokens.nextToken();
-			}
-			return result;
+		} 
+		if (delims == null || delims.length() == 0) {
+			return new String[] {strings};
 		}
+		StringTokenizer tokens = new StringTokenizer(strings, delims);
+		String[] result = new String[tokens.countTokens()];
+		int i = 0;
+		while (tokens.hasMoreTokens()) {
+			result[i++] = tokens.nextToken();
+		}
+		return result;
 	}
 
 	public static String toString(Object... objects) {
