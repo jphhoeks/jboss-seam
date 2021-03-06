@@ -55,7 +55,7 @@ public class JXLFactory {
 	private static final String SCRIPT_STYLE_CLASS_NAME = "jxl.format.ScriptStyle";
 	private static final String UNDERLINE_STYLE_CLASS_NAME = "jxl.format.UnderlineStyle";
 
-	private static final String HEADERFOOTER_COMMAND_MARKER = "#";
+	private static final char HEADERFOOTER_COMMAND_MARKER = '#';
 	private static final String HEADERFOOTER_PAIR_DELIMITER = "=";
 
 	private static final String HF_CMD_FONT_SIZE = "font_size";
@@ -169,7 +169,7 @@ public class JXLFactory {
 		if (log.isTraceEnabled()) {
 			log.trace("Getting valid constants from #0", className);
 		}
-		Class clazz = null;
+		Class<?> clazz = null;
 		try {
 			clazz = Class.forName(className);
 		} catch (ClassNotFoundException e) {
