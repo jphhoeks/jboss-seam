@@ -77,7 +77,7 @@ public class Identity implements Serializable {
 
 	private RememberMe rememberMe;
 
-	private transient ThreadLocal<Boolean> systemOp;
+	private transient ThreadLocal<Boolean> systemOperation;
 
 	private String jaasConfigName = null;
 
@@ -418,10 +418,7 @@ public class Identity implements Serializable {
 	* @return boolean True if the user is a member of the specified role
 	*/
 	public boolean hasRole(String role) {
-		if (!securityEnabled) {
-			return true;
-		}
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
+		if (!securityEnabled || isSystemOperation()) {
 			return true;
 		}
 
@@ -521,7 +518,7 @@ public class Identity implements Serializable {
 	* @throws AuthorizationException if the user does not have the specified permission
 	*/
 	public void checkPermission(String name, String action, Object... arg) {
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
+		if (isSystemOperation()) {
 			return;
 		}
 
@@ -543,7 +540,7 @@ public class Identity implements Serializable {
 	}
 
 	public void checkPermission(Object target, String action) {
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
+		if (isSystemOperation()) {
 			return;
 		}
 
@@ -573,10 +570,7 @@ public class Identity implements Serializable {
 	* @return boolean True if the user has the specified permission
 	*/
 	public boolean hasPermission(String name, String action, Object... arg) {
-		if (!securityEnabled) {
-			return true;
-		}
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
+		if (!securityEnabled || isSystemOperation()) {
 			return true;
 		}
 		if (permissionMapper == null) {
@@ -595,10 +589,7 @@ public class Identity implements Serializable {
 	}
 
 	public boolean hasPermission(Object target, String action) {
-		if (!securityEnabled) {
-			return true;
-		}
-		if (systemOp != null && Boolean.TRUE.equals(systemOp.get())) {
+		if (!securityEnabled || isSystemOperation()) {
 			return true;
 		}
 		if (permissionMapper == null) {
@@ -700,17 +691,21 @@ public class Identity implements Serializable {
 			principal = operation.getPrincipal();
 			subject = operation.getSubject();
 
-			if (systemOp == null) {
-				systemOp = new ThreadLocal<Boolean>();
+			if (systemOperation == null) {
+				systemOperation = new ThreadLocal<Boolean>();
 			}
 
-			systemOp.set(operation.isSystemOperation());
+			systemOperation.set(operation.isSystemOperation());
 
 			operation.execute();
 		} finally {
-			systemOp.set(Boolean.FALSE);
+			systemOperation.set(Boolean.FALSE);
 			principal = savedPrincipal;
 			subject = savedSubject;
 		}
+	}
+	
+	private boolean isSystemOperation() {
+		return systemOperation != null && Boolean.TRUE.equals(systemOperation.get());
 	}
 }
