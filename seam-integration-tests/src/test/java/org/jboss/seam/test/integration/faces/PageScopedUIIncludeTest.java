@@ -60,7 +60,7 @@ public class PageScopedUIIncludeTest {
 		HtmlPage page = client.getPage(contextPath + "test.seam");
 		assertTrue(page.getBody().getTextContent().contains("Component 1"));
 
-		page.getElementById("form1:input").type("xyzzy");
+		page.getElementById("form1:input").setAttribute("value", "xyzzy");
 		page = page.getElementById("form1:save").click();
 
 		assertTrue(page.getBody().getTextContent().contains("Hello, xyzzy"));
@@ -74,7 +74,7 @@ public class PageScopedUIIncludeTest {
 		page = page.getElementById("controller:component2").click();
 		assertTrue(page.getBody().getTextContent().contains("Component 2"));
 
-		page.getElementById("form2:input").type("foobar");
+		page.getElementById("form2:input").setAttribute("value", "foobar");
 		page = page.getElementById("form2:save").click();
 
 		assertTrue(page.getBody().getTextContent().contains("Hi, foobar"));
