@@ -3,6 +3,7 @@ JBoss Seam Changelog
 
 Release Notes - Seam 2 - Unreleased
 
+    * [#57] Removed flex module
 	* [   ] Bump spring from 3.1.4 to 4.3.29
 	* [   ] Bump dom4j from 2.1.1 to 2.1.3
 

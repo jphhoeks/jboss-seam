@@ -122,7 +122,6 @@
             <include>com.github.albfernandez.seam:jboss-seam-resteasy:jar</include>
             <include>com.github.albfernandez.seam:jboss-seam-wicket:jar</include>
             <include>com.github.albfernandez.seam:jboss-seam-remoting:jar</include>
-            <include>com.github.albfernandez.seam:jboss-seam-flex:jar</include>
             <include>com.github.albfernandez.seam:jboss-seam-ioc:jar</include>
          </includes>
          <excludes>

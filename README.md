@@ -58,7 +58,6 @@ jboss-seam
 jboss-seam-ui
 jboss-seam-debug
 jboss-seam-excel
-jboss-seam-flex
 jboss-seam-mail
 jboss-seam-pdf
 jboss-seam-remoting
@@ -112,6 +111,8 @@ Resulting jar files will be in each sub-project target directory.
 
 
 ## Note for flex users.
+
+jboss-seam-flex module was removed in 2.3.25.ayg. If you need it, you can use the jar included in 2.3.24.ayg.
 
 In Seam version 2.3.17.ayg BlazeDS is upgraded to Apache Flex BlazeDS 4.7.3. 
 

@@ -85,7 +85,6 @@
     <classpathentry kind="lib" path="lib/jboss-marshalling-river.jar"/>
     <classpathentry kind="lib" path="lib/jboss-seam-debug.jar" sourcepath="lib/src/jboss-seam-debug-sources.jar"/>
     <classpathentry kind="lib" path="lib/jboss-seam-excel.jar" sourcepath="lib/src/jboss-seam-excel-sources.jar"/>
-    <classpathentry kind="lib" path="lib/jboss-seam-flex.jar" sourcepath="lib/src/jboss-seam-flex-sources.jar"/>/>
     <classpathentry kind="lib" path="lib/jboss-seam-ioc.jar" sourcepath="lib/src/jboss-seam-ioc-sources.jar"/>
     <classpathentry kind="lib" path="lib/jboss-seam.jar" sourcepath="lib/src/jboss-seam-sources.jar"/>
     <classpathentry kind="lib" path="lib/jboss-seam-mail.jar" sourcepath="lib/src/jboss-seam-mail-sources.jar"/>

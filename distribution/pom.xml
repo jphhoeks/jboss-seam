@@ -97,10 +97,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.github.albfernandez.seam</groupId>
-			<artifactId>jboss-seam-flex</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.github.albfernandez.seam</groupId>
 			<artifactId>jboss-seam-ioc</artifactId>
 		</dependency>
 		<dependency>
@@ -143,12 +139,6 @@
 		<dependency>
 			<groupId>com.github.albfernandez.seam</groupId>
 			<artifactId>jboss-seam-excel</artifactId>
-			<classifier>sources</classifier>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.albfernandez.seam</groupId>
-			<artifactId>jboss-seam-flex</artifactId>
 			<classifier>sources</classifier>
 			<version>${project.version}</version>
 		</dependency>

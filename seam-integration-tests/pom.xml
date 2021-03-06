@@ -265,7 +265,6 @@
 											<directory>${basedir}/../jboss-seam/src/main/java</directory>
 											<directory>${basedir}/../jboss-seam-debug/src/main/java</directory>
 											<directory>${basedir}/../jboss-seam-excel/src/main/java</directory>
-											<directory>${basedir}/../jboss-seam-flex/src/main/java</directory>
 											<directory>${basedir}/../jboss-seam-gen/src/main/java</directory>
 											<directory>${basedir}/../jboss-seam-ioc/src/main/java</directory>
 											<directory>${basedir}/../jboss-seam-mail/src/main/java</directory>

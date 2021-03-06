@@ -679,7 +679,6 @@
       <module>jboss-seam-debug</module>
       <module>jboss-seam-gen</module>
       <module>jboss-seam-excel</module>
-      <module>jboss-seam-flex</module>
       <module>jboss-seam-mail</module>
       <module>jboss-seam-pdf</module>
       <module>jboss-seam-remoting</module>
