@@ -14,7 +14,6 @@
     	<exclude name="AbstractClassWithoutAbstractMethod" />
     	<exclude name="AvoidReassigningParameters" />
         <exclude name="AccessorMethodGeneration"/>
-    	<exclude name="CollapsibleIfStatements" />
         <exclude name="ConstantsInInterface" />
         <exclude name="JUnitTestContainsTooManyAsserts"/>
         <exclude name="JUnitTestsShouldIncludeAssert"/>

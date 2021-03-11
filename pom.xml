@@ -93,11 +93,11 @@
 		<version.surefire.plugin>2.22.0</version.surefire.plugin>
 		<version.war.plugin>3.2.2</version.war.plugin>
 
-        <version.spotbugs-maven-plugin>4.1.4</version.spotbugs-maven-plugin>
+        <version.spotbugs-maven-plugin>4.2.0</version.spotbugs-maven-plugin>
         <version.findsecbugs-plugin>1.11.0</version.findsecbugs-plugin>
         <version.sb-contrib>7.4.7</version.sb-contrib>
-        <version.maven-pmd-plugin>3.13.0</version.maven-pmd-plugin>
-        <version.pmd>6.29.0</version.pmd>
+        <version.maven-pmd-plugin>3.14.0</version.maven-pmd-plugin>
+        <version.pmd>6.32.0</version.pmd>
         <version.jacoco-maven-plugin>0.8.6</version.jacoco-maven-plugin>
         <version.maven-checkstyle-plugin>3.1.1</version.maven-checkstyle-plugin>
         <version.org.owasp.dependency-check-maven>6.0.3</version.org.owasp.dependency-check-maven>
@@ -521,6 +521,7 @@
                             <ruleset>qa/pmd-rules.xml</ruleset>
                         </rulesets>
                         <printFailingErrors>true</printFailingErrors>
+                        <linkXRef>false</linkXRef>
                     </configuration>
                     <executions>
                         <execution>
