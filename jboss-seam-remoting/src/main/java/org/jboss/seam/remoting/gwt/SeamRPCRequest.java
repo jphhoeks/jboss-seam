@@ -8,9 +8,9 @@ import org.jboss.seam.util.CloneUtils;
 
 /**
  * @author Tomaz Cerar
- * @version $Revision$
- * @modifiedBy $Author$
- * @modified $Date$
+ * 
+ * 
+ * 
  */
 public class SeamRPCRequest {
 	private final java.lang.reflect.Method method;
