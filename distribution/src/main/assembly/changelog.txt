@@ -3,9 +3,11 @@ JBoss Seam Changelog
 
 Release Notes - Seam 2 - Unreleased
 
+    * [   ] Upgrade PrimeFaces and PrimeFaces Extensions to version 10.0
+    * [   ] Removed inifinspan cache (infinispan-tree has been removed)
     * [#57] Removed flex module
-	* [   ] Bump spring from 3.1.4 to 4.3.29
-	* [   ] Bump dom4j from 2.1.1 to 2.1.3
+    * [   ] Bump spring from 3.1.4 to 4.3.29
+    * [   ] Bump dom4j from 2.1.1 to 2.1.3
 
 Release Notes - Seam 2 - Version 2.3.24.ayg 2020-11-06
 
