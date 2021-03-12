@@ -33,7 +33,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  * </p>
  * 
  * <pre>
- * sha1(signature = contextPath + viewId + &quot;,&quot; + formClientId + random alphanum, salt = clientUid)
+ * sha256(signature = contextPath + viewId + &quot;,&quot; + formClientId + random alphanum, salt = clientUid)
  * </pre>
  * 
  * <p>
@@ -43,7 +43,7 @@ import org.richfaces.cdk.annotations.JsfRenderer;
  * </p>
  * 
  * <pre>
- * sha1(signature = contextPath + viewId + &quot;,&quot; + formClientId + &quot;,&quot; + random alphanum + sessionId, salt = clientUid)
+ * sha256(signature = contextPath + viewId + &quot;,&quot; + formClientId + &quot;,&quot; + random alphanum + sessionId, salt = clientUid)
  * </pre>
  * 
  * <p>
@@ -189,7 +189,7 @@ public class TokenRendererBase extends RendererBase {
 			rawViewSignature += "," + ((HttpSession) context.getExternalContext().getSession(true)).getId();
 		}
 		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-1");
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			digest.update(saltPhrase.getBytes());
 			byte[] salt = digest.digest();
 			digest.reset();
