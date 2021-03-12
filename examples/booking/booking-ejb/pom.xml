@@ -39,12 +39,6 @@
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.albfernandez.seam</groupId>
-            <artifactId>jboss-seam</artifactId>
-            <type>ejb</type>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -85,7 +79,7 @@
             <groupId>com.github.albfernandez.richfaces</groupId>
             <artifactId>richfaces</artifactId>
         </dependency>
-                <dependency>
+        <dependency>
             <groupId>com.github.albfernandez.seam</groupId>
             <artifactId>jboss-seam</artifactId>
             <type>ejb</type>

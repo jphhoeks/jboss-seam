@@ -27,6 +27,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
+                <version>${version.clean.plugin}</version>
                 <configuration>
                     <filesets>
                         <fileset>
@@ -58,6 +59,7 @@
 
             <plugin>
                <artifactId>maven-surefire-plugin</artifactId>
+               <version>${version.surefire.plugin}</version>
                    <configuration>
                        <suiteXmlFiles>
                            <suiteXmlFile>${basedir}/src/test/java/org/jboss/seam/test/unit/testng.xml</suiteXmlFile>

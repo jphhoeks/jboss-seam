@@ -83,8 +83,8 @@
 
 		<!-- plugin versions -->
 		<version.clean.plugin>3.1.0</version.clean.plugin>
-		<version.ejb.plugin>2.3</version.ejb.plugin>
 		<version.deploy.plugin>2.8.2</version.deploy.plugin>
+		<version.ejb.plugin>2.3</version.ejb.plugin>
 		<version.gpg.plugin>1.6</version.gpg.plugin>
 		<version.jar.plugin>3.2.0</version.jar.plugin>
 		<version.javadoc.plugin>3.0.1</version.javadoc.plugin>
