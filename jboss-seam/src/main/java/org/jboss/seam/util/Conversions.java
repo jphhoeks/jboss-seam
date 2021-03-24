@@ -12,14 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 @SuppressWarnings("serial")
 public class Conversions {
 	private static final String EXPRESSION_MARKER = "#{";
 	private static final char EXPRESSION_ESCAPE_CHAR = '\\';
 
-	private static Map<Class, Converter> converters = new ConcurrentHashMap<Class, Converter>();
+	private static Map<Class, Converter> converters = new HashMap<Class, Converter>();
 	
 	static {
 		converters.put(String.class, new StringConverter());

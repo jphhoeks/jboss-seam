@@ -6,12 +6,12 @@
  */
 package org.jboss.seam.contexts;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -31,7 +31,7 @@ import org.jboss.seam.persistence.PersistenceContexts;
 public class ServerConversationContext implements Context {
 
 	private final Map<String, Object> session;
-	private final Map<String, Object> additions = new ConcurrentHashMap<String, Object>();
+	private final Map<String, Object> additions = new HashMap<String, Object>();
 	private final Set<String> removals = new HashSet<String>();
 	private final String id;
 	private final List<String> idStack;

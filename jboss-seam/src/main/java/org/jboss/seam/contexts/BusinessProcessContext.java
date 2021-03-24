@@ -6,10 +6,10 @@
  */
 package org.jboss.seam.contexts;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ScopeType;
@@ -32,7 +32,7 @@ public class BusinessProcessContext implements Context {
 
 	private static final LogProvider log = Logging.getLogProvider(BusinessProcessContext.class);
 
-	private final Map<String, Object> additions = new ConcurrentHashMap<String, Object>();
+	private final Map<String, Object> additions = new HashMap<String, Object>();
 	private final Set<String> removals = new HashSet<String>();
 	private final boolean enabled;
 

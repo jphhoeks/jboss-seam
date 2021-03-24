@@ -29,13 +29,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
@@ -106,7 +107,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	// ServletRequest properties
 	//---------------------------------------------------------------------
 
-	private final Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
+	private final Map<String, Object> attributes = new HashMap<String, Object>();
 
 	private String characterEncoding;
 
@@ -156,7 +157,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 	/**
 	* The key is the lowercase header name; the value is a {@link org.jboss.seam.mock.HeaderValueHolder} object.
 	*/
-	private final Map<String, HeaderValueHolder> headers = new ConcurrentHashMap<String, HeaderValueHolder>();
+	private final Map<String, HeaderValueHolder> headers = new HashMap<String, HeaderValueHolder>();
 
 	private String method;
 
@@ -166,7 +167,7 @@ public class EnhancedMockHttpServletRequest implements HttpServletRequest {
 
 	private String queryString;
 
-	private Map<String, String> queryParameters = new ConcurrentHashMap<String, String>();
+	private Map<String, String> queryParameters = new HashMap<String, String>();
 
 	private String remoteUser;
 

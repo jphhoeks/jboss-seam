@@ -1,8 +1,8 @@
 package org.jboss.seam.intercept;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.util.CloneUtils;
 import org.jboss.seam.util.Reflections;
@@ -17,7 +17,7 @@ class RootInvocationContext implements InvocationContext {
 	private final Object bean;
 	private final Method method;
 	private Object[] params;
-	private final Map contextData = new ConcurrentHashMap();
+	private final Map contextData = new HashMap();
 
 	public RootInvocationContext(Object bean, Method method, Object[] params) {
 		this.bean = bean;

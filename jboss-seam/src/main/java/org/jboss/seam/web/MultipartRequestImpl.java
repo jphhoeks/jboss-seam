@@ -20,7 +20,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -523,7 +522,7 @@ public class MultipartRequestImpl extends HttpServletRequestWrapper implements M
 			parseRequest();
 		}
 
-		Map<String, String[]> params = new ConcurrentHashMap<String, String[]>(super.getParameterMap());
+		Map<String, String[]> params = new HashMap<String, String[]>(super.getParameterMap());
 
 		for(Map.Entry<String, Param> entry: parameters.entrySet()) {
 			String name = entry.getKey();

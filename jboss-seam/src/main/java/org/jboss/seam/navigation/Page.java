@@ -3,10 +3,10 @@ package org.jboss.seam.navigation;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -38,7 +38,7 @@ public final class Page {
 	private List<Param> parameters = new ArrayList<Param>();
 	private List<Input> inputs = new ArrayList<Input>();
 	private List<Action> actions = new ArrayList<Action>();
-	private Map<String, Navigation> navigations = new ConcurrentHashMap<String, Navigation>();
+	private Map<String, Navigation> navigations = new HashMap<String, Navigation>();
 	private Navigation defaultNavigation;
 	private boolean conversationRequired;
 	private boolean loginRequired;

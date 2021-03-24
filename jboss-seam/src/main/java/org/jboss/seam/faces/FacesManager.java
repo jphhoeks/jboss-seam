@@ -10,9 +10,9 @@ import static org.jboss.seam.annotations.Install.FRAMEWORK;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -77,7 +77,7 @@ public class FacesManager extends Manager {
 	}
 
 	public void interpolateAndRedirect(String url) {
-		Map<String, Object> parameters = new ConcurrentHashMap<String, Object>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		int loc = url.indexOf('?');
 		if (loc > 0) {
 			StringTokenizer tokens = new StringTokenizer(url.substring(loc), "?=&");

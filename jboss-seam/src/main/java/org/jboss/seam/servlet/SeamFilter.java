@@ -3,9 +3,10 @@ package org.jboss.seam.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -96,7 +97,7 @@ public class SeamFilter implements Filter {
 
 	private List<Filter> getSortedFilters() {
 		//retrieve the Filter instances from the application context
-		Map<String, SortItem<Filter>> sortItemsMap = new ConcurrentHashMap<String, SortItem<Filter>>();
+		Map<String, SortItem<Filter>> sortItemsMap = new HashMap<String, SortItem<Filter>>();
 		List<SortItem<Filter>> sortItems = new ArrayList<SortItem<Filter>>();
 
 		for (String filterName : Init.instance().getInstalledFilters()) {

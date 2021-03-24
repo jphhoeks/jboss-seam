@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -609,7 +609,7 @@ public class Pages {
 	* @return a map of page parameter name to String value
 	*/
 	public Map<String, Object> getStringValuesFromModel(FacesContext facesContext, String viewId, Set<String> overridden) {
-		Map<String, Object> parameters = new ConcurrentHashMap<String, Object>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		for (Page page : getPageStack(viewId)) {
 			for (Param pageParameter : page.getParameters()) {
 				if (!overridden.contains(pageParameter.getName())) {
@@ -706,7 +706,7 @@ public class Pages {
 	* the PAGE context
 	*/
 	public Map<String, Object> getStringValuesFromPageContext(FacesContext facesContext) {
-		Map<String, Object> parameters = new ConcurrentHashMap<String, Object>();
+		Map<String, Object> parameters = new HashMap<String, Object>();
 		String viewId = getViewId(facesContext);
 		for (Page page : getPageStack(viewId)) {
 			for (Param pageParameter : page.getParameters()) {
@@ -1343,7 +1343,7 @@ public class Pages {
 	}
 
 	public static Map<String, Severity> getFacesMessageValuesMap() {
-		Map<String, Severity> result = new ConcurrentHashMap<String, Severity>();
+		Map<String, Severity> result = new HashMap<String, Severity>();
 		for (Map.Entry<String, Severity> me : (Set<Map.Entry<String, Severity>>) FacesMessage.VALUES_MAP.entrySet()) {
 			result.put(me.getKey().toUpperCase(), me.getValue());
 		}

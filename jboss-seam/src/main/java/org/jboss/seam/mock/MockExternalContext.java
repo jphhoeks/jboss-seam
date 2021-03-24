@@ -15,12 +15,13 @@ import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -159,7 +160,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map getInitParameterMap() {
-		Map<String, String> result = new ConcurrentHashMap<String, String>();
+		Map<String, String> result = new HashMap<String, String>();
 		Enumeration e = context.getInitParameterNames();
 		while (e.hasMoreElements()) {
 			String name = (String) e.nextElement();
@@ -192,7 +193,7 @@ public class MockExternalContext extends ExternalContext {
 	@Override
 	public Map<String, Object> getRequestCookieMap() {
 
-		Map<String, Object> cookieMap = new ConcurrentHashMap<String, Object>();
+		Map<String, Object> cookieMap = new HashMap<String, Object>();
 
 		if (request != null && request.getCookies() != null) {
 			for (Cookie cookie : request.getCookies()) {
@@ -205,7 +206,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map<String, String> getRequestHeaderMap() {
-		Map<String, String> result = new ConcurrentHashMap<String, String>();
+		Map<String, String> result = new HashMap<String, String>();
 		Enumeration<String> names = request.getHeaderNames();
 		while (names.hasMoreElements()) {
 			String name = names.nextElement();
@@ -216,7 +217,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map<String, String[]> getRequestHeaderValuesMap() {
-		Map<String, String[]> result = new ConcurrentHashMap<String, String[]>();
+		Map<String, String[]> result = new HashMap<String, String[]>();
 		Enumeration<String> en = request.getHeaderNames();
 		while (en.hasMoreElements()) {
 			String header = en.nextElement();
@@ -264,7 +265,7 @@ public class MockExternalContext extends ExternalContext {
 
 	@Override
 	public Map<String, String> getRequestParameterMap() {
-		Map<String, String> map = new ConcurrentHashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
 		Enumeration<String> names = request.getParameterNames();
 		while (names.hasMoreElements()) {
 			String name = names.nextElement();

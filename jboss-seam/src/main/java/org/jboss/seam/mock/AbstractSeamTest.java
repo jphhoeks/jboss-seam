@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.el.ELResolver;
 import javax.el.ValueExpression;
@@ -187,7 +186,7 @@ public class AbstractSeamTest {
 		private HttpServletResponse response;
 		private MockFacesContext facesContext;
 		private MockExternalContext externalContext;
-		private Map<String, Object> pageParameters = new ConcurrentHashMap<String, Object>();
+		private Map<String, Object> pageParameters = new HashMap<String, Object>();
 
 		protected void setPageParameter(String name, Object value) {
 			pageParameters.put(name, value);
@@ -489,7 +488,7 @@ public class AbstractSeamTest {
 		private void saveConversationViewRoot() {
 			Map<String, Object> renderedViewRootAttributes = facesContext.getViewRoot().getViewMap();
 			if (renderedViewRootAttributes != null && conversationId != null) {
-				Map<String, Object> conversationState = new ConcurrentHashMap<String, Object>();
+				Map<String, Object> conversationState = new HashMap<String, Object>();
 				conversationState.putAll(renderedViewRootAttributes);
 				conversationViewRootAttributes.put(conversationId, conversationState);
 			}
@@ -524,7 +523,7 @@ public class AbstractSeamTest {
 		private void setStandardJspVariables() {
 			// TODO: looks like we should also set request, session, application,
 			// page...
-			Map<String, String> params = new ConcurrentHashMap<String, String>();
+			Map<String, String> params = new HashMap<String, String>();
 			for (Map.Entry<String, String[]> e : request.getParameterMap().entrySet()) {
 				if (e.getValue().length == 1) {
 					params.put(e.getKey(), e.getValue()[0]);

@@ -9,10 +9,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.EventListener;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+
 
 import javax.servlet.Filter;
 import javax.servlet.FilterRegistration;
@@ -37,8 +38,8 @@ public class MockServletContext implements ServletContext {
 
 	private transient LogProvider log = Logging.getLogProvider(MockServletContext.class);
 
-	private Map<String, String> initParameters = new ConcurrentHashMap<String, String>();
-	private Map<String, Object> attributes = new ConcurrentHashMap<String, Object>();
+	private Map<String, String> initParameters = new HashMap<String, String>();
+	private Map<String, Object> attributes = new HashMap<String, Object>();
 
 	private File webappRoot;
 	private File webInfRoot;

@@ -40,6 +40,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -49,7 +50,6 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.naming.NamingException;
 import javax.servlet.http.HttpSessionActivationListener;
@@ -157,7 +157,7 @@ public class Component extends Model {
    private Method prePassivateMethod;
    private Method postActivateMethod;
    
-   private Map<String, Method> removeMethods = new ConcurrentHashMap<String, Method>();
+   private Map<String, Method> removeMethods = new HashMap<String, Method>();
    private Set<Method> lifecycleMethods = new HashSet<Method>();
    private Set<Method> conversationManagementMethods = new HashSet<Method>();
    
@@ -166,15 +166,15 @@ public class Component extends Model {
    private List<BijectedAttribute> parameterSetters = new ArrayList<BijectedAttribute>();
    private List<BijectedAttribute> dataModelGetters = new ArrayList<BijectedAttribute>();
    private List<BijectedAttribute> pcAttributes = new ArrayList<BijectedAttribute>();
-   private Map<String, BijectedAttribute> dataModelSelectionSetters = new ConcurrentHashMap<String, BijectedAttribute>();
+   private Map<String, BijectedAttribute> dataModelSelectionSetters = new HashMap<String, BijectedAttribute>();
    
    private List<Interceptor> interceptors = new ArrayList<Interceptor>();
    private List<Interceptor> clientSideInterceptors = new ArrayList<Interceptor>();
 
-   private Map<Method, InitialValue> initializerSetters = new ConcurrentHashMap<Method, InitialValue>();
-   private Map<Field, InitialValue> initializerFields = new ConcurrentHashMap<Field, InitialValue>();
+   private Map<Method, InitialValue> initializerSetters = new HashMap<Method, InitialValue>();
+   private Map<Field, InitialValue> initializerFields = new HashMap<Field, InitialValue>();
 
-   private Map<Field, org.jboss.seam.log.Log> logFields = new ConcurrentHashMap<>();
+   private Map<Field, org.jboss.seam.log.Log> logFields = new HashMap<>();
    
    private Collection<Namespace> imports = new ArrayList<Namespace>();
    private Namespace namespace;
@@ -529,8 +529,8 @@ public class Component extends Model {
 	}
 
 	private void initMembers(Class<?> clazz, Context applicationContext) {
-		Map<Method, Annotation> selectionSetters = new ConcurrentHashMap<Method, Annotation>();
-		Map<Field, Annotation> selectionFields = new ConcurrentHashMap<Field, Annotation>();
+		Map<Method, Annotation> selectionSetters = new HashMap<Method, Annotation>();
+		Map<Field, Annotation> selectionFields = new HashMap<Field, Annotation>();
 		Set<String> dataModelNames = new HashSet<String>();
 
 		for (; clazz != Object.class; clazz = clazz.getSuperclass()) {

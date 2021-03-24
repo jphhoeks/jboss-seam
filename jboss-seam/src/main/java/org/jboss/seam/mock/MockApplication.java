@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.el.CompositeELResolver;
 import javax.el.ExpressionFactory;
@@ -47,7 +46,7 @@ public class MockApplication extends Application {
 	private javax.el.CompositeELResolver elResolver;
 	private javax.el.CompositeELResolver additionalResolvers;
 	private Collection<Locale> locales;
-	private final Map<String, Validator> validatorsById = new ConcurrentHashMap<String, Validator>();
+	private final Map<String, Validator> validatorsById = new HashMap<String, Validator>();
 	
 	private NavigationHandler navigationHandler = new SeamNavigationHandler(new MockNavigationHandler());
 	private Locale defaultLocale = Locale.ENGLISH;

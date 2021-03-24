@@ -14,8 +14,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -23,7 +25,6 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -83,15 +84,16 @@ public class Initialization {
 	private static final LogProvider log = Logging.getLogProvider(Initialization.class);
 
 	private ServletContext servletContext;
-	private Map<String, Conversions.PropertyValue> properties = new ConcurrentHashMap<String, Conversions.PropertyValue>();
-	private Map<String, Set<ComponentDescriptor>> componentDescriptors = new ConcurrentHashMap<String, Set<ComponentDescriptor>>();
+	private Map<String, Conversions.PropertyValue> properties = new HashMap<String, Conversions.PropertyValue>();
+	private Map<String, Set<ComponentDescriptor>> componentDescriptors = new HashMap<String, Set<ComponentDescriptor>>();
 	private List<FactoryDescriptor> factoryDescriptors = new ArrayList<FactoryDescriptor>();
 	private Set<Class> installedComponentClasses = new HashSet<Class>();
-	private Map<String, NamespaceDescriptor> namespaceMap = new ConcurrentHashMap<String, NamespaceDescriptor>();
+	//private Set<String> importedPackages = new HashSet<String>();
+	private Map<String, NamespaceDescriptor> namespaceMap = new HashMap<String, NamespaceDescriptor>();
 	private NamespacePackageResolver namespacePackageResolver = new NamespacePackageResolver();
-	private Map<String, EventListenerDescriptor> eventListenerDescriptors = new ConcurrentHashMap<String, EventListenerDescriptor>();
+	private Map<String, EventListenerDescriptor> eventListenerDescriptors = new HashMap<String, EventListenerDescriptor>();
 	private Collection<String> globalImports = new ArrayList<String>();
-	private Map<String, Class<? extends Enum<?>>> enums = new ConcurrentHashMap<String, Class<? extends Enum<?>>>();
+	private Map<String, Class<? extends Enum<?>>> enums = new HashMap<String, Class<? extends Enum<?>>>();
 
 	private StandardDeploymentStrategy standardDeploymentStrategy;
 	private HotDeploymentStrategy hotDeploymentStrategy;

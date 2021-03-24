@@ -1,8 +1,8 @@
 package org.jboss.seam.servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -31,7 +31,7 @@ public class SeamResourceServlet extends HttpServlet {
 
 	private ServletContext context;
 
-	private Map<String, AbstractResource> providers = new ConcurrentHashMap<String, AbstractResource>();
+	private Map<String, AbstractResource> providers = new HashMap<String, AbstractResource>();
 
 	public SeamResourceServlet() {
 		super();

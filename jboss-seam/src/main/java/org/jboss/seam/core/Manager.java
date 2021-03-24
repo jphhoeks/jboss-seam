@@ -11,10 +11,10 @@ import static org.jboss.seam.annotations.Install.BUILT_IN;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.seam.Component;
 import org.jboss.seam.ConcurrentRequestTimeoutException;
@@ -151,7 +151,7 @@ public class Manager {
 	*/
 	private Map<String, Object> getSessionMap() {
 		// this method could be moved to a utility class
-		Map<String, Object> session = new ConcurrentHashMap<String, Object>();
+		Map<String, Object> session = new HashMap<String, Object>();
 		String[] sessionAttributeNames = Contexts.getSessionContext().getNames();
 
 		for (String attributeName : sessionAttributeNames) {
