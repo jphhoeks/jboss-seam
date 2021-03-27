@@ -88,7 +88,7 @@
 		<version.gpg.plugin>1.6</version.gpg.plugin>
 		<version.jar.plugin>3.2.0</version.jar.plugin>
 		<version.javadoc.plugin>3.0.1</version.javadoc.plugin>
-		<version.nexux-staging.plugin>1.6.8</version.nexux-staging.plugin>
+		<version.nexus-staging.plugin>1.6.8</version.nexus-staging.plugin>
 		<version.source.plugin>3.2.1</version.source.plugin>
 		<version.surefire.plugin>2.22.0</version.surefire.plugin>
 		<version.war.plugin>3.2.2</version.war.plugin>
@@ -661,7 +661,7 @@
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>${version.nexux-staging.plugin}</version>
+				<version>${version.nexus-staging.plugin}</version>
 				<extensions>true</extensions>
 				<configuration>
 					<serverId>ossrh</serverId>

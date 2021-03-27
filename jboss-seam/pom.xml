@@ -93,7 +93,6 @@
              </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-<!-- 				<version>1.6</version> -->
                 <configuration>
                     <target>
                         <jar destfile="${project.build.directory}/${project.artifactId}-wls-compatible.jar">
@@ -198,11 +197,6 @@
             <optional>true</optional>
         </dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.javassist</groupId> -->
-<!-- 			<artifactId>javassist</artifactId> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
 
         <dependency>
             <groupId>org.dom4j</groupId>
@@ -331,8 +325,6 @@
 
 
         <!-- This is actually a dep of jboss-cache, but it doesn't declare it -->
-
-        <!-- This is actually a dep of jboss-cache, but it doesn't declare it -->
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>jboss-jmx</artifactId>
@@ -400,7 +392,6 @@
         <dependency>
             <groupId>com.github.albfernandez</groupId>
             <artifactId>jbpm-jpdl</artifactId>
-            <version>3.2.15.ayg</version>
             <optional>true</optional>
             <exclusions>
 	            <exclusion>
@@ -420,10 +411,7 @@
 			<optional>true</optional>
 		</dependency>
 
-<!-- <dependency> -->
-<!--     <groupId>org.jboss.spec.javax.el</groupId> -->
-<!--     <artifactId>jboss-el-api_3.0_spec</artifactId> -->
-<!-- </dependency> -->
+
         <dependency>
             <groupId>com.github.albfernandez</groupId>
             <artifactId>jboss-el</artifactId>
