@@ -6,7 +6,7 @@ To see the original Jboss Seam guide, see [release-process.txt](release-process.
 
 ## Check the SNAPSHOT builds and pass the tests
 
-Check that the project builds in java 8 and java 11. maybe you need to disable dependency-check
+Check that the project builds in java 8 and java 11.
 
 ```bash
 mvn clean package install verify -Pdistribution,examples
@@ -36,4 +36,6 @@ git commit -S -m 'Next release cycle'
 git push
 ```
 
-## Create release and upload artifacts to github
+## Create release and upload artifacts to Github
+
+Manually creating the release in Github project page, and upload generated artifacts.
