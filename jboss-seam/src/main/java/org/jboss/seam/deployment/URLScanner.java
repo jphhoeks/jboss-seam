@@ -49,7 +49,7 @@ public class URLScanner extends AbstractScanner {
 
 	@Override
 	public void scanResources(String[] resources) {
-		long startTime = System.currentTimeMillis();
+		long startTimeNano = System.nanoTime();
 		Set<String> paths = new HashSet<String>();
 		for (String resourceName : resources) {
 			try {
@@ -78,24 +78,24 @@ public class URLScanner extends AbstractScanner {
 				}
 			}
 		}
-		long finishTime = System.currentTimeMillis();
+		long finishTimeNano = System.nanoTime();
 		if (log.isInfoEnabled()) {
-			log.info("found " + paths.size() + " resources in " + (finishTime - startTime) + " ms");
+			log.info("found " + paths.size() + " resources in " + ((finishTimeNano - startTimeNano)/1000000L) + " ms");
 		}
 
-		startTime = System.currentTimeMillis();
+		startTimeNano = System.nanoTime();
 		handle(paths);
-		finishTime = System.currentTimeMillis();
+		finishTimeNano = System.nanoTime();
 
 		if (log.isInfoEnabled()) {
-			log.info("handled all resources in " + (finishTime - startTime) + " ms");
+			log.info("handled all resources in " + ((finishTimeNano - startTimeNano)/1000000L) + " ms");
 		}
 
 	}
 
 	protected void handle(Set<String> paths) {
 		for (String urlPath : paths) {
-			long startTime = System.currentTimeMillis();
+			long startTimeNano = System.nanoTime();
 			try {
 				if (log.isTraceEnabled()) {
 					log.trace("scanning: " + urlPath);
@@ -115,9 +115,9 @@ public class URLScanner extends AbstractScanner {
 					log.warn("could not read entries", ioe);
 				}
 			}
-			long finishTime = System.currentTimeMillis();
+			long finishTimeNano = System.nanoTime();
 			if (log.isInfoEnabled()) {
-				log.info("loaded " + urlPath + " in " + (finishTime - startTime) + " ms");
+				log.info("loaded " + urlPath + " in " + ((finishTimeNano - startTimeNano)/1000000L) + " ms");
 			}
 		}
 	}

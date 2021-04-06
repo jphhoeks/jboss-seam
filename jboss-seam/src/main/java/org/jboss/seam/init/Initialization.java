@@ -1015,7 +1015,7 @@ public class Initialization {
 	}
 
 	private void installComponents(Init init) {
-		long startTime = System.currentTimeMillis();
+		long startTimeNano = System.nanoTime();
 		log.info("Installing components...");
 		Context context = Contexts.getApplicationContext();
 
@@ -1066,9 +1066,9 @@ public class Initialization {
 				init.addObserverMethodExpression(listenerDescriptor.getType(), Expressions.instance().createMethodExpression(expression));
 			}
 		}
-		long finishTime = System.currentTimeMillis();
+		long finishTimeNano = System.nanoTime();
 		if (log.isInfoEnabled()) {
-			log.info("Installed components in " + (finishTime - startTime) + " ms");
+			log.info("Installed components in " + ((finishTimeNano - startTimeNano)/1000000L) + " ms");
 		}
 	}
 

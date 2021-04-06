@@ -61,7 +61,7 @@ public class EntityManagerFactory {
 	}
 
 	protected javax.persistence.EntityManagerFactory createEntityManagerFactory() {
-		long startTime = System.currentTimeMillis();
+		long startTimeNano = System.nanoTime();
 		if (log.isInfoEnabled()) {
 			log.info("Creating EntityManagerFactory with name:" + persistenceUnitName);
 		}
@@ -83,9 +83,9 @@ public class EntityManagerFactory {
 		} else {
 			retVal = Persistence.createEntityManagerFactory(persistenceUnitName, properties);
 		}
-		long finishTime = System.currentTimeMillis();
+		long finishTimeNano = System.nanoTime();
 		if (log.isInfoEnabled()) {
-			log.info("EntityManagerFactory " + persistenceUnitName + " created in " + (finishTime - startTime) + " ms");
+			log.info("EntityManagerFactory " + persistenceUnitName + " created in " + ((finishTimeNano - startTimeNano)/1000000L) + " ms");
 		}
 
 		return retVal;
