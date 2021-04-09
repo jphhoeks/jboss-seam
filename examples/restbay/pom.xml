@@ -15,7 +15,7 @@
 
         <!-- To use jacoco, set jacoco.agent system property to something like
                      -javaagent:/path/to/jacocoagent.jar=append=true,destfile=/path/to/output/jacoco.exec -->
-        <jacoco.agent />
+        <jacoco.agent/>
 
         <!-- To use custom Maven settings with ShrinkWrap Resolver, uncomment
                           and customize the following property.  -->
@@ -111,7 +111,7 @@
 	        <dependency>
 			  <groupId>javax.xml.bind</groupId>
 			  <artifactId>jaxb-api</artifactId>
-			  <version>2.3.0</version>
+			  <version>2.3.1</version>
 			</dependency>
 			<dependency>
 			  <groupId>com.sun.xml.bind</groupId>
