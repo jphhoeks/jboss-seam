@@ -69,7 +69,7 @@
 		<version.wildfly>10.1.0.Final</version.wildfly>
 		<version.emma>2.0.5312</version.emma>
 		<version.jsf.impl>2.2.13</version.jsf.impl>
-		<version.richfaces.cdk>4.6.0.ayg</version.richfaces.cdk>
+		<version.richfaces.cdk>4.6.1.ayg</version.richfaces.cdk>
 		<version.richfaces>4.6.5.ayg</version.richfaces>
 		
 		<!-- Versions of Arquillian and Shrinkwrap -->
