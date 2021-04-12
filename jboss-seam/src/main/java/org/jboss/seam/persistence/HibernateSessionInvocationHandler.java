@@ -9,6 +9,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
+import java.util.UUID;
+
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
+import javax.persistence.StoredProcedureQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Selection;
+import javax.persistence.metamodel.Metamodel;
 
 import org.hibernate.CacheMode;
 import org.hibernate.Criteria;
@@ -20,6 +34,7 @@ import org.hibernate.Interceptor;
 import org.hibernate.LobHelper;
 import org.hibernate.LockMode;
 import org.hibernate.LockOptions;
+import org.hibernate.MultiIdentifierLoadAccess;
 import org.hibernate.NaturalIdLoadAccess;
 import org.hibernate.Query;
 import org.hibernate.ReplicationMode;
@@ -33,30 +48,37 @@ import org.hibernate.SharedSessionBuilder;
 import org.hibernate.SimpleNaturalIdLoadAccess;
 import org.hibernate.Transaction;
 import org.hibernate.TypeHelper;
+import org.hibernate.cache.spi.CacheTransactionSynchronization;
 import org.hibernate.collection.spi.PersistentCollection;
+import org.hibernate.engine.jdbc.LobCreator;
 import org.hibernate.engine.jdbc.connections.spi.JdbcConnectionAccess;
 import org.hibernate.engine.jdbc.spi.JdbcCoordinator;
+import org.hibernate.engine.jdbc.spi.JdbcServices;
 import org.hibernate.engine.query.spi.sql.NativeSQLQuerySpecification;
 import org.hibernate.engine.spi.ActionQueue;
 import org.hibernate.engine.spi.EntityEntry;
 import org.hibernate.engine.spi.EntityKey;
+import org.hibernate.engine.spi.ExceptionConverter;
 import org.hibernate.engine.spi.LoadQueryInfluencers;
-import org.hibernate.engine.spi.NamedQueryDefinition;
-import org.hibernate.engine.spi.NamedSQLQueryDefinition;
 import org.hibernate.engine.spi.PersistenceContext;
 import org.hibernate.engine.spi.QueryParameters;
 import org.hibernate.engine.spi.SessionEventListenerManager;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.event.spi.EventSource;
+import org.hibernate.graph.spi.RootGraphImplementor;
 import org.hibernate.internal.CriteriaImpl;
 import org.hibernate.jdbc.ReturningWork;
 import org.hibernate.jdbc.Work;
 import org.hibernate.loader.custom.CustomQuery;
 import org.hibernate.persister.entity.EntityPersister;
 import org.hibernate.procedure.ProcedureCall;
-import org.hibernate.resource.transaction.TransactionCoordinator;
+import org.hibernate.query.spi.NativeQueryImplementor;
+import org.hibernate.query.spi.QueryImplementor;
+import org.hibernate.query.spi.ScrollableResultsImplementor;
+import org.hibernate.resource.jdbc.spi.JdbcSessionContext;
 import org.hibernate.stat.SessionStatistics;
+import org.hibernate.type.descriptor.sql.SqlTypeDescriptor;
 
 /**
  * InvocationHandler that proxies the Session, and implements EL interpolation
@@ -173,7 +195,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	}
 
 	@Override
-	public ScrollableResults scroll(String paramString, QueryParameters paramQueryParameters) throws HibernateException {
+	public ScrollableResultsImplementor scroll(String paramString, QueryParameters paramQueryParameters) throws HibernateException {
 		return ((SessionImplementor) delegate).scroll(paramString, paramQueryParameters);
 	}
 
@@ -231,7 +253,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	}
 
 	@Override
-	public ScrollableResults scrollCustomQuery(CustomQuery paramCustomQuery, QueryParameters paramQueryParameters)
+	public ScrollableResultsImplementor scrollCustomQuery(CustomQuery paramCustomQuery, QueryParameters paramQueryParameters)
 			throws HibernateException {
 		return ((SessionImplementor) delegate).scrollCustomQuery(paramCustomQuery, paramQueryParameters);
 	}
@@ -243,7 +265,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	}
 
 	@Override
-	public ScrollableResults scroll(NativeSQLQuerySpecification paramNativeSQLQuerySpecification, QueryParameters paramQueryParameters)
+	public ScrollableResultsImplementor scroll(NativeSQLQuerySpecification paramNativeSQLQuerySpecification, QueryParameters paramQueryParameters)
 			throws HibernateException {
 		return ((SessionImplementor) delegate).scroll(paramNativeSQLQuerySpecification, paramQueryParameters);
 	}
@@ -290,11 +312,12 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	}
 
 	@Override
-	public FlushMode getFlushMode() {
+	public FlushModeType getFlushMode() {
 		return ((SessionImplementor) delegate).getFlushMode();
 	}
 
 	@Override
+	@Deprecated
 	public void setFlushMode(FlushMode paramFlushMode) {
 		((SessionImplementor) delegate).setFlushMode(paramFlushMode);
 	}
@@ -310,12 +333,12 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	}
 
 	@Override
-	public Query getNamedQuery(String paramString) {
+	public QueryImplementor getNamedQuery(String paramString) {
 		return ((SessionImplementor) delegate).getNamedQuery(paramString);
 	}
 
 	@Override
-	public Query getNamedSQLQuery(String paramString) {
+	public NativeQueryImplementor getNamedSQLQuery(String paramString) {
 		return ((SessionImplementor) delegate).getNamedSQLQuery(paramString);
 	}
 
@@ -345,8 +368,8 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	}
 
 	@Override
-	public SessionFactory getSessionFactory() {
-		return delegate.getSessionFactory();
+	public SessionFactoryImplementor getSessionFactory() {
+		return (SessionFactoryImplementor) delegate.getSessionFactory();
 	}
 
 	@Override
@@ -545,25 +568,8 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 		return delegate.createCriteria(paramString1, paramString2);
 	}
 
-	@Override
-	public Query createQuery(String paramString) throws HibernateException {
-		return delegate.createQuery(paramString);
-	}
 
-	@Override
-	public Query createQuery(NamedQueryDefinition namedQueryDefinition) {
-		return ((SessionImplementor) delegate).createQuery(namedQueryDefinition);
-	}
 
-	@Override
-	public SQLQuery createSQLQuery(String paramString) throws HibernateException {
-		return delegate.createSQLQuery(paramString);
-	}
-
-	@Override
-	public SQLQuery createSQLQuery(NamedSQLQueryDefinition namedQueryDefinition) {
-		return ((SessionImplementor) delegate).createSQLQuery(namedQueryDefinition);
-	}
 
 	@Override
 	public Query createFilter(Object paramObject, String paramString) throws HibernateException {
@@ -712,15 +718,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 		return ((SessionImplementor) delegate).generateEntityKey(id, persister);
 	}
 
-	@Override
-	public void disableTransactionAutoJoin() {
-		((SessionImplementor) delegate).disableTransactionAutoJoin();
-	}
 
-	@Override
-	public TransactionCoordinator getTransactionCoordinator() {
-		return ((SessionImplementor) delegate).getTransactionCoordinator();
-	}
 
 	@Override
 	public JdbcCoordinator getJdbcCoordinator() {
@@ -829,7 +827,7 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	}
 
 	@Override
-	public ScrollableResults scroll(Criteria criteria, ScrollMode scrollMode) {
+	public ScrollableResultsImplementor scroll(Criteria criteria, ScrollMode scrollMode) {
 		return ((SessionImplementor) delegate).scroll(criteria, scrollMode);
 	}
 
@@ -876,6 +874,396 @@ public class HibernateSessionInvocationHandler<Hibernate> implements InvocationH
 	@Override
 	public void refresh(String entityName, Object object, Map refreshedAlready) throws HibernateException {
 		((EventSource) delegate).refresh(entityName, object, refreshedAlready);
+	}
+
+
+	@Override
+	public boolean isFlushBeforeCompletionEnabled() {
+		return ((SessionImplementor) delegate).isFlushBeforeCompletionEnabled();
+	}
+
+	@Override
+	public QueryImplementor createQuery(String queryString) {
+		return ((SessionImplementor)delegate).createQuery(queryString);
+	}
+
+	@Override
+	public <T> QueryImplementor<T> createQuery(String queryString, Class<T> resultType) {
+		return ((SessionImplementor)delegate).createQuery(queryString, resultType);
+	}
+
+	@Override
+	public <T> QueryImplementor<T> createNamedQuery(String name, Class<T> resultType) {
+		return ((SessionImplementor)delegate).createNamedQuery(name, resultType);
+	}
+
+	@Override
+	public QueryImplementor createNamedQuery(String name) {
+		return ((SessionImplementor)delegate).createNamedQuery(name);
+	}
+
+	@Override
+	public NativeQueryImplementor createNativeQuery(String sqlString) {
+		return ((SessionImplementor) delegate).createNativeQuery(sqlString);
+	}
+
+	@Override
+	public NativeQueryImplementor createNativeQuery(String sqlString, Class resultClass) {
+		return (NativeQueryImplementor) ((SessionImplementor) delegate).createNativeQuery(sqlString, resultClass);
+	}
+
+	@Override
+	public NativeQueryImplementor createNativeQuery(String sqlString, String resultSetMapping) {
+		return ((SessionImplementor) delegate).createNativeQuery(sqlString, resultSetMapping);
+	}
+
+	@Override
+	public NativeQueryImplementor createSQLQuery(String sqlString) {
+		return ((SessionImplementor) delegate).createSQLQuery(sqlString);
+	}
+
+	@Override
+	public NativeQueryImplementor getNamedNativeQuery(String name) {
+		return ((SessionImplementor) delegate).getNamedNativeQuery(name);
+	}
+
+
+
+
+	@Override
+	public <T> QueryImplementor<T> createQuery(CriteriaQuery<T> criteriaQuery) {
+		return ((SessionImplementor) delegate).createQuery(criteriaQuery);
+	}
+
+	@Override
+	public QueryImplementor createQuery(CriteriaUpdate updateQuery) {
+		return ((SessionImplementor) delegate).createQuery(updateQuery);
+	}
+
+	@Override
+	public QueryImplementor createQuery(CriteriaDelete deleteQuery) {
+		return ((SessionImplementor) delegate).createQuery(deleteQuery);
+	}
+
+	@Override
+	@Deprecated
+	public <T> QueryImplementor<T> createQuery(String jpaqlString, Class<T> resultClass, Selection selection, QueryOptions queryOptions) {
+		return ((SessionImplementor) delegate).createQuery(jpaqlString, resultClass, selection, queryOptions);
+	}
+
+
+	@Override
+	public void setHibernateFlushMode(FlushMode flushMode) {
+		delegate.setHibernateFlushMode(flushMode);
+		
+	}
+
+	@Override
+	public FlushMode getHibernateFlushMode() {
+		return delegate.getHibernateFlushMode();
+	}
+
+	@Override
+	public boolean contains(String entityName, Object object) {
+		return delegate.contains(entityName, object);
+	}
+
+	@Override
+	public <T> MultiIdentifierLoadAccess<T> byMultipleIds(Class<T> entityClass) {
+		return delegate.byMultipleIds(entityClass);
+	}
+
+	@Override
+	public MultiIdentifierLoadAccess byMultipleIds(String entityName) {
+		return delegate.byMultipleIds(entityName);
+	}
+
+	@Override
+	public Integer getJdbcBatchSize() {
+		return delegate.getJdbcBatchSize();
+	}
+
+	@Override
+	public void setJdbcBatchSize(Integer jdbcBatchSize) {
+		delegate.setJdbcBatchSize(jdbcBatchSize);
+	}
+
+	@Override
+	public void remove(Object entity) {
+		delegate.remove(entity);
+	}
+
+	@Override
+	public <T> T find(Class<T> entityClass, Object primaryKey) {
+		return delegate.find(entityClass, primaryKey);
+	}
+
+	@Override
+	public <T> T find(Class<T> entityClass, Object primaryKey, Map<String, Object> properties) {
+		return delegate.find(entityClass, primaryKey, properties);
+	}
+
+	@Override
+	public <T> T find(Class<T> entityClass, Object primaryKey, LockModeType lockMode) {
+		return delegate.find(entityClass, primaryKey, lockMode);
+	}
+
+	@Override
+	public <T> T find(Class<T> entityClass, Object primaryKey, LockModeType lockMode, Map<String, Object> properties) {
+		return delegate.find(entityClass, primaryKey, lockMode, properties);
+	}
+
+	@Override
+	public <T> T getReference(Class<T> entityClass, Object primaryKey) {
+		return delegate.getReference(entityClass, primaryKey);
+	}
+
+	@Override
+	public void setFlushMode(FlushModeType flushMode) {
+		delegate.setFlushMode(flushMode);
+	}
+
+	@Override
+	public void lock(Object entity, LockModeType lockMode) {
+		delegate.lock(entity, lockMode);
+	}
+
+	@Override
+	public void lock(Object entity, LockModeType lockMode, Map<String, Object> properties) {
+		delegate.lock(entity, lockMode, properties);
+	}
+
+	@Override
+	public void refresh(Object entity, Map<String, Object> properties) {
+		delegate.refresh(entity, properties);
+	}
+
+	@Override
+	public void refresh(Object entity, LockModeType lockMode) {
+		delegate.refresh(entity, lockMode);
+	}
+
+	@Override
+	public void refresh(Object entity, LockModeType lockMode, Map<String, Object> properties) {
+		delegate.refresh(entity, lockMode, properties);
+	}
+
+	@Override
+	public void detach(Object entity) {
+		delegate.detach(entity);
+	}
+
+	@Override
+	public LockModeType getLockMode(Object entity) {
+		return delegate.getLockMode(entity);
+	}
+
+	@Override
+	public void setProperty(String propertyName, Object value) {
+		delegate.setProperty(propertyName, value);
+	}
+
+	@Override
+	public Map<String, Object> getProperties() {
+		return delegate.getProperties();
+	}
+
+	@Override
+	public StoredProcedureQuery createNamedStoredProcedureQuery(String name) {
+		return delegate.createNamedStoredProcedureQuery(name);
+	}
+
+	@Override
+	public StoredProcedureQuery createStoredProcedureQuery(String procedureName) {
+		return delegate.createStoredProcedureQuery(procedureName);
+	}
+
+	@Override
+	public StoredProcedureQuery createStoredProcedureQuery(String procedureName, Class... resultClasses) {
+		return delegate.createStoredProcedureQuery(procedureName, resultClasses);
+	}
+
+	@Override
+	public StoredProcedureQuery createStoredProcedureQuery(String procedureName, String... resultSetMappings) {
+		return delegate.createStoredProcedureQuery(procedureName, resultSetMappings);
+	}
+
+	@Override
+	public void joinTransaction() {
+		delegate.joinTransaction();
+	}
+
+	@Override
+	public boolean isJoinedToTransaction() {
+		return delegate.isJoinedToTransaction();
+	}
+
+	@Override
+	public <T> T unwrap(Class<T> cls) {
+		return delegate.unwrap(cls);
+	}
+
+	@Override
+	public Object getDelegate() {
+		return delegate.getDelegate();
+	}
+
+	@Override
+	public EntityManagerFactory getEntityManagerFactory() {
+		return delegate.getEntityManagerFactory();
+	}
+
+	@Override
+	public CriteriaBuilder getCriteriaBuilder() {
+		return delegate.getCriteriaBuilder();
+	}
+
+	@Override
+	public Metamodel getMetamodel() {
+		return delegate.getMetamodel();
+	}
+
+
+	
+
+	@Override
+	public <T> List<EntityGraph<? super T>> getEntityGraphs(Class<T> entityClass) {
+		return delegate.getEntityGraphs(entityClass);
+	}
+
+	@Override
+	public JdbcServices getJdbcServices() {		
+		return ((SessionImplementor)delegate).getJdbcServices();
+	}
+
+	@Override
+	public UUID getSessionIdentifier() {
+		return ((SessionImplementor) delegate).getSessionIdentifier();
+	}
+
+	@Override
+	public void checkOpen(boolean markForRollbackIfClosed) {
+		((SessionImplementor) delegate).checkOpen(markForRollbackIfClosed);
+	}
+
+	@Override
+	public void markForRollbackOnly() {
+		((SessionImplementor) delegate).markForRollbackOnly();
+		
+	}
+
+	@Override
+	public long getTransactionStartTimestamp() {
+		return ((SessionImplementor) delegate).getTransactionStartTimestamp();
+	}
+
+	@Override
+	public CacheTransactionSynchronization getCacheTransactionSynchronization() {
+		return ((SessionImplementor) delegate).getCacheTransactionSynchronization();
+	}
+
+	@Override
+	public Transaction accessTransaction() {
+		return ((SessionImplementor) delegate).accessTransaction();
+	}
+
+
+
+	@Override
+	public ExceptionConverter getExceptionConverter() {
+		return ((SessionImplementor) delegate).getExceptionConverter();
+	}
+
+	@Override
+	public JdbcSessionContext getJdbcSessionContext() {
+		return ((SessionImplementor) delegate).getJdbcSessionContext();
+	}
+
+	@Override
+	public org.hibernate.resource.transaction.spi.TransactionCoordinator getTransactionCoordinator() {
+		return ((SessionImplementor) delegate).getTransactionCoordinator();
+	}
+
+	@Override
+	public void startTransactionBoundary() {
+		((SessionImplementor) delegate).startTransactionBoundary();
+	}
+
+	@Override
+	public void afterTransactionBegin() {
+		((SessionImplementor) delegate).afterTransactionBegin();
+	}
+
+	@Override
+	public void beforeTransactionCompletion() {
+		((SessionImplementor) delegate).beforeTransactionCompletion();
+	}
+
+	@Override
+	public void afterTransactionCompletion(boolean successful, boolean delayed) {
+		((SessionImplementor) delegate).afterTransactionCompletion(successful, delayed);
+	}
+
+	@Override
+	public void flushBeforeTransactionCompletion() {
+		((SessionImplementor) delegate).flushBeforeTransactionCompletion();
+	}
+
+	@Override
+	public boolean shouldAutoJoinTransaction() {
+		return ((SessionImplementor) delegate).shouldAutoJoinTransaction();
+	}
+
+	@Override
+	public boolean useStreamForLobBinding() {
+		return ((SessionImplementor) delegate).useStreamForLobBinding();
+	}
+
+	@Override
+	public LobCreator getLobCreator() {
+		return ((SessionImplementor) delegate).getLobCreator();
+	}
+
+	@Override
+	public SqlTypeDescriptor remapSqlTypeDescriptor(SqlTypeDescriptor sqlTypeDescriptor) {
+		return ((SessionImplementor) delegate).remapSqlTypeDescriptor(sqlTypeDescriptor);
+	}
+
+	@Override
+	public TimeZone getJdbcTimeZone() {
+		return ((SessionImplementor) delegate).getJdbcTimeZone();
+	}
+
+	@Override
+	@Deprecated
+	public SessionImplementor getSession() {
+		return ((SessionImplementor) delegate).getSession();
+	}
+
+	@Override
+	@Deprecated
+	public LockOptions getLockRequest(LockModeType lockModeType, Map<String, Object> properties) {
+		return ((SessionImplementor) delegate).getLockRequest(lockModeType, properties);
+	}
+
+	@Override
+	public <T> RootGraphImplementor<T> createEntityGraph(Class<T> rootType) {
+		return ((SessionImplementor) delegate).createEntityGraph(rootType);
+	}
+
+	@Override
+	public RootGraphImplementor<?> createEntityGraph(String graphName) {
+		return ((SessionImplementor) delegate).createEntityGraph(graphName);
+	}
+
+	@Override
+	public RootGraphImplementor<?> getEntityGraph(String graphName) {
+		return ((SessionImplementor) delegate).getEntityGraph(graphName);
+	}
+
+	@Override
+	public PersistenceContext getPersistenceContextInternal() {
+		return ((SessionImplementor) delegate).getPersistenceContextInternal();
 	}
 
 }

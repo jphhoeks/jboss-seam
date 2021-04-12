@@ -28,11 +28,8 @@
 			<useTransitiveDependencies>true</useTransitiveDependencies>
 			<includes>				
 				<include>org.hibernate:hibernate-tools:jar</include>
-				<include>org.hibernate:hibernate-core:jar</include>
-				<include>org.hibernate:hibernate-entitymanager:jar</include>
-<!-- 				<include>commons-collections:commons-collections:jar</include> -->
+				<include>org.hibernate:hibernate-core:jar</include>				
 				<include>commons-logging:commons-logging:jar</include>
-<!-- 				<include>org.hibernate:jtidy:jar</include> -->
 				<include>freemarker:freemarker:jar</include>
 				<include>org.eclipse.jdt:core:jar</include>
 				<include>org.eclipse.core:runtime:jar</include>
