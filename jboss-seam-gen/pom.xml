@@ -244,7 +244,7 @@
          <groupId>org.eclipse</groupId>
          <artifactId>text</artifactId>
          <scope>runtime</scope>
-         <version>3.2.0-v20060605-1400</version>
+         <version>3.3.0-v20070606-0010</version>
          <exclusions>
             <exclusion>
                <groupId>org.eclipse.core</groupId>
