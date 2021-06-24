@@ -120,7 +120,7 @@
       <dependency>
          <groupId>org.hibernate</groupId>
          <artifactId>hibernate-tools</artifactId>
-         <version>5.4.31.Final</version>
+         <version>5.4.32.Final</version>
          <scope>runtime</scope>
       </dependency>
       
