@@ -124,7 +124,7 @@
                                 </goals>
                              </pluginExecutionFilter>
                              <action>
-                                <ignore />
+                                <ignore/>
                              </action>
                           </pluginExecution>
                        </pluginExecutions>
@@ -186,7 +186,7 @@
 	<dependency>
 		<groupId>com.github.albfernandez</groupId>
 		<artifactId>jbpm-jpdl</artifactId>
-		<version>3.2.15.ayg</version>
+		<version>3.2.16.ayg</version>
 		<optional>true</optional>
 		<exclusions>
 			<exclusion>
