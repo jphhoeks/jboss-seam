@@ -6,6 +6,7 @@ Release Notes - Seam 2 - Unreleased
     * [   ] Prevent NPE when replicating session in some HA scenarios
     * [#54] Removed inifinspan cache (infinispan-tree has been removed)
     * [#57] Removed flex module
+    * [   ] Bump jbpm-jpdl to 3.2.16.ayg
     * [   ] Bump PrimeFaces and PrimeFaces Extensions from 8.0 to 10.0
     * [   ] Bump hibernate-core from 5.0.12.Final to 5.4.31.Final
     * [   ] Bump hibernate-tools from 5.1.0.Final to 5.4.30.Final
