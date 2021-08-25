@@ -3,14 +3,14 @@ JBoss Seam Changelog
 
 Release Notes - Seam 2 - Unreleased
 
-    
-    * [   ] Removed inifinspan cache (infinispan-tree has been removed)
+    * [   ] Prevent NPE when replicating session in some HA scenarios
+    * [#54] Removed inifinspan cache (infinispan-tree has been removed)
     * [#57] Removed flex module
     * [   ] Bump PrimeFaces and PrimeFaces Extensions from 8.0 to 10.0
     * [   ] Bump hibernate-core from 5.0.12.Final to 5.4.31.Final
     * [   ] Bump hibernate-tools from 5.1.0.Final to 5.4.30.Final
     * [   ] Bump dom4j from 2.1.1 to 2.1.3
-    * [   ] Bump Richfaces from 4.6.5.ayg to 4.6.13.ayg
+
 
 Release Notes - Seam 2 - Version 2.3.24.ayg 2020-11-06
 
@@ -26,27 +26,27 @@ Release Notes - Seam 2 - Version 2.3.24.ayg 2020-11-06
 
 Release Notes - Seam 2 - Version 2.3.23.ayg 2020-08-10
 
-	* [ ] Prevent NPE when replicating session in some HA scenarios
+	* [   ] Prevent NPE when replicating session in some HA scenarios
 
 Release Notes - Seam 2 - Version 2.3.22.ayg 2020-08-02
 
-	* [ ] Prevent NPE when replicating session in some HA scenarios
-	* [ ] Upgrade RichFaces to version 4.6.13.ayg
-	* [ ] Upgrade OpenPDF to version 1.3.20
+	* [   ] Prevent NPE when replicating session in some HA scenarios
+	* [   ] Upgrade RichFaces to version 4.6.13.ayg
+	* [   ] Upgrade OpenPDF to version 1.3.20
 
 Release Notes - Seam 2 - Version 2.3.21.ayg 2020-06-11
 
 	* [#39] Migrate from itext to OpenPdf 
-	* Allow EnumConverter to work with null and empty string values
+	* [   ] Allow EnumConverter to work with null and empty string values
 
 Release Notes - Seam 2 - Version 2.3.20.ayg 2020-05-26
 
-	* [ ] Prevent NPE when replicating session in some HA scenarios
+	* [   ] Prevent NPE when replicating session in some HA scenarios
 
 Release Notes - Seam 2 - Version 2.3.19.ayg 2020-05-21
 
-    * [ ] Revert excepction filter change, we need both mocks
-    * [ ] Override SeamStateManager.getViewState
+    * [   ] Revert excepction filter change, we need both mocks
+    * [   ] Override SeamStateManager.getViewState
 
 Release Notes - Seam 2 - Version 2.3.18.ayg 2020-05-20
 	
@@ -117,36 +117,36 @@ Release Notes - Seam 2 - Version 2.3.12.ayg 2018-05-06
 
 Release Notes - Seam 2 - Version 2.3.11.ayg 2017-08-22
 	
-    * [ ] Sanity checks for not null on BasicContext Constructor
-    * [ ] Fix support for hibernate search 5
-    * [ ] Removes portlet compile dependency
-    * [ ] Added BootsFaces and PrimeFaces bootstrap theme. 
-    * [ ] Upgrade commons-logging to 1.2
-    * [ ] Upgrade log4j to 1.2.17
-    * [ ] Upgrade hibernate-search to 5.5.7.Final
-    * [ ] Upgrade hibernate to 5.0.14.Final-redhat-1
-    * [ ] As per RF-13865 - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
+    * [   ] Sanity checks for not null on BasicContext Constructor
+    * [   ] Fix support for hibernate search 5
+    * [   ] Removes portlet compile dependency
+    * [   ] Added BootsFaces and PrimeFaces bootstrap theme. 
+    * [   ] Upgrade commons-logging to 1.2
+    * [   ] Upgrade log4j to 1.2.17
+    * [   ] Upgrade hibernate-search to 5.5.7.Final
+    * [   ] Upgrade hibernate to 5.0.14.Final-redhat-1
+    * [   ] As per RF-13865 - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
 
 Release Notes - Seam 2 - Version 2.3.10.ayg (pre-release) 2017-06-05
 
-    * [ ] Includes full Richfaces distribution (main jar)
-    * [ ] Upgrade JExcelapi to 2.6.12
-    * [ ] Upgrade Primefaces to 6.1
-    * [ ] Parametrize logging output (Fixes CVE-2014-0248)
+    * [   ] Includes full Richfaces distribution (main jar)
+    * [   ] Upgrade JExcelapi to 2.6.12
+    * [   ] Upgrade Primefaces to 6.1
+    * [   ] Parametrize logging output (Fixes CVE-2014-0248)
 
 
 Release Notes - Seam 2 - Version 2.3.9.ayg (pre-release) 2017-04-05
 
-    * [ ] Preliminary (incomplete) support for JEE7
-    * [ ] Set compiler version to java 7
-    * [ ] Package Richfaces and related jars (cssparser, sac, etc)
-    * [ ] Package Primefaces 6.0
+    * [   ] Preliminary (incomplete) support for JEE7
+    * [   ] Set compiler version to java 7
+    * [   ] Package Richfaces and related jars (cssparser, sac, etc)
+    * [   ] Package Primefaces 6.0
 
 
 Release Notes - Seam 2 - Version 2.3.8.ayg 2016-05-30
 
-    * [ ] Only depends on EHCache 2 (removes dependency with EHCache 1)
-    * [ ] Update jboss-cache to 1.4.1.SP14
+    * [   ] Only depends on EHCache 2 (removes dependency with EHCache 1)
+    * [   ] Update jboss-cache to 1.4.1.SP14
 	
 	
 Release Notes - Seam 2 - Version 2.3.7.ayg (not released)
@@ -155,8 +155,8 @@ Release Notes - Seam 2 - Version 2.3.6.ayg 2016-05-26
 
     * [JBSEAM-4678] Stop the PhaseListener doing work on non-seam applications
     * [JBSEAM-2703] Avoid exceptions for invalid system request parameters
-    * [ ] Really ensure not entering in a redirection loop on error/debug/login pages
-    * [ ] RendererRequest with utf-8 character encoding
+    * [   ] Really ensure not entering in a redirection loop on error/debug/login pages
+    * [   ] RendererRequest with utf-8 character encoding
 
 
 Release Notes - Seam 2 - Version 2.3.5.ayg 2016-05-03
@@ -187,21 +187,21 @@ Release Notes - Seam 2 - Version 2.3.5.ayg 2016-05-03
     * [JBSEAM-4200] hot deploy re-reads the class files, not just timestamps, on every request
     * [JBSEAM-4487] Concurrent requests; one invalidates the session, results in recursive loop of session creation
     * [JBSEAM-2211] NPE in SeamELResolver
-    * [ ] Recover and improve Seam Debug page
-    * [ ] Only enable Seam Debug if facelets and JSF are in development mode
-    * [ ] FileDocumentData allow store documents on files instead of memory.
-    * [ ] Fix posible NPE on locale calculation
-    * [ ] Cache scan results for improved startup time on shared classpath (via org.jboss.seam.deployment.CACHE_SCAN_RESULTS initial parameter)
+    * [   ] Recover and improve Seam Debug page
+    * [   ] Only enable Seam Debug if facelets and JSF are in development mode
+    * [   ] FileDocumentData allow store documents on files instead of memory.
+    * [   ] Fix posible NPE on locale calculation
+    * [   ] Cache scan results for improved startup time on shared classpath (via org.jboss.seam.deployment.CACHE_SCAN_RESULTS initial parameter)
 	
 
 Release Notes - Seam 2 - Version 2.3.4.ayg 2016-03-23
 	 
-    * [ ] Allow to exclude packages from scanning (initial parameter org.jboss.seam.deployment.OMIT_PACKAGES)
-    * [ ] Don't scan for annotations if we have no annotations to search for
-    * [ ] Log startup times
-    * [ ] Fix posible concurrency issues on UserTokens.java
-    * [ ] Escape xml data before putting it in a stream (MarshalUtils.java)
-    * [ ] Seam pdf now generates full compressed PDF version 1.7 
+    * [   ] Allow to exclude packages from scanning (initial parameter org.jboss.seam.deployment.OMIT_PACKAGES)
+    * [   ] Don't scan for annotations if we have no annotations to search for
+    * [   ] Log startup times
+    * [   ] Fix posible concurrency issues on UserTokens.java
+    * [   ] Escape xml data before putting it in a stream (MarshalUtils.java)
+    * [   ] Seam pdf now generates full compressed PDF version 1.7 
 
 
 Release Notes - Seam 2 - Version 2.3.3-ayg 2016-03-10
@@ -219,8 +219,8 @@ Release Notes - Seam 2 - Version 2.3.2.ayg 2016-03-08
     * [JBSEAM-4806] - failed to load multiple apps with jboss-seam.jar in global classpath
     * [JBSEAM-4822] - MultipartRequestImpl incorrect parse filename with semicolon
     * [JBSEAM-4827] - FacesMessages may trigger NPE in JSF code
-    * [ ] Add additional features to RedirectFilter to delay sending a redirect url to the HttpServletResponse
-    * [ ] Better message when decorate template is not found
+    * [   ] Add additional features to RedirectFilter to delay sending a redirect url to the HttpServletResponse
+    * [   ] Better message when decorate template is not found
 
 ** Enhancement
     * [JBSEAM-4853] - Change DocumentStorePhaseListener to allow downloads with Internet Explorer over SSL
