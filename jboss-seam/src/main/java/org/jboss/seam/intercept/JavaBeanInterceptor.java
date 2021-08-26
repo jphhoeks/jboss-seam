@@ -105,6 +105,9 @@ public class JavaBeanInterceptor extends RootInterceptor implements MethodHandle
 
 	private void callPostConstruct() {
 		final Component component = getComponent();
+		if (component == null) {
+			return;
+		}
 		if (!component.hasPostConstructMethod()) {
 			return;
 		}
@@ -122,6 +125,9 @@ public class JavaBeanInterceptor extends RootInterceptor implements MethodHandle
 
 	private void callPrePassivate() {
 		final Component component = getComponent();
+		if (component == null) {
+			return;
+		}
 		if (!component.hasPrePassivateMethod()) {
 			return;
 		}
@@ -139,6 +145,9 @@ public class JavaBeanInterceptor extends RootInterceptor implements MethodHandle
 
 	private void callPostActivate() {
 		final Component component = getComponent();
+		if (component == null) {
+			return;
+		}
 		if (!component.hasPostActivateMethod()) {
 			return;
 		}
