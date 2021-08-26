@@ -1,6 +1,11 @@
 JBoss Seam Changelog
 ====================
 
+
+Release Notes - Seam 2 - Unreleased
+
+
+
 Release Notes - Seam 2 - Version 2.3.25.ayg 2021-08-26
 
     * [   ] Prevent NPE when replicating session in some HA scenarios
