@@ -1,7 +1,7 @@
 JBoss Seam Changelog
 ====================
 
-Release Notes - Seam 2 - Unreleased
+Release Notes - Seam 2 - Version 2.3.25.ayg 2021-08-26
 
     * [   ] Prevent NPE when replicating session in some HA scenarios
     * [#54] Removed inifinspan cache (infinispan-tree has been removed)
@@ -29,25 +29,30 @@ Release Notes - Seam 2 - Version 2.3.23.ayg 2020-08-10
 
 	* [   ] Prevent NPE when replicating session in some HA scenarios
 
+
 Release Notes - Seam 2 - Version 2.3.22.ayg 2020-08-02
 
 	* [   ] Prevent NPE when replicating session in some HA scenarios
 	* [   ] Upgrade RichFaces to version 4.6.13.ayg
 	* [   ] Upgrade OpenPDF to version 1.3.20
 
+
 Release Notes - Seam 2 - Version 2.3.21.ayg 2020-06-11
 
 	* [#39] Migrate from itext to OpenPdf 
 	* [   ] Allow EnumConverter to work with null and empty string values
 
+
 Release Notes - Seam 2 - Version 2.3.20.ayg 2020-05-26
 
 	* [   ] Prevent NPE when replicating session in some HA scenarios
+
 
 Release Notes - Seam 2 - Version 2.3.19.ayg 2020-05-21
 
     * [   ] Revert excepction filter change, we need both mocks
     * [   ] Override SeamStateManager.getViewState
+
 
 Release Notes - Seam 2 - Version 2.3.18.ayg 2020-05-20
 	
@@ -74,7 +79,7 @@ Release Notes - Seam 2 - Version 2.3.17.ayg 2020-04-30
     * [rev 18b1d9d] Upgrade jbpm-jpdl to 3.2.15.ayg
     * [  ] Upgrade RichFaces to version 4.6.12.ayg
     * [  ] Upgrade PrimeFaces and PrimeFaces Extensions to version 8.0
-    
+
 
 Release Notes - Seam 2 Version 2.3.16.ayg (not released)
 
@@ -90,15 +95,18 @@ Release Notes - Seam 2 - Version 2.3.15.ayg 2019-03-18
     * [   ] Upgrade jbpm-jpdl to 3.2.14.ayg
     * [   ] Upgrade itext2 to 2.1.16
 
+
 Release Notes - Seam 2 - Version 2.3.14.ayg 2018-08-22
 
     * [#18] fix actionOutcome EL expresion evaluation from user input.
     * [   ] Upgrade Richfaces to 4.6.5.ayg, fixes CVE-2018-12532
 
+
 Release Notes - Seam 2 - Version 2.3.13.ayg 2018-05-17
 
     * [   ] Prevent exception logging if jbpm is not present at runtime
     * [   ] Adjust some log levels	 
+
 
 Release Notes - Seam 2 - Version 2.3.12.ayg 2018-05-06
 
@@ -128,6 +136,7 @@ Release Notes - Seam 2 - Version 2.3.11.ayg 2017-08-22
     * [   ] Upgrade hibernate to 5.0.14.Final-redhat-1
     * [   ] As per RF-13865 - Revert the rename of a4jSkin to richSkin, changing it back to a4jSkin
 
+
 Release Notes - Seam 2 - Version 2.3.10.ayg (pre-release) 2017-06-05
 
     * [   ] Includes full Richfaces distribution (main jar)
@@ -149,8 +158,9 @@ Release Notes - Seam 2 - Version 2.3.8.ayg 2016-05-30
     * [   ] Only depends on EHCache 2 (removes dependency with EHCache 1)
     * [   ] Update jboss-cache to 1.4.1.SP14
 	
-	
+
 Release Notes - Seam 2 - Version 2.3.7.ayg (not released)
+
 
 Release Notes - Seam 2 - Version 2.3.6.ayg 2016-05-26
 
@@ -208,6 +218,7 @@ Release Notes - Seam 2 - Version 2.3.4.ayg 2016-03-23
 Release Notes - Seam 2 - Version 2.3.3-ayg 2016-03-10
 
     * [JBSEAM-4842] - Support for Enums in EL (disabled by default, can be enabled via initial parameter org.jboss.seam.deployment.EnumDeploymentHandler)
+
 
 Release Notes - Seam 2 - Version 2.3.2.ayg 2016-03-08
 
