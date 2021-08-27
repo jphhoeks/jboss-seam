@@ -98,6 +98,9 @@ public class SeamResourceBundle extends java.util.ResourceBundle {
 
 	@Override
 	public Enumeration<String> getKeys() {
+		if (!Contexts.isApplicationContextActive()) {
+			return Collections.emptyEnumeration();
+		}
 		List<java.util.ResourceBundle> pageBundles = getPageResourceBundles();
 		List<ResourceBundle> bundles = getBundlesForCurrentLocale();
 		Enumeration<String>[] enumerations = new Enumeration[bundles.size() + pageBundles.size()];
