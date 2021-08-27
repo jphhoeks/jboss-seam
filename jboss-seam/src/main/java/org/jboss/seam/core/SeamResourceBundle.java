@@ -142,6 +142,9 @@ public class SeamResourceBundle extends java.util.ResourceBundle {
 	}
 
 	private List<java.util.ResourceBundle> getPageResourceBundles() {
+		if (!Contexts.isApplicationContextActive()) {
+			return Collections.emptyList();
+		}
 		// TODO: oops! A hard dependency to JSF!
 		String viewId = Pages.getCurrentViewId();
 		if (viewId != null && Pages.instance() != null) {
