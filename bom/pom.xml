@@ -67,6 +67,7 @@
 		<version.spring>3.2.18.RELEASE</version.spring>
 		<version.richfaces>4.6.16.ayg</version.richfaces>
 		<version.richfaces.cdk>4.6.1.ayg</version.richfaces.cdk>
+		<version.jbpm.jpdl>3.2.17.ayg</version.jbpm.jpdl>
 		<version.org.jboss.spec.javax.faces>2.2.13</version.org.jboss.spec.javax.faces>
 
 		<!-- Version of Hibernate projects -->
@@ -399,7 +400,7 @@
 			<dependency>
 				<groupId>com.github.albfernandez</groupId>
 				<artifactId>jbpm-jpdl</artifactId>
-				<version>3.2.16.ayg</version>
+				<version>${version.jbpm.jpdl}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>org.hibernate</groupId>
