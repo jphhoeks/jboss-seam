@@ -144,7 +144,7 @@
     <classpathentry kind="lib" path="lib/sac.jar"/>
     <classpathentry kind="lib" path="lib/servlet-api.jar"/>
     <classpathentry kind="lib" path="lib/slf4j-api.jar"/>
-    <classpathentry kind="lib" path="lib/slf4j-log4j12.jar"/>
+    <classpathentry kind="lib" path="lib/slf4j-reload4j.jar"/>
     <classpathentry kind="lib" path="lib/snakeyaml.jar"/>
     <classpathentry kind="lib" path="lib/solr-analysis-extras.jar"/>
     <classpathentry kind="lib" path="lib/solr-core.jar"/>
