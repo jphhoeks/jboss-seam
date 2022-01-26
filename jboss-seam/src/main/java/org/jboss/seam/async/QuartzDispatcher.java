@@ -20,15 +20,21 @@ import org.jboss.seam.intercept.InvocationContext;
 import org.jboss.seam.log.LogProvider;
 import org.jboss.seam.log.Logging;
 import org.jboss.seam.util.Resources;
+import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
+import org.quartz.JobBuilder;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.quartz.ScheduleBuilder;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.SimpleScheduleBuilder;
 import org.quartz.SimpleTrigger;
+import org.quartz.Trigger;
+import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 /**
@@ -81,10 +87,11 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 		String jobName = nextUniqueName();
 		String triggerName = nextUniqueName();
 
-		JobDetail jobDetail = new JobDetail(jobName, null, QuartzJob.class);
+		JobDetail jobDetail = JobBuilder.newJob(QuartzJob.class).withIdentity(jobName).build();
 		jobDetail.getJobDataMap().put("async", new AsynchronousEvent(type, parameters));
+		
+		Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName).build();
 
-		SimpleTrigger trigger = new SimpleTrigger(triggerName);
 		try {
 			scheduler.scheduleJob(jobDetail, trigger);
 			return new QuartzTriggerHandle(triggerName);
@@ -122,54 +129,63 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 		String jobName = nextUniqueName();
 		String triggerName = nextUniqueName();
 
-		JobDetail jobDetail = new JobDetail(jobName, null, QuartzJob.class);
+		JobDetail jobDetail = JobBuilder.newJob(QuartzJob.class).withIdentity(jobName).build();
 		jobDetail.getJobDataMap().put("async", async);
 
 		if (schedule instanceof CronSchedule) {
 			CronSchedule cronSchedule = (CronSchedule) schedule;
-			CronTrigger trigger = new CronTrigger(triggerName, null);
-			trigger.setCronExpression(cronSchedule.getCron());
-			trigger.setEndTime(cronSchedule.getFinalExpiration());
-
+			
+			Date startTime = new Date();
 			if (cronSchedule.getExpiration() != null) {
-				trigger.setStartTime(cronSchedule.getExpiration());
+				startTime = cronSchedule.getExpiration();
 			} else if (cronSchedule.getDuration() != null) {
-				trigger.setStartTime(calculateDelayedDate(cronSchedule.getDuration()));
+				startTime = calculateDelayedDate(cronSchedule.getDuration());
 			}
+			
+			Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName)
+					.withSchedule(CronScheduleBuilder.cronSchedule(cronSchedule.getCron()))
+					.endAt(cronSchedule.getExpiration())
+					.startAt(startTime)
+					.build();
+			
+			
 
 			scheduler.scheduleJob(jobDetail, trigger);
 		} else if (schedule instanceof TimerSchedule) {
 			TimerSchedule timerSchedule = (TimerSchedule) schedule;
 			if (timerSchedule.getIntervalDuration() != null) {
+				
+				//SimpleTrigger(java.lang.String name, java.lang.String group, java.util.Date startTime, java.util.Date endTime, int repeatCount, long repeatInterval)
+				Date startTime = new Date();
+				Date endTime = new Date();
 				if (timerSchedule.getExpiration() != null) {
-					SimpleTrigger trigger = new SimpleTrigger(triggerName, null, timerSchedule.getExpiration(),
-							timerSchedule.getFinalExpiration(), SimpleTrigger.REPEAT_INDEFINITELY, timerSchedule.getIntervalDuration());
-					scheduler.scheduleJob(jobDetail, trigger);
-
+					startTime = timerSchedule.getExpiration();
+					endTime = timerSchedule.getFinalExpiration();
 				} else if (timerSchedule.getDuration() != null) {
-					SimpleTrigger trigger = new SimpleTrigger(triggerName, null, calculateDelayedDate(timerSchedule.getDuration()),
-							timerSchedule.getFinalExpiration(), SimpleTrigger.REPEAT_INDEFINITELY, timerSchedule.getIntervalDuration());
-					scheduler.scheduleJob(jobDetail, trigger);
-
+					startTime = calculateDelayedDate(timerSchedule.getDuration());
+					endTime = timerSchedule.getFinalExpiration();
 				} else {
-					SimpleTrigger trigger = new SimpleTrigger(triggerName, null, new Date(), timerSchedule.getFinalExpiration(),
-							SimpleTrigger.REPEAT_INDEFINITELY, timerSchedule.getIntervalDuration());
-					scheduler.scheduleJob(jobDetail, trigger);
-
+					startTime = new Date();
+					endTime = timerSchedule.getFinalExpiration();
 				}
+				Trigger trigger = TriggerBuilder.newTrigger()
+						.withSchedule(SimpleScheduleBuilder.simpleSchedule().repeatForever().withIntervalInMilliseconds(timerSchedule.getIntervalDuration()))
+						.startAt(startTime)
+						.endAt(endTime)
+						.build();
+				scheduler.scheduleJob(jobDetail, trigger);
 			} else {
 				if (schedule.getExpiration() != null) {
-					SimpleTrigger trigger = new SimpleTrigger(triggerName, null, schedule.getExpiration());
+					Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName).endAt(schedule.getExpiration()).build();
 					scheduler.scheduleJob(jobDetail, trigger);
 
 				} else if (schedule.getDuration() != null) {
-					SimpleTrigger trigger = new SimpleTrigger(triggerName, null, calculateDelayedDate(schedule.getDuration()));
+					Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName).endAt(calculateDelayedDate(schedule.getDuration())).build();
 					scheduler.scheduleJob(jobDetail, trigger);
 
 				} else {
-					SimpleTrigger trigger = new SimpleTrigger(triggerName);
+					Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName).build();
 					scheduler.scheduleJob(jobDetail, trigger);
-
 				}
 			}
 		} else {
@@ -198,7 +214,7 @@ public class QuartzDispatcher extends AbstractDispatcher<QuartzTriggerHandle, Sc
 		public void execute(JobExecutionContext context) throws JobExecutionException {
 			JobDataMap dataMap = context.getJobDetail().getJobDataMap();
 			Asynchronous async = (Asynchronous) dataMap.get("async");
-			QuartzTriggerHandle handle = new QuartzTriggerHandle(context.getTrigger().getName());
+			QuartzTriggerHandle handle = new QuartzTriggerHandle(context.getTrigger().getKey());
 			try {
 				async.execute(handle);
 			} catch (Exception e) {
