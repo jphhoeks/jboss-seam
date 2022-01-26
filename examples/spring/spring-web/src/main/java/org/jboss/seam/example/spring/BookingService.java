@@ -1,18 +1,15 @@
 package org.jboss.seam.example.spring;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.async.Asynchronous;
 import org.jboss.seam.core.Expressions;
 import org.jboss.seam.log.Log;
-import org.springframework.orm.jpa.JpaCallback;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -20,36 +17,39 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author Mike Youngstrom
  */
-public class BookingService extends JpaDaoSupport {
+public class BookingService  {
 
 	public static ThreadLocal<Boolean> currentThread = new ThreadLocal<Boolean>();
 
 	@Logger
 	private static Log logger;
 
+	// TODO Changed in spring change from 3 -> 5, only to compile, not checked to work at runtime
+	@PersistenceContext
+	private EntityManager em;
+	
+	public BookingService() {
+		super();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<Hotel> findHotels(final String searchPattern, final int firstResult, final int maxResults) {
 		logger.debug("Looking for a Hotel.");
-		return getJpaTemplate().executeFind(new JpaCallback() {
-			public Object doInJpa(EntityManager em) throws PersistenceException {
-				return em
-						.createQuery(
-								"select h from Hotel h where lower(h.name) like :search or lower(h.city) like :search or lower(h.zip) like :search or lower(h.address) like :search")
-						.setParameter("search", searchPattern).setMaxResults(maxResults).setFirstResult(firstResult)
-						.getResultList();
-			}
-		});
+
+		return em
+				.createQuery(
+						"select h from Hotel h where lower(h.name) like :search or lower(h.city) like :search or lower(h.zip) like :search or lower(h.address) like :search")
+				.setParameter("search", searchPattern).setMaxResults(maxResults).setFirstResult(firstResult)
+				.getResultList();
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<Booking> findBookingsByUsername(String username) {
 		logger.debug("Finding Bookings for user {0}", username);
-		return getJpaTemplate().findByNamedParams(
-				"select b from Booking b where b.user.username = :username order by b.checkinDate",
-				Collections.singletonMap("username", username));
-
+		return em.createQuery("select b from Booking b where b.user.username = :username order by b.checkinDate").setParameter("username", username).getResultList();
 	}
 
 	@Transactional
@@ -58,10 +58,10 @@ public class BookingService extends JpaDaoSupport {
 		if (bookingId == null) {
 			throw new IllegalArgumentException("BookingId cannot be null");
 		}
-
-		Booking cancelled = getJpaTemplate().find(Booking.class, bookingId);
+		
+		Booking cancelled = em.find(Booking.class, bookingId);
 		if (cancelled != null) {
-			getJpaTemplate().remove(cancelled);
+			em.remove(cancelled);
 		}
 	}
 
@@ -80,8 +80,8 @@ public class BookingService extends JpaDaoSupport {
 	public void bookHotel(Booking booking) throws ValidationException {
 		validateBooking(booking);
 
-		getJpaTemplate().persist(booking);
-		getJpaTemplate().flush();
+		em.persist(booking);
+		em.flush();
 	}
 
 	@Asynchronous
@@ -108,6 +108,6 @@ public class BookingService extends JpaDaoSupport {
 			throw new IllegalArgumentException("hotelId cannot be null");
 		}
 
-		return getJpaTemplate().find(Hotel.class, hotelId);
+		return em.find(Hotel.class, hotelId);
 	}
 }

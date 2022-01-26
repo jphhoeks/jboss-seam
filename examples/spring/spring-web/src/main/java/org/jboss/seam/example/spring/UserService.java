@@ -2,8 +2,12 @@ package org.jboss.seam.example.spring;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.log.Log;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -11,17 +15,28 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Marek Novotny
  *
  */
-public class UserService extends JpaDaoSupport {
+public class UserService {
+	
+	@Logger
+	private static Log logger;
+	
+	
+	@PersistenceContext
+	private EntityManager em;
 
+	public UserService() {
+		super(); 
+	}
+	
 	@Transactional
     public boolean changePassword(String username, String oldPassword, String newPassword) {
-        System.out.println("change password " + oldPassword + " to " + newPassword);
+		logger.debug("change password " + oldPassword + " to " + newPassword);
         if (newPassword == null || newPassword.length()==0) {
             throw new IllegalArgumentException("newPassword cannot be null.");
         }
 
         User user = findUser(username);
-        System.out.println("USER" + user);
+        logger.debug("USER" + user);
         if (user.getPassword().equals(oldPassword)) {
             user.setPassword(newPassword);
             return true;
@@ -35,19 +50,17 @@ public class UserService extends JpaDaoSupport {
         if (username == null || "".equals(username)) {
             throw new IllegalArgumentException("Username cannot be null");
         }
-        return getJpaTemplate().find(User.class, username);
+        return em.find(User.class, username);
     }
 
 	@Transactional
     public User findUser(String username, String password) {
         try {
-            List result = getJpaTemplate().find("select u from User u where u.username=?1 and u.password=?2", username, password);
-            if (result.size() > 0)
-            {
-               return (User) result.get(0);   
+            List<User> result = em.createQuery("select u from User u where u.username=:username and u.password=:password", User.class).setParameter("username", username).setParameter("password", password).getResultList();
+            if (!result.isEmpty()) {
+               return result.get(0);   
             }
-            else
-            {
+            else {
                return null;
             }
         } catch (DataAccessException e) {
@@ -65,7 +78,7 @@ public class UserService extends JpaDaoSupport {
         if (existingUser != null) {
             throw new ValidationException("Username "+user.getUsername()+" already exists");
         }
-        getJpaTemplate().persist(user);
-        getJpaTemplate().flush();
+        em.persist(user);
+        em.flush();
     }
 }

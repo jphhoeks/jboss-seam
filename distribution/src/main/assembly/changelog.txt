@@ -4,6 +4,7 @@ JBoss Seam Changelog
 
 Release Notes - Seam 2 - Unreleased
 
+    * [   ] Bump spring from 3.2.18.RELEASE to 5.3.15
     * [   ] Replace log4j with reload4j
     * [   ] Bump Primefaces and Primefaces Extensions from 10.0 to 11.0 
     * [   ] Bump Richfaces from 4.6.13.ayg to 4.6.16.ayg 
