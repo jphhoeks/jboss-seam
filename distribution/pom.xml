@@ -39,6 +39,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${version.assembly.plugin}</version>
 				<executions>
 					<execution>
 						<id>bin</id>
