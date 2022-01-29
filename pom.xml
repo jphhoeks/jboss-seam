@@ -159,11 +159,6 @@
                 </exclusions>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.ant</groupId>
-                <artifactId>ant-antlr</artifactId>
-                <version>1.7.0</version>
-            </dependency>
 
             <!-- You should adjust this in the initcore task in build.xml as well -->
             <dependency>

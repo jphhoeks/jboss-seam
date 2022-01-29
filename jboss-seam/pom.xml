@@ -39,24 +39,6 @@
                     </filesets>
                 </configuration>
             </plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>antlr-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<grammars>org/jboss/seam/text/seam-text.g</grammars>
-				</configuration>
-				<executions>
-					<execution>
-						<id>antlr-generation</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
             <plugin>
                <artifactId>maven-surefire-plugin</artifactId>
                <version>${version.surefire.plugin}</version>
