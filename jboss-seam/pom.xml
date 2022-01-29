@@ -93,6 +93,7 @@
              </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>${version.antrun.plugin}</version>
                 <configuration>
                     <target>
                         <jar destfile="${project.build.directory}/${project.artifactId}-wls-compatible.jar">

@@ -16,6 +16,7 @@
     <properties>
         <!-- filtering property for components.xml -->
         <jndiPattern>java:app/wicket-ejb/#{ejbName}</jndiPattern>
+        <version.antrun.plugin>1.8</version.antrun.plugin>
     </properties>
     
     <dependencies>
@@ -80,6 +81,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${version.antrun.plugin}</version>
                         <executions>
                             <execution>
                                 <id>wicket-instrument-classes</id>
@@ -125,6 +127,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${version.antrun.plugin}</version>
                         <executions>
                             <execution>
                                 <id>wicket-instrument-classes</id>
@@ -156,6 +159,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <version>${version.antrun.plugin}</version>
                         <executions>
                             <execution>
                                 <id>wait-for-application</id>

@@ -22,7 +22,7 @@
         <!-- Plugin versions -->
         <version.dependency.plugin>2.5.1</version.dependency.plugin>
         <version.resources.plugin>2.6</version.resources.plugin>
-        <version.antrun.plugin>1.8</version.antrun.plugin>
+        <version.antrun.plugin>3.0.0</version.antrun.plugin>
         <version.build.helper.plugin>1.7</version.build.helper.plugin>
         <version.surefire.plugin>2.10</version.surefire.plugin>
         <version.compiler.plugin>2.3.1</version.compiler.plugin>
