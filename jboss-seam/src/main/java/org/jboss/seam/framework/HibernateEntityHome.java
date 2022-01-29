@@ -11,7 +11,9 @@ import org.jboss.seam.annotations.Transactional;
  * 
  * @author Gavin King
  *
+ * @deprecated use {@link EntityHome}
  */
+@Deprecated
 public class HibernateEntityHome<E> extends Home<Session, E> {
 
 	private static final long serialVersionUID = 6071072408602519385L;

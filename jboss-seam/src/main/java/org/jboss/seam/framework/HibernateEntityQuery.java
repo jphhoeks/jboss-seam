@@ -12,7 +12,9 @@ import org.jboss.seam.persistence.QueryParser;
  * 
  * @author Gavin King
  *
+ * @deprecated Use {@link EntityQuery}
  */
+@Deprecated
 public class HibernateEntityQuery<E> extends Query<Session, E> {
 
 	private static final long serialVersionUID = 1L;

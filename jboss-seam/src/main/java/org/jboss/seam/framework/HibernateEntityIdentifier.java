@@ -4,7 +4,12 @@ import java.io.Serializable;
 
 import org.hibernate.Session;
 import org.jboss.seam.persistence.HibernatePersistenceProvider;
-
+/**
+ * 
+ * 
+ * @deprecated use {@link EntityIdentifier}
+ */
+@Deprecated
 public class HibernateEntityIdentifier extends Identifier<Session> {
 
 	private static final long serialVersionUID = 1L;

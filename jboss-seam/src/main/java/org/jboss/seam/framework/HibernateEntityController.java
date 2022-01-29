@@ -18,8 +18,9 @@ import org.hibernate.Session;
  * Session object.
  * 
  * @author Gavin King
- *
+ * @deprecated use {@link EntityController}
  */
+@Deprecated
 public class HibernateEntityController extends PersistenceController<Session> {
 
 	private static final long serialVersionUID = 1L;
