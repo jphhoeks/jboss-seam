@@ -94,10 +94,9 @@ You need an install of Maven 3.0.x
 To build Seam from github, just run 
 
 ```bash
-
-	git clone https://github.com/albfernandez/jboss-seam.git
-	cd jboss-seam
-	mvn -Pdistribution clean package
+git clone https://github.com/albfernandez/jboss-seam.git
+cd jboss-seam
+mvn -Pdistribution clean package
 ``` 
 
 When finished you have the complete seam distribution in ``distribution/target/``
