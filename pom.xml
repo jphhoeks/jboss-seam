@@ -64,7 +64,7 @@
 		<pdf.name>${project.artifactId}.pdf</pdf.name>
 
 		<!-- Version string properties -->
-        <version.seam>2.3.26-SNAPSHOT</version.seam>
+        <version.seam>2.3.27-SNAPSHOT</version.seam>
 		<version.jbossas7>7.2.0.Final</version.jbossas7>
 		<version.wildfly>10.1.0.Final</version.wildfly>
 		<version.emma>2.0.5312</version.emma>
