@@ -16,7 +16,7 @@ JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/ mvn clean package install verify -
 ## Set version and build 
 
 ```bash
-# change release in poms, README.md and distribution/src/assembly/changelog.txt
+# change release in poms (don't forget <version.seam> in pom.xml and bom/pom.xml), README.md and distribution/src/assembly/changelog.txt
 mvn clean package install -Pdistribution,examples
 mvn -pl '!functional-tests,!seam-integration-tests' clean package install deploy
 git add -A
@@ -30,7 +30,7 @@ git push --tags
 ## Prepare next iteration
 
 ```bash
-# change release in poms and distribution/src/assembly/changelog.txt
+# change release in poms (don't forget <version.seam> in pom.xml and bom/pom.xml) and distribution/src/assembly/changelog.txt
 git add -A
 git commit -S -m 'Next release cycle'
 git push
