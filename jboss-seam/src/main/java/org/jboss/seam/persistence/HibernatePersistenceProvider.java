@@ -122,7 +122,7 @@ public class HibernatePersistenceProvider extends PersistenceProvider {
 				return session;
 			} else {
 				return (Session) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),
-						new Class[] { HibernateSessionProxy.class }, new HibernateSessionInvocationHandler(session));//, (FullTextSession) session) );
+						new Class[] { HibernateSessionProxy.class }, new HibernateSessionInvocationHandler(session));
 			}
 		} else {
 			try {
