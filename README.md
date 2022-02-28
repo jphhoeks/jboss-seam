@@ -42,12 +42,12 @@ To use seam in your application via maven simply add the following dependency to
 <dependency>
     <groupId>com.github.albfernandez.seam</groupId>
     <artifactId>jboss-seam</artifactId>
-    <version>2.3.25.ayg</version>
+    <version>2.3.26.ayg</version>
 </dependency>
 <dependency>
     <groupId>com.github.albfernandez.seam</groupId>
     <artifactId>jboss-seam-ui</artifactId>
-    <version>2.3.25.ayg</version>
+    <version>2.3.26.ayg</version>
 </dependency>
 
 <!-- 

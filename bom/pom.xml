@@ -6,7 +6,7 @@
 	<groupId>com.github.albfernandez.seam</groupId>
 	<artifactId>bom</artifactId>
 	<name>Seam 2 Bill Of Materials </name>
-	<version>2.3.26-SNAPSHOT</version>
+	<version>2.3.26.ayg</version>
 	<packaging>pom</packaging>
 
 	<licenses>
