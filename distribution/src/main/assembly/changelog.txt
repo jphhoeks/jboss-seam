@@ -7,7 +7,8 @@ Release Notes - Seam 2 - Unreleased
     * [   ] Bump quartz from 1.7.3 to 2.3.2
     * [   ] Bump spring from 3.2.18.RELEASE to 5.3.15
     * [   ] Replace log4j with reload4j
-    * [   ] Bump Primefaces and Primefaces Extensions from 10.0 to 11.0 
+    * [   ] Bump Primefaces from 10.0 to 11.0 
+    * [   ] Bump Primefaces Extensions from 10.0 to 11.0.1
     * [   ] Bump Richfaces from 4.6.13.ayg to 4.6.17.ayg
     * [   ] Bump hibernate-core and hibernate-tools from 5.4.31.Final to 5.3.33.Final 
 
