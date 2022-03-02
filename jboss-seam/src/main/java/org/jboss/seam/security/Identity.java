@@ -5,7 +5,6 @@ import static org.jboss.seam.annotations.Install.BUILT_IN;
 
 import java.io.Serializable;
 import java.security.Principal;
-import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -360,7 +359,7 @@ public class Identity implements Serializable {
 	protected void postAuthenticate() {
 		// Populate the working memory with the user's principals
 		for (Principal p : getSubject().getPrincipals()) {
-			if (!(p instanceof Group)) {
+			if (!(p instanceof SimpleGroup)) {
 				if (principal == null) {
 					principal = p;
 					break;
@@ -424,7 +423,7 @@ public class Identity implements Serializable {
 
 		tryLogin();
 
-		for (Group sg : getSubject().getPrincipals(Group.class)) {
+		for (SimpleGroup sg : getSubject().getPrincipals(SimpleGroup.class)) {
 			if (ROLES_GROUP.equals(sg.getName())) {
 				return sg.isMember(new Role(role));
 			}
@@ -449,7 +448,7 @@ public class Identity implements Serializable {
 			preAuthenticationRoles.add(role);
 			return false;
 		} else {
-			for (Group sg : getSubject().getPrincipals(Group.class)) {
+			for (SimpleGroup sg : getSubject().getPrincipals(SimpleGroup.class)) {
 				if (ROLES_GROUP.equals(sg.getName())) {
 					return sg.addMember(new Role(role));
 				}
@@ -468,7 +467,7 @@ public class Identity implements Serializable {
 	* @param role The name of the role to remove
 	*/
 	public void removeRole(String role) {
-		for (Group sg : getSubject().getPrincipals(Group.class)) {
+		for (SimpleGroup sg : getSubject().getPrincipals(SimpleGroup.class)) {
 			if (ROLES_GROUP.equals(sg.getName())) {
 				Enumeration e = sg.members();
 				while (e.hasMoreElements()) {
