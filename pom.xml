@@ -95,7 +95,7 @@
 		<version.surefire.plugin>2.22.0</version.surefire.plugin>
 		<version.war.plugin>3.2.2</version.war.plugin>
 
-        <version.spotbugs-maven-plugin>4.2.0</version.spotbugs-maven-plugin>
+        <version.spotbugs-maven-plugin>4.5.3.0</version.spotbugs-maven-plugin>
         <version.findsecbugs-plugin>1.11.0</version.findsecbugs-plugin>
         <version.sb-contrib>7.4.7</version.sb-contrib>
         <version.maven-pmd-plugin>3.14.0</version.maven-pmd-plugin>
