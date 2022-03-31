@@ -19,10 +19,14 @@
             <groupId>net.sourceforge.yarfraw</groupId>
             <artifactId>yarfraw</artifactId>
             <exclusions>
-             <exclusion>
-                     <groupId>apache-httpclient</groupId>
-                     <artifactId>commons-httpclient</artifactId>
-             </exclusion>
+	             <exclusion>
+	                     <groupId>apache-httpclient</groupId>
+	                     <artifactId>commons-httpclient</artifactId>
+	             </exclusion>
+	             <exclusion>
+	                     <groupId>log4j</groupId>
+	                     <artifactId>log4j</artifactId>
+	             </exclusion>
             </exclusions>
         </dependency>
 
