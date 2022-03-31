@@ -182,7 +182,7 @@
 	<dependency>
 		<groupId>org.primefaces.extensions</groupId>
 		<artifactId>resources-ckeditor</artifactId>
-		<version>11.0.1</version>
+		<version>11.0.2</version>
 	</dependency>
 	
 	<dependency>
