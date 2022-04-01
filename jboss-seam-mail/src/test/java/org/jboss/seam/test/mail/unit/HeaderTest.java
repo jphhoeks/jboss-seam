@@ -66,7 +66,7 @@ public class HeaderTest {
 	public void testHeaderWithFolding1() {
 		String name = "header";
 		String value = "\"Joe & J. Harvey\" <ddd @ Org>,\n  JJV @ BBN";
-		String sanitizedValue = "\"Joe & J. Harvey\" <ddd @ Org>, JJV @ BBN";
+		String sanitizedValue = "\"Joe & J. Harvey\" <ddd @ Org>,  JJV @ BBN";
 
 		Header header = new Header(name, value);
 
@@ -92,11 +92,13 @@ public class HeaderTest {
 	public void testHeaderWithFolding3() {
 		String name = "header";
 		String value = "\"Joe &\n  J. Harvey\" <ddd @ Org>, JJV @ BBN";
-		String sanitizedValue = "\"Joe & J. Harvey\" <ddd @ Org>, JJV @ BBN";
+		String expectedSanitizedValue = "\"Joe &  J. Harvey\" <ddd @ Org>, JJV @ BBN";
 		Header header = new Header(name, value);
 
-		assert header.getSanitizedName().equals(name);
-		assert header.getSanitizedValue().equals(sanitizedValue);
+		String sanitizedName = header.getSanitizedName();
+		String sanitizedValue = header.getSanitizedValue();
+		assert sanitizedName .equals(name);
+		assert sanitizedValue.equals(expectedSanitizedValue);
 
 	}
 }
