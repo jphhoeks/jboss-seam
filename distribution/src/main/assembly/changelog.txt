@@ -1,7 +1,7 @@
 JBoss Seam Changelog
 ====================
 
-Release Notes - Seam 2 - Unreleased
+Release Notes - Seam 2 - Version 2.3.27.ayg 2022-05-09
 
     * [   ] Bump Richfaces from 4.6.16.ayg to 4.6.19.ayg
     * [   ] Bump jbpm-jpdl from 3.2.17.ayg to 3.2.18.ayg
