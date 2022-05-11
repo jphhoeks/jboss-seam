@@ -4,7 +4,7 @@ JBoss Seam Changelog
 
 Release Notes - Seam 2 - Unreleased 
 
-
+	* [   ] Bump Spring from 5.3.19 to 5.3.20
 
 Release Notes - Seam 2 - Version 2.3.27.ayg 2022-05-09
 
