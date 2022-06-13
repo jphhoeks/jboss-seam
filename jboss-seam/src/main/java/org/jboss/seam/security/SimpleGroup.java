@@ -26,20 +26,25 @@ public class SimpleGroup implements Principal, Serializable {
 	private Set<Principal> members = new HashSet<Principal>();
 
 	public SimpleGroup(String name) {
+		super();
 		this.name = name;
 	}
 
 	public boolean addMember(Principal user) {
-		return members.add(user);
+		synchronized(this.members) {
+			return this.members.add(user);
+		}
 	}
 
 	public boolean isMember(Principal member) {
-		if (members.contains(member)) {
-			return true;
-		} else {
-			for (Principal m : members) {
-				if (m instanceof SimpleGroup && ((SimpleGroup) m).isMember(member)) {
-					return true;
+		synchronized(this.members) {
+			if (this.members.contains(member)) {
+				return true;
+			} else {
+				for (Principal m : this.members) {
+					if (m instanceof SimpleGroup && ((SimpleGroup) m).isMember(member)) {
+						return true;
+					}
 				}
 			}
 		}
@@ -51,7 +56,9 @@ public class SimpleGroup implements Principal, Serializable {
 	}
 
 	public boolean removeMember(Principal user) {
-		return members.remove(user);
+		synchronized(this.members) {
+			return this.members.remove(user);
+		}
 	}
 
 	@Override
