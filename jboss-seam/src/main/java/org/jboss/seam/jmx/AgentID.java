@@ -11,7 +11,6 @@ import javax.management.ObjectName;
 
 import org.jboss.mx.server.ServerConstants;
 
-import EDU.oswego.cs.dl.util.concurrent.SynchronizedLong;
 
 /**
  * Utility class for creating JMX agent identifiers. Also contains the
@@ -26,7 +25,8 @@ import EDU.oswego.cs.dl.util.concurrent.SynchronizedLong;
  */
 public class AgentID implements ServerConstants {
 	// Static ----------------------------------------------------
-	private static SynchronizedLong id = new SynchronizedLong(0);
+	private static long id = 0L;
+	private static Object lock = new Object();
 
 	private static final SecureRandom rand = new SecureRandom();
 
@@ -44,9 +44,15 @@ public class AgentID implements ServerConstants {
 		// MBeanServerID is unique across multiple JVMs, even on the same host
 		String vmid = new java.rmi.dgc.VMID().toString().replace(':', 'x').replace('-', 'X') + rand.nextInt(100);
 
-		return ipAddress + "/" + System.currentTimeMillis() + "/" + vmid + "/" + (id.increment());
+		return ipAddress + "/" + System.currentTimeMillis() + "/" + vmid + "/" + incrementId();
 	}
 
+	private static long incrementId() {
+		synchronized(lock) {
+			return ++id;
+		}
+	}
+	
 	private static String getIP() {
 		try {
 			return AccessController.doPrivileged(new PrivilegedExceptionAction<String>() {
