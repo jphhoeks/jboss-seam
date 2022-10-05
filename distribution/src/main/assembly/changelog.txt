@@ -42,7 +42,8 @@ Release Notes - Seam 2 - Version 2.3.26.ayg 2022-02-28
     * [   ] Bump Primefaces from 10.0 to 11.0 
     * [   ] Bump Primefaces Extensions from 10.0 to 11.0.1
     * [   ] Bump Richfaces from 4.6.13.ayg to 4.6.16.ayg
-    * [   ] Bump hibernate-core and hibernate-tools from 5.4.31.Final to 5.4.33.Final 
+    * [   ] Bump hibernate-core and hibernate-tools from 5.4.31.Final to 5.4.33.Final
+    * [   ] Bump jettison from 1.1 to 1.5.1
 
 
 Release Notes - Seam 2 - Version 2.3.25.ayg 2021-08-26
