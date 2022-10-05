@@ -8,6 +8,7 @@ Release Notes - Seam 2 - Unreleased
 	* [   ] Bump openpdf from 1.3.27 to 1.3.28
 	* [   ] Bump Primefaces from 11.0 to 12.0
 	* [   ] Bump Primefaces-extensions from 11.0.2 to 12.0.0
+	* [   ] Bump Richfaces from 4.6.19.ayg to 4.6.20.ayg
 
 Release Notes - Seam 2 - Version 2.3.27.ayg 2022-05-09
 
