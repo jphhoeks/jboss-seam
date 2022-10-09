@@ -33,6 +33,18 @@ nd very little XML.
 Seam's unique support for conversations and declarative state management can introduce a more sophisticated user 
 experience while at the same time eliminating common bugs found in traditional web applications. 
 
+## Security
+
+List of vulnerabilities fixed
+
+  - [CVE-2007-6433](https://nvd.nist.gov/vuln/detail/CVE-2007-6433) Fixed in 2.0.0.GA 2007-11-01
+  - [CVE-2010-1871](https://nvd.nist.gov/vuln/detail/CVE-2010-1871) Fixed in 2.2.1.Final 2011-01-27
+  - [CVE-2011-1484](https://nvd.nist.gov/vuln/detail/CVE-2011-1484) Fixed in 2.2.2.Final 2011-04-22
+  - [CVE-2011-2196](https://nvd.nist.gov/vuln/detail/CVE-2011-2196) Fixed in 2.3.0.Final 2012-09-21
+  - [CVE-2013-6447](https://nvd.nist.gov/vuln/detail/CVE-2013-6447) Fixed in 2.3.2.ayg 2016-03-08
+  - [CVE-2013-6447](https://nvd.nist.gov/vuln/detail/CVE-2013-6447) Fixed in 2.3.2.ayg 2016-03-08
+  - [CVE-2014-0248](https://nvd.nist.gov/vuln/detail/CVE-2014-0248) Fixed in 2.3.10.ayg 2017-06-05
+
 ## Maven import
 
 To use seam in your application via maven simply add the following dependency to your ``pom.xml`` file:
