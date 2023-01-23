@@ -34,6 +34,7 @@ Release Notes - Seam 2 - Version 2.3.27.ayg 2022-05-09
     * [   ] Upgrade dbunit from 2.2 to 2.7.3 
     * [   ] Upgrade org.primefaces.extensions:primefaces-extensions from 11.0.1 to 11.0.2
     * [   ] Upgrade org.primefaces.extensions:resources-ckeditor from 11.0.1 to 11.0.2
+    * [#59] Remove uses of deprecated java.security.acl package 
 
 
 Release Notes - Seam 2 - Version 2.3.26.ayg 2022-02-28
